@@ -1,0 +1,144 @@
+{
+ "apps": [
+  {
+   "package_id": "com.google.android.apps.maps",
+   "display_name": "Google Maps",
+   "developer": "Google LLC",
+   "developer_company": "co-google",
+   "summary": "Google Maps gives you directions and local search, and needs your location to do it. Google's Play Store label says Maps doesn't share your data with other companies; it lists approximate location, searches in the app and device IDs among data Google uses for \"Advertising or marketing\", and precise location for running and personalizing the app. Google has paid settlements to US states over its location tracking.",
+   "risk_tags": [
+    "ad_profiling"
+   ],
+   "risk_tag_notes": {
+    "ad_profiling": "Google's own advertising; Google says Maps doesn't share data with other companies"
+   },
+   "trackers": [],
+   "privacy_policy_url": "https://policies.google.com/privacy?hl=en-US",
+   "privacy_policy_as_of": "2026-10-01",
+   "privacy_controls": "In your Google Account: Location History, which powers Timeline in Maps, and Web & App Activity. Google said in 2023 that Timeline would be saved on your device.",
+   "data_flows": [
+    {
+     "data": "precise_location",
+     "recipient": "co-google",
+     "purpose": "Running Maps, personalization and analytics",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "Precise location App functionality, Analytics, Personalization"
+      }
+     ]
+    },
+    {
+     "data": "approximate_location",
+     "recipient": "co-google",
+     "purpose": "Google's advertising or marketing, among other uses",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "Approximate location App functionality, Analytics, Developer communications, Advertising or marketing"
+      }
+     ]
+    },
+    {
+     "data": "app_activity",
+     "recipient": "co-google",
+     "purpose": "Google's advertising or marketing, among other uses (your searches in Maps)",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "In-app search history App functionality, Analytics, Advertising or marketing"
+      }
+     ]
+    },
+    {
+     "data": "device_identifiers",
+     "recipient": "co-google",
+     "purpose": "Google's advertising or marketing, among other uses",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "Device or other IDs App functionality, Analytics, Developer communications, Advertising or marketing"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Google's Play Store label says Maps doesn't share your data with other companies. It lists web browsing history among the data Maps collects, for advertising or marketing.",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "doesn't share user data with other companies … Web browsing history Advertising or marketing"
+      }
+     ]
+    },
+    {
+     "text": "Google's privacy policy says it doesn't share your personal information with companies, organizations or individuals outside Google, except in cases the policy lists, such as with your consent.",
+     "status": "self_disclosed",
+     "wording": "According to Google's privacy policy dated 2026-10-01.",
+     "sources": [
+      {
+       "url": "https://policies.google.com/privacy?hl=en-US",
+       "type": "privacy_policy",
+       "title": "Google Privacy Policy",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "do not share your personal information with companies, organizations, or individuals outside of Google"
+      }
+     ]
+    },
+    {
+     "text": "Google said in December 2023 that Timeline in Maps, which is powered by the Location History setting, would be saved on your device, with backups to the cloud optional and encrypted.",
+     "status": "self_disclosed",
+     "wording": "According to Google's blog post of 2023-12-12.",
+     "sources": [
+      {
+       "url": "https://blog.google/products/maps/updates-to-location-history-and-new-controls-coming-soon-to-maps/",
+       "type": "company_site",
+       "title": "Google blog",
+       "as_of": "2023-12-12",
+       "status": "self_disclosed",
+       "quote": "Timeline … powered by a setting called Location History … saved right on your device"
+      }
+     ]
+    }
+   ],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}

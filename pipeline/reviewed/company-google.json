@@ -1,0 +1,103 @@
+{
+ "companies": [
+  {
+   "id": "co-google",
+   "name": "Google LLC",
+   "jurisdiction": "US",
+   "roles": [
+    "developer",
+    "tracker_owner"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2022-10-04",
+     "title": "Arizona location-tracking settlement",
+     "body": "Arizona Attorney General",
+     "type": "lawsuit",
+     "amount": "$85 million",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "notes": "Arizona sued in May 2020 over location data collected after users turned Location History off.",
+     "sources": [
+      {
+       "url": "https://www.azag.gov/press-release/attorney-general-mark-brnovich-achieves-historic-85-million-settlement-google",
+       "type": "regulator",
+       "title": "Arizona Attorney General press release",
+       "as_of": "2022-10-04",
+       "status": "adjudicated",
+       "quote": "$85 million settlement with Google LLC for deceptively obtaining users' location data"
+      }
+     ]
+    },
+    {
+     "date": "2022-11-14",
+     "title": "40-state location-tracking settlement",
+     "body": "Attorneys general of 40 US states",
+     "type": "regulator_action",
+     "amount": "$391.5 million",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "notes": "Over the Location History and Web & App Activity account settings; Location History powers Timeline in Maps.",
+     "sources": [
+      {
+       "url": "https://www.michigan.gov/ag/news/press-releases/2022/11/14/40-attorneys-general-announce-historic-google-settlement-over-location-tracking-practices",
+       "type": "regulator",
+       "title": "Michigan Attorney General news release (40-state settlement)",
+       "as_of": "2022-11-14",
+       "status": "adjudicated",
+       "quote": "$391.5 million multistate settlement with Google over its location tracking practices",
+       "wayback_url": "https://web.archive.org/web/20260928082319/https://www.michigan.gov/ag/news/press-releases/2022/11/14/40-attorneys-general-announce-historic-google-settlement-over-location-tracking-practices",
+       "wayback_date": "2026-09-28",
+       "verify_url": "https://web.archive.org/web/20260928082319/https://www.michigan.gov/ag/news/press-releases/2022/11/14/40-attorneys-general-announce-historic-google-settlement-over-location-tracking-practices"
+      },
+      {
+       "url": "https://ncdoj.gov/attorney-general-josh-stein-reaches-391-5-million-multistate-settlement-with-google/",
+       "type": "regulator",
+       "title": "North Carolina Department of Justice news release",
+       "as_of": "2022-11-14",
+       "status": "adjudicated",
+       "quote": "misleading consumers about its location tracking practices since at least 2014"
+      },
+      {
+       "url": "https://blog.google/products/maps/updates-to-location-history-and-new-controls-coming-soon-to-maps/",
+       "type": "company_site",
+       "title": "Google blog",
+       "as_of": "2023-12-12",
+       "status": "self_disclosed",
+       "quote": "Timeline … powered by a setting called Location History … saved right on your device"
+      }
+     ]
+    },
+    {
+     "date": "2025-05-09",
+     "title": "Texas settlement over geolocation, Incognito and biometric data",
+     "body": "Texas Attorney General",
+     "type": "lawsuit",
+     "amount": "$1.375 billion",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "notes": "Settlement in principle announced 2025-05-09; Google signed the agreement, announced 2025-10-31. Ends two lawsuits filed in 2022.",
+     "sources": [
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-secures-historic-1375-billion-settlement-google-related-texans-data",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-05-09",
+       "status": "adjudicated",
+       "quote": "$1.375 billion settlement in principle with Google"
+      },
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-finalizes-historic-settlement-google-and-secures-1375-billion-big-tech",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-10-31",
+       "status": "adjudicated",
+       "quote": "signed the historic $1.375 billion settlement agreement … geolocation, incognito browsing activity, and biometric identifiers"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}
