@@ -14,6 +14,8 @@ val COLLECTS = SectionText("What it collects", "Data this app takes from your ph
 val WHERE_IT_GOES = SectionText("Where it goes", "Who gets that data, and whether it's used beyond running the app.")
 val APPLIES = SectionText("This applies to you because", "Permissions you've actually granted that feed the above.")
 val ON_THE_RECORD = SectionText("On the record", "What regulators and courts have said. FinePrint relays the public record; it doesn't judge.")
+val RECENT_CHANGES = SectionText("Recent changes", "The latest change to FinePrint's record of this app, and whether it's better or worse for you.")
+val HISTORY = SectionText("History", "Every change to FinePrint's record of this app, newest first.")
 val ONGOING = SectionText("Ongoing", "Orders still in force, cases still pending, and decisions under appeal.")
 val PAST = SectionText("Past", "Matters that have ended. One that ended more than three years ago never changes a tier.")
 val ALSO_REPORTED = SectionText("Also reported", "Reported by journalists, researchers or breach trackers; no court or regulator has ruled on it.")
@@ -57,6 +59,19 @@ val BADGES = mapOf(
     AUTO to BadgeText("Auto", "Inferred by FinePrint from tracker code in the app; no person has reviewed it."),
     HISTORICAL to BadgeText("Historical", "Describes a past practice, not a current one."),
 )
+
+/** How a change to the record moves things for you; build.py works it out from the record's structure. */
+val DIRECTIONS = mapOf(
+    "improved" to BadgeText("Improved", "The record shows less data collected or shared, or a new way to limit it."),
+    "worsened" to BadgeText("Worsened", "The record shows more data collected or shared, or a way to limit it removed."),
+    "neutral" to BadgeText("Neutral", "The wording changed; what's collected and shared didn't."),
+)
+
+/** "Tier: Caution → Flagged", when the change records both. */
+fun tierMove(before: String?, after: String?): String? {
+    fun label(t: String?) = Tier.entries.firstOrNull { it.name.equals(t, ignoreCase = true) }?.label
+    return label(before)?.let { b -> label(after)?.let { a -> "Tier: $b → $a" } }
+}
 
 /** For alleged lines whose own wording doesn't already say it. */
 const val NOT_PROVEN = "not proven in court"

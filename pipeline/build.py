@@ -3,6 +3,7 @@
 
     python3 pipeline/build.py                 # validate, check every source URL, write bundle/bundle.json
     python3 pipeline/build.py --out preview.json --skip-url-check   # dry runs
+    python3 pipeline/build.py --previous old-record.json            # derive a new change's direction first
 
 Every reviewed file is a JSON object holding any of the arrays apps, trackers, companies,
 permissions, device_reach; they are merged, validated against bundle/schema.json, cross-checked
@@ -12,6 +13,11 @@ tags), and every source URL must answer
 HTTP 200, or its verify_url when the page blocks scripts (an OK result is cached in pipeline/raw/
 for 30 days). Exodus pages are never fetched (see CLAUDE.md, Exodus etiquette). Nothing reaches
 bundle.json without review.
+
+An app record's changes[] are written by the reviewer (date, text, sources). Their direction is
+never typed: given the record as it was before (--previous, e.g. from `git show HEAD:<file>`),
+build.py diffs its structure, writes the diff and the direction it implies back into the reviewed
+file, and on every build checks that each change's direction still follows from its diff.
 """
 from __future__ import annotations
 
@@ -45,6 +51,9 @@ VENDOR_VERIFY_URLS = {
         "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/40254028461463.json",
 }
 USER_AGENT = "FinePrint-pipeline (+https://github.com/LonglifeIO/FinePrint)"
+BUCKET_RANK = {"stays_here": 0, "used_for_more": 1, "goes_elsewhere": 2}
+WORSENING = ("flow added", "moved away from stays here", "data kind added", "tracker added", "control removed")
+IMPROVING = ("flow removed", "moved toward stays here", "data kind removed", "tracker removed", "control added")
 
 
 def merge(paths: list[Path]) -> dict[str, list]:
@@ -110,6 +119,7 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
         errors += [f"{app['package_id']}: tracker {t!r} not in trackers.json" for t in app["trackers"] if t not in tracker_ids]
         errors += risk_tag_problems(app)
         errors += control_problems(app)
+        errors += change_problems(app)
         errors += [f"{app['package_id']}: in_owner_apps is for tracker records" for f in app.get("data_flows", []) if "in_owner_apps" in f]
     errors += tracker_problems(bundle["trackers"], tracker_ids)
     return errors
@@ -140,6 +150,109 @@ def standing_problems(item: dict) -> list[str]:
     if "date" in item and item["closed_date"] < item["date"]:
         errors.append(f"{what!r}: closed_date {item['closed_date']} is before its date {item['date']}")
     return errors
+
+
+def flow_name(f: dict) -> str:
+    return f"{f['data']} to {f.get('recipient') or f.get('recipient_label')}"
+
+
+def match_flows(before: list[dict], after: list[dict]) -> tuple[list[tuple[dict, dict]], list[dict], list[dict]]:
+    """Pairs flows across two versions of a record: by id, else by data and recipient. A reworded
+    unnamed recipient pairs with the flow of the same data and bucket. Returns pairs, removed, added."""
+    def key(f: dict):
+        return f.get("id") or (f["data"], f.get("recipient") or f.get("recipient_label"))
+    left = {key(f): f for f in before}
+    pairs, added = [], []
+    for f in after:
+        if key(f) in left:
+            pairs.append((left.pop(key(f)), f))
+        else:
+            added.append(f)
+    removed = list(left.values())
+    for f in list(added):
+        twin = next((r for r in removed if "recipient" not in r and "recipient" not in f
+                     and (r["data"], r["bucket"]) == (f["data"], f["bucket"])), None)
+        if twin:
+            pairs.append((twin, f))
+            removed.remove(twin)
+            added.remove(f)
+    return pairs, removed, added
+
+
+def structural_diff(old: dict, new: dict) -> list[str]:
+    """What changed in an app record's structure, one '<kind>: <what>' line each. Purposes, wording,
+    sources and legal lines aren't structure: a change to them alone leaves the diff empty."""
+    def current(r: dict) -> list[dict]:
+        return [f for f in r.get("data_flows", []) if not f.get("historical")]
+    pairs, removed, added = match_flows(current(old), current(new))
+    ended = {(f["data"], f.get("recipient") or f.get("recipient_label")) for f in new.get("data_flows", []) if f.get("historical")}
+    diff = [f"flow added: {flow_name(f)} ({f['bucket']})" for f in added if f["bucket"] != "stays_here"]
+    diff += [f"flow removed: {flow_name(f)} ({f['bucket']}"
+             + (", now a past practice)" if (f["data"], f.get("recipient") or f.get("recipient_label")) in ended else ")")
+             for f in removed if f["bucket"] != "stays_here"]
+    for a, b in pairs:
+        if BUCKET_RANK[b["bucket"]] != BUCKET_RANK[a["bucket"]]:
+            way = "toward" if BUCKET_RANK[b["bucket"]] < BUCKET_RANK[a["bucket"]] else "away from"
+            diff.append(f"moved {way} stays here: {flow_name(b)} ({a['bucket']} to {b['bucket']})")
+    for what, before, after in (
+        ("data kind", {f["data"] for f in current(old)}, {f["data"] for f in current(new)}),
+        ("tracker", set(old.get("trackers", [])), set(new.get("trackers", []))),
+        ("control", {c["id"] for c in old.get("controls", [])}, {c["id"] for c in new.get("controls", [])}),
+    ):
+        diff += [f"{what} added: {k}" for k in sorted(after - before)]
+        diff += [f"{what} removed: {k}" for k in sorted(before - after)]
+    return diff
+
+
+def direction_of(diff: list[str]) -> str:
+    """Worsened if anything got worse (a gain is never netted against a loss), else improved if
+    anything got better, else neutral: the wording changed, not the practice."""
+    kinds = {line.split(": ", 1)[0] for line in diff}
+    if kinds & set(WORSENING):
+        return "worsened"
+    return "improved" if kinds & set(IMPROVING) else "neutral"
+
+
+def change_problems(app: dict) -> list[str]:
+    """Every change has the direction its diff implies; a new one needs --previous first."""
+    errors = []
+    for c in app.get("changes", []):
+        if "direction" not in c or "diff" not in c:
+            errors.append(f"{app['package_id']}: change of {c['date']} has no direction yet; run build.py --previous <the record before it>")
+        elif c["direction"] != direction_of(c["diff"]):
+            errors.append(f"{app['package_id']}: change of {c['date']} says {c['direction']}, but its diff makes it {direction_of(c['diff'])}")
+    return errors
+
+
+def derive_directions(reviewed: list[Path], previous: list[Path]) -> list[str]:
+    """For each app in the previous records, diffs it against the reviewed record and fills in the
+    diff and direction of the reviewed record's one change that has none, writing the file back."""
+    before = {}
+    for path in previous:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        before.update({a["package_id"]: a for a in doc.get("apps", [doc] if "package_id" in doc else [])})
+    done = []
+    for path in reviewed:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        touched = False
+        for app in doc.get("apps", []):
+            changes = app.get("changes", [])
+            pending = [i for i, c in enumerate(changes) if "direction" not in c]
+            if app["package_id"] not in before or not pending:
+                continue
+            if len(pending) > 1:
+                raise ValueError(f"{app['package_id']}: {len(pending)} changes have no direction; derive them one record version at a time")
+            diff = structural_diff(before[app["package_id"]], app)
+            c = changes[pending[0]]
+            changes[pending[0]] = {k: v for k, v in (
+                ("date", c["date"]), ("text", c["text"]), ("direction", direction_of(diff)), ("diff", diff),
+                ("tier_before", c.get("tier_before")), ("tier_after", c.get("tier_after")), ("sources", c["sources"]),
+            ) if v is not None}
+            touched = True
+            done.append(f"{app['package_id']}, change of {c['date']}: {direction_of(diff)} ({len(diff)} structural changes)")
+        if touched:
+            path.write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    return done
 
 
 def control_problems(app: dict) -> list[str]:
@@ -235,8 +348,12 @@ def main() -> int:
     parser.add_argument("--reviewed", type=Path, default=REVIEWED)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--skip-url-check", action="store_true", help="dry runs only; never for a real build")
+    parser.add_argument("--previous", type=Path, nargs="+", default=[],
+                        help="earlier versions of app records: derive the direction of each one's new change")
     args = parser.parse_args()
 
+    for line in derive_directions(sorted(args.reviewed.glob("*.json")), args.previous):
+        print(f"derived {line}")
     now = dt.datetime.now(HALIFAX)
     bundle = build(sorted(args.reviewed.glob("*.json")), now)
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))

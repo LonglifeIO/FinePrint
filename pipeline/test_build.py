@@ -137,6 +137,65 @@ class StandingTest(unittest.TestCase):
         self.assertEqual(schema_errors(doc(companies=[company])), [])
 
 
+class ChangeDirectionTest(unittest.TestCase):
+    FLOW = {"id": "flow-partners", "data": "precise_location", "recipient_label": "Partners", "purpose": "Their own use",
+            "bucket": "goes_elsewhere", "status": "self_disclosed", "sources": [SOURCE]}
+
+    def record(self, flows=(), trackers=("exodus-12",), controls=()) -> dict:
+        return dict(app("2026-10-01"), data_flows=list(flows), trackers=list(trackers), controls=list(controls))
+
+    def test_wording_alone_is_neutral(self):
+        old = self.record([self.FLOW])
+        new = self.record([dict(self.FLOW, purpose="Partners' own purposes", wording="According to its policy.")])
+        self.assertEqual(build.structural_diff(old, dict(new, summary="Reworded.")), [])
+        self.assertEqual(build.direction_of([]), "neutral")
+        # A reworded unnamed recipient is still the same flow, even without a flow id.
+        unnamed = {k: v for k, v in self.FLOW.items() if k != "id"}
+        self.assertEqual(build.structural_diff(self.record([unnamed]), self.record([dict(unnamed, recipient_label="Selected partners")])), [])
+
+    def test_a_new_flow_beyond_running_the_app_is_worse(self):
+        diff = build.structural_diff(self.record(), self.record([self.FLOW]))
+        self.assertEqual(diff, ["flow added: precise_location to Partners (goes_elsewhere)", "data kind added: precise_location"])
+        self.assertEqual(build.direction_of(diff), "worsened")
+
+    def test_moving_toward_stays_here_is_better(self):
+        diff = build.structural_diff(self.record([self.FLOW]), self.record([dict(self.FLOW, bucket="stays_here")]))
+        self.assertEqual(diff, ["moved toward stays here: precise_location to Partners (goes_elsewhere to stays_here)"])
+        self.assertEqual(build.direction_of(diff), "improved")
+        self.assertEqual(build.direction_of(build.structural_diff(self.record([dict(self.FLOW, bucket="used_for_more")]), self.record([self.FLOW]))), "worsened")
+
+    def test_a_flow_that_ends_trackers_and_controls(self):
+        ended = build.structural_diff(self.record([self.FLOW]), self.record([dict(self.FLOW, historical=True)]))
+        self.assertEqual(ended, ["flow removed: precise_location to Partners (goes_elsewhere, now a past practice)", "data kind removed: precise_location"])
+        self.assertEqual(build.direction_of(ended), "improved")
+        control = {"id": "ctl-a", "label": "Setting", "how": "In the app", "effect": "x", "limits": ["flow-partners"], "sources": [SOURCE]}
+        better = build.structural_diff(self.record([self.FLOW], trackers=("exodus-12", "exodus-65")), self.record([self.FLOW], controls=[control]))
+        self.assertEqual(better, ["tracker removed: exodus-65", "control added: ctl-a"])
+        self.assertEqual(build.direction_of(better), "improved")
+        self.assertEqual(build.direction_of(build.structural_diff(self.record(), self.record(trackers=("exodus-12", "exodus-65")))), "worsened")
+
+    def test_a_change_that_does_both_is_worse(self):
+        mixed = build.structural_diff(self.record([self.FLOW]), self.record([dict(self.FLOW, historical=True)], trackers=("exodus-12", "exodus-65")))
+        self.assertEqual(build.direction_of(mixed), "worsened")
+
+    def test_derive_directions_writes_the_reviewed_file_and_checks_hold(self):
+        change = {"date": "2026-10-05", "text": "Partners now get precise location.", "sources": [SOURCE]}
+        with tempfile.TemporaryDirectory() as d:
+            reviewed = Path(d) / "app-example.json"
+            reviewed.write_text(json.dumps({"apps": [dict(self.record([self.FLOW]), changes=[change])]}, indent=1) + "\n", encoding="utf-8")
+            pending = json.loads(reviewed.read_text(encoding="utf-8"))["apps"][0]
+            self.assertIn("has no direction yet", build.change_problems(pending)[0])
+            previous = Path(d) / "old.json"
+            previous.write_text(json.dumps(self.record()), encoding="utf-8")
+            self.assertEqual(build.derive_directions([reviewed], [previous]), ["com.example, change of 2026-10-05: worsened (2 structural changes)"])
+            derived = json.loads(reviewed.read_text(encoding="utf-8"))["apps"][0]
+        self.assertEqual(list(derived["changes"][0]), ["date", "text", "direction", "diff", "sources"])
+        self.assertEqual(build.change_problems(derived), [])
+        self.assertEqual(schema_errors(doc(apps=[derived])), [])
+        typed = dict(derived, changes=[dict(derived["changes"][0], direction="improved")])
+        self.assertEqual(build.change_problems(typed), ["com.example: change of 2026-10-05 says improved, but its diff makes it worsened"])
+
+
 class SourceRulesTest(unittest.TestCase):
     def with_source(self, source: dict) -> dict:
         return doc(apps=[dict(app("2026-10-01"), consequences=[{"text": "t", "status": "reported", "sources": [source]}])])

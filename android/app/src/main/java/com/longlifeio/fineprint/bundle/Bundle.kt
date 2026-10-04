@@ -61,6 +61,12 @@ private fun JSONObject.toAppRecord() = AppRecord(
     },
     stale = optBoolean("stale"),
     lastReviewed = getString("last_reviewed"),
+    changes = objects("changes").map {
+        Change(
+            it.getString("date"), it.getString("text"), it.getString("direction"), it.objects("sources").map { s -> s.toSource() },
+            it.text("tier_before"), it.text("tier_after"),
+        )
+    },
 )
 
 private fun JSONObject.toTrackerRecord() = TrackerRecord(

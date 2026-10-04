@@ -37,6 +37,10 @@ See `CLAUDE.md` for the status levels and the wording that goes with each.
   items, and those that ended (or, without a closed_date, are dated) within three years, count
   toward a tier; older ones are shown under Past. A closed_date can't sit with in_force or
   appeal_pending.
+- An app record's `changes[]` say what changed in the record and when, with sources. The direction
+  (improved, worsened, neutral) is never typed: `build.py --previous` derives it from a structural
+  diff of the record and stores the diff beside it (rules in `docs/METHOD.md`, "Changes to a
+  record").
 - A `regulatory_action` tag on an app whose record has no action against its own developer needs a
   `risk_tag_notes` qualifier, e.g. "against Allstate/Arity concerning this app's data". Tags are
   for sorting and filtering; the app never shows them as a list of labels.

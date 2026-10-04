@@ -17,7 +17,11 @@ Build order (each is a separate script, each is idempotent):
    rejects any source without a `quote`, checks every `source_url` resolves (HTTP 200; a source may
    name a `verify_url` when the page itself blocks scripts), and writes `../bundle/bundle.json`. URL
    results are cached for 30 days in `raw/url-checks.json`. Use `--out <path>` for a preview and
-   `--skip-url-check` offline. Tests: `python3 -m unittest test_build.py`. The evidence rules are in
+   `--skip-url-check` offline. A new entry in an app's `changes[]` (date, text, sources) gets its
+   direction from `--previous <file>`, the record as it was before the change (for example
+   `git show HEAD:pipeline/reviewed/app-life360.json > /tmp/old.json`): build.py diffs the two,
+   writes `diff` and `direction` into the reviewed file for review, and on every build checks
+   that each direction still follows from its diff. Tests: `python3 -m unittest test_build.py`. The evidence rules are in
    `../bundle/README.md`.
 
 Serve for dev: `python3 -m http.server <port> --directory ../bundle` (see `android/README.md`).

@@ -20,7 +20,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
+import com.longlifeio.fineprint.bundle.Change
 import com.longlifeio.fineprint.explain.ALSO_REPORTED
+import com.longlifeio.fineprint.explain.HISTORY
 import com.longlifeio.fineprint.explain.ONGOING
 import com.longlifeio.fineprint.explain.ON_THE_RECORD
 import com.longlifeio.fineprint.explain.OnTheRecord
@@ -32,18 +34,20 @@ private const val FIRST = 3
 
 /**
  * The last section: collapsed by default ("On the record · 10 items"). Open, it lists one line per
- * item in groups, Ongoing, Past, then Also reported, each newest first: the first three in that
- * order, then "See all". Each line opens its details and sources.
+ * item in groups, Ongoing, Past, Also reported, then the record's History, each newest first: the
+ * first three in that order, then "See all". Each line opens its details and sources.
  */
 fun LazyListScope.onTheRecordSection(
     record: OnTheRecord,
+    changes: List<Change>,
     open: Boolean,
     onToggle: () -> Unit,
     showAll: Boolean,
     onShowAll: () -> Unit,
     onDetails: (SheetContent) -> Unit,
 ) {
-    if (record.count == 0) return
+    val count = record.count + changes.size
+    if (count == 0) return
     item(key = "section:record") {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -56,7 +60,7 @@ fun LazyListScope.onTheRecordSection(
         ) {
             Column(Modifier.weight(1f)) {
                 Text(
-                    "${ON_THE_RECORD.title} · ${record.count} ${if (record.count == 1) "item" else "items"}",
+                    "${ON_THE_RECORD.title} · $count ${if (count == 1) "item" else "items"}",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.semantics { heading() },
                 )
@@ -79,7 +83,11 @@ fun LazyListScope.onTheRecordSection(
         room -= shown.size
         group(text, shown, onDetails)
     }
-    if (!showAll && record.count > FIRST) item { LinkRow("See all", R.drawable.ic_expand_more, onShowAll) }
+    changes.take(room).takeIf { it.isNotEmpty() }?.let { shown ->
+        item { SubHeader(HISTORY) }
+        items(shown) { ChangeLineRow(it, onDetails) }
+    }
+    if (!showAll && count > FIRST) item { LinkRow("See all", R.drawable.ic_expand_more, onShowAll) }
 }
 
 private fun LazyListScope.group(text: SectionText, lines: List<RecordLine>, onDetails: (SheetContent) -> Unit) {

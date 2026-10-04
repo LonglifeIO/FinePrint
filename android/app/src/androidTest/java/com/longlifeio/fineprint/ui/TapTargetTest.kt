@@ -15,6 +15,7 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -152,6 +153,34 @@ class TapTargetTest {
     fun facebookDetailScreenWithAllOfTheRecordOpen() {
         showCurated(app("com.facebook.katana", "Facebook", granted = listOf("android.permission.ACCESS_FINE_LOCATION")))
         openTheRecordAndEvidence(seeAll = true)
+        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
+    }
+
+    /** Recent changes shows the latest change (a worsening); History, inside On the record, shows both directions. */
+    @Test
+    fun detailScreenWithChanges() {
+        val fixture = parseBundle(CHANGES_FIXTURE)
+        val a = app("org.example.changes", "Changes Example")
+        val e = explain(a, TrackerScanResult(emptyList(), 1, 1, 1, emptyList()), fixture, emptyMap())
+        compose.setContent {
+            FinePrintTheme {
+                AppDetailScreen(
+                    app = a, explanation = e, check = whatYouCanDo(a, e, fixture.apps[a.packageName], emptyMap(), emptySet()),
+                    review = ReviewView(ReviewStatus.NOT_REVIEWED), result = null, signatures = null, bundleVersion = fixture.version,
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> },
+                )
+            }
+        }
+        compose.onNodeWithText("Recent changes").assertExists()
+        compose.onNodeWithText("Tier: Caution → Flagged").assertExists()
+        compose.onNode(hasContentDescription("Change: Worsened", substring = true), useUnmergedTree = true).assertExists()
+        val detail = compose.onNodeWithTag("detail")
+        detail.performScrollToNode(hasText("On the record · 2 items"))
+        compose.onNodeWithText("On the record · 2 items").performClick()
+        detail.performScrollToNode(hasText("2025-11-03 · Added a setting to turn off partner sharing."))
+        compose.onNode(hasContentDescription("Change: Improved", substring = true), useUnmergedTree = true).assertExists()
+        compose.onNodeWithText("2026-09-12 · Now lets partners use your precise location for their own purposes.").assertExists()
+        detail.performScrollToIndex(0)
         assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
     }
 

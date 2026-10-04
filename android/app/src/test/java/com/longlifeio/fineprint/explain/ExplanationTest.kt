@@ -86,6 +86,16 @@ class ExplanationTest {
     }
 
     @Test
+    fun changesComeNewestFirstWithTheDirectionBuildDerived() {
+        val e = explain(app("com.example.family"), scan(emptyList()), bundle, emptyMap())
+        // Recent changes shows the first (a worsening, with its tier move); History lists both.
+        assertEquals(listOf("2026-01-01" to "worsened", "2025-11-03" to "improved"), e.changes.map { it.date to it.direction })
+        assertEquals("Tier: Caution → Flagged", tierMove(e.changes.first().tierBefore, e.changes.first().tierAfter))
+        assertNull(tierMove(e.changes.last().tierBefore, e.changes.last().tierAfter))
+        assertEquals(listOf("Worsened", "Improved"), e.changes.map { DIRECTIONS.getValue(it.direction).label })
+    }
+
+    @Test
     fun inferredLinesWithTheSameDataAndPurposeShowAsOneAfterTheReviewedOnes() {
         val reviewed = FlowLine("precise_location", GOES_ELSEWHERE, "Partners", "p", "self_disclosed", null, false, emptyList(), null)
         val shown = forDisplay(

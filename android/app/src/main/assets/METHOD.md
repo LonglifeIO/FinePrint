@@ -132,6 +132,21 @@ Records follow these rules for wording:
 - A summary sentence about the company's past has that company's record behind it, shown under On the record.
 - A privacy policy's own words are quoted, not paraphrased: "their own monetization purposes", not "make money for themselves".
 
+## Changes to a record
+
+When FinePrint changes its record of an app, the page says so. The latest change shows under the summary, and On the record lists every change with its sources.
+
+- Recent changes: The latest change to FinePrint's record of this app, and whether it's better or worse for you.
+- History: Every change to FinePrint's record of this app, newest first.
+
+Whether a change is better or worse for you isn't anyone's call: FinePrint works it out from what changed in the record's structure, never from how it's worded.
+
+- Improved: The record shows less data collected or shared, or a new way to limit it.
+- Worsened: The record shows more data collected or shared, or a way to limit it removed.
+- Neutral: The wording changed; what's collected and shared didn't.
+
+A change is Worsened when it adds a flow beyond running the app, moves a flow away from Stays here, adds a kind of data, adds a tracker or removes a setting that limits a flow. It is Improved when it removes such a flow or makes it a past practice, moves a flow toward Stays here, drops a kind of data, removes a tracker or adds such a setting. A change that does both is Worsened: FinePrint never offsets one against the other. Where the reviewer recorded it, a change also shows how the tier moved, such as Caution → Flagged.
+
 ## Governments
 
 FinePrint doesn't show government access yet. When it does, one rule will apply to every government: FinePrint never ranks governments; it ranks evidence. Each line will name one way a government can get an app's data, with the usual status badge and sources:

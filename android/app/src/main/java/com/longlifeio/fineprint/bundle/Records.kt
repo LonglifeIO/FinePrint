@@ -92,6 +92,20 @@ data class Control(val id: String, val label: String, val how: String, val effec
 /** A short sourced line shown under the summary, such as what the app's policy says it doesn't do. */
 data class SummaryNote(val text: String, val status: String, val wording: String?, val sources: List<Source>)
 
+/**
+ * One change to an app's record: what changed, when, and whether it's better or worse for you.
+ * [direction] (improved, worsened, neutral) is derived by build.py from the record's structure.
+ */
+data class Change(
+    val date: String,
+    val text: String,
+    val direction: String,
+    val sources: List<Source>,
+    /** The tier before and after, when the reviewer recorded them ("caution", "flagged"). */
+    val tierBefore: String? = null,
+    val tierAfter: String? = null,
+)
+
 data class AppRecord(
     /** SHA-256 of the record's JSON (without the build-computed stale flag): changes only when the record does. */
     val hash: String,
@@ -111,6 +125,7 @@ data class AppRecord(
     val controls: List<Control>,
     val stale: Boolean,
     val lastReviewed: String,
+    val changes: List<Change> = emptyList(),
 )
 
 /** A tracker explanation, found under its own id and under every tracker id it [covers] (Meta's kits). */

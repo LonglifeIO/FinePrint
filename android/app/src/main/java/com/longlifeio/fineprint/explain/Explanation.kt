@@ -2,6 +2,7 @@ package com.longlifeio.fineprint.explain
 
 import com.longlifeio.fineprint.bundle.AppRecord
 import com.longlifeio.fineprint.bundle.Bundle
+import com.longlifeio.fineprint.bundle.Change
 import com.longlifeio.fineprint.bundle.Company
 import com.longlifeio.fineprint.bundle.Consequence
 import com.longlifeio.fineprint.bundle.DataFlow
@@ -36,6 +37,8 @@ data class Explanation(
     val lastReviewed: String?,
     val stale: Boolean,
     val exodusNote: String?,
+    /** Changes to the record, newest first: the first shows under the summary, all under On the record. */
+    val changes: List<Change> = emptyList(),
 )
 
 data class FlowLine(
@@ -110,6 +113,7 @@ fun explain(
         lastReviewed = record?.lastReviewed,
         stale = record?.stale == true,
         exodusNote = exodusNote(record?.exodusReport?.trackerCount, record?.trackers.orEmpty(), scan),
+        changes = record?.changes.orEmpty().sortedByDescending { it.date },
     )
 }
 

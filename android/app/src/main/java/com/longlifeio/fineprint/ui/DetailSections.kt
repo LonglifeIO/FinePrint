@@ -73,6 +73,7 @@ fun LazyListScope.detailSections(
             SourcesRow(note.text, note.sources, null, onSources)
         }
     }
+    recentChange(e.changes, onSources)
 
     section("collects", COLLECTS)
     item {

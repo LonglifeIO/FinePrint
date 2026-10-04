@@ -26,6 +26,14 @@
     { "id": "ctl-partners", "label": "Partner sharing", "how": "In the app: Settings > Privacy", "effect": "Example doesn't say what changes.", "limits": ["flow-partners"],
       "sources": [{ "url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "turn off partner sharing" }] }
    ],
+   "changes": [
+    { "date": "2025-11-03", "text": "Example Family added a setting to turn off partner sharing.", "direction": "improved",
+      "diff": ["control added: ctl-partners"],
+      "sources": [{ "url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "turn off partner sharing" }] },
+    { "date": "2026-01-01", "text": "Example Family's policy now lets partners use your precise location for their own purposes.", "direction": "worsened",
+      "diff": ["flow added: precise_location to Partners (goes_elsewhere)", "data kind added: precise_location"], "tier_before": "caution", "tier_after": "flagged",
+      "sources": [{ "url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "partners for their own use" }] }
+   ],
    "privacy_controls": "Settings > Privacy",
    "coverage": "curated",
    "stale": true,

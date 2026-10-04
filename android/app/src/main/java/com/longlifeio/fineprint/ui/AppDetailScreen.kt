@@ -87,7 +87,7 @@ fun AppDetailScreen(
             item { Header(app, explanation, check, review, onOpenSettings) }
             detailSections(explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, onTick = onTick)
             onTheRecordSection(
-                explanation.onTheRecord, recordOpen, onToggle = { recordOpen = !recordOpen; recordAll = false },
+                explanation.onTheRecord, explanation.changes, recordOpen, onToggle = { recordOpen = !recordOpen; recordAll = false },
                 showAll = recordAll, onShowAll = { recordAll = true }, onDetails = { sheet = it },
             )
             evidenceSection(evidenceOpen, { evidenceOpen = !evidenceOpen }, app, result, signatures, explanation.exodusNote)
