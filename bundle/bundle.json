@@ -2,9 +2,411 @@
  "schema_version": 1,
  "schema_revision": "1.2",
  "bundle_version": "2026.10.04",
- "generated_at": "2026-10-04T17:05:56-03:00",
+ "generated_at": "2026-10-04T17:36:42-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
+  {
+   "package_id": "com.facebook.katana",
+   "display_name": "Facebook",
+   "developer": "Meta Platforms, Inc.",
+   "developer_company": "co-meta",
+   "summary": "Facebook lets you share posts, photos and messages with friends and groups. To run it, Meta collects what you do in the app and information about your device. According to its privacy policy (23 Jul 2026), Meta also uses what advertisers and other partners tell it about your activity elsewhere \"to personalize ads\", and receives that information \"whether or not you're logged in or have an account\". Regulators in the US and Ireland have fined Meta over its handling of Facebook users' data.",
+   "summary_notes": [
+    {
+     "text": "Meta says it doesn't sell any of your information to anyone.",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, How do we share information with third parties?",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "We don't sell any of your information to anyone, and we never will.",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      }
+     ]
+    }
+   ],
+   "risk_tags": [
+    "ad_profiling",
+    "cross_app_tracking",
+    "data_broker",
+    "breach",
+    "regulatory_action"
+   ],
+   "risk_tag_notes": {
+    "data_broker": "brokers such as LiveRamp send Meta data about you (one 2024 study); not a sale by Meta"
+   },
+   "trackers": [
+    "exodus-47",
+    "exodus-48",
+    "exodus-65",
+    "exodus-66",
+    "exodus-68",
+    "exodus-69",
+    "exodus-70",
+    "exodus-171",
+    "exodus-392"
+   ],
+   "privacy_policy_url": "https://www.facebook.com/privacy/policy/",
+   "privacy_policy_as_of": "2026-07-23",
+   "data_flows": [
+    {
+     "data": "app_activity",
+     "recipient": "co-meta",
+     "purpose": "Personalized ads and content across Meta's apps",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, How do we use your information?",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "We use information we collect to provide a personalized experience to you, including ads",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      }
+     ]
+    },
+    {
+     "data": "app_activity",
+     "recipient": "co-meta",
+     "purpose": "Ads Meta shows you in other apps, through Audience Network",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, Personalizing ads on Meta Audience Network",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "When we show you ads through Meta Audience Network when you visit other apps",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Advertisers and other partners send Meta information about what you do outside its apps, and Meta uses it to personalize the ads you see. It receives this \"whether or not you're logged in or have an account\".",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, Using information from third parties for personalizing ads",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "partners provide us about activity off the Meta Company Products … to personalize ads",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      },
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, Using information from third parties for personalizing ads",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "We receive this information whether or not you're logged in or have an account",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      }
+     ]
+    },
+    {
+     "text": "In a 2024 Consumer Reports study of 709 volunteers' Facebook data, an average of 2,230 companies had sent Meta data about each person; the data broker LiveRamp did so for about 96% of them. The volunteers were not a representative sample.",
+     "status": "reported",
+     "wording": "Reported in a 2024 Consumer Reports study (one study)",
+     "sources": [
+      {
+       "id": "src-cr-facebook-2024-01-17",
+       "url": "https://advocacy.consumerreports.org/research/report-who-shares-your-information-with-facebook",
+       "type": "research",
+       "title": "Consumer Reports, \"Who Shares Your Information With Facebook?\"",
+       "as_of": "2024-01-17",
+       "status": "reported",
+       "single_source": true,
+       "quote": "average participant … identified in the data by 2,230 different companies … LiveRamp, a data broker"
+      },
+      {
+       "url": "https://themarkup.org/privacy/2024/01/17/each-facebook-user-is-monitored-by-thousands-of-companies-study-indicates",
+       "type": "journalism",
+       "title": "The Markup (co-published with Consumer Reports)",
+       "as_of": "2024-01-17",
+       "status": "reported",
+       "quote": "Participants were also likely more privacy conscious and technically inclined than typical users",
+       "derives_from": "src-cr-facebook-2024-01-17"
+      }
+     ]
+    },
+    {
+     "text": "In 2019 Meta, then Facebook, Inc., agreed to a $5 billion penalty and a new 20-year privacy order to settle US Federal Trade Commission charges that it deceived users about their privacy controls. A court entered the order in April 2020.",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "wording": "Settled with the US FTC (2019; order entered 2020)",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2019-07-24",
+       "status": "adjudicated",
+       "quote": "$5 billion penalty … deceiving users about their ability to control the privacy",
+       "wayback_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2020-04-28",
+       "status": "adjudicated",
+       "quote": "Judge Timothy J. Kelly entered the order on April 23, 2020.",
+       "wayback_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "wayback_date": "2026-01-04",
+       "verify_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement"
+      }
+     ]
+    },
+    {
+     "text": "Meta agreed to pay Texas $1.4 billion over five years to settle claims that it ran facial recognition on Facebook photos without consent. The settlement is not an admission of guilt.",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "wording": "Settled with the Texas Attorney General (2024), no admission of wrongdoing",
+     "sources": [
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-secures-14-billion-settlement-meta-over-its-unauthorized-capture",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2024-07-30",
+       "status": "adjudicated",
+       "quote": "$1.4 billion settlement with Meta … personal biometric data of millions of Texans"
+      },
+      {
+       "url": "https://www.texastribune.org/2024/07/30/texas-meta-facebook-biometric-data-settlement/",
+       "type": "journalism",
+       "title": "The Texas Tribune",
+       "as_of": "2024-07-30",
+       "status": "adjudicated",
+       "quote": "does not act as an admission of guilt and Meta maintains no wrongdoing"
+      }
+     ]
+    },
+    {
+     "text": "Ireland's Data Protection Commission fined Meta €1.2 billion in 2023 for unlawfully transferring EU Facebook users' data to the US.",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "wording": "Fined by Ireland's Data Protection Commission (2023)",
+     "procedural_note": {
+      "text": "Meta said on 2023-05-22 that it would appeal the decision, including the fine.",
+      "sources": [
+       {
+        "url": "https://about.fb.com/news/2023/05/our-response-to-the-decision-on-facebooks-eu-us-data-transfers/",
+        "type": "company_site",
+        "title": "Meta Newsroom",
+        "as_of": "2023-05-22",
+        "status": "self_disclosed",
+        "quote": "We intend to appeal both the decision's substance and its orders including the fine"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/Data-Protection-Commission-announces-conclusion-of-inquiry-into-Meta-Ireland",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2023-05-22",
+       "status": "adjudicated",
+       "quote": "its Facebook service … administrative fine in the amount of €1.2 billion"
+      }
+     ]
+    },
+    {
+     "text": "Ireland's Data Protection Commission fined Meta for Facebook security failures: €251 million in 2024 over a 2018 breach of about 29 million accounts, and €265 million in 2022 over Facebook data scraped and published online.",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "wording": "Fined by Ireland's Data Protection Commission (2022 and 2024)",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/irish-data-protection-commission-fines-meta-eu251-million",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2024-12-17",
+       "status": "adjudicated",
+       "quote": "approximately 29 million Facebook accounts globally … administrative fines totalling €251 million"
+      },
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/data-protection-commission-announces-decision-in-facebook-data-scraping-inquiry",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2022-11-28",
+       "status": "adjudicated",
+       "quote": "imposing a fine of €265 million … collated dataset of Facebook personal data"
+      }
+     ]
+    }
+   ],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-04",
+   "stale": false
+  },
+  {
+   "package_id": "com.google.android.apps.maps",
+   "display_name": "Google Maps",
+   "developer": "Google LLC",
+   "developer_company": "co-google",
+   "summary": "Google Maps gives you directions and local search, and needs your location to do it. Google's Play Store label says Maps doesn't share your data with other companies; it lists approximate location, searches in the app and device IDs among data Google uses for \"Advertising or marketing\", and precise location for running and personalizing the app. Google has paid settlements to US states over its location tracking.",
+   "risk_tags": [
+    "ad_profiling"
+   ],
+   "risk_tag_notes": {
+    "ad_profiling": "Google's own advertising; Google says Maps doesn't share data with other companies"
+   },
+   "trackers": [],
+   "privacy_policy_url": "https://policies.google.com/privacy?hl=en-US",
+   "privacy_policy_as_of": "2026-10-01",
+   "privacy_controls": "In your Google Account: Location History, which powers Timeline in Maps, and Web & App Activity. Google said in 2023 that Timeline would be saved on your device.",
+   "data_flows": [
+    {
+     "data": "precise_location",
+     "recipient": "co-google",
+     "purpose": "Running Maps, personalization and analytics",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "Precise location App functionality, Analytics, Personalization"
+      }
+     ]
+    },
+    {
+     "data": "approximate_location",
+     "recipient": "co-google",
+     "purpose": "Google's advertising or marketing, among other uses",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "Approximate location App functionality, Analytics, Developer communications, Advertising or marketing"
+      }
+     ]
+    },
+    {
+     "data": "app_activity",
+     "recipient": "co-google",
+     "purpose": "Google's advertising or marketing, among other uses (your searches in Maps)",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "In-app search history App functionality, Analytics, Advertising or marketing"
+      }
+     ]
+    },
+    {
+     "data": "device_identifiers",
+     "recipient": "co-google",
+     "purpose": "Google's advertising or marketing, among other uses",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "Device or other IDs App functionality, Analytics, Developer communications, Advertising or marketing"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Google's Play Store label says Maps doesn't share your data with other companies. It lists web browsing history among the data Maps collects, for advertising or marketing.",
+     "status": "self_disclosed",
+     "wording": "According to Google's Play Store data safety label, read 2026-10-04.",
+     "sources": [
+      {
+       "url": "https://play.google.com/store/apps/datasafety?id=com.google.android.apps.maps&hl=en_US",
+       "type": "data_safety_label",
+       "title": "Google Play data safety label: Google Maps",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "doesn't share user data with other companies … Web browsing history Advertising or marketing"
+      }
+     ]
+    },
+    {
+     "text": "Google's privacy policy says it doesn't share your personal information with companies, organizations or individuals outside Google, except in cases the policy lists, such as with your consent.",
+     "status": "self_disclosed",
+     "wording": "According to Google's privacy policy dated 2026-10-01.",
+     "sources": [
+      {
+       "url": "https://policies.google.com/privacy?hl=en-US",
+       "type": "privacy_policy",
+       "title": "Google Privacy Policy",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "do not share your personal information with companies, organizations, or individuals outside of Google"
+      }
+     ]
+    },
+    {
+     "text": "Google said in December 2023 that Timeline in Maps, which is powered by the Location History setting, would be saved on your device, with backups to the cloud optional and encrypted.",
+     "status": "self_disclosed",
+     "wording": "According to Google's blog post of 2023-12-12.",
+     "sources": [
+      {
+       "url": "https://blog.google/products/maps/updates-to-location-history-and-new-controls-coming-soon-to-maps/",
+       "type": "company_site",
+       "title": "Google blog",
+       "as_of": "2023-12-12",
+       "status": "self_disclosed",
+       "quote": "Timeline … powered by a setting called Location History … saved right on your device"
+      }
+     ]
+    }
+   ],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-04",
+   "stale": false
+  },
   {
    "package_id": "com.life360.android.safetymapd",
    "display_name": "Life360",
@@ -533,6 +935,261 @@
     "regulatory_action": "against Allstate/Arity concerning this app's data"
    },
    "stale": false
+  },
+  {
+   "package_id": "com.zhiliaoapp.musically",
+   "display_name": "TikTok",
+   "developer": "TikTok Pte. Ltd. (ByteDance); in the US, TikTok USDS Joint Venture LLC",
+   "developer_company": "co-bytedance",
+   "summary": "TikTok shows you a feed of short videos picked for you, and collects how you interact with videos and ads, plus details about your device, to run it. Since January 2026 a joint venture in which ByteDance keeps 19.9% runs TikTok in the US. According to its US privacy policy (15 Jul 2026), TikTok uses this information for ads, and collects \"approximate or precise location information\" if you turn on location services for the app. Regulators in Ireland and Canada have ruled against TikTok over children's data and transfers of European users' data to China.",
+   "summary_notes": [
+    {
+     "text": "The policy quoted here is TikTok's US privacy policy. In Canada, TikTok is provided by TikTok Pte. Ltd. under its privacy policy for other regions (last updated 8 Jul 2025), which FinePrint hasn't reviewed yet.",
+     "status": "self_disclosed",
+     "wording": "According to TikTok's US and other-regions privacy policies.",
+     "sources": [
+      {
+       "url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok US Privacy Policy, heading",
+       "as_of": "2026-07-15",
+       "status": "self_disclosed",
+       "quote": "U.S. Privacy Policy Last updated: July 15, 2026",
+       "wayback_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "wayback_date": "2026-10-04",
+       "verify_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en"
+      },
+      {
+       "url": "https://www.tiktok.com/legal/page/row/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok Privacy Policy, other regions",
+       "as_of": "2025-07-08",
+       "status": "self_disclosed",
+       "quote": "Other regions Privacy Policy … provided and controlled by TikTok Pte. Ltd.",
+       "wayback_url": "https://web.archive.org/web/20260930143917/https://www.tiktok.com/legal/page/row/privacy-policy/en",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930143917/https://www.tiktok.com/legal/page/row/privacy-policy/en"
+      },
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/nr-c_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada news release",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "Joint investigation of TikTok Pte. Ltd. … Privacy Commissioner of Canada"
+      }
+     ]
+    }
+   ],
+   "risk_tags": [
+    "ad_profiling",
+    "cross_app_tracking",
+    "child_data",
+    "regulatory_action"
+   ],
+   "trackers": [],
+   "privacy_policy_url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+   "privacy_policy_as_of": "2026-07-15",
+   "data_flows": [
+    {
+     "data": "app_activity",
+     "recipient": "co-tiktok-usds",
+     "purpose": "Ads TikTok shows you, and inferring your age, gender and interests",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to TikTok's US privacy policy, last updated 2026-07-15.",
+     "sources": [
+      {
+       "url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok US Privacy Policy, How We Use Your Information",
+       "as_of": "2026-07-15",
+       "status": "self_disclosed",
+       "quote": "To provide and improve our advertising services … To infer additional information about you",
+       "wayback_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "wayback_date": "2026-10-04",
+       "verify_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Since TikTok's US business moved to a joint venture in January 2026, its US privacy policy has said it collects \"approximate or precise location information\" if you turn on location services for the app. The previous US policy, from August 2024, said TikTok did not collect precise GPS location from US users.",
+     "status": "self_disclosed",
+     "wording": "According to TikTok's US privacy policy, last updated 2026-07-15; the earlier policy as reported by Harvard Kennedy School.",
+     "sources": [
+      {
+       "url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok US Privacy Policy, Automatically Collected Information",
+       "as_of": "2026-07-15",
+       "status": "self_disclosed",
+       "quote": "enable location services … we collect approximate or precise location information from your device",
+       "wayback_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "wayback_date": "2026-10-04",
+       "verify_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en"
+      },
+      {
+       "url": "https://www.hks.harvard.edu/centers/carr-ryan/our-work/carr-ryan-commentary/under-us-ownership-tiktok-poses-even-greater-threat",
+       "type": "research",
+       "title": "Harvard Kennedy School, Carr-Ryan Center commentary",
+       "as_of": "2026-01-27",
+       "status": "reported",
+       "quote": "ByteDance retains 19.9 percent … did not collect precise, GPS-derived location data from U.S. users"
+      }
+     ]
+    },
+    {
+     "text": "Advertisers and other partners send TikTok information about what you do outside its apps, such as pages you visit, purchases and apps you download, which TikTok uses to measure and deliver ads.",
+     "status": "self_disclosed",
+     "wording": "According to TikTok's US privacy policy, last updated 2026-07-15.",
+     "sources": [
+      {
+       "url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok US Privacy Policy, Information From Other Sources",
+       "as_of": "2026-07-15",
+       "status": "self_disclosed",
+       "quote": "actions you have taken outside of our websites and apps … deliver ads to you",
+       "wayback_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "wayback_date": "2026-10-04",
+       "verify_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en"
+      }
+     ]
+    },
+    {
+     "text": "Ireland's Data Protection Commission fined TikTok €530 million in 2025 for transferring European users' data to China without adequate protection. During the inquiry TikTok told the regulator that some of that data had in fact been stored on servers in China, contrary to its earlier evidence.",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "wording": "Fined by Ireland's Data Protection Commission (2025)",
+     "procedural_note": {
+      "text": "TikTok appealed. In June 2026 Ireland's High Court upheld the finding that TikTok broke EU privacy rules and told the regulator to reconsider its order to suspend transfers to China; a separate judgment on the fine had not yet been published.",
+      "sources": [
+       {
+        "url": "https://www.rte.ie/news/ireland/2025/0502/1510729-tiktok-fine/",
+        "type": "journalism",
+        "title": "RTÉ News",
+        "as_of": "2025-05-02",
+        "status": "reported",
+        "quote": "TikTok has confirmed it plans to appeal a €530 million fine"
+       },
+       {
+        "url": "https://www.irishtimes.com/ireland/2026/06/30/data-protection-commission-reconsidering-tiktok-data-transfer-ban-after-court-ruling/",
+        "type": "journalism",
+        "title": "The Irish Times (Reuters)",
+        "as_of": "2026-06-30",
+        "status": "reported",
+        "quote": "upheld the DPC's finding that TikTok breached EU privacy rules … to reconsider"
+       },
+       {
+        "url": "https://www.irishtimes.com/ireland/2026/06/30/data-protection-commission-reconsidering-tiktok-data-transfer-ban-after-court-ruling/",
+        "type": "journalism",
+        "title": "The Irish Times (Reuters)",
+        "as_of": "2026-06-30",
+        "status": "reported",
+        "quote": "A separate judgment regarding TikTok's appeal against the fine"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/latest-news/irish-data-protection-commission-fines-tiktok-eu530-million-and-orders-corrective-measures-following",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2025-05-02",
+       "status": "adjudicated",
+       "quote": "fines totalling €530 million … stored on servers in China"
+      }
+     ]
+    },
+    {
+     "text": "Ireland's Data Protection Commission fined TikTok €345 million in 2023 over how it handled the data of child users from 31 July to 31 December 2020.",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "wording": "Fined by Ireland's Data Protection Commission (2023)",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/dpc-guidance/decisions/inquiry-tiktok-technology-limited-september-2023",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) decision summary",
+       "as_of": "2023-09-01",
+       "status": "adjudicated",
+       "quote": "personal data relating to child users … Administrative fines totalling €345 million"
+      }
+     ]
+    },
+    {
+     "text": "Canada's privacy commissioner and three provincial counterparts found in 2025 that TikTok's measures to keep children off the app were inadequate, and that it profiles users, including children, to target ads and content. TikTok agreed to make changes.",
+     "status": "adjudicated",
+     "status_kind": "regulator_finding",
+     "wording": "Found by Canada's privacy commissioners (2025)",
+     "sources": [
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/nr-c_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada news release",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "measures in place to keep children off the popular video-sharing platform … were inadequate"
+      },
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/bg_tiktok_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada backgrounder",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "create profiles about users, including children, which is being used to deliver targeted ads"
+      }
+     ]
+    },
+    {
+     "text": "The US Justice Department and the FTC sued TikTok and ByteDance in 2024, alleging that TikTok knowingly let children under 13 create regular accounts and collected their data without their parents' consent.",
+     "status": "alleged",
+     "status_kind": "filed",
+     "wording": "Alleged in a lawsuit filed by the US Justice Department on 2024-08-02",
+     "procedural_note": {
+      "text": "On 2026-08-21 the Justice Department announced a $400 million settlement, saying there had been no determination of liability. In September 2026 the court rejected the settlement as proposed and let the department refile.",
+      "sources": [
+       {
+        "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+        "type": "regulator",
+        "title": "US Department of Justice press release",
+        "as_of": "2026-08-21",
+        "status": "alleged",
+        "quote": "allegations only, and there has been no determination of liability",
+        "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+        "wayback_date": "2026-09-27",
+        "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+       },
+       {
+        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
+        "type": "journalism",
+        "title": "MediaPost",
+        "as_of": "2026-09-22",
+        "status": "reported",
+        "quote": "amend its request for settlement approval and refile … The deal that Wu rejected"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2024-08-02",
+       "status": "alleged",
+       "quote": "TikTok knowingly permitted children to create regular TikTok accounts",
+       "wayback_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
+       "wayback_date": "2026-09-01",
+       "verify_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens"
+      }
+     ]
+    }
+   ],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-04",
+   "stale": false
   }
  ],
  "trackers": [
@@ -855,6 +1512,538 @@
        "accessed": "2026-10-02",
        "status": "reported",
        "quote": "personal information of 442,519 Life360 customers has been leaked"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "co-bytedance",
+   "name": "ByteDance Ltd.",
+   "subsidiaries": [
+    "TikTok"
+   ],
+   "roles": [
+    "developer",
+    "tracker_owner"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2019-02-27",
+     "title": "Musical.ly (now TikTok) COPPA settlement",
+     "body": "US Federal Trade Commission",
+     "type": "fine",
+     "amount": "$5.7 million",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Settled allegations that Musical.ly collected personal information from children under 13 without parental consent.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/press-releases/2019/02/video-social-networking-app-musically-agrees-settle-ftc",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2019-02-27",
+       "status": "adjudicated",
+       "quote": "Musical.ly, now known as TikTok, have agreed to pay $5.7 million",
+       "wayback_url": "https://web.archive.org/web/20220308074733/https://www.ftc.gov/news-events/press-releases/2019/02/video-social-networking-app-musically-agrees-settle-ftc",
+       "wayback_date": "2022-03-08",
+       "verify_url": "https://web.archive.org/web/20220308074733/https://www.ftc.gov/news-events/press-releases/2019/02/video-social-networking-app-musically-agrees-settle-ftc"
+      }
+     ]
+    },
+    {
+     "date": "2023-09-01",
+     "title": "Irish DPC fine over children's data",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€345 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Decision IN-21-9-1 against TikTok Technology Limited, covering 31 July to 31 December 2020.",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/dpc-guidance/decisions/inquiry-tiktok-technology-limited-september-2023",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) decision summary",
+       "as_of": "2023-09-01",
+       "status": "adjudicated",
+       "quote": "personal data relating to child users … Administrative fines totalling €345 million"
+      }
+     ]
+    },
+    {
+     "date": "2024-08-02",
+     "title": "United States v. TikTok Inc. and ByteDance Ltd. (COPPA)",
+     "body": "US District Court, Central District of California",
+     "type": "lawsuit",
+     "status": "alleged",
+     "status_kind": "filed",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Brought by the Justice Department with the FTC. Pending; not proven.",
+     "procedural_note": {
+      "text": "On 2026-08-21 the Justice Department announced a $400 million settlement, saying there had been no determination of liability. In September 2026 the court rejected the settlement as proposed and let the department refile.",
+      "sources": [
+       {
+        "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+        "type": "regulator",
+        "title": "US Department of Justice press release",
+        "as_of": "2026-08-21",
+        "status": "alleged",
+        "quote": "allegations only, and there has been no determination of liability",
+        "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+        "wayback_date": "2026-09-27",
+        "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+       },
+       {
+        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
+        "type": "journalism",
+        "title": "MediaPost",
+        "as_of": "2026-09-22",
+        "status": "reported",
+        "quote": "amend its request for settlement approval and refile … The deal that Wu rejected"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2024-08-02",
+       "status": "alleged",
+       "quote": "TikTok knowingly permitted children to create regular TikTok accounts",
+       "wayback_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
+       "wayback_date": "2026-09-01",
+       "verify_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens"
+      }
+     ]
+    },
+    {
+     "date": "2025-05-02",
+     "title": "Irish DPC fine over transfers of EEA users' data to China",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€530 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Against TikTok Technology Limited, under GDPR Article 46(1) and transparency rules.",
+     "procedural_note": {
+      "text": "TikTok appealed. In June 2026 Ireland's High Court upheld the finding that TikTok broke EU privacy rules and told the regulator to reconsider its order to suspend transfers to China; a separate judgment on the fine had not yet been published.",
+      "sources": [
+       {
+        "url": "https://www.rte.ie/news/ireland/2025/0502/1510729-tiktok-fine/",
+        "type": "journalism",
+        "title": "RTÉ News",
+        "as_of": "2025-05-02",
+        "status": "reported",
+        "quote": "TikTok has confirmed it plans to appeal a €530 million fine"
+       },
+       {
+        "url": "https://www.irishtimes.com/ireland/2026/06/30/data-protection-commission-reconsidering-tiktok-data-transfer-ban-after-court-ruling/",
+        "type": "journalism",
+        "title": "The Irish Times (Reuters)",
+        "as_of": "2026-06-30",
+        "status": "reported",
+        "quote": "upheld the DPC's finding that TikTok breached EU privacy rules … to reconsider"
+       },
+       {
+        "url": "https://www.irishtimes.com/ireland/2026/06/30/data-protection-commission-reconsidering-tiktok-data-transfer-ban-after-court-ruling/",
+        "type": "journalism",
+        "title": "The Irish Times (Reuters)",
+        "as_of": "2026-06-30",
+        "status": "reported",
+        "quote": "A separate judgment regarding TikTok's appeal against the fine"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/latest-news/irish-data-protection-commission-fines-tiktok-eu530-million-and-orders-corrective-measures-following",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2025-05-02",
+       "status": "adjudicated",
+       "quote": "fines totalling €530 million … stored on servers in China"
+      }
+     ]
+    },
+    {
+     "date": "2025-09-23",
+     "title": "Joint investigation of TikTok Pte. Ltd. (PIPEDA Findings #2025-003)",
+     "body": "Privacy commissioners of Canada, Quebec, British Columbia and Alberta",
+     "type": "regulator_action",
+     "status": "adjudicated",
+     "status_kind": "regulator_finding",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Found TikTok's measures to keep children off the platform inadequate; TikTok agreed to strengthen age assurance and privacy communications.",
+     "sources": [
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/nr-c_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada news release",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "measures in place to keep children off the popular video-sharing platform … were inadequate"
+      },
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/bg_tiktok_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada backgrounder",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "create profiles about users, including children, which is being used to deliver targeted ads"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "co-tiktok-usds",
+   "name": "TikTok USDS Joint Venture LLC",
+   "jurisdiction": "US",
+   "roles": [
+    "developer"
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "co-google",
+   "name": "Google LLC",
+   "jurisdiction": "US",
+   "roles": [
+    "developer",
+    "tracker_owner"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2022-10-04",
+     "title": "Arizona location-tracking settlement",
+     "body": "Arizona Attorney General",
+     "type": "lawsuit",
+     "amount": "$85 million",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "notes": "Arizona sued in May 2020 over location data collected after users turned Location History off.",
+     "sources": [
+      {
+       "url": "https://www.azag.gov/press-release/attorney-general-mark-brnovich-achieves-historic-85-million-settlement-google",
+       "type": "regulator",
+       "title": "Arizona Attorney General press release",
+       "as_of": "2022-10-04",
+       "status": "adjudicated",
+       "quote": "$85 million settlement with Google LLC for deceptively obtaining users' location data"
+      }
+     ]
+    },
+    {
+     "date": "2022-11-14",
+     "title": "40-state location-tracking settlement",
+     "body": "Attorneys general of 40 US states",
+     "type": "regulator_action",
+     "amount": "$391.5 million",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "notes": "Over the Location History and Web & App Activity account settings; Location History powers Timeline in Maps.",
+     "sources": [
+      {
+       "url": "https://www.michigan.gov/ag/news/press-releases/2022/11/14/40-attorneys-general-announce-historic-google-settlement-over-location-tracking-practices",
+       "type": "regulator",
+       "title": "Michigan Attorney General news release (40-state settlement)",
+       "as_of": "2022-11-14",
+       "status": "adjudicated",
+       "quote": "$391.5 million multistate settlement with Google over its location tracking practices",
+       "wayback_url": "https://web.archive.org/web/20260928082319/https://www.michigan.gov/ag/news/press-releases/2022/11/14/40-attorneys-general-announce-historic-google-settlement-over-location-tracking-practices",
+       "wayback_date": "2026-09-28",
+       "verify_url": "https://web.archive.org/web/20260928082319/https://www.michigan.gov/ag/news/press-releases/2022/11/14/40-attorneys-general-announce-historic-google-settlement-over-location-tracking-practices"
+      },
+      {
+       "url": "https://ncdoj.gov/attorney-general-josh-stein-reaches-391-5-million-multistate-settlement-with-google/",
+       "type": "regulator",
+       "title": "North Carolina Department of Justice news release",
+       "as_of": "2022-11-14",
+       "status": "adjudicated",
+       "quote": "misleading consumers about its location tracking practices since at least 2014"
+      },
+      {
+       "url": "https://blog.google/products/maps/updates-to-location-history-and-new-controls-coming-soon-to-maps/",
+       "type": "company_site",
+       "title": "Google blog",
+       "as_of": "2023-12-12",
+       "status": "self_disclosed",
+       "quote": "Timeline … powered by a setting called Location History … saved right on your device"
+      }
+     ]
+    },
+    {
+     "date": "2025-05-09",
+     "title": "Texas settlement over geolocation, Incognito and biometric data",
+     "body": "Texas Attorney General",
+     "type": "lawsuit",
+     "amount": "$1.375 billion",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "notes": "Settlement in principle announced 2025-05-09; Google signed the agreement, announced 2025-10-31. Ends two lawsuits filed in 2022.",
+     "sources": [
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-secures-historic-1375-billion-settlement-google-related-texans-data",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-05-09",
+       "status": "adjudicated",
+       "quote": "$1.375 billion settlement in principle with Google"
+      },
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-finalizes-historic-settlement-google-and-secures-1375-billion-big-tech",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-10-31",
+       "status": "adjudicated",
+       "quote": "signed the historic $1.375 billion settlement agreement … geolocation, incognito browsing activity, and biometric identifiers"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "co-meta",
+   "name": "Meta Platforms, Inc.",
+   "subsidiaries": [
+    "Meta Platforms Ireland Limited"
+   ],
+   "jurisdiction": "US",
+   "roles": [
+    "developer",
+    "tracker_owner"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2012-08-10",
+     "title": "FTC privacy order against Facebook",
+     "body": "US Federal Trade Commission",
+     "type": "order",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Settled charges that Facebook told users they could keep information private, then let it be shared and made public.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2012/08/ftc-approves-final-settlement-facebook",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2012-08-10",
+       "status": "adjudicated",
+       "quote": "deceived consumers by telling them they could keep their information on Facebook private",
+       "wayback_url": "https://web.archive.org/web/20260913051833/https://www.ftc.gov/news-events/news/press-releases/2012/08/ftc-approves-final-settlement-facebook",
+       "wayback_date": "2026-09-13",
+       "verify_url": "https://web.archive.org/web/20260913051833/https://www.ftc.gov/news-events/news/press-releases/2012/08/ftc-approves-final-settlement-facebook"
+      }
+     ]
+    },
+    {
+     "date": "2019-07-24",
+     "title": "$5 billion FTC penalty and a new 20-year privacy order",
+     "body": "US Federal Trade Commission",
+     "type": "fine",
+     "amount": "$5 billion",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Settled charges that Facebook violated its 2012 order by deceiving users about their privacy controls, including sharing friends' data with third-party apps. The court entered the order on 2020-04-23.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2019-07-24",
+       "status": "adjudicated",
+       "quote": "$5 billion penalty … deceiving users about their ability to control the privacy",
+       "wayback_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2020-04-28",
+       "status": "adjudicated",
+       "quote": "Judge Timothy J. Kelly entered the order on April 23, 2020.",
+       "wayback_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "wayback_date": "2026-01-04",
+       "verify_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement"
+      }
+     ]
+    },
+    {
+     "date": "2021-02",
+     "title": "Illinois biometric privacy class action settlement",
+     "body": "US District Court (Judge James Donato)",
+     "type": "class_action",
+     "amount": "$650 million",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Over face templates made for photo tagging without consent, under the Illinois Biometric Information Privacy Act.",
+     "sources": [
+      {
+       "url": "https://appleinsider.com/articles/21/02/27/facebook-agrees-to-650m-settlement-to-end-illinois-privacy-lawsuit",
+       "type": "journalism",
+       "title": "AppleInsider",
+       "as_of": "2021-02-27",
+       "status": "adjudicated",
+       "quote": "A judge has approved a settlement valued at $650 million from Facebook"
+      }
+     ]
+    },
+    {
+     "date": "2022-11-28",
+     "title": "Irish DPC fine over Facebook data scraping",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€265 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Decision against Meta Platforms Ireland Limited adopted 2022-11-25: GDPR Articles 25(1) and 25(2), over Facebook Search and the contact importer tools (May 2018 to September 2019).",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/data-protection-commission-announces-decision-in-facebook-data-scraping-inquiry",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2022-11-28",
+       "status": "adjudicated",
+       "quote": "imposing a fine of €265 million … collated dataset of Facebook personal data"
+      }
+     ]
+    },
+    {
+     "date": "2023-01-04",
+     "title": "Irish DPC fines over the legal basis for Facebook and Instagram processing",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€390 million (€210 million for Facebook, €180 million for Instagram)",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Concerned Meta Ireland's reliance on contract rather than consent, including for behavioural advertising.",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/data-protection-commission-announces-conclusion-two-inquiries-meta-ireland",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2023-01-04",
+       "status": "adjudicated",
+       "quote": "Meta Ireland €210 million (for breaches of the GDPR relating to its Facebook service)"
+      }
+     ]
+    },
+    {
+     "date": "2023-05-22",
+     "title": "Irish DPC fine over EU-US transfers of Facebook users' data",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€1.2 billion",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Decision adopted 2023-05-12 under GDPR Article 46(1), following the EDPB's binding decision.",
+     "procedural_note": {
+      "text": "Meta said on 2023-05-22 that it would appeal the decision, including the fine.",
+      "sources": [
+       {
+        "url": "https://about.fb.com/news/2023/05/our-response-to-the-decision-on-facebooks-eu-us-data-transfers/",
+        "type": "company_site",
+        "title": "Meta Newsroom",
+        "as_of": "2023-05-22",
+        "status": "self_disclosed",
+        "quote": "We intend to appeal both the decision's substance and its orders including the fine"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/Data-Protection-Commission-announces-conclusion-of-inquiry-into-Meta-Ireland",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2023-05-22",
+       "status": "adjudicated",
+       "quote": "its Facebook service … administrative fine in the amount of €1.2 billion"
+      }
+     ]
+    },
+    {
+     "date": "2024-07-30",
+     "title": "Texas biometric privacy settlement (Capture or Use of Biometric Identifier Act)",
+     "body": "Texas Attorney General",
+     "type": "lawsuit",
+     "amount": "$1.4 billion over five years",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Texas sued in February 2022 over facial recognition on photos uploaded to Facebook (Tag Suggestions).",
+     "sources": [
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-secures-14-billion-settlement-meta-over-its-unauthorized-capture",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2024-07-30",
+       "status": "adjudicated",
+       "quote": "$1.4 billion settlement with Meta … personal biometric data of millions of Texans"
+      },
+      {
+       "url": "https://www.texastribune.org/2024/07/30/texas-meta-facebook-biometric-data-settlement/",
+       "type": "journalism",
+       "title": "The Texas Tribune",
+       "as_of": "2024-07-30",
+       "status": "adjudicated",
+       "quote": "does not act as an admission of guilt and Meta maintains no wrongdoing"
+      }
+     ]
+    },
+    {
+     "date": "2024-09-27",
+     "title": "Irish DPC fine over passwords stored in plaintext",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€91 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "notes": "Meta notified the DPC in 2019 that it had stored some users' passwords without encryption. The release does not name the service.",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/DPC-announces-91-million-fine-of-Meta",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2024-09-27",
+       "status": "adjudicated",
+       "quote": "stored certain passwords of social media users in 'plaintext' … fine of €91million"
+      }
+     ]
+    },
+    {
+     "date": "2024-12-17",
+     "title": "Irish DPC fines over the 2018 Facebook token breach",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€251 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.facebook.katana",
+     "notes": "About 29 million accounts worldwide, about 3 million in the EU/EEA. Fines: €8 million (Art. 33(3)), €3 million (Art. 33(5)), €130 million (Art. 25(1)), €110 million (Art. 25(2)).",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/irish-data-protection-commission-fines-meta-eu251-million",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2024-12-17",
+       "status": "adjudicated",
+       "quote": "approximately 29 million Facebook accounts globally … administrative fines totalling €251 million"
       }
      ]
     }
