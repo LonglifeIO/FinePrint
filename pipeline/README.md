@@ -4,7 +4,7 @@ Runs on the Mac Mini. Scripts, not a package. Python 3.12+, stdlib + `requests` 
 
 Build order (each is a separate script, each is idempotent):
 
-1. `fetch_trackers.py` — Exodus `/api/trackers` plus `fp_trackers.json` (Fine Print's own, evidenced signatures)
+1. `fetch_trackers.py` — Exodus `/api/trackers` plus `fp_trackers.json` (FinePrint's own, evidenced signatures)
    → the Android asset `android/app/src/main/assets/trackers.json` and the identical `../bundle/trackers.json` (ODbL).
    Always rebuild with `--from-file raw/exodus-api-trackers-<date>.json`; a live fetch is a deliberate, rare act.
 2. `fetch_app.py <package>` — Exodus report, Play listing metadata, privacy-policy URL → `raw/` (gitignored).

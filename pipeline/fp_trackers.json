@@ -1,5 +1,5 @@
 {
- "about": "Fine Print's own code signatures, for trackers Exodus does not list. Same rules as Exodus: the signature is a regex searched in slash-separated class names (com/foo/Bar), and '.' matches any character. Ids are fp-<slug>, one entry per tracker ('|' joins several packages). pipeline/fetch_trackers.py merges these into android/app/src/main/assets/trackers.json, which stays under the ODbL like the Exodus data. Every entry must cite evidence a reviewer can re-check; a hit is evidence tier contains_code only.",
+ "about": "FinePrint's own code signatures, for trackers Exodus does not list. Same rules as Exodus: the signature is a regex searched in slash-separated class names (com/foo/Bar), and '.' matches any character. Ids are fp-<slug>, one entry per tracker ('|' joins several packages). pipeline/fetch_trackers.py merges these into android/app/src/main/assets/trackers.json, which stays under the ODbL like the Exodus data. Every entry must cite evidence a reviewer can re-check; a hit is evidence tier contains_code only.",
  "trackers": [
   {
    "id": "fp-arity",
@@ -12,7 +12,7 @@
    "website": "https://arity.com/",
    "added": "2026-10-02",
    "evidence": [
-    "Life360 26.37.0 (versionCode 2924500), base APK SHA-256 e468187c69ffa8439dc0a55705e608ec83387e458d796d5a1ea4ad49bfa8af20 (the same file Exodus report 785809 analysed from Google Play): defines 642 classes under com/arity/coreengine and com/arity/sensor, per the Fine Print APK scan harness on 2026-10-02.",
+    "Life360 26.37.0 (versionCode 2924500), base APK SHA-256 e468187c69ffa8439dc0a55705e608ec83387e458d796d5a1ea4ad49bfa8af20 (the same file Exodus report 785809 analysed from Google Play): defines 642 classes under com/arity/coreengine and com/arity/sensor, per the FinePrint APK scan harness on 2026-10-02.",
     "The same APK's manifest registers com.arity.coreengine.driving.CoreEngineForegroundService, com.arity.coreengine.tripinitiator.geofence.service.GeofenceInitiatorService and four com.arity.coreengine receivers; its dex strings include \"Driving Logs. Arity SDK is started\" and https://api.arity.com/mobileconfigservice/v1/config.",
     "Life360 builds 19.8.0 to 23.27.0 ship the SDK as com.arity.coreEngine.* (capital E), hence both spellings. Signature-verified APKs of MyRadar 8.74.0 and Arity's own Routely 5.4.0 also define CoreEngine classes; across eight APKs (about 344,000 classes) this signature matched every sample and nothing outside com/arity.",
     "The broader com.arity. is avoided on purpose: an unrelated developer (Arity Infoway) publishes apps under com.arity.arityhrmpro and com.arity.newshunt.",

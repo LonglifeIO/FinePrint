@@ -24,6 +24,7 @@ android {
         targetSdk = 37
         versionCode = 1
         versionName = "0.2.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -45,6 +46,10 @@ android {
         buildConfig = true
     }
 
+    sourceSets {
+        // The instrumented tests render the real reviewed records, read from the test APK's assets.
+        getByName("androidTest").assets.directories.add("../../bundle")
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -103,6 +108,14 @@ dependencies {
     }
 
     testImplementation(libs.junit)
+    // Instrumented UI tests (TapTargetTest). Test-only, AndroidX; nothing here ships in the app.
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    // Compose's test library pulls in Espresso 3.5, which can't drive Android 17 (InputManager.getInstance is gone).
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
     // Real org.json for JVM unit tests (android.jar only has stubs).
     testImplementation(libs.org.json)
 }
@@ -111,4 +124,8 @@ tasks.withType<Test>().configureEach {
     // The tests read the bundled signatures and bundle files from disk; rerun them when those change.
     inputs.file("src/main/assets/trackers.json").withPathSensitivity(PathSensitivity.RELATIVE)
     inputs.dir("src/test/resources").withPathSensitivity(PathSensitivity.RELATIVE).optional()
+    // ...and the real bundle and the published method, which TierTest and MethodDocTest read.
+    inputs.file("../../bundle/bundle.json").withPathSensitivity(PathSensitivity.RELATIVE)
+    inputs.file("../../docs/METHOD.md").withPathSensitivity(PathSensitivity.RELATIVE)
+    inputs.file("src/main/assets/METHOD.md").withPathSensitivity(PathSensitivity.RELATIVE)
 }

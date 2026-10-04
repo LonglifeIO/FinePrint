@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Fine Print stores nothing worth keeping, and nothing about other apps may leave the device:
+<!-- Nothing about other apps may leave the device, including the review marks FinePrint keeps on it:
      exclude everything from cloud backup and device-to-device transfer (Android 12+). -->
 <data-extraction-rules>
     <cloud-backup>

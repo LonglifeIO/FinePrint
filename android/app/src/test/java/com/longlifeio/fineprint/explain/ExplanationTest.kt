@@ -49,14 +49,6 @@ class ExplanationTest {
     }
 
     @Test
-    fun regulatoryActionAgainstSomeoneElseCarriesItsQualifier() {
-        assertEquals(
-            listOf("driving data", "regulatory action against Parent Co concerning this app's data"),
-            riskTagLabels(bundle.apps.getValue("com.example.family")),
-        )
-    }
-
-    @Test
     fun curatedAppJoinsItsOwnFlowsAndItsTrackersRecords() {
         val e = explain(
             app("com.example.family", granted = listOf("android.permission.ACCESS_FINE_LOCATION", "android.permission.CAMERA"), reach = listOf("autostart", "vpn_service")),
@@ -73,7 +65,6 @@ class ExplanationTest {
         // Every source is shown, primary first, and the procedural note travels with the line.
         assertEquals(listOf("https://example.org/opinion", "https://example.org/petition"), arity.sources.map { it.url })
         assertEquals("Part dismissed; on appeal.", arity.proceduralNote?.text)
-        assertEquals(2, e.tags.size)
         // AppsFlyer has no tracker record: derived from its Exodus category, marked auto (no status).
         assertNull(e.flows.getValue("stays_here").single { it.recipient == "AppsFlyer" }.status)
         // Only granted permissions that feed a shown data kind; CAMERA feeds nothing shown here.
@@ -81,6 +72,42 @@ class ExplanationTest {
         assertEquals(listOf("autostart"), e.reach.map { it.id }) // vpn_service has no boilerplate
         assertTrue(e.stale)
         assertEquals("Exodus lists 3 trackers; 2 are adapter references with no code in this app.", e.exodusNote)
+        // What it collects: plain labels from the flows, then from granted permissions; no permission names.
+        assertEquals(
+            listOf("Precise location", "What you do in the app", "Driving behaviour and movement", "Camera"),
+            e.collects,
+        )
+        // The reported breach goes under "Also reported"; nothing alleged or adjudicated is in the app's own record.
+        assertEquals(listOf("Emails leaked."), e.alsoReported.map { it.text })
+        assertTrue(e.onTheRecord.isEmpty())
+        assertEquals(Tier.FLAGGED, e.tier.tier)
+        assertEquals("Location data goes elsewhere — Example Family's own policy", e.tier.reason)
+    }
+
+    @Test
+    fun inferredLinesWithTheSameDataAndPurposeShowAsOneAfterTheReviewedOnes() {
+        val reviewed = FlowLine("precise_location", GOES_ELSEWHERE, "Partners", "p", "self_disclosed", null, false, emptyList(), null)
+        val shown = forDisplay(
+            deriveFlows("AdMob", listOf("Advertisement"), null) + reviewed + deriveFlows("Facebook Ads", listOf("Advertisement"), null),
+        )
+        assertEquals(listOf("Partners", "AdMob, Facebook Ads", "AdMob, Facebook Ads"), shown.map { it.recipient })
+        assertEquals(listOf("precise_location", "device_identifiers", "app_activity"), shown.map { it.data })
+    }
+
+    @Test
+    fun allegedLinesAlwaysSayNotProvenInCourt() {
+        assertEquals("Alleged by a state (not proven in court)", attribution("alleged", "Alleged by a state"))
+        assertEquals("Alleged; not proven in court.", attribution("alleged", "Alleged; not proven in court."))
+        assertEquals("Alleged (not proven in court)", attribution("alleged", null))
+        assertEquals("According to its policy.", attribution("self_disclosed", "According to its policy."))
+    }
+
+    @Test
+    fun anAppWithNoRecordShowsWhatTheScanFound() {
+        assertEquals(TierResult(null, "Checking its code…", "N"), explain(app("com.example.other"), null, bundle, emptyMap()).tier)
+        val unreadable = TrackerScanResult(emptyList(), dexFiles = 0, classes = 0, durationMs = 1, problems = listOf("x"))
+        assertEquals("Couldn't read its code · 1 permission", explain(app("com.example.other"), unreadable, bundle, emptyMap()).tier.reason)
+        assertEquals("No third-party trackers found · 1 permission", explain(app("com.example.other"), scan(emptyList()), bundle, emptyMap()).tier.reason)
     }
 
     @Test
@@ -88,11 +115,12 @@ class ExplanationTest {
         val signatures = mapOf("exodus-312" to TrackerSignature("exodus-312", "Google AdMob", "x", listOf("Advertisement")))
         val e = explain(app("com.example.other"), scan(listOf(tracker("exodus-312", "Google AdMob", "Advertisement"))), bundle, signatures)
         assertEquals("auto", e.coverage)
-        assertTrue(e.tags.isEmpty())
         assertTrue(e.summary.contains("Google AdMob"))
         assertEquals(setOf("device_identifiers", "app_activity"), e.flows.getValue("goes_elsewhere").map { it.data }.toSet())
         assertNull(e.lastReviewed)
         assertNull(e.exodusNote)
+        assertEquals(Tier.CAUTION, e.tier.tier)
+        assertEquals("Your advertising ID goes elsewhere — Google AdMob code in this app", e.tier.reason)
     }
 
     @Test
@@ -100,12 +128,14 @@ class ExplanationTest {
         val e = explain(app("com.example.other"), scan(listOf(tracker("exodus-27", "Crashlytics", "Crash reporting"))), null, emptyMap())
         assertEquals("crash_diagnostics", e.flows.getValue("stays_here").single().data)
         assertTrue(e.applies.isEmpty())
+        // No record: never Expected, just what the scan found.
+        assertEquals(TierResult(null, "1 tracker found · 1 permission", "N"), e.tier)
     }
 
     @Test
     fun firstPartyAdvertisingIsUsedForMoreNotElsewhere() {
         val flows = deriveFlows("Meta", listOf("Advertisement"), "first_party")
-        assertTrue(flows.all { it.first == "used_for_more" })
+        assertTrue(flows.all { it.bucket == USED_FOR_MORE })
     }
 
     @Test

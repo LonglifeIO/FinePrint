@@ -5,17 +5,21 @@ import android.os.Build
 import android.os.StrictMode
 import com.longlifeio.fineprint.bundle.BundleSession
 import com.longlifeio.fineprint.egress.ScanSession
+import com.longlifeio.fineprint.review.ReviewStore
 import dalvik.system.ZipPathValidator
+import java.io.File
 
 /** Owns the session, so scan results outlive activity recreation for as long as the process lives. */
 class FinePrintApp : Application() {
     val bundle: BundleSession by lazy { BundleSession(this) }
     val session: ScanSession by lazy { ScanSession(this) { bundle.state.value.signatures } }
+    /** Your Reviewed marks and ticks: in the no-backup directory, and never sent anywhere. */
+    val reviews: ReviewStore by lazy { ReviewStore(File(noBackupFilesDir, "reviews.json")) }
 
     override fun onCreate() {
         super.onCreate()
         // Apps targeting 34+ get a check that makes ZipFile reject any APK with an entry named like
-        // "../x". It guards extraction to disk, which Fine Print never does, and would otherwise
+        // "../x". It guards extraction to disk, which FinePrint never does, and would otherwise
         // hide such an app's code from the scan.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) ZipPathValidator.clearCallback()
         if (BuildConfig.DEBUG) {

@@ -6,7 +6,7 @@
 Writes android/app/src/main/assets/trackers.json, which is committed and shipped inside the APK.
 The app never calls the Exodus API itself; this script is the only thing that does.
 
-Fine Print's own signatures (ids "fp-<slug>", for trackers Exodus does not list) are merged in
+FinePrint's own signatures (ids "fp-<slug>", for trackers Exodus does not list) are merged in
 from pipeline/fp_trackers.json when that file exists. Every entry there must cite its evidence.
 
 Licence: the εxodus database is ODbL 1.0 (contents DbCL 1.0), so the asset is a Derivative
@@ -150,7 +150,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="app asset path to write")
     parser.add_argument("--bundle-out", type=Path, default=BUNDLE_OUT, help="bundle copy to write")
-    parser.add_argument("--fp", type=Path, default=DEFAULT_FP, help="Fine Print's own signatures")
+    parser.add_argument("--fp", type=Path, default=DEFAULT_FP, help="FinePrint's own signatures")
     parser.add_argument("--timeout", type=float, default=60.0, help="HTTP timeout in seconds")
     parser.add_argument("--force", action="store_true",
                         help="write even if the number of usable signatures dropped by more than 10%%")
@@ -204,7 +204,7 @@ def main() -> int:
     print(f"wrote {args.bundle_out}")
     fp_count = sum(1 for t in trackers if t["id"].startswith("fp-"))
     print(f"wrote {args.out} ({args.out.stat().st_size:,} bytes)")
-    print(f"  {len(trackers) - fp_count} Exodus trackers + {fp_count} Fine Print trackers;"
+    print(f"  {len(trackers) - fp_count} Exodus trackers + {fp_count} FinePrint trackers;"
           f" {len(with_code)} have a usable code signature (was {before})")
     if slow:
         print(f"  regex fallback on-device for: {', '.join(slow)}")

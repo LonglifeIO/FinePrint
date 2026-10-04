@@ -1,0 +1,75 @@
+package com.longlifeio.fineprint.explain
+
+import com.longlifeio.fineprint.bundle.AppRecord
+import com.longlifeio.fineprint.bundle.Source
+import com.longlifeio.fineprint.egress.InstalledApp
+
+/** One checklist item: an Android setting (ticked from what Android reports) or an in-app one (ticked by you). */
+data class CheckItem(
+    val id: String,
+    val label: String,
+    val how: String,
+    /** True when FinePrint ticks it itself, from the permissions Android reports. */
+    val automatic: Boolean,
+    val ticked: Boolean,
+    /** Data kinds (Android items) or flow ids (in-app items) the item limits. */
+    val limitsData: Set<String> = emptySet(),
+    val limitsFlows: Set<String> = emptySet(),
+    val sources: List<Source> = emptyList(),
+    /** In-app items: what turning it off changes, as the app puts it. */
+    val effect: String? = null,
+)
+
+/** The "What you can do" checklist, how many of the app's current flows it limits, and free-text controls for records without structured ones. */
+data class WhatYouCanDo(val items: List<CheckItem>, val limited: Int, val total: Int, val inAppText: String?) {
+    /** "3 of 11 flows limited by your settings"; null when nothing goes beyond running the app. */
+    val summary: String? get() = if (total == 0) null else "$limited of $total ${if (total == 1) "flow" else "flows"} limited by your settings"
+}
+
+private const val AD_ID = "com.google.android.gms.permission.AD_ID"
+
+/** Runtime permissions a person can turn off for one app, and where. */
+private val ANDROID_ITEMS = mapOf(
+    "android.permission.ACCESS_FINE_LOCATION" to (
+        "Turn off precise location" to "Android settings > Apps > this app > Permissions > Location: turn off Use precise location, or choose Don't allow."),
+    "android.permission.ACCESS_BACKGROUND_LOCATION" to (
+        "Turn off location in the background" to "Android settings > Apps > this app > Permissions > Location: choose Allow only while using the app."),
+    "android.permission.ACTIVITY_RECOGNITION" to (
+        "Turn off physical activity" to "Android settings > Apps > this app > Permissions > Physical activity: choose Don't allow."),
+    "android.permission.READ_CONTACTS" to (
+        "Turn off contacts" to "Android settings > Apps > this app > Permissions > Contacts: choose Don't allow."),
+)
+
+/**
+ * Android items for the permissions the app asks for that feed a line beyond "Stays here" (from the
+ * bundle's permission [feeds]); then the record's in-app controls. A current line counts as limited
+ * when a ticked item applies to its data kind or names it.
+ */
+fun whatYouCanDo(app: InstalledApp, e: Explanation, record: AppRecord?, feeds: Map<String, List<String>>, ticked: Set<String>): WhatYouCanDo {
+    val current = e.flows.filterKeys { it != STAYS_HERE }.values.flatten().filterNot { it.historical }
+    val currentData = current.map { it.data }.toSet()
+    val items = ArrayList<CheckItem>()
+    for (p in app.permissions) {
+        val data = feeds[p.name].orEmpty().filter { it in currentData }.toSet()
+        if (data.isEmpty()) continue
+        if (p.name == AD_ID) {
+            items += CheckItem(
+                "android:$AD_ID", "Delete your advertising ID",
+                "Android settings > Privacy > Ads: Delete advertising ID. It applies to every app, and FinePrint can't see it, so tick it yourself.",
+                automatic = false, ticked = "android:$AD_ID" in ticked, limitsData = data,
+            )
+        } else {
+            val (label, how) = ANDROID_ITEMS[p.name] ?: continue
+            items += CheckItem("android:${p.name}", label, how, automatic = true, ticked = !p.granted, limitsData = data)
+        }
+    }
+    record?.controls?.forEach { c ->
+        items += CheckItem(
+            c.id, c.label, c.how, automatic = false, ticked = c.id in ticked, limitsFlows = c.limits.toSet(), sources = c.sources,
+            effect = c.effect.ifBlank { null },
+        )
+    }
+    val limited = current.count { line -> items.any { it.ticked && (line.data in it.limitsData || line.id in it.limitsFlows) } }
+    // The record's free-text controls only when it has no structured ones; otherwise they'd repeat the items.
+    return WhatYouCanDo(items, limited, current.size, record?.privacyControls?.takeIf { record.controls.isEmpty() })
+}

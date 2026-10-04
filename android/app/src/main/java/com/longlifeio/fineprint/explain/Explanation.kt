@@ -2,7 +2,9 @@ package com.longlifeio.fineprint.explain
 
 import com.longlifeio.fineprint.bundle.AppRecord
 import com.longlifeio.fineprint.bundle.Bundle
+import com.longlifeio.fineprint.bundle.Company
 import com.longlifeio.fineprint.bundle.Consequence
+import com.longlifeio.fineprint.bundle.DataFlow
 import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.ReachText
 import com.longlifeio.fineprint.bundle.Source
@@ -10,19 +12,25 @@ import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.egress.TrackerSignature
 
-/** The explanation screen's content: organized by data, with the evidence underneath. */
+/** One app's explanation, in the detail screen's section order. */
 data class Explanation(
+    val appName: String,
     val summary: String,
-    /** "curated" (a reviewed record exists) or "auto" (derived from tracker categories only). */
+    /** "curated" (a reviewed record exists) or "auto" (inferred from tracker code only). */
     val coverage: String,
-    /** The record's risk tags in plain words, each with its qualifier when the record gives one. */
-    val tags: List<String>,
+    /** Its tier is null for "No record yet", with what the scan found as the line. */
+    val tier: TierResult,
+    val privacyControls: String?,
+    /** Plain labels: data kinds from the flows, then what granted permissions give the app. */
+    val collects: List<String>,
     /** bucket -> lines, in BUCKETS order; empty buckets are left out. */
     val flows: Map<String, List<FlowLine>>,
-    val consequences: List<Consequence>,
     val applies: List<AppliesLine>,
+    /** Legal and regulatory items: alleged or adjudicated. */
+    val onTheRecord: List<RecordItem>,
+    /** Current items others have reported, such as a breach. */
+    val alsoReported: List<RecordItem>,
     val reach: List<ReachText>,
-    val privacyControls: String?,
     val lastReviewed: String?,
     val stale: Boolean,
     val exodusNote: String?,
@@ -30,74 +38,82 @@ data class Explanation(
 
 data class FlowLine(
     val data: String,
+    val bucket: String,
     val recipient: String,
     val purpose: String,
-    /** null for lines Fine Print derived itself: shown as "auto", with no citation. */
+    /** null for lines FinePrint inferred itself ("Auto"). */
     val status: String?,
+    /** The attribution phrase; alleged lines always say "not proven in court". */
     val wording: String?,
     val historical: Boolean,
     /** Primary source first; empty for auto lines. */
     val sources: List<Source>,
     val proceduralNote: ProceduralNote?,
+    /** The tracker the line comes from; null for lines from the app's own record. */
+    val via: String? = null,
+    /** The record's flow id, when it has one: how in-app controls say which lines they limit. */
+    val id: String? = null,
 )
 
-data class AppliesLine(val permission: String, val plain: String, val whyItMatters: String)
-
-val BUCKETS = listOf("stays_here", "used_for_more", "goes_elsewhere")
-
-val DATA_LABELS = mapOf(
-    "precise_location" to "Precise location",
-    "approximate_location" to "Approximate location",
-    "movement_and_driving" to "How you move and drive",
-    "physical_activity" to "Physical activity",
-    "contacts" to "Your contacts",
-    "account_identity" to "Your name, email or account",
-    "device_identifiers" to "Device and advertising IDs",
-    "app_activity" to "What you do in the app",
-    "crash_diagnostics" to "Crash and performance data",
-    "sensitive_personal_data" to "Sensitive personal data",
+data class RecordItem(
+    val text: String,
+    val status: String,
+    val wording: String?,
+    val historical: Boolean,
+    /** "Action against … concerning this app's data", when the action isn't against the app's developer. */
+    val subject: String?,
+    val proceduralNote: ProceduralNote?,
+    val sources: List<Source>,
 )
+
+data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
 
 fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signatures: Map<String, TrackerSignature>): Explanation {
     val record = bundle?.apps?.get(app.packageName)
     val detected = scan?.trackers.orEmpty()
-    val lines = ArrayList<Pair<String, FlowLine>>()
-
+    val appName = record?.displayName ?: app.label
+    val lines = ArrayList<FlowLine>()
     record?.dataFlows?.forEach { f ->
-        val recipient = f.recipient?.let { bundle.companies[it]?.name } ?: f.recipientLabel ?: "Unnamed recipient"
-        lines += f.bucket to FlowLine(f.data, recipient, f.purpose, f.status, f.wording, f.historical, f.sources, f.proceduralNote)
+        lines += f.toLine(f.recipient?.let { bundle.companies[it]?.name } ?: f.recipientLabel ?: "Unnamed recipient", via = null)
     }
     for (tracker in detected) {
         val trackerRecord = bundle?.trackers?.get(tracker.id)
         if (trackerRecord != null && trackerRecord.dataFlows.isNotEmpty()) {
             val chain = trackerRecord.ownerChain.takeIf { it.isNotEmpty() }?.joinToString(" → ") ?: trackerRecord.owner
-            trackerRecord.dataFlows.forEach { f ->
-                lines += f.bucket to FlowLine(f.data, chain, f.purpose, f.status, f.wording, f.historical, f.sources, f.proceduralNote)
-            }
+            trackerRecord.dataFlows.forEach { lines += it.toLine(chain, via = tracker.name) }
         } else {
-            val categories = signatures[tracker.id]?.categories ?: tracker.categories
-            deriveFlows(tracker.name, categories, trackerRecord?.party).forEach { lines += it }
+            lines += deriveFlows(tracker.name, signatures[tracker.id]?.categories ?: tracker.categories, trackerRecord?.party)
         }
     }
-    val flows = BUCKETS.associateWith { b -> lines.filter { it.first == b }.map { it.second }.distinct() }.filterValues { it.isNotEmpty() }
-
-    val shownData = lines.map { it.second.data }.toSet()
-    val applies = app.permissions.filter { it.granted }.mapNotNull { p ->
-        bundle?.permissions?.get(p.name)?.takeIf { text -> text.feeds.any { it in shownData } }
-            ?.let { AppliesLine(p.name, it.plain, it.whyItMatters) }
-    }
-    val consequences = record?.consequences
-        ?: detected.flatMap { bundle?.trackers?.get(it.id)?.consequences.orEmpty() }
+    val shown = lines.distinct()
+    val granted = app.permissions.filter { it.granted }
+    val shownData = shown.map { it.data }.toSet()
+    val trackerConsequences = detected.flatMap { bundle?.trackers?.get(it.id)?.consequences.orEmpty() }
+    val items = (record?.consequences ?: trackerConsequences).map { it.toItem(record, app.packageName, bundle) }
+    val readable = scan != null && scan.dexFiles > 0
 
     return Explanation(
+        appName = appName,
         summary = record?.summary ?: autoSummary(detected.map { it.name }),
         coverage = if (record != null) "curated" else "auto",
-        tags = record?.let { riskTagLabels(it) }.orEmpty(),
-        flows = flows,
-        consequences = consequences,
-        applies = applies,
-        reach = app.deviceReach.mapNotNull { bundle?.deviceReach?.get(it) },
+        tier = if (record == null && !readable) TierResult(null, scanFacts(app, scan), "N") else tier(
+            curated = record != null,
+            appName = appName,
+            flows = shown,
+            events = tierEvents(record, trackerConsequences, bundle, app.packageName),
+            reach = app.deviceReach,
+            scanFacts = scanFacts(app, scan),
+        ),
         privacyControls = record?.privacyControls,
+        collects = (shown.map { DATA_LABELS[it.data] ?: it.data } + granted.mapNotNull { permissionLabel(it.name) }).distinct(),
+        flows = BUCKETS.associateWith { b -> forDisplay(shown.filter { it.bucket == b }) }.filterValues { it.isNotEmpty() },
+        applies = granted.mapNotNull { p ->
+            bundle?.permissions?.get(p.name)?.takeIf { text -> text.feeds.any { it in shownData } }
+                ?.let { AppliesLine(p.name, permissionLabel(p.name) ?: p.name.substringAfterLast('.'), it.plain, it.whyItMatters) }
+        },
+        onTheRecord = items.filter { it.status == "alleged" || it.status == "adjudicated" },
+        alsoReported = items.filter { it.status == "reported" && !it.historical },
+        reach = app.deviceReach.mapNotNull { bundle?.deviceReach?.get(it) },
         lastReviewed = record?.lastReviewed,
         stale = record?.stale == true,
         exodusNote = exodusNote(record?.exodusReport?.trackerCount, record?.trackers.orEmpty(), scan),
@@ -105,9 +121,70 @@ fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signat
 }
 
 /**
+ * Reviewed lines first, then inferred ones; inferred lines with the same data and purpose become one
+ * line naming every tracker ("Amplitude, Branch: Usage statistics for the developer"). Display only:
+ * the tier is worked out from the separate lines.
+ */
+internal fun forDisplay(lines: List<FlowLine>): List<FlowLine> {
+    val (inferred, reviewed) = lines.partition { it.status == null }
+    return reviewed + inferred.groupBy { it.data to it.purpose }.values.map { group ->
+        if (group.size == 1) group.single()
+        else group.first().copy(recipient = group.joinToString { it.recipient }, wording = "Inferred from their code in this app", via = null)
+    }
+}
+
+/** What the scan found, for an app FinePrint can't rate: "No third-party trackers found · 12 permissions". */
+internal fun scanFacts(app: InstalledApp, scan: TrackerScanResult?): String {
+    val permissions = if (app.permissions.size == 1) "1 permission" else "${app.permissions.size} permissions"
+    val trackers = scan?.trackers?.size ?: 0
+    return when {
+        !app.hasCode -> "No code of its own to check · $permissions"
+        scan == null -> "Checking its code…"
+        scan.dexFiles == 0 -> "Couldn't read its code · $permissions"
+        trackers == 0 -> "No third-party trackers found · $permissions"
+        else -> "${if (trackers == 1) "1 tracker" else "$trackers trackers"} found · $permissions"
+    }
+}
+
+/** Everything legal or regulatory that could set the tier, marked by whether it concerns this app's data. */
+private fun tierEvents(record: AppRecord?, trackerConsequences: List<Consequence>, bundle: Bundle?, pkg: String): List<TierEvent> =
+    record?.consequences.orEmpty().map { TierEvent(it.status, it.statusKind, it.concernsApp == null || it.concernsApp == pkg, it.sources) } +
+        trackerConsequences.map { TierEvent(it.status, it.statusKind, it.concernsApp == pkg, it.sources) } +
+        bundle?.companies?.values.orEmpty().flatMap { c -> c.events.filter { it.concernsApp == pkg } }
+            .map { TierEvent(it.status, it.statusKind, concernsThisApp = true, sources = it.sources) }
+
+private fun DataFlow.toLine(recipient: String, via: String?) =
+    FlowLine(data, bucket, recipient, purpose, status, attribution(status, wording), historical, sources, proceduralNote, via, id)
+
+private fun Consequence.toItem(record: AppRecord?, pkg: String, bundle: Bundle?) =
+    RecordItem(text, status, attribution(status, wording), historical, subjectLine(this, record, pkg, bundle), proceduralNote, sources)
+
+/** Alleged lines always say "not proven in court", whatever the record's own wording. */
+internal fun attribution(status: String?, wording: String?): String? = when {
+    status != "alleged" -> wording
+    wording == null -> "Alleged ($NOT_PROVEN)"
+    NOT_PROVEN in wording -> wording
+    else -> "$wording ($NOT_PROVEN)"
+}
+
+private fun subjectLine(c: Consequence, record: AppRecord?, pkg: String, bundle: Bundle?): String? {
+    val id = c.subjectCompany?.takeIf { it != record?.developerCompany } ?: return null
+    val who = bundle?.companies?.get(id)?.let { companyName(it) } ?: id
+    return if (c.concernsApp == null || c.concernsApp == pkg) "Action against $who concerning this app's data"
+    else "Action against $who over data collected through its SDK"
+}
+
+/** "Allstate/Arity" when the record gives a short name; otherwise "The Allstate Corporation and its unit Arity". */
+internal fun companyName(c: Company): String = when {
+    c.shortName != null -> (listOf(c.shortName) + c.subsidiaries).joinToString("/")
+    c.subsidiaries.isEmpty() -> c.name
+    else -> "${c.name} and its unit${if (c.subsidiaries.size > 1) "s" else ""} ${c.subsidiaries.joinToString(" and ")}"
+}
+
+/**
  * "Exodus lists N trackers; M are adapter references with no code in this app." N comes from the
  * Exodus report pinned in the reviewed record; M counts report trackers this scan saw only as
- * references. Without a record, the count Fine Print can compute on-device is an upper bound.
+ * references. Without a record, the count FinePrint can compute on-device is an upper bound.
  */
 internal fun exodusNote(reportCount: Int?, reportTrackers: List<String>, scan: TrackerScanResult?): String? {
     if (scan == null) return null
@@ -118,32 +195,12 @@ internal fun exodusNote(reportCount: Int?, reportTrackers: List<String>, scan: T
         return if (referenced > 0) {
             "Exodus lists $reportCount trackers; $referenced ${if (referenced == 1) "is an adapter reference" else "are adapter references"} with no code in this app."
         } else {
-            "Exodus lists $reportCount trackers; Fine Print found code for $found of them in this version."
+            "Exodus lists $reportCount trackers; FinePrint found code for $found of them in this version."
         }
     }
     val m = scan.referencedOnly.size
     if (m == 0) return null
     return "Exodus may list up to ${found + m}; $m ${if (m == 1) "is an adapter reference" else "are adapter references"} with no code in this app."
-}
-
-private val TAG_LABELS = mapOf(
-    "location_sale" to "location sale",
-    "telematics" to "driving data",
-    "ad_profiling" to "ad profiling",
-    "cross_app_tracking" to "cross-app tracking",
-    "data_broker" to "data brokers",
-    "breach" to "data breach",
-    "regulatory_action" to "regulatory action",
-    "child_data" to "children's data",
-)
-
-/**
- * A record's tags in plain words. A qualifier from the record follows its tag, so an action against
- * someone else reads "regulatory action against Allstate/Arity concerning this app's data".
- */
-internal fun riskTagLabels(record: AppRecord): List<String> = record.riskTags.map { tag ->
-    val label = TAG_LABELS[tag] ?: tag.replace('_', ' ')
-    record.riskTagNotes[tag]?.let { "$label $it" } ?: label
 }
 
 /**
@@ -152,14 +209,15 @@ internal fun riskTagLabels(record: AppRecord): List<String> = record.riskTags.ma
  * location go to the SDK's company for its own use ("goes elsewhere"), or stay in the company when
  * the tracker is its own (first party).
  */
-internal fun deriveFlows(trackerName: String, categories: List<String>, party: String?): List<Pair<String, FlowLine>> {
-    val elsewhere = if (party == "first_party") "used_for_more" else "goes_elsewhere"
-    fun line(bucket: String, data: String, purpose: String) =
-        bucket to FlowLine(data, trackerName, purpose, null, null, false, emptyList(), null)
+internal fun deriveFlows(trackerName: String, categories: List<String>, party: String?): List<FlowLine> {
+    val elsewhere = if (party == "first_party") USED_FOR_MORE else GOES_ELSEWHERE
+    fun line(bucket: String, data: String, purpose: String) = FlowLine(
+        data, bucket, trackerName, purpose, null, "Inferred from $trackerName code in this app", false, emptyList(), null, via = trackerName,
+    )
     return categories.flatMap { category ->
         when (category.lowercase()) {
-            "crash reporting", "crash_reporting" -> listOf(line("stays_here", "crash_diagnostics", "Crash reports for the developer"))
-            "analytics" -> listOf(line("stays_here", "app_activity", "Usage statistics for the developer"))
+            "crash reporting", "crash_reporting" -> listOf(line(STAYS_HERE, "crash_diagnostics", "Crash reports for the developer"))
+            "analytics" -> listOf(line(STAYS_HERE, "app_activity", "Usage statistics for the developer"))
             "advertisement", "advertising" -> listOf(
                 line(elsewhere, "device_identifiers", "Advertising"),
                 line(elsewhere, "app_activity", "Advertising"),
@@ -173,7 +231,7 @@ internal fun deriveFlows(trackerName: String, categories: List<String>, party: S
 }
 
 private fun autoSummary(trackerNames: List<String>): String = when (trackerNames.size) {
-    0 -> "Fine Print found no tracker code in this app. That doesn't show what the app itself does with your data, and there is no reviewed record for it yet."
-    else -> "Fine Print found code from ${trackerNames.size} tracker SDK${if (trackerNames.size == 1) "" else "s"} in this app: " +
+    0 -> "FinePrint found no tracker code in this app. That doesn't show what the app itself does with your data, and there is no reviewed record for it yet."
+    else -> "FinePrint found code from ${trackerNames.size} tracker SDK${if (trackerNames.size == 1) "" else "s"} in this app: " +
         trackerNames.joinToString() + ". There is no reviewed record for this app yet, so what they collect is inferred from each tracker's category."
 }

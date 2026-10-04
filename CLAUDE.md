@@ -1,4 +1,4 @@
-# CLAUDE.md — Fine Print
+# CLAUDE.md — FinePrint
 
 Read this before touching anything.
 
@@ -8,9 +8,9 @@ where its data goes: embedded tracker SDKs → owning company → what they sell
 matters to the user, every claim sourced. Not a permission manager; the explanation
 layer is the product.
 
-Naming: product is **Fine Print**. The scanning/detection module is **egress**
-(package `com.longlifeio.fineprint.egress`). Repo was briefly "Argus" — if you see it,
-it means Fine Print.
+Naming: the product is **FinePrint**, one word, everywhere (app label, screens, docs). The
+scanning/detection module is **egress** (package `com.longlifeio.fineprint.egress`). Repo was
+briefly "Argus" — if you see it, it means FinePrint.
 
 ## Architecture (three parts, one contract)
 - `bundle/schema.json` is the contract between pipeline and app. Change it only with
@@ -31,7 +31,7 @@ it means Fine Print.
   beyond AndroidX and dexlib2. The only network call the app ever makes is fetching
   the bundle.
 - Thin app, not a TrackerControl fork, for the static-scan build. Fork TrackerControl
-  only if/when we build the local-VPN monitoring (F-Droid) variant — Gate G3.
+  only if/when we build the local-VPN monitoring (F-Droid) variant — the observed-traffic gate.
 - Play build is static-scan only (no VpnService). F-Droid build may add live monitoring.
 - LLM in the app: none by default. If ever added, opt-in, on-device first.
 - Licence: code AGPL-3.0-or-later; `bundle/` data CC BY 4.0, except Exodus-derived tracker data,
@@ -56,10 +56,17 @@ it means Fine Print.
 - **G1** — thin app lists apps, permissions, detected trackers; Life360 shows Arity.
   Prompt: `prompts/g1-android-scanner.md`.
 - **G2** — bundle fetched over Tailscale; Life360 screen renders the insurance chain
-  with a tappable citation and a working "open settings" button.
-- **G3** — fork-vs-thin decision for the VPN/F-Droid build.
-- Later: QUERY_ALL_PACKAGES declaration on an internal Play track; Google developer
-  verification; F-Droid inclusion.
+  with a tappable citation and a working "open settings" button. Signed off on the emulator
+  (2026-10-04); the Tailscale path is tested when a second machine or a phone is available.
+- **G3** — the UI pass: list sorted by published tiers, the same sections with definitions on
+  every page, a Sources sheet, How to read this (`docs/METHOD.md`, word for word), 48dp tap
+  targets, on-device Reviewed marks and the "What you can do" checklist.
+- Next, in order: tracker records for common SDKs (they make the auto view useful); three more
+  curated apps (Facebook, TikTok, Google Maps; drafts in `pipeline/drafts/`, same review gate as
+  Life360); CI (a GitHub Action running assembleDebug and the pipeline tests on push).
+- Later gates: observed traffic on a test device, which is also the fork-vs-thin decision for
+  the VPN/F-Droid build; the QUERY_ALL_PACKAGES declaration on an internal Play track; the public
+  website; Google developer verification; F-Droid inclusion.
 
 ## Conventions
 - Timestamps: America/Halifax. Canadian spelling in user-facing text.
@@ -77,6 +84,6 @@ it means Fine Print.
 ## Do not
 - Add network calls to the app beyond the bundle fetch.
 - Send package names, permission grants, or detections off-device for any reason.
-- Vendor TrackerControl/NetGuard code before G3.
+- Vendor TrackerControl/NetGuard code before the observed-traffic gate.
 - Commit anything from `pipeline/raw/` or `pipeline/drafts/`.
 - Commit keystores, `local.properties`, tokens, or `.env`.

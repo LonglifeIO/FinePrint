@@ -1,6 +1,5 @@
 package com.longlifeio.fineprint.ui
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,29 +7,78 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import java.util.Locale
 
-/** Material 3 with the wallpaper-based palette on Android 12+, the baseline palette before that. */
+/**
+ * Colours that carry meaning: the three buckets and the tiers. Paul Tol's colour-blind-safe
+ * high-contrast scheme in light mode (blue, yellow, red), its light variants in dark mode. Colour
+ * never works alone: every use comes with an icon and a text label.
+ */
+@Immutable
+data class Signals(
+    val stays: Color, val onStays: Color,
+    val more: Color, val onMore: Color,
+    val elsewhere: Color, val onElsewhere: Color,
+    val none: Color, val onNone: Color,
+)
+
+private val LightSignals = Signals(
+    stays = Color(0xFF004488), onStays = Color.White,
+    more = Color(0xFFDDAA33), onMore = Color(0xFF1A1400),
+    elsewhere = Color(0xFFBB5566), onElsewhere = Color.White,
+    none = Color(0xFF63676E), onNone = Color.White,
+)
+
+private val DarkSignals = Signals(
+    stays = Color(0xFF77AADD), onStays = Color(0xFF0B1A2A),
+    more = Color(0xFFEEDD88), onMore = Color(0xFF221B00),
+    elsewhere = Color(0xFFEE6677), onElsewhere = Color(0xFF2A0A10),
+    none = Color(0xFFA9ADB4), onNone = Color(0xFF16181B),
+)
+
+val LocalSignals = staticCompositionLocalOf { LightSignals }
+
+/** A fixed palette (no wallpaper colours), so the signal colours look the same on every phone. */
+private val LightColors = lightColorScheme(
+    primary = Color(0xFF2D5F8B), onPrimary = Color.White,
+    primaryContainer = Color(0xFFD3E4F7), onPrimaryContainer = Color(0xFF0B2A45),
+    secondary = Color(0xFF4F6170), onSecondary = Color.White,
+    secondaryContainer = Color(0xFFD6E4F0), onSecondaryContainer = Color(0xFF0C1D2A),
+    tertiary = Color(0xFF6B5778), tertiaryContainer = Color(0xFFF2DAFF), onTertiaryContainer = Color(0xFF251431),
+    background = Color(0xFFFBFCFD), onBackground = Color(0xFF191C1F),
+    surface = Color(0xFFFBFCFD), onSurface = Color(0xFF191C1F),
+    surfaceVariant = Color(0xFFE1E5EA), onSurfaceVariant = Color(0xFF42474D),
+    surfaceContainerLowest = Color.White, surfaceContainerLow = Color(0xFFF4F6F8), surfaceContainer = Color(0xFFEEF0F3),
+    surfaceContainerHigh = Color(0xFFE8EBEE), surfaceContainerHighest = Color(0xFFE2E5E9),
+)
+
+private val DarkColors = darkColorScheme(
+    primary = Color(0xFFA6C8EE), onPrimary = Color(0xFF0B2A45),
+    primaryContainer = Color(0xFF23466A), onPrimaryContainer = Color(0xFFD3E4F7),
+    secondary = Color(0xFFB7C9D8), onSecondary = Color(0xFF213240),
+    secondaryContainer = Color(0xFF384957), onSecondaryContainer = Color(0xFFD6E4F0),
+    tertiary = Color(0xFFD7BEE4), tertiaryContainer = Color(0xFF523F5F), onTertiaryContainer = Color(0xFFF2DAFF),
+    background = Color(0xFF111417), onBackground = Color(0xFFE1E3E6),
+    surface = Color(0xFF111417), onSurface = Color(0xFFE1E3E6),
+    surfaceVariant = Color(0xFF41474D), onSurfaceVariant = Color(0xFFC1C7CE),
+    surfaceContainerLowest = Color(0xFF0C0F11), surfaceContainerLow = Color(0xFF191C1F), surfaceContainer = Color(0xFF1D2023),
+    surfaceContainerHigh = Color(0xFF272A2D), surfaceContainerHighest = Color(0xFF323538),
+)
+
 @Composable
 fun FinePrintTheme(content: @Composable () -> Unit) {
     val dark = isSystemInDarkTheme()
-    val colors = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-        dark -> darkColorScheme()
-        else -> lightColorScheme()
+    CompositionLocalProvider(LocalSignals provides if (dark) DarkSignals else LightSignals) {
+        MaterialTheme(colorScheme = if (dark) DarkColors else LightColors, content = content)
     }
-    MaterialTheme(colorScheme = colors, content = content)
 }
 
 /** A small rounded tag such as "Granted" or "3 trackers". */

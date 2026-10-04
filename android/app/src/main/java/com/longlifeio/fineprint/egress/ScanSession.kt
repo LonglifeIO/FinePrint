@@ -33,7 +33,7 @@ data class ScanProgress(
 )
 
 /**
- * What Fine Print knows for the life of the process: the installed apps and their tracker-scan
+ * What FinePrint knows for the life of the process: the installed apps and their tracker-scan
  * results, held in memory only. Nothing is written to disk and nothing leaves the device.
  */
 class ScanSession(

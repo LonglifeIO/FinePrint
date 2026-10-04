@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Only shown before Compose draws; the UI itself uses Material 3 colours. -->
-    <style name="Theme.FinePrint" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Only shown before Compose draws; the UI itself uses FinePrint's fixed Material 3 palette. -->
+    <style name="Theme.FinePrint" parent="android:Theme.DeviceDefault.DayNight">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

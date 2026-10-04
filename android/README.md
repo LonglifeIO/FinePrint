@@ -1,14 +1,20 @@
-# Fine Print — Android app
+# FinePrint — Android app
 
 Lists installed apps, shows each app's declared permissions and whether they are granted, and
 finds embedded tracker SDKs by scanning the app's dex code against tracker signatures (Exodus
-Privacy's list plus Fine Print's own). Since G2 it also downloads the knowledge bundle
+Privacy's list plus FinePrint's own). Since G2 it also downloads the knowledge bundle
 (`bundle.json` + `trackers.json`, whole files, once per launch) and explains each app by data:
 what it collects, who gets it, and whether that stays in the app, is used for more, or goes
-elsewhere. Every line carries a status badge and its tappable sources, primary first; a legal
-claim also says where the case stands (a dismissal, an appeal), with its own sources. Trackers and
-permissions sit under a collapsed "Evidence" section. Apps without a reviewed record get an "Auto" view
-inferred from tracker categories.
+elsewhere. Every line carries a status badge and one "Sources (n)" row that opens a sheet with
+each source's type, date, status and quote; a legal claim also says where the case stands (a
+dismissal, an appeal), with its own sources. Trackers and permissions sit under a collapsed
+"Evidence" section. Apps without a reviewed record get an "Auto" view inferred from tracker
+categories.
+
+Since G3 the list is sorted by a published tier (Flagged, Caution, Expected) with the one line
+that set it, and can be filtered and searched. Every detail page has the same sections, each with
+its definition, plus a "What you can do" checklist and a "Mark as reviewed" button. How to read
+this (from the list's menu or any page's footer) shows `docs/METHOD.md`, word for word.
 
 Kotlin, Jetpack Compose, Material 3, single module, minSdk 29, targetSdk 37.
 Scanning code lives in `com.longlifeio.fineprint.egress`.
@@ -25,7 +31,7 @@ Set up on the Mac mini, command-line only:
     metrics, on first use.
   - Avoid running `cmdline-tools/latest/bin/android` for the same reason.
 - **Shell environment:** `~/.zshrc` exports `JAVA_HOME`, `ANDROID_HOME` and adds adb to `PATH`
-  (the block marked "Fine Print Android toolchain").
+  (the block marked "FinePrint Android toolchain").
 - **`android/local.properties`** holds `sdk.dir=…`. It is gitignored; Gradle also honours `ANDROID_HOME`.
 
 Versions: AGP 9.4.1 (built-in Kotlin, so no `kotlin-android` plugin), Kotlin 2.4.20 (Compose
@@ -38,7 +44,14 @@ unused Guava dependency is excluded).
 cd android
 ./gradlew assembleDebug        # app/build/outputs/apk/debug/app-debug.apk
 ./gradlew testDebugUnitTest    # JVM tests, no device needed
+./gradlew connectedDebugAndroidTest   # on the emulator: TapTargetTest (every tap target 48dp or more)
 ```
+
+`connectedDebugAndroidTest` reinstalls the app, which drops its local-network grant: run
+`adb shell pm grant com.longlifeio.fineprint android.permission.ACCESS_LOCAL_NETWORK` afterwards.
+The unit tests also check the tier rules one by one (`TierTest`, including the real Life360
+record), the Reviewed marks and checklist, and that `docs/METHOD.md` and the copy the app ships
+match and contain every definition the screens show (`MethodDocTest`).
 
 The unit tests check:
 
@@ -115,7 +128,7 @@ The detail screen's **Open app settings** button opens Android's app-info page
 `app/src/main/assets/trackers.json` is built by `pipeline/fetch_trackers.py` from two sources:
 
 - **The Exodus list** (`/api/trackers`), with ids `exodus-<n>`.
-- **Fine Print's own entries**, with ids `fp-<slug>`, from `pipeline/fp_trackers.json`.
+- **FinePrint's own entries**, with ids `fp-<slug>`, from `pipeline/fp_trackers.json`.
 
 ```sh
 python3 pipeline/fetch_trackers.py                        # from the repo root; fetches the Exodus list
@@ -188,7 +201,7 @@ These differences from Exodus are deliberate:
 
 - **Only classes defined in the APK count.** That is what evidence tier `contains_code` claims.
   exodus-core also matches types an app merely references (interfaces, field and method types,
-  locals). For Life360 26.37.0, Exodus reports 27 trackers; Fine Print finds 12 of those plus
+  locals). For Life360 26.37.0, Exodus reports 27 trackers; FinePrint finds 12 of those plus
   Arity. The other 15 are ad SDKs referenced only by an ad-quality library inside Life360, and
   their code is not in the APK. The detail screen says so in one line ("Exodus may list up to N;
   M are adapter references with no code in this app"), counted on-device from every type the code
@@ -213,12 +226,15 @@ The emulator runs on the Mac's M4, so expect a phone to be several times slower.
 
 - **One network use.** The app holds `INTERNET` only to download `bundle.json` and `trackers.json`
   whole, with no query string, cookies or app data in the request. The server learns that someone
-  opened Fine Print, never which apps they have. Release builds fetch over HTTPS only.
+  opened FinePrint, never which apps they have. Release builds fetch over HTTPS only.
 - **Proof in debug builds.** The bundle client tags its sockets and logs each request as
   `NET GET <url> -> <code>`. StrictMode flags any untagged socket, so a stray SDK or library
   connection would show up in logcat.
-- **Nothing about you is stored.** Scan results are held in memory only and never written or
-  sent anywhere. The only thing written to disk is the downloaded bundle.
+- **What's stored stays on the phone.** Scan results are held in memory only. On disk there is
+  the downloaded bundle and, once you use them, your Reviewed marks and checklist ticks: one JSON
+  file in the app's no-backup directory holding package names, the permissions granted and the
+  trackers found when you marked each app. The manifest turns off backup and device transfer, and
+  none of it is ever sent anywhere.
 - **Logs.** Per-app log lines, which contain package names, are written only by debuggable builds.
   Release builds log totals only.
 
@@ -226,7 +242,7 @@ The emulator runs on the Mac's M4, so expect a phone to be several times slower.
 
 `trackers.json` is derived from the εxodus tracker database, which is published under the Open
 Database License (ODbL) 1.0, with contents under DbCL 1.0. The file stays under the ODbL, and that
-covers Fine Print's own entries merged into it. It carries the notice in its `attribution` field,
+covers FinePrint's own entries merged into it. It carries the notice in its `attribution` field,
 and the app shows that notice under every tracker list.
 
 ## Scanning APKs on the Mac

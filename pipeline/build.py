@@ -107,7 +107,17 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
     for app in bundle["apps"]:
         errors += [f"{app['package_id']}: tracker {t!r} not in trackers.json" for t in app["trackers"] if t not in tracker_ids]
         errors += risk_tag_problems(app)
+        errors += control_problems(app)
     errors += [f"tracker record {t['id']!r} not in trackers.json" for t in bundle["trackers"] if t["id"] not in tracker_ids]
+    return errors
+
+
+def control_problems(app: dict) -> list[str]:
+    """Flow ids are unique within an app, and every control limits flows that exist in that app."""
+    ids = [f["id"] for f in app.get("data_flows", []) if "id" in f]
+    errors = [f"{app['package_id']}: flow id {i!r} used twice" for i in sorted({i for i in ids if ids.count(i) > 1})]
+    for control in app.get("controls", []):
+        errors += [f"{app['package_id']}: control {control['id']!r} limits unknown flow {i!r}" for i in control["limits"] if i not in ids]
     return errors
 
 
@@ -177,10 +187,10 @@ def build(reviewed: list[Path], now: dt.datetime) -> dict:
     mark_stale(merged["apps"], now.date())
     return {
         "schema_version": 1,
-        "schema_revision": "1.1",
+        "schema_revision": "1.2",
         "bundle_version": now.strftime("%Y.%m.%d"),
         "generated_at": now.isoformat(timespec="seconds"),
-        "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: Fine Print",
+        "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
         **merged,
     }
 

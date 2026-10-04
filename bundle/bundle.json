@@ -1,16 +1,16 @@
 {
  "schema_version": 1,
- "schema_revision": "1.1",
+ "schema_revision": "1.2",
  "bundle_version": "2026.10.04",
- "generated_at": "2026-10-04T14:41:31-03:00",
- "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: Fine Print",
+ "generated_at": "2026-10-04T16:17:11-03:00",
+ "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
    "package_id": "com.life360.android.safetymapd",
    "display_name": "Life360",
    "developer": "Life360, Inc.",
    "developer_company": "co-life360",
-   "summary": "Life360 shares your family's locations with each other, but its policy also lets it pass precise location, movement and driving data to outside companies. Some of those partners use the data to make money for themselves, and aggregated driving data is offered to help insurers \"understand and predict driving behavior.\" The Texas AG and a federal class action allege that Allstate's Arity gathered driving data through apps like Life360 and sold it to insurers. Neither is proven in court, and part of the Texas case is under appeal. You can switch most of this off in the app's privacy settings.",
+   "summary": "Life360 lets family members see each other's locations and get driving and crash alerts. To do that, it collects precise location, movement and driving data. According to its privacy policy (26 Aug 2026), it may also share that data with business partners for their own commercial use, and offer aggregated driving data to help insurers model driving behaviour. One partner, Arity (owned by Allstate), is the subject of ongoing lawsuits over how driving data from apps like Life360 was used; nothing is proven, and Life360 isn't a defendant. If you want the family features without the partner sharing, Life360's own settings let you turn most of it off.",
    "risk_tags": [
     "location_sale",
     "telematics",
@@ -62,9 +62,10 @@
    "privacy_controls": "In the Life360 app: \"Your Privacy Choices\" (ads and partners' own use), \"Trusted Partners\" (disconnect partner feeds) and \"Traffic & Retail Insights\" (aggregate insights). Life360 says it does not share or sell data of members it knows are under 18.",
    "data_flows": [
     {
+     "id": "flow-l360-partners-location",
      "data": "precise_location",
      "recipient_label": "Select business partners",
-     "purpose": "Their own money-making, not just running Life360 features",
+     "purpose": "For \"their own monetization purposes\", not just to run Life360 features",
      "bucket": "goes_elsewhere",
      "status": "self_disclosed",
      "wording": "According to Life360's privacy policy dated 2026-08-26.",
@@ -81,6 +82,7 @@
      ]
     },
     {
+     "id": "flow-l360-aggregate-insights",
      "data": "movement_and_driving",
      "recipient_label": "Business partners (aggregated, de-identified)",
      "purpose": "Help insurers predict driving behaviour",
@@ -100,6 +102,7 @@
      ]
     },
     {
+     "id": "flow-l360-sensitive",
      "data": "sensitive_personal_data",
      "recipient_label": "Buyers Life360 does not name",
      "purpose": "May be sold (Texas notice)",
@@ -120,6 +123,7 @@
      ]
     },
     {
+     "id": "flow-l360-ads-ids",
      "data": "device_identifiers",
      "recipient_label": "Advertising partners",
      "purpose": "Target ads to you in other apps and sites",
@@ -139,6 +143,7 @@
      ]
     },
     {
+     "id": "flow-l360-ads-activity",
      "data": "app_activity",
      "recipient_label": "Advertising partners",
      "purpose": "Target ads to you in other apps and sites",
@@ -158,6 +163,7 @@
      ]
     },
     {
+     "id": "flow-l360-ads-email",
      "data": "account_identity",
      "recipient_label": "Advertising partners",
      "purpose": "A hashed version of your email, to target ads",
@@ -177,6 +183,7 @@
      ]
     },
     {
+     "id": "flow-l360-brokers-2021",
      "data": "precise_location",
      "recipient_label": "About a dozen data brokers (2021)",
      "purpose": "Sold, per The Markup's 2021 reporting; Life360 said in 2022 it would stop, except for Arity",
@@ -226,7 +233,7 @@
      ]
     },
     {
-     "text": "Your precise location and movement data can go to \"select business partners\" who use it for their own money-making, not just to run Life360 features.",
+     "text": "Your precise location and movement data can go to \"select business partners\" who use it for \"their own monetization purposes\", not just to run Life360 features.",
      "status": "self_disclosed",
      "wording": "According to Life360's privacy policy dated 2026-08-26.",
      "sources": [
@@ -401,6 +408,99 @@
        "accessed": "2026-10-02",
        "status": "reported",
        "quote": "personal information of 442,519 Life360 customers has been leaked"
+      }
+     ]
+    }
+   ],
+   "controls": [
+    {
+     "id": "ctl-l360-privacy-choices",
+     "label": "Your Privacy Choices",
+     "how": "In the Life360 app: the Privacy section of your account settings, then Your Privacy Choices",
+     "effect": "Life360 doesn't say what changes.",
+     "limits": [
+      "flow-l360-ads-ids",
+      "flow-l360-ads-activity",
+      "flow-l360-ads-email",
+      "flow-l360-partners-location",
+      "flow-l360-sensitive"
+     ],
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §III",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "control over our use and disclosure of your personal information for targeted advertising purposes",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      },
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §VIII.A",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "disclosures by Life360 of your information to certain partners for their own commercial purposes",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      },
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §VIII.A, opt out of sales",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "You may opt out of activities … \"sales\" of personal information, including precise geolocation data",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      },
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §VIII.A, sensitive personal information",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "these tools to opt out … limit our use and disclosure of precise geolocation data",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "id": "ctl-l360-trusted-partners",
+     "label": "Trusted Partners",
+     "how": "In the Life360 app: the Privacy section of your account settings, then Trusted Partners",
+     "effect": "According to its privacy policy (26 Aug 2026), disconnecting a partner data feed \"may disable useful product features.\"",
+     "limits": [
+      "flow-l360-partners-location"
+     ],
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §VIII.A",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "such use by disconnecting the applicable partner data feed … may disable useful product features",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "id": "ctl-l360-traffic-insights",
+     "label": "Traffic & Retail Insights",
+     "how": "In the Life360 app: the Privacy section of your account settings, then Traffic & Retail Insights",
+     "effect": "Life360 doesn't say what changes.",
+     "limits": [
+      "flow-l360-aggregate-insights"
+     ],
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §IV.E",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "opt out of the processing of your data for those purposes",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
       }
      ]
     }
@@ -594,6 +694,7 @@
   {
    "id": "co-allstate",
    "name": "The Allstate Corporation",
+   "short_name": "Allstate",
    "subsidiaries": [
     "Arity"
    ],

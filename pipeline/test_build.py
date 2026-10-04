@@ -18,7 +18,7 @@ VALIDATOR = build.jsonschema.Draft202012Validator(
 
 
 def doc(**sections) -> dict:
-    base = {"schema_version": 1, "schema_revision": "1.1", "bundle_version": "2026.10.04",
+    base = {"schema_version": 1, "schema_revision": "1.2", "bundle_version": "2026.10.04",
             "generated_at": "2026-10-04T12:00:00-03:00", "apps": [], "trackers": [], "companies": [],
             "permissions": [], "device_reach": []}
     return dict(base, **sections)
@@ -112,6 +112,21 @@ class SourceRulesTest(unittest.TestCase):
         self.assertEqual(schema_errors(event("2024-07-20")), [])
         self.assertTrue(schema_errors(event("2024-13")))
         self.assertTrue(schema_errors(event("March 2024")))
+
+
+class ControlTest(unittest.TestCase):
+    def test_a_control_limits_flows_of_its_own_app(self):
+        flow = {"id": "flow-a", "data": "precise_location", "recipient_label": "x", "purpose": "p", "bucket": "goes_elsewhere",
+                "status": "self_disclosed", "sources": [SOURCE]}
+        control = {"id": "ctl-a", "label": "Setting", "how": "In the app", "effect": "The app doesn't say what changes.",
+                   "limits": ["flow-a"], "sources": [SOURCE]}
+        good = dict(app("2026-10-01"), data_flows=[flow], controls=[control])
+        self.assertEqual(build.control_problems(good), [])
+        self.assertEqual(schema_errors(doc(apps=[good])), [])
+        bad = dict(good, controls=[dict(control, limits=["flow-missing"])], data_flows=[flow, flow])
+        problems = build.control_problems(bad)
+        self.assertTrue(any("flow-missing" in p for p in problems))
+        self.assertTrue(any("used twice" in p for p in problems))
 
 
 class RiskTagTest(unittest.TestCase):

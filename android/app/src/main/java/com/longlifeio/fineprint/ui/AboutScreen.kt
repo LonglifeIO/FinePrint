@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -12,7 +13,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.BuildConfig
 import com.longlifeio.fineprint.R
@@ -26,20 +29,27 @@ fun AboutScreen(state: BundleState, baseUrl: String, onBack: () -> Unit, onRefre
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("About Fine Print") },
+                title = { Text("About FinePrint") },
                 navigationIcon = {
-                    IconButton(onClick = onBack) { Icon(painterResource(R.drawable.ic_arrow_back), contentDescription = "Back") }
+                    IconButton(onClick = onBack, modifier = Modifier.size(TOUCH)) { Icon(painterResource(R.drawable.ic_arrow_back), contentDescription = "Back") }
                 },
             )
         },
     ) { padding ->
         LazyColumn(contentPadding = padding, modifier = Modifier.fillMaxSize()) {
+            item {
+                Text(
+                    "FinePrint — read it so you don't have to.",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                )
+            }
             item { SectionTitle("Knowledge bundle") }
             item { Note(bundleStatus(state)) }
             item { Note("Downloaded whole from $baseUrl; the app never asks a server about a particular app.") }
             state.error?.let { item { Note(it) } }
             item {
-                OutlinedButton(onClick = onRefresh, enabled = !state.refreshing, modifier = Modifier.padding(horizontal = 16.dp)) {
+                OutlinedButton(onClick = onRefresh, enabled = !state.refreshing, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = TOUCH)) {
                     Text(if (state.refreshing) "Updating…" else "Update now")
                 }
             }
@@ -52,12 +62,13 @@ fun AboutScreen(state: BundleState, baseUrl: String, onBack: () -> Unit, onRefre
                         "Database Contents License (DbCL) 1.0.",
                 )
             }
-            item { Note("Fine Print's own tracker signatures (fp-*) are part of the same file, under the same licence.") }
+            item { Note("FinePrint's own tracker signatures (fp-*) are part of the same file, under the same licence.") }
             item { SectionTitle("Licences") }
-            item { Note("Fine Print's code: AGPL-3.0-or-later.") }
-            item { Note("Fine Print's records (bundle.json): CC BY 4.0, attribution Fine Print.") }
+            item { Note("FinePrint's code: AGPL-3.0-or-later.") }
+            item { Note("FinePrint's records (bundle.json): CC BY 4.0, attribution FinePrint.") }
             item { Note("Tracker list (trackers.json): ODbL 1.0, from εxodus (above).") }
             item { Note("dexlib2 (smali): Apache License 2.0.") }
+            item { Note("Icons: Material Icons, Apache License 2.0.") }
             item { Note("App version ${BuildConfig.VERSION_NAME}.") }
         }
     }

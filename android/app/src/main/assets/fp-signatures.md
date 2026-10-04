@@ -1,4 +1,4 @@
-# Fine Print's own tracker signatures (`fp-*`)
+# FinePrint's own tracker signatures (`fp-*`)
 
 Signatures for trackers the Exodus list lacks. They live in `pipeline/fp_trackers.json`, are merged
 into `trackers.json` by `pipeline/fetch_trackers.py`, and follow Exodus's rules: a regex searched in

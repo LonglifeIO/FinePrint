@@ -29,7 +29,7 @@ data class TrackerScanResult(
     val outOfMemory: Boolean = false,
     /**
      * Ids of Exodus trackers whose types the code only references (e.g. ad-mediation adapters) with no
-     * code of their own here. exodus-core counts these; Fine Print does not.
+     * code of their own here. exodus-core counts these; FinePrint does not.
      */
     val referencedOnly: List<String> = emptyList(),
 )

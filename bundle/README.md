@@ -9,12 +9,12 @@ it never asks a server about a particular app.
 Exodus tracker data is ODbL 1.0, and its share-alike must not reach our records, so:
 
 - `trackers.json` — Exodus-derived tracker data (names, signatures, categories, websites) plus
-  Fine Print's own `fp-*` signatures. ODbL 1.0, contents DbCL 1.0, with the εxodus attribution in
+  FinePrint's own `fp-*` signatures. ODbL 1.0, contents DbCL 1.0, with the εxodus attribution in
   the file. Built by `pipeline/fetch_trackers.py`, which writes the same file into the app's assets
   so scanning works before the first download.
 - `bundle.json` — our reviewed records: apps, tracker explanations, companies, permission and
   device-reach boilerplate. CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution
-  Fine Print. It references trackers by id only and does not copy Exodus fields. Built by
+  FinePrint. It references trackers by id only and does not copy Exodus fields. Built by
   `pipeline/build.py` from `pipeline/reviewed/`.
 
 ## Evidence rules
@@ -33,4 +33,9 @@ See `CLAUDE.md` for the status levels and the wording that goes with each.
 - A legal claim may carry a `procedural_note` (a dismissal, an appeal) with its own sources. It
   never changes the claim's status.
 - A `regulatory_action` tag on an app whose record has no action against its own developer needs a
-  `risk_tag_notes` qualifier, e.g. "against Allstate/Arity concerning this app's data".
+  `risk_tag_notes` qualifier, e.g. "against Allstate/Arity concerning this app's data". Tags are
+  for sorting and filtering; the app never shows them as a list of labels.
+- An app's `controls` are its in-app settings for the "What you can do" checklist. Each names the
+  flows it limits by `id` (flows in the same record), says what turning it off changes (`effect`:
+  the app's own quoted words, attributed, or that it doesn't say), and carries its own sources.
+- Wording follows the copy rules in `docs/METHOD.md` ("How records are made").

@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 /**
  * One tracker from the bundled signature list: Exodus Privacy's trackers (id "exodus-<n>") plus any
- * Fine Print additions (id "fp-<slug>"). Same id form as bundle/schema.json, so G2 can join on it.
+ * FinePrint additions (id "fp-<slug>"). Same id form as bundle/schema.json, so G2 can join on it.
  */
 data class TrackerSignature(
     val id: String,
