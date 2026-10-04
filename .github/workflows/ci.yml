@@ -1,0 +1,51 @@
+# Pipeline tests, schema validation of pipeline/reviewed/*.json, and a debug build of the app.
+# Actions are pinned to commit SHAs; the comment after each is the release it came from.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pipeline:
+    name: Pipeline tests and record validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Install requests and jsonschema (the pipeline's only dependencies)
+        run: python -m pip install --disable-pip-version-check requests==2.32.5 jsonschema==4.25.1
+      - name: Pipeline tests
+        run: python -m unittest discover -s pipeline -p 'test_*.py' -v
+      # build.py merges the reviewed records, validates them against bundle/schema.json and cross-checks
+      # company, source and tracker ids. Source URLs are checked on the Mac at build time instead:
+      # several sites refuse data-centre addresses, and the check fetches every page each time.
+      - name: Validate reviewed records against bundle/schema.json
+        run: python pipeline/build.py --skip-url-check --out "$RUNNER_TEMP/bundle-preview.json"
+
+  android:
+    name: Android debug build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Install the Android 17 (API 37) platform
+        run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-37.0"'
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      - name: assembleDebug
+        working-directory: android
+        run: ./gradlew assembleDebug --stacktrace

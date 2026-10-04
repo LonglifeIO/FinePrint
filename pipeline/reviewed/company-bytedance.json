@@ -1,0 +1,197 @@
+{
+ "companies": [
+  {
+   "id": "co-bytedance",
+   "name": "ByteDance Ltd.",
+   "subsidiaries": [
+    "TikTok"
+   ],
+   "roles": [
+    "developer",
+    "tracker_owner"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2019-02-27",
+     "title": "Musical.ly (now TikTok) COPPA settlement",
+     "body": "US Federal Trade Commission",
+     "type": "fine",
+     "amount": "$5.7 million",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Settled allegations that Musical.ly collected personal information from children under 13 without parental consent.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/press-releases/2019/02/video-social-networking-app-musically-agrees-settle-ftc",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2019-02-27",
+       "status": "adjudicated",
+       "quote": "Musical.ly, now known as TikTok, have agreed to pay $5.7 million",
+       "wayback_url": "https://web.archive.org/web/20220308074733/https://www.ftc.gov/news-events/press-releases/2019/02/video-social-networking-app-musically-agrees-settle-ftc",
+       "wayback_date": "2022-03-08",
+       "verify_url": "https://web.archive.org/web/20220308074733/https://www.ftc.gov/news-events/press-releases/2019/02/video-social-networking-app-musically-agrees-settle-ftc"
+      }
+     ]
+    },
+    {
+     "date": "2023-09-01",
+     "title": "Irish DPC fine over children's data",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€345 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Decision IN-21-9-1 against TikTok Technology Limited, covering 31 July to 31 December 2020.",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/dpc-guidance/decisions/inquiry-tiktok-technology-limited-september-2023",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) decision summary",
+       "as_of": "2023-09-01",
+       "status": "adjudicated",
+       "quote": "personal data relating to child users … Administrative fines totalling €345 million"
+      }
+     ]
+    },
+    {
+     "date": "2024-08-02",
+     "title": "United States v. TikTok Inc. and ByteDance Ltd. (COPPA)",
+     "body": "US District Court, Central District of California",
+     "type": "lawsuit",
+     "status": "alleged",
+     "status_kind": "filed",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Brought by the Justice Department with the FTC. Pending; not proven.",
+     "procedural_note": {
+      "text": "On 2026-08-21 the Justice Department announced a $400 million settlement, saying there had been no determination of liability. In September 2026 the court rejected the settlement as proposed and let the department refile.",
+      "sources": [
+       {
+        "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+        "type": "regulator",
+        "title": "US Department of Justice press release",
+        "as_of": "2026-08-21",
+        "status": "alleged",
+        "quote": "allegations only, and there has been no determination of liability",
+        "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+        "wayback_date": "2026-09-27",
+        "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+       },
+       {
+        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
+        "type": "journalism",
+        "title": "MediaPost",
+        "as_of": "2026-09-22",
+        "status": "reported",
+        "quote": "amend its request for settlement approval and refile … The deal that Wu rejected"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2024-08-02",
+       "status": "alleged",
+       "quote": "TikTok knowingly permitted children to create regular TikTok accounts",
+       "wayback_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
+       "wayback_date": "2026-09-01",
+       "verify_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens"
+      }
+     ]
+    },
+    {
+     "date": "2025-05-02",
+     "title": "Irish DPC fine over transfers of EEA users' data to China",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€530 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Against TikTok Technology Limited, under GDPR Article 46(1) and transparency rules.",
+     "procedural_note": {
+      "text": "TikTok appealed. In June 2026 Ireland's High Court upheld the finding that TikTok broke EU privacy rules and told the regulator to reconsider its order to suspend transfers to China; a separate judgment on the fine had not yet been published.",
+      "sources": [
+       {
+        "url": "https://www.rte.ie/news/ireland/2025/0502/1510729-tiktok-fine/",
+        "type": "journalism",
+        "title": "RTÉ News",
+        "as_of": "2025-05-02",
+        "status": "reported",
+        "quote": "TikTok has confirmed it plans to appeal a €530 million fine"
+       },
+       {
+        "url": "https://www.irishtimes.com/ireland/2026/06/30/data-protection-commission-reconsidering-tiktok-data-transfer-ban-after-court-ruling/",
+        "type": "journalism",
+        "title": "The Irish Times (Reuters)",
+        "as_of": "2026-06-30",
+        "status": "reported",
+        "quote": "upheld the DPC's finding that TikTok breached EU privacy rules … to reconsider"
+       },
+       {
+        "url": "https://www.irishtimes.com/ireland/2026/06/30/data-protection-commission-reconsidering-tiktok-data-transfer-ban-after-court-ruling/",
+        "type": "journalism",
+        "title": "The Irish Times (Reuters)",
+        "as_of": "2026-06-30",
+        "status": "reported",
+        "quote": "A separate judgment regarding TikTok's appeal against the fine"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/latest-news/irish-data-protection-commission-fines-tiktok-eu530-million-and-orders-corrective-measures-following",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2025-05-02",
+       "status": "adjudicated",
+       "quote": "fines totalling €530 million … stored on servers in China"
+      }
+     ]
+    },
+    {
+     "date": "2025-09-23",
+     "title": "Joint investigation of TikTok Pte. Ltd. (PIPEDA Findings #2025-003)",
+     "body": "Privacy commissioners of Canada, Quebec, British Columbia and Alberta",
+     "type": "regulator_action",
+     "status": "adjudicated",
+     "status_kind": "regulator_finding",
+     "concerns_app": "com.zhiliaoapp.musically",
+     "notes": "Found TikTok's measures to keep children off the platform inadequate; TikTok agreed to strengthen age assurance and privacy communications.",
+     "sources": [
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/nr-c_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada news release",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "measures in place to keep children off the popular video-sharing platform … were inadequate"
+      },
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/bg_tiktok_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada backgrounder",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "create profiles about users, including children, which is being used to deliver targeted ads"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "co-tiktok-usds",
+   "name": "TikTok USDS Joint Venture LLC",
+   "jurisdiction": "US",
+   "roles": [
+    "developer"
+   ],
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}
