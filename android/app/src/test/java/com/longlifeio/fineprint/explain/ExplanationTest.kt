@@ -11,6 +11,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
+import java.time.LocalDate
 
 class ExplanationTest {
 
@@ -140,7 +141,8 @@ class ExplanationTest {
         // Both kits are found; the record's two lines show once each, and no line is inferred for either kit.
         assertEquals(listOf("app_activity", "device_identifiers"), e.flows.getValue(GOES_ELSEWHERE).map { it.data })
         assertTrue(e.flows.values.flatten().all { it.recipient == "Kit Co" && it.status == "self_disclosed" })
-        assertEquals(1, e.onTheRecord.actions.size) // the record's ruling, once
+        // The record's ruling, once, about the company whose kits they are: it doesn't name this app, so it sets no tier.
+        assertEquals(listOf("2025-05-05 · Regulator · ruled · about Kit"), e.onTheRecord.actions.map { it.line })
         // Credited to the company whose kits they are, not to one kit.
         assertEquals("In-app activity goes elsewhere — Kit's own disclosure", e.tier.reason)
     }
@@ -153,6 +155,25 @@ class ExplanationTest {
         assertEquals(listOf("Kit's own ads", "Measuring Kit's ads"), e.flows.getValue(USED_FOR_MORE).map { it.purpose })
         assertTrue(sameCompany("co-kitlabs", "co-kit", bundle)) // one owns the other
         assertTrue(!sameCompany("co-kit", "co-dev", bundle))
+    }
+
+    /** Present over past: a 2019 settlement that has ended is shown but scores nothing; a 2019 order still in force does. */
+    @Test
+    fun onlyOngoingOrRecentActionsSetTheTier() {
+        val today = LocalDate.of(2026, 10, 4)
+        val settled = explain(app("com.example.settled"), scan(emptyList()), bundle, emptyMap(), today)
+        assertEquals(TierResult(Tier.EXPECTED, "Nothing found beyond running the app", "E"), settled.tier)
+        assertEquals(listOf("2019-03-01 · A regulator · settled · \$1 million · closed 2019-06-01"), settled.onTheRecord.past.map { it.line })
+        // The developer's order about its other app is ongoing, and marked as about the company.
+        assertEquals(listOf("2019-07-24 · A regulator · consent order, in force · about Old"), settled.onTheRecord.ongoing.map { it.line })
+
+        val ordered = explain(app("com.example.ordered"), scan(emptyList()), bundle, emptyMap(), today)
+        assertEquals(TierResult(Tier.FLAGGED, "A 2019 ruling on this app's data: 2019 privacy order", "F2"), ordered.tier)
+        assertEquals(listOf("2019-07-24 · A regulator · consent order, in force"), ordered.onTheRecord.ongoing.map { it.line })
+
+        // The same settlement, had it ended within three years, would still count.
+        val thenToday = LocalDate.of(2022, 5, 31)
+        assertEquals(Tier.FLAGGED, explain(app("com.example.settled"), scan(emptyList()), bundle, emptyMap(), thenToday).tier.tier)
     }
 
     @Test

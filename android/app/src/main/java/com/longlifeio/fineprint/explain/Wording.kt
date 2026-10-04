@@ -14,6 +14,8 @@ val COLLECTS = SectionText("What it collects", "Data this app takes from your ph
 val WHERE_IT_GOES = SectionText("Where it goes", "Who gets that data, and whether it's used beyond running the app.")
 val APPLIES = SectionText("This applies to you because", "Permissions you've actually granted that feed the above.")
 val ON_THE_RECORD = SectionText("On the record", "What regulators and courts have said. FinePrint relays the public record; it doesn't judge.")
+val ONGOING = SectionText("Ongoing", "Orders still in force, cases still pending, and decisions under appeal.")
+val PAST = SectionText("Past", "Matters that have ended. One that ended more than three years ago never changes a tier.")
 val ALSO_REPORTED = SectionText("Also reported", "Reported by journalists, researchers or breach trackers; no court or regulator has ruled on it.")
 val WHAT_YOU_CAN_DO = SectionText(
     "What you can do",

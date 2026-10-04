@@ -51,8 +51,17 @@ class OnTheRecordTest {
         assertEquals("Action against Meta concerning this app's data", record.actions.first().subject)
         assertTrue(record.actions.single { it.date == "2024-09-27" }.line.endsWith("about Meta"))
         assertEquals("2024-01-17", record.alsoReported.single().date)
+        // Until the records say which are in force or under appeal, every one of them reads as past.
+        assertEquals(record.actions, record.past)
         // A Flagged badge is never unexplained: the reason names the newest ruling on the app's data.
         assertEquals("A 2024 ruling on this app's data: Irish DPC fines over the 2018 Facebook token breach", facebook.tier.reason)
+    }
+
+    @Test
+    fun life360sPendingCasesAreOngoing() {
+        val life360 = explainApp("com.life360.android.safetymapd", "Life360")
+        assertEquals(listOf("2025-04-10", "2025-01-13"), life360.onTheRecord.ongoing.map { it.date })
+        assertTrue(life360.onTheRecord.past.isEmpty())
     }
 
     @Test
@@ -60,7 +69,17 @@ class OnTheRecordTest {
         assertEquals("settled, no admission", outcome("settlement_no_admission", false))
         assertEquals("dismissed, under appeal", outcome("dismissed", true))
         assertEquals("under appeal", outcome(null, true))
+        assertEquals("consent order, in force", outcome("consent_order", false, inForce = true))
         assertEquals(null, outcome(null, false)) // a report: its badge says Reported
+    }
+
+    @Test
+    fun whatMakesAMatterOngoing() {
+        assertTrue(ongoing("alleged", "filed", inForce = false, appealPending = false, closedDate = null)) // pending
+        assertTrue(!ongoing("alleged", "dismissed", inForce = false, appealPending = false, closedDate = null))
+        assertTrue(ongoing("alleged", "dismissed", inForce = false, appealPending = true, closedDate = null))
+        assertTrue(!ongoing("adjudicated", "settlement", inForce = false, appealPending = false, closedDate = null))
+        assertTrue(ongoing("adjudicated", "consent_order", inForce = true, appealPending = false, closedDate = null))
     }
 
     @Test

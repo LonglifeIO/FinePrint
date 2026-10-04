@@ -121,6 +121,22 @@ class CoversTest(unittest.TestCase):
         self.assertIn("com.example: in_owner_apps is for tracker records", build.cross_check(bundle, {"exodus-12"}))
 
 
+class StandingTest(unittest.TestCase):
+    def event(self, **extra) -> dict:
+        return dict({"date": "2019-07-24", "title": "Order", "type": "order", "status": "adjudicated", "status_kind": "consent_order",
+                     "sources": [SOURCE]}, **extra)
+
+    def test_an_ended_matter_is_not_in_force_or_under_appeal(self):
+        self.assertEqual(build.standing_problems(self.event(closed_date="2020-04-23")), [])
+        self.assertEqual(build.standing_problems(self.event(in_force=True)), [])
+        self.assertEqual(build.standing_problems(self.event(closed_date="2020-04-23", in_force=True)), ["'Order': closed_date with in_force"])
+        self.assertEqual(build.standing_problems(self.event(closed_date="2020-04-23", appeal_pending=True)), ["'Order': closed_date with appeal_pending"])
+        self.assertEqual(build.standing_problems(self.event(closed_date="2018-01-01")), ["'Order': closed_date 2018-01-01 is before its date 2019-07-24"])
+        company = {"id": "co-x", "name": "X", "roles": ["developer"], "last_reviewed": "2026-10-01",
+                   "regulatory_history": [self.event(in_force=True), self.event(closed_date="2020-04-23")]}
+        self.assertEqual(schema_errors(doc(companies=[company])), [])
+
+
 class SourceRulesTest(unittest.TestCase):
     def with_source(self, source: dict) -> dict:
         return doc(apps=[dict(app("2026-10-01"), consequences=[{"text": "t", "status": "reported", "sources": [source]}])])

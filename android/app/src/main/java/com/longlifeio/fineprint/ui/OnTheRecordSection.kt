@@ -21,15 +21,19 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.explain.ALSO_REPORTED
+import com.longlifeio.fineprint.explain.ONGOING
 import com.longlifeio.fineprint.explain.ON_THE_RECORD
 import com.longlifeio.fineprint.explain.OnTheRecord
+import com.longlifeio.fineprint.explain.PAST
 import com.longlifeio.fineprint.explain.RecordLine
+import com.longlifeio.fineprint.explain.SectionText
 
 private const val FIRST = 3
 
 /**
  * The last section: collapsed by default ("On the record · 10 items"). Open, it lists one line per
- * item, newest first, the latest three and then "See all"; each line opens its details and sources.
+ * item in groups, Ongoing, Past, then Also reported, each newest first: the first three in that
+ * order, then "See all". Each line opens its details and sources.
  */
 fun LazyListScope.onTheRecordSection(
     record: OnTheRecord,
@@ -68,15 +72,20 @@ fun LazyListScope.onTheRecordSection(
     }
     if (!open) return
     if (record.actions.none { it.namesThisApp }) item { Note("No action in FinePrint's record names this app.") }
-    // The first three lines in page order (actions, then what others reported), then See all for the rest.
-    val actions = if (showAll) record.actions else record.actions.take(FIRST)
-    val reported = if (showAll) record.alsoReported else record.alsoReported.take(FIRST - actions.size)
-    items(actions) { RecordLineRow(it, onDetails) }
-    if (reported.isNotEmpty()) {
-        item { SubHeader(ALSO_REPORTED) }
-        items(reported) { RecordLineRow(it, onDetails) }
+    // The first three lines in page order, then See all for the rest.
+    var room = if (showAll) Int.MAX_VALUE else FIRST
+    for ((text, lines) in listOf(ONGOING to record.ongoing, PAST to record.past, ALSO_REPORTED to record.alsoReported)) {
+        val shown = lines.take(room)
+        room -= shown.size
+        group(text, shown, onDetails)
     }
     if (!showAll && record.count > FIRST) item { LinkRow("See all", R.drawable.ic_expand_more, onShowAll) }
+}
+
+private fun LazyListScope.group(text: SectionText, lines: List<RecordLine>, onDetails: (SheetContent) -> Unit) {
+    if (lines.isEmpty()) return
+    item { SubHeader(text) }
+    items(lines) { RecordLineRow(it, onDetails) }
 }
 
 /** "2022-11-14 · Attorneys general of 40 US states · settled · $391.5 million · about Google", then its status. */

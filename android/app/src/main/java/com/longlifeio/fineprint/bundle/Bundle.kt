@@ -103,6 +103,8 @@ private fun JSONObject.toConsequence() = Consequence(
     subjectCompany = text("subject_company"),
     concernsApp = text("concerns_app"),
     appealPending = optBoolean("appeal_pending"),
+    inForce = optBoolean("in_force"),
+    closedDate = text("closed_date"),
 )
 
 private fun JSONObject.toCompany() = Company(
@@ -127,6 +129,8 @@ private fun JSONObject.toCompany() = Company(
             proceduralNote = it.optJSONObject("procedural_note")?.toProceduralNote(),
             sources = it.objects("sources").map { s -> s.toSource() },
             appealPending = it.optBoolean("appeal_pending"),
+            inForce = it.optBoolean("in_force"),
+            closedDate = it.text("closed_date"),
         )
     },
 )

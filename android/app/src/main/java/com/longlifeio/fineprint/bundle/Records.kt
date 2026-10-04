@@ -52,6 +52,10 @@ data class Consequence(
     /** The package whose data the action concerns. */
     val concernsApp: String? = null,
     val appealPending: Boolean = false,
+    /** An order or settlement whose terms still bind the company. */
+    val inForce: Boolean = false,
+    /** When the matter ended; null while it is ongoing, or when the record doesn't say. */
+    val closedDate: String? = null,
 )
 
 /** A company's regulatory or legal history entry; [date] may be year and month only ("2024-03"). */
@@ -70,6 +74,8 @@ data class LegalEvent(
     val proceduralNote: ProceduralNote?,
     val sources: List<Source>,
     val appealPending: Boolean = false,
+    val inForce: Boolean = false,
+    val closedDate: String? = null,
 )
 
 data class ExodusReport(val id: Int, val appVersion: String, val created: String, val trackerCount: Int)

@@ -32,6 +32,11 @@ See `CLAUDE.md` for the status levels and the wording that goes with each.
   must be identical. `derives_from` marks a re-report, so copies don't count as independent.
 - A legal claim may carry a `procedural_note` (a dismissal, an appeal) with its own sources. It
   never changes the claim's status.
+- A legal item may say it is `in_force` (an order or settlement whose terms still bind) or give the
+  `closed_date` it ended; with `appeal_pending`, these decide whether it is ongoing. Only ongoing
+  items, and those that ended (or, without a closed_date, are dated) within three years, count
+  toward a tier; older ones are shown under Past. A closed_date can't sit with in_force or
+  appeal_pending.
 - A `regulatory_action` tag on an app whose record has no action against its own developer needs a
   `risk_tag_notes` qualifier, e.g. "against Allstate/Arity concerning this app's data". Tags are
   for sorting and filtering; the app never shows them as a list of labels.

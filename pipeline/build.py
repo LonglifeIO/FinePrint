@@ -103,6 +103,7 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
             errors.append(f"derives_from {n['derives_from']!r} has no source with that id")
         if "url" in n and not str(n.get("quote", "")).strip():
             errors.append(f"source without a quote: {n['url']}")
+        errors.extend(standing_problems(n))
 
     walk(bundle, visit)
     for app in bundle["apps"]:
@@ -127,6 +128,17 @@ def tracker_problems(trackers: list[dict], tracker_ids: set[str]) -> list[str]:
                 errors.append(f"tracker {key!r} has two explanations: {explained[key]!r} and {t['id']!r}")
         if "owner_company" not in t and any("in_owner_apps" in f for f in t.get("data_flows", [])):
             errors.append(f"tracker record {t['id']!r}: in_owner_apps needs owner_company")
+    return errors
+
+
+def standing_problems(item: dict) -> list[str]:
+    """An ended matter (closed_date) is neither in force nor under appeal, and ends on or after its date."""
+    if "closed_date" not in item:
+        return []
+    what = item.get("title") or item.get("text", "")[:60]
+    errors = [f"{what!r}: closed_date with {k}" for k in ("in_force", "appeal_pending") if item.get(k)]
+    if "date" in item and item["closed_date"] < item["date"]:
+        errors.append(f"{what!r}: closed_date {item['closed_date']} is before its date {item['date']}")
     return errors
 
 

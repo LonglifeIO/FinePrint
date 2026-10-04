@@ -10,6 +10,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
+import java.time.LocalDate
 
 /** One test per rule of the published formula (docs/METHOD.md, "Tiers"), plus its two limits. */
 class TierTest {
@@ -57,6 +58,35 @@ class TierTest {
         assertEquals(TierResult(Tier.FLAGGED, "A 2024 ruling on this app's data: Irish DPC fine", "F2"), rate(events = listOf(older, newer)))
         val suit = TierEvent("alleged", "filed", true, listOf(src("alleged")), "Texas v. Example", "2025-01-13")
         assertEquals("A lawsuit over this app's data has been filed: Texas v. Example (not proven in court)", rate(events = listOf(suit)).reason)
+    }
+
+    @Test
+    fun legalItemsCountWhileOngoingOrForThreeYears() {
+        val today = LocalDate.of(2026, 10, 4)
+        fun at(vararg events: TierEvent) = tier(true, "App", emptyList(), events.toList(), emptyList(), today = today)
+        val settled2019 = TierEvent("adjudicated", "settlement", true, listOf(src("adjudicated")), "2019 settlement", "2019-03-01", closed = "2019-06-01")
+        val order2019 = TierEvent("adjudicated", "consent_order", true, listOf(src("adjudicated")), "2019 order", "2019-07-24", ongoing = true)
+        assertEquals(Tier.EXPECTED, at(settled2019).tier) // ended more than three years ago: shown, never scored
+        assertEquals(TierResult(Tier.FLAGGED, "A 2019 ruling on this app's data: 2019 order", "F2"), at(order2019)) // still in force
+        assertEquals(Tier.FLAGGED, at(settled2019.copy(closed = "2024-01-15")).tier) // ended within three years
+        assertEquals(Tier.FLAGGED, at(settled2019.copy(date = "2023-10-04", closed = null)).tier) // three years to the day
+        assertEquals(Tier.EXPECTED, at(settled2019.copy(date = "2023-10-03", closed = null)).tier)
+        // A lawsuit filed long ago that is still pending counts.
+        assertEquals("C3", at(TierEvent("alleged", "filed", true, listOf(src("alleged")), "Old case", "2015-01-01", ongoing = true)).rule)
+        assertTrue(within("2023-10", 3, today)) // a month-only date covers the whole month
+    }
+
+    @Test
+    fun theReasonNamesACurrentFlowTheMakerDisclosesBeforeARuling() {
+        val ruling = TierEvent("adjudicated", "ruling", true, listOf(src("adjudicated")), "Irish DPC fine", "2025-05-02")
+        val disclosed = flow("precise_location", GOES_ELSEWHERE, "self_disclosed")
+        assertEquals(TierResult(Tier.FLAGGED, "Location data goes elsewhere — App's own policy", "F1"), rate(flows = listOf(disclosed), events = listOf(ruling)))
+        assertEquals("Location data goes elsewhere — App's own policy", rate(flows = listOf(flow("contacts", GOES_ELSEWHERE, "adjudicated"), disclosed)).reason)
+        // A past practice comes after a current one.
+        val past = disclosed.copy(historical = true)
+        assertEquals("Your contact list goes elsewhere — a court or regulator's decision", rate(flows = listOf(past, flow("contacts", GOES_ELSEWHERE, "adjudicated"))).reason)
+        assertEquals("Your advertising ID is used for more — App's own policy",
+            rate(flows = listOf(flow("app_activity", USED_FOR_MORE, "adjudicated"), flow("device_identifiers", USED_FOR_MORE, "self_disclosed"))).reason)
     }
 
     @Test

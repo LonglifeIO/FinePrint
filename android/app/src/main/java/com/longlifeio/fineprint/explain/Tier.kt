@@ -1,6 +1,7 @@
 package com.longlifeio.fineprint.explain
 
 import com.longlifeio.fineprint.bundle.Source
+import java.time.LocalDate
 
 /** How much an app deserves attention. The rules are published in docs/METHOD.md. */
 enum class Tier(val label: String, val definition: String) {
@@ -19,6 +20,8 @@ data class TierResult(val tier: Tier?, val reason: String, val rule: String, val
 /**
  * A legal or regulatory item, as the tier rules see it. [label] ("$5 billion FTC penalty") and [date]
  * let the reason name the ruling or lawsuit that set the tier; the newest one with a label is named.
+ * It counts only while [ongoing] (in force, pending or under appeal), or for three years from when it
+ * [closed] (else its [date]); an undated item counts.
  */
 data class TierEvent(
     val status: String,
@@ -27,7 +30,22 @@ data class TierEvent(
     val sources: List<Source>,
     val label: String? = null,
     val date: String? = null,
+    val ongoing: Boolean = false,
+    val closed: String? = null,
 )
+
+/** Legal items older than this, once ended, are shown but never change a tier. */
+const val SCORED_YEARS = 3L
+
+/** Ongoing, or ended (else dated) within the last three years. */
+internal fun counts(e: TierEvent, today: LocalDate): Boolean {
+    val dated = e.closed ?: e.date ?: return true
+    return e.ongoing || within(dated, SCORED_YEARS, today)
+}
+
+/** True when [date] ("2024-03-05", or "2024-03" for the whole month) falls within [years] of [today]. */
+internal fun within(date: String, years: Long, today: LocalDate): Boolean =
+    (if (date.length == 7) "$date-31" else date) >= today.minusYears(years).toString()
 
 /** The newest labelled event among [events], to name in a reason. */
 private fun named(events: List<TierEvent>): TierEvent? = events.filter { it.label != null }.maxByOrNull { it.date.orEmpty() }
@@ -63,6 +81,16 @@ private val REASON_DATA = mapOf(
     "childrens_data" to "Children's data",
 )
 
+/**
+ * Which flow a reason names when several qualify: a current one before a past practice, then what
+ * the app's maker says itself before a ruling, then reports, allegations and inferred lines;
+ * sensitive data first.
+ */
+private val NAMED_FIRST = compareBy<FlowLine>({ it.historical }, { NAMING_ORDER.indexOf(it.status) }, { if (it.data in SENSITIVE_DATA) 0 else 1 })
+
+/** Self-disclosed first: a current flow the maker discloses is named before a ruling (null is auto). */
+private val NAMING_ORDER = listOf("self_disclosed", "adjudicated", "reported", "alleged", null)
+
 /** Copies (derives_from) and claims that rest on one investigation (single_source) count once. */
 internal fun independentSources(sources: List<Source>): Int =
     if (sources.any { it.singleSource }) 1 else sources.count { it.derivesFrom == null }
@@ -82,21 +110,23 @@ fun tier(
     events: List<TierEvent>,
     reach: List<String>,
     scanFacts: String = NO_RECORD,
+    today: LocalDate = LocalDate.now(),
 ): TierResult {
     val raising = flows.filter { canRaise(it.status, it.sources) }
-    val legal = events.filter { it.concernsThisApp }
+    val legal = events.filter { it.concernsThisApp && counts(it, today) }
     fun flagged(reason: String, rule: String) =
         if (curated) TierResult(Tier.FLAGGED, reason, rule) else TierResult(Tier.CAUTION, reason, rule, capped = true)
 
+    // F1: sensitive data goes elsewhere, by the app's own account or a ruling; checked first, so a
+    // current flow the maker discloses is named before a ruling.
+    raising.filter { it.bucket == GOES_ELSEWHERE && it.data in SENSITIVE_DATA && it.status in setOf("self_disclosed", "adjudicated") }
+        .minWithOrNull(NAMED_FIRST.thenBy { SENSITIVE_DATA.indexOf(it.data) })
+        ?.let { return flagged(reason(it, appName), "F1") }
     // F2: a ruling, settlement or order concerning this app's data, named so a Flagged badge is never unexplained.
     legal.filter { it.status == "adjudicated" }.takeIf { it.isNotEmpty() }?.let { rulings ->
         val ruling = named(rulings) ?: return flagged("A court or regulator has ruled on this app's data", "F2")
         return flagged("A ${ruling.date?.take(4)?.let { "$it " }.orEmpty()}ruling on this app's data: ${ruling.label}", "F2")
     }
-    // F1: sensitive data goes elsewhere, by the app's own account or a ruling.
-    raising.filter { it.bucket == GOES_ELSEWHERE && it.data in SENSITIVE_DATA && it.status in setOf("self_disclosed", "adjudicated") }
-        .minWithOrNull(compareBy({ if (it.status == "adjudicated") 0 else 1 }, { SENSITIVE_DATA.indexOf(it.data) }))
-        ?.let { return flagged(reason(it, appName), "F1") }
     // F3: a lawsuit over this app's data has survived a motion to dismiss.
     legal.filter { it.status == "alleged" && it.statusKind == "survived_motion_to_dismiss" }.takeIf { it.isNotEmpty() }?.let { suits ->
         return flagged(
@@ -106,11 +136,12 @@ fun tier(
         )
     }
     // C1: used for more, by the app's own account, two independent reports, or a ruling.
-    raising.firstOrNull { it.bucket == USED_FOR_MORE && it.status in setOf("self_disclosed", "reported", "adjudicated") }
+    raising.filter { it.bucket == USED_FOR_MORE && it.status in setOf("self_disclosed", "reported", "adjudicated") }
+        .minWithOrNull(NAMED_FIRST)
         ?.let { return TierResult(Tier.CAUTION, reason(it, appName), "C1") }
     // C2: anything else that goes elsewhere, including sensitive data with weaker evidence than F1 needs.
     raising.filter { it.bucket == GOES_ELSEWHERE }
-        .minWithOrNull(compareBy({ STRENGTH.indexOf(it.status) }, { if (it.data in SENSITIVE_DATA) 0 else 1 }))
+        .minWithOrNull(NAMED_FIRST)
         ?.let { return TierResult(Tier.CAUTION, reason(it, appName), "C2") }
     // C3: a lawsuit over this app's data has been filed (alleged, not yet past a motion to dismiss).
     legal.filter { it.status == "alleged" && (it.statusKind == null || it.statusKind == "filed") }.takeIf { it.isNotEmpty() }?.let { suits ->
@@ -131,9 +162,6 @@ fun tier(
 
 /** "Life360's", but "Google Maps'". */
 internal fun possessive(name: String): String = if (name.endsWith("s")) "$name'" else "$name's"
-
-/** Strongest evidence first; null (auto) last. */
-private val STRENGTH = listOf("adjudicated", "self_disclosed", "reported", "alleged", null)
 
 /** "Location data goes elsewhere — Life360's own policy". */
 private fun reason(line: FlowLine, appName: String): String {

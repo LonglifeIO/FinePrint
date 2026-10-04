@@ -44,6 +44,16 @@
    "consequences": [],
    "coverage": "curated",
    "last_reviewed": "2026-10-01"
+  },
+  {
+   "package_id": "com.example.settled", "display_name": "Settled App", "developer_company": "co-old",
+   "summary": "Synthetic test record: a 2019 settlement over this app's data that has ended.",
+   "trackers": [], "consequences": [], "coverage": "curated", "last_reviewed": "2026-10-01"
+  },
+  {
+   "package_id": "com.example.ordered", "display_name": "Ordered App", "developer_company": "co-old",
+   "summary": "Synthetic test record: a 2019 order over this app's data that is still in force.",
+   "trackers": [], "consequences": [], "coverage": "curated", "last_reviewed": "2026-10-01"
   }
  ],
  "trackers": [
@@ -82,7 +92,16 @@
   { "id": "co-parent", "name": "Parent Co", "roles": ["tracker_owner"], "last_reviewed": "2026-10-04" },
   { "id": "co-dev", "name": "Example Developer", "roles": ["developer"], "last_reviewed": "2026-10-04" },
   { "id": "co-kit", "name": "Kit Co", "short_name": "Kit", "roles": ["developer", "tracker_owner"], "last_reviewed": "2026-10-04" },
-  { "id": "co-kitlabs", "name": "Kit Labs", "parent": "co-kit", "roles": ["developer"], "last_reviewed": "2026-10-04" }
+  { "id": "co-kitlabs", "name": "Kit Labs", "parent": "co-kit", "roles": ["developer"], "last_reviewed": "2026-10-04" },
+  { "id": "co-old", "name": "Old Co", "short_name": "Old", "roles": ["developer"], "last_reviewed": "2026-10-04",
+    "regulatory_history": [
+     { "date": "2019-03-01", "title": "2019 settlement", "body": "A regulator", "type": "fine", "status": "adjudicated", "status_kind": "settlement",
+       "amount": "$1 million", "closed_date": "2019-06-01", "concerns_app": "com.example.settled",
+       "sources": [{ "url": "https://example.org/settled", "type": "regulator", "title": "Regulator", "as_of": "2019-03-01", "status": "adjudicated", "quote": "agreed to settle" }] },
+     { "date": "2019-07-24", "title": "2019 privacy order", "body": "A regulator", "type": "order", "status": "adjudicated", "status_kind": "consent_order",
+       "in_force": true, "concerns_app": "com.example.ordered",
+       "sources": [{ "url": "https://example.org/order", "type": "regulator", "title": "Regulator", "as_of": "2019-07-24", "status": "adjudicated", "quote": "a 20-year order" }] }
+    ] }
  ],
  "permissions": [
   { "id": "android.permission.ACCESS_FINE_LOCATION", "plain": "Exact location.", "why_it_matters": "Why.", "feeds": ["precise_location", "movement_and_driving"] },

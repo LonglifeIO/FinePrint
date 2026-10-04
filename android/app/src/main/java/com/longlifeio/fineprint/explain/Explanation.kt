@@ -12,6 +12,7 @@ import com.longlifeio.fineprint.bundle.SummaryNote
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.egress.TrackerSignature
+import java.time.LocalDate
 
 /** One app's explanation, in the detail screen's section order. */
 data class Explanation(
@@ -58,7 +59,13 @@ data class FlowLine(
 
 data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
 
-fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signatures: Map<String, TrackerSignature>): Explanation {
+fun explain(
+    app: InstalledApp,
+    scan: TrackerScanResult?,
+    bundle: Bundle?,
+    signatures: Map<String, TrackerSignature>,
+    today: LocalDate = LocalDate.now(),
+): Explanation {
     val record = bundle?.apps?.get(app.packageName)
     val detected = scan?.trackers.orEmpty()
     val appName = record?.displayName ?: app.label
@@ -70,8 +77,11 @@ fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signat
     val shown = lines.distinct()
     val granted = app.permissions.filter { it.granted }
     val shownData = shown.map { it.data }.toSet()
-    val trackerConsequences = detected.mapNotNull { bundle?.trackers?.get(it.id) }.distinct().flatMap { it.consequences }
     val readable = scan != null && scan.dexFiles > 0
+    // With a record, a tracker's legal lines join it only when they name this app; without one, all of them do.
+    val fromTrackers = detected.mapNotNull { bundle?.trackers?.get(it.id) }.distinct()
+        .flatMap { t -> t.consequences.filter { record == null || it.concernsApp == app.packageName }.map { Said(it, t) } }
+    val onRecord = onTheRecord(record, record?.consequences.orEmpty().map { Said(it) } + fromTrackers, bundle, app.packageName)
 
     return Explanation(
         appName = appName,
@@ -82,9 +92,11 @@ fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signat
             curated = record != null,
             appName = appName,
             flows = shown,
-            events = tierEvents(record, trackerConsequences, bundle, app.packageName),
+            events = onRecord.actions.filter { it.namesThisApp }
+                .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }) },
             reach = app.deviceReach,
             scanFacts = scanFacts(app, scan),
+            today = today,
         ),
         privacyControls = record?.privacyControls,
         collects = (shown.map { DATA_LABELS[it.data] ?: it.data } + granted.mapNotNull { permissionLabel(it.name) }).distinct(),
@@ -93,7 +105,7 @@ fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signat
             bundle?.permissions?.get(p.name)?.takeIf { text -> text.feeds.any { it in shownData } }
                 ?.let { AppliesLine(p.name, permissionLabel(p.name) ?: p.name.substringAfterLast('.'), it.plain, it.whyItMatters) }
         },
-        onTheRecord = onTheRecord(record, record?.consequences ?: trackerConsequences, bundle, app.packageName),
+        onTheRecord = onRecord,
         reach = app.deviceReach.mapNotNull { bundle?.deviceReach?.get(it) },
         lastReviewed = record?.lastReviewed,
         stale = record?.stale == true,
@@ -126,13 +138,6 @@ internal fun scanFacts(app: InstalledApp, scan: TrackerScanResult?): String {
         else -> "${if (trackers == 1) "1 tracker" else "$trackers trackers"} found · $permissions"
     }
 }
-
-/** Everything legal or regulatory that could set the tier, marked by whether it concerns this app's data. */
-private fun tierEvents(record: AppRecord?, trackerConsequences: List<Consequence>, bundle: Bundle?, pkg: String): List<TierEvent> =
-    record?.consequences.orEmpty().map { TierEvent(it.status, it.statusKind, it.concernsApp == null || it.concernsApp == pkg, it.sources) } +
-        trackerConsequences.map { TierEvent(it.status, it.statusKind, it.concernsApp == pkg, it.sources) } +
-        bundle?.companies?.values.orEmpty().flatMap { c -> c.events.filter { it.concernsApp == pkg } }
-            .map { TierEvent(it.status, it.statusKind, concernsThisApp = true, sources = it.sources, label = it.title, date = it.date) }
 
 internal fun DataFlow.toLine(recipient: String, via: String?) =
     FlowLine(data, bucket, recipient, purpose, status, attribution(status, wording), historical, sources, proceduralNote, via, id)

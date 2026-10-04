@@ -24,7 +24,12 @@ Every app's page has the same sections, in the same order. A section with nothin
 - Also reported: Reported by journalists, researchers or breach trackers; no court or regulator has ruled on it.
 - Evidence: The trackers and permissions behind the sections above.
 
-On the record and Evidence start collapsed. On the record gives each action one line, newest first: when, who acted, what came of it, and its status. It shows the latest three, then See all; tap a line for its details and sources. It includes actions against the company that makes the app; a line about the company rather than the app says so, for example about Google.
+On the record and Evidence start collapsed. On the record gives each action one line: when, who acted, what came of it, and its status. The lines fall into two groups, each newest first, followed by what others have reported:
+
+- Ongoing: Orders still in force, cases still pending, and decisions under appeal.
+- Past: Matters that have ended. One that ended more than three years ago never changes a tier.
+
+It shows the latest three, then See all; tap a line for its details and sources. It includes actions against the company that makes the app; a line about the company rather than the app says so, for example about Google.
 
 ## Where data goes
 
@@ -76,12 +81,13 @@ Otherwise, an app gets Caution if any of these is true:
 
 Otherwise, an app with a reviewed record is Expected.
 
-Two limits apply to every app:
+Three limits apply to every app:
 
 - A claim reported by only one independent source never raises a tier. A re-report of the same story, or several reports that rest on one investigation, count as one source.
 - An app without a reviewed record is never Flagged or Expected. It gets Caution at most; otherwise it shows No record yet, with what the scan found, such as no third-party trackers found · 12 permissions.
+- A ruling, settlement or lawsuit counts only while it is ongoing (an order still in force, a case still pending, or a decision under appeal), or if it ended within the last three years; when the record doesn't say when it ended, its own date is used. Older ones stay under On the record, under Past, and never change a tier.
 
-A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. On the record also shows the developer's other actions; one that doesn't name this app is marked about the company, and it doesn't change the app's tier. Under each tier, one line names the finding that set it; when a ruling or lawsuit sets it, that line names the ruling or lawsuit.
+A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. On the record also shows the developer's other actions; one that doesn't name this app is marked about the company, and it doesn't change the app's tier. For an app without a record of its own, it shows the actions on record against the companies behind its trackers, marked the same way. Under each tier, one line names the finding that set it; when a ruling or lawsuit sets it, that line names the ruling or lawsuit. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow.
 
 No record yet: FinePrint hasn't reviewed this app. What it shows is inferred from the tracker code in the app: it can be rated Caution, but never Flagged or Expected.
 
