@@ -74,12 +74,12 @@ fun StatusBadge(status: String?, historical: Boolean) {
         "self_disclosed" -> c.primaryContainer to c.onPrimaryContainer
         "reported" -> c.secondaryContainer to c.onSecondaryContainer
         "alleged" -> c.tertiaryContainer to c.onTertiaryContainer
-        "adjudicated" -> c.errorContainer to c.onErrorContainer
+        "adjudicated" -> c.surface to c.onSurfaceVariant // drawn as an outline: decided, but no alarm colour
         else -> c.surfaceVariant to c.onSurfaceVariant
     }
     val label = if (historical) "${badge.label} · ${BADGES.getValue(HISTORICAL).label.lowercase()}" else badge.label
     val definition = if (historical) "${badge.definition} ${BADGES.getValue(HISTORICAL).definition}" else badge.definition
-    WithDefinition("Status: $label", definition) { StatusLabel(label, container, content) }
+    WithDefinition("Status: $label", definition) { StatusLabel(label, container, content, outline = status == "adjudicated") }
 }
 
 data class TierLook(val label: String, val icon: Int, val container: Color, val content: Color, val definition: String)

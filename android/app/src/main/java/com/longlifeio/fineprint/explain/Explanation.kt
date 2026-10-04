@@ -29,12 +29,8 @@ data class Explanation(
     /** bucket -> lines, in BUCKETS order; empty buckets are left out. */
     val flows: Map<String, List<FlowLine>>,
     val applies: List<AppliesLine>,
-    /** Legal and regulatory items: alleged or adjudicated. */
-    val onTheRecord: List<RecordItem>,
-    /** The developer company's other legal and regulatory history, newest first. */
-    val companyHistory: List<HistoryItem>,
-    /** Current items others have reported, such as a breach. */
-    val alsoReported: List<RecordItem>,
+    /** Actions by regulators and courts (this app's, then the developer's), and what others reported. */
+    val onTheRecord: OnTheRecord,
     val reach: List<ReachText>,
     val lastReviewed: String?,
     val stale: Boolean,
@@ -60,17 +56,6 @@ data class FlowLine(
     val id: String? = null,
 )
 
-data class RecordItem(
-    val text: String,
-    val status: String,
-    val wording: String?,
-    val historical: Boolean,
-    /** "Action against … concerning this app's data", when the action isn't against the app's developer. */
-    val subject: String?,
-    val proceduralNote: ProceduralNote?,
-    val sources: List<Source>,
-)
-
 data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
 
 fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signatures: Map<String, TrackerSignature>): Explanation {
@@ -94,7 +79,6 @@ fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signat
     val granted = app.permissions.filter { it.granted }
     val shownData = shown.map { it.data }.toSet()
     val trackerConsequences = detected.flatMap { bundle?.trackers?.get(it.id)?.consequences.orEmpty() }
-    val items = (record?.consequences ?: trackerConsequences).map { it.toItem(record, app.packageName, bundle) }
     val readable = scan != null && scan.dexFiles > 0
 
     return Explanation(
@@ -117,9 +101,7 @@ fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signat
             bundle?.permissions?.get(p.name)?.takeIf { text -> text.feeds.any { it in shownData } }
                 ?.let { AppliesLine(p.name, permissionLabel(p.name) ?: p.name.substringAfterLast('.'), it.plain, it.whyItMatters) }
         },
-        onTheRecord = items.filter { it.status == "alleged" || it.status == "adjudicated" },
-        companyHistory = companyHistory(record, bundle, app.packageName),
-        alsoReported = items.filter { it.status == "reported" && !it.historical },
+        onTheRecord = onTheRecord(record, record?.consequences ?: trackerConsequences, bundle, app.packageName),
         reach = app.deviceReach.mapNotNull { bundle?.deviceReach?.get(it) },
         lastReviewed = record?.lastReviewed,
         stale = record?.stale == true,
@@ -158,13 +140,10 @@ private fun tierEvents(record: AppRecord?, trackerConsequences: List<Consequence
     record?.consequences.orEmpty().map { TierEvent(it.status, it.statusKind, it.concernsApp == null || it.concernsApp == pkg, it.sources) } +
         trackerConsequences.map { TierEvent(it.status, it.statusKind, it.concernsApp == pkg, it.sources) } +
         bundle?.companies?.values.orEmpty().flatMap { c -> c.events.filter { it.concernsApp == pkg } }
-            .map { TierEvent(it.status, it.statusKind, concernsThisApp = true, sources = it.sources) }
+            .map { TierEvent(it.status, it.statusKind, concernsThisApp = true, sources = it.sources, label = it.title, date = it.date) }
 
 private fun DataFlow.toLine(recipient: String, via: String?) =
     FlowLine(data, bucket, recipient, purpose, status, attribution(status, wording), historical, sources, proceduralNote, via, id)
-
-private fun Consequence.toItem(record: AppRecord?, pkg: String, bundle: Bundle?) =
-    RecordItem(text, status, attribution(status, wording), historical, subjectLine(this, record, pkg, bundle), proceduralNote, sources)
 
 /** Alleged lines always say "not proven in court", whatever the record's own wording. */
 internal fun attribution(status: String?, wording: String?): String? = when {
@@ -172,13 +151,6 @@ internal fun attribution(status: String?, wording: String?): String? = when {
     wording == null -> "Alleged ($NOT_PROVEN)"
     NOT_PROVEN in wording -> wording
     else -> "$wording ($NOT_PROVEN)"
-}
-
-private fun subjectLine(c: Consequence, record: AppRecord?, pkg: String, bundle: Bundle?): String? {
-    val id = c.subjectCompany?.takeIf { it != record?.developerCompany } ?: return null
-    val who = bundle?.companies?.get(id)?.let { companyName(it) } ?: id
-    return if (c.concernsApp == null || c.concernsApp == pkg) "Action against $who concerning this app's data"
-    else "Action against $who over data collected through its SDK"
 }
 
 /** "Allstate/Arity" when the record gives a short name; otherwise "The Allstate Corporation and its unit Arity". */

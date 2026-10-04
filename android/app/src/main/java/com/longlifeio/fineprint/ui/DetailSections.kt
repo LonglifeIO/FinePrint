@@ -33,7 +33,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
-import com.longlifeio.fineprint.explain.ALSO_REPORTED
 import com.longlifeio.fineprint.explain.APPLIES
 import com.longlifeio.fineprint.explain.BUCKETS
 import com.longlifeio.fineprint.explain.BUCKET_TEXT
@@ -43,8 +42,6 @@ import com.longlifeio.fineprint.explain.DEVICE_ACCESS
 import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.FlowLine
 import com.longlifeio.fineprint.explain.GOES_ELSEWHERE
-import com.longlifeio.fineprint.explain.ON_THE_RECORD
-import com.longlifeio.fineprint.explain.RecordItem
 import com.longlifeio.fineprint.explain.STAYS_HERE
 import com.longlifeio.fineprint.explain.SUMMARY_AUTO
 import com.longlifeio.fineprint.explain.SUMMARY_CURATED
@@ -53,7 +50,10 @@ import com.longlifeio.fineprint.explain.WHAT_YOU_CAN_DO
 import com.longlifeio.fineprint.explain.WHERE_IT_GOES
 import com.longlifeio.fineprint.explain.WhatYouCanDo
 
-/** The detail screen's sections up to Device access, always in this order; empty ones are left out except What it collects. */
+/**
+ * The detail screen's sections up to Device access, always in this order; empty ones are left out
+ * except What it collects. On the record (onTheRecordSection) and Evidence follow, both collapsed.
+ */
 fun LazyListScope.detailSections(
     e: Explanation,
     check: WhatYouCanDo,
@@ -111,17 +111,6 @@ fun LazyListScope.detailSections(
         check.summary?.let { item { Text(it, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) } }
         items(check.items, key = { "check:" + it.id }) { CheckRow(it, onTick, onSources, onOpenSettings) }
         check.inAppText?.let { item { Note("Inside the app: $it") } }
-    }
-
-    if (e.onTheRecord.isNotEmpty() || e.companyHistory.isNotEmpty() || e.alsoReported.isNotEmpty()) {
-        section("record", ON_THE_RECORD)
-        if (e.onTheRecord.isEmpty()) item { Note("No action in FinePrint's record names this app.") }
-        items(e.onTheRecord) { RecordRow(it, onSources) }
-        companyHistoryItems(e.companyHistory, onSources)
-        if (e.alsoReported.isNotEmpty()) {
-            item { SubHeader(ALSO_REPORTED) }
-            items(e.alsoReported) { RecordRow(it, onSources) }
-        }
     }
 
     if (e.reach.isNotEmpty()) {
@@ -206,24 +195,6 @@ private fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit) {
             }
             SourcesRow("$label → ${line.recipient}", line.sources, line.proceduralNote, onSources)
         }
-    }
-}
-
-@Composable
-private fun RecordRow(item: RecordItem, onSources: (SheetContent) -> Unit) {
-    Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            item.subject?.let {
-                Text(it, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
-            }
-            StatusBadge(item.status, item.historical)
-        }
-        Text(item.text, style = MaterialTheme.typography.bodyMedium)
-        item.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        item.proceduralNote?.let {
-            Text(it.text, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic, modifier = Modifier.padding(top = 4.dp))
-        }
-        SourcesRow(item.subject ?: "On the record", item.sources, item.proceduralNote, onSources)
     }
 }
 

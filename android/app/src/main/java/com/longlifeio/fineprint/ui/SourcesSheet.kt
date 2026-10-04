@@ -32,8 +32,11 @@ import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.Source
 
-/** What the Sources sheet shows for one line: its sources and, for a legal claim, the procedural note's. */
-data class SheetContent(val heading: String, val sources: List<Source>, val note: ProceduralNote?)
+/**
+ * What the Sources sheet shows for one line: its sources and, for a legal claim, the procedural note's.
+ * [details] (On the record) come first: who it was against, the record's own words for it, notes.
+ */
+data class SheetContent(val heading: String, val sources: List<Source>, val note: ProceduralNote?, val details: List<String> = emptyList())
 
 private val SOURCE_TYPES = mapOf(
     "privacy_policy" to "Privacy policy",
@@ -83,6 +86,13 @@ fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
                     content.heading,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(horizontal = 16.dp).semantics { heading() },
+                )
+            }
+            itemsIndexed(content.details) { i, text ->
+                Text(
+                    text,
+                    style = if (i == 0) MaterialTheme.typography.bodyMedium else MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 4.dp),
                 )
             }
             itemsIndexed(content.sources) { i, s -> SourceCard(s, primary = i == 0, all) { uriHandler.openUri(s.url) } }

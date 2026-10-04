@@ -64,6 +64,7 @@ data class Consequence(
     val subjectCompany: String? = null,
     /** The package whose data the action concerns. */
     val concernsApp: String? = null,
+    val appealPending: Boolean = false,
 )
 
 /** A company's regulatory or legal history entry; [date] may be year and month only ("2024-03"). */
@@ -81,6 +82,7 @@ data class LegalEvent(
     val notes: String?,
     val proceduralNote: ProceduralNote?,
     val sources: List<Source>,
+    val appealPending: Boolean = false,
 )
 
 data class ExodusReport(val id: Int, val appVersion: String, val created: String, val trackerCount: Int)
@@ -226,6 +228,7 @@ private fun JSONObject.toConsequence() = Consequence(
     statusKind = text("status_kind"),
     subjectCompany = text("subject_company"),
     concernsApp = text("concerns_app"),
+    appealPending = optBoolean("appeal_pending"),
 )
 
 private fun JSONObject.toCompany() = Company(
@@ -248,6 +251,7 @@ private fun JSONObject.toCompany() = Company(
             notes = it.text("notes"),
             proceduralNote = it.optJSONObject("procedural_note")?.toProceduralNote(),
             sources = it.objects("sources").map { s -> s.toSource() },
+            appealPending = it.optBoolean("appeal_pending"),
         )
     },
 )

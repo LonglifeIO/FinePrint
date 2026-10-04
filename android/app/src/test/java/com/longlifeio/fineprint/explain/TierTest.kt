@@ -51,6 +51,15 @@ class TierTest {
     }
 
     @Test
+    fun aRulingThatSetsTheTierIsNamedNewestFirst() {
+        val older = TierEvent("adjudicated", "consent_order", true, listOf(src("adjudicated")), "FTC privacy order", "2012-08-10")
+        val newer = TierEvent("adjudicated", "ruling", true, listOf(src("adjudicated")), "Irish DPC fine", "2024-12-17")
+        assertEquals(TierResult(Tier.FLAGGED, "A 2024 ruling on this app's data: Irish DPC fine", "F2"), rate(events = listOf(older, newer)))
+        val suit = TierEvent("alleged", "filed", true, listOf(src("alleged")), "Texas v. Example", "2025-01-13")
+        assertEquals("A lawsuit over this app's data has been filed: Texas v. Example (not proven in court)", rate(events = listOf(suit)).reason)
+    }
+
+    @Test
     fun f3ALawsuitThatSurvivedAMotionToDismiss() {
         assertEquals("F3", rate(events = listOf(event("alleged", "survived_motion_to_dismiss"))).rule)
         assertEquals(Tier.EXPECTED, rate(events = listOf(event("alleged", "survived_motion_to_dismiss", concerns = false))).tier)
@@ -147,11 +156,14 @@ class TierTest {
         val scan = TrackerScanResult(listOf(DetectedTracker("fp-arity", "Arity", listOf("Location"), "com.arity.coreengine.x")), 9, 1, 1, emptyList())
         val e = explain(life360, scan, bundle, emptyMap())
         assertEquals(TierResult(Tier.FLAGGED, "Location data goes elsewhere — Life360's own policy", "F1"), e.tier)
-        val action = e.onTheRecord.single()
-        assertEquals("Action against Allstate/Arity concerning this app's data", action.subject) // co-allstate's short name
-        assertTrue(action.wording!!.contains("not proven in court"))
-        assertTrue(action.text.contains("Life360 is not a defendant"))
-        assertEquals("Names, phone numbers and emails of 442,519 users were scraped through a flaw in Life360's login API in 2024.", e.alsoReported.single().text)
+        // The federal class action and the Texas case, newest first, each joined by the record's own words.
+        val actions = e.onTheRecord.actions
+        assertEquals(listOf("2025-04-10", "2025-01-13"), actions.map { it.date })
+        assertTrue(actions.all { it.subject == "Action against Allstate/Arity concerning this app's data" && it.namesThisApp })
+        assertTrue(actions.all { a -> a.details.any { "Life360 is not a defendant" in it } && a.details.any { "not proven in court" in it } })
+        val breach = e.onTheRecord.alsoReported.single()
+        assertEquals("2024-03 · Have I Been Pwned: Life360", breach.line)
+        assertEquals("Names, phone numbers and emails of 442,519 users were scraped through a flaw in Life360's login API in 2024.", breach.details.first())
         assertTrue("Precise location" in e.collects)
     }
 }

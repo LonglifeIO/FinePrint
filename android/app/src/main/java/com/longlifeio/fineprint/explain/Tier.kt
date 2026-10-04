@@ -16,8 +16,21 @@ enum class Tier(val label: String, val definition: String) {
  */
 data class TierResult(val tier: Tier?, val reason: String, val rule: String, val capped: Boolean = false)
 
-/** A legal or regulatory item, as the tier rules see it. */
-data class TierEvent(val status: String, val statusKind: String?, val concernsThisApp: Boolean, val sources: List<Source>)
+/**
+ * A legal or regulatory item, as the tier rules see it. [label] ("$5 billion FTC penalty") and [date]
+ * let the reason name the ruling or lawsuit that set the tier; the newest one with a label is named.
+ */
+data class TierEvent(
+    val status: String,
+    val statusKind: String?,
+    val concernsThisApp: Boolean,
+    val sources: List<Source>,
+    val label: String? = null,
+    val date: String? = null,
+)
+
+/** The newest labelled event among [events], to name in a reason. */
+private fun named(events: List<TierEvent>): TierEvent? = events.filter { it.label != null }.maxByOrNull { it.date.orEmpty() }
 
 /** Location, health, financial, contacts, children's, biometric and precise movement data. */
 val SENSITIVE_DATA = listOf(
@@ -75,15 +88,22 @@ fun tier(
     fun flagged(reason: String, rule: String) =
         if (curated) TierResult(Tier.FLAGGED, reason, rule) else TierResult(Tier.CAUTION, reason, rule, capped = true)
 
-    // F2: a ruling, settlement or order concerning this app's data.
-    if (legal.any { it.status == "adjudicated" }) return flagged("A court or regulator has ruled on this app's data", "F2")
+    // F2: a ruling, settlement or order concerning this app's data, named so a Flagged badge is never unexplained.
+    legal.filter { it.status == "adjudicated" }.takeIf { it.isNotEmpty() }?.let { rulings ->
+        val ruling = named(rulings) ?: return flagged("A court or regulator has ruled on this app's data", "F2")
+        return flagged("A ${ruling.date?.take(4)?.let { "$it " }.orEmpty()}ruling on this app's data: ${ruling.label}", "F2")
+    }
     // F1: sensitive data goes elsewhere, by the app's own account or a ruling.
     raising.filter { it.bucket == GOES_ELSEWHERE && it.data in SENSITIVE_DATA && it.status in setOf("self_disclosed", "adjudicated") }
         .minWithOrNull(compareBy({ if (it.status == "adjudicated") 0 else 1 }, { SENSITIVE_DATA.indexOf(it.data) }))
         ?.let { return flagged(reason(it, appName), "F1") }
     // F3: a lawsuit over this app's data has survived a motion to dismiss.
-    if (legal.any { it.status == "alleged" && it.statusKind == "survived_motion_to_dismiss" }) {
-        return flagged("A lawsuit over this app's data has survived a motion to dismiss (not proven in court)", "F3")
+    legal.filter { it.status == "alleged" && it.statusKind == "survived_motion_to_dismiss" }.takeIf { it.isNotEmpty() }?.let { suits ->
+        return flagged(
+            named(suits)?.let { "A lawsuit over this app's data survived a motion to dismiss: ${it.label} ($NOT_PROVEN)" }
+                ?: "A lawsuit over this app's data has survived a motion to dismiss ($NOT_PROVEN)",
+            "F3",
+        )
     }
     // C1: used for more, by the app's own account, two independent reports, or a ruling.
     raising.firstOrNull { it.bucket == USED_FOR_MORE && it.status in setOf("self_disclosed", "reported", "adjudicated") }
@@ -93,8 +113,13 @@ fun tier(
         .minWithOrNull(compareBy({ STRENGTH.indexOf(it.status) }, { if (it.data in SENSITIVE_DATA) 0 else 1 }))
         ?.let { return TierResult(Tier.CAUTION, reason(it, appName), "C2") }
     // C3: a lawsuit over this app's data has been filed (alleged, not yet past a motion to dismiss).
-    if (legal.any { it.status == "alleged" && (it.statusKind == null || it.statusKind == "filed") }) {
-        return TierResult(Tier.CAUTION, "A lawsuit over this app's data has been filed (not proven in court)", "C3")
+    legal.filter { it.status == "alleged" && (it.statusKind == null || it.statusKind == "filed") }.takeIf { it.isNotEmpty() }?.let { suits ->
+        return TierResult(
+            Tier.CAUTION,
+            named(suits)?.let { "A lawsuit over this app's data has been filed: ${it.label} ($NOT_PROVEN)" }
+                ?: "A lawsuit over this app's data has been filed ($NOT_PROVEN)",
+            "C3",
+        )
     }
     // C4: access that reaches into the rest of the phone.
     reach.firstNotNullOfOrNull { DEEP_REACH[it] }?.let { return TierResult(Tier.CAUTION, it, "C4") }

@@ -19,6 +19,7 @@ import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.performTouchInput
@@ -110,7 +111,7 @@ class TapTargetTest {
     }
 
     @Test
-    fun life360DetailScreenWithEvidenceOpen() {
+    fun life360DetailScreenWithTheRecordAndEvidenceOpen() {
         compose.setContent {
             FinePrintTheme {
                 AppDetailScreen(
@@ -120,8 +121,7 @@ class TapTargetTest {
                 )
             }
         }
-        compose.onNodeWithTag("detail").performScrollToNode(hasText("Evidence"))
-        compose.onNodeWithText("Evidence").performClick()
+        openTheRecordAndEvidence(seeAll = false)
         assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
     }
 
@@ -139,19 +139,19 @@ class TapTargetTest {
         assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
     }
 
+    /** Google's settlements, none naming Maps: the record's note and three lines about Google. */
     @Test
-    fun mapsDetailScreenWithCompanyHistory() {
-        val maps = app("com.google.android.apps.maps", "Maps", granted = listOf("android.permission.ACCESS_FINE_LOCATION"))
-        val e = explain(maps, TrackerScanResult(emptyList(), 1, 1, 1, emptyList()), bundle, emptyMap())
-        compose.setContent {
-            FinePrintTheme {
-                AppDetailScreen(
-                    app = maps, explanation = e, check = whatYouCanDo(maps, e, bundle.apps[maps.packageName], bundle.permissions.mapValues { it.value.feeds }, emptySet()),
-                    review = ReviewView(ReviewStatus.NOT_REVIEWED), result = null, signatures = null, bundleVersion = bundle.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> },
-                )
-            }
-        }
+    fun mapsDetailScreenWithTheRecordOpen() {
+        showCurated(app("com.google.android.apps.maps", "Maps", granted = listOf("android.permission.ACCESS_FINE_LOCATION")))
+        openTheRecordAndEvidence(seeAll = false)
+        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
+    }
+
+    /** The heaviest record: ten items, all shown. */
+    @Test
+    fun facebookDetailScreenWithAllOfTheRecordOpen() {
+        showCurated(app("com.facebook.katana", "Facebook", granted = listOf("android.permission.ACCESS_FINE_LOCATION")))
+        openTheRecordAndEvidence(seeAll = true)
         assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
     }
 
@@ -171,6 +171,33 @@ class TapTargetTest {
             }
         }
         assertEquals(listOf("tiny: 20×20dp"), smallTargetsWhileScrolling("probe"))
+    }
+
+    private fun showCurated(a: InstalledApp) {
+        val e = explain(a, TrackerScanResult(emptyList(), 1, 1, 1, emptyList()), bundle, emptyMap())
+        compose.setContent {
+            FinePrintTheme {
+                AppDetailScreen(
+                    app = a, explanation = e, check = whatYouCanDo(a, e, bundle.apps[a.packageName], bundle.permissions.mapValues { it.value.feeds }, emptySet()),
+                    review = ReviewView(ReviewStatus.NOT_REVIEWED), result = null, signatures = null, bundleVersion = bundle.version,
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> },
+                )
+            }
+        }
+    }
+
+    /** Opens On the record (and its See all) and Evidence, then goes back to the top for the check. */
+    private fun openTheRecordAndEvidence(seeAll: Boolean) {
+        val detail = compose.onNodeWithTag("detail")
+        detail.performScrollToNode(hasText("On the record ·", substring = true))
+        compose.onNodeWithText("On the record ·", substring = true).performClick()
+        if (seeAll) {
+            detail.performScrollToNode(hasText("See all"))
+            compose.onNodeWithText("See all").performClick()
+        }
+        detail.performScrollToNode(hasText("Evidence"))
+        compose.onNodeWithText("Evidence").performClick()
+        detail.performScrollToIndex(0)
     }
 
     /** Scrolls the list from top to bottom, collecting every interactive element under 48dp. */

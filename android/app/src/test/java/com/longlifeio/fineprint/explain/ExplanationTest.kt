@@ -78,8 +78,8 @@ class ExplanationTest {
             e.collects,
         )
         // The reported breach goes under "Also reported"; nothing alleged or adjudicated is in the app's own record.
-        assertEquals(listOf("Emails leaked."), e.alsoReported.map { it.text })
-        assertTrue(e.onTheRecord.isEmpty())
+        assertEquals(listOf("Emails leaked."), e.onTheRecord.alsoReported.map { it.details.first() })
+        assertTrue(e.onTheRecord.actions.isEmpty())
         assertEquals(Tier.FLAGGED, e.tier.tier)
         assertEquals("Location data goes elsewhere — Example Family's own policy", e.tier.reason)
     }

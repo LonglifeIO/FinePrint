@@ -1,5 +1,6 @@
 package com.longlifeio.fineprint.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -81,10 +82,16 @@ fun FinePrintTheme(content: @Composable () -> Unit) {
     }
 }
 
-/** A small rounded tag such as "Granted" or "3 trackers". */
+/** A small rounded tag such as "Granted" or "3 trackers"; [outline] draws it as a border instead of a fill. */
 @Composable
-fun StatusLabel(text: String, container: Color, content: Color, modifier: Modifier = Modifier) {
-    Surface(color = container, contentColor = content, shape = RoundedCornerShape(6.dp), modifier = modifier) {
+fun StatusLabel(text: String, container: Color, content: Color, modifier: Modifier = Modifier, outline: Boolean = false) {
+    Surface(
+        color = if (outline) Color.Transparent else container,
+        contentColor = content,
+        shape = RoundedCornerShape(6.dp),
+        border = if (outline) BorderStroke(1.dp, content) else null,
+        modifier = modifier,
+    ) {
         Text(
             text,
             style = MaterialTheme.typography.labelMedium,
