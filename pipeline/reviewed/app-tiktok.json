@@ -1,0 +1,258 @@
+{
+ "apps": [
+  {
+   "package_id": "com.zhiliaoapp.musically",
+   "display_name": "TikTok",
+   "developer": "TikTok Pte. Ltd. (ByteDance); in the US, TikTok USDS Joint Venture LLC",
+   "developer_company": "co-bytedance",
+   "summary": "TikTok shows you a feed of short videos picked for you, and collects how you interact with videos and ads, plus details about your device, to run it. Since January 2026 a joint venture in which ByteDance keeps 19.9% runs TikTok in the US. According to its US privacy policy (15 Jul 2026), TikTok uses this information for ads, and collects \"approximate or precise location information\" if you turn on location services for the app. Regulators in Ireland and Canada have ruled against TikTok over children's data and transfers of European users' data to China.",
+   "summary_notes": [
+    {
+     "text": "The policy quoted here is TikTok's US privacy policy. In Canada, TikTok is provided by TikTok Pte. Ltd. under its privacy policy for other regions (last updated 8 Jul 2025), which FinePrint hasn't reviewed yet.",
+     "status": "self_disclosed",
+     "wording": "According to TikTok's US and other-regions privacy policies.",
+     "sources": [
+      {
+       "url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok US Privacy Policy, heading",
+       "as_of": "2026-07-15",
+       "status": "self_disclosed",
+       "quote": "U.S. Privacy Policy Last updated: July 15, 2026",
+       "wayback_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "wayback_date": "2026-10-04",
+       "verify_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en"
+      },
+      {
+       "url": "https://www.tiktok.com/legal/page/row/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok Privacy Policy, other regions",
+       "as_of": "2025-07-08",
+       "status": "self_disclosed",
+       "quote": "Other regions Privacy Policy … provided and controlled by TikTok Pte. Ltd.",
+       "wayback_url": "https://web.archive.org/web/20260930143917/https://www.tiktok.com/legal/page/row/privacy-policy/en",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930143917/https://www.tiktok.com/legal/page/row/privacy-policy/en"
+      },
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/nr-c_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada news release",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "Joint investigation of TikTok Pte. Ltd. … Privacy Commissioner of Canada"
+      }
+     ]
+    }
+   ],
+   "risk_tags": [
+    "ad_profiling",
+    "cross_app_tracking",
+    "child_data",
+    "regulatory_action"
+   ],
+   "trackers": [],
+   "privacy_policy_url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+   "privacy_policy_as_of": "2026-07-15",
+   "data_flows": [
+    {
+     "data": "app_activity",
+     "recipient": "co-tiktok-usds",
+     "purpose": "Ads TikTok shows you, and inferring your age, gender and interests",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to TikTok's US privacy policy, last updated 2026-07-15.",
+     "sources": [
+      {
+       "url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok US Privacy Policy, How We Use Your Information",
+       "as_of": "2026-07-15",
+       "status": "self_disclosed",
+       "quote": "To provide and improve our advertising services … To infer additional information about you",
+       "wayback_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "wayback_date": "2026-10-04",
+       "verify_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Since TikTok's US business moved to a joint venture in January 2026, its US privacy policy has said it collects \"approximate or precise location information\" if you turn on location services for the app. The previous US policy, from August 2024, said TikTok did not collect precise GPS location from US users.",
+     "status": "self_disclosed",
+     "wording": "According to TikTok's US privacy policy, last updated 2026-07-15; the earlier policy as reported by Harvard Kennedy School.",
+     "sources": [
+      {
+       "url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok US Privacy Policy, Automatically Collected Information",
+       "as_of": "2026-07-15",
+       "status": "self_disclosed",
+       "quote": "enable location services … we collect approximate or precise location information from your device",
+       "wayback_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "wayback_date": "2026-10-04",
+       "verify_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en"
+      },
+      {
+       "url": "https://www.hks.harvard.edu/centers/carr-ryan/our-work/carr-ryan-commentary/under-us-ownership-tiktok-poses-even-greater-threat",
+       "type": "research",
+       "title": "Harvard Kennedy School, Carr-Ryan Center commentary",
+       "as_of": "2026-01-27",
+       "status": "reported",
+       "quote": "ByteDance retains 19.9 percent … did not collect precise, GPS-derived location data from U.S. users"
+      }
+     ]
+    },
+    {
+     "text": "Advertisers and other partners send TikTok information about what you do outside its apps, such as pages you visit, purchases and apps you download, which TikTok uses to measure and deliver ads.",
+     "status": "self_disclosed",
+     "wording": "According to TikTok's US privacy policy, last updated 2026-07-15.",
+     "sources": [
+      {
+       "url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "type": "privacy_policy",
+       "title": "TikTok US Privacy Policy, Information From Other Sources",
+       "as_of": "2026-07-15",
+       "status": "self_disclosed",
+       "quote": "actions you have taken outside of our websites and apps … deliver ads to you",
+       "wayback_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en",
+       "wayback_date": "2026-10-04",
+       "verify_url": "https://web.archive.org/web/20261004065602/https://www.tiktok.com/legal/page/us/privacy-policy/en"
+      }
+     ]
+    },
+    {
+     "text": "Ireland's Data Protection Commission fined TikTok €530 million in 2025 for transferring European users' data to China without adequate protection. During the inquiry TikTok told the regulator that some of that data had in fact been stored on servers in China, contrary to its earlier evidence.",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "wording": "Fined by Ireland's Data Protection Commission (2025)",
+     "procedural_note": {
+      "text": "TikTok appealed. In June 2026 Ireland's High Court upheld the finding that TikTok broke EU privacy rules and told the regulator to reconsider its order to suspend transfers to China; a separate judgment on the fine had not yet been published.",
+      "sources": [
+       {
+        "url": "https://www.rte.ie/news/ireland/2025/0502/1510729-tiktok-fine/",
+        "type": "journalism",
+        "title": "RTÉ News",
+        "as_of": "2025-05-02",
+        "status": "reported",
+        "quote": "TikTok has confirmed it plans to appeal a €530 million fine"
+       },
+       {
+        "url": "https://www.irishtimes.com/ireland/2026/06/30/data-protection-commission-reconsidering-tiktok-data-transfer-ban-after-court-ruling/",
+        "type": "journalism",
+        "title": "The Irish Times (Reuters)",
+        "as_of": "2026-06-30",
+        "status": "reported",
+        "quote": "upheld the DPC's finding that TikTok breached EU privacy rules … to reconsider"
+       },
+       {
+        "url": "https://www.irishtimes.com/ireland/2026/06/30/data-protection-commission-reconsidering-tiktok-data-transfer-ban-after-court-ruling/",
+        "type": "journalism",
+        "title": "The Irish Times (Reuters)",
+        "as_of": "2026-06-30",
+        "status": "reported",
+        "quote": "A separate judgment regarding TikTok's appeal against the fine"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/latest-news/irish-data-protection-commission-fines-tiktok-eu530-million-and-orders-corrective-measures-following",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2025-05-02",
+       "status": "adjudicated",
+       "quote": "fines totalling €530 million … stored on servers in China"
+      }
+     ]
+    },
+    {
+     "text": "Ireland's Data Protection Commission fined TikTok €345 million in 2023 over how it handled the data of child users from 31 July to 31 December 2020.",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "wording": "Fined by Ireland's Data Protection Commission (2023)",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/dpc-guidance/decisions/inquiry-tiktok-technology-limited-september-2023",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) decision summary",
+       "as_of": "2023-09-01",
+       "status": "adjudicated",
+       "quote": "personal data relating to child users … Administrative fines totalling €345 million"
+      }
+     ]
+    },
+    {
+     "text": "Canada's privacy commissioner and three provincial counterparts found in 2025 that TikTok's measures to keep children off the app were inadequate, and that it profiles users, including children, to target ads and content. TikTok agreed to make changes.",
+     "status": "adjudicated",
+     "status_kind": "regulator_finding",
+     "wording": "Found by Canada's privacy commissioners (2025)",
+     "sources": [
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/nr-c_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada news release",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "measures in place to keep children off the popular video-sharing platform … were inadequate"
+      },
+      {
+       "url": "https://www.priv.gc.ca/en/opc-news/news-and-announcements/2025/bg_tiktok_250923/",
+       "type": "regulator",
+       "title": "Office of the Privacy Commissioner of Canada backgrounder",
+       "as_of": "2025-09-23",
+       "status": "adjudicated",
+       "quote": "create profiles about users, including children, which is being used to deliver targeted ads"
+      }
+     ]
+    },
+    {
+     "text": "The US Justice Department and the FTC sued TikTok and ByteDance in 2024, alleging that TikTok knowingly let children under 13 create regular accounts and collected their data without their parents' consent.",
+     "status": "alleged",
+     "status_kind": "filed",
+     "wording": "Alleged in a lawsuit filed by the US Justice Department on 2024-08-02",
+     "procedural_note": {
+      "text": "On 2026-08-21 the Justice Department announced a $400 million settlement, saying there had been no determination of liability. In September 2026 the court rejected the settlement as proposed and let the department refile.",
+      "sources": [
+       {
+        "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+        "type": "regulator",
+        "title": "US Department of Justice press release",
+        "as_of": "2026-08-21",
+        "status": "alleged",
+        "quote": "allegations only, and there has been no determination of liability",
+        "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+        "wayback_date": "2026-09-27",
+        "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+       },
+       {
+        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
+        "type": "journalism",
+        "title": "MediaPost",
+        "as_of": "2026-09-22",
+        "status": "reported",
+        "quote": "amend its request for settlement approval and refile … The deal that Wu rejected"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2024-08-02",
+       "status": "alleged",
+       "quote": "TikTok knowingly permitted children to create regular TikTok accounts",
+       "wayback_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
+       "wayback_date": "2026-09-01",
+       "verify_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens"
+      }
+     ]
+    }
+   ],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}
