@@ -6,8 +6,9 @@
 
 Every reviewed file is a JSON object holding any of the arrays apps, trackers, companies,
 permissions, device_reach; they are merged, validated against bundle/schema.json, cross-checked
-(company ids, derives_from ids, tracker ids against bundle/trackers.json, a quote on every source,
-one definition per source id, qualified regulatory_action tags), and every source URL must answer
+(company ids, derives_from ids, tracker ids against bundle/trackers.json and one explanation per
+tracker id, a quote on every source, one definition per source id, qualified regulatory_action
+tags), and every source URL must answer
 HTTP 200, or its verify_url when the page blocks scripts (an OK result is cached in pipeline/raw/
 for 30 days). Exodus pages are never fetched (see CLAUDE.md, Exodus etiquette). Nothing reaches
 bundle.json without review.
@@ -108,7 +109,24 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
         errors += [f"{app['package_id']}: tracker {t!r} not in trackers.json" for t in app["trackers"] if t not in tracker_ids]
         errors += risk_tag_problems(app)
         errors += control_problems(app)
-    errors += [f"tracker record {t['id']!r} not in trackers.json" for t in bundle["trackers"] if t["id"] not in tracker_ids]
+        errors += [f"{app['package_id']}: in_owner_apps is for tracker records" for f in app.get("data_flows", []) if "in_owner_apps" in f]
+    errors += tracker_problems(bundle["trackers"], tracker_ids)
+    return errors
+
+
+def tracker_problems(trackers: list[dict], tracker_ids: set[str]) -> list[str]:
+    """A record explains the tracker with its own id, or every id it covers (then its own id may be
+    FinePrint's alone); each tracker id has one explanation at most."""
+    errors, explained = [], {}
+    for t in trackers:
+        keys = t.get("covers", []) + [t["id"]]
+        missing = [k for k in (t.get("covers") or [t["id"]]) if k not in tracker_ids]
+        errors += [f"tracker record {t['id']!r}: {k!r} not in trackers.json" for k in missing]
+        for key in keys:
+            if explained.setdefault(key, t["id"]) != t["id"]:
+                errors.append(f"tracker {key!r} has two explanations: {explained[key]!r} and {t['id']!r}")
+        if "owner_company" not in t and any("in_owner_apps" in f for f in t.get("data_flows", [])):
+            errors.append(f"tracker record {t['id']!r}: in_owner_apps needs owner_company")
     return errors
 
 
@@ -192,7 +210,7 @@ def build(reviewed: list[Path], now: dt.datetime) -> dict:
     mark_stale(merged["apps"], now.date())
     return {
         "schema_version": 1,
-        "schema_revision": "1.2",
+        "schema_revision": "1.3",
         "bundle_version": now.strftime("%Y.%m.%d"),
         "generated_at": now.isoformat(timespec="seconds"),
         "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",

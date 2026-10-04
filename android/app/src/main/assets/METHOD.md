@@ -36,6 +36,8 @@ Each line under Where it goes says what data goes to whom, and why. Lines fall i
 
 Each group has its own colour and icon, and its name is always written out, so colour is never the only clue.
 
+Lines about a tracker come from FinePrint's record of it when there is one, and are otherwise inferred from its code (Auto). One record can explain several trackers in εxodus's list that come from the same company, such as Meta's Facebook Ads, Facebook Analytics and Facebook Login. When the app's own maker also owns a tracker in it, that tracker's data doesn't go elsewhere: its lines go under Used for more where its record says how the maker uses the data, and are otherwise left to the app's own record.
+
 ## Status badges
 
 Every line carries a badge that says how strong the evidence is. Tap a badge to see what it means.

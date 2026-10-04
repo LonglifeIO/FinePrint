@@ -35,6 +35,10 @@ See `CLAUDE.md` for the status levels and the wording that goes with each.
 - A `regulatory_action` tag on an app whose record has no action against its own developer needs a
   `risk_tag_notes` qualifier, e.g. "against Allstate/Arity concerning this app's data". Tags are
   for sorting and filtering; the app never shows them as a list of labels.
+- A tracker record explains the tracker with its own id, or every id in its `covers` (one company's
+  kits, such as Meta's); each tracker id has one explanation at most. A tracker flow's
+  `in_owner_apps` gives its bucket inside apps the tracker's owner makes; without it, a
+  goes-elsewhere flow is left out there, since nothing leaves the company.
 - An app's `controls` are its in-app settings for the "What you can do" checklist. Each names the
   flows it limits by `id` (flows in the same record), says what turning it off changes (`effect`:
   the app's own quoted words, attributed, or that it doesn't say), and carries its own sources.

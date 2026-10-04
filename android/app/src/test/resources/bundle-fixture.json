@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "schema_revision": "1.2",
+ "schema_revision": "1.3",
  "bundle_version": "2026.10.04",
  "generated_at": "2026-10-04T12:00:00-03:00",
  "apps": [
@@ -30,6 +30,20 @@
    "coverage": "curated",
    "stale": true,
    "last_reviewed": "2026-01-01"
+  },
+  {
+   "package_id": "com.example.kit",
+   "display_name": "Kit App",
+   "developer_company": "co-kit",
+   "summary": "Synthetic test record: an app made by the company whose kits it contains.",
+   "trackers": ["exodus-65"],
+   "data_flows": [
+    { "data": "app_activity", "recipient": "co-kit", "purpose": "Kit's own ads", "bucket": "used_for_more", "status": "self_disclosed",
+      "sources": [{ "url": "https://example.org/kit-policy", "type": "privacy_policy", "title": "Kit policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "we use your activity for ads" }] }
+   ],
+   "consequences": [],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-01"
   }
  ],
  "trackers": [
@@ -47,11 +61,28 @@
       ] }
    ],
    "consequences": [], "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "fp-kit", "name": "Kit SDKs", "covers": ["exodus-65", "exodus-66"], "owner": "Kit Co", "owner_company": "co-kit",
+   "party": "third_party", "categories": ["advertising"],
+   "data_flows": [
+    { "data": "app_activity", "recipient": "co-kit", "purpose": "Ads Kit shows you", "bucket": "goes_elsewhere", "status": "self_disclosed",
+      "sources": [{ "url": "https://example.org/kit-policy", "type": "privacy_policy", "title": "Kit policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "partners send us your activity" }] },
+    { "data": "device_identifiers", "recipient": "co-kit", "purpose": "Measuring Kit's ads", "bucket": "goes_elsewhere", "in_owner_apps": "used_for_more", "status": "self_disclosed",
+      "sources": [{ "url": "https://example.org/kit-policy", "type": "privacy_policy", "title": "Kit policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "we measure our ads" }] }
+   ],
+   "consequences": [
+    { "text": "Kit Co was fined.", "status": "adjudicated", "status_kind": "ruling",
+      "sources": [{ "url": "https://example.org/kit-fine", "type": "regulator", "title": "Regulator", "as_of": "2025-05-05", "status": "adjudicated", "quote": "fined Kit Co" }] }
+   ],
+   "last_reviewed": "2026-10-04"
   }
  ],
  "companies": [
   { "id": "co-parent", "name": "Parent Co", "roles": ["tracker_owner"], "last_reviewed": "2026-10-04" },
-  { "id": "co-dev", "name": "Example Developer", "roles": ["developer"], "last_reviewed": "2026-10-04" }
+  { "id": "co-dev", "name": "Example Developer", "roles": ["developer"], "last_reviewed": "2026-10-04" },
+  { "id": "co-kit", "name": "Kit Co", "short_name": "Kit", "roles": ["developer", "tracker_owner"], "last_reviewed": "2026-10-04" },
+  { "id": "co-kitlabs", "name": "Kit Labs", "parent": "co-kit", "roles": ["developer"], "last_reviewed": "2026-10-04" }
  ],
  "permissions": [
   { "id": "android.permission.ACCESS_FINE_LOCATION", "plain": "Exact location.", "why_it_matters": "Why.", "feeds": ["precise_location", "movement_and_driving"] },

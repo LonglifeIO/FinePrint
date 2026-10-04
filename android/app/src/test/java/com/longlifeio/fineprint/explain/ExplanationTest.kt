@@ -133,6 +133,29 @@ class ExplanationTest {
     }
 
     @Test
+    fun oneRecordCoversSeveralTrackersAndTellsItsLinesOnce() {
+        val found = listOf(tracker("exodus-65", "Facebook Ads", "Advertisement"), tracker("exodus-66", "Facebook Analytics", "Analytics"))
+        assertEquals("fp-kit", bundle.trackers.getValue("exodus-66").id)
+        val e = explain(app("com.example.other"), scan(found), bundle, emptyMap())
+        // Both kits are found; the record's two lines show once each, and no line is inferred for either kit.
+        assertEquals(listOf("app_activity", "device_identifiers"), e.flows.getValue(GOES_ELSEWHERE).map { it.data })
+        assertTrue(e.flows.values.flatten().all { it.recipient == "Kit Co" && it.status == "self_disclosed" })
+        assertEquals(1, e.onTheRecord.actions.size) // the record's ruling, once
+        // Credited to the company whose kits they are, not to one kit.
+        assertEquals("In-app activity goes elsewhere — Kit's own disclosure", e.tier.reason)
+    }
+
+    @Test
+    fun aTrackerMadeByTheAppsOwnDeveloperSendsNothingElsewhere() {
+        val e = explain(app("com.example.kit"), scan(listOf(tracker("exodus-65", "Facebook Ads", "Advertisement"))), bundle, emptyMap())
+        assertNull(e.flows[GOES_ELSEWHERE])
+        // The app's own line, then the one line the tracker's record places in its owner's apps; the other is left out.
+        assertEquals(listOf("Kit's own ads", "Measuring Kit's ads"), e.flows.getValue(USED_FOR_MORE).map { it.purpose })
+        assertTrue(sameCompany("co-kitlabs", "co-kit", bundle)) // one owns the other
+        assertTrue(!sameCompany("co-kit", "co-dev", bundle))
+    }
+
+    @Test
     fun firstPartyAdvertisingIsUsedForMoreNotElsewhere() {
         val flows = deriveFlows("Meta", listOf("Advertisement"), "first_party")
         assertTrue(flows.all { it.bucket == USED_FOR_MORE })

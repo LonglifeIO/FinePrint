@@ -18,7 +18,7 @@ VALIDATOR = build.jsonschema.Draft202012Validator(
 
 
 def doc(**sections) -> dict:
-    base = {"schema_version": 1, "schema_revision": "1.2", "bundle_version": "2026.10.04",
+    base = {"schema_version": 1, "schema_revision": "1.3", "bundle_version": "2026.10.04",
             "generated_at": "2026-10-04T12:00:00-03:00", "apps": [], "trackers": [], "companies": [],
             "permissions": [], "device_reach": []}
     return dict(base, **sections)
@@ -86,6 +86,39 @@ class MergeAndCheckTest(unittest.TestCase):
         self.assertEqual([e.message for e in validator.iter_errors(bundle)], [])
         tracker_ids = {t["id"] for t in json.loads(build.TRACKERS.read_text(encoding="utf-8"))["trackers"]}
         self.assertEqual(build.cross_check(bundle, tracker_ids), [])
+
+
+class CoversTest(unittest.TestCase):
+    def tracker(self, id_: str, **extra) -> dict:
+        return dict({"id": id_, "owner": "Meta Platforms, Inc.", "categories": ["advertising"], "consequences": [],
+                     "last_reviewed": "2026-10-04"}, **extra)
+
+    def test_one_explanation_covers_several_ids(self):
+        meta = self.tracker("fp-meta", covers=["exodus-47", "exodus-65"])
+        self.assertEqual(build.tracker_problems([meta], {"exodus-47", "exodus-65"}), [])
+        self.assertEqual(schema_errors(doc(trackers=[meta])), [])
+
+    def test_every_covered_id_is_in_trackers_json(self):
+        meta = self.tracker("fp-meta", covers=["exodus-47", "exodus-99999"])
+        self.assertEqual(build.tracker_problems([meta], {"exodus-47"}),
+                         ["tracker record 'fp-meta': 'exodus-99999' not in trackers.json"])
+        self.assertEqual(build.tracker_problems([self.tracker("fp-nothing")], {"exodus-47"}),
+                         ["tracker record 'fp-nothing': 'fp-nothing' not in trackers.json"])
+
+    def test_an_id_has_one_explanation(self):
+        ids = {"exodus-47", "exodus-65"}
+        problems = build.tracker_problems([self.tracker("fp-meta", covers=["exodus-47", "exodus-65"]), self.tracker("exodus-65")], ids)
+        self.assertEqual(problems, ["tracker 'exodus-65' has two explanations: 'fp-meta' and 'exodus-65'"])
+
+    def test_in_owner_apps_is_for_tracker_records_with_an_owner(self):
+        flow = {"data": "app_activity", "recipient_label": "x", "purpose": "p", "bucket": "goes_elsewhere",
+                "status": "self_disclosed", "sources": [SOURCE], "in_owner_apps": "used_for_more"}
+        self.assertEqual(build.tracker_problems([self.tracker("exodus-65", data_flows=[flow])], {"exodus-65"}),
+                         ["tracker record 'exodus-65': in_owner_apps needs owner_company"])
+        owned = self.tracker("exodus-65", owner_company="co-meta", data_flows=[flow])
+        self.assertEqual(build.tracker_problems([owned], {"exodus-65"}), [])
+        bundle = doc(apps=[dict(app("2026-10-01"), data_flows=[flow])])
+        self.assertIn("com.example: in_owner_apps is for tracker records", build.cross_check(bundle, {"exodus-12"}))
 
 
 class SourceRulesTest(unittest.TestCase):

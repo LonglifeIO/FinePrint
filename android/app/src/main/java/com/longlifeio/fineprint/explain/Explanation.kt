@@ -66,19 +66,11 @@ fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signat
     record?.dataFlows?.forEach { f ->
         lines += f.toLine(f.recipient?.let { bundle.companies[it]?.name } ?: f.recipientLabel ?: "Unnamed recipient", via = null)
     }
-    for (tracker in detected) {
-        val trackerRecord = bundle?.trackers?.get(tracker.id)
-        if (trackerRecord != null && trackerRecord.dataFlows.isNotEmpty()) {
-            val chain = trackerRecord.ownerChain.takeIf { it.isNotEmpty() }?.joinToString(" → ") ?: trackerRecord.owner
-            trackerRecord.dataFlows.forEach { lines += it.toLine(chain, via = tracker.name) }
-        } else {
-            lines += deriveFlows(tracker.name, signatures[tracker.id]?.categories ?: tracker.categories, trackerRecord?.party)
-        }
-    }
+    lines += trackerLines(detected, bundle, record?.developerCompany, signatures)
     val shown = lines.distinct()
     val granted = app.permissions.filter { it.granted }
     val shownData = shown.map { it.data }.toSet()
-    val trackerConsequences = detected.flatMap { bundle?.trackers?.get(it.id)?.consequences.orEmpty() }
+    val trackerConsequences = detected.mapNotNull { bundle?.trackers?.get(it.id) }.distinct().flatMap { it.consequences }
     val readable = scan != null && scan.dexFiles > 0
 
     return Explanation(
@@ -142,7 +134,7 @@ private fun tierEvents(record: AppRecord?, trackerConsequences: List<Consequence
         bundle?.companies?.values.orEmpty().flatMap { c -> c.events.filter { it.concernsApp == pkg } }
             .map { TierEvent(it.status, it.statusKind, concernsThisApp = true, sources = it.sources, label = it.title, date = it.date) }
 
-private fun DataFlow.toLine(recipient: String, via: String?) =
+internal fun DataFlow.toLine(recipient: String, via: String?) =
     FlowLine(data, bucket, recipient, purpose, status, attribution(status, wording), historical, sources, proceduralNote, via, id)
 
 /** Alleged lines always say "not proven in court", whatever the record's own wording. */

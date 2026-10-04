@@ -12,7 +12,8 @@ Build order (each is a separate script, each is idempotent):
    a consequence with no source. Writes to `drafts/` (gitignored). Hand-run via Codex CLI for now.
 4. `review.py` — opens the draft queue; approved records move into `reviewed/`.
 5. `build.py` — merges `reviewed/*.json`, rejects duplicate ids, marks records older than 180 days
-   `stale`, validates against `../bundle/schema.json`, cross-checks company, source and tracker ids,
+   `stale`, validates against `../bundle/schema.json`, cross-checks company, source and tracker ids
+   (a tracker record may cover several ids; each id has one explanation at most),
    rejects any source without a `quote`, checks every `source_url` resolves (HTTP 200; a source may
    name a `verify_url` when the page itself blocks scripts), and writes `../bundle/bundle.json`. URL
    results are cached for 30 days in `raw/url-checks.json`. Use `--out <path>` for a preview and

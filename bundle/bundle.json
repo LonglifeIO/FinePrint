@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "schema_revision": "1.2",
+ "schema_revision": "1.3",
  "bundle_version": "2026.10.04",
- "generated_at": "2026-10-04T17:54:28-03:00",
+ "generated_at": "2026-10-04T18:54:16-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -1361,6 +1361,174 @@
        "status": "alleged",
        "derives_from": "src-tx-ag-petition-2025-01-13",
        "quote": "secretly embedded software in mobile apps, such as Life360 … would pay app developers"
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "fp-meta",
+   "name": "Meta SDKs",
+   "covers": [
+    "exodus-47",
+    "exodus-65",
+    "exodus-66",
+    "exodus-67",
+    "exodus-70"
+   ],
+   "aka": [
+    "Facebook SDK",
+    "Facebook App Events",
+    "Facebook Login",
+    "Facebook Share",
+    "Meta Audience Network",
+    "Facebook Ads SDK"
+   ],
+   "owner": "Meta Platforms, Inc.",
+   "owner_company": "co-meta",
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Meta's kits for apps: App Events, Audience Network, Login, Share",
+   "categories": [
+    "advertising",
+    "analytics",
+    "identification"
+   ],
+   "data_collected": [
+    "what you do in the app (events)"
+   ],
+   "monetization_model": "Meta uses what apps and other partners send about your activity to personalize the ads it shows you, on its own apps and, through Audience Network, in other apps (Meta's privacy policy).",
+   "data_flows": [
+    {
+     "data": "app_activity",
+     "recipient": "co-meta",
+     "purpose": "Personalizing the ads Meta shows you, on its apps and in others",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, Using information from third parties for personalizing ads",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "partners provide us about activity off the Meta Company Products … to personalize ads",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      },
+      {
+       "url": "https://themarkup.org/privacy/2024/01/17/each-facebook-user-is-monitored-by-thousands-of-companies-study-indicates",
+       "type": "journalism",
+       "title": "The Markup (co-published with Consumer Reports)",
+       "as_of": "2024-01-17",
+       "status": "reported",
+       "quote": "originate from Meta software code included in many mobile apps",
+       "derives_from": "src-cr-facebook-2024-01-17"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Apps that include Meta's code can send Meta what you do in them, and Meta uses it to personalize the ads you see. It receives this \"whether or not you're logged in or have an account\".",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, Using information from third parties for personalizing ads",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "We receive this information whether or not you're logged in or have an account",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      },
+      {
+       "url": "https://themarkup.org/privacy/2024/01/17/each-facebook-user-is-monitored-by-thousands-of-companies-study-indicates",
+       "type": "journalism",
+       "title": "The Markup (co-published with Consumer Reports)",
+       "as_of": "2024-01-17",
+       "status": "reported",
+       "quote": "originate from Meta software code included in many mobile apps",
+       "derives_from": "src-cr-facebook-2024-01-17"
+      }
+     ]
+    },
+    {
+     "text": "In a 2024 Consumer Reports study of 709 volunteers' Facebook data, an average of 2,230 companies had sent Meta data about each person, through code in apps, website pixels and direct transfers; the data broker LiveRamp did so for about 96% of them. The volunteers were not a representative sample.",
+     "status": "reported",
+     "wording": "Reported in a 2024 Consumer Reports study (one study)",
+     "sources": [
+      {
+       "id": "src-cr-facebook-2024-01-17",
+       "url": "https://advocacy.consumerreports.org/research/report-who-shares-your-information-with-facebook",
+       "type": "research",
+       "title": "Consumer Reports, \"Who Shares Your Information With Facebook?\"",
+       "as_of": "2024-01-17",
+       "status": "reported",
+       "single_source": true,
+       "quote": "average participant … identified in the data by 2,230 different companies … LiveRamp, a data broker"
+      },
+      {
+       "url": "https://themarkup.org/privacy/2024/01/17/each-facebook-user-is-monitored-by-thousands-of-companies-study-indicates",
+       "type": "journalism",
+       "title": "The Markup (co-published with Consumer Reports)",
+       "as_of": "2024-01-17",
+       "status": "reported",
+       "quote": "Participants were also likely more privacy conscious and technically inclined than typical users",
+       "derives_from": "src-cr-facebook-2024-01-17"
+      }
+     ]
+    },
+    {
+     "text": "Opting out may not reach every company involved: Consumer Reports notes that state privacy laws typically require only advertisers to honour opt-outs, so the service providers that place their ads might not have to.",
+     "status": "reported",
+     "wording": "Reported in a 2024 Consumer Reports study (one study)",
+     "sources": [
+      {
+       "url": "https://advocacy.consumerreports.org/wp-content/uploads/2024/01/CR_Who-Shares-Your-Information-With-Facebook_01_17_23_vf.pdf",
+       "type": "research",
+       "title": "Consumer Reports, full report (PDF)",
+       "as_of": "2024-01-17",
+       "status": "reported",
+       "single_source": true,
+       "quote": "advertising service providers might not be required to comply"
+      }
+     ]
+    },
+    {
+     "text": "In 2019 Meta, then Facebook, Inc., agreed to a $5 billion penalty to settle US Federal Trade Commission charges that it deceived Facebook users about their privacy controls, including by sharing friends' data with third-party apps.",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "wording": "Settled with the US FTC (2019; order entered 2020)",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2019-07-24",
+       "status": "adjudicated",
+       "quote": "$5 billion penalty … shared the data of users' Facebook friends with third-party app developers",
+       "wayback_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2020-04-28",
+       "status": "adjudicated",
+       "quote": "Judge Timothy J. Kelly entered the order on April 23, 2020.",
+       "wayback_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "wayback_date": "2026-01-04",
+       "verify_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement"
       }
      ]
     }
