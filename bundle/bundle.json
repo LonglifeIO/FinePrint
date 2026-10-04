@@ -1,0 +1,825 @@
+{
+ "schema_version": 1,
+ "schema_revision": "1.1",
+ "bundle_version": "2026.10.04",
+ "generated_at": "2026-10-04T14:41:31-03:00",
+ "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: Fine Print",
+ "apps": [
+  {
+   "package_id": "com.life360.android.safetymapd",
+   "display_name": "Life360",
+   "developer": "Life360, Inc.",
+   "developer_company": "co-life360",
+   "summary": "Life360 shares your family's locations with each other, but its policy also lets it pass precise location, movement and driving data to outside companies. Some of those partners use the data to make money for themselves, and aggregated driving data is offered to help insurers \"understand and predict driving behavior.\" The Texas AG and a federal class action allege that Allstate's Arity gathered driving data through apps like Life360 and sold it to insurers. Neither is proven in court, and part of the Texas case is under appeal. You can switch most of this off in the app's privacy settings.",
+   "risk_tags": [
+    "location_sale",
+    "telematics",
+    "ad_profiling",
+    "cross_app_tracking",
+    "breach",
+    "regulatory_action"
+   ],
+   "trackers": [
+    "exodus-12",
+    "exodus-27",
+    "exodus-49",
+    "exodus-53",
+    "exodus-65",
+    "exodus-66",
+    "exodus-72",
+    "exodus-90",
+    "exodus-92",
+    "exodus-104",
+    "exodus-106",
+    "exodus-121",
+    "exodus-124",
+    "exodus-125",
+    "exodus-146",
+    "exodus-167",
+    "exodus-198",
+    "exodus-200",
+    "exodus-236",
+    "exodus-290",
+    "exodus-312",
+    "exodus-328",
+    "exodus-347",
+    "exodus-363",
+    "exodus-370",
+    "exodus-432",
+    "exodus-447",
+    "fp-arity"
+   ],
+   "exodus_report": {
+    "id": 785809,
+    "app_version": "26.37.0",
+    "version_code": 2924500,
+    "created": "2026-10-02",
+    "tracker_count": 27,
+    "apk_sha256": "e468187c69ffa8439dc0a55705e608ec83387e458d796d5a1ea4ad49bfa8af20"
+   },
+   "privacy_policy_url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+   "privacy_policy_as_of": "2026-08-26",
+   "privacy_controls": "In the Life360 app: \"Your Privacy Choices\" (ads and partners' own use), \"Trusted Partners\" (disconnect partner feeds) and \"Traffic & Retail Insights\" (aggregate insights). Life360 says it does not share or sell data of members it knows are under 18.",
+   "data_flows": [
+    {
+     "data": "precise_location",
+     "recipient_label": "Select business partners",
+     "purpose": "Their own money-making, not just running Life360 features",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §IV.E",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "precise geolocation data, movement data … select business partners … their own monetization purposes",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "data": "movement_and_driving",
+     "recipient_label": "Business partners (aggregated, de-identified)",
+     "purpose": "Help insurers predict driving behaviour",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §IV.E",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "business partners … commercialize aggregated and de-identified data … help insurers … predict driving behavior",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "data": "sensitive_personal_data",
+     "recipient_label": "Buyers Life360 does not name",
+     "purpose": "May be sold (Texas notice)",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26 (Texas notice).",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, Texas notice",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "TEXAS NOTICE: We may sell your sensitive personal data.",
+       "vendor_archive_url": "https://legal.corp.life360.com/hc/en-us/articles/40254028461463-Life360-Privacy-Policy-previous-to-May-5-2026",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "data": "device_identifiers",
+     "recipient_label": "Advertising partners",
+     "purpose": "Target ads to you in other apps and sites",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §III",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "device and advertising identifiers … advertising partners … advertising targeted to you",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "data": "app_activity",
+     "recipient_label": "Advertising partners",
+     "purpose": "Target ads to you in other apps and sites",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §III",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "activity information collected through Tracking Technologies … advertising partners … advertising targeted to you",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "data": "account_identity",
+     "recipient_label": "Advertising partners",
+     "purpose": "A hashed version of your email, to target ads",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §III",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "a hashed version of your email, to advertising partners … advertising targeted to you",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "data": "precise_location",
+     "recipient_label": "About a dozen data brokers (2021)",
+     "purpose": "Sold, per The Markup's 2021 reporting; Life360 said in 2022 it would stop, except for Arity",
+     "bucket": "goes_elsewhere",
+     "status": "reported",
+     "historical": true,
+     "wording": "Reported by The Markup in 2021 (historical)",
+     "sources": [
+      {
+       "id": "src-markup-2021-12-06",
+       "url": "https://themarkup.org/privacy/2021/12/06/the-popular-family-safety-app-life360-is-selling-precise-location-data-on-its-tens-of-millions-of-user",
+       "type": "journalism",
+       "title": "The Markup",
+       "as_of": "2021-12-06",
+       "status": "reported",
+       "single_source": true,
+       "quote": "selling data on kids' and families' whereabouts to approximately a dozen data brokers"
+      },
+      {
+       "url": "https://themarkup.org/privacy/2022/01/27/life360-says-it-will-stop-selling-precise-location-data",
+       "type": "journalism",
+       "title": "The Markup (follow-up)",
+       "as_of": "2022-01-27",
+       "status": "reported",
+       "derives_from": "src-markup-2021-12-06",
+       "quote": "Life360 will phase out all of its location data deals, except with Allstate's Arity"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Life360 says it may sell your sensitive personal data, which under Texas law includes precise location.",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26 (Texas notice).",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, Texas notice",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "TEXAS NOTICE: We may sell your sensitive personal data.",
+       "vendor_archive_url": "https://legal.corp.life360.com/hc/en-us/articles/40254028461463-Life360-Privacy-Policy-previous-to-May-5-2026",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "text": "Your precise location and movement data can go to \"select business partners\" who use it for their own money-making, not just to run Life360 features.",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §IV.E",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "precise geolocation data, movement data … select business partners … their own monetization purposes",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "text": "Aggregated, de-identified driving data may be used to help insurers predict driving behavior.",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §IV.E",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "business partners … commercialize aggregated and de-identified data … help insurers … predict driving behavior",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "text": "The Texas AG and a federal class action allege that Allstate's Arity paid apps such as Life360 to embed its SDK, built a driving database on 45 million+ Americans, and sold the data to insurers, who used it to raise premiums. Life360 is not a defendant.",
+     "subject_company": "co-allstate",
+     "concerns_app": "com.life360.android.safetymapd",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "wording": "Alleged by the Texas AG and in a federal class action; not proven in court. Part of the Texas case was dismissed on jurisdiction grounds and is under appeal.",
+     "procedural_note": {
+      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
+      "sources": [
+       {
+        "id": "src-mlex-2025-04-10",
+        "url": "https://www.mlex.com/mlex/articles/2326565/texas-court-lacks-jurisdiction-over-allstate-subsidiary-judge-says-in-location-privacy-suit",
+        "type": "journalism",
+        "title": "MLex",
+        "as_of": "2025-04-10",
+        "status": "reported",
+        "quote": "court lacks jurisdiction … dismissed Allstate and its data analytics subsidiary, Arity 875 LLC"
+       },
+       {
+        "id": "src-danielstark-2026-07-08",
+        "url": "https://www.danielstark.com/blog/texas-sues-allstate-over-driver-data-what-it-means-for-you/",
+        "type": "company_site",
+        "title": "Daniel Stark Law (case summary)",
+        "as_of": "2026-07-08",
+        "status": "reported",
+        "quote": "Allstate remains an active defendant … Arity was dismissed … that ruling is now on appeal"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "id": "src-ndill-mtd-2026-03-03",
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.470938/gov.uscourts.ilnd.470938.74.0_3.pdf",
+       "type": "lawsuit",
+       "title": "In re Allstate and Arity Consumer Privacy Litigation (N.D. Ill. No. 25-cv-407), opinion on the motion to dismiss",
+       "as_of": "2026-03-03",
+       "status": "alleged",
+       "quote": "this information was sold or used to make decisions concerning the plaintiffs' insurance coverage and premiums … the defendants' motion is granted in part and denied in part"
+      },
+      {
+       "id": "src-findlaw-2026-03-16",
+       "url": "https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "type": "journalism",
+       "title": "FindLaw",
+       "as_of": "2026-03-16",
+       "status": "alleged",
+       "quote": "used driver data to raise premiums or deny coverage, and then sold that data",
+       "wayback_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "wayback_date": "2026-03-18",
+       "verify_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/"
+      },
+      {
+       "id": "src-tx-ag-petition-2025-01-13",
+       "url": "https://www.texasattorneygeneral.gov/sites/default/files/images/press/Allstate%20and%20Arity%20Petition%20Filed.pdf",
+       "type": "lawsuit",
+       "title": "State of Texas v. The Allstate Corp. et al., petition",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "quote": "combining it with the Arity SDK Data and selling it to third parties"
+      },
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-sues-allstate-and-arity-unlawfully-collecting-using-and-selling-over-45",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "derives_from": "src-tx-ag-petition-2025-01-13",
+       "quote": "secretly embedded software in mobile apps, such as Life360 … would pay app developers"
+      }
+     ]
+    },
+    {
+     "text": "Device and advertising IDs, activity data and a hashed version of your email go to ad partners to target ads to you in other apps and sites.",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §III (identifiers, activity)",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "device and advertising identifiers and activity information … advertising partners … advertising targeted to you",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      },
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §III (hashed email)",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "a hashed version of your email, to advertising partners",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    },
+    {
+     "text": "In 2021, The Markup reported that Life360 was selling precise location data to about a dozen data brokers, naming Cuebiq, X-Mode and Allstate's Arity. Life360 later said it would stop selling precise location (2022), except to Arity. This is historical, not current.",
+     "status": "reported",
+     "historical": true,
+     "wording": "Reported by The Markup in 2021 (historical)",
+     "sources": [
+      {
+       "id": "src-markup-2021-12-06",
+       "url": "https://themarkup.org/privacy/2021/12/06/the-popular-family-safety-app-life360-is-selling-precise-location-data-on-its-tens-of-millions-of-user",
+       "type": "journalism",
+       "title": "The Markup",
+       "as_of": "2021-12-06",
+       "status": "reported",
+       "single_source": true,
+       "quote": "selling data on kids' and families' whereabouts to approximately a dozen data brokers"
+      },
+      {
+       "url": "https://themarkup.org/privacy/2022/01/27/life360-says-it-will-stop-selling-precise-location-data",
+       "type": "journalism",
+       "title": "The Markup (follow-up)",
+       "as_of": "2022-01-27",
+       "status": "reported",
+       "derives_from": "src-markup-2021-12-06",
+       "quote": "Life360 will phase out all of its location data deals, except with Allstate's Arity"
+      }
+     ]
+    },
+    {
+     "text": "Names, phone numbers and emails of 442,519 users were scraped through a flaw in Life360's login API in 2024.",
+     "status": "reported",
+     "wording": "Reported data exposure (2024)",
+     "sources": [
+      {
+       "url": "https://haveibeenpwned.com/Breach/Life360",
+       "type": "breach_notice",
+       "title": "Have I Been Pwned: Life360",
+       "as_of": "2024-07-20",
+       "status": "reported",
+       "quote": "data scraped from a misconfigured Life360 API"
+      },
+      {
+       "url": "https://insight.scmagazineuk.com/life360-customer-details-leaked-following-api-breach",
+       "type": "journalism",
+       "title": "SC Media UK",
+       "accessed": "2026-10-02",
+       "status": "reported",
+       "quote": "personal information of 442,519 Life360 customers has been leaked"
+      }
+     ]
+    }
+   ],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-04",
+   "risk_tag_notes": {
+    "regulatory_action": "against Allstate/Arity concerning this app's data"
+   },
+   "stale": false
+  }
+ ],
+ "trackers": [
+  {
+   "id": "fp-arity",
+   "name": "Arity",
+   "aka": [
+    "Arity Driving Engine SDK",
+    "Arity CoreEngine"
+   ],
+   "owner": "The Allstate Corporation",
+   "owner_company": "co-allstate",
+   "owner_chain": [
+    "Arity",
+    "The Allstate Corporation"
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Arity driving SDK (CoreEngine)",
+   "categories": [
+    "telematics",
+    "location"
+   ],
+   "data_collected": [
+    "driving data"
+   ],
+   "data_flows": [
+    {
+     "data": "movement_and_driving",
+     "recipient": "co-allstate",
+     "purpose": "A driving database that the Texas AG and a federal class action allege was sold to insurers, who used it to raise premiums",
+     "bucket": "goes_elsewhere",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "wording": "Alleged by the Texas AG and in a federal class action; not proven in court. Part of the Texas case was dismissed on jurisdiction grounds and is under appeal.",
+     "procedural_note": {
+      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
+      "sources": [
+       {
+        "id": "src-mlex-2025-04-10",
+        "url": "https://www.mlex.com/mlex/articles/2326565/texas-court-lacks-jurisdiction-over-allstate-subsidiary-judge-says-in-location-privacy-suit",
+        "type": "journalism",
+        "title": "MLex",
+        "as_of": "2025-04-10",
+        "status": "reported",
+        "quote": "court lacks jurisdiction … dismissed Allstate and its data analytics subsidiary, Arity 875 LLC"
+       },
+       {
+        "id": "src-danielstark-2026-07-08",
+        "url": "https://www.danielstark.com/blog/texas-sues-allstate-over-driver-data-what-it-means-for-you/",
+        "type": "company_site",
+        "title": "Daniel Stark Law (case summary)",
+        "as_of": "2026-07-08",
+        "status": "reported",
+        "quote": "Allstate remains an active defendant … Arity was dismissed … that ruling is now on appeal"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "id": "src-ndill-mtd-2026-03-03",
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.470938/gov.uscourts.ilnd.470938.74.0_3.pdf",
+       "type": "lawsuit",
+       "title": "In re Allstate and Arity Consumer Privacy Litigation (N.D. Ill. No. 25-cv-407), opinion on the motion to dismiss",
+       "as_of": "2026-03-03",
+       "status": "alleged",
+       "quote": "this information was sold or used to make decisions concerning the plaintiffs' insurance coverage and premiums … the defendants' motion is granted in part and denied in part"
+      },
+      {
+       "id": "src-findlaw-2026-03-16",
+       "url": "https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "type": "journalism",
+       "title": "FindLaw",
+       "as_of": "2026-03-16",
+       "status": "alleged",
+       "quote": "used driver data to raise premiums or deny coverage, and then sold that data",
+       "wayback_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "wayback_date": "2026-03-18",
+       "verify_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/"
+      },
+      {
+       "id": "src-tx-ag-petition-2025-01-13",
+       "url": "https://www.texasattorneygeneral.gov/sites/default/files/images/press/Allstate%20and%20Arity%20Petition%20Filed.pdf",
+       "type": "lawsuit",
+       "title": "State of Texas v. The Allstate Corp. et al., petition",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "quote": "combining it with the Arity SDK Data and selling it to third parties"
+      },
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-sues-allstate-and-arity-unlawfully-collecting-using-and-selling-over-45",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "derives_from": "src-tx-ag-petition-2025-01-13",
+       "quote": "secretly embedded software in mobile apps, such as Life360 … would pay app developers"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "The Texas AG and a federal class action allege that Allstate's Arity paid app makers to embed its SDK, built a driving database on 45 million+ Americans, and sold the data to insurers, who used it to raise premiums. Third-party app makers such as Life360 are not defendants.",
+     "subject_company": "co-allstate",
+     "concerns_app": "com.life360.android.safetymapd",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "wording": "Alleged by the Texas AG and in a federal class action; not proven in court. Part of the Texas case was dismissed on jurisdiction grounds and is under appeal.",
+     "procedural_note": {
+      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
+      "sources": [
+       {
+        "id": "src-mlex-2025-04-10",
+        "url": "https://www.mlex.com/mlex/articles/2326565/texas-court-lacks-jurisdiction-over-allstate-subsidiary-judge-says-in-location-privacy-suit",
+        "type": "journalism",
+        "title": "MLex",
+        "as_of": "2025-04-10",
+        "status": "reported",
+        "quote": "court lacks jurisdiction … dismissed Allstate and its data analytics subsidiary, Arity 875 LLC"
+       },
+       {
+        "id": "src-danielstark-2026-07-08",
+        "url": "https://www.danielstark.com/blog/texas-sues-allstate-over-driver-data-what-it-means-for-you/",
+        "type": "company_site",
+        "title": "Daniel Stark Law (case summary)",
+        "as_of": "2026-07-08",
+        "status": "reported",
+        "quote": "Allstate remains an active defendant … Arity was dismissed … that ruling is now on appeal"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "id": "src-ndill-mtd-2026-03-03",
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.470938/gov.uscourts.ilnd.470938.74.0_3.pdf",
+       "type": "lawsuit",
+       "title": "In re Allstate and Arity Consumer Privacy Litigation (N.D. Ill. No. 25-cv-407), opinion on the motion to dismiss",
+       "as_of": "2026-03-03",
+       "status": "alleged",
+       "quote": "this information was sold or used to make decisions concerning the plaintiffs' insurance coverage and premiums … the defendants' motion is granted in part and denied in part"
+      },
+      {
+       "id": "src-findlaw-2026-03-16",
+       "url": "https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "type": "journalism",
+       "title": "FindLaw",
+       "as_of": "2026-03-16",
+       "status": "alleged",
+       "quote": "used driver data to raise premiums or deny coverage, and then sold that data",
+       "wayback_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "wayback_date": "2026-03-18",
+       "verify_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/"
+      },
+      {
+       "id": "src-tx-ag-petition-2025-01-13",
+       "url": "https://www.texasattorneygeneral.gov/sites/default/files/images/press/Allstate%20and%20Arity%20Petition%20Filed.pdf",
+       "type": "lawsuit",
+       "title": "State of Texas v. The Allstate Corp. et al., petition",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "quote": "combining it with the Arity SDK Data and selling it to third parties"
+      },
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-sues-allstate-and-arity-unlawfully-collecting-using-and-selling-over-45",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "derives_from": "src-tx-ag-petition-2025-01-13",
+       "quote": "secretly embedded software in mobile apps, such as Life360 … would pay app developers"
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-04"
+  }
+ ],
+ "companies": [
+  {
+   "id": "co-allstate",
+   "name": "The Allstate Corporation",
+   "subsidiaries": [
+    "Arity"
+   ],
+   "jurisdiction": "US",
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2025-01-13",
+     "title": "State of Texas v. The Allstate Corp. et al. (Cause No. 25-01-00561)",
+     "body": "District court, Montgomery County, Texas",
+     "type": "lawsuit",
+     "status": "alleged",
+     "status_kind": "filed",
+     "subject_company": "co-allstate",
+     "concerns_app": "com.life360.android.safetymapd",
+     "notes": "Brought under the Texas Data Privacy and Security Act, the Data Broker Law and the Insurance Code. Pending against the remaining defendants. Life360 is not a defendant.",
+     "procedural_note": {
+      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
+      "sources": [
+       {
+        "id": "src-mlex-2025-04-10",
+        "url": "https://www.mlex.com/mlex/articles/2326565/texas-court-lacks-jurisdiction-over-allstate-subsidiary-judge-says-in-location-privacy-suit",
+        "type": "journalism",
+        "title": "MLex",
+        "as_of": "2025-04-10",
+        "status": "reported",
+        "quote": "court lacks jurisdiction … dismissed Allstate and its data analytics subsidiary, Arity 875 LLC"
+       },
+       {
+        "id": "src-danielstark-2026-07-08",
+        "url": "https://www.danielstark.com/blog/texas-sues-allstate-over-driver-data-what-it-means-for-you/",
+        "type": "company_site",
+        "title": "Daniel Stark Law (case summary)",
+        "as_of": "2026-07-08",
+        "status": "reported",
+        "quote": "Allstate remains an active defendant … Arity was dismissed … that ruling is now on appeal"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "id": "src-tx-ag-petition-2025-01-13",
+       "url": "https://www.texasattorneygeneral.gov/sites/default/files/images/press/Allstate%20and%20Arity%20Petition%20Filed.pdf",
+       "type": "lawsuit",
+       "title": "State of Texas v. The Allstate Corp. et al., petition",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "quote": "combining it with the Arity SDK Data and selling it to third parties"
+      },
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-sues-allstate-and-arity-unlawfully-collecting-using-and-selling-over-45",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "derives_from": "src-tx-ag-petition-2025-01-13",
+       "quote": "secretly embedded software in mobile apps, such as Life360 … would pay app developers"
+      }
+     ]
+    },
+    {
+     "date": "2025-04-10",
+     "title": "In re Allstate and Arity Consumer Privacy Litigation (N.D. Ill. No. 25-cv-407)",
+     "body": "US District Court, Northern District of Illinois",
+     "type": "class_action",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "subject_company": "co-allstate",
+     "notes": "Consolidated 2025-04-10. On 2026-03-03 the court denied most of the defendants' motion to dismiss (counts II, IX and XXXI dismissed); the defendants answered 2026-04-24. Pending; not proven. Life360 is not a defendant.",
+     "concerns_app": "com.life360.android.safetymapd",
+     "sources": [
+      {
+       "id": "src-ndill-mtd-2026-03-03",
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.470938/gov.uscourts.ilnd.470938.74.0_3.pdf",
+       "type": "lawsuit",
+       "title": "In re Allstate and Arity Consumer Privacy Litigation (N.D. Ill. No. 25-cv-407), opinion on the motion to dismiss",
+       "as_of": "2026-03-03",
+       "status": "alleged",
+       "quote": "this information was sold or used to make decisions concerning the plaintiffs' insurance coverage and premiums … the defendants' motion is granted in part and denied in part"
+      },
+      {
+       "id": "src-findlaw-2026-03-16",
+       "url": "https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "type": "journalism",
+       "title": "FindLaw",
+       "as_of": "2026-03-16",
+       "status": "alleged",
+       "quote": "used driver data to raise premiums or deny coverage, and then sold that data",
+       "wayback_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "wayback_date": "2026-03-18",
+       "verify_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/"
+      },
+      {
+       "url": "https://www.kellerrohrback.com/currentcases/allstate-driving-data-privacy-litigation",
+       "type": "company_site",
+       "title": "Keller Rohrback (plaintiffs' counsel) case page",
+       "accessed": "2026-10-04",
+       "status": "alleged",
+       "quote": "On April 10, 2025, the Court consolidated the Mahoney lawsuit with several other lawsuits"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "co-life360",
+   "name": "Life360, Inc.",
+   "jurisdiction": "US",
+   "roles": [
+    "developer"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2024-03",
+     "title": "Login-API scrape of 442,519 users (March 2024)",
+     "type": "breach",
+     "status": "reported",
+     "notes": "Have I Been Pwned says Life360 promptly notified impacted users. Life360's own notice letter was not found.",
+     "sources": [
+      {
+       "url": "https://haveibeenpwned.com/Breach/Life360",
+       "type": "breach_notice",
+       "title": "Have I Been Pwned: Life360",
+       "as_of": "2024-07-20",
+       "status": "reported",
+       "quote": "data scraped from a misconfigured Life360 API"
+      },
+      {
+       "url": "https://insight.scmagazineuk.com/life360-customer-details-leaked-following-api-breach",
+       "type": "journalism",
+       "title": "SC Media UK",
+       "accessed": "2026-10-02",
+       "status": "reported",
+       "quote": "personal information of 442,519 Life360 customers has been leaked"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  }
+ ],
+ "permissions": [
+  {
+   "id": "android.permission.ACCESS_FINE_LOCATION",
+   "plain": "Lets the app see exactly where your phone is, to within a few metres.",
+   "why_it_matters": "Precise location shows where you live, work, worship and get medical care. Any SDK inside the app can read it too, and some send it to companies that resell or score it.",
+   "feeds": [
+    "precise_location",
+    "movement_and_driving"
+   ],
+   "dangerous": true
+  },
+  {
+   "id": "android.permission.ACCESS_BACKGROUND_LOCATION",
+   "plain": "Lets the app read your location all the time, even when you aren't using it.",
+   "why_it_matters": "With background access, location becomes a continuous trail of your days rather than a few snapshots. That trail is what driving and data-broker products are built from.",
+   "feeds": [
+    "precise_location",
+    "movement_and_driving"
+   ],
+   "dangerous": true
+  },
+  {
+   "id": "android.permission.ACTIVITY_RECOGNITION",
+   "plain": "Lets the app tell whether you are walking, running, cycling or in a vehicle.",
+   "why_it_matters": "Combined with location, it is how an app knows you are driving, and so how driving-behaviour SDKs detect and record your trips.",
+   "feeds": [
+    "physical_activity",
+    "movement_and_driving"
+   ],
+   "dangerous": true
+  },
+  {
+   "id": "com.google.android.gms.permission.AD_ID",
+   "plain": "Lets the app read your phone's advertising ID.",
+   "why_it_matters": "The advertising ID is the same in every app, so ad networks use it to link what you do across apps into one profile. You can delete it in Android's privacy settings.",
+   "feeds": [
+    "device_identifiers"
+   ],
+   "dangerous": false
+  }
+ ],
+ "device_reach": [
+  {
+   "id": "accessibility_service",
+   "plain": "The app can act as an accessibility service.",
+   "why_it_matters": "Accessibility services can read what is on your screen and act for you in other apps. That is essential for assistive tools and powerful in any other app."
+  },
+  {
+   "id": "notification_listener",
+   "plain": "The app can read your notifications.",
+   "why_it_matters": "Notifications carry message previews, codes and contact names from every other app."
+  },
+  {
+   "id": "device_admin",
+   "plain": "The app can be a device administrator.",
+   "why_it_matters": "Device admins can lock or wipe the phone and enforce policies, and are harder to uninstall."
+  },
+  {
+   "id": "vpn_service",
+   "plain": "The app can run a VPN.",
+   "why_it_matters": "A VPN app can see where all of your phone's internet traffic goes."
+  },
+  {
+   "id": "overlay",
+   "plain": "The app can draw over other apps.",
+   "why_it_matters": "Overlays can cover other apps' screens, which is also how some scams capture what you type."
+  },
+  {
+   "id": "usage_stats",
+   "plain": "The app can ask to see which apps you use and when.",
+   "why_it_matters": "App usage reveals habits, interests and routines without any other permission."
+  },
+  {
+   "id": "autostart",
+   "plain": "The app starts itself when your phone starts.",
+   "why_it_matters": "It can run and collect data without you opening it."
+  },
+  {
+   "id": "background_ble_scan",
+   "plain": "The app can scan for nearby Bluetooth devices, including in the background.",
+   "why_it_matters": "Nearby Bluetooth devices can reveal where you are, and which devices you carry."
+  }
+ ]
+}

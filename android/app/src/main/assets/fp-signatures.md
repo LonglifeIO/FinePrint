@@ -12,6 +12,12 @@ tier `contains_code` only. Like the rest of `trackers.json`, these entries are O
   (capital E, Life360 19.8.0 to 23.27.0). The broader `com.arity.` is avoided on purpose: an
   unrelated developer, Arity Infoway, publishes apps under `com.arity.arityhrmpro` and
   `com.arity.newshunt`.
+- **Other names (`aka` in bundle.json), checked against the matched classes (2026-10-04, same APK):**
+  - "Arity CoreEngine": the classes' own names, e.g. `com/arity/coreengine/driving/CoreEngineManager`
+    and `CoreEngineForegroundService`.
+  - "Arity Driving Engine SDK": the Texas AG petition's name for the SDK. Inside the prefix,
+    `com/arity/coreengine/driving/d` logs "Driving Engine started!" and `CoreEngineManager` logs
+    "insertLog can be called only from Arity SDK".
 - **How it was verified (2026-10-02):** Life360 26.37.0 (versionCode 2924500), base APK
   SHA-256 `e468187c69ffa8439dc0a55705e608ec83387e458d796d5a1ea4ad49bfa8af20`, the same file
   Exodus report 785809 analysed from Google Play.

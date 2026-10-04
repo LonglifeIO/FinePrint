@@ -28,7 +28,7 @@ data class TrackerScanResult(
     /** Some entry did not fit in memory; worth retrying when fewer scans run at once. */
     val outOfMemory: Boolean = false,
     /**
-     * Exodus trackers whose types the code only references (e.g. ad-mediation adapters) with no
+     * Ids of Exodus trackers whose types the code only references (e.g. ad-mediation adapters) with no
      * code of their own here. exodus-core counts these; Fine Print does not.
      */
     val referencedOnly: List<String> = emptyList(),
@@ -133,7 +133,7 @@ fun scanForTrackers(
         outOfMemory = outOfMemory,
         referencedOnly = matcher.trackers.indices
             .filter { referenced[it] && !found[it] && matcher.trackers[it].id.startsWith("exodus-") }
-            .map { matcher.trackers[it].name },
+            .map { matcher.trackers[it].id },
     )
 }
 

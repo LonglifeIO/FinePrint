@@ -18,8 +18,14 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -27,6 +33,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
+import com.longlifeio.fineprint.bundle.Bundle
+import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.egress.DetectedTracker
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.RequestedPermission
@@ -39,9 +47,14 @@ fun AppDetailScreen(
     app: InstalledApp,
     result: TrackerScanResult?,
     signatures: TrackerSignatures?,
+    bundle: Bundle?,
     onBack: () -> Unit,
     onOpenSettings: () -> Unit,
 ) {
+    var evidenceOpen by rememberSaveable { mutableStateOf(false) }
+    val explanation = remember(app, result, bundle, signatures) {
+        explain(app, result, bundle, signatures?.trackers.orEmpty().associateBy { it.id })
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -55,23 +68,32 @@ fun AppDetailScreen(
         },
     ) { padding ->
         LazyColumn(contentPadding = padding, modifier = Modifier.fillMaxSize()) {
-            item { Header(app, onOpenSettings) }
-            item { SectionTitle("Tracker code in this app") }
-            trackerItems(app, result, signatures)
-            item { SectionTitle("Permissions it declares") }
+            item { Header(app, explanation.privacyControls, onOpenSettings) }
+            explanationItems(explanation, signatures?.attribution.orEmpty())
             item {
-                Note(
-                    "${app.permissions.size} declared · ${app.permissions.count { it.granted }} granted · " +
-                        "${app.permissions.count { it.dangerous }} dangerous",
-                )
+                val trackers = result?.trackers?.size?.let { trackerCount(it) } ?: "scanning"
+                TextButton(onClick = { evidenceOpen = !evidenceOpen }, modifier = Modifier.padding(horizontal = 4.dp, vertical = 12.dp)) {
+                    Text((if (evidenceOpen) "Hide evidence" else "Show evidence") + " ($trackers, ${app.permissions.size} permissions)")
+                }
             }
-            items(app.permissions, key = { "permission:" + it.name }) { PermissionRow(it) }
+            if (evidenceOpen) {
+                item { SectionTitle("Tracker code in this app") }
+                trackerItems(app, result, signatures)
+                item { SectionTitle("Permissions it declares") }
+                item {
+                    Note(
+                        "${app.permissions.size} declared · ${app.permissions.count { it.granted }} granted · " +
+                            "${app.permissions.count { it.dangerous }} dangerous",
+                    )
+                }
+                items(app.permissions, key = { "permission:" + it.name }) { PermissionRow(it) }
+            }
         }
     }
 }
 
 @Composable
-private fun Header(app: InstalledApp, onOpenSettings: () -> Unit) {
+private fun Header(app: InstalledApp, privacyControls: String?, onOpenSettings: () -> Unit) {
     Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Text(app.packageName, style = MaterialTheme.typography.bodyMedium, fontFamily = FontFamily.Monospace)
         Note(
@@ -80,6 +102,7 @@ private fun Header(app: InstalledApp, onOpenSettings: () -> Unit) {
                 (if (app.apkPaths.size == 1) "1 APK" else "${app.apkPaths.size} APKs"),
         )
         Button(onClick = onOpenSettings, modifier = Modifier.padding(top = 12.dp)) { Text("Open app settings") }
+        privacyControls?.let { Text("Inside the app: $it", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(top = 8.dp)) }
     }
 }
 
@@ -108,14 +131,6 @@ private fun LazyListScope.trackerItems(app: InstalledApp, result: TrackerScanRes
         }
     }
     items(result.trackers, key = { "tracker:" + it.id }) { TrackerRow(it) }
-    if (result.referencedOnly.isNotEmpty()) {
-        val exodusCount = result.trackers.count { it.id.startsWith("exodus-") } + result.referencedOnly.size
-        val m = result.referencedOnly.size
-        item {
-            // Counted on-device from every type the code mentions, slightly broader than Exodus's own scan.
-            Note("Exodus may list up to $exodusCount; $m ${if (m == 1) "is an adapter reference" else "are adapter references"} with no code in this app.")
-        }
-    }
     item {
         val list = signatures?.let { s ->
             " · ${s.trackers.count { it.codeSignature.length > 3 }} tracker signatures from ${s.fetchedAt.take(10)}"
@@ -171,24 +186,5 @@ private fun PermissionRow(permission: RequestedPermission) {
                 }
             }
         },
-    )
-}
-
-@Composable
-private fun SectionTitle(text: String) {
-    Text(
-        text,
-        style = MaterialTheme.typography.titleMedium,
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 4.dp),
-    )
-}
-
-@Composable
-private fun Note(text: String) {
-    Text(
-        text,
-        style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
     )
 }

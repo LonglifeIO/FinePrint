@@ -29,6 +29,8 @@ data class InstalledApp(
     val apkPaths: List<String>,
     /** Dangerous first, then granted before denied, then by name. */
     val permissions: List<RequestedPermission>,
+    /** Capabilities beyond permissions, from the manifest (see DeviceReach.kt). */
+    val deviceReach: List<String> = emptyList(),
 ) {
     /** Changes when the app is updated, so a cached scan of the old version is not reused. */
     val scanKey: String get() = "$packageName@$lastUpdateTime"
@@ -39,11 +41,12 @@ data class InstalledApp(
  * only because the manifest declares QUERY_ALL_PACKAGES (Android 11+). Call off the main thread.
  */
 fun scanInstalledApps(pm: PackageManager, appOps: AppOpsManager): List<InstalledApp> {
+    val flags = PackageManager.GET_PERMISSIONS or PackageManager.GET_SERVICES or PackageManager.GET_RECEIVERS
     val packages = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        pm.getInstalledPackages(PackageManager.PackageInfoFlags.of(PackageManager.GET_PERMISSIONS.toLong()))
+        pm.getInstalledPackages(PackageManager.PackageInfoFlags.of(flags.toLong()))
     } else {
         @Suppress("DEPRECATION")
-        pm.getInstalledPackages(PackageManager.GET_PERMISSIONS)
+        pm.getInstalledPackages(flags)
     }
     val kinds = HashMap<String, PermissionKind>() // many apps share permissions; look each up once
     return packages
@@ -67,6 +70,7 @@ private fun PackageInfo.toInstalledApp(
         hasCode = app.flags and ApplicationInfo.FLAG_HAS_CODE != 0,
         apkPaths = listOfNotNull(app.sourceDir) + app.splitSourceDirs.orEmpty(),
         permissions = requestedPermissionList(app, pm, appOps, kinds),
+        deviceReach = deviceReach(requestedPermissions.orEmpty().toSet()),
     )
 }
 

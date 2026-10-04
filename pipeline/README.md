@@ -5,15 +5,21 @@ Runs on the Mac Mini. Scripts, not a package. Python 3.12+, stdlib + `requests` 
 Build order (each is a separate script, each is idempotent):
 
 1. `fetch_trackers.py` — Exodus `/api/trackers` plus `fp_trackers.json` (Fine Print's own, evidenced signatures)
-   → the Android asset `android/app/src/main/assets/trackers.json` (ODbL). A `data/trackers.sqlite` copy is not built yet.
+   → the Android asset `android/app/src/main/assets/trackers.json` and the identical `../bundle/trackers.json` (ODbL).
+   Always rebuild with `--from-file raw/exodus-api-trackers-<date>.json`; a live fetch is a deliberate, rare act.
 2. `fetch_app.py <package>` — Exodus report, Play listing metadata, privacy-policy URL → `raw/` (gitignored).
 3. `draft.py <package>` — LLM draft of tracker/app records with mandatory `sources`; refuses to emit
    a consequence with no source. Writes to `drafts/` (gitignored). Hand-run via Codex CLI for now.
 4. `review.py` — opens the draft queue; approved records move into `reviewed/`.
-5. `build.py` — validates `reviewed/` against `../bundle/schema.json`, checks every `source_url`
-   resolves (HTTP 200), writes `../bundle/bundle.json`.
+5. `build.py` — merges `reviewed/*.json`, rejects duplicate ids, marks records older than 180 days
+   `stale`, validates against `../bundle/schema.json`, cross-checks company, source and tracker ids,
+   rejects any source without a `quote`, checks every `source_url` resolves (HTTP 200; a source may
+   name a `verify_url` when the page itself blocks scripts), and writes `../bundle/bundle.json`. URL
+   results are cached for 30 days in `raw/url-checks.json`. Use `--out <path>` for a preview and
+   `--skip-url-check` offline. Tests: `python3 -m unittest test_build.py`. The evidence rules are in
+   `../bundle/README.md`.
 
-Serve for dev: `python -m http.server 8080 --directory ../bundle` behind Tailscale.
+Serve for dev: `python3 -m http.server <port> --directory ../bundle` (see `android/README.md`).
 
 ## Test APKs: where they come from
 

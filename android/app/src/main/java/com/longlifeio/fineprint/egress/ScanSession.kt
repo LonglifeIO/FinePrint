@@ -36,7 +36,11 @@ data class ScanProgress(
  * What Fine Print knows for the life of the process: the installed apps and their tracker-scan
  * results, held in memory only. Nothing is written to disk and nothing leaves the device.
  */
-class ScanSession(private val context: Context) {
+class ScanSession(
+    private val context: Context,
+    /** Signatures from the downloaded trackers.json, if a copy is cached; else the bundled asset is used. */
+    private val cachedSignatures: () -> TrackerSignatures? = { null },
+) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val debuggable = context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
     private val heap = Runtime.getRuntime().maxMemory()
@@ -52,7 +56,7 @@ class ScanSession(private val context: Context) {
     val signatures: StateFlow<TrackerSignatures?> = _signatures.asStateFlow()
 
     private val matcher: SignatureMatcher by lazy {
-        val loaded = loadTrackerSignatures(context.assets)
+        val loaded = cachedSignatures() ?: loadTrackerSignatures(context.assets)
         _signatures.value = loaded
         SignatureMatcher(loaded.trackers)
     }

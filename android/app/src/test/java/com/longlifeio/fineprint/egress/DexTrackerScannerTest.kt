@@ -71,7 +71,7 @@ class DexTrackerScannerTest {
         )
         val result = scanForTrackers(listOf(apk), matcher)
         assertEquals(emptyList<DetectedTracker>(), result.trackers)
-        assertEquals(listOf("AppsFlyer"), result.referencedOnly) // what Exodus would add
+        assertEquals(listOf("exodus-12"), result.referencedOnly) // what Exodus would add
     }
 
     @Test

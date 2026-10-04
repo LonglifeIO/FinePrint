@@ -44,6 +44,14 @@ G1 signed off on an Android 17 emulator (2026-10-04): the scanner lists apps, pe
 embedded tracker SDKs, and shows Arity in Life360. A real-device check is deferred by choice.
 Results in `android/README.md`. See `CLAUDE.md` for the gates.
 
+G2 in progress: the app downloads the bundle and shows a data-first explanation per app.
+Life360 is the first reviewed record.
+
+Logged for G3:
+- Tap targets: a claim's citation links are stacked about 16dp apart, under the 48dp touch-target
+  guideline, so a finger can open the neighbouring source. Space them out, or group a line's
+  sources behind one 48dp row, before testing on a real phone.
+
 ## Licence
 
 Code: AGPL-3.0-or-later. Data in `bundle/`: CC BY 4.0. Tracker signatures

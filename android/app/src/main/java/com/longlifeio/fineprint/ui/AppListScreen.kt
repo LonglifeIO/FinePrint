@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -53,6 +54,8 @@ fun AppListScreen(
     onIncludeSystemChange: (Boolean) -> Unit,
     onOpen: (InstalledApp) -> Unit,
     listState: LazyListState,
+    bundleLine: String,
+    onAbout: () -> Unit,
 ) {
     val visible = remember(apps, includeSystem) { apps.orEmpty().filter { includeSystem || !it.isSystem } }
     Scaffold(
@@ -60,6 +63,7 @@ fun AppListScreen(
             TopAppBar(
                 title = { Text("Fine Print") },
                 actions = {
+                    TextButton(onClick = onAbout) { Text("About") }
                     Text("System apps", style = MaterialTheme.typography.labelLarge)
                     Switch(
                         checked = includeSystem,
@@ -72,6 +76,12 @@ fun AppListScreen(
     ) { padding ->
         Column(Modifier.padding(padding).fillMaxSize()) {
             ScanStatus(apps, visible, results, progress, signatures)
+            Text(
+                bundleLine,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
+            )
             HorizontalDivider()
             if (apps == null) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }

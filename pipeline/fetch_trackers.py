@@ -30,6 +30,7 @@ import requests
 API_URL = "https://reports.exodus-privacy.eu.org/api/trackers"
 REPO = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = REPO / "android" / "app" / "src" / "main" / "assets" / "trackers.json"
+BUNDLE_OUT = REPO / "bundle" / "trackers.json"  # served with bundle.json; same content as the asset
 DEFAULT_FP = REPO / "pipeline" / "fp_trackers.json"
 RAW = REPO / "pipeline" / "raw"  # gitignored
 HALIFAX = ZoneInfo("America/Halifax")
@@ -89,6 +90,7 @@ def convert_exodus(payload: dict) -> list[dict]:
             "name": t["name"].strip(),
             "code_signature": signature,
             "categories": categories,
+            "website": t.get("website") or "",
         })
     trackers.sort(key=lambda t: int(t["id"].split("-", 1)[1]))
     return trackers
@@ -113,6 +115,7 @@ def load_fp(path: Path) -> list[dict]:
             "name": e["name"].strip(),
             "code_signature": e["code_signature"],
             "categories": e.get("categories", []),
+            "website": e.get("website", ""),
         })
     return trackers
 
@@ -145,7 +148,8 @@ def existing_usable_count(path: Path) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="asset path to write")
+    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="app asset path to write")
+    parser.add_argument("--bundle-out", type=Path, default=BUNDLE_OUT, help="bundle copy to write")
     parser.add_argument("--fp", type=Path, default=DEFAULT_FP, help="Fine Print's own signatures")
     parser.add_argument("--timeout", type=float, default=60.0, help="HTTP timeout in seconds")
     parser.add_argument("--force", action="store_true",
@@ -187,14 +191,17 @@ def main() -> int:
     degenerate = [t["id"] for t in with_code if t["id"] not in slow
                   and any(not alt.strip(".") for alt in t["code_signature"].split("|"))]
 
-    write_atomically(args.out, {
+    doc = {
         "source": API_URL,
         "fetched_at": fetched_at.isoformat(timespec="seconds"),
         "licence": LICENCE,
         "licence_url": LICENCE_URL,
         "attribution": ATTRIBUTION,
         "trackers": trackers,
-    })
+    }
+    write_atomically(args.out, doc)
+    write_atomically(args.bundle_out, doc)
+    print(f"wrote {args.bundle_out}")
     fp_count = sum(1 for t in trackers if t["id"].startswith("fp-"))
     print(f"wrote {args.out} ({args.out.stat().st_size:,} bytes)")
     print(f"  {len(trackers) - fp_count} Exodus trackers + {fp_count} Fine Print trackers;"

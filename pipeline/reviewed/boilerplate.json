@@ -1,0 +1,42 @@
+{
+ "permissions": [
+  {
+   "id": "android.permission.ACCESS_FINE_LOCATION",
+   "plain": "Lets the app see exactly where your phone is, to within a few metres.",
+   "why_it_matters": "Precise location shows where you live, work, worship and get medical care. Any SDK inside the app can read it too, and some send it to companies that resell or score it.",
+   "feeds": ["precise_location", "movement_and_driving"],
+   "dangerous": true
+  },
+  {
+   "id": "android.permission.ACCESS_BACKGROUND_LOCATION",
+   "plain": "Lets the app read your location all the time, even when you aren't using it.",
+   "why_it_matters": "With background access, location becomes a continuous trail of your days rather than a few snapshots. That trail is what driving and data-broker products are built from.",
+   "feeds": ["precise_location", "movement_and_driving"],
+   "dangerous": true
+  },
+  {
+   "id": "android.permission.ACTIVITY_RECOGNITION",
+   "plain": "Lets the app tell whether you are walking, running, cycling or in a vehicle.",
+   "why_it_matters": "Combined with location, it is how an app knows you are driving, and so how driving-behaviour SDKs detect and record your trips.",
+   "feeds": ["physical_activity", "movement_and_driving"],
+   "dangerous": true
+  },
+  {
+   "id": "com.google.android.gms.permission.AD_ID",
+   "plain": "Lets the app read your phone's advertising ID.",
+   "why_it_matters": "The advertising ID is the same in every app, so ad networks use it to link what you do across apps into one profile. You can delete it in Android's privacy settings.",
+   "feeds": ["device_identifiers"],
+   "dangerous": false
+  }
+ ],
+ "device_reach": [
+  { "id": "accessibility_service", "plain": "The app can act as an accessibility service.", "why_it_matters": "Accessibility services can read what is on your screen and act for you in other apps. That is essential for assistive tools and powerful in any other app." },
+  { "id": "notification_listener", "plain": "The app can read your notifications.", "why_it_matters": "Notifications carry message previews, codes and contact names from every other app." },
+  { "id": "device_admin", "plain": "The app can be a device administrator.", "why_it_matters": "Device admins can lock or wipe the phone and enforce policies, and are harder to uninstall." },
+  { "id": "vpn_service", "plain": "The app can run a VPN.", "why_it_matters": "A VPN app can see where all of your phone's internet traffic goes." },
+  { "id": "overlay", "plain": "The app can draw over other apps.", "why_it_matters": "Overlays can cover other apps' screens, which is also how some scams capture what you type." },
+  { "id": "usage_stats", "plain": "The app can ask to see which apps you use and when.", "why_it_matters": "App usage reveals habits, interests and routines without any other permission." },
+  { "id": "autostart", "plain": "The app starts itself when your phone starts.", "why_it_matters": "It can run and collect data without you opening it." },
+  { "id": "background_ble_scan", "plain": "The app can scan for nearby Bluetooth devices, including in the background.", "why_it_matters": "Nearby Bluetooth devices can reveal where you are, and which devices you carry." }
+ ]
+}

@@ -1,0 +1,179 @@
+{
+ "trackers": [
+  {
+   "id": "fp-arity",
+   "name": "Arity",
+   "aka": [
+    "Arity Driving Engine SDK",
+    "Arity CoreEngine"
+   ],
+   "owner": "The Allstate Corporation",
+   "owner_company": "co-allstate",
+   "owner_chain": [
+    "Arity",
+    "The Allstate Corporation"
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Arity driving SDK (CoreEngine)",
+   "categories": [
+    "telematics",
+    "location"
+   ],
+   "data_collected": [
+    "driving data"
+   ],
+   "data_flows": [
+    {
+     "data": "movement_and_driving",
+     "recipient": "co-allstate",
+     "purpose": "A driving database that the Texas AG and a federal class action allege was sold to insurers, who used it to raise premiums",
+     "bucket": "goes_elsewhere",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "wording": "Alleged by the Texas AG and in a federal class action; not proven in court. Part of the Texas case was dismissed on jurisdiction grounds and is under appeal.",
+     "procedural_note": {
+      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
+      "sources": [
+       {
+        "id": "src-mlex-2025-04-10",
+        "url": "https://www.mlex.com/mlex/articles/2326565/texas-court-lacks-jurisdiction-over-allstate-subsidiary-judge-says-in-location-privacy-suit",
+        "type": "journalism",
+        "title": "MLex",
+        "as_of": "2025-04-10",
+        "status": "reported",
+        "quote": "court lacks jurisdiction … dismissed Allstate and its data analytics subsidiary, Arity 875 LLC"
+       },
+       {
+        "id": "src-danielstark-2026-07-08",
+        "url": "https://www.danielstark.com/blog/texas-sues-allstate-over-driver-data-what-it-means-for-you/",
+        "type": "company_site",
+        "title": "Daniel Stark Law (case summary)",
+        "as_of": "2026-07-08",
+        "status": "reported",
+        "quote": "Allstate remains an active defendant … Arity was dismissed … that ruling is now on appeal"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "id": "src-ndill-mtd-2026-03-03",
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.470938/gov.uscourts.ilnd.470938.74.0_3.pdf",
+       "type": "lawsuit",
+       "title": "In re Allstate and Arity Consumer Privacy Litigation (N.D. Ill. No. 25-cv-407), opinion on the motion to dismiss",
+       "as_of": "2026-03-03",
+       "status": "alleged",
+       "quote": "this information was sold or used to make decisions concerning the plaintiffs' insurance coverage and premiums … the defendants' motion is granted in part and denied in part"
+      },
+      {
+       "id": "src-findlaw-2026-03-16",
+       "url": "https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "type": "journalism",
+       "title": "FindLaw",
+       "as_of": "2026-03-16",
+       "status": "alleged",
+       "quote": "used driver data to raise premiums or deny coverage, and then sold that data",
+       "wayback_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "wayback_date": "2026-03-18",
+       "verify_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/"
+      },
+      {
+       "id": "src-tx-ag-petition-2025-01-13",
+       "url": "https://www.texasattorneygeneral.gov/sites/default/files/images/press/Allstate%20and%20Arity%20Petition%20Filed.pdf",
+       "type": "lawsuit",
+       "title": "State of Texas v. The Allstate Corp. et al., petition",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "quote": "combining it with the Arity SDK Data and selling it to third parties"
+      },
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-sues-allstate-and-arity-unlawfully-collecting-using-and-selling-over-45",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "derives_from": "src-tx-ag-petition-2025-01-13",
+       "quote": "secretly embedded software in mobile apps, such as Life360 … would pay app developers"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "The Texas AG and a federal class action allege that Allstate's Arity paid app makers to embed its SDK, built a driving database on 45 million+ Americans, and sold the data to insurers, who used it to raise premiums. Third-party app makers such as Life360 are not defendants.",
+     "subject_company": "co-allstate",
+     "concerns_app": "com.life360.android.safetymapd",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "wording": "Alleged by the Texas AG and in a federal class action; not proven in court. Part of the Texas case was dismissed on jurisdiction grounds and is under appeal.",
+     "procedural_note": {
+      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
+      "sources": [
+       {
+        "id": "src-mlex-2025-04-10",
+        "url": "https://www.mlex.com/mlex/articles/2326565/texas-court-lacks-jurisdiction-over-allstate-subsidiary-judge-says-in-location-privacy-suit",
+        "type": "journalism",
+        "title": "MLex",
+        "as_of": "2025-04-10",
+        "status": "reported",
+        "quote": "court lacks jurisdiction … dismissed Allstate and its data analytics subsidiary, Arity 875 LLC"
+       },
+       {
+        "id": "src-danielstark-2026-07-08",
+        "url": "https://www.danielstark.com/blog/texas-sues-allstate-over-driver-data-what-it-means-for-you/",
+        "type": "company_site",
+        "title": "Daniel Stark Law (case summary)",
+        "as_of": "2026-07-08",
+        "status": "reported",
+        "quote": "Allstate remains an active defendant … Arity was dismissed … that ruling is now on appeal"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "id": "src-ndill-mtd-2026-03-03",
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.470938/gov.uscourts.ilnd.470938.74.0_3.pdf",
+       "type": "lawsuit",
+       "title": "In re Allstate and Arity Consumer Privacy Litigation (N.D. Ill. No. 25-cv-407), opinion on the motion to dismiss",
+       "as_of": "2026-03-03",
+       "status": "alleged",
+       "quote": "this information was sold or used to make decisions concerning the plaintiffs' insurance coverage and premiums … the defendants' motion is granted in part and denied in part"
+      },
+      {
+       "id": "src-findlaw-2026-03-16",
+       "url": "https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "type": "journalism",
+       "title": "FindLaw",
+       "as_of": "2026-03-16",
+       "status": "alleged",
+       "quote": "used driver data to raise premiums or deny coverage, and then sold that data",
+       "wayback_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "wayback_date": "2026-03-18",
+       "verify_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/"
+      },
+      {
+       "id": "src-tx-ag-petition-2025-01-13",
+       "url": "https://www.texasattorneygeneral.gov/sites/default/files/images/press/Allstate%20and%20Arity%20Petition%20Filed.pdf",
+       "type": "lawsuit",
+       "title": "State of Texas v. The Allstate Corp. et al., petition",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "quote": "combining it with the Arity SDK Data and selling it to third parties"
+      },
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-sues-allstate-and-arity-unlawfully-collecting-using-and-selling-over-45",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "derives_from": "src-tx-ag-petition-2025-01-13",
+       "quote": "secretly embedded software in mobile apps, such as Life360 … would pay app developers"
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}

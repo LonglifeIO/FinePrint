@@ -1,0 +1,57 @@
+{
+ "schema_version": 1,
+ "schema_revision": "1.1",
+ "bundle_version": "2026.10.04",
+ "generated_at": "2026-10-04T12:00:00-03:00",
+ "apps": [
+  {
+   "package_id": "com.example.family",
+   "display_name": "Example Family",
+   "developer_company": "co-dev",
+   "summary": "Synthetic test record.",
+   "risk_tags": ["telematics", "regulatory_action"],
+   "risk_tag_notes": { "regulatory_action": "against Parent Co concerning this app's data" },
+   "trackers": ["exodus-12", "exodus-65", "exodus-72", "fp-arity"],
+   "exodus_report": { "id": 1, "app_version": "1.0", "created": "2026-10-01", "tracker_count": 3 },
+   "data_flows": [
+    { "data": "precise_location", "recipient_label": "Partners", "purpose": "Their own use", "bucket": "goes_elsewhere",
+      "status": "self_disclosed", "wording": "According to its privacy policy dated 2026-01-01.",
+      "sources": [{ "url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "partners for their own use" }] }
+   ],
+   "consequences": [
+    { "text": "Emails leaked.", "status": "reported", "wording": "Reported data exposure",
+      "sources": [{ "url": "https://example.org/news", "type": "journalism", "title": "News", "accessed": "2026-10-02", "status": "reported", "quote": "emails leaked" }] }
+   ],
+   "privacy_controls": "Settings > Privacy",
+   "coverage": "curated",
+   "stale": true,
+   "last_reviewed": "2026-01-01"
+  }
+ ],
+ "trackers": [
+  {
+   "id": "fp-arity", "owner": "Parent Co", "owner_company": "co-parent", "owner_chain": ["Unit", "Parent Co"],
+   "party": "third_party", "categories": ["telematics"],
+   "data_flows": [
+    { "data": "movement_and_driving", "recipient": "co-parent", "purpose": "Alleged resale", "bucket": "goes_elsewhere",
+      "status": "alleged", "status_kind": "survived_motion_to_dismiss", "wording": "Alleged (not proven in court)",
+      "procedural_note": { "text": "Part dismissed; on appeal.",
+        "sources": [{ "url": "https://example.org/appeal", "type": "journalism", "title": "Appeal news", "as_of": "2026-07-08", "status": "reported", "quote": "on appeal" }] },
+      "sources": [
+       { "url": "https://example.org/opinion", "type": "lawsuit", "title": "Opinion", "as_of": "2026-03-03", "status": "alleged", "quote": "granted in part and denied in part" },
+       { "url": "https://example.org/petition", "type": "lawsuit", "title": "Petition", "as_of": "2025-01-13", "status": "alleged", "quote": "selling it to third parties" }
+      ] }
+   ],
+   "consequences": [], "last_reviewed": "2026-10-04"
+  }
+ ],
+ "companies": [
+  { "id": "co-parent", "name": "Parent Co", "roles": ["tracker_owner"], "last_reviewed": "2026-10-04" },
+  { "id": "co-dev", "name": "Example Developer", "roles": ["developer"], "last_reviewed": "2026-10-04" }
+ ],
+ "permissions": [
+  { "id": "android.permission.ACCESS_FINE_LOCATION", "plain": "Exact location.", "why_it_matters": "Why.", "feeds": ["precise_location", "movement_and_driving"] },
+  { "id": "android.permission.CAMERA", "plain": "Camera.", "why_it_matters": "Why.", "feeds": ["contacts"] }
+ ],
+ "device_reach": [{ "id": "autostart", "plain": "Starts itself.", "why_it_matters": "Why." }]
+}

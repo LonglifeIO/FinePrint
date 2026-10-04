@@ -1,0 +1,151 @@
+{
+ "companies": [
+  {
+   "id": "co-allstate",
+   "name": "The Allstate Corporation",
+   "subsidiaries": [
+    "Arity"
+   ],
+   "jurisdiction": "US",
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2025-01-13",
+     "title": "State of Texas v. The Allstate Corp. et al. (Cause No. 25-01-00561)",
+     "body": "District court, Montgomery County, Texas",
+     "type": "lawsuit",
+     "status": "alleged",
+     "status_kind": "filed",
+     "subject_company": "co-allstate",
+     "concerns_app": "com.life360.android.safetymapd",
+     "notes": "Brought under the Texas Data Privacy and Security Act, the Data Broker Law and the Insurance Code. Pending against the remaining defendants. Life360 is not a defendant.",
+     "procedural_note": {
+      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
+      "sources": [
+       {
+        "id": "src-mlex-2025-04-10",
+        "url": "https://www.mlex.com/mlex/articles/2326565/texas-court-lacks-jurisdiction-over-allstate-subsidiary-judge-says-in-location-privacy-suit",
+        "type": "journalism",
+        "title": "MLex",
+        "as_of": "2025-04-10",
+        "status": "reported",
+        "quote": "court lacks jurisdiction … dismissed Allstate and its data analytics subsidiary, Arity 875 LLC"
+       },
+       {
+        "id": "src-danielstark-2026-07-08",
+        "url": "https://www.danielstark.com/blog/texas-sues-allstate-over-driver-data-what-it-means-for-you/",
+        "type": "company_site",
+        "title": "Daniel Stark Law (case summary)",
+        "as_of": "2026-07-08",
+        "status": "reported",
+        "quote": "Allstate remains an active defendant … Arity was dismissed … that ruling is now on appeal"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "id": "src-tx-ag-petition-2025-01-13",
+       "url": "https://www.texasattorneygeneral.gov/sites/default/files/images/press/Allstate%20and%20Arity%20Petition%20Filed.pdf",
+       "type": "lawsuit",
+       "title": "State of Texas v. The Allstate Corp. et al., petition",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "quote": "combining it with the Arity SDK Data and selling it to third parties"
+      },
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-sues-allstate-and-arity-unlawfully-collecting-using-and-selling-over-45",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2025-01-13",
+       "status": "alleged",
+       "derives_from": "src-tx-ag-petition-2025-01-13",
+       "quote": "secretly embedded software in mobile apps, such as Life360 … would pay app developers"
+      }
+     ]
+    },
+    {
+     "date": "2025-04-10",
+     "title": "In re Allstate and Arity Consumer Privacy Litigation (N.D. Ill. No. 25-cv-407)",
+     "body": "US District Court, Northern District of Illinois",
+     "type": "class_action",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "subject_company": "co-allstate",
+     "notes": "Consolidated 2025-04-10. On 2026-03-03 the court denied most of the defendants' motion to dismiss (counts II, IX and XXXI dismissed); the defendants answered 2026-04-24. Pending; not proven. Life360 is not a defendant.",
+     "concerns_app": "com.life360.android.safetymapd",
+     "sources": [
+      {
+       "id": "src-ndill-mtd-2026-03-03",
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilnd.470938/gov.uscourts.ilnd.470938.74.0_3.pdf",
+       "type": "lawsuit",
+       "title": "In re Allstate and Arity Consumer Privacy Litigation (N.D. Ill. No. 25-cv-407), opinion on the motion to dismiss",
+       "as_of": "2026-03-03",
+       "status": "alleged",
+       "quote": "this information was sold or used to make decisions concerning the plaintiffs' insurance coverage and premiums … the defendants' motion is granted in part and denied in part"
+      },
+      {
+       "id": "src-findlaw-2026-03-16",
+       "url": "https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "type": "journalism",
+       "title": "FindLaw",
+       "as_of": "2026-03-16",
+       "status": "alleged",
+       "quote": "used driver data to raise premiums or deny coverage, and then sold that data",
+       "wayback_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/",
+       "wayback_date": "2026-03-18",
+       "verify_url": "https://web.archive.org/web/20260318104318/https://www.findlaw.com/legalblogs/law-and-life/allstate-ordered-to-face-a-privacy-lawsuit-over-cellphone-tracking-of-drivers/"
+      },
+      {
+       "url": "https://www.kellerrohrback.com/currentcases/allstate-driving-data-privacy-litigation",
+       "type": "company_site",
+       "title": "Keller Rohrback (plaintiffs' counsel) case page",
+       "accessed": "2026-10-04",
+       "status": "alleged",
+       "quote": "On April 10, 2025, the Court consolidated the Mahoney lawsuit with several other lawsuits"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "co-life360",
+   "name": "Life360, Inc.",
+   "jurisdiction": "US",
+   "roles": [
+    "developer"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2024-03",
+     "title": "Login-API scrape of 442,519 users (March 2024)",
+     "type": "breach",
+     "status": "reported",
+     "notes": "Have I Been Pwned says Life360 promptly notified impacted users. Life360's own notice letter was not found.",
+     "sources": [
+      {
+       "url": "https://haveibeenpwned.com/Breach/Life360",
+       "type": "breach_notice",
+       "title": "Have I Been Pwned: Life360",
+       "as_of": "2024-07-20",
+       "status": "reported",
+       "quote": "data scraped from a misconfigured Life360 API"
+      },
+      {
+       "url": "https://insight.scmagazineuk.com/life360-customer-details-leaked-following-api-breach",
+       "type": "journalism",
+       "title": "SC Media UK",
+       "accessed": "2026-10-02",
+       "status": "reported",
+       "quote": "personal information of 442,519 Life360 customers has been leaked"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}

@@ -1,9 +1,14 @@
 # Fine Print — Android app
 
-G1 slice: lists installed apps, shows each app's declared permissions and whether they are
-granted, and finds embedded tracker SDKs by scanning the app's dex code against tracker
-signatures (Exodus Privacy's list plus Fine Print's own). No network access, no explanation
-text yet (that is G2).
+Lists installed apps, shows each app's declared permissions and whether they are granted, and
+finds embedded tracker SDKs by scanning the app's dex code against tracker signatures (Exodus
+Privacy's list plus Fine Print's own). Since G2 it also downloads the knowledge bundle
+(`bundle.json` + `trackers.json`, whole files, once per launch) and explains each app by data:
+what it collects, who gets it, and whether that stays in the app, is used for more, or goes
+elsewhere. Every line carries a status badge and its tappable sources, primary first; a legal
+claim also says where the case stands (a dismissal, an appeal), with its own sources. Trackers and
+permissions sit under a collapsed "Evidence" section. Apps without a reviewed record get an "Auto" view
+inferred from tracker categories.
 
 Kotlin, Jetpack Compose, Material 3, single module, minSdk 29, targetSdk 37.
 Scanning code lives in `com.longlifeio.fineprint.egress`.
@@ -61,6 +66,28 @@ mkdir -p captures && adb exec-out screencap -p > captures/screen.png
   permissions, so keep them out of the repo.
 - **Don't launch the APKs you install.** Android keeps a freshly installed app stopped until it is
   first opened, so its code never runs.
+
+## Serve the bundle to the emulator (G2)
+
+```sh
+python3 pipeline/build.py                        # from the repo root; writes bundle/bundle.json
+python3 -m http.server 8787 --bind 127.0.0.1 --directory bundle
+adb shell pm grant com.longlifeio.fineprint android.permission.ACCESS_LOCAL_NETWORK
+adb logcat -s FinePrint | grep NET               # exactly two GETs per launch
+```
+
+- **The URL** comes from `fineprint.bundleUrl` in `local.properties` (default
+  `http://10.0.2.2:8080/`; 10.0.2.2 is the Mac as seen from the emulator). Pick a port nothing
+  else on the Mac is using: on the dev Mac, 8080 and 8090 are taken by other services. A
+  Tailscale host set there is allowed for cleartext in debug builds only, via a generated
+  network security config, so it never lands in the repo.
+- **Android 17 local network protection** blocks a targetSdk 37 app from reaching LAN or host
+  addresses until it holds `ACCESS_LOCAL_NETWORK`. Only the debug manifest requests it, and the
+  `adb shell pm grant` above grants it. Reinstalling keeps the grant; uninstalling drops it.
+- **Offline:** both files are cached in the app's private storage after a successful download.
+  With the server down, the app logs a failed GET and keeps using the cached copy.
+- **About** (top bar) shows the bundle version and age, the source URL, "Update now", and the
+  licences.
 
 ## Or a spare phone (wireless debugging, Android 11+)
 
@@ -184,8 +211,14 @@ The emulator runs on the Mac's M4, so expect a phone to be several times slower.
 
 ## Privacy
 
-- **No `INTERNET` permission.** Android itself blocks network access for this build.
-- **Nothing is stored.** Scan results are held in memory only and never written or sent anywhere.
+- **One network use.** The app holds `INTERNET` only to download `bundle.json` and `trackers.json`
+  whole, with no query string, cookies or app data in the request. The server learns that someone
+  opened Fine Print, never which apps they have. Release builds fetch over HTTPS only.
+- **Proof in debug builds.** The bundle client tags its sockets and logs each request as
+  `NET GET <url> -> <code>`. StrictMode flags any untagged socket, so a stray SDK or library
+  connection would show up in logcat.
+- **Nothing about you is stored.** Scan results are held in memory only and never written or
+  sent anywhere. The only thing written to disk is the downloaded bundle.
 - **Logs.** Per-app log lines, which contain package names, are written only by debuggable builds.
   Release builds log totals only.
 

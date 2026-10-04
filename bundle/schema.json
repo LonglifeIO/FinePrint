@@ -1,27 +1,26 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/longlifeio/fineprint/bundle/schema.json",
-  "title": "Fine Print knowledge bundle",
-  "description": "Contract between the pipeline (producer) and the app (consumer). Bump schema_version on any breaking change.",
+  "title": "Fine Print knowledge bundle (bundle.json)",
+  "description": "Contract between the pipeline (producer) and the app (consumer). Bump schema_version on any breaking change. v1.1 (additive): companies, data_flows, device_reach, status sub-types, source independence and archives, Exodus report pinning, stale flag, a required verbatim quote on every source (with as_of, or accessed for undated pages, and verify_url for pages that block scripts), sourced procedural notes on legal items, and risk-tag qualifiers. Tracker names and signatures live in trackers.json (ODbL); this file references trackers by id only and never copies Exodus fields.",
   "type": "object",
   "required": ["schema_version", "bundle_version", "generated_at", "trackers", "apps", "permissions"],
   "additionalProperties": false,
   "properties": {
     "schema_version": { "const": 1 },
+    "schema_revision": { "const": "1.1" },
     "bundle_version": { "type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[0-9]+)?$" },
     "generated_at": { "type": "string", "format": "date-time" },
+    "licence": { "type": "string", "description": "CC BY 4.0 for this file." },
 
-    "trackers": {
+    "trackers": { "type": "array", "items": { "$ref": "#/$defs/tracker" } },
+    "apps": { "type": "array", "items": { "$ref": "#/$defs/app" } },
+    "permissions": { "type": "array", "items": { "$ref": "#/$defs/permission" } },
+    "companies": { "type": "array", "items": { "$ref": "#/$defs/company" } },
+    "device_reach": {
       "type": "array",
-      "items": { "$ref": "#/$defs/tracker" }
-    },
-    "apps": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/app" }
-    },
-    "permissions": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/permission" }
+      "description": "Plain-language boilerplate for capabilities an app registers beyond permissions, detected from its manifest at scan time.",
+      "items": { "$ref": "#/$defs/device_reach" }
     }
   },
 
@@ -30,48 +29,171 @@
       "description": "How strong the claim is. Wording in the UI follows this.",
       "enum": ["self_disclosed", "reported", "alleged", "adjudicated"]
     },
+    "status_kind": {
+      "description": "Sub-type of the status. adjudicated: ruling, settlement, settlement_no_admission, regulator_finding, consent_order. alleged: filed, survived_motion_to_dismiss, dismissed.",
+      "enum": ["ruling", "settlement", "settlement_no_admission", "regulator_finding", "consent_order", "filed", "survived_motion_to_dismiss", "dismissed"]
+    },
     "evidence_tier": {
       "description": "How a finding was made on-device. Never upgrade contains_code to observed_contact.",
       "enum": ["contains_code", "observed_contact"]
     },
+    "company_id": { "type": "string", "pattern": "^co-[a-z0-9-]+$" },
+    "date": { "type": "string", "format": "date" },
+    "partial_date": {
+      "description": "A full date, or year and month when only the month is known (e.g. a breach dated 'March 2024').",
+      "anyOf": [ { "$ref": "#/$defs/date" }, { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" } ]
+    },
+    "risk_tag": { "enum": ["location_sale", "telematics", "ad_profiling", "regulatory_action", "breach", "child_data", "cross_app_tracking", "data_broker"] },
+
+    "status_detail": {
+      "description": "Status sub-type rules shared by consequences, flows and legal events.",
+      "allOf": [
+        { "if": { "properties": { "status": { "const": "adjudicated" } }, "required": ["status", "status_kind"] },
+          "then": { "properties": { "status_kind": { "enum": ["ruling", "settlement", "settlement_no_admission", "regulator_finding", "consent_order"] } } } },
+        { "if": { "properties": { "status": { "const": "alleged" } }, "required": ["status", "status_kind"] },
+          "then": { "properties": { "status_kind": { "enum": ["filed", "survived_motion_to_dismiss", "dismissed"] } } } },
+        { "if": { "properties": { "status": { "enum": ["self_disclosed", "reported"] } }, "required": ["status"] },
+          "then": { "not": { "required": ["status_kind"] } } }
+      ]
+    },
+
     "source": {
       "type": "object",
-      "required": ["url", "type", "as_of", "status"],
+      "required": ["url", "type", "status", "quote"],
+      "anyOf": [ { "required": ["as_of"] }, { "required": ["accessed"] } ],
       "additionalProperties": false,
       "properties": {
+        "id": { "type": "string", "pattern": "^src-[a-z0-9-]+$", "description": "Needed when another source derives from this one." },
         "url": { "type": "string", "format": "uri" },
         "type": {
           "enum": ["privacy_policy", "data_safety_label", "regulator", "lawsuit", "journalism", "research", "company_site", "breach_notice"]
         },
         "title": { "type": "string" },
-        "as_of": { "type": "string", "format": "date" },
+        "as_of": { "$ref": "#/$defs/date", "description": "The source's own date: publication, filing, ruling or policy version." },
+        "accessed": { "$ref": "#/$defs/date", "description": "When Fine Print read the page. Used instead of as_of when the page carries no date of its own." },
         "status": { "$ref": "#/$defs/status" },
-        "quote": { "type": "string", "maxLength": 300, "description": "Short supporting excerpt, under 15 words if from a copyrighted source." }
+        "quote": { "type": "string", "pattern": "\\S", "maxLength": 300, "description": "Required. Verbatim excerpt that supports the claim the source is cited for; fragments may be joined with ' … '. Under 15 words if from a copyrighted source." },
+        "derives_from": { "type": "string", "pattern": "^src-[a-z0-9-]+$", "description": "Id of the original source when this one re-reports it, so copies don't count as independent." },
+        "single_source": { "type": "boolean", "description": "The claim rests on one original investigation or study." },
+        "wayback_url": { "type": "string", "format": "uri" },
+        "wayback_date": { "$ref": "#/$defs/date" },
+        "vendor_archive_url": { "type": "string", "format": "uri", "description": "A dated prior version hosted by the vendor itself (useful, not independent)." },
+        "verify_url": { "type": "string", "format": "uri", "description": "Address build.py fetches instead of url when the page itself blocks scripts: the same article's API (e.g. a help centre's JSON) or an archived copy. url stays the page people read." }
       }
     },
-    "consequence": {
+
+    "procedural_note": {
+      "description": "Where a legal matter stands procedurally (dismissals, appeals), with each part sourced. It never changes the claim's status.",
       "type": "object",
-      "required": ["text", "status", "sources"],
+      "required": ["text", "sources"],
       "additionalProperties": false,
       "properties": {
-        "text": { "type": "string", "maxLength": 400, "description": "Plain-language consequence for the user, one or two sentences." },
-        "status": { "$ref": "#/$defs/status" },
-        "wording": { "type": "string", "description": "Attribution phrase the UI shows, e.g. 'alleged in a lawsuit filed by the Texas AG on 2025-01-13 (not proven in court)'." },
+        "text": { "type": "string", "maxLength": 400 },
         "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } }
       }
     },
 
-    "tracker": {
+    "consequence": {
       "type": "object",
-      "required": ["id", "name", "owner", "categories", "consequences", "last_reviewed"],
+      "required": ["text", "status", "sources"],
+      "additionalProperties": false,
+      "$ref": "#/$defs/status_detail",
+      "properties": {
+        "text": { "type": "string", "maxLength": 400, "description": "Plain-language consequence for the user, one or two sentences." },
+        "status": { "$ref": "#/$defs/status" },
+        "status_kind": { "$ref": "#/$defs/status_kind" },
+        "appeal_pending": { "type": "boolean" },
+        "wording": { "type": "string", "description": "Attribution phrase the UI shows, e.g. 'alleged in a lawsuit filed by the Texas AG on 2025-01-13 (not proven in court)'." },
+        "historical": { "type": "boolean", "description": "True when this describes a past practice, not a current one." },
+        "subject_company": { "$ref": "#/$defs/company_id", "description": "Who the action is against, when that is not the app's developer." },
+        "concerns_app": { "type": "string", "description": "Package whose data the action concerns." },
+        "procedural_note": { "$ref": "#/$defs/procedural_note" },
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" }, "description": "The first source is the primary one." }
+      }
+    },
+
+    "data_flow": {
+      "description": "One line of the explanation screen: what data goes where, for what, and how far.",
+      "type": "object",
+      "required": ["data", "purpose", "bucket", "status", "sources"],
+      "additionalProperties": false,
+      "$ref": "#/$defs/status_detail",
+      "properties": {
+        "data": {
+          "enum": ["precise_location", "approximate_location", "movement_and_driving", "physical_activity", "contacts",
+                   "account_identity", "device_identifiers", "app_activity", "crash_diagnostics", "sensitive_personal_data"]
+        },
+        "recipient": { "$ref": "#/$defs/company_id" },
+        "recipient_label": { "type": "string", "description": "Used when the recipient is unnamed, e.g. 'select business partners'." },
+        "purpose": { "type": "string", "maxLength": 200 },
+        "bucket": {
+          "description": "stays_here: runs or improves the app. used_for_more: same company, beyond the app (ads, profiling, other products). goes_elsewhere: shared, licensed or sold to other companies.",
+          "enum": ["stays_here", "used_for_more", "goes_elsewhere"]
+        },
+        "status": { "$ref": "#/$defs/status" },
+        "status_kind": { "$ref": "#/$defs/status_kind" },
+        "appeal_pending": { "type": "boolean" },
+        "wording": { "type": "string" },
+        "historical": { "type": "boolean" },
+        "procedural_note": { "$ref": "#/$defs/procedural_note" },
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" }, "description": "The first source is the primary one." }
+      },
+      "anyOf": [ { "required": ["recipient"] }, { "required": ["recipient_label"] } ]
+    },
+
+    "legal_event": {
+      "type": "object",
+      "required": ["date", "title", "type", "status", "sources"],
+      "additionalProperties": false,
+      "$ref": "#/$defs/status_detail",
+      "properties": {
+        "date": { "$ref": "#/$defs/partial_date" },
+        "title": { "type": "string" },
+        "body": { "type": "string", "description": "Court or regulator." },
+        "type": { "enum": ["lawsuit", "regulator_action", "class_action", "breach", "fine", "order"] },
+        "amount": { "type": "string" },
+        "status": { "$ref": "#/$defs/status" },
+        "status_kind": { "$ref": "#/$defs/status_kind" },
+        "appeal_pending": { "type": "boolean" },
+        "subject_company": { "$ref": "#/$defs/company_id" },
+        "concerns_app": { "type": "string" },
+        "notes": { "type": "string" },
+        "procedural_note": { "$ref": "#/$defs/procedural_note" },
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" }, "description": "The first source is the primary one." }
+      }
+    },
+
+    "company": {
+      "type": "object",
+      "required": ["id", "name", "roles", "last_reviewed"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/company_id" },
+        "name": { "type": "string" },
+        "parent": { "$ref": "#/$defs/company_id" },
+        "subsidiaries": { "type": "array", "items": { "type": "string" }, "description": "Units named in records, e.g. 'Arity'." },
+        "jurisdiction": { "type": "string" },
+        "roles": { "type": "array", "minItems": 1, "items": { "enum": ["developer", "tracker_owner", "data_recipient"] } },
+        "regulatory_history": { "type": "array", "items": { "$ref": "#/$defs/legal_event" } },
+        "last_reviewed": { "$ref": "#/$defs/date" }
+      }
+    },
+
+    "tracker": {
+      "description": "Fine Print's explanation of a tracker. Name, signatures and Exodus categories come from trackers.json.",
+      "type": "object",
+      "required": ["id", "owner", "categories", "consequences", "last_reviewed"],
       "additionalProperties": false,
       "properties": {
         "id": { "type": "string", "pattern": "^exodus-[0-9]+$|^fp-[a-z0-9-]+$", "description": "Exodus tracker ID where one exists; fp-* for trackers we add ourselves." },
-        "name": { "type": "string" },
+        "name": { "type": "string", "description": "Only for fp-* trackers; Exodus names stay in trackers.json." },
         "aka": { "type": "array", "items": { "type": "string" } },
         "owner": { "type": "string", "description": "Ultimate parent company." },
+        "owner_company": { "$ref": "#/$defs/company_id" },
         "owner_chain": { "type": "array", "items": { "type": "string" }, "description": "Subsidiary → parent, e.g. ['Arity', 'Allstate Corporation']." },
         "jurisdiction": { "type": "string" },
+        "party": { "enum": ["first_party", "third_party"], "description": "first_party when the tracker owner also makes the apps it is usually found in." },
+        "product_line": { "type": "string", "description": "Which product this record covers, e.g. 'Kochava attribution' vs 'Kochava Collective'." },
         "categories": {
           "type": "array",
           "items": { "enum": ["advertising", "analytics", "location", "profiling", "identification", "crash_reporting", "telematics", "social", "payments", "other"] }
@@ -79,9 +201,10 @@
         "data_collected": { "type": "array", "items": { "type": "string" } },
         "monetization_model": { "type": "string", "description": "What the owner does with the data, plainly." },
         "sold_to": { "type": "array", "items": { "type": "string" } },
+        "data_flows": { "type": "array", "items": { "$ref": "#/$defs/data_flow" } },
         "consequences": { "type": "array", "items": { "$ref": "#/$defs/consequence" } },
         "confidence": { "enum": ["low", "medium", "high"] },
-        "last_reviewed": { "type": "string", "format": "date" }
+        "last_reviewed": { "$ref": "#/$defs/date" }
       }
     },
 
@@ -94,24 +217,44 @@
         "ios_bundle_id": { "type": "string" },
         "display_name": { "type": "string" },
         "developer": { "type": "string" },
+        "developer_company": { "$ref": "#/$defs/company_id" },
         "summary": { "type": "string", "maxLength": 600 },
-        "risk_tags": {
-          "type": "array",
-          "items": { "enum": ["location_sale", "telematics", "ad_profiling", "regulatory_action", "breach", "child_data", "cross_app_tracking", "data_broker"] }
+        "risk_tags": { "type": "array", "items": { "$ref": "#/$defs/risk_tag" }, "description": "Each tag must be backed by a flow or consequence in the record." },
+        "risk_tag_notes": {
+          "type": "object",
+          "description": "Qualifier the UI shows with a tag, e.g. regulatory_action: \"against Allstate/Arity concerning this app's data\". build.py requires one for regulatory_action when no action in the record is against the app's own developer.",
+          "propertyNames": { "$ref": "#/$defs/risk_tag" },
+          "additionalProperties": { "type": "string", "maxLength": 120 }
         },
         "trackers": {
           "type": "array",
           "description": "Tracker IDs expected in this app, per Exodus or our own analysis. The app shows what it actually detected; this is the reference.",
           "items": { "type": "string" }
         },
+        "exodus_report": {
+          "type": "object",
+          "required": ["id", "app_version", "created", "tracker_count"],
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "integer" },
+            "app_version": { "type": "string" },
+            "version_code": { "type": "integer" },
+            "created": { "$ref": "#/$defs/date" },
+            "tracker_count": { "type": "integer", "minimum": 0 },
+            "apk_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+          }
+        },
+        "data_flows": { "type": "array", "items": { "$ref": "#/$defs/data_flow" } },
         "consequences": { "type": "array", "items": { "$ref": "#/$defs/consequence" } },
         "privacy_policy_url": { "type": "string", "format": "uri" },
-        "privacy_policy_as_of": { "type": "string", "format": "date" },
+        "privacy_policy_as_of": { "$ref": "#/$defs/date" },
+        "privacy_controls": { "type": "string", "maxLength": 400, "description": "Where in the app the user can switch sharing off (text only)." },
         "coverage": {
           "enum": ["curated", "auto"],
           "description": "curated = human-reviewed record; auto = generated from tracker records only, no app-specific claims."
         },
-        "last_reviewed": { "type": "string", "format": "date" }
+        "stale": { "type": "boolean", "description": "Computed by build.py: last_reviewed more than 180 days before the build." },
+        "last_reviewed": { "$ref": "#/$defs/date" }
       }
     },
 
@@ -123,8 +266,20 @@
         "id": { "type": "string", "description": "e.g. android.permission.ACCESS_FINE_LOCATION" },
         "plain": { "type": "string", "maxLength": 200, "description": "What this lets the app do, in one sentence." },
         "why_it_matters": { "type": "string", "maxLength": 400, "description": "What this permission plus a tracker can turn into." },
+        "feeds": { "type": "array", "items": { "$ref": "#/$defs/data_flow/properties/data" }, "description": "Which data_flow data kinds this permission gives access to." },
         "dangerous": { "type": "boolean" },
         "remediation_intent": { "type": "string", "default": "android.settings.APPLICATION_DETAILS_SETTINGS" }
+      }
+    },
+
+    "device_reach": {
+      "type": "object",
+      "required": ["id", "plain", "why_it_matters"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "enum": ["accessibility_service", "notification_listener", "device_admin", "vpn_service", "overlay", "usage_stats", "autostart", "background_ble_scan"] },
+        "plain": { "type": "string", "maxLength": 200 },
+        "why_it_matters": { "type": "string", "maxLength": 400 }
       }
     }
   }
