@@ -36,7 +36,12 @@ data class DataFlow(
     val sources: List<Source>,
     /** Tracker flows: the bucket inside an app the tracker's owner made; null leaves a goes-elsewhere flow out there. */
     val inOwnerApps: String? = null,
+    /** Set for a line about a government: how it can get the data, and its country. */
+    val government: GovernmentRef? = null,
 )
+
+/** A government line's kind (can_compel, has_bought, has_used) and the government's country. */
+data class GovernmentRef(val line: String, val jurisdiction: String)
 
 data class Consequence(
     val text: String,
@@ -56,6 +61,7 @@ data class Consequence(
     val inForce: Boolean = false,
     /** When the matter ended; null while it is ongoing, or when the record doesn't say. */
     val closedDate: String? = null,
+    val government: GovernmentRef? = null,
 )
 
 /** A company's regulatory or legal history entry; [date] may be year and month only ("2024-03"). */
@@ -152,6 +158,11 @@ data class Company(
     val subsidiaries: List<String>,
     /** The company that owns this one, when the record names it. */
     val parent: String? = null,
+    /** Where it is registered, so whose law it is subject to (ISO code); null only in records older than 1.3. */
+    val jurisdiction: String? = null,
+    /** Where its head office is, when a source says so: a separate claim. */
+    val headquarters: String? = null,
+    val jurisdictionSources: List<Source> = emptyList(),
     val events: List<LegalEvent> = emptyList(),
 )
 

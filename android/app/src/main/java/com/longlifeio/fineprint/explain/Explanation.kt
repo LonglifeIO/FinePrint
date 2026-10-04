@@ -39,6 +39,8 @@ data class Explanation(
     val exodusNote: String?,
     /** Changes to the record, newest first: the first shows under the summary, all under On the record. */
     val changes: List<Change> = emptyList(),
+    /** Where the companies that get the data are based, and each country's laws and government lines. */
+    val governments: Governments = NO_GOVERNMENTS,
 )
 
 data class FlowLine(
@@ -58,6 +60,8 @@ data class FlowLine(
     val via: String? = null,
     /** The record's flow id, when it has one: how in-app controls say which lines they limit. */
     val id: String? = null,
+    /** The recipient's company record, when the line names one: where Jurisdictions places it. */
+    val company: String? = null,
 )
 
 data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
@@ -73,18 +77,25 @@ fun explain(
     val detected = scan?.trackers.orEmpty()
     val appName = record?.displayName ?: app.label
     val lines = ArrayList<FlowLine>()
-    record?.dataFlows?.forEach { f ->
+    record?.dataFlows?.filter { it.government == null }?.forEach { f ->
         lines += f.toLine(f.recipient?.let { bundle.companies[it]?.name } ?: f.recipientLabel ?: "Unnamed recipient", via = null)
     }
     lines += trackerLines(detected, bundle, record?.developerCompany, signatures)
+    val trackerRecords = detected.mapNotNull { bundle?.trackers?.get(it.id) }.distinct()
     val shown = lines.distinct()
     val granted = app.permissions.filter { it.granted }
     val shownData = shown.map { it.data }.toSet()
     val readable = scan != null && scan.dexFiles > 0
     // With a record, a tracker's legal lines join it only when they name this app; without one, all of them do.
-    val fromTrackers = detected.mapNotNull { bundle?.trackers?.get(it.id) }.distinct()
-        .flatMap { t -> t.consequences.filter { record == null || it.concernsApp == app.packageName }.map { Said(it, t) } }
-    val onRecord = onTheRecord(record, record?.consequences.orEmpty().map { Said(it) } + fromTrackers, bundle, app.packageName)
+    val fromTrackers = trackerRecords.flatMap { t ->
+        t.consequences.filter { it.government == null && (record == null || it.concernsApp == app.packageName) }.map { Said(it, t) }
+    }
+    val own = record?.consequences.orEmpty().filter { it.government == null }.map { Said(it) }
+    val onRecord = onTheRecord(record, own + fromTrackers, bundle, app.packageName)
+    // Government lines show with their country's laws, never in the buckets or the tier.
+    val recorded = (record?.dataFlows.orEmpty() + trackerRecords.flatMap { it.dataFlows }).mapNotNull { it.governmentLine() } +
+        (record?.consequences.orEmpty() + trackerRecords.flatMap { it.consequences }).mapNotNull { it.governmentLine() }
+    val current = shown.filterNot { it.historical }
 
     return Explanation(
         appName = appName,
@@ -114,6 +125,12 @@ fun explain(
         stale = record?.stale == true,
         exodusNote = exodusNote(record?.exodusReport?.trackerCount, record?.trackers.orEmpty(), scan),
         changes = record?.changes.orEmpty().sortedByDescending { it.date },
+        governments = governments(
+            current.mapNotNull { it.company },
+            unplaced = current.any { line -> line.company?.let { bundle?.companies?.get(it)?.jurisdiction } == null },
+            recorded = recorded,
+            bundle = bundle,
+        ),
     )
 }
 
@@ -143,8 +160,8 @@ internal fun scanFacts(app: InstalledApp, scan: TrackerScanResult?): String {
     }
 }
 
-internal fun DataFlow.toLine(recipient: String, via: String?) =
-    FlowLine(data, bucket, recipient, purpose, status, attribution(status, wording), historical, sources, proceduralNote, via, id)
+internal fun DataFlow.toLine(shown: String, via: String?) =
+    FlowLine(data, bucket, shown, purpose, status, attribution(status, wording), historical, sources, proceduralNote, via, id, company = recipient)
 
 /** Alleged lines always say "not proven in court", whatever the record's own wording. */
 internal fun attribution(status: String?, wording: String?): String? = when {

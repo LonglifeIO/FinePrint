@@ -14,6 +14,17 @@ val COLLECTS = SectionText("What it collects", "Data this app takes from your ph
 val WHERE_IT_GOES = SectionText("Where it goes", "Who gets that data, and whether it's used beyond running the app.")
 val APPLIES = SectionText("This applies to you because", "Permissions you've actually granted that feed the above.")
 val ON_THE_RECORD = SectionText("On the record", "What regulators and courts have said. FinePrint relays the public record; it doesn't judge.")
+val JURISDICTIONS = SectionText("Jurisdictions", "Where the companies that get this data are based, and the laws there that let a government demand it.")
+const val UNPLACED = "Some recipients aren't named or have no record, so FinePrint can't say where they're based."
+const val NONE_PLACED = "FinePrint can't say where the companies that get this data are based."
+const val NO_LAWS_REVIEWED = "FinePrint hasn't reviewed this country's laws yet."
+
+/** The three kinds of government line (docs/METHOD.md, Governments). */
+val GOVERNMENT_LINES = mapOf(
+    "can_compel" to BadgeText("Can compel", "A company in a country is subject to a law that lets that country's government demand the data. FinePrint cites the law."),
+    "has_bought" to BadgeText("Has bought", "A documented government purchase of this kind of data."),
+    "has_used" to BadgeText("Has used", "Documented government use of this kind of data, reported by at least two sources."),
+)
 val RECENT_CHANGES = SectionText("Recent changes", "The latest change to FinePrint's record of this app, and whether it's better or worse for you.")
 val HISTORY = SectionText("History", "Every change to FinePrint's record of this app, newest first.")
 val ONGOING = SectionText("Ongoing", "Orders still in force, cases still pending, and decisions under appeal.")
@@ -52,7 +63,7 @@ const val AUTO = "auto"
 const val HISTORICAL = "historical"
 
 val BADGES = mapOf(
-    "self_disclosed" to BadgeText("Self-disclosed", "The app's maker says so in its own privacy policy or labels."),
+    "self_disclosed" to BadgeText("Self-disclosed", "The company says so itself, in its privacy policy, labels or filings, or a law says so in its own text."),
     "reported" to BadgeText("Reported", "Reported by journalists or researchers; no court or regulator has ruled on it."),
     "alleged" to BadgeText("Alleged", "Claimed in a lawsuit or complaint; not proven in court."),
     "adjudicated" to BadgeText("Adjudicated", "Decided by a court or regulator, or settled."),

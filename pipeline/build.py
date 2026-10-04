@@ -6,7 +6,8 @@
     python3 pipeline/build.py --previous old-record.json            # derive a new change's direction first
 
 Every reviewed file is a JSON object holding any of the arrays apps, trackers, companies,
-permissions, device_reach; they are merged, validated against bundle/schema.json, cross-checked
+permissions, device_reach and jurisdictions; they are merged, validated against bundle/schema.json
+(jurisdictions go to their own file, bundle/jurisdictions.json), cross-checked
 (company ids, derives_from ids, tracker ids against bundle/trackers.json and one explanation per
 tracker id, a quote on every source, one definition per source id, qualified regulatory_action
 tags), and every source URL must answer
@@ -42,6 +43,8 @@ DEFAULT_OUT = REPO / "bundle" / "bundle.json"
 URL_CACHE = REPO / "pipeline" / "raw" / "url-checks.json"  # gitignored
 HALIFAX = ZoneInfo("America/Halifax")
 SECTIONS = ("apps", "trackers", "companies", "permissions", "device_reach")
+JURISDICTIONS = "jurisdictions"  # written to bundle/jurisdictions.json, not bundle.json
+LICENCE = "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint"
 STALE_DAYS = 180
 URL_CACHE_DAYS = 30
 NOT_FETCHED_HOSTS = ("exodus-privacy.eu.org",)
@@ -57,16 +60,16 @@ IMPROVING = ("flow removed", "moved toward stays here", "data kind removed", "tr
 
 
 def merge(paths: list[Path]) -> dict[str, list]:
-    merged: dict[str, list] = {k: [] for k in SECTIONS}
+    merged: dict[str, list] = {k: [] for k in SECTIONS + (JURISDICTIONS,)}
     for path in paths:
         doc = json.loads(path.read_text(encoding="utf-8"))
-        unknown = set(doc) - set(SECTIONS)
+        unknown = set(doc) - set(merged)
         if unknown:
             raise ValueError(f"{path.name}: unknown sections {sorted(unknown)}")
-        for key in SECTIONS:
+        for key in merged:
             merged[key].extend(doc.get(key, []))
     for key, id_field in (("apps", "package_id"), ("trackers", "id"), ("companies", "id"),
-                          ("permissions", "id"), ("device_reach", "id")):
+                          ("permissions", "id"), ("device_reach", "id"), (JURISDICTIONS, "id")):
         ids = [r[id_field] for r in merged[key]]
         repeated = sorted({i for i in ids if ids.count(i) > 1})
         if repeated:
@@ -113,6 +116,7 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
         if "url" in n and not str(n.get("quote", "")).strip():
             errors.append(f"source without a quote: {n['url']}")
         errors.extend(standing_problems(n))
+        errors.extend(government_problems(n))
 
     walk(bundle, visit)
     for app in bundle["apps"]:
@@ -149,6 +153,37 @@ def standing_problems(item: dict) -> list[str]:
     errors = [f"{what!r}: closed_date with {k}" for k in ("in_force", "appeal_pending") if item.get(k)]
     if "date" in item and item["closed_date"] < item["date"]:
         errors.append(f"{what!r}: closed_date {item['closed_date']} is before its date {item['date']}")
+    return errors
+
+
+def independent_sources(sources: list[dict]) -> int:
+    """Copies (derives_from) and sources resting on one investigation (single_source) count once."""
+    return 1 if any(s.get("single_source") for s in sources) else sum(1 for s in sources if "derives_from" not in s)
+
+
+def government_problems(line: dict) -> list[str]:
+    """A Can compel line cites the law itself first; a reported Has used line needs two independent sources."""
+    if line.get("recipient_kind") != "government_body":
+        return []
+    what = line.get("recipient_label") or line.get("text", "")[:60]
+    errors = []
+    if line.get("government_line") == "can_compel" and line["sources"][0].get("type") != "statute":
+        errors.append(f"{what!r}: a Can compel line's first source is the law's own text (type statute)")
+    if line.get("government_line") == "has_used" and line.get("status") == "reported" and independent_sources(line["sources"]) < 2:
+        errors.append(f"{what!r}: a Has used line needs two independent sources")
+    return errors
+
+
+def law_problems(places: dict) -> list[str]:
+    """Each law has one id, cites its own text first, and quotes every source."""
+    laws = [law for j in places[JURISDICTIONS] for law in j["laws"]]
+    ids = [law["id"] for law in laws]
+    errors = [f"law id {i!r} used twice" for i in sorted({i for i in ids if ids.count(i) > 1})]
+    errors += [f"{law['id']}: its first source is the law's own text (type statute)" for law in laws if law["sources"][0]["type"] != "statute"]
+    def visit(n: dict) -> None:
+        if "url" in n and not str(n.get("quote", "")).strip():
+            errors.append(f"source without a quote: {n['url']}")
+    walk(places, visit)
     return errors
 
 
@@ -338,9 +373,28 @@ def build(reviewed: list[Path], now: dt.datetime) -> dict:
         "schema_revision": "1.3",
         "bundle_version": now.strftime("%Y.%m.%d"),
         "generated_at": now.isoformat(timespec="seconds"),
-        "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
-        **merged,
+        "licence": LICENCE,
+        **{k: merged[k] for k in SECTIONS},
     }
+
+
+def build_jurisdictions(reviewed: list[Path], now: dt.datetime) -> dict:
+    """bundle/jurisdictions.json: each country's laws that let its government compel data."""
+    return {"schema_version": 1, "generated_at": now.isoformat(timespec="seconds"), "licence": LICENCE,
+            JURISDICTIONS: merge(reviewed)[JURISDICTIONS]}
+
+
+def jurisdictions_path(out: Path) -> Path:
+    """bundle.json -> jurisdictions.json beside it; bundle-preview.json -> jurisdictions-preview.json."""
+    stem = out.stem.replace("bundle", "jurisdictions") if "bundle" in out.stem else out.stem + "-jurisdictions"
+    return out.with_name(stem + out.suffix)
+
+
+def schema_problems(schema: dict, doc: dict, ref: str | None = None) -> list[str]:
+    """Validates doc against the schema, or against one of its $defs (e.g. jurisdictions_file)."""
+    target = {"$schema": schema["$schema"], "$defs": schema["$defs"], "$ref": f"#/$defs/{ref}"} if ref else schema
+    validator = jsonschema.Draft202012Validator(target, format_checker=jsonschema.FormatChecker())
+    return [f"schema{' ' + ref if ref else ''}: {'/'.join(map(str, e.absolute_path))}: {e.message}" for e in validator.iter_errors(doc)]
 
 
 def main() -> int:
@@ -355,21 +409,23 @@ def main() -> int:
     for line in derive_directions(sorted(args.reviewed.glob("*.json")), args.previous):
         print(f"derived {line}")
     now = dt.datetime.now(HALIFAX)
-    bundle = build(sorted(args.reviewed.glob("*.json")), now)
+    reviewed = sorted(args.reviewed.glob("*.json"))
+    bundle, places = build(reviewed, now), build_jurisdictions(reviewed, now)
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
-    validator = jsonschema.Draft202012Validator(schema, format_checker=jsonschema.FormatChecker())
-    errors = [f"schema: {'/'.join(map(str, e.absolute_path))}: {e.message}" for e in validator.iter_errors(bundle)]
+    errors = schema_problems(schema, bundle) + schema_problems(schema, places, "jurisdictions_file")
     tracker_ids = {t["id"] for t in json.loads(TRACKERS.read_text(encoding="utf-8"))["trackers"]}
-    errors += cross_check(bundle, tracker_ids)
+    errors += cross_check(bundle, tracker_ids) + law_problems(places)
     if not args.skip_url_check:
-        errors += check_urls(bundle, now)
+        errors += check_urls({"bundle": bundle, JURISDICTIONS: places}, now)
     if errors:
         print("\n".join(errors), file=sys.stderr)
         print(f"not written: {len(errors)} problem(s)", file=sys.stderr)
         return 1
     write_atomically(args.out, bundle)
+    write_atomically(jurisdictions_path(args.out), places)
     counts = ", ".join(f"{len(bundle[k])} {k}" for k in SECTIONS)
     print(f"wrote {args.out} (bundle {bundle['bundle_version']}: {counts})")
+    print(f"wrote {jurisdictions_path(args.out)} ({len(places[JURISDICTIONS])} jurisdictions)")
     return 0
 
 

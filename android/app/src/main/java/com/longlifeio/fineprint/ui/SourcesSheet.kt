@@ -47,6 +47,9 @@ private val SOURCE_TYPES = mapOf(
     "research" to "Research",
     "company_site" to "Company website",
     "breach_notice" to "Breach notice",
+    "statute" to "Law",
+    "filing" to "Company filing",
+    "company_registry" to "Company registry",
 )
 
 /** The source's own date, or when FinePrint read an undated page. */

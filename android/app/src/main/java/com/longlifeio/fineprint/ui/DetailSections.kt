@@ -60,6 +60,8 @@ fun LazyListScope.detailSections(
     onSources: (SheetContent) -> Unit,
     onOpenSettings: () -> Unit,
     onTick: (String, Boolean) -> Unit,
+    jurisdictionsOpen: Boolean = false,
+    onToggleJurisdictions: () -> Unit = {},
 ) {
     section("summary", if (e.coverage == "curated") SUMMARY_CURATED else SUMMARY_AUTO)
     item { Paragraph(e.summary) }
@@ -86,13 +88,14 @@ fun LazyListScope.detailSections(
         }
     }
 
-    if (e.flows.isNotEmpty()) {
+    if (e.flows.isNotEmpty() || e.governments.blocks.isNotEmpty()) {
         section("goes", WHERE_IT_GOES)
         for (bucket in BUCKETS) {
             val lines = e.flows[bucket] ?: continue
             item(key = "bucket:$bucket") { BucketHeader(bucket) }
             items(lines) { FlowLineRow(it, onSources) }
         }
+        jurisdictionsItems(e.governments, jurisdictionsOpen, onToggleJurisdictions, onSources)
     }
 
     if (e.applies.isNotEmpty()) {

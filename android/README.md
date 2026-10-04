@@ -3,7 +3,7 @@
 Lists installed apps, shows each app's declared permissions and whether they are granted, and
 finds embedded tracker SDKs by scanning the app's dex code against tracker signatures (Exodus
 Privacy's list plus FinePrint's own). Since G2 it also downloads the knowledge bundle
-(`bundle.json` + `trackers.json`, whole files, once per launch) and explains each app by data:
+(`bundle.json`, `trackers.json` and `jurisdictions.json`, whole files, once per launch) and explains each app by data:
 what it collects, who gets it, and whether that stays in the app, is used for more, or goes
 elsewhere. Every line carries a status badge and one "Sources (n)" row that opens a sheet with
 each source's type, date, status and quote; a legal claim also says where the case stands (a
@@ -83,10 +83,10 @@ mkdir -p captures && adb exec-out screencap -p > captures/screen.png
 ## Serve the bundle to the emulator (G2)
 
 ```sh
-python3 pipeline/build.py                        # from the repo root; writes bundle/bundle.json
+python3 pipeline/build.py                        # from the repo root; writes bundle/bundle.json and jurisdictions.json
 python3 -m http.server 8787 --bind 127.0.0.1 --directory bundle
 adb shell pm grant com.longlifeio.fineprint android.permission.ACCESS_LOCAL_NETWORK
-adb logcat -s FinePrint | grep NET               # exactly two GETs per launch
+adb logcat -s FinePrint | grep NET               # exactly three GETs per launch
 ```
 
 - **The URL** comes from `fineprint.bundleUrl` in `local.properties` (default
@@ -97,7 +97,7 @@ adb logcat -s FinePrint | grep NET               # exactly two GETs per launch
 - **Android 17 local network protection** blocks a targetSdk 37 app from reaching LAN or host
   addresses until it holds `ACCESS_LOCAL_NETWORK`. Only the debug manifest requests it, and the
   `adb shell pm grant` above grants it. Reinstalling keeps the grant; uninstalling drops it.
-- **Offline:** both files are cached in the app's private storage after a successful download.
+- **Offline:** all three files are cached in the app's private storage after a successful download.
   With the server down, the app logs a failed GET and keeps using the cached copy.
 - **About** (top bar) shows the bundle version and age, the source URL, "Update now", and the
   licences.
@@ -224,8 +224,8 @@ The emulator runs on the Mac's M4, so expect a phone to be several times slower.
 
 ## Privacy
 
-- **One network use.** The app holds `INTERNET` only to download `bundle.json` and `trackers.json`
-  whole, with no query string, cookies or app data in the request. The server learns that someone
+- **One network use.** The app holds `INTERNET` only to download `bundle.json`, `trackers.json` and
+  `jurisdictions.json` whole, with no query string, cookies or app data in the request. The server learns that someone
   opened FinePrint, never which apps they have. Release builds fetch over HTTPS only.
 - **Proof in debug builds.** The bundle client tags its sockets and logs each request as
   `NET GET <url> -> <code>`. StrictMode flags any untagged socket, so a stray SDK or library

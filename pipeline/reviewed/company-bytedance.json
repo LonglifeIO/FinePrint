@@ -7,6 +7,34 @@
    "subsidiaries": [
     "TikTok"
    ],
+   "jurisdiction": "KY",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.supremecourt.gov/DocketPDF/24/24A587/335257/20241216144658388_TikTok%20Inc.%20v.%20Garland%20-%20SCOTUS%20Application%20for%20Injunction.pdf",
+     "type": "lawsuit",
+     "title": "TikTok Inc. and ByteDance Ltd., application to the US Supreme Court (TikTok Inc. v. Garland)",
+     "as_of": "2024-12-16",
+     "status": "self_disclosed",
+     "quote": "ByteDance Ltd., a privately held holding company incorporated in the Cayman Islands"
+    },
+    {
+     "url": "https://www.federalregister.gov/documents/2020/08/19/2020-18360/regarding-the-acquisition-of-musical",
+     "type": "regulator",
+     "title": "Order Regarding the Acquisition of Musical.ly by ByteDance Ltd. (Federal Register)",
+     "as_of": "2020-08-14",
+     "status": "adjudicated",
+     "quote": "ByteDance Ltd., an exempted company … incorporated under the laws of the Cayman Islands",
+     "verify_url": "https://www.federalregister.gov/documents/full_text/text/2020/08/19/2020-18360.txt"
+    },
+    {
+     "url": "https://media.cadc.uscourts.gov/opinions/docs/2024/12/24-1113-2088317.pdf",
+     "type": "lawsuit",
+     "title": "TikTok Inc. v. Garland (D.C. Cir.), opinion",
+     "as_of": "2024-12-06",
+     "status": "adjudicated",
+     "quote": "ByteDance Ltd., the ultimate parent company of TikTok, is incorporated in the Cayman Islands."
+    }
+   ],
    "roles": [
     "developer",
     "tracker_owner"
@@ -190,6 +218,33 @@
    "name": "TikTok USDS Joint Venture LLC",
    "short_name": "TikTok US",
    "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://opencorporates.com/companies/us_ca/B20260029350",
+     "type": "company_registry",
+     "title": "OpenCorporates, from California's business register: TikTok USDS Joint Venture LLC",
+     "accessed": "2026-10-04",
+     "status": "self_disclosed",
+     "quote": "TikTok USDS Joint Venture LLC … Branch of Delaware (US) company"
+    },
+    {
+     "url": "https://opencorporates.com/companies/us_ca/B20260029350",
+     "type": "company_registry",
+     "title": "OpenCorporates, from California's business register: TikTok USDS Joint Venture LLC",
+     "accessed": "2026-10-04",
+     "status": "self_disclosed",
+     "quote": "Head Office Address … 5800 BRISTOL PKWY, SUITE 300, CULVER CITY, CA, 90230"
+    },
+    {
+     "url": "https://opencorporates.com/companies/us_ny/7811124",
+     "type": "company_registry",
+     "title": "OpenCorporates, from New York's business register: TikTok USDS Joint Venture LLC",
+     "accessed": "2026-10-04",
+     "status": "self_disclosed",
+     "quote": "TIKTOK USDS JOINT VENTURE LLC … FOREIGN LIMITED LIABILITY COMPANY … Branch of Delaware (US) company"
+    }
+   ],
    "roles": [
     "developer"
    ],

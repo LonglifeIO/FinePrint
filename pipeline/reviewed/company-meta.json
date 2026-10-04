@@ -8,6 +8,31 @@
     "Meta Platforms Ireland Limited"
    ],
    "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+     "type": "filing",
+     "title": "Meta Platforms, Inc., Form 10-K for 2025",
+     "as_of": "2026-01-29",
+     "status": "self_disclosed",
+     "quote": "We were incorporated in Delaware in July 2004.",
+     "wayback_url": "https://web.archive.org/web/20261002172724/https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+     "wayback_date": "2026-10-02",
+     "verify_url": "https://web.archive.org/web/20261002172724/https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+     "type": "filing",
+     "title": "Meta Platforms, Inc., Form 10-K for 2025",
+     "as_of": "2026-01-29",
+     "status": "self_disclosed",
+     "quote": "Our corporate headquarters are located in Menlo Park, California.",
+     "wayback_url": "https://web.archive.org/web/20261002172724/https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+     "wayback_date": "2026-10-02",
+     "verify_url": "https://web.archive.org/web/20261002172724/https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm"
+    }
+   ],
    "roles": [
     "developer",
     "tracker_owner"

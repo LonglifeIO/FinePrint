@@ -13,6 +13,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build  # noqa: E402
 
 SOURCE = {"url": "https://example.org/a", "type": "journalism", "as_of": "2026-01-01", "status": "reported", "quote": "q"}
+REGISTRY = {"url": "https://example.org/registry", "type": "company_registry", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "Delaware"}
+STATUTE = {"url": "https://example.org/law", "type": "statute", "as_of": "2018-03-23", "status": "self_disclosed", "quote": "shall disclose"}
+
+
+def company(id_: str, **extra) -> dict:
+    return dict({"id": id_, "name": "X", "roles": ["developer"], "jurisdiction": "US", "jurisdiction_sources": [REGISTRY],
+                 "last_reviewed": "2026-10-01"}, **extra)
 VALIDATOR = build.jsonschema.Draft202012Validator(
     json.loads(build.SCHEMA.read_text(encoding="utf-8")), format_checker=build.jsonschema.FormatChecker())
 
@@ -57,7 +64,7 @@ class MergeAndCheckTest(unittest.TestCase):
         bundle = {
             "apps": [dict(app("2026-10-01"), trackers=["exodus-12", "exodus-99999"])],
             "trackers": [],
-            "companies": [{"id": "co-known", "name": "K", "roles": ["developer"], "last_reviewed": "2026-10-01"}],
+            "companies": [company("co-known")],
             "permissions": [],
             "device_reach": [],
             "x": [{"recipient": "co-unknown", "sources": [dict(SOURCE, derives_from="src-missing")]}],
@@ -78,6 +85,11 @@ class MergeAndCheckTest(unittest.TestCase):
     def test_android_test_fixture_follows_the_schema(self):  # keeps both sides of the contract in step
         fixture = build.REPO / "android" / "app" / "src" / "test" / "resources" / "bundle-fixture.json"
         self.assertEqual(schema_errors(json.loads(fixture.read_text(encoding="utf-8"))), [])
+
+    def test_android_jurisdictions_fixture_follows_the_schema(self):
+        fixture = build.REPO / "android" / "app" / "src" / "test" / "resources" / "jurisdictions-fixture.json"
+        schema = json.loads(build.SCHEMA.read_text(encoding="utf-8"))
+        self.assertEqual(build.schema_problems(schema, json.loads(fixture.read_text(encoding="utf-8")), "jurisdictions_file"), [])
 
     def test_reviewed_records_validate(self):
         bundle = build.build(sorted(build.REVIEWED.glob("*.json")), dt.datetime(2026, 10, 4, tzinfo=build.HALIFAX))
@@ -132,9 +144,8 @@ class StandingTest(unittest.TestCase):
         self.assertEqual(build.standing_problems(self.event(closed_date="2020-04-23", in_force=True)), ["'Order': closed_date with in_force"])
         self.assertEqual(build.standing_problems(self.event(closed_date="2020-04-23", appeal_pending=True)), ["'Order': closed_date with appeal_pending"])
         self.assertEqual(build.standing_problems(self.event(closed_date="2018-01-01")), ["'Order': closed_date 2018-01-01 is before its date 2019-07-24"])
-        company = {"id": "co-x", "name": "X", "roles": ["developer"], "last_reviewed": "2026-10-01",
-                   "regulatory_history": [self.event(in_force=True), self.event(closed_date="2020-04-23")]}
-        self.assertEqual(schema_errors(doc(companies=[company])), [])
+        record = company("co-x", regulatory_history=[self.event(in_force=True), self.event(closed_date="2020-04-23")])
+        self.assertEqual(schema_errors(doc(companies=[record])), [])
 
 
 class ChangeDirectionTest(unittest.TestCase):
@@ -196,6 +207,56 @@ class ChangeDirectionTest(unittest.TestCase):
         self.assertEqual(build.change_problems(typed), ["com.example: change of 2026-10-05 says improved, but its diff makes it worsened"])
 
 
+class GovernmentTest(unittest.TestCase):
+    def line(self, kind: str, status: str = "self_disclosed", sources=(STATUTE,)) -> dict:
+        return {"data": "precise_location", "recipient_kind": "government_body", "recipient_label": "A government agency",
+                "government_line": kind, "jurisdiction": "US", "purpose": "p", "bucket": "goes_elsewhere",
+                "status": status, "sources": list(sources)}
+
+    def test_a_company_names_where_it_is_registered_with_sources(self):
+        self.assertEqual(schema_errors(doc(companies=[company("co-x", headquarters="US")])), [])
+        bare = {k: v for k, v in company("co-x").items() if k not in ("jurisdiction", "jurisdiction_sources")}
+        self.assertEqual(sorted(schema_errors(doc(companies=[bare]))),
+                         ["'jurisdiction' is a required property", "'jurisdiction_sources' is a required property"])
+        self.assertTrue(schema_errors(doc(companies=[company("co-x", jurisdiction="USA")])))
+
+    def test_a_government_line_names_its_kind_and_country_and_no_company(self):
+        good = dict(app("2026-10-01"), data_flows=[self.line("can_compel")])
+        self.assertEqual(schema_errors(doc(apps=[good])), [])
+        self.assertEqual(build.cross_check(doc(apps=[good]), {"exodus-12"}), [])
+        missing = {k: v for k, v in self.line("has_bought").items() if k != "jurisdiction"}
+        self.assertTrue(schema_errors(doc(apps=[dict(app("2026-10-01"), data_flows=[missing])])))
+        with_company = dict(self.line("has_bought"), recipient="co-x")
+        self.assertTrue(schema_errors(doc(apps=[dict(app("2026-10-01"), data_flows=[with_company])])))
+        stray = {k: v for k, v in self.line("has_bought").items() if k != "recipient_kind"}
+        self.assertTrue(schema_errors(doc(apps=[dict(app("2026-10-01"), data_flows=[stray])])))
+
+    def test_can_compel_cites_the_law_and_has_used_needs_two_sources(self):
+        self.assertEqual(build.government_problems(self.line("can_compel", sources=[SOURCE])),
+                         ["'A government agency': a Can compel line's first source is the law's own text (type statute)"])
+        one = self.line("has_used", status="reported", sources=[SOURCE])
+        self.assertEqual(build.government_problems(one), ["'A government agency': a Has used line needs two independent sources"])
+        two = self.line("has_used", status="reported", sources=[dict(SOURCE, url="https://example.org/b"), SOURCE])
+        self.assertEqual(build.government_problems(two), [])
+
+    def test_the_jurisdictions_file(self):
+        law = {"id": "law-us-cloud-act", "name": "CLOUD Act", "citation": "18 U.S.C. § 2713", "text": "t", "status": "self_disclosed",
+               "sources": [STATUTE]}
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "jurisdictions.json"
+            path.write_text(json.dumps({"jurisdictions": [{"id": "US", "name": "United States", "laws": [law], "last_reviewed": "2026-10-04"}]}))
+            places = build.build_jurisdictions([path], dt.datetime(2026, 10, 4, tzinfo=build.HALIFAX))
+            self.assertNotIn("jurisdictions", build.build([path], dt.datetime(2026, 10, 4, tzinfo=build.HALIFAX)))
+        schema = json.loads(build.SCHEMA.read_text(encoding="utf-8"))
+        self.assertEqual(build.schema_problems(schema, places, "jurisdictions_file"), [])
+        self.assertEqual(build.law_problems(places), [])
+        twice = dict(places, jurisdictions=[dict(places["jurisdictions"][0], laws=[law, dict(law, sources=[SOURCE])])])
+        self.assertEqual(build.law_problems(twice), ["law id 'law-us-cloud-act' used twice",
+                                                     "law-us-cloud-act: its first source is the law's own text (type statute)"])
+        self.assertEqual(build.jurisdictions_path(Path("bundle/bundle.json")), Path("bundle/jurisdictions.json"))
+        self.assertEqual(build.jurisdictions_path(Path("/tmp/bundle-preview.json")), Path("/tmp/jurisdictions-preview.json"))
+
+
 class SourceRulesTest(unittest.TestCase):
     def with_source(self, source: dict) -> dict:
         return doc(apps=[dict(app("2026-10-01"), consequences=[{"text": "t", "status": "reported", "sources": [source]}])])
@@ -213,9 +274,8 @@ class SourceRulesTest(unittest.TestCase):
 
     def test_event_dates_may_be_year_and_month(self):
         def event(date: str) -> dict:
-            return doc(companies=[{"id": "co-x", "name": "X", "roles": ["developer"], "last_reviewed": "2026-10-01",
-                                   "regulatory_history": [{"date": date, "title": "t", "type": "breach",
-                                                           "status": "reported", "sources": [SOURCE]}]}])
+            return doc(companies=[company("co-x", regulatory_history=[{"date": date, "title": "t", "type": "breach",
+                                                                       "status": "reported", "sources": [SOURCE]}])])
         self.assertEqual(schema_errors(event("2024-03")), [])
         self.assertEqual(schema_errors(event("2024-07-20")), [])
         self.assertTrue(schema_errors(event("2024-13")))

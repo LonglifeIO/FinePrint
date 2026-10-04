@@ -21,10 +21,10 @@ internal fun trackerLines(
     val lines = ArrayList<FlowLine>()
     for ((record, found) in detected.groupBy { bundle?.trackers?.get(it.id) }) {
         val owned = developer != null && record?.ownerCompany?.let { sameCompany(it, developer, bundle) } == true
-        if (record != null && record.dataFlows.isNotEmpty()) {
+        if (record != null && record.dataFlows.any { it.government == null }) {
             val chain = record.ownerChain.takeIf { it.isNotEmpty() }?.joinToString(" → ") ?: record.owner
             val via = if (record.covers.isEmpty()) found.first().name else ownerName(record, bundle)
-            for (f in record.dataFlows) {
+            for (f in record.dataFlows.filter { it.government == null }) {
                 val bucket = if (owned) inOwnersApp(f) ?: continue else f.bucket
                 lines += f.toLine(chain, via).copy(bucket = bucket)
             }

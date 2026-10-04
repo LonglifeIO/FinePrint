@@ -1,10 +1,12 @@
 # bundle/
 
-The knowledge base, in two files joined on tracker id (`exodus-<n>` / `fp-<slug>`). `schema.json`
-is the contract for `bundle.json`. The app downloads both files whole and joins them on the device;
-it never asks a server about a particular app.
+The knowledge base, in three files: `bundle.json` and `trackers.json` joined on tracker id
+(`exodus-<n>` / `fp-<slug>`), and `jurisdictions.json`, joined on country code. `schema.json` is
+the contract for `bundle.json` and `jurisdictions.json` (`$defs/jurisdictions_file`). The app
+downloads all three whole and joins them on the device; it never asks a server about a particular
+app.
 
-## Two files, two licences
+## Three files, two licences
 
 Exodus tracker data is ODbL 1.0, and its share-alike must not reach our records, so:
 
@@ -16,6 +18,10 @@ Exodus tracker data is ODbL 1.0, and its share-alike must not reach our records,
   device-reach boilerplate. CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution
   FinePrint. It references trackers by id only and does not copy Exodus fields. Built by
   `pipeline/build.py` from `pipeline/reviewed/`.
+- `jurisdictions.json` — for each country, the laws in force that let its government compel a
+  company to hand over data, each quoted from its own text. CC BY 4.0, attribution FinePrint.
+  Built by `pipeline/build.py` from the `jurisdictions` section in `pipeline/reviewed/`; the owner
+  reviews every entry.
 
 ## Evidence rules
 
@@ -41,6 +47,13 @@ See `CLAUDE.md` for the status levels and the wording that goes with each.
   (improved, worsened, neutral) is never typed: `build.py --previous` derives it from a structural
   diff of the record and stores the diff beside it (rules in `docs/METHOD.md`, "Changes to a
   record").
+- A company record says where the company is registered (`jurisdiction`, so whose law it is subject
+  to) and, when a source says so, where its head office is (`headquarters`), with corporate
+  registration sources (`jurisdiction_sources`). Where its servers are is never asserted from a
+  record. A line about a government has `recipient_kind: government_body`, its kind
+  (`government_line`: can_compel, has_bought, has_used) and its country; a Can compel line cites
+  the law's own text first (source type `statute`), and a reported Has used line needs two
+  independent sources. Government lines never count toward a tier.
 - A `regulatory_action` tag on an app whose record has no action against its own developer needs a
   `risk_tag_notes` qualifier, e.g. "against Allstate/Arity concerning this app's data". Tags are
   for sorting and filtering; the app never shows them as a list of labels.

@@ -53,9 +53,12 @@ class TapTargetTest {
 
     @get:Rule val compose = createComposeRule()
 
-    private val bundle = parseBundle(
-        InstrumentationRegistry.getInstrumentation().context.assets.open("bundle.json").bufferedReader().use { it.readText() },
-    )
+    private val bundle = InstrumentationRegistry.getInstrumentation().context.assets.let { assets ->
+        parseBundle(
+            assets.open("bundle.json").bufferedReader().use { it.readText() },
+            assets.open("jurisdictions.json").bufferedReader().use { it.readText() },
+        )
+    }
 
     private fun app(pkg: String, label: String, granted: List<String> = emptyList(), reach: List<String> = emptyList()) = InstalledApp(
         packageName = pkg, label = label, versionName = "1.0", versionCode = 1, lastUpdateTime = 0, isSystem = false,
@@ -215,9 +218,11 @@ class TapTargetTest {
         }
     }
 
-    /** Opens On the record (and its See all) and Evidence, then goes back to the top for the check. */
+    /** Opens Jurisdictions, On the record (and its See all) and Evidence, then goes back to the top for the check. */
     private fun openTheRecordAndEvidence(seeAll: Boolean) {
         val detail = compose.onNodeWithTag("detail")
+        detail.performScrollToNode(hasText("Tap to show the laws"))
+        compose.onNodeWithText("Tap to show the laws").performClick()
         detail.performScrollToNode(hasText("On the record ·", substring = true))
         compose.onNodeWithText("On the record ·", substring = true).performClick()
         if (seeAll) {

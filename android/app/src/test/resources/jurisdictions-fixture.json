@@ -1,0 +1,61 @@
+{
+ "schema_version": 1,
+ "generated_at": "2026-10-04T12:00:00-03:00",
+ "licence": "CC BY 4.0",
+ "jurisdictions": [
+  {
+   "id": "CA",
+   "name": "Canada",
+   "laws": [
+    {
+     "id": "law-ca-test",
+     "name": "Test Code",
+     "citation": "T.C. s. 1",
+     "text": "A judge can order a company to produce data.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://example.org/act",
+       "type": "statute",
+       "title": "Test Act",
+       "as_of": "2018-03-23",
+       "status": "self_disclosed",
+       "quote": "shall disclose"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "IL",
+   "name": "Israel",
+   "laws": [],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "US",
+   "name": "United States",
+   "laws": [
+    {
+     "id": "law-us-test",
+     "name": "Test Act",
+     "citation": "1 U.S.C. § 1",
+     "text": "Providers must disclose data the government demands, wherever it is stored.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://example.org/act",
+       "type": "statute",
+       "title": "Test Act",
+       "as_of": "2018-03-23",
+       "status": "self_disclosed",
+       "quote": "shall disclose"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}

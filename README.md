@@ -25,7 +25,7 @@ Android emulator, October 2026. Records change as the knowledge base is reviewed
 
 ## Layout
 
-- `bundle/` — the knowledge base: `schema.json` (the contract) and `bundle.json` (reviewed, sourced records). CC BY 4.0.
+- `bundle/` — the knowledge base: `schema.json` (the contract), `bundle.json` (reviewed, sourced records) and `jurisdictions.json` (each country's laws for compelled access). CC BY 4.0.
 - `pipeline/` — Python scripts that fetch sources, draft records with an LLM, queue them for human review, and build the bundle. Runs on a Mac Mini.
 - `android/` — Kotlin / Jetpack Compose app. The scanning module is called `egress`.
 - `prompts/` — Claude Code prompts for each build slice.

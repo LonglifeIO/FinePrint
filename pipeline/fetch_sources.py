@@ -39,12 +39,21 @@ NOT_FETCHED_HOSTS = ("exodus-privacy.eu.org",)
 NAME = re.compile(r"^[a-z0-9][a-z0-9.-]*$")
 
 
-def decode(data: bytes) -> str:
-    """UTF-8 when it is (archived pages often omit the charset), else Windows-1252."""
+def decode(data: bytes, content_type: str = "") -> str:
+    """UTF-8 when it is (archived pages often omit the charset), else the charset the server or the
+    page declares (windows-1251 for Russian official texts), else Windows-1252."""
     try:
         return data.decode("utf-8")
     except UnicodeDecodeError:
-        return data.decode("cp1252", errors="replace")
+        pass
+    declared = re.search(r"charset=[\"']?([A-Za-z0-9_-]+)", content_type) or re.search(rb"charset=[\"']?([A-Za-z0-9_-]+)", data[:4096])
+    if declared:
+        charset = declared.group(1)
+        try:
+            return data.decode(charset if isinstance(charset, str) else charset.decode("ascii"))
+        except (LookupError, UnicodeDecodeError):
+            pass
+    return data.decode("cp1252", errors="replace")
 
 
 def text_of_html(page: str) -> str:
@@ -67,10 +76,10 @@ def text_of_pdf(path: Path) -> str:
     return subprocess.run(["pdftotext", "-layout", str(path), "-"], capture_output=True, text=True, check=True).stdout
 
 
-def text_of(raw: Path) -> str:
+def text_of(raw: Path, content_type: str = "") -> str:
     if raw.suffix == ".pdf":
         return text_of_pdf(raw)
-    text = decode(raw.read_bytes())
+    text = decode(raw.read_bytes(), content_type)
     if raw.suffix == ".json":
         body = json.loads(text)
         article = body.get("article") if isinstance(body, dict) else None  # a help centre's article API
@@ -90,7 +99,7 @@ def save(name: str, url: str, resp: requests.Response) -> dict:
         suffix = ".raw"
     raw = OUT / f"{name}{suffix}"
     raw.write_bytes(resp.content)
-    (OUT / f"{name}.txt").write_text(text_of(raw), encoding="utf-8")
+    (OUT / f"{name}.txt").write_text(text_of(raw, ctype), encoding="utf-8")
     return {
         "url": url,
         "final_url": resp.url,
@@ -133,7 +142,7 @@ def main() -> int:
     index = load_index()
     if args.retext:
         for name, entry in sorted(index.items()):
-            (OUT / f"{name}.txt").write_text(text_of(OUT / entry["file"]), encoding="utf-8")
+            (OUT / f"{name}.txt").write_text(text_of(OUT / entry["file"], entry.get("content_type", "")), encoding="utf-8")
         print(f"rebuilt {len(index)} text copies in {OUT}")
         return 0
     if args.list is None:

@@ -5,6 +5,27 @@
    "name": "Google LLC",
    "short_name": "Google",
    "jurisdiction": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/googexhibit2101q42025.htm",
+     "type": "filing",
+     "title": "Alphabet Inc., Form 10-K for 2025, Exhibit 21.01 (subsidiaries)",
+     "as_of": "2026-02-05",
+     "status": "self_disclosed",
+     "quote": "Jurisdiction of Incorporation or Organization … Google LLC … Delaware",
+     "wayback_url": "https://web.archive.org/web/20260930152846/https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/googexhibit2101q42025.htm",
+     "wayback_date": "2026-09-30",
+     "verify_url": "https://web.archive.org/web/20260930152846/https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/googexhibit2101q42025.htm"
+    },
+    {
+     "url": "https://policies.google.com/terms?hl=en&gl=CA",
+     "type": "company_site",
+     "title": "Google Terms of Service (Canada)",
+     "as_of": "2026-07-30",
+     "status": "self_disclosed",
+     "quote": "Google LLC … organized under the laws of the State of Delaware, USA"
+    }
+   ],
    "roles": [
     "developer",
     "tracker_owner"

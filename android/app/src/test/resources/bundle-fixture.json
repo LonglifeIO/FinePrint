@@ -54,6 +54,26 @@
    "last_reviewed": "2026-10-01"
   },
   {
+   "package_id": "com.example.watched", "display_name": "Watched App", "developer_company": "co-dev",
+   "summary": "Synthetic test record: companies in two countries, an unnamed recipient, and two government lines.",
+   "trackers": ["exodus-65"],
+   "data_flows": [
+    { "data": "app_activity", "recipient": "co-parent", "purpose": "Ads", "bucket": "goes_elsewhere", "status": "self_disclosed",
+      "sources": [{ "url": "https://example.org/watched-policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "we share activity" }] },
+    { "data": "precise_location", "recipient_label": "Partners", "purpose": "Their own use", "bucket": "goes_elsewhere", "status": "self_disclosed",
+      "sources": [{ "url": "https://example.org/watched-policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "partners for their own use" }] },
+    { "data": "precise_location", "recipient_kind": "government_body", "recipient_label": "A US agency", "government_line": "has_bought", "jurisdiction": "US",
+      "purpose": "Bought location data like this app's from a broker", "bucket": "goes_elsewhere", "status": "reported", "sources": [{ "url": "https://example.org/report-a", "type": "journalism", "title": "Report A", "as_of": "2025-01-01", "status": "reported", "quote": "an agency bought" },
+       { "url": "https://example.org/report-b", "type": "journalism", "title": "Report B", "as_of": "2025-02-01", "status": "reported", "quote": "the agency bought" }] }
+   ],
+   "consequences": [
+    { "text": "Police used location data of this kind in an investigation. Two outlets reported it.", "status": "reported",
+      "recipient_kind": "government_body", "government_line": "has_used", "jurisdiction": "CA", "sources": [{ "url": "https://example.org/report-a", "type": "journalism", "title": "Report A", "as_of": "2025-01-01", "status": "reported", "quote": "an agency bought" },
+       { "url": "https://example.org/report-b", "type": "journalism", "title": "Report B", "as_of": "2025-02-01", "status": "reported", "quote": "the agency bought" }] }
+   ],
+   "coverage": "curated", "last_reviewed": "2026-10-01"
+  },
+  {
    "package_id": "com.example.settled", "display_name": "Settled App", "developer_company": "co-old",
    "summary": "Synthetic test record: a 2019 settlement over this app's data that has ended.",
    "trackers": [], "consequences": [], "coverage": "curated", "last_reviewed": "2026-10-01"
@@ -97,11 +117,11 @@
   }
  ],
  "companies": [
-  { "id": "co-parent", "name": "Parent Co", "roles": ["tracker_owner"], "last_reviewed": "2026-10-04" },
-  { "id": "co-dev", "name": "Example Developer", "roles": ["developer"], "last_reviewed": "2026-10-04" },
-  { "id": "co-kit", "name": "Kit Co", "short_name": "Kit", "roles": ["developer", "tracker_owner"], "last_reviewed": "2026-10-04" },
-  { "id": "co-kitlabs", "name": "Kit Labs", "parent": "co-kit", "roles": ["developer"], "last_reviewed": "2026-10-04" },
-  { "id": "co-old", "name": "Old Co", "short_name": "Old", "roles": ["developer"], "last_reviewed": "2026-10-04",
+  { "id": "co-parent", "name": "Parent Co", "roles": ["tracker_owner"], "jurisdiction": "US", "headquarters": "US", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04" },
+  { "id": "co-dev", "name": "Example Developer", "roles": ["developer"], "jurisdiction": "CA", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04" },
+  { "id": "co-kit", "name": "Kit Co", "short_name": "Kit", "roles": ["developer", "tracker_owner"], "jurisdiction": "KY", "headquarters": "IL", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04" },
+  { "id": "co-kitlabs", "name": "Kit Labs", "parent": "co-kit", "roles": ["developer"], "jurisdiction": "IL", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04" },
+  { "id": "co-old", "name": "Old Co", "short_name": "Old", "roles": ["developer"], "jurisdiction": "US", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04",
     "regulatory_history": [
      { "date": "2019-03-01", "title": "2019 settlement", "body": "A regulator", "type": "fine", "status": "adjudicated", "status_kind": "settlement",
        "amount": "$1 million", "closed_date": "2019-06-01", "concerns_app": "com.example.settled",

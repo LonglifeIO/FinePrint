@@ -14,9 +14,12 @@ class Bundle(
     val companies: Map<String, Company>,
     val permissions: Map<String, PermissionText>,
     val deviceReach: Map<String, ReachText>,
+    /** From jurisdictions.json: each country's laws that let its government compel data. */
+    val jurisdictions: Map<String, Jurisdiction> = emptyMap(),
 )
 
-fun parseBundle(json: String): Bundle {
+/** bundle.json, joined to jurisdictions.json when given. */
+fun parseBundle(json: String, jurisdictions: String? = null): Bundle {
     val root = JSONObject(json)
     require(root.getInt("schema_version") == 1) { "unsupported bundle schema ${root.get("schema_version")}" }
     return Bundle(
@@ -32,6 +35,7 @@ fun parseBundle(json: String): Bundle {
         deviceReach = root.objects("device_reach").associate {
             it.getString("id") to ReachText(it.getString("id"), it.getString("plain"), it.getString("why_it_matters"))
         },
+        jurisdictions = jurisdictions?.let(::parseJurisdictions).orEmpty(),
     )
 }
 
@@ -96,6 +100,7 @@ private fun JSONObject.toDataFlow() = DataFlow(
     proceduralNote = optJSONObject("procedural_note")?.toProceduralNote(),
     sources = objects("sources").map { it.toSource() },
     inOwnerApps = text("in_owner_apps"),
+    government = government(),
 )
 
 private fun JSONObject.toConsequence() = Consequence(
@@ -111,6 +116,7 @@ private fun JSONObject.toConsequence() = Consequence(
     appealPending = optBoolean("appeal_pending"),
     inForce = optBoolean("in_force"),
     closedDate = text("closed_date"),
+    government = government(),
 )
 
 private fun JSONObject.toCompany() = Company(
@@ -120,6 +126,9 @@ private fun JSONObject.toCompany() = Company(
     shortName = text("short_name"),
     subsidiaries = strings("subsidiaries"),
     parent = text("parent"),
+    jurisdiction = text("jurisdiction"),
+    headquarters = text("headquarters"),
+    jurisdictionSources = objects("jurisdiction_sources").map { it.toSource() },
     events = objects("regulatory_history").map {
         LegalEvent(
             date = it.getString("date"),
@@ -141,9 +150,12 @@ private fun JSONObject.toCompany() = Company(
     },
 )
 
-private fun JSONObject.toProceduralNote() = ProceduralNote(getString("text"), objects("sources").map { it.toSource() })
+private fun JSONObject.government(): GovernmentRef? =
+    if (text("recipient_kind") != "government_body") null else GovernmentRef(getString("government_line"), getString("jurisdiction"))
 
-private fun JSONObject.toSource() = Source(
+internal fun JSONObject.toProceduralNote() = ProceduralNote(getString("text"), objects("sources").map { it.toSource() })
+
+internal fun JSONObject.toSource() = Source(
     url = getString("url"),
     title = text("title") ?: getString("url"),
     type = getString("type"),
@@ -173,11 +185,11 @@ private fun JSONObject.contentHash(): String {
     return MessageDigest.getInstance("SHA-256").digest(text.toByteArray()).joinToString("") { "%02x".format(it) }
 }
 
-private fun JSONObject.objects(key: String): List<JSONObject> =
+internal fun JSONObject.objects(key: String): List<JSONObject> =
     optJSONArray(key)?.let { a -> List(a.length()) { a.getJSONObject(it) } } ?: emptyList()
 
 private fun JSONObject.strings(key: String): List<String> =
     optJSONArray(key)?.let { a: JSONArray -> List(a.length()) { a.getString(it) } } ?: emptyList()
 
 /** A present, non-null string (optString would turn JSON null into "null"). */
-private fun JSONObject.text(key: String): String? = if (isNull(key)) null else getString(key)
+internal fun JSONObject.text(key: String): String? = if (isNull(key)) null else getString(key)

@@ -16,6 +16,7 @@ const val BUNDLE_SOCKET_TAG = 0xF1F1
 
 const val BUNDLE_FILE = "bundle.json"
 const val TRACKERS_FILE = "trackers.json"
+const val JURISDICTIONS_FILE = "jurisdictions.json"
 private const val MAX_FILE_BYTES = 8L shl 20
 
 /** What the app has: the cached bundle files, or nothing yet. */
@@ -27,29 +28,32 @@ data class BundleState(
 )
 
 /**
- * The app's only network use: GET the two bundle files whole from [baseUrl] (never a per-app query,
- * which would reveal what is installed), keep them in [dir], and work from that copy offline.
+ * The app's only network use: GET the bundle's three files whole from [baseUrl] (never a per-app
+ * query, which would reveal what is installed), keep them in [dir], and work from that copy offline.
  */
 class BundleClient(private val dir: File, private val baseUrl: String, private val logRequests: Boolean) {
 
     /** The cached files, or an empty state when there are none (or they no longer parse). */
     fun cached(): BundleState = try {
-        val bundle = File(dir, BUNDLE_FILE).takeIf { it.exists() }?.readText()?.let(::parseBundle)
+        val places = File(dir, JURISDICTIONS_FILE).takeIf { it.exists() }?.readText()
+        val bundle = File(dir, BUNDLE_FILE).takeIf { it.exists() }?.readText()?.let { parseBundle(it, places) }
         val signatures = File(dir, TRACKERS_FILE).takeIf { it.exists() }?.readText()?.let(::parseTrackerSignatures)
         BundleState(bundle, signatures)
     } catch (e: Exception) {
         BundleState(error = "cached bundle unreadable: ${e.message}")
     }
 
-    /** Downloads both files; replaces the cache only when both arrive and parse. Call off the main thread. */
+    /** Downloads the three files; replaces the cache only when all arrive and parse. Call off the main thread. */
     fun refresh(): BundleState {
         return try {
             val bundleText = get(BUNDLE_FILE)
             val trackersText = get(TRACKERS_FILE)
-            val bundle = parseBundle(bundleText)
+            val placesText = get(JURISDICTIONS_FILE)
+            val bundle = parseBundle(bundleText, placesText)
             val signatures = parseTrackerSignatures(trackersText)
             dir.mkdirs()
             writeAtomically(File(dir, TRACKERS_FILE), trackersText)
+            writeAtomically(File(dir, JURISDICTIONS_FILE), placesText)
             writeAtomically(File(dir, BUNDLE_FILE), bundleText)
             BundleState(bundle, signatures)
         } catch (e: Exception) {

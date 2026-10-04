@@ -8,6 +8,31 @@
     "Arity"
    ],
    "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm",
+     "type": "filing",
+     "title": "The Allstate Corporation, Form 10-K for 2025",
+     "as_of": "2026-02-20",
+     "status": "self_disclosed",
+     "quote": "The Allstate Corporation was incorporated under the laws of the State of Delaware",
+     "wayback_url": "https://web.archive.org/web/20260321133211/https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm",
+     "wayback_date": "2026-03-21",
+     "verify_url": "https://web.archive.org/web/20260321133211/https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm",
+     "type": "filing",
+     "title": "The Allstate Corporation, Form 10-K for 2025",
+     "as_of": "2026-02-20",
+     "status": "self_disclosed",
+     "quote": "3100 Sanders Road, Northbrook, Illinois 60062 … (Address of principal executive offices)",
+     "wayback_url": "https://web.archive.org/web/20260321133211/https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm",
+     "wayback_date": "2026-03-21",
+     "verify_url": "https://web.archive.org/web/20260321133211/https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm"
+    }
+   ],
    "roles": [
     "tracker_owner",
     "data_recipient"
@@ -116,6 +141,30 @@
    "id": "co-life360",
    "name": "Life360, Inc.",
    "jurisdiction": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm",
+     "type": "filing",
+     "title": "Life360, Inc., Form 10-K for 2025",
+     "as_of": "2026-03-02",
+     "status": "self_disclosed",
+     "quote": "We are incorporated in the State of Delaware, United States of America",
+     "wayback_url": "https://web.archive.org/web/20260302213823/https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm",
+     "wayback_date": "2026-03-02",
+     "verify_url": "https://web.archive.org/web/20260302213823/https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm",
+     "type": "filing",
+     "title": "Life360, Inc., Form 10-K for 2025",
+     "as_of": "2026-03-02",
+     "status": "self_disclosed",
+     "quote": "a Delaware corporation with a globally distributed workforce and no corporate headquarters",
+     "wayback_url": "https://web.archive.org/web/20260302213823/https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm",
+     "wayback_date": "2026-03-02",
+     "verify_url": "https://web.archive.org/web/20260302213823/https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm"
+    }
+   ],
    "roles": [
     "developer"
    ],

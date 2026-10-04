@@ -64,6 +64,12 @@ class FetchTest(unittest.TestCase):
         self.assertEqual(fetch_sources.decode("driver’s".encode("utf-8")), "driver’s")
         self.assertEqual(fetch_sources.decode(b"caf\xe9"), "café")
 
+    def test_a_declared_charset_decodes_what_isnt_utf8(self):
+        russian = "Операторы связи обязаны".encode("cp1251")
+        self.assertEqual(fetch_sources.decode(russian, "text/html; charset=windows-1251"), "Операторы связи обязаны")
+        self.assertEqual(fetch_sources.decode(b'<meta charset="windows-1251">' + russian), '<meta charset="windows-1251">Операторы связи обязаны')
+        self.assertEqual(fetch_sources.decode("driver’s".encode("utf-8"), "text/html; charset=iso-8859-1"), "driver’s")
+
     def test_list_lines(self):
         with tempfile.TemporaryDirectory() as d:
             path = Path(d) / "list.txt"

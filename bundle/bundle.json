@@ -2,7 +2,7 @@
  "schema_version": 1,
  "schema_revision": "1.3",
  "bundle_version": "2026.10.04",
- "generated_at": "2026-10-04T18:54:16-03:00",
+ "generated_at": "2026-10-04T20:57:55-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -1546,6 +1546,31 @@
     "Arity"
    ],
    "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm",
+     "type": "filing",
+     "title": "The Allstate Corporation, Form 10-K for 2025",
+     "as_of": "2026-02-20",
+     "status": "self_disclosed",
+     "quote": "The Allstate Corporation was incorporated under the laws of the State of Delaware",
+     "wayback_url": "https://web.archive.org/web/20260321133211/https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm",
+     "wayback_date": "2026-03-21",
+     "verify_url": "https://web.archive.org/web/20260321133211/https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm",
+     "type": "filing",
+     "title": "The Allstate Corporation, Form 10-K for 2025",
+     "as_of": "2026-02-20",
+     "status": "self_disclosed",
+     "quote": "3100 Sanders Road, Northbrook, Illinois 60062 … (Address of principal executive offices)",
+     "wayback_url": "https://web.archive.org/web/20260321133211/https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm",
+     "wayback_date": "2026-03-21",
+     "verify_url": "https://web.archive.org/web/20260321133211/https://www.sec.gov/Archives/edgar/data/899051/000089905126000031/all-20251231.htm"
+    }
+   ],
    "roles": [
     "tracker_owner",
     "data_recipient"
@@ -1654,6 +1679,30 @@
    "id": "co-life360",
    "name": "Life360, Inc.",
    "jurisdiction": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm",
+     "type": "filing",
+     "title": "Life360, Inc., Form 10-K for 2025",
+     "as_of": "2026-03-02",
+     "status": "self_disclosed",
+     "quote": "We are incorporated in the State of Delaware, United States of America",
+     "wayback_url": "https://web.archive.org/web/20260302213823/https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm",
+     "wayback_date": "2026-03-02",
+     "verify_url": "https://web.archive.org/web/20260302213823/https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm",
+     "type": "filing",
+     "title": "Life360, Inc., Form 10-K for 2025",
+     "as_of": "2026-03-02",
+     "status": "self_disclosed",
+     "quote": "a Delaware corporation with a globally distributed workforce and no corporate headquarters",
+     "wayback_url": "https://web.archive.org/web/20260302213823/https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm",
+     "wayback_date": "2026-03-02",
+     "verify_url": "https://web.archive.org/web/20260302213823/https://www.sec.gov/Archives/edgar/data/1581760/000158176026000016/lifx-20251231.htm"
+    }
+   ],
    "roles": [
     "developer"
    ],
@@ -1692,6 +1741,34 @@
    "short_name": "ByteDance",
    "subsidiaries": [
     "TikTok"
+   ],
+   "jurisdiction": "KY",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.supremecourt.gov/DocketPDF/24/24A587/335257/20241216144658388_TikTok%20Inc.%20v.%20Garland%20-%20SCOTUS%20Application%20for%20Injunction.pdf",
+     "type": "lawsuit",
+     "title": "TikTok Inc. and ByteDance Ltd., application to the US Supreme Court (TikTok Inc. v. Garland)",
+     "as_of": "2024-12-16",
+     "status": "self_disclosed",
+     "quote": "ByteDance Ltd., a privately held holding company incorporated in the Cayman Islands"
+    },
+    {
+     "url": "https://www.federalregister.gov/documents/2020/08/19/2020-18360/regarding-the-acquisition-of-musical",
+     "type": "regulator",
+     "title": "Order Regarding the Acquisition of Musical.ly by ByteDance Ltd. (Federal Register)",
+     "as_of": "2020-08-14",
+     "status": "adjudicated",
+     "quote": "ByteDance Ltd., an exempted company … incorporated under the laws of the Cayman Islands",
+     "verify_url": "https://www.federalregister.gov/documents/full_text/text/2020/08/19/2020-18360.txt"
+    },
+    {
+     "url": "https://media.cadc.uscourts.gov/opinions/docs/2024/12/24-1113-2088317.pdf",
+     "type": "lawsuit",
+     "title": "TikTok Inc. v. Garland (D.C. Cir.), opinion",
+     "as_of": "2024-12-06",
+     "status": "adjudicated",
+     "quote": "ByteDance Ltd., the ultimate parent company of TikTok, is incorporated in the Cayman Islands."
+    }
    ],
    "roles": [
     "developer",
@@ -1876,6 +1953,33 @@
    "name": "TikTok USDS Joint Venture LLC",
    "short_name": "TikTok US",
    "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://opencorporates.com/companies/us_ca/B20260029350",
+     "type": "company_registry",
+     "title": "OpenCorporates, from California's business register: TikTok USDS Joint Venture LLC",
+     "accessed": "2026-10-04",
+     "status": "self_disclosed",
+     "quote": "TikTok USDS Joint Venture LLC … Branch of Delaware (US) company"
+    },
+    {
+     "url": "https://opencorporates.com/companies/us_ca/B20260029350",
+     "type": "company_registry",
+     "title": "OpenCorporates, from California's business register: TikTok USDS Joint Venture LLC",
+     "accessed": "2026-10-04",
+     "status": "self_disclosed",
+     "quote": "Head Office Address … 5800 BRISTOL PKWY, SUITE 300, CULVER CITY, CA, 90230"
+    },
+    {
+     "url": "https://opencorporates.com/companies/us_ny/7811124",
+     "type": "company_registry",
+     "title": "OpenCorporates, from New York's business register: TikTok USDS Joint Venture LLC",
+     "accessed": "2026-10-04",
+     "status": "self_disclosed",
+     "quote": "TIKTOK USDS JOINT VENTURE LLC … FOREIGN LIMITED LIABILITY COMPANY … Branch of Delaware (US) company"
+    }
+   ],
    "roles": [
     "developer"
    ],
@@ -1886,6 +1990,27 @@
    "name": "Google LLC",
    "short_name": "Google",
    "jurisdiction": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/googexhibit2101q42025.htm",
+     "type": "filing",
+     "title": "Alphabet Inc., Form 10-K for 2025, Exhibit 21.01 (subsidiaries)",
+     "as_of": "2026-02-05",
+     "status": "self_disclosed",
+     "quote": "Jurisdiction of Incorporation or Organization … Google LLC … Delaware",
+     "wayback_url": "https://web.archive.org/web/20260930152846/https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/googexhibit2101q42025.htm",
+     "wayback_date": "2026-09-30",
+     "verify_url": "https://web.archive.org/web/20260930152846/https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/googexhibit2101q42025.htm"
+    },
+    {
+     "url": "https://policies.google.com/terms?hl=en&gl=CA",
+     "type": "company_site",
+     "title": "Google Terms of Service (Canada)",
+     "as_of": "2026-07-30",
+     "status": "self_disclosed",
+     "quote": "Google LLC … organized under the laws of the State of Delaware, USA"
+    }
+   ],
    "roles": [
     "developer",
     "tracker_owner"
@@ -1989,6 +2114,31 @@
     "Meta Platforms Ireland Limited"
    ],
    "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+     "type": "filing",
+     "title": "Meta Platforms, Inc., Form 10-K for 2025",
+     "as_of": "2026-01-29",
+     "status": "self_disclosed",
+     "quote": "We were incorporated in Delaware in July 2004.",
+     "wayback_url": "https://web.archive.org/web/20261002172724/https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+     "wayback_date": "2026-10-02",
+     "verify_url": "https://web.archive.org/web/20261002172724/https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+     "type": "filing",
+     "title": "Meta Platforms, Inc., Form 10-K for 2025",
+     "as_of": "2026-01-29",
+     "status": "self_disclosed",
+     "quote": "Our corporate headquarters are located in Menlo Park, California.",
+     "wayback_url": "https://web.archive.org/web/20261002172724/https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+     "wayback_date": "2026-10-02",
+     "verify_url": "https://web.archive.org/web/20261002172724/https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm"
+    }
+   ],
    "roles": [
     "developer",
     "tracker_owner"

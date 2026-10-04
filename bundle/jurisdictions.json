@@ -1,0 +1,481 @@
+{
+ "schema_version": 1,
+ "generated_at": "2026-10-04T20:57:55-03:00",
+ "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
+ "jurisdictions": [
+  {
+   "id": "CA",
+   "name": "Canada",
+   "laws": [
+    {
+     "id": "law-ca-criminal-code-487-014",
+     "name": "Criminal Code, general production order",
+     "citation": "R.S.C. 1985, c. C-46, s. 487.014",
+     "text": "A judge can order a person or company to produce documents or data in its possession or control, when there are reasonable grounds to believe they will be evidence of an offence.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.014.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 487.014 (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "a justice or judge may order a person … to prepare and produce a document"
+      }
+     ]
+    },
+    {
+     "id": "law-ca-criminal-code-487-016",
+     "name": "Criminal Code, production order for transmission data",
+     "citation": "R.S.C. 1985, c. C-46, s. 487.016",
+     "text": "A judge can order a person or company, such as a telecom or online service, to produce transmission data in its possession or control, when there are reasonable grounds to suspect it will help an investigation.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.016.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 487.016 (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "to prepare and produce a document containing transmission data"
+      }
+     ]
+    },
+    {
+     "id": "law-ca-pipeda-7-3",
+     "name": "PIPEDA, disclosure without consent",
+     "citation": "S.C. 2000, c. 5, s. 7(3)(c) and (c.1)",
+     "text": "Lets a company disclose personal information without your knowledge or consent to comply with a subpoena, warrant or court order, or when a government institution that has identified its lawful authority asks for it.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html",
+       "type": "statute",
+       "title": "Personal Information Protection and Electronic Documents Act, s. 7(3) (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "may disclose personal information without the knowledge or consent of the individual"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html",
+       "type": "statute",
+       "title": "Personal Information Protection and Electronic Documents Act, s. 7(3) (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "required to comply with a subpoena or warrant issued or an order"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html",
+       "type": "statute",
+       "title": "Personal Information Protection and Electronic Documents Act, s. 7(3) (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "identified its lawful authority to obtain the information"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "CN",
+   "name": "China",
+   "laws": [
+    {
+     "id": "law-cn-national-intelligence",
+     "name": "National Intelligence Law, Articles 7 and 14",
+     "citation": "National Intelligence Law of the People's Republic of China (2017, amended 2018), arts. 7 and 14",
+     "text": "Requires all organizations and citizens to support, assist and cooperate with national intelligence work in accordance with law, and lets intelligence agencies ask them for that support.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm",
+       "type": "statute",
+       "title": "中华人民共和国国家情报法 (National Intelligence Law), National People's Congress",
+       "as_of": "2017-06-27",
+       "status": "self_disclosed",
+       "quote": "任何组织和公民都应当依法支持、协助和配合国家情报工作",
+       "wayback_url": "https://web.archive.org/web/20260401153134/http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm",
+       "wayback_date": "2026-04-01",
+       "verify_url": "https://web.archive.org/web/20260401153134/http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm"
+      },
+      {
+       "url": "http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm",
+       "type": "statute",
+       "title": "中华人民共和国国家情报法 (National Intelligence Law), National People's Congress",
+       "as_of": "2017-06-27",
+       "status": "self_disclosed",
+       "quote": "可以要求有关机关、组织和公民提供必要的支持、协助和配合",
+       "wayback_url": "https://web.archive.org/web/20260401153134/http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm",
+       "wayback_date": "2026-04-01",
+       "verify_url": "https://web.archive.org/web/20260401153134/http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm"
+      },
+      {
+       "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/",
+       "type": "research",
+       "title": "China Law Translate, unofficial English translation",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "All organizations and citizens shall support, assist, and cooperate with national intelligence efforts"
+      },
+      {
+       "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/",
+       "type": "research",
+       "title": "China Law Translate, unofficial English translation",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "may request that relevant organs, organizations, and citizens provide necessary support"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "IE",
+   "name": "Ireland",
+   "laws": [
+    {
+     "id": "law-ie-retention-of-data",
+     "name": "Communications (Retention of Data) Act 2011, as amended in 2022",
+     "citation": "No. 3 of 2011, ss. 6 to 7D, as amended by No. 25 of 2022",
+     "text": "Lets a senior Garda officer require a service provider to disclose subscriber data, and lets Gardaí get a judge's order requiring providers to disclose retained traffic and location data, for state security or serious crime. Providers must comply.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://revisedacts.lawreform.ie/eli/2011/act/3/revised/en/html",
+       "type": "statute",
+       "title": "Communications (Retention of Data) Act 2011, revised (Law Reform Commission)",
+       "as_of": "2025-04-02",
+       "status": "self_disclosed",
+       "quote": "may require a service provider to disclose to that member user data"
+      },
+      {
+       "url": "https://revisedacts.lawreform.ie/eli/2011/act/3/revised/en/html",
+       "type": "statute",
+       "title": "Communications (Retention of Data) Act 2011, revised (Law Reform Commission)",
+       "as_of": "2025-04-02",
+       "status": "self_disclosed",
+       "quote": "may apply to an authorising judge for a production order"
+      },
+      {
+       "url": "https://revisedacts.lawreform.ie/eli/2011/act/3/revised/en/html",
+       "type": "statute",
+       "title": "Communications (Retention of Data) Act 2011, revised (Law Reform Commission)",
+       "as_of": "2025-04-02",
+       "status": "self_disclosed",
+       "quote": "shall comply with the requirement concerned"
+      }
+     ]
+    },
+    {
+     "id": "law-eu-e-evidence",
+     "name": "e-Evidence Regulation (European Production Orders)",
+     "citation": "Regulation (EU) 2023/1543",
+     "text": "Lets an authority in one EU country, in criminal proceedings, order a service provider that offers services in the EU to produce or preserve electronic evidence, wherever the data is stored. It has applied since 2026-08-18, and Ireland takes part.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "type": "statute",
+       "title": "Regulation (EU) 2023/1543 (Official Journal)",
+       "as_of": "2023-07-28",
+       "status": "self_disclosed",
+       "quote": "to produce or to preserve electronic evidence regardless of the location of the data",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+      },
+      {
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "type": "statute",
+       "title": "Regulation (EU) 2023/1543 (Official Journal)",
+       "as_of": "2023-07-28",
+       "status": "self_disclosed",
+       "quote": "It shall apply from 18 August 2026.",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+      },
+      {
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "type": "statute",
+       "title": "Regulation (EU) 2023/1543 (Official Journal)",
+       "as_of": "2023-07-28",
+       "status": "self_disclosed",
+       "quote": "Ireland has notified its wish to take part",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+      },
+      {
+       "url": "https://www.irishstatutebook.ie/eli/2026/act/21/enacted/en/html",
+       "type": "statute",
+       "title": "Criminal Justice (International Cooperation on Electronic Evidence and Other Matters) Act 2026 (Irish Statute Book)",
+       "as_of": "2026-07-15",
+       "status": "self_disclosed",
+       "quote": "to give further effect to Regulation (EU) 2023/1543"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "IL",
+   "name": "Israel",
+   "laws": [
+    {
+     "id": "law-il-communications-data",
+     "name": "Criminal Procedure (Enforcement Powers – Communications Data) Law, 2007",
+     "citation": "5768-2007, s. 3",
+     "text": "Lets a court order that police or another investigating authority get communications data (location, subscriber and traffic data, not content) from a licensed telecom or internet provider's database.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://fs.knesset.gov.il/25/law/25_ls_bk_4668356.pdf",
+       "type": "statute",
+       "title": "חוק סדר הדין הפלילי (סמכויות אכיפה – נתוני תקשורת), Knesset, updated version",
+       "as_of": "2023-09-19",
+       "status": "self_disclosed",
+       "quote": "קבלת נתוני תקשורת ממאגר מידע של ספק מורשה"
+      },
+      {
+       "url": "https://versa.cardozo.yu.edu/node/548",
+       "type": "lawsuit",
+       "title": "Supreme Court of Israel, 2012 ruling on the law (Versa, Cardozo School of Law; unofficial translation)",
+       "as_of": "2012-05-28",
+       "status": "adjudicated",
+       "quote": "obtain communications data from the database of a telecommunications licensee"
+      }
+     ]
+    },
+    {
+     "id": "law-il-gss-s11",
+     "name": "General Security Service Law, 2002, section 11",
+     "citation": "5762-2002, s. 11",
+     "text": "Lets the Prime Minister set rules naming kinds of information in licensed communications providers' databases that the providers must then transfer to the General Security Service.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://www.nevo.co.il/law_html/law00/5051.htm",
+       "type": "statute",
+       "title": "חוק שירות הביטחון הכללי (General Security Service Law), Nevo",
+       "as_of": "2026-08-03",
+       "status": "self_disclosed",
+       "quote": "וכי על הספק המורשה להעביר מידע מסוגים אלה לידי השירות"
+      },
+      {
+       "url": "https://www.jewishvirtuallibrary.org/jsource/Politics/GeneralSecurityServicesLaw.pdf",
+       "type": "research",
+       "title": "General Security Service Law, English translation (Jewish Virtual Library; translator not stated)",
+       "as_of": "2002-02-21",
+       "status": "self_disclosed",
+       "quote": "the license holder must transmit information of these categories to the Service"
+      }
+     ]
+    },
+    {
+     "id": "law-il-arrest-search-s43",
+     "name": "Criminal Procedure Ordinance (Arrest and Search), section 43",
+     "citation": "5729-1969, s. 43",
+     "text": "Lets a judge summon any person thought to hold an object, including a document or computer material, to produce it for an investigation or trial.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://www.nevo.co.il/law_html/law00/74918.htm",
+       "type": "statute",
+       "title": "פקודת סדר הדין הפלילי (מעצר וחיפוש), Nevo",
+       "as_of": "2026-07-21",
+       "status": "self_disclosed",
+       "quote": "רשאי הוא להזמין כל אדם"
+      },
+      {
+       "url": "https://versa.cardozo.yu.edu/node/548",
+       "type": "lawsuit",
+       "title": "Supreme Court of Israel, 2012 ruling (Versa, Cardozo School of Law; unofficial translation)",
+       "as_of": "2012-05-28",
+       "status": "adjudicated",
+       "quote": "a court’s order to produce documents issued according to section 43"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "RU",
+   "name": "Russia",
+   "laws": [
+    {
+     "id": "law-ru-149-fz-10-1",
+     "name": "Federal Law No. 149-FZ on Information, Article 10.1",
+     "citation": "Federal Law of 27 July 2006 No. 149-FZ, art. 10.1 (as amended by No. 374-FZ of 6 July 2016)",
+     "text": "Requires internet services that handle users' messages to store data about their communications, and the messages for up to six months, in Russia; to give them to the authorities in cases set by federal law; and to give the security service what it needs to decode encrypted messages.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
+       "type": "statute",
+       "title": "Федеральный закон № 149-ФЗ «Об информации…», ст. 10.1 (pravo.gov.ru)",
+       "as_of": "2026-06-26",
+       "status": "self_disclosed",
+       "quote": "обязан предоставлять указанную в части 3 настоящей статьи информацию уполномоченным государственным органам",
+       "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
+      },
+      {
+       "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
+       "type": "statute",
+       "title": "Федеральный закон № 149-ФЗ «Об информации…», ст. 10.1 (pravo.gov.ru)",
+       "as_of": "2026-06-26",
+       "status": "self_disclosed",
+       "quote": "информацию, необходимую для декодирования",
+       "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
+      },
+      {
+       "url": "https://hudoc.echr.coe.int/eng?i=001-230854",
+       "type": "lawsuit",
+       "title": "Podchasov v. Russia, European Court of Human Rights (2024)",
+       "as_of": "2024-02-13",
+       "status": "adjudicated",
+       "quote": "must also submit any information necessary to decrypt electronic communications",
+       "verify_url": "https://hudoc.echr.coe.int/app/conversion/docx/html/body?library=ECHR&id=001-230854"
+      }
+     ]
+    },
+    {
+     "id": "law-ru-126-fz-64",
+     "name": "Federal Law No. 126-FZ on Communications, Article 64",
+     "citation": "Federal Law of 7 July 2003 No. 126-FZ, art. 64 (as amended by No. 374-FZ of 6 July 2016)",
+     "text": "Requires telecom operators to store data about users' communications, and the communications for up to six months, in Russia, and to give them and information about users to the authorities in cases set by federal law.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102082548",
+       "type": "statute",
+       "title": "Федеральный закон № 126-ФЗ «О связи», ст. 64 (pravo.gov.ru)",
+       "as_of": "2025-12-29",
+       "status": "self_disclosed",
+       "quote": "Операторы связи обязаны предоставлять уполномоченным государственным органам",
+       "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102082548&page=1&rdk=122"
+      },
+      {
+       "url": "https://hudoc.echr.coe.int/eng?i=001-159324",
+       "type": "lawsuit",
+       "title": "Roman Zakharov v. Russia, European Court of Human Rights (2015)",
+       "as_of": "2015-12-04",
+       "status": "adjudicated",
+       "quote": "an obligation on communications service providers to provide the law-enforcement agencies",
+       "verify_url": "https://hudoc.echr.coe.int/app/conversion/docx/html/body?library=ECHR&id=001-159324"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "US",
+   "name": "United States",
+   "laws": [
+    {
+     "id": "law-us-cloud-act",
+     "name": "CLOUD Act",
+     "citation": "18 U.S.C. § 2713",
+     "text": "Requires providers of communication and cloud services to disclose data in their possession, custody or control under US legal process, whether it is stored in the United States or elsewhere.",
+     "status": "self_disclosed",
+     "sources": [
+      {
+       "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/html/USCODE-2024-title18-partI-chap121-sec2713.htm",
+       "type": "statute",
+       "title": "18 U.S.C. § 2713, United States Code (govinfo)",
+       "as_of": "2018-03-23",
+       "status": "self_disclosed",
+       "quote": "shall comply with the obligations of this chapter to … disclose"
+      },
+      {
+       "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/html/USCODE-2024-title18-partI-chap121-sec2713.htm",
+       "type": "statute",
+       "title": "18 U.S.C. § 2713, United States Code (govinfo)",
+       "as_of": "2018-03-23",
+       "status": "self_disclosed",
+       "quote": "regardless of whether such communication … is located within or outside of the United States"
+      }
+     ]
+    },
+    {
+     "id": "law-us-fisa-702",
+     "name": "FISA Section 702",
+     "citation": "50 U.S.C. § 1881a",
+     "text": "Directives issued under it require electronic communication service providers to give the government information for surveillance of people reasonably believed to be outside the United States.",
+     "status": "self_disclosed",
+     "status_note": {
+      "text": "Section 702 was repealed on 2026-06-12, when its last extension ran out. Directives issued before then stay in effect until they expire, and the government can still ask the FISA court to compel compliance with them.",
+      "sources": [
+       {
+        "url": "https://www.congress.gov/119/plaws/publ87/PLAW-119publ87.pdf",
+        "type": "statute",
+        "title": "Public Law 119-87 (congress.gov)",
+        "as_of": "2026-04-30",
+        "status": "self_disclosed",
+        "quote": "by striking ‘‘April 30, 2026’’ and inserting ‘‘June 12, 2026’’"
+       },
+       {
+        "url": "https://www.congress.gov/119/plaws/publ84/PLAW-119publ84.pdf",
+        "type": "statute",
+        "title": "Public Law 119-84 (congress.gov)",
+        "as_of": "2026-04-18",
+        "status": "self_disclosed",
+        "quote": "title VII of the Foreign Intelligence Surveillance Act of 1978 … is repealed"
+       },
+       {
+        "url": "https://www.congress.gov/crs-product/LSB11444",
+        "type": "research",
+        "title": "Congressional Research Service, Legal Sidebar LSB11444",
+        "as_of": "2026-06-22",
+        "status": "reported",
+        "quote": "This provision was automatically repealed on June 12, 2026",
+        "verify_url": "https://www.congress.gov/crs_external_products/LSB/PDF/LSB11444/LSB11444.1.pdf"
+       },
+       {
+        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title50/html/USCODE-2024-title50-chap36-subchapI-sec1801.htm",
+        "type": "statute",
+        "title": "FISA Amendments Act of 2008, s. 404(b), transition procedures (United States Code notes, govinfo)",
+        "as_of": "2024-04-20",
+        "status": "self_disclosed",
+        "quote": "shall continue in effect until the date of the expiration"
+       },
+       {
+        "url": "https://www.congress.gov/crs-product/LSB11444",
+        "type": "research",
+        "title": "Congressional Research Service, Legal Sidebar LSB11444",
+        "as_of": "2026-06-22",
+        "status": "reported",
+        "quote": "remains able to enforce directives by seeking an order to compel compliance",
+        "verify_url": "https://www.congress.gov/crs_external_products/LSB/PDF/LSB11444/LSB11444.1.pdf"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title50/html/USCODE-2024-title50-chap36-subchapVI-sec1881a.htm",
+       "type": "statute",
+       "title": "50 U.S.C. § 1881a, United States Code (govinfo)",
+       "as_of": "2024-04-20",
+       "status": "self_disclosed",
+       "quote": "may direct, in writing, an electronic communication service provider to"
+      },
+      {
+       "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title50/html/USCODE-2024-title50-chap36-subchapVI-sec1881a.htm",
+       "type": "statute",
+       "title": "50 U.S.C. § 1881a, United States Code (govinfo)",
+       "as_of": "2024-04-20",
+       "status": "self_disclosed",
+       "quote": "immediately provide the Government with all information, facilities, or assistance necessary"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}

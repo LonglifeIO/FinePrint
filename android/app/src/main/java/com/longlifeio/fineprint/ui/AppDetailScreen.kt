@@ -68,6 +68,7 @@ fun AppDetailScreen(
 ) {
     var evidenceOpen by rememberSaveable { mutableStateOf(false) }
     var recordOpen by rememberSaveable { mutableStateOf(false) }
+    var jurisdictionsOpen by rememberSaveable { mutableStateOf(false) }
     var recordAll by rememberSaveable { mutableStateOf(false) }
     var sheet by remember { mutableStateOf<SheetContent?>(null) }
     val uriHandler = LocalUriHandler.current
@@ -85,7 +86,10 @@ fun AppDetailScreen(
     ) { padding ->
         LazyColumn(contentPadding = padding, modifier = Modifier.fillMaxSize().testTag("detail")) {
             item { Header(app, explanation, check, review, onOpenSettings) }
-            detailSections(explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, onTick = onTick)
+            detailSections(
+                explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, onTick = onTick,
+                jurisdictionsOpen = jurisdictionsOpen, onToggleJurisdictions = { jurisdictionsOpen = !jurisdictionsOpen },
+            )
             onTheRecordSection(
                 explanation.onTheRecord, explanation.changes, recordOpen, onToggle = { recordOpen = !recordOpen; recordAll = false },
                 showAll = recordAll, onShowAll = { recordAll = true }, onDetails = { sheet = it },

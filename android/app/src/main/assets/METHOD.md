@@ -47,7 +47,7 @@ Lines about a tracker come from FinePrint's record of it when there is one, and 
 
 Every line carries a badge that says how strong the evidence is. Tap a badge to see what it means.
 
-- Self-disclosed: The app's maker says so in its own privacy policy or labels.
+- Self-disclosed: The company says so itself, in its privacy policy, labels or filings, or a law says so in its own text.
 - Reported: Reported by journalists or researchers; no court or regulator has ruled on it.
 - Alleged: Claimed in a lawsuit or complaint; not proven in court.
 - Adjudicated: Decided by a court or regulator, or settled.
@@ -149,13 +149,21 @@ A change is Worsened when it adds a flow beyond running the app, moves a flow aw
 
 ## Governments
 
-FinePrint doesn't show government access yet. When it does, one rule will apply to every government: FinePrint never ranks governments; it ranks evidence. Each line will name one way a government can get an app's data, with the usual status badge and sources:
+One rule applies to every government: FinePrint never ranks governments; it ranks evidence. Every country gets the same wording, in alphabetical order, with no ranking and no adjectives.
 
-- Can compel: a company in a country is subject to a law that lets that country's government demand the data. FinePrint cites the law.
-- Has bought: a documented government purchase of this kind of data.
-- Has used: documented government use of this kind of data, reported by at least two sources.
+Under Where it goes, one line says where the companies that get the app's data are based:
 
-You'll be able to choose which countries, and which of these three, to highlight. Three claims always stay separate: where a company is headquartered, which country's law it is subject to, and where its servers are.
+- Jurisdictions: Where the companies that get this data are based, and the laws there that let a government demand it.
+
+A company is based where it has its head office, or, when FinePrint has no source for that, where it's registered. Tap the line to see each country: the companies headquartered there or subject to its law, and each way its government can get the data, with the usual status badge and sources:
+
+- Can compel: A company in a country is subject to a law that lets that country's government demand the data. FinePrint cites the law.
+- Has bought: A documented government purchase of this kind of data.
+- Has used: Documented government use of this kind of data, reported by at least two sources.
+
+A law is quoted from its own text, so its badge reads Self-disclosed. A company registered or headquartered in a country is subject to its law. Three claims always stay separate: where a company is headquartered, which country's law it is subject to, and where its servers are. FinePrint shows the first two, from company records and the laws themselves; where servers are would take traffic seen from the phone, so FinePrint doesn't show it. Lines about governments don't change an app's tier.
+
+When FinePrint can't place every recipient, the line says: Some recipients aren't named or have no record, so FinePrint can't say where they're based. When it can't place any: FinePrint can't say where the companies that get this data are based. A country whose laws FinePrint hasn't reviewed says: FinePrint hasn't reviewed this country's laws yet.
 
 ## Reporting an error
 
@@ -166,7 +174,7 @@ Say which app, what's wrong and, if you can, where the right information is. The
 ## Licences
 
 - FinePrint's code: AGPL-3.0-or-later.
-- FinePrint's records (bundle.json): CC BY 4.0, attribution FinePrint.
+- FinePrint's records (bundle.json and jurisdictions.json): CC BY 4.0, attribution FinePrint.
 - Tracker list (trackers.json): Open Database License (ODbL) 1.0, from the εxodus tracker database (https://reports.exodus-privacy.eu.org/); individual contents under the Database Contents License (DbCL) 1.0.
 - dexlib2 (smali): Apache License 2.0.
 - Icons: Material Icons, Apache License 2.0.

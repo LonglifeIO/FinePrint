@@ -15,7 +15,10 @@ import java.time.LocalDate
 
 class ExplanationTest {
 
-    private val bundle = parseBundle(File("src/test/resources/bundle-fixture.json").readText())
+    private val bundle = parseBundle(
+        File("src/test/resources/bundle-fixture.json").readText(),
+        File("src/test/resources/jurisdictions-fixture.json").readText(),
+    )
 
     private fun app(pkg: String, granted: List<String> = emptyList(), reach: List<String> = emptyList()) = InstalledApp(
         packageName = pkg, label = pkg, versionName = "1.0", versionCode = 1, lastUpdateTime = 0, isSystem = false,
@@ -165,6 +168,38 @@ class ExplanationTest {
         assertEquals(listOf("Kit's own ads", "Measuring Kit's ads"), e.flows.getValue(USED_FOR_MORE).map { it.purpose })
         assertTrue(sameCompany("co-kitlabs", "co-kit", bundle)) // one owns the other
         assertTrue(!sameCompany("co-kit", "co-dev", bundle))
+    }
+
+    @Test
+    fun jurisdictionsPlaceEachCompanyAndListEachCountrysLaws() {
+        val e = explain(app("com.example.watched"), scan(listOf(tracker("exodus-65", "Facebook Ads", "Advertisement"))), bundle, emptyMap())
+        val g = e.governments
+        // Kit Co's head office is in Israel, though it's registered in the Cayman Islands; Parent Co is in the United States.
+        assertEquals("Your data goes to companies based in: Israel, United States", g.line)
+        assertTrue(g.unplaced) // "Partners" isn't named
+        assertEquals(listOf("Canada", "Cayman Islands", "Israel", "United States"), g.blocks.map { it.name })
+        val (canada, cayman, israel, us) = g.blocks
+        assertEquals(listOf("Kit Co: subject to its law"), cayman.companies.map { it.text })
+        assertTrue(!cayman.lawsReviewed && cayman.lines.isEmpty())
+        assertEquals(listOf("Kit Co: headquartered here and subject to its law"), israel.companies.map { it.text })
+        assertTrue(israel.lawsReviewed && israel.lines.isEmpty())
+        assertEquals(listOf("Parent Co: headquartered here and subject to its law"), us.companies.map { it.text })
+        assertEquals(listOf("can_compel" to "Test Act (1 U.S.C. § 1)", "has_bought" to "A US agency"), us.lines.map { it.kind to it.title })
+        // No recipient is subject to Canada's law, so only the use on record shows there, not Canada's laws.
+        assertEquals(listOf("has_used"), canada.lines.map { it.kind })
+        assertTrue(canada.companies.isEmpty() && canada.lawsReviewed)
+        // Government lines stay out of the buckets, What it collects, On the record and the tier.
+        assertTrue(e.flows.values.flatten().none { it.recipient == "A US agency" })
+        assertTrue(e.onTheRecord.alsoReported.isEmpty())
+        assertEquals("Location data goes elsewhere — Watched App's own policy", e.tier.reason)
+        assertEquals("Cayman Islands", countryName("KY"))
+    }
+
+    @Test
+    fun anAppWhoseRecipientsFinePrintCantPlaceSaysSo() {
+        val e = explain(app("com.example.other"), scan(listOf(tracker("exodus-312", "Google AdMob", "Advertisement"))), bundle, emptyMap())
+        assertEquals(null, e.governments.line)
+        assertTrue(e.governments.unplaced && e.governments.blocks.isEmpty())
     }
 
     /** Present over past: a 2019 settlement that has ended is shown but scores nothing; a 2019 order still in force does. */
