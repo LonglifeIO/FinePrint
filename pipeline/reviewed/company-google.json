@@ -3,6 +3,7 @@
   {
    "id": "co-google",
    "name": "Google LLC",
+   "short_name": "Google",
    "jurisdiction": "US",
    "roles": [
     "developer",

@@ -113,10 +113,11 @@ fun LazyListScope.detailSections(
         check.inAppText?.let { item { Note("Inside the app: $it") } }
     }
 
-    if (e.onTheRecord.isNotEmpty() || e.alsoReported.isNotEmpty()) {
+    if (e.onTheRecord.isNotEmpty() || e.companyHistory.isNotEmpty() || e.alsoReported.isNotEmpty()) {
         section("record", ON_THE_RECORD)
-        if (e.onTheRecord.isEmpty()) item { Note("None in FinePrint's record.") }
+        if (e.onTheRecord.isEmpty()) item { Note("No action in FinePrint's record names this app.") }
         items(e.onTheRecord) { RecordRow(it, onSources) }
+        companyHistoryItems(e.companyHistory, onSources)
         if (e.alsoReported.isNotEmpty()) {
             item { SubHeader(ALSO_REPORTED) }
             items(e.alsoReported) { RecordRow(it, onSources) }
@@ -145,7 +146,7 @@ fun SectionHeader(text: SectionText) {
 }
 
 @Composable
-private fun SubHeader(text: SectionText) {
+internal fun SubHeader(text: SectionText) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 2.dp)) {
         Text(text.title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
         Text(text.subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)

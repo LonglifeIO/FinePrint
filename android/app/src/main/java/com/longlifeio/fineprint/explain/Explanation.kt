@@ -31,6 +31,8 @@ data class Explanation(
     val applies: List<AppliesLine>,
     /** Legal and regulatory items: alleged or adjudicated. */
     val onTheRecord: List<RecordItem>,
+    /** The developer company's other legal and regulatory history, newest first. */
+    val companyHistory: List<HistoryItem>,
     /** Current items others have reported, such as a breach. */
     val alsoReported: List<RecordItem>,
     val reach: List<ReachText>,
@@ -116,6 +118,7 @@ fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signat
                 ?.let { AppliesLine(p.name, permissionLabel(p.name) ?: p.name.substringAfterLast('.'), it.plain, it.whyItMatters) }
         },
         onTheRecord = items.filter { it.status == "alleged" || it.status == "adjudicated" },
+        companyHistory = companyHistory(record, bundle, app.packageName),
         alsoReported = items.filter { it.status == "reported" && !it.historical },
         reach = app.deviceReach.mapNotNull { bundle?.deviceReach?.get(it) },
         lastReviewed = record?.lastReviewed,

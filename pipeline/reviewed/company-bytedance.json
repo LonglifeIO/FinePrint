@@ -3,6 +3,7 @@
   {
    "id": "co-bytedance",
    "name": "ByteDance Ltd.",
+   "short_name": "ByteDance",
    "subsidiaries": [
     "TikTok"
    ],
@@ -187,6 +188,7 @@
   {
    "id": "co-tiktok-usds",
    "name": "TikTok USDS Joint Venture LLC",
+   "short_name": "TikTok US",
    "jurisdiction": "US",
    "roles": [
     "developer"

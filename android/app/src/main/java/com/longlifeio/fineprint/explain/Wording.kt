@@ -14,6 +14,7 @@ val COLLECTS = SectionText("What it collects", "Data this app takes from your ph
 val WHERE_IT_GOES = SectionText("Where it goes", "Who gets that data, and whether it's used beyond running the app.")
 val APPLIES = SectionText("This applies to you because", "Permissions you've actually granted that feed the above.")
 val ON_THE_RECORD = SectionText("On the record", "What regulators and courts have said.")
+val COMPANY_HISTORY = SectionText("Company history", "Other actions against the company that makes this app, newest first.")
 val ALSO_REPORTED = SectionText("Also reported", "Reported by journalists, researchers or breach trackers; no court or regulator has ruled on it.")
 val WHAT_YOU_CAN_DO = SectionText(
     "What you can do",

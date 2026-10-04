@@ -70,7 +70,10 @@ data class Consequence(
 data class LegalEvent(
     val date: String,
     val title: String,
+    /** The court or regulator. */
+    val body: String?,
     val type: String,
+    val amount: String?,
     val status: String,
     val statusKind: String?,
     val subjectCompany: String?,
@@ -235,7 +238,9 @@ private fun JSONObject.toCompany() = Company(
         LegalEvent(
             date = it.getString("date"),
             title = it.getString("title"),
+            body = it.text("body"),
             type = it.getString("type"),
+            amount = it.text("amount"),
             status = it.getString("status"),
             statusKind = it.text("status_kind"),
             subjectCompany = it.text("subject_company"),

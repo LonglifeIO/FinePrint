@@ -2,7 +2,7 @@
  "schema_version": 1,
  "schema_revision": "1.2",
  "bundle_version": "2026.10.04",
- "generated_at": "2026-10-04T17:36:42-03:00",
+ "generated_at": "2026-10-04T17:54:28-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -1521,6 +1521,7 @@
   {
    "id": "co-bytedance",
    "name": "ByteDance Ltd.",
+   "short_name": "ByteDance",
    "subsidiaries": [
     "TikTok"
    ],
@@ -1705,6 +1706,7 @@
   {
    "id": "co-tiktok-usds",
    "name": "TikTok USDS Joint Venture LLC",
+   "short_name": "TikTok US",
    "jurisdiction": "US",
    "roles": [
     "developer"
@@ -1714,6 +1716,7 @@
   {
    "id": "co-google",
    "name": "Google LLC",
+   "short_name": "Google",
    "jurisdiction": "US",
    "roles": [
     "developer",
@@ -1813,6 +1816,7 @@
   {
    "id": "co-meta",
    "name": "Meta Platforms, Inc.",
+   "short_name": "Meta",
    "subsidiaries": [
     "Meta Platforms Ireland Limited"
    ],

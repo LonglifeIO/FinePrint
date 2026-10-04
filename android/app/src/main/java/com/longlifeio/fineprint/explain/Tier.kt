@@ -104,6 +104,9 @@ fun tier(
     return TierResult(Tier.EXPECTED, "Nothing found beyond running the app", "E")
 }
 
+/** "Life360's", but "Google Maps'". */
+internal fun possessive(name: String): String = if (name.endsWith("s")) "$name'" else "$name's"
+
 /** Strongest evidence first; null (auto) last. */
 private val STRENGTH = listOf("adjudicated", "self_disclosed", "reported", "alleged", null)
 
@@ -112,7 +115,7 @@ private fun reason(line: FlowLine, appName: String): String {
     val what = REASON_DATA[line.data] ?: "Data"
     val verb = if (line.bucket == USED_FOR_MORE) "is used for more" else "goes elsewhere"
     val basis = when (line.status) {
-        "self_disclosed" -> if (line.via == null) "$appName's own policy" else "${line.via}'s own disclosure"
+        "self_disclosed" -> if (line.via == null) "${possessive(appName)} own policy" else "${possessive(line.via)} own disclosure"
         "adjudicated" -> "a court or regulator's decision"
         "reported" -> "reported by two or more sources"
         "alleged" -> "alleged, $NOT_PROVEN"

@@ -140,6 +140,22 @@ class TapTargetTest {
     }
 
     @Test
+    fun mapsDetailScreenWithCompanyHistory() {
+        val maps = app("com.google.android.apps.maps", "Maps", granted = listOf("android.permission.ACCESS_FINE_LOCATION"))
+        val e = explain(maps, TrackerScanResult(emptyList(), 1, 1, 1, emptyList()), bundle, emptyMap())
+        compose.setContent {
+            FinePrintTheme {
+                AppDetailScreen(
+                    app = maps, explanation = e, check = whatYouCanDo(maps, e, bundle.apps[maps.packageName], bundle.permissions.mapValues { it.value.feeds }, emptySet()),
+                    review = ReviewView(ReviewStatus.NOT_REVIEWED), result = null, signatures = null, bundleVersion = bundle.version,
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> },
+                )
+            }
+        }
+        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
+    }
+
+    @Test
     fun howToReadScreen() {
         compose.setContent { FinePrintTheme { HowToReadScreen(onBack = {}) } }
         assertEquals(emptyList<String>(), smallTargetsWhileScrolling("howto"))

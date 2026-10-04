@@ -20,6 +20,7 @@ Every app's page has the same sections, in the same order. A section with nothin
 - This applies to you because: Permissions you've actually granted that feed the above.
 - What you can do: Settings that limit the flows above. FinePrint can't change anything; it shows what Android reports and lets you record what you've changed inside the app.
 - On the record: What regulators and courts have said.
+- Company history: Other actions against the company that makes this app, newest first.
 - Also reported: Reported by journalists, researchers or breach trackers; no court or regulator has ruled on it.
 - Device access: Extra powers this app has registered, beyond ordinary permissions.
 - Evidence: The trackers and permissions behind the sections above.
@@ -77,7 +78,7 @@ Two limits apply to every app:
 - A claim reported by only one independent source never raises a tier. A re-report of the same story, or several reports that rest on one investigation, count as one source.
 - An app without a reviewed record is never Flagged or Expected. It gets Caution at most; otherwise it shows No record yet, with what the scan found, such as no third-party trackers found · 12 permissions.
 
-A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. Under each tier, one line names the finding that set it.
+A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. Company history shows the rest of the developer's record; an action there that doesn't name this app is shown, but it doesn't change the app's tier. Under each tier, one line names the finding that set it.
 
 No record yet: FinePrint hasn't reviewed this app. What it shows is inferred from the tracker code in the app: it can be rated Caution, but never Flagged or Expected.
 
@@ -119,6 +120,7 @@ Records follow these rules for wording:
 - A summary opens with what the app does for you and what it needs to do it.
 - A claim from a privacy policy says so: "according to its privacy policy (date)".
 - A legal matter gets at most one clause in a summary; the details go under On the record.
+- A summary sentence about the company's past has that company's record behind it, shown under Company history.
 - A privacy policy's own words are quoted, not paraphrased: "their own monetization purposes", not "make money for themselves".
 
 ## Governments
