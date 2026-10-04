@@ -22,6 +22,22 @@ supported by exactly one hardcoded ad that knows nothing about you.
 - `android/` — Kotlin / Jetpack Compose app. The scanning module is called `egress`.
 - `prompts/` — Claude Code prompts for each build slice.
 
+## Before committing
+
+```sh
+brew install pre-commit && pre-commit install   # pre-commit and pre-push hooks
+pre-commit run --all-files
+```
+
+The hooks run `gitleaks`, block keystores, `local.properties`, `.env` and anything in
+`pipeline/raw/` or `pipeline/drafts/`, and fail on macOS home-directory paths, Tailscale addresses
+and host names, and mDNS host names (patterns in `tools/check_private.py`). Private strings such as your own
+email go one per line in `.git/private-patterns`: that file is never committed, so the strings it
+guards stay out of the repo too.
+
+Owner's manual steps on GitHub: turn on secret scanning push protection (Settings → Code security),
+and commit with the GitHub noreply address (`git config user.email <id>+<user>@users.noreply.github.com`).
+
 ## Status
 
 G1 signed off on an Android 17 emulator (2026-10-04): the scanner lists apps, permissions and

@@ -68,6 +68,11 @@ it means Fine Print.
 - Commit only reviewed records to `bundle/`. Add a pre-commit check that
   `bundle/bundle.json` validates and every `source_url` resolves.
 - Don't estimate timelines in docs or commits. Next steps, blockers, dependencies.
+- Exodus etiquette: Exodus Privacy is a volunteer non-profit whose data we depend on. Fetch
+  the tracker list from the API endpoint (`/api/trackers`) once; `fetch_trackers.py` caches the
+  response in `pipeline/raw/`, and every rebuild uses `--from-file`. Never crawl Exodus report
+  pages, and never fetch from Exodus in parallel subagents. (Their limit is 3 requests per minute
+  on that endpoint; a burst on 2026-10-02 got this Mac's IP blocked.)
 
 ## Do not
 - Add network calls to the app beyond the bundle fetch.

@@ -14,3 +14,21 @@ Build order (each is a separate script, each is idempotent):
    resolves (HTTP 200), writes `../bundle/bundle.json`.
 
 Serve for dev: `python -m http.server 8080 --directory ../bundle` behind Tailscale.
+
+## Test APKs: where they come from
+
+APKs used to check detection (e.g. Life360 for `fp-arity`) are someone else's copyrighted code.
+They stay outside the repo (the scratch area or `pipeline/raw/`, both untracked) and are never
+launched, on the Mac or on the emulator; installing without launching keeps an app's code stopped.
+
+1. Download with EFF's `apkeep` from APKPure, which has served modified apps before, so this is for
+   research only: `apkeep -d apk-pure -o 'acknowledge_dangers=true,arch=arm64-v8a' -a <package>@<version> <dir>`.
+2. Unzip the `.xapk`; the base APK is the `<package>.apk` inside it.
+3. Verify before use: the base APK's SHA-256 must equal the one in the Exodus report for the same
+   version (Exodus downloads from Google Play). If it doesn't match, delete it. Also run
+   `apksigner verify --print-certs`.
+4. Record the version, versionCode and SHA-256 in any evidence that cites the APK (see
+   `fp_trackers.json`).
+
+Recorded so far: Life360 26.37.0 (versionCode 2924500), base APK SHA-256
+`e468187c69ffa8439dc0a55705e608ec83387e458d796d5a1ea4ad49bfa8af20`, matching Exodus report 785809.

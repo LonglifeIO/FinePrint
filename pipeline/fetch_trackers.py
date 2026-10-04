@@ -31,6 +31,7 @@ API_URL = "https://reports.exodus-privacy.eu.org/api/trackers"
 REPO = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = REPO / "android" / "app" / "src" / "main" / "assets" / "trackers.json"
 DEFAULT_FP = REPO / "pipeline" / "fp_trackers.json"
+RAW = REPO / "pipeline" / "raw"  # gitignored
 HALIFAX = ZoneInfo("America/Halifax")
 # Exodus asks API users to set their own User-Agent, and limits this endpoint to 3 requests a minute.
 USER_AGENT = "FinePrint-pipeline (+https://github.com/LonglifeIO/FinePrint)"
@@ -163,6 +164,11 @@ def main() -> int:
             print(f"could not fetch {API_URL}: {e}", file=sys.stderr)
             return 1
         fetched_at = dt.datetime.now(HALIFAX)
+        # Keep the raw response so every later build can use --from-file instead of the API.
+        RAW.mkdir(parents=True, exist_ok=True)
+        cached = RAW / f"exodus-api-trackers-{fetched_at:%Y-%m-%d}.json"
+        cached.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        print(f"cached the API response at {cached}; rebuild with --from-file {cached}")
     trackers = convert_exodus(payload) + load_fp(args.fp)
     ids = [t["id"] for t in trackers]
     repeated = sorted({i for i in ids if ids.count(i) > 1})
