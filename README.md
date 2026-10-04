@@ -40,21 +40,42 @@ and commit with the GitHub noreply address (`git config user.email <id>+<user>@u
 
 ## Status
 
-G1 signed off on an Android 17 emulator (2026-10-04): the scanner lists apps, permissions and
-embedded tracker SDKs, and shows Arity in Life360. A real-device check is deferred by choice.
-Results in `android/README.md`. See `CLAUDE.md` for the gates.
+G1 and G2 are signed off on an Android 17 emulator, and G3 is pushed to `main`:
 
-G2 signed off on the emulator (2026-10-04): the app downloads the bundle whole and explains each
-app by data, every claim sourced. The Tailscale path gets tested when a second machine or a phone
-is available. Life360 is the first reviewed record.
+- G1, the scanner: installed apps, their permissions and the tracker SDKs in their code (Arity in
+  Life360).
+- G2, the knowledge bundle: downloaded whole, and a data-first explanation per app, every claim
+  sourced. Life360 is the one record in it today.
+- G3, the UI pass: tiers by a published formula (`docs/METHOD.md`), the same sections with their
+  definitions on every page, a Sources sheet, How to read this, Reviewed marks and the "What you
+  can do" checklist, with tap targets of 48dp or more enforced by a test.
 
-G3 in progress: the UI pass. The list is sorted by a published tier (`docs/METHOD.md`), every page
-has the same sections with their definitions, each line's sources open in one sheet, and you can
-mark an app reviewed (on this phone only). Tap targets are 48dp or more, enforced by a test.
+A real-device check and the Tailscale path are deferred by choice. See `CLAUDE.md` for the gates.
 
-Next: tracker records for common SDKs, so the auto view says more; reviewed records for Facebook,
-TikTok and Google Maps; CI running the build and tests on every push. Later gates are in
-`CLAUDE.md`.
+Pending: PR #1 (`kb/records`) adds reviewed records for Facebook, TikTok and Google Maps, with
+company records for Meta, ByteDance and Google; CI (pipeline tests, record validation and an
+Android debug build); and source-check tooling. Its checks pass; it isn't merged yet.
+
+Next, in order:
+
+1. Merge PR #1, rebuild the bundle with the three records, and check them on the emulator
+   (expected tiers: Facebook Flagged, TikTok Flagged, Google Maps Caution).
+2. A company-history section under On the record, so that a summary sentence about a company's
+   past (Google Maps') has the company's record behind it.
+3. Schema v1.3: `covers[]` (one tracker explanation for several Exodus ids), `changes[]` with a
+   direction, a `government_body` recipient kind, and `policy_region`.
+4. A design pass.
+
+Logged for later (not built yet):
+- Government access. For each flow, show which governments can obtain the data and how, with one
+  rule for every government. Three line types, each with the usual status badge and sources: "Can
+  compel" (a company in jurisdiction X is subject to law Y; cite the statute), "Has bought" (a
+  documented government purchase of this kind of data: DHS OIG 2023, the FTC's X-Mode and Gravy
+  orders) and "Has used" (documented government use; two sources, reported). Needs schema v1.3: a
+  recipient kind `government_body` and a per-jurisdiction statute table. A "What matters to me"
+  setting lets the user choose which jurisdictions and mechanisms to highlight. FinePrint never
+  ranks governments; it ranks evidence. Three claims always stay distinct: headquartered in X,
+  subject to X's law, servers in X. The principle is in `docs/METHOD.md` ("Governments").
 
 ## Licence
 

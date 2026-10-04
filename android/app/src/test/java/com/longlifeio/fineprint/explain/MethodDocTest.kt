@@ -34,7 +34,7 @@ class MethodDocTest {
         val headings = blocks.filter { it.kind == MethodBlock.Kind.HEADING }.map { it.text }
         assertEquals(
             listOf("What FinePrint is, and isn't", "An app's page, section by section", "Where data goes", "Status badges", "Tiers",
-                "What you can do", "Your Reviewed marks", "How records are made", "Reporting an error", "Licences"),
+                "What you can do", "Your Reviewed marks", "How records are made", "Governments", "Reporting an error", "Licences"),
             headings,
         )
         // Nothing is lost: every word of the file appears in some block.

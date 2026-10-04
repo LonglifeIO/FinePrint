@@ -121,6 +121,16 @@ Records follow these rules for wording:
 - A legal matter gets at most one clause in a summary; the details go under On the record.
 - A privacy policy's own words are quoted, not paraphrased: "their own monetization purposes", not "make money for themselves".
 
+## Governments
+
+FinePrint doesn't show government access yet. When it does, one rule will apply to every government: FinePrint never ranks governments; it ranks evidence. Each line will name one way a government can get an app's data, with the usual status badge and sources:
+
+- Can compel: a company in a country is subject to a law that lets that country's government demand the data. FinePrint cites the law.
+- Has bought: a documented government purchase of this kind of data.
+- Has used: documented government use of this kind of data, reported by at least two sources.
+
+You'll be able to choose which countries, and which of these three, to highlight. Three claims always stay separate: where a company is headquartered, which country's law it is subject to, and where its servers are.
+
 ## Reporting an error
 
 If something is wrong or out of date, open an issue on GitHub: https://github.com/LonglifeIO/FinePrint/issues/new?template=record-error.md
