@@ -1,0 +1,31 @@
+# Android
+android/build/
+android/app/build/
+android/.gradle/
+android/.kotlin/
+android/local.properties
+android/.idea/
+android/*.iml
+android/app/*.iml
+android/captures/
+*.jks
+*.keystore
+*.apk
+*.aab
+
+# Python / pipeline
+.venv/
+__pycache__/
+*.pyc
+# fetched policies, Play listings — copyrighted, never commit
+pipeline/raw/
+# LLM drafts awaiting review — never commit
+pipeline/drafts/
+pipeline/*.db
+pipeline/*.sqlite
+
+# Secrets / tooling
+.env
+.codex/
+.claude/settings.local.json
+.DS_Store

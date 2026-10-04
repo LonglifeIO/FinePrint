@@ -1,0 +1,3383 @@
+{
+ "source": "https://reports.exodus-privacy.eu.org/api/trackers",
+ "fetched_at": "2026-10-02T18:07:03-03:00",
+ "licence": "ODbL-1.0",
+ "licence_url": "https://opendatacommons.org/licenses/odbl/1-0/",
+ "attribution": "Contains information from the εxodus tracker database (https://reports.exodus-privacy.eu.org/), made available under the Open Database License (ODbL) 1.0; individual contents under the Database Contents License (DbCL) 1.0.",
+ "trackers": [
+  {
+   "id": "exodus-1",
+   "name": "Teemo",
+   "code_signature": "com.databerries.|com.geolocstation.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-2",
+   "name": "FidZup",
+   "code_signature": "com.fidzup.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-3",
+   "name": "Audience Studio (Krux)",
+   "code_signature": "com.krux.androidsdk",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-4",
+   "name": "Ad4Screen",
+   "code_signature": "com.ad4screen.sdk",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-5",
+   "name": "Google DoubleClick",
+   "code_signature": "",
+   "categories": []
+  },
+  {
+   "id": "exodus-6",
+   "name": "Weborama",
+   "code_signature": "com.weborama.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-7",
+   "name": "Smart",
+   "code_signature": "com.smartadserver.",
+   "categories": []
+  },
+  {
+   "id": "exodus-8",
+   "name": "JW Player",
+   "code_signature": "com.longtailvideo.jwplayer.",
+   "categories": []
+  },
+  {
+   "id": "exodus-9",
+   "name": "Loggly",
+   "code_signature": "com.github.tony19.timber.loggly|com.github.tony19.loggly|com.visiware.sync2ad.logger.loggly.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-10",
+   "name": "Xiti",
+   "code_signature": "",
+   "categories": []
+  },
+  {
+   "id": "exodus-11",
+   "name": "OutBrain",
+   "code_signature": "com.outbrain.",
+   "categories": []
+  },
+  {
+   "id": "exodus-12",
+   "name": "AppsFlyer",
+   "code_signature": "com.appsflyer.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-13",
+   "name": "Ligatus",
+   "code_signature": ".LigatusManager|.LigatusViewClient|com.ligatus.android.adframework",
+   "categories": []
+  },
+  {
+   "id": "exodus-14",
+   "name": "Widespace",
+   "code_signature": "com.widespace.",
+   "categories": []
+  },
+  {
+   "id": "exodus-15",
+   "name": "AppNexus",
+   "code_signature": "com.appnexus.opensdk.",
+   "categories": []
+  },
+  {
+   "id": "exodus-16",
+   "name": "Localytics",
+   "code_signature": "com.localytics.android.|com.localytics.androidx|com.localytics.react.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-17",
+   "name": "Braze (formerly Appboy)",
+   "code_signature": "com.appboy",
+   "categories": [
+    "Analytics",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-18",
+   "name": "mParticle",
+   "code_signature": "com.mparticle",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-20",
+   "name": "S4M",
+   "code_signature": "com.sam4mobile.|.S4MAnalytic",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-22",
+   "name": "Sizmek",
+   "code_signature": ".sizmek.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-23",
+   "name": "Batch",
+   "code_signature": "com.batch.android.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-24",
+   "name": "Sync2Ad",
+   "code_signature": "com.visiware.sync2ad.dmp.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-25",
+   "name": "Flurry",
+   "code_signature": "com.flurry.",
+   "categories": [
+    "Advertisement",
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-26",
+   "name": "HockeyApp",
+   "code_signature": "net.hockeyapp.",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-27",
+   "name": "Google CrashLytics",
+   "code_signature": "io.fabric.|com.crashlytics.|com.google.firebase.crashlytics|com.google.firebase.crash.|io.invertase.firebase.crashlytics.",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-28",
+   "name": "LeanPlum",
+   "code_signature": "com.leanplum.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-29",
+   "name": "Tinder Analytics",
+   "code_signature": "com.tinder.analytics|com.tinder.ads",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-30",
+   "name": "Schibsted",
+   "code_signature": ".schibsted.",
+   "categories": []
+  },
+  {
+   "id": "exodus-31",
+   "name": "ATInternet",
+   "code_signature": "com.atinternet.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-32",
+   "name": "Tealium",
+   "code_signature": ".tealium.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-33",
+   "name": "Nexage",
+   "code_signature": "com.nexage.android.|org.nexage.",
+   "categories": []
+  },
+  {
+   "id": "exodus-34",
+   "name": "Ogury Presage",
+   "code_signature": "io.presage.",
+   "categories": []
+  },
+  {
+   "id": "exodus-35",
+   "name": "Twitter MoPub",
+   "code_signature": "com.mopub.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-36",
+   "name": "Add Apt Tr",
+   "code_signature": "com.intentsoftware.addapptr.",
+   "categories": []
+  },
+  {
+   "id": "exodus-37",
+   "name": "Vectaury",
+   "code_signature": "io.vectaury.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-38",
+   "name": "Tune",
+   "code_signature": "com.tune|com.mobileapptracker",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-39",
+   "name": "Pushwoosh",
+   "code_signature": "com.pushwoosh",
+   "categories": []
+  },
+  {
+   "id": "exodus-40",
+   "name": "Demdex",
+   "code_signature": "com.adobe.mobile.Analytics|com.adobe.mobile.Config.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-41",
+   "name": "AdsWizz",
+   "code_signature": ".adswizz.",
+   "categories": []
+  },
+  {
+   "id": "exodus-42",
+   "name": "ExactTarget",
+   "code_signature": "com.exacttarget.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-43",
+   "name": "Omniture",
+   "code_signature": "com.omniture.|com.adobe.adms.measurement.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-44",
+   "name": "OpenLocate",
+   "code_signature": "com.safegraph.|com.openlocate",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-45",
+   "name": "TagCommander (Commanders Act.)",
+   "code_signature": "com.tagcommander.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-46",
+   "name": "CrowdTangle",
+   "code_signature": "",
+   "categories": []
+  },
+  {
+   "id": "exodus-47",
+   "name": "Facebook Audience",
+   "code_signature": "com.facebook.audiencenetwork",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-48",
+   "name": "Google Analytics",
+   "code_signature": "com.google.android.apps.analytics.|com.google.android.gms.analytics.|com.google.analytics.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-49",
+   "name": "Google Firebase Analytics",
+   "code_signature": "com.google.firebase.analytics.FirebaseAnalytics|com.google.android.gms.measurement.|com.google.firebase.firebase_analytics",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-51",
+   "name": "Eulerian",
+   "code_signature": "com.eulerian.android.sdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-52",
+   "name": "Adjust",
+   "code_signature": "com.adjust.sdk.|com.adjust.android.sdk.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-53",
+   "name": "ChartBoost",
+   "code_signature": "com.chartboost.sdk.",
+   "categories": []
+  },
+  {
+   "id": "exodus-54",
+   "name": "Backelite",
+   "code_signature": "com.backelite.android.|com.backelite.bkdroid.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-55",
+   "name": "Areametrics",
+   "code_signature": "com.areametrics.areametricssdk|com.areametrics.nosdkandroid",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-56",
+   "name": "ComScore",
+   "code_signature": "com.comscore.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-57",
+   "name": "Cuebiq",
+   "code_signature": "com.cuebiq.cuebiqsdk.model.Collector|com.cuebiq.cuebiqsdk.receiver.CoverageReceiver",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-58",
+   "name": "HelpShift",
+   "code_signature": "com.helpshift",
+   "categories": []
+  },
+  {
+   "id": "exodus-59",
+   "name": "Kontakt",
+   "code_signature": "com.kontakt.sdk.android.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-60",
+   "name": "Locuslabs",
+   "code_signature": "com.locuslabs.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-61",
+   "name": "Moat",
+   "code_signature": "com.moat.analytics.mobile.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-62",
+   "name": "Segment",
+   "code_signature": "com.segment.analytics.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-63",
+   "name": "Mobile Engagement",
+   "code_signature": "com.ubikod.capptain.|com.microsoft.azure.engagement.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-64",
+   "name": "Colocator",
+   "code_signature": "net.crowdconnected.androidcolocator",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-65",
+   "name": "Facebook Ads",
+   "code_signature": "com.facebook.ads",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-66",
+   "name": "Facebook Analytics",
+   "code_signature": "com.facebook.appevents|com.facebook.marketing.|com.facebook.CampaignTrackingReceiver",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-67",
+   "name": "Facebook Login",
+   "code_signature": "com.facebook.login",
+   "categories": [
+    "Identification"
+   ]
+  },
+  {
+   "id": "exodus-68",
+   "name": "Facebook Notifications",
+   "code_signature": "com.facebook.notifications",
+   "categories": []
+  },
+  {
+   "id": "exodus-69",
+   "name": "Facebook Places",
+   "code_signature": "com.facebook.places",
+   "categories": []
+  },
+  {
+   "id": "exodus-70",
+   "name": "Facebook Share",
+   "code_signature": "com.facebook.share",
+   "categories": []
+  },
+  {
+   "id": "exodus-71",
+   "name": "Google Ads",
+   "code_signature": "",
+   "categories": []
+  },
+  {
+   "id": "exodus-72",
+   "name": "AppLovin (MAX and SparkLabs)",
+   "code_signature": "com.applovin",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Identification",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-73",
+   "name": "Glispa Connect (Formerly Avocarrot)",
+   "code_signature": "com.avocarrot.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-74",
+   "name": "NativeX",
+   "code_signature": "com.nativex",
+   "categories": []
+  },
+  {
+   "id": "exodus-75",
+   "name": "Baidu Maps",
+   "code_signature": "com.baidu.BaiduMap",
+   "categories": []
+  },
+  {
+   "id": "exodus-76",
+   "name": "WeChat Location",
+   "code_signature": "com.tencent.map.geolocation|com.tencent.mm.plugin.location.|com.tencent.mm.plugin.location_soso.|com.tencent.mm.plugin.location_google",
+   "categories": []
+  },
+  {
+   "id": "exodus-77",
+   "name": "HyperTrack",
+   "code_signature": "com.hypertrack|com.hypertracklive.|io.hypertrack",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-78",
+   "name": "Uber Analytics",
+   "code_signature": "com.ubercab.analytics.|com.ubercab.library.metrics.analytics.|com.ubercab.client.core.analytics.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-79",
+   "name": "Lisnr",
+   "code_signature": "com.lisnr.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-80",
+   "name": "SilverPush",
+   "code_signature": "com.silverpush.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-81",
+   "name": "Shopkick",
+   "code_signature": "com.shopkick.sdk.api.|com.shopkick.fetchers.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-82",
+   "name": "Alphonso",
+   "code_signature": "tv.alphonso.service",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-83",
+   "name": "Smaato",
+   "code_signature": "com.smaato.",
+   "categories": []
+  },
+  {
+   "id": "exodus-84",
+   "name": "Scandit",
+   "code_signature": "com.scandit.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-85",
+   "name": "Inrix",
+   "code_signature": "com.inrix.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-86",
+   "name": "Signal360",
+   "code_signature": "com.signal360.sdk.core.|com.sonicnotify.sdk.core.|com.rnsignal360",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-87",
+   "name": "TeleQuid",
+   "code_signature": "com.telequid.",
+   "categories": []
+  },
+  {
+   "id": "exodus-88",
+   "name": "Retency",
+   "code_signature": "com.retency.sdk.android",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-89",
+   "name": "MAdvertise",
+   "code_signature": "com.mngads.sdk|com.mngads.views|com.mngads.",
+   "categories": []
+  },
+  {
+   "id": "exodus-90",
+   "name": "AdColony",
+   "code_signature": "com.adcolony.|com.jirbo.adcolony.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-91",
+   "name": "AccountKit",
+   "code_signature": "com.facebook.accountkit",
+   "categories": [
+    "Identification"
+   ]
+  },
+  {
+   "id": "exodus-92",
+   "name": "Amazon Advertisement",
+   "code_signature": "com.amazon.device.ads",
+   "categories": []
+  },
+  {
+   "id": "exodus-93",
+   "name": "Amazon Mobile Associates",
+   "code_signature": "com.amazon.device.associates",
+   "categories": []
+  },
+  {
+   "id": "exodus-94",
+   "name": "Radius Networks",
+   "code_signature": "com.radiusnetworks",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-95",
+   "name": "Amazon Analytics (Amazon insights)",
+   "code_signature": "com.amazon.insights|com.amazonaws.mobileconnectors.pinpoint.analytics.|com.amazonaws.mobileconnectors.amazonmobileanalytics",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-96",
+   "name": "Baidu APPX",
+   "code_signature": "com.baidu.appx",
+   "categories": []
+  },
+  {
+   "id": "exodus-97",
+   "name": "Baidu Location",
+   "code_signature": "com.baidu.location",
+   "categories": []
+  },
+  {
+   "id": "exodus-99",
+   "name": "Baidu Map",
+   "code_signature": "com.baidu.mapapi",
+   "categories": []
+  },
+  {
+   "id": "exodus-100",
+   "name": "Baidu Mobile Ads",
+   "code_signature": "com.baidu.mobads",
+   "categories": []
+  },
+  {
+   "id": "exodus-101",
+   "name": "Baidu Mobile Stat",
+   "code_signature": "com.baidu.mobstat",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-102",
+   "name": "Estimote",
+   "code_signature": "com.estimote.",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-103",
+   "name": "Baidu Navigation",
+   "code_signature": "com.baidu.navi",
+   "categories": []
+  },
+  {
+   "id": "exodus-104",
+   "name": "Fyber",
+   "code_signature": "com.fyber.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-105",
+   "name": "Google Tag Manager",
+   "code_signature": "com.google.tagmanager|com.google.android.gms.tagmanager",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-106",
+   "name": "Inmobi",
+   "code_signature": "com.inmobi|in.inmobi.",
+   "categories": []
+  },
+  {
+   "id": "exodus-107",
+   "name": "Millennial Media",
+   "code_signature": "com.millennialmedia.",
+   "categories": []
+  },
+  {
+   "id": "exodus-108",
+   "name": "Snowplow",
+   "code_signature": "com.snowplowanalytics.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-109",
+   "name": "Fyber SponsorPay",
+   "code_signature": "com.sponsorpay",
+   "categories": []
+  },
+  {
+   "id": "exodus-110",
+   "name": "Supersonic Ads",
+   "code_signature": "com.supersonic.adapters.supersonicads|com.supersonicads.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-111",
+   "name": "Carnival",
+   "code_signature": "com.carnival.sdk|com.carnivalmobile",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-112",
+   "name": "Tencent Map LBS",
+   "code_signature": "com.tencent.lbs",
+   "categories": []
+  },
+  {
+   "id": "exodus-113",
+   "name": "Tencent MobWin",
+   "code_signature": "com.tencent.mobwin",
+   "categories": []
+  },
+  {
+   "id": "exodus-114",
+   "name": "Tencent MTA",
+   "code_signature": "com.tencent.mta",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-115",
+   "name": "Apptentive",
+   "code_signature": "com.apptentive.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-116",
+   "name": "Tencent Stats",
+   "code_signature": "com.tencent.stat|com.tencent.wxop.stat",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-117",
+   "name": "Tencent Weiyun",
+   "code_signature": "com.tencent.weiyun",
+   "categories": []
+  },
+  {
+   "id": "exodus-118",
+   "name": "MixPanel",
+   "code_signature": "com.mixpanel.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-119",
+   "name": "Umeng Analytics",
+   "code_signature": "com.umeng.analytics",
+   "categories": []
+  },
+  {
+   "id": "exodus-120",
+   "name": "Umeng Feedback",
+   "code_signature": "com.umeng.fb",
+   "categories": []
+  },
+  {
+   "id": "exodus-121",
+   "name": "Unity3d Ads",
+   "code_signature": "com.unity3d.services|com.unity3d.ads",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-122",
+   "name": "Countly",
+   "code_signature": "ly.count.android.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-123",
+   "name": "Urbanairship",
+   "code_signature": "com.urbanairship",
+   "categories": []
+  },
+  {
+   "id": "exodus-124",
+   "name": "Yandex Ad",
+   "code_signature": "com.yandex.mobile.ads",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-125",
+   "name": "Amplitude",
+   "code_signature": "com.amplitude.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-126",
+   "name": "AppSee",
+   "code_signature": "com.appsee.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Identification"
+   ]
+  },
+  {
+   "id": "exodus-127",
+   "name": "Kochava",
+   "code_signature": "com.kochava.base.|com.kochava.android.tracker.|.kochavaccpa.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-129",
+   "name": "Webtrends",
+   "code_signature": "com.webtrends.mobile.analytics.|com.webtrends.mobile.android",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-130",
+   "name": "New Relic",
+   "code_signature": "com.newrelic.agent.|com.newrelic.mobile.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-131",
+   "name": "AppAnalytics",
+   "code_signature": "io.appanalytics.sdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-132",
+   "name": "Applause",
+   "code_signature": "com.applause.android.",
+   "categories": [
+    "Crash reporting",
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-133",
+   "name": "Quantcast",
+   "code_signature": "com.quantcast.measurement.service.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-135",
+   "name": "Apptimize",
+   "code_signature": "com.apptimize.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-136",
+   "name": "AppBrain",
+   "code_signature": "com.appbrain.",
+   "categories": []
+  },
+  {
+   "id": "exodus-137",
+   "name": "Dynatrace",
+   "code_signature": "com.dynatrace.android.app|com.dynatrace.agent|com.dynatrace.tools",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-138",
+   "name": "Matomo (Piwik)",
+   "code_signature": "org.piwik|org.piwik.mobile|org.matomo",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-140",
+   "name": "AppMetrica",
+   "code_signature": "com.yandex.metrica.",
+   "categories": []
+  },
+  {
+   "id": "exodus-142",
+   "name": "Singlespot",
+   "code_signature": "com.sptproximitykit.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-143",
+   "name": "Sensoro",
+   "code_signature": "com.sensoro.beacon.kit.|com.sensoro.cloud",
+   "categories": []
+  },
+  {
+   "id": "exodus-144",
+   "name": "Sense360",
+   "code_signature": "com.sense360.android.",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-145",
+   "name": "Rubicon Project",
+   "code_signature": "com.rfm.sdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-146",
+   "name": "ironSource",
+   "code_signature": "com.ironsource.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-147",
+   "name": "Heyzap (bought by Fyber)",
+   "code_signature": "com.heyzap.sdk.ads.|com.heyzap.mediation.",
+   "categories": []
+  },
+  {
+   "id": "exodus-148",
+   "name": "SAP CDC (Gigya)",
+   "code_signature": "com.gigya.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-149",
+   "name": "Foresee",
+   "code_signature": "com.foresee.sdk.ForeSee",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-150",
+   "name": "Fiksu",
+   "code_signature": "com.fiksu.asotracking",
+   "categories": []
+  },
+  {
+   "id": "exodus-151",
+   "name": "Ensighten",
+   "code_signature": "com.ensighten.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-152",
+   "name": "Dynamic Yield",
+   "code_signature": "com.dynamicyield.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-153",
+   "name": "BlueKai (acquired by Oracle)",
+   "code_signature": "com.bluekai.sdk.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-154",
+   "name": "BlueConic",
+   "code_signature": "com.blueconic",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-155",
+   "name": "Apteligent by VMWare (formerly Crittercism)",
+   "code_signature": "com.crittercism.app.Crittercism",
+   "categories": []
+  },
+  {
+   "id": "exodus-156",
+   "name": "AdFit (Daum)",
+   "code_signature": "com.kakao.adfit.",
+   "categories": []
+  },
+  {
+   "id": "exodus-157",
+   "name": "Adform",
+   "code_signature": "com.adform.sdk.",
+   "categories": []
+  },
+  {
+   "id": "exodus-158",
+   "name": "Adfurikun",
+   "code_signature": "jp.tjkapp.adfurikunsdk.|com.glossomads.sdk.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-159",
+   "name": "Mobvista",
+   "code_signature": "com.mobvista.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-160",
+   "name": "Placed",
+   "code_signature": "com.placed.client",
+   "categories": []
+  },
+  {
+   "id": "exodus-161",
+   "name": "Adot",
+   "code_signature": "com.adotmob",
+   "categories": []
+  },
+  {
+   "id": "exodus-162",
+   "name": "Appodeal",
+   "code_signature": "com.appodeal.ads.|com.appodealx.",
+   "categories": []
+  },
+  {
+   "id": "exodus-163",
+   "name": "AppMonet",
+   "code_signature": "com.monet.",
+   "categories": []
+  },
+  {
+   "id": "exodus-164",
+   "name": "Soomla",
+   "code_signature": "com.soomla.",
+   "categories": []
+  },
+  {
+   "id": "exodus-165",
+   "name": "Adincube",
+   "code_signature": "com.adincube.sdk.",
+   "categories": []
+  },
+  {
+   "id": "exodus-166",
+   "name": "Persona.ly",
+   "code_signature": "ly.persona.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-167",
+   "name": "Branch",
+   "code_signature": "io.branch.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-168",
+   "name": "Cheetah Ads",
+   "code_signature": "com.cmcm.",
+   "categories": []
+  },
+  {
+   "id": "exodus-169",
+   "name": "Vungle",
+   "code_signature": "com.vungle.publisher.|com.vungle.warren.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-170",
+   "name": "Criteo",
+   "code_signature": "com.criteo.",
+   "categories": []
+  },
+  {
+   "id": "exodus-171",
+   "name": "Mapbox",
+   "code_signature": "com.mapbox.mapboxsdk.module.telemetry|com.mapbox.mapboxsdk.maps.TelemetryDefinition|com.mapbox.android.telemetry.",
+   "categories": []
+  },
+  {
+   "id": "exodus-172",
+   "name": "Optimizely",
+   "code_signature": "com.optimizely.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-173",
+   "name": "Taboola",
+   "code_signature": "com.taboola.",
+   "categories": []
+  },
+  {
+   "id": "exodus-174",
+   "name": "CleverTap",
+   "code_signature": "com.clevertap.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-175",
+   "name": "myTracker",
+   "code_signature": "com.my.tracker.",
+   "categories": []
+  },
+  {
+   "id": "exodus-176",
+   "name": "Cloudmobi",
+   "code_signature": "com.cloudtech.",
+   "categories": []
+  },
+  {
+   "id": "exodus-177",
+   "name": "ADLIB",
+   "code_signature": "com.mocoplex.adlib.",
+   "categories": []
+  },
+  {
+   "id": "exodus-178",
+   "name": "Brightcove",
+   "code_signature": "com.brightcove",
+   "categories": []
+  },
+  {
+   "id": "exodus-179",
+   "name": "DOV-E",
+   "code_signature": "com.dv.DVSDK",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-180",
+   "name": "InMarket",
+   "code_signature": "com.inmarket",
+   "categories": []
+  },
+  {
+   "id": "exodus-181",
+   "name": "Pilgrim by Foursquare",
+   "code_signature": "com.foursquare.pilgrim|com.foursquare.pilgrimsdk.android",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-182",
+   "name": "OtherLevels",
+   "code_signature": "com.otherlevels.",
+   "categories": []
+  },
+  {
+   "id": "exodus-183",
+   "name": "PubNative",
+   "code_signature": "net.pubnative",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-184",
+   "name": "Appnext",
+   "code_signature": "com.appnext.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-185",
+   "name": "MobFox",
+   "code_signature": "com.mobfox.|com.adsdk.sdk.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-186",
+   "name": "ShallWeAD",
+   "code_signature": "com.jm.co.shallwead.sdk.|com.co.shallwead.sdk.",
+   "categories": []
+  },
+  {
+   "id": "exodus-187",
+   "name": "deltaDNA",
+   "code_signature": "com.deltadna",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-188",
+   "name": "Display",
+   "code_signature": "io.display.",
+   "categories": []
+  },
+  {
+   "id": "exodus-189",
+   "name": "HyprMX",
+   "code_signature": "com.hyprmx.android.sdk.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-190",
+   "name": "Bugly",
+   "code_signature": "com.tencent.bugly.",
+   "categories": []
+  },
+  {
+   "id": "exodus-191",
+   "name": "Duapps",
+   "code_signature": "com.duapps.",
+   "categories": []
+  },
+  {
+   "id": "exodus-192",
+   "name": "Swrve",
+   "code_signature": "com.swrve.sdk",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-193",
+   "name": "OneSignal",
+   "code_signature": "com.onesignal.",
+   "categories": []
+  },
+  {
+   "id": "exodus-194",
+   "name": "Appdynamics",
+   "code_signature": "com.appdynamics.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-195",
+   "name": "Startapp",
+   "code_signature": "com.startapp.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-196",
+   "name": "AerServ",
+   "code_signature": "com.aerserv.sdk.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-197",
+   "name": "INFOnline",
+   "code_signature": "de.infonline.",
+   "categories": []
+  },
+  {
+   "id": "exodus-198",
+   "name": "myTarget",
+   "code_signature": "com.my.target.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-199",
+   "name": "Tapjoy",
+   "code_signature": "com.tapjoy.",
+   "categories": []
+  },
+  {
+   "id": "exodus-200",
+   "name": "Mintegral",
+   "code_signature": "com.mintegral.|com.mbridge.msdk.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-201",
+   "name": "Gimbal",
+   "code_signature": "com.gimbal.android",
+   "categories": []
+  },
+  {
+   "id": "exodus-202",
+   "name": "Conviva",
+   "code_signature": "com.conviva.",
+   "categories": []
+  },
+  {
+   "id": "exodus-203",
+   "name": "Auditude",
+   "code_signature": "com.auditude.ads",
+   "categories": []
+  },
+  {
+   "id": "exodus-204",
+   "name": "Instreamatic (Adman)",
+   "code_signature": "com.instreamatic",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-205",
+   "name": "GameAnalytics",
+   "code_signature": "com.gameanalytics.sdk",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-206",
+   "name": "Instabug",
+   "code_signature": "com.instabug.",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-207",
+   "name": "Bugsnag",
+   "code_signature": "com.bugsnag.",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-208",
+   "name": "Moodmedia",
+   "code_signature": "com.moodmedia",
+   "categories": [
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-209",
+   "name": "Houndify",
+   "code_signature": "com.hound",
+   "categories": [
+    "Identification",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-210",
+   "name": "OpenX",
+   "code_signature": "com.openx.view.plugplay|com.openx.android_sdk_openx",
+   "categories": [
+    "Analytics",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-211",
+   "name": "Taplytics",
+   "code_signature": "com.taplytics.sdk",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-212",
+   "name": "Yinzcam Sobek",
+   "code_signature": "com.yinzcam.sobek",
+   "categories": [
+    "Analytics",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-213",
+   "name": "Ooyala",
+   "code_signature": "com.ooyala",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-214",
+   "name": "Kiip",
+   "code_signature": "me.kiip.sdk",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-215",
+   "name": "MobPower",
+   "code_signature": "com.mobpower.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-216",
+   "name": "AdBuddiz",
+   "code_signature": "com.purplebrain.adbuddiz.sdk.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-218",
+   "name": "Integral Ad Science",
+   "code_signature": "com.integralads.avid.library",
+   "categories": []
+  },
+  {
+   "id": "exodus-219",
+   "name": "AltBeacon",
+   "code_signature": "org.altbeacon.beacon.|com.altbeacon.beacon.|org.altbeacon.bluetooth.",
+   "categories": []
+  },
+  {
+   "id": "exodus-220",
+   "name": "Salesforce Marketing Cloud",
+   "code_signature": "com.salesforce.marketingcloud",
+   "categories": []
+  },
+  {
+   "id": "exodus-221",
+   "name": "Mozilla Telemetry",
+   "code_signature": "org.mozilla.telemetry|org.mozilla.gecko.telemetry|mozilla.telemetry.glean.|org.mozilla.fenix.GleanMetrics|org.mozilla.fenix.components.metrics",
+   "categories": []
+  },
+  {
+   "id": "exodus-222",
+   "name": "nend",
+   "code_signature": "net.nend.android|net.nend.unity.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-223",
+   "name": "Pusher",
+   "code_signature": "com.pusher.client.",
+   "categories": []
+  },
+  {
+   "id": "exodus-224",
+   "name": "FreeWheel",
+   "code_signature": "tv.freewheel.ad.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-225",
+   "name": "TNK Factory",
+   "code_signature": "com.tnkfactory.ad",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-226",
+   "name": "Axonix",
+   "code_signature": "com.axonix.android.sdk|com.mobclix.android.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-227",
+   "name": "Gemius HeatMap",
+   "code_signature": "com.gemius.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-228",
+   "name": "YouAppi",
+   "code_signature": "com.youappi.sdk.",
+   "categories": []
+  },
+  {
+   "id": "exodus-229",
+   "name": "Adobe Experience Cloud",
+   "code_signature": "com.adobe.marketing.mobile",
+   "categories": []
+  },
+  {
+   "id": "exodus-230",
+   "name": "Teads",
+   "code_signature": "tv.teads.|teads.tv.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-231",
+   "name": "In Loco",
+   "code_signature": "com.inlocomedia.android",
+   "categories": []
+  },
+  {
+   "id": "exodus-232",
+   "name": "IQzone",
+   "code_signature": "com.iqzone",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-233",
+   "name": "Bugfender",
+   "code_signature": "com.bugfender.sdk.",
+   "categories": [
+    "Crash reporting",
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-234",
+   "name": "Wootric",
+   "code_signature": "com.wootric.androidsdk.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-235",
+   "name": "KIDOZ",
+   "code_signature": "com.kidoz.sdk",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-236",
+   "name": "PubMatic",
+   "code_signature": "com.pubmatic.sdk",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-237",
+   "name": "Kissmetrics",
+   "code_signature": "com.kissmetrics",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-238",
+   "name": "Microsoft Visual Studio App Center Crashes",
+   "code_signature": "com.microsoft.appcenter.crashes",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-239",
+   "name": "Webtrekk",
+   "code_signature": "com.webtrekk.webtrekksdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-240",
+   "name": "Google Analytics Plugin (Cordova)",
+   "code_signature": "com.danielcwilson.plugins.analytics",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-241",
+   "name": "Bugsee",
+   "code_signature": "com.bugsee.library.Bugsee",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-242",
+   "name": "Splunk MINT",
+   "code_signature": "com.splunk.mint",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-243",
+   "name": "Microsoft Visual Studio App Center Analytics",
+   "code_signature": "com.microsoft.appcenter.analytics|com.microsoft.azure.mobile.analytics",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-244",
+   "name": "Nielsen",
+   "code_signature": "com.nielsen.app",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-245",
+   "name": "Reveal Mobile",
+   "code_signature": "com.stepleaderdigital.reveal",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-246",
+   "name": "Metrics",
+   "code_signature": "com.codahale.metrics",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-247",
+   "name": "Repro",
+   "code_signature": "io.repro.android.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-248",
+   "name": "Sensors Analytics",
+   "code_signature": "com.sensorsdata.analytics.android.sdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-249",
+   "name": "Tenjin",
+   "code_signature": "com.tenjin.android.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-250",
+   "name": "Tapstream",
+   "code_signature": "com.tapstream.sdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-251",
+   "name": "Singular",
+   "code_signature": "com.singular.sdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-252",
+   "name": "CallDorado",
+   "code_signature": "com.calldorado.android",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-253",
+   "name": "UXCam",
+   "code_signature": "com.uxcam.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-254",
+   "name": "Upsight",
+   "code_signature": "com.upsight.android",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-255",
+   "name": "Appcelerator Analytics",
+   "code_signature": "com.appcelerator.aps.|org.appcelerator.titanium.analytics",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-256",
+   "name": "Adbrix",
+   "code_signature": "com.igaworks.adbrix",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-257",
+   "name": "Cauly",
+   "code_signature": "com.fsn.cauly|com.trid.tridad|com.cauly.android.ad.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-258",
+   "name": "Tapdaq",
+   "code_signature": "com.tapdaq.sdk.|com.tapdaq.adapters.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-259",
+   "name": "Verve",
+   "code_signature": "com.vervewireless.advert.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-260",
+   "name": "Apsalar",
+   "code_signature": "com.apsalar.sdk.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-261",
+   "name": "PingStart",
+   "code_signature": "com.pingstart.adsdk.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-262",
+   "name": "Keen",
+   "code_signature": "io.keen.client.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-263",
+   "name": "Revmob",
+   "code_signature": "com.revmob.ads.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-264",
+   "name": "Emarsys Predict",
+   "code_signature": "com.emarsys.predict",
+   "categories": []
+  },
+  {
+   "id": "exodus-265",
+   "name": "Lotame",
+   "code_signature": "com.lotame.android",
+   "categories": []
+  },
+  {
+   "id": "exodus-266",
+   "name": "FollowAnalytics",
+   "code_signature": "com.followanalytics.",
+   "categories": []
+  },
+  {
+   "id": "exodus-267",
+   "name": "Chartbeat",
+   "code_signature": "com.chartbeat.androidsdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-268",
+   "name": "MoEngage",
+   "code_signature": "com.moengage.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-269",
+   "name": "Altamob",
+   "code_signature": "com.altamob.sdk",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-270",
+   "name": "Tealeaf",
+   "code_signature": "com.tl.uic.Tealeaf",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-271",
+   "name": "AMoAd",
+   "code_signature": "com.amoad.",
+   "categories": []
+  },
+  {
+   "id": "exodus-272",
+   "name": "AdAdapted",
+   "code_signature": "com.adadapted.android.sdk.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-273",
+   "name": "AdMuing",
+   "code_signature": "com.admuing.danmaku.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-274",
+   "name": "Adcash",
+   "code_signature": "com.adcash.mobileads.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-275",
+   "name": "Admixer",
+   "code_signature": "com.admixer|net.admixer.sdk",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-276",
+   "name": "Admost",
+   "code_signature": "admost.sdk.|admost.adserver.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-277",
+   "name": "Alohalytics",
+   "code_signature": "org.alohalytics.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-278",
+   "name": "Amobee",
+   "code_signature": "com.amobee.",
+   "categories": []
+  },
+  {
+   "id": "exodus-279",
+   "name": "Anagog",
+   "code_signature": "com.anagog.jedai",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-280",
+   "name": "Bazaarvoice",
+   "code_signature": "com.bazaarvoice.bvandroidsdk",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-281",
+   "name": "BeaconsInSpace (Fysical)",
+   "code_signature": "com.beaconsinspace.android.beacon.detector.",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-282",
+   "name": "Conversant",
+   "code_signature": "com.conversantmedia|com.greystripe.android.",
+   "categories": []
+  },
+  {
+   "id": "exodus-283",
+   "name": "Glympse",
+   "code_signature": "com.glympse.android.",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-284",
+   "name": "Herow",
+   "code_signature": "com.connecthings.herow",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-285",
+   "name": "Placer",
+   "code_signature": "com.placer.client.Placer",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-286",
+   "name": "PushSpring",
+   "code_signature": "com.pushspring.sdk.PushSpring",
+   "categories": []
+  },
+  {
+   "id": "exodus-287",
+   "name": "Pyze",
+   "code_signature": "com.pyze.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-288",
+   "name": "Radar",
+   "code_signature": "io.radar.sdk.Radar",
+   "categories": []
+  },
+  {
+   "id": "exodus-289",
+   "name": "Roximity",
+   "code_signature": "com.roximity.sdk.",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-290",
+   "name": "Sentiance",
+   "code_signature": "com.sentiance.sdk.",
+   "categories": []
+  },
+  {
+   "id": "exodus-291",
+   "name": "SmartLook",
+   "code_signature": "com.smartlook.sdk.smartlook.",
+   "categories": [
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-292",
+   "name": "Square Metrics",
+   "code_signature": "com.beaconinside.proximitysdk.ProximityService",
+   "categories": []
+  },
+  {
+   "id": "exodus-293",
+   "name": "TalkingData",
+   "code_signature": "com.talkingdata.sdk.|com.tendcloud.tenddata.|com.talkingdata.appanalytics.|com.talkingdata.adtracking.|com.tendcloud.appcpa.|com.apptalkingdata.push.|com.gametalkingdata.push.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-294",
+   "name": "flymob",
+   "code_signature": "com.flymob.sdk.",
+   "categories": []
+  },
+  {
+   "id": "exodus-295",
+   "name": "AdFalcon",
+   "code_signature": "com.noqoush.adfalcon.android.sdk",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-296",
+   "name": "Bitly",
+   "code_signature": "com.bitly.Bitly",
+   "categories": []
+  },
+  {
+   "id": "exodus-297",
+   "name": "Enhance",
+   "code_signature": "co.enhance.Enhance",
+   "categories": []
+  },
+  {
+   "id": "exodus-298",
+   "name": "Esri ArcGIS",
+   "code_signature": "com.esri.arcgisruntime.",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-299",
+   "name": "GIPHY Analytics",
+   "code_signature": "com.giphy.sdk.analytics|com.giphy.sdk.tracking",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-300",
+   "name": "Heap",
+   "code_signature": "com.heapanalytics",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-301",
+   "name": "Inneractive",
+   "code_signature": "com.inneractive.api.ads",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-302",
+   "name": "MDOTM",
+   "code_signature": "com.mdotm.android",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-303",
+   "name": "Metaps",
+   "code_signature": "com.metaps",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-304",
+   "name": "Parse.ly",
+   "code_signature": "com.parsely.parselyandroid",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-305",
+   "name": "Pollfish",
+   "code_signature": "com.pollfish",
+   "categories": [
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-306",
+   "name": "Qualtrics",
+   "code_signature": "com.qualtrics.digital.",
+   "categories": []
+  },
+  {
+   "id": "exodus-307",
+   "name": "Tamoco",
+   "code_signature": "com.tamoco.sdk",
+   "categories": [
+    "Location",
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-308",
+   "name": "Vpon",
+   "code_signature": "com.vpon.ads|com.vpadn.analytics|com.vpadn.ads.|com.vpadn.widget.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-309",
+   "name": "YuMe",
+   "code_signature": "com.yume.android",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-310",
+   "name": "Zapr",
+   "code_signature": "com.redbricklane.zapr",
+   "categories": [
+    "Analytics",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-311",
+   "name": "mediba",
+   "code_signature": "com.mediba.jp|mediba.ad.sdk.android.openx",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-312",
+   "name": "Google AdMob",
+   "code_signature": "com.google.ads.|com.google.android.gms.ads.AdView|com.google.android.gms.ads.AdActivity|com.google.android.gms.ads.AdRequest|com.google.android.gms.ads.mediation|com.google.android.gms.ads.doubleclick|com.google.android.ads.|com.google.unity.ads.|com.google.android.gms.admob|com.google.firebase.firebase_ads.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-313",
+   "name": "Unacast Pure",
+   "code_signature": "com.pure.internal.|com.pure.sdk.",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-314",
+   "name": "Factual",
+   "code_signature": "com.factual.engine|com.factual.Factual",
+   "categories": []
+  },
+  {
+   "id": "exodus-315",
+   "name": "Footmarks",
+   "code_signature": "com.footmarks.footmarkssdkm2",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-316",
+   "name": "OzTAM",
+   "code_signature": "au.com.oztam.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-317",
+   "name": "Receptiv (formerly Mediabrix)",
+   "code_signature": "com.mediabrix.android",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-318",
+   "name": "Tutela",
+   "code_signature": "com.tutelatechnologies.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-319",
+   "name": "Twine Data",
+   "code_signature": "com.twine.sdk",
+   "categories": []
+  },
+  {
+   "id": "exodus-320",
+   "name": "Verizon Ads",
+   "code_signature": "com.verizon.ads|com.verizondigitalmedia.mobile.|com.oath.mobile.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Identification",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-321",
+   "name": "adPOPcorn",
+   "code_signature": "com.igaworks.adpopcorn|com.igaworks.ssp.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-322",
+   "name": "maio by i-mobile",
+   "code_signature": "jp.maio.sdk.",
+   "categories": []
+  },
+  {
+   "id": "exodus-323",
+   "name": "360Dialog",
+   "code_signature": "com.threesixtydialog.sdk.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Identification",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-324",
+   "name": "ABTasty",
+   "code_signature": "com.abtasty",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-325",
+   "name": "ACRCloud",
+   "code_signature": "com.acrcloud",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-326",
+   "name": "Aarki",
+   "code_signature": "com.aarki",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Identification",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-327",
+   "name": "Actv8me",
+   "code_signature": "me.actv8",
+   "categories": [
+    "Profiling",
+    "Identification",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-328",
+   "name": "IAB Open Measurement",
+   "code_signature": "com.iab.omid.library|com.prime31.util.IabHelperImpl|com.prime31.IAB.",
+   "categories": [
+    "Identification",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-333",
+   "name": "Huawei Mobile Services (HMS) Core",
+   "code_signature": "com.huawei.hms.analytics|com.huawei.hms.location|com.huawei.hms.plugin.analytics|com.huawei.hms.plugin.ads|com.huawei.updatesdk.|com.huawei.agconnect.|com.huawei.hms.support.api.push.|com.huawei.hms.flutter.analytics.",
+   "categories": [
+    "Analytics",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-334",
+   "name": "Akamai MAP",
+   "code_signature": "com.akamai.android.sdk.AkaMap",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-336",
+   "name": "Mail.ru",
+   "code_signature": "ru.mail.mrgservice.advertising|ru.mail.mrgservice.analytics",
+   "categories": []
+  },
+  {
+   "id": "exodus-337",
+   "name": "Airpush",
+   "code_signature": "com.airpush.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-338",
+   "name": "Alimama (formerly AdsMogo)",
+   "code_signature": "com.adsmogo.|com.alimama.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-339",
+   "name": "AnySDK",
+   "code_signature": "com.anysdk.framework.AnalyticsWrapper|com.anysdk.framework.AdsWrapper",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-340",
+   "name": "Button",
+   "code_signature": "com.usebutton.sdk.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Identification"
+   ]
+  },
+  {
+   "id": "exodus-341",
+   "name": "Carto (formerly Nutiteq)",
+   "code_signature": "com.nutiteq|com.carto",
+   "categories": [
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-342",
+   "name": "Didomi",
+   "code_signature": "io.didomi.sdk.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-343",
+   "name": "JiGuang Aurora Mobile JPush",
+   "code_signature": "cn.jpush.android",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-344",
+   "name": "Jumio",
+   "code_signature": "com.jumio.MobileSDK",
+   "categories": [
+    "Identification"
+   ]
+  },
+  {
+   "id": "exodus-345",
+   "name": "Lenddo",
+   "code_signature": "com.lenddo.mobile",
+   "categories": [
+    "Analytics",
+    "Identification",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-346",
+   "name": "POKKT",
+   "code_signature": "com.pokkt.sdk.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-347",
+   "name": "Prebid Mobile",
+   "code_signature": "org.prebid.mobile",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-348",
+   "name": "SK planet Tad",
+   "code_signature": "com.skplanet.tad",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-349",
+   "name": "Split",
+   "code_signature": "io.split.android.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-350",
+   "name": "Exponea",
+   "code_signature": "com.infinario.android.infinariosdk.|com.exponea.sdk|com.sygic.aura.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-351",
+   "name": "IPQualityScore",
+   "code_signature": "com.ipqualityscore.",
+   "categories": [
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-352",
+   "name": "Opensignal",
+   "code_signature": "com.opensignal.datacollection.",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-353",
+   "name": "SignalFrame",
+   "code_signature": "com.wirelessregistry.observersdk.",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-354",
+   "name": "X-Mode",
+   "code_signature": "io.xmode.BcnConfig|io.xmode.locationsdk|io.mysdk.",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-355",
+   "name": "OneAudience",
+   "code_signature": "com.oneaudience.sdk.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-356",
+   "name": "OpenBack",
+   "code_signature": "com.openback",
+   "categories": []
+  },
+  {
+   "id": "exodus-357",
+   "name": "PredicIO",
+   "code_signature": "com.telescope.android|io.predic.tracker",
+   "categories": [
+    "Identification",
+    "Location",
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-358",
+   "name": "AdLocus",
+   "code_signature": "com.adlocus.",
+   "categories": [
+    "Profiling",
+    "Identification",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-359",
+   "name": "Adcenix",
+   "code_signature": "com.adcenix.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-360",
+   "name": "Admitad",
+   "code_signature": "ru.tachos.admitadstatisticsdk",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-361",
+   "name": "AutoNavi / Amap",
+   "code_signature": "com.amap.api",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-362",
+   "name": "IBM Digital Analytics",
+   "code_signature": "com.digitalanalytics.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-363",
+   "name": "Pangle",
+   "code_signature": "com.bytedance|com.pgl|com.pangle.global",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-364",
+   "name": "YOC VIS.X",
+   "code_signature": "com.yoc.visx",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-365",
+   "name": "Ad Generation",
+   "code_signature": "com.socdm.d.adgeneration.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-366",
+   "name": "Adjoe",
+   "code_signature": "io.adjoe.sdk.|io.adjoe.protection.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-367",
+   "name": "AppVador",
+   "code_signature": "com.appvador.ads.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-368",
+   "name": "Appodeal Stack",
+   "code_signature": "com.explorestack.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-369",
+   "name": "AppsGeyser",
+   "code_signature": "com.appsgeyser.sdk|com.appsgeyser.multiTabApp.VideoPlayerActivity",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-370",
+   "name": "BidMachine",
+   "code_signature": "io.bidmachine.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-371",
+   "name": "BugSense",
+   "code_signature": "com.bugsense.trace.",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-372",
+   "name": "BuzzAd Benefit",
+   "code_signature": "com.buzzvil.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-373",
+   "name": "GOM Factory AdPie",
+   "code_signature": "com.gomfactory.adpie.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-374",
+   "name": "JumpTap",
+   "code_signature": "com.jumptap.adtag.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-375",
+   "name": "LoopMe",
+   "code_signature": "com.loopme.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-376",
+   "name": "Raygun",
+   "code_signature": "com.mindscapehq.android.raygun4android",
+   "categories": [
+    "Crash reporting",
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-377",
+   "name": "RjFun",
+   "code_signature": "com.rjfun.cordova.ad|com.rjfun.cordova.admob",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-378",
+   "name": "SuperAwesome",
+   "code_signature": "tv.superawesome.sdk|tv.superawesome.lib.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-379",
+   "name": "TapResearch",
+   "code_signature": "com.tapr.sdk.|com.tapr.internal.|com.tapr.helpers.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-380",
+   "name": "Tappx",
+   "code_signature": "com.tappx.sdk.android",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-381",
+   "name": "ThinkingData Analytics",
+   "code_signature": "cn.thinkingdata.",
+   "categories": [
+    "Analytics",
+    "Identification"
+   ]
+  },
+  {
+   "id": "exodus-382",
+   "name": "VKontakte SDK",
+   "code_signature": "com.vk.sdk.|com.vk.api.sdk.",
+   "categories": [
+    "Identification"
+   ]
+  },
+  {
+   "id": "exodus-383",
+   "name": "Virgo Mobile",
+   "code_signature": "com.virgo.ads.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-384",
+   "name": "Zoho Analytics",
+   "code_signature": "com.zoho.zanalytics.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-385",
+   "name": "fineboost",
+   "code_signature": "com.fineboost.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-386",
+   "name": "Acuant",
+   "code_signature": "com.acuant.acuantcamera",
+   "categories": [
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-387",
+   "name": "Anvato (A Google Company)",
+   "code_signature": "com.anvato.androidsdk.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Identification",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-388",
+   "name": "Blesh",
+   "code_signature": "com.blesh.sdk.",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-389",
+   "name": "Bluecats",
+   "code_signature": "com.bluecats.sdk",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-390",
+   "name": "CoolaData",
+   "code_signature": "com.cooladata.android.",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-391",
+   "name": "FLUZO",
+   "code_signature": "com.fluzo.sdk.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-392",
+   "name": "Facebook Flipper",
+   "code_signature": "com.facebook.flipper",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-393",
+   "name": "GPShopper",
+   "code_signature": "com.gpshopper",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-394",
+   "name": "IndoorAtlas",
+   "code_signature": "com.indooratlas.android.sdk",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-395",
+   "name": "Janrain",
+   "code_signature": "com.janrain.android|com.janrain.android.engage|com.janrain.android.capture",
+   "categories": [
+    "Identification"
+   ]
+  },
+  {
+   "id": "exodus-396",
+   "name": "MOCA",
+   "code_signature": "com.innoquant.moca",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-397",
+   "name": "Point Inside",
+   "code_signature": "com.pointinside",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-398",
+   "name": "Proximi.io",
+   "code_signature": "io.proximi.proximiiolibrary",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-399",
+   "name": "ScoreLoop",
+   "code_signature": "com.scoreloop.client.android",
+   "categories": []
+  },
+  {
+   "id": "exodus-400",
+   "name": "Alooma",
+   "code_signature": "com.github.aloomaio.androidsdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-401",
+   "name": "Analytics by NPAW (Youbora Suite)",
+   "code_signature": "com.npaw.youbora.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-402",
+   "name": "Beintoo",
+   "code_signature": "com.beintoo.nucleon",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-403",
+   "name": "Bolts",
+   "code_signature": "com.parse.bolts",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-404",
+   "name": "Cedexis Radar",
+   "code_signature": "com.cedexis",
+   "categories": [
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-405",
+   "name": "Cifrasoft",
+   "code_signature": "com.cifrasoft.",
+   "categories": [
+    "Identification",
+    "Advertisement",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-406",
+   "name": "Flowsense",
+   "code_signature": "com.flowsense.flowsensesdk.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-407",
+   "name": "Geniee",
+   "code_signature": "jp.co.geniee.gnadsdk.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-408",
+   "name": "Huq Sourcekit",
+   "code_signature": "io.huq.sourcekit.",
+   "categories": [
+    "Analytics",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-409",
+   "name": "Insider",
+   "code_signature": "com.useinsider.insider",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-410",
+   "name": "Mopinion",
+   "code_signature": "com.mopinion.mopinionsdk",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-411",
+   "name": "OfferToro",
+   "code_signature": "com.offertoro.sdk.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-412",
+   "name": "OpenTelemetry (OpenCensus, OpenTracing)",
+   "code_signature": "io.opencensus|io.opentelemetry",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-413",
+   "name": "Snapchat Login Kit",
+   "code_signature": "com.snapchat.kit.sdk.SnapLogin",
+   "categories": [
+    "Identification"
+   ]
+  },
+  {
+   "id": "exodus-414",
+   "name": "Zendrive",
+   "code_signature": "com.zendrive.sdk.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-415",
+   "name": "fullstory",
+   "code_signature": "com.fullstory.instrumentation.|com.fullstory.util.|com.fullstory.jni.|com.fullstory.FS|com.fullstory.rust.|com.fullstory.FSSessionData",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-416",
+   "name": "Pendo",
+   "code_signature": "sdk.insert.io.|sdk.pendo.io.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-417",
+   "name": "Plexure",
+   "code_signature": "co.vmob.sdk",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-418",
+   "name": "Swirl",
+   "code_signature": "com.swirl",
+   "categories": []
+  },
+  {
+   "id": "exodus-419",
+   "name": "Treasure Data",
+   "code_signature": "com.treasuredata",
+   "categories": [
+    "Analytics",
+    "Profiling"
+   ]
+  },
+  {
+   "id": "exodus-420",
+   "name": "IBM Mobile Marketing (Acoustic)",
+   "code_signature": "com.ibm.mce.sdk.|co.acoustic.mobile.push.sdk.|com.xtify.mce.sdk.|com.xtify.android.sdk.",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-422",
+   "name": "Solar2D (Corona)",
+   "code_signature": "com.ansca.corona",
+   "categories": [
+    "Analytics",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-423",
+   "name": "Amazon Mobile Analytics (Amplify)",
+   "code_signature": "com.amplifyframework.analytics.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-424",
+   "name": "AD(X)",
+   "code_signature": "com.adxcorp.ads|com.adxcorp.nativead",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-425",
+   "name": "AdGateMedia",
+   "code_signature": "com.adgatemedia.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-426",
+   "name": "AdMarvel",
+   "code_signature": "com.admarvel.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-427",
+   "name": "AdTiming",
+   "code_signature": "com.aiming.mdt.|com.adtiming.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-428",
+   "name": "Adjust Unbotify",
+   "code_signature": "com.unbotify.mobile.sdk.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-429",
+   "name": "LotaData",
+   "code_signature": "com.lotadata.moments.",
+   "categories": [
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-430",
+   "name": "Marketo (an Adobe Company)",
+   "code_signature": "com.marketo.",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-431",
+   "name": "PlaytestCloud Event Tracking",
+   "code_signature": "com.playtestcloud.Analytics",
+   "categories": [
+    "Analytics"
+   ]
+  },
+  {
+   "id": "exodus-432",
+   "name": "Rollbar",
+   "code_signature": "com.rollbar.android.",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-433",
+   "name": "Snap Ad Kit",
+   "code_signature": "com.snap.adkit|com.snap.appadskit",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-434",
+   "name": "Synerise",
+   "code_signature": "com.synerise.sdk",
+   "categories": [
+    "Profiling",
+    "Identification",
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-435",
+   "name": "UserExperior",
+   "code_signature": "com.userexperior",
+   "categories": [
+    "Crash reporting",
+    "Analytics",
+    "Profiling",
+    "Location"
+   ]
+  },
+  {
+   "id": "exodus-436",
+   "name": "Vdopia",
+   "code_signature": "com.vdopia.client.android.|com.vdopia.ads.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-437",
+   "name": "AdGem",
+   "code_signature": "com.adgem.android.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-438",
+   "name": "AdTrial",
+   "code_signature": "com.adtrial.sdk.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-439",
+   "name": "Pincrux",
+   "code_signature": "com.pincrux.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-440",
+   "name": "Tutucloud",
+   "code_signature": "org.lasque.tusdk.core|org.lasque.tusdkpulse.core",
+   "categories": []
+  },
+  {
+   "id": "exodus-441",
+   "name": "Veloxity",
+   "code_signature": "net.veloxity.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-442",
+   "name": "Yoadx",
+   "code_signature": "com.yoadx.yoadx.",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-443",
+   "name": "Coulus Coelib",
+   "code_signature": "coelib.c.couluslibrary",
+   "categories": [
+    "Advertisement"
+   ]
+  },
+  {
+   "id": "exodus-444",
+   "name": "ACRA",
+   "code_signature": "org.acra.|ch.acra.",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-445",
+   "name": "Backtrace",
+   "code_signature": "com.github.backtrace-labs.|backtraceio.library.",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-447",
+   "name": "Sentry",
+   "code_signature": "io.sentry.|com.joshdholtz.sentry",
+   "categories": [
+    "Crash reporting"
+   ]
+  },
+  {
+   "id": "exodus-448",
+   "name": "Yueying Crash SDK",
+   "code_signature": "com.uc.crashsdk|com.uc2.crashsdk",
+   "categories": [
+    "Crash reporting",
+    "Analytics"
+   ]
+  },
+  {
+   "id": "fp-arity",
+   "name": "Arity",
+   "code_signature": "com.arity.coreengine.|com.arity.coreEngine.",
+   "categories": [
+    "Location"
+   ]
+  }
+ ]
+}

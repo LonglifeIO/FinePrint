@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/longlifeio/fineprint/bundle/schema.json",
+  "title": "Fine Print knowledge bundle",
+  "description": "Contract between the pipeline (producer) and the app (consumer). Bump schema_version on any breaking change.",
+  "type": "object",
+  "required": ["schema_version", "bundle_version", "generated_at", "trackers", "apps", "permissions"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "bundle_version": { "type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[0-9]+)?$" },
+    "generated_at": { "type": "string", "format": "date-time" },
+
+    "trackers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/tracker" }
+    },
+    "apps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/app" }
+    },
+    "permissions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/permission" }
+    }
+  },
+
+  "$defs": {
+    "status": {
+      "description": "How strong the claim is. Wording in the UI follows this.",
+      "enum": ["self_disclosed", "reported", "alleged", "adjudicated"]
+    },
+    "evidence_tier": {
+      "description": "How a finding was made on-device. Never upgrade contains_code to observed_contact.",
+      "enum": ["contains_code", "observed_contact"]
+    },
+    "source": {
+      "type": "object",
+      "required": ["url", "type", "as_of", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "type": {
+          "enum": ["privacy_policy", "data_safety_label", "regulator", "lawsuit", "journalism", "research", "company_site", "breach_notice"]
+        },
+        "title": { "type": "string" },
+        "as_of": { "type": "string", "format": "date" },
+        "status": { "$ref": "#/$defs/status" },
+        "quote": { "type": "string", "maxLength": 300, "description": "Short supporting excerpt, under 15 words if from a copyrighted source." }
+      }
+    },
+    "consequence": {
+      "type": "object",
+      "required": ["text", "status", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string", "maxLength": 400, "description": "Plain-language consequence for the user, one or two sentences." },
+        "status": { "$ref": "#/$defs/status" },
+        "wording": { "type": "string", "description": "Attribution phrase the UI shows, e.g. 'alleged in a lawsuit filed by the Texas AG on 2025-01-13 (not proven in court)'." },
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } }
+      }
+    },
+
+    "tracker": {
+      "type": "object",
+      "required": ["id", "name", "owner", "categories", "consequences", "last_reviewed"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^exodus-[0-9]+$|^fp-[a-z0-9-]+$", "description": "Exodus tracker ID where one exists; fp-* for trackers we add ourselves." },
+        "name": { "type": "string" },
+        "aka": { "type": "array", "items": { "type": "string" } },
+        "owner": { "type": "string", "description": "Ultimate parent company." },
+        "owner_chain": { "type": "array", "items": { "type": "string" }, "description": "Subsidiary → parent, e.g. ['Arity', 'Allstate Corporation']." },
+        "jurisdiction": { "type": "string" },
+        "categories": {
+          "type": "array",
+          "items": { "enum": ["advertising", "analytics", "location", "profiling", "identification", "crash_reporting", "telematics", "social", "payments", "other"] }
+        },
+        "data_collected": { "type": "array", "items": { "type": "string" } },
+        "monetization_model": { "type": "string", "description": "What the owner does with the data, plainly." },
+        "sold_to": { "type": "array", "items": { "type": "string" } },
+        "consequences": { "type": "array", "items": { "$ref": "#/$defs/consequence" } },
+        "confidence": { "enum": ["low", "medium", "high"] },
+        "last_reviewed": { "type": "string", "format": "date" }
+      }
+    },
+
+    "app": {
+      "type": "object",
+      "required": ["package_id", "display_name", "summary", "trackers", "consequences", "coverage", "last_reviewed"],
+      "additionalProperties": false,
+      "properties": {
+        "package_id": { "type": "string", "description": "Android package name. iOS bundle IDs go in ios_bundle_id." },
+        "ios_bundle_id": { "type": "string" },
+        "display_name": { "type": "string" },
+        "developer": { "type": "string" },
+        "summary": { "type": "string", "maxLength": 600 },
+        "risk_tags": {
+          "type": "array",
+          "items": { "enum": ["location_sale", "telematics", "ad_profiling", "regulatory_action", "breach", "child_data", "cross_app_tracking", "data_broker"] }
+        },
+        "trackers": {
+          "type": "array",
+          "description": "Tracker IDs expected in this app, per Exodus or our own analysis. The app shows what it actually detected; this is the reference.",
+          "items": { "type": "string" }
+        },
+        "consequences": { "type": "array", "items": { "$ref": "#/$defs/consequence" } },
+        "privacy_policy_url": { "type": "string", "format": "uri" },
+        "privacy_policy_as_of": { "type": "string", "format": "date" },
+        "coverage": {
+          "enum": ["curated", "auto"],
+          "description": "curated = human-reviewed record; auto = generated from tracker records only, no app-specific claims."
+        },
+        "last_reviewed": { "type": "string", "format": "date" }
+      }
+    },
+
+    "permission": {
+      "type": "object",
+      "required": ["id", "plain", "why_it_matters"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "e.g. android.permission.ACCESS_FINE_LOCATION" },
+        "plain": { "type": "string", "maxLength": 200, "description": "What this lets the app do, in one sentence." },
+        "why_it_matters": { "type": "string", "maxLength": 400, "description": "What this permission plus a tracker can turn into." },
+        "dangerous": { "type": "boolean" },
+        "remediation_intent": { "type": "string", "default": "android.settings.APPLICATION_DETAILS_SETTINGS" }
+      }
+    }
+  }
+}
