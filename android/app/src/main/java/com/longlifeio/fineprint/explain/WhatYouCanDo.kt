@@ -4,21 +4,34 @@ import com.longlifeio.fineprint.bundle.AppRecord
 import com.longlifeio.fineprint.bundle.Source
 import com.longlifeio.fineprint.egress.InstalledApp
 
-/** One checklist item: an Android setting (ticked from what Android reports) or an in-app one (ticked by you). */
+/**
+ * One checklist item: an Android setting FinePrint reads ([automatic]: shown as a read-only status),
+ * one it can't see (the advertising ID), or a setting inside the app ([inApp]); the last two you tick.
+ */
 data class CheckItem(
     val id: String,
     val label: String,
     val how: String,
-    /** True when FinePrint ticks it itself, from the permissions Android reports. */
+    /** True when FinePrint reads it from what Android reports; then [ticked] means "off". */
     val automatic: Boolean,
     val ticked: Boolean,
+    val inApp: Boolean = false,
     /** Data kinds (Android items) or flow ids (in-app items) the item limits. */
     val limitsData: Set<String> = emptySet(),
     val limitsFlows: Set<String> = emptySet(),
     val sources: List<Source> = emptyList(),
     /** In-app items: what turning it off changes, as the app puts it. */
     val effect: String? = null,
-)
+    /** What FinePrint infers about the flows it limits, when the sources don't say so outright. */
+    val notes: List<String> = emptyList(),
+) {
+    /** The fixed subtext for this kind of item. */
+    val subtext: String get() = when {
+        automatic -> if (ticked) CHECK_ANDROID_OFF else CHECK_ANDROID_ON
+        inApp -> CHECK_IN_APP
+        else -> CHECK_ANDROID_UNSEEN
+    }
+}
 
 /** The "What you can do" checklist, how many of the app's current flows it limits, and free-text controls for records without structured ones. */
 data class WhatYouCanDo(val items: List<CheckItem>, val limited: Int, val total: Int, val inAppText: String?) {
@@ -41,12 +54,25 @@ private val ANDROID_ITEMS = mapOf(
 )
 
 /**
+ * The flows the "N of M" count is about: current lines beyond "Stays here", each counted once.
+ * Reviewed lines (the app's record, a tracker's record) count one each; an inferred line counts only
+ * when it adds data no reviewed line in its bucket already covers, since it restates the same flow
+ * from tracker code.
+ */
+internal fun countedFlows(e: Explanation): List<FlowLine> {
+    val current = e.flows.filterKeys { it != STAYS_HERE }.values.flatten().filterNot { it.historical }
+    val reviewed = current.filter { it.status != null }
+    val covered = reviewed.map { it.bucket to it.data }.toSet()
+    return reviewed + current.filter { it.status == null && (it.bucket to it.data) !in covered }.distinctBy { it.bucket to it.data }
+}
+
+/**
  * Android items for the permissions the app asks for that feed a line beyond "Stays here" (from the
- * bundle's permission [feeds]); then the record's in-app controls. A current line counts as limited
- * when a ticked item applies to its data kind or names it.
+ * bundle's permission [feeds]); then the record's in-app controls. A counted flow is limited when a
+ * ticked item applies to its data kind or names it.
  */
 fun whatYouCanDo(app: InstalledApp, e: Explanation, record: AppRecord?, feeds: Map<String, List<String>>, ticked: Set<String>): WhatYouCanDo {
-    val current = e.flows.filterKeys { it != STAYS_HERE }.values.flatten().filterNot { it.historical }
+    val current = countedFlows(e)
     val currentData = current.map { it.data }.toSet()
     val items = ArrayList<CheckItem>()
     for (p in app.permissions) {
@@ -55,7 +81,7 @@ fun whatYouCanDo(app: InstalledApp, e: Explanation, record: AppRecord?, feeds: M
         if (p.name == AD_ID) {
             items += CheckItem(
                 "android:$AD_ID", "Delete your advertising ID",
-                "Android settings > Privacy > Ads: Delete advertising ID. It applies to every app, and FinePrint can't see it, so tick it yourself.",
+                "Android settings > Privacy > Ads: Delete advertising ID. It applies to every app.",
                 automatic = false, ticked = "android:$AD_ID" in ticked, limitsData = data,
             )
         } else {
@@ -65,8 +91,8 @@ fun whatYouCanDo(app: InstalledApp, e: Explanation, record: AppRecord?, feeds: M
     }
     record?.controls?.forEach { c ->
         items += CheckItem(
-            c.id, c.label, c.how, automatic = false, ticked = c.id in ticked, limitsFlows = c.limits.toSet(), sources = c.sources,
-            effect = c.effect.ifBlank { null },
+            c.id, c.label, c.how, automatic = false, ticked = c.id in ticked, inApp = true, limitsFlows = c.limits.map { it.flow }.toSet(),
+            sources = c.sources, effect = c.effect.ifBlank { null }, notes = c.limits.filter { it.inferred }.mapNotNull { it.note },
         )
     }
     val limited = current.count { line -> items.any { it.ticked && (line.data in it.limitsData || line.id in it.limitsFlows) } }

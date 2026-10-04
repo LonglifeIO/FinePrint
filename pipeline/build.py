@@ -117,7 +117,12 @@ def control_problems(app: dict) -> list[str]:
     ids = [f["id"] for f in app.get("data_flows", []) if "id" in f]
     errors = [f"{app['package_id']}: flow id {i!r} used twice" for i in sorted({i for i in ids if ids.count(i) > 1})]
     for control in app.get("controls", []):
-        errors += [f"{app['package_id']}: control {control['id']!r} limits unknown flow {i!r}" for i in control["limits"] if i not in ids]
+        for limit in control["limits"]:
+            flow = limit if isinstance(limit, str) else limit["flow"]
+            if flow not in ids:
+                errors.append(f"{app['package_id']}: control {control['id']!r} limits unknown flow {flow!r}")
+            if isinstance(limit, dict) and limit.get("inferred") and not limit.get("note", "").strip():
+                errors.append(f"{app['package_id']}: control {control['id']!r} infers it limits {flow!r} but says nothing about why")
     return errors
 
 

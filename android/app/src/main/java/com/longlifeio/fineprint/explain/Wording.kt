@@ -15,7 +15,16 @@ val WHERE_IT_GOES = SectionText("Where it goes", "Who gets that data, and whethe
 val APPLIES = SectionText("This applies to you because", "Permissions you've actually granted that feed the above.")
 val ON_THE_RECORD = SectionText("On the record", "What regulators and courts have said.")
 val ALSO_REPORTED = SectionText("Also reported", "Reported by journalists, researchers or breach trackers; no court or regulator has ruled on it.")
-val WHAT_YOU_CAN_DO = SectionText("What you can do", "Settings that limit the flows above. FinePrint ticks the Android ones itself when it sees them change; you tick the ones inside the app.")
+val WHAT_YOU_CAN_DO = SectionText(
+    "What you can do",
+    "Settings that limit the flows above. FinePrint can't change anything; it shows what Android reports and lets you record what you've changed inside the app.",
+)
+
+/** The checklist's subtexts: always the same for each kind of item. */
+const val CHECK_ANDROID_OFF = "Checked automatically — Android shows this is off"
+const val CHECK_ANDROID_ON = "Checked automatically — Android shows this is still on"
+const val CHECK_IN_APP = "Check this yourself — FinePrint can't see settings inside other apps."
+const val CHECK_ANDROID_UNSEEN = "Check this yourself — FinePrint can't see this Android setting."
 val DEVICE_ACCESS = SectionText("Device access", "Extra powers this app has registered, beyond ordinary permissions.")
 val EVIDENCE = SectionText("Evidence", "The trackers and permissions behind the sections above.")
 

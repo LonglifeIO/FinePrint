@@ -22,7 +22,8 @@ class MethodDocTest {
             BUCKET_TEXT.values.flatMap { listOf(it.title, it.subtitle) } +
             BADGES.values.flatMap { listOf(it.label, it.definition) } +
             Tier.entries.flatMap { listOf(it.label, it.definition) } +
-            listOf(NO_RECORD, NO_RECORD_DEFINITION, STALE_DEFINITION, REVIEWED, REVIEWED_DEFINITION, CHANGED, CHANGED_DEFINITION, LIMITED_DEFINITION)
+            listOf(NO_RECORD, NO_RECORD_DEFINITION, STALE_DEFINITION, REVIEWED, REVIEWED_DEFINITION, CHANGED, CHANGED_DEFINITION, LIMITED_DEFINITION) +
+            listOf(CHECK_ANDROID_OFF, CHECK_ANDROID_ON, CHECK_IN_APP, CHECK_ANDROID_UNSEEN)
         assertEquals(emptyList<String>(), shown.filterNot { it in published })
     }
 

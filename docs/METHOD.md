@@ -18,7 +18,7 @@ Every app's page has the same sections, in the same order. A section with nothin
 - What it collects: Data this app takes from your phone, in plain terms.
 - Where it goes: Who gets that data, and whether it's used beyond running the app.
 - This applies to you because: Permissions you've actually granted that feed the above.
-- What you can do: Settings that limit the flows above. FinePrint ticks the Android ones itself when it sees them change; you tick the ones inside the app.
+- What you can do: Settings that limit the flows above. FinePrint can't change anything; it shows what Android reports and lets you record what you've changed inside the app.
 - On the record: What regulators and courts have said.
 - Also reported: Reported by journalists, researchers or breach trackers; no court or regulator has ruled on it.
 - Device access: Extra powers this app has registered, beyond ordinary permissions.
@@ -85,9 +85,16 @@ Stale: Last reviewed more than 180 days ago; it may be out of date.
 
 ## What you can do
 
-Each app's page lists the settings that limit where its data goes, as a checklist. FinePrint ticks an Android permission item itself when Android reports that permission is off. You tick the items inside the app yourself, and the advertising ID item, which applies to every app and which FinePrint can't see. An item inside the app says what turning it off changes, quoting the app where it says, or that the app doesn't say.
+Each app's page lists the settings that limit where its data goes. FinePrint can't change any of them. For an Android permission, it shows what Android reports, Off ✓ or On ○; tap the item to open the app's Android settings. Settings inside the app, and the advertising ID, which applies to every app, are things FinePrint can't see: each has a checkbox you tick yourself once you've changed it. A setting inside the app says what turning it off changes, quoting the app where it says, or that the app doesn't say. When FinePrint infers that a setting covers a flow its sources don't name outright, the item says so.
 
-The page and the list say how many of the app's current flows your settings limit, such as 3 of 11 flows limited by your settings. Flows that stay with the app, and past practices, aren't counted.
+The line under each item says which kind it is:
+
+- Checked automatically — Android shows this is off
+- Checked automatically — Android shows this is still on
+- Check this yourself — FinePrint can't see settings inside other apps.
+- Check this yourself — FinePrint can't see this Android setting.
+
+The page and the list say how many of the app's current flows your settings limit, such as 3 of 7 flows limited by your settings. Each flow counts once: a line FinePrint inferred from tracker code counts only when it adds data that the reviewed lines don't already cover. Flows that stay with the app, and past practices, aren't counted.
 
 - Limited: A flow counts as limited when a setting you've changed applies to it: an Android permission turned off, or an in-app setting ticked. Limited doesn't mean stopped.
 

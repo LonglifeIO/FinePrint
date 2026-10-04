@@ -13,7 +13,7 @@ class ListOrderTest {
     )
 
     private fun explanation(tier: Tier?, coverage: String) = Explanation(
-        appName = "", summary = "", coverage = coverage, tier = TierResult(tier, "r", "x"),
+        appName = "", summary = "", summaryNotes = emptyList(), coverage = coverage, tier = TierResult(tier, "r", "x"),
         privacyControls = null, collects = emptyList(), flows = emptyMap(), applies = emptyList(), onTheRecord = emptyList(),
         alsoReported = emptyList(), reach = emptyList(), lastReviewed = null, stale = false, exodusNote = null,
     )

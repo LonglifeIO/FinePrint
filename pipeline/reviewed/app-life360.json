@@ -6,6 +6,24 @@
    "developer": "Life360, Inc.",
    "developer_company": "co-life360",
    "summary": "Life360 lets family members see each other's locations and get driving and crash alerts. To do that, it collects precise location, movement and driving data. According to its privacy policy (26 Aug 2026), it may also share that data with business partners for their own commercial use, and offer aggregated driving data to help insurers model driving behaviour. One partner, Arity (owned by Allstate), is the subject of ongoing lawsuits over how driving data from apps like Life360 was used; nothing is proven, and Life360 isn't a defendant. If you want the family features without the partner sharing, Life360's own settings let you turn most of it off.",
+   "summary_notes": [
+    {
+     "text": "Life360 says it does not share or sell data of members it knows are under 18.",
+     "status": "self_disclosed",
+     "wording": "According to Life360's privacy policy dated 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://legal.corp.life360.com/hc/en-us/articles/16038777217175-Life360-Privacy-Policy",
+       "type": "privacy_policy",
+       "title": "Life360 Privacy Policy, §VI.C",
+       "as_of": "2026-08-26",
+       "status": "self_disclosed",
+       "quote": "not share or sell personal information of members we know to be under 18",
+       "verify_url": "https://legal.corp.life360.com/api/v2/help_center/en-us/articles/16038777217175.json"
+      }
+     ]
+    }
+   ],
    "risk_tags": [
     "location_sale",
     "telematics",
@@ -418,7 +436,11 @@
       "flow-l360-ads-activity",
       "flow-l360-ads-email",
       "flow-l360-partners-location",
-      "flow-l360-sensitive"
+      {
+       "flow": "flow-l360-sensitive",
+       "inferred": true,
+       "note": "Life360's policy says this covers sales of precise location, which it treats as sensitive data; FinePrint infers it covers the Texas-notice sale."
+      }
      ],
      "sources": [
       {

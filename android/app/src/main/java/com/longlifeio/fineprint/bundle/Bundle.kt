@@ -82,11 +82,17 @@ data class LegalEvent(
 
 data class ExodusReport(val id: Int, val appVersion: String, val created: String, val trackerCount: Int)
 
+/** A flow a control limits; [inferred] when the sources don't say so in as many words, with a [note] saying what is inferred. */
+data class Limit(val flow: String, val inferred: Boolean = false, val note: String? = null)
+
 /**
  * An in-app setting that limits some of the app's flows (by flow id); the user ticks it when done.
  * [effect] is what turning it off changes, in the app's own quoted words, or that the app doesn't say.
  */
-data class Control(val id: String, val label: String, val how: String, val effect: String, val limits: List<String>, val sources: List<Source>)
+data class Control(val id: String, val label: String, val how: String, val effect: String, val limits: List<Limit>, val sources: List<Source>)
+
+/** A short sourced line shown under the summary, such as what the app's policy says it doesn't do. */
+data class SummaryNote(val text: String, val status: String, val wording: String?, val sources: List<Source>)
 
 data class AppRecord(
     /** SHA-256 of the record's JSON (without the build-computed stale flag): changes only when the record does. */
@@ -95,6 +101,7 @@ data class AppRecord(
     val displayName: String,
     val developerCompany: String?,
     val summary: String,
+    val summaryNotes: List<SummaryNote>,
     val trackers: List<String>,
     val exodusReport: ExodusReport?,
     val dataFlows: List<DataFlow>,
@@ -158,6 +165,9 @@ private fun JSONObject.toAppRecord() = AppRecord(
     displayName = getString("display_name"),
     developerCompany = text("developer_company"),
     summary = getString("summary"),
+    summaryNotes = objects("summary_notes").map {
+        SummaryNote(it.getString("text"), it.getString("status"), it.text("wording"), it.objects("sources").map { s -> s.toSource() })
+    },
     trackers = strings("trackers"),
     exodusReport = optJSONObject("exodus_report")?.let {
         ExodusReport(it.getInt("id"), it.getString("app_version"), it.getString("created"), it.getInt("tracker_count"))
@@ -169,7 +179,7 @@ private fun JSONObject.toAppRecord() = AppRecord(
     riskTagNotes = optJSONObject("risk_tag_notes")?.let { o -> o.keys().asSequence().associateWith { o.getString(it) } }.orEmpty(),
     controls = objects("controls").map {
         Control(
-            it.getString("id"), it.getString("label"), it.getString("how"), it.text("effect").orEmpty(), it.strings("limits"),
+            it.getString("id"), it.getString("label"), it.getString("how"), it.text("effect").orEmpty(), it.limits(),
             it.objects("sources").map { s -> s.toSource() },
         )
     },
@@ -251,6 +261,17 @@ private fun JSONObject.toSource() = Source(
     derivesFrom = text("derives_from"),
     singleSource = optBoolean("single_source"),
 )
+
+/** A control's limits: plain flow ids, or {flow, inferred, note} objects. */
+private fun JSONObject.limits(): List<Limit> {
+    val a = optJSONArray("limits") ?: return emptyList()
+    return List(a.length()) { i ->
+        when (val v = a.get(i)) {
+            is JSONObject -> Limit(v.getString("flow"), v.optBoolean("inferred"), v.text("note"))
+            else -> Limit(v.toString())
+        }
+    }
+}
 
 /** SHA-256 of this record's JSON, leaving out "stale", which build.py recomputes on every build. */
 private fun JSONObject.contentHash(): String {

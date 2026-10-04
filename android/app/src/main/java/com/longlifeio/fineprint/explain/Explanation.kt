@@ -8,6 +8,7 @@ import com.longlifeio.fineprint.bundle.DataFlow
 import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.ReachText
 import com.longlifeio.fineprint.bundle.Source
+import com.longlifeio.fineprint.bundle.SummaryNote
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.egress.TrackerSignature
@@ -16,6 +17,8 @@ import com.longlifeio.fineprint.egress.TrackerSignature
 data class Explanation(
     val appName: String,
     val summary: String,
+    /** Sourced lines shown under the summary. */
+    val summaryNotes: List<SummaryNote>,
     /** "curated" (a reviewed record exists) or "auto" (inferred from tracker code only). */
     val coverage: String,
     /** Its tier is null for "No record yet", with what the scan found as the line. */
@@ -95,6 +98,7 @@ fun explain(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?, signat
     return Explanation(
         appName = appName,
         summary = record?.summary ?: autoSummary(detected.map { it.name }),
+        summaryNotes = record?.summaryNotes.orEmpty(),
         coverage = if (record != null) "curated" else "auto",
         tier = if (record == null && !readable) TierResult(null, scanFacts(app, scan), "N") else tier(
             curated = record != null,

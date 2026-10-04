@@ -128,6 +128,17 @@ class ControlTest(unittest.TestCase):
         self.assertTrue(any("flow-missing" in p for p in problems))
         self.assertTrue(any("used twice" in p for p in problems))
 
+    def test_an_inferred_limit_says_what_is_inferred(self):
+        flow = {"id": "flow-a", "data": "precise_location", "recipient_label": "x", "purpose": "p", "bucket": "goes_elsewhere",
+                "status": "self_disclosed", "sources": [SOURCE]}
+        control = {"id": "ctl-a", "label": "Setting", "how": "In the app", "effect": "The app doesn't say what changes.",
+                   "limits": [{"flow": "flow-a", "inferred": True, "note": "The policy says X; FinePrint infers Y."}], "sources": [SOURCE]}
+        good = dict(app("2026-10-01"), data_flows=[flow], controls=[control])
+        self.assertEqual(build.control_problems(good), [])
+        self.assertEqual(schema_errors(doc(apps=[good])), [])
+        silent = dict(good, controls=[dict(control, limits=[{"flow": "flow-a", "inferred": True}])])
+        self.assertTrue(any("says nothing about why" in p for p in build.control_problems(silent)))
+
 
 class RiskTagTest(unittest.TestCase):
     def record(self, subject: str, **extra) -> dict:

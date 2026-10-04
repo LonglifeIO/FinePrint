@@ -63,6 +63,16 @@ fun LazyListScope.detailSections(
 ) {
     section("summary", if (e.coverage == "curated") SUMMARY_CURATED else SUMMARY_AUTO)
     item { Paragraph(e.summary) }
+    items(e.summaryNotes) { note ->
+        Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(note.text, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+                StatusBadge(note.status, historical = false)
+            }
+            note.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+            SourcesRow(note.text, note.sources, null, onSources)
+        }
+    }
 
     section("collects", COLLECTS)
     item {
@@ -99,7 +109,7 @@ fun LazyListScope.detailSections(
     if (check.items.isNotEmpty() || check.inAppText != null) {
         section("todo", WHAT_YOU_CAN_DO)
         check.summary?.let { item { Text(it, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) } }
-        items(check.items, key = { "check:" + it.id }) { CheckRow(it, onTick, onSources) }
+        items(check.items, key = { "check:" + it.id }) { CheckRow(it, onTick, onSources, onOpenSettings) }
         check.inAppText?.let { item { Note("Inside the app: $it") } }
     }
 
