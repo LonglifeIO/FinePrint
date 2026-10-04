@@ -1,0 +1,244 @@
+{
+ "companies": [
+  {
+   "id": "co-meta",
+   "name": "Meta Platforms, Inc.",
+   "subsidiaries": [
+    "Meta Platforms Ireland Limited"
+   ],
+   "jurisdiction": "US",
+   "roles": [
+    "developer",
+    "tracker_owner"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2012-08-10",
+     "title": "FTC privacy order against Facebook",
+     "body": "US Federal Trade Commission",
+     "type": "order",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Settled charges that Facebook told users they could keep information private, then let it be shared and made public.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2012/08/ftc-approves-final-settlement-facebook",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2012-08-10",
+       "status": "adjudicated",
+       "quote": "deceived consumers by telling them they could keep their information on Facebook private",
+       "wayback_url": "https://web.archive.org/web/20260913051833/https://www.ftc.gov/news-events/news/press-releases/2012/08/ftc-approves-final-settlement-facebook",
+       "wayback_date": "2026-09-13",
+       "verify_url": "https://web.archive.org/web/20260913051833/https://www.ftc.gov/news-events/news/press-releases/2012/08/ftc-approves-final-settlement-facebook"
+      }
+     ]
+    },
+    {
+     "date": "2019-07-24",
+     "title": "$5 billion FTC penalty and a new 20-year privacy order",
+     "body": "US Federal Trade Commission",
+     "type": "fine",
+     "amount": "$5 billion",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Settled charges that Facebook violated its 2012 order by deceiving users about their privacy controls, including sharing friends' data with third-party apps. The court entered the order on 2020-04-23.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2019-07-24",
+       "status": "adjudicated",
+       "quote": "$5 billion penalty … deceiving users about their ability to control the privacy",
+       "wayback_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2020-04-28",
+       "status": "adjudicated",
+       "quote": "Judge Timothy J. Kelly entered the order on April 23, 2020.",
+       "wayback_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "wayback_date": "2026-01-04",
+       "verify_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement"
+      }
+     ]
+    },
+    {
+     "date": "2021-02",
+     "title": "Illinois biometric privacy class action settlement",
+     "body": "US District Court (Judge James Donato)",
+     "type": "class_action",
+     "amount": "$650 million",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Over face templates made for photo tagging without consent, under the Illinois Biometric Information Privacy Act.",
+     "sources": [
+      {
+       "url": "https://appleinsider.com/articles/21/02/27/facebook-agrees-to-650m-settlement-to-end-illinois-privacy-lawsuit",
+       "type": "journalism",
+       "title": "AppleInsider",
+       "as_of": "2021-02-27",
+       "status": "adjudicated",
+       "quote": "A judge has approved a settlement valued at $650 million from Facebook"
+      }
+     ]
+    },
+    {
+     "date": "2022-11-28",
+     "title": "Irish DPC fine over Facebook data scraping",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€265 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Decision against Meta Platforms Ireland Limited adopted 2022-11-25: GDPR Articles 25(1) and 25(2), over Facebook Search and the contact importer tools (May 2018 to September 2019).",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/data-protection-commission-announces-decision-in-facebook-data-scraping-inquiry",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2022-11-28",
+       "status": "adjudicated",
+       "quote": "imposing a fine of €265 million … collated dataset of Facebook personal data"
+      }
+     ]
+    },
+    {
+     "date": "2023-01-04",
+     "title": "Irish DPC fines over the legal basis for Facebook and Instagram processing",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€390 million (€210 million for Facebook, €180 million for Instagram)",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Concerned Meta Ireland's reliance on contract rather than consent, including for behavioural advertising.",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/data-protection-commission-announces-conclusion-two-inquiries-meta-ireland",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2023-01-04",
+       "status": "adjudicated",
+       "quote": "Meta Ireland €210 million (for breaches of the GDPR relating to its Facebook service)"
+      }
+     ]
+    },
+    {
+     "date": "2023-05-22",
+     "title": "Irish DPC fine over EU-US transfers of Facebook users' data",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€1.2 billion",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Decision adopted 2023-05-12 under GDPR Article 46(1), following the EDPB's binding decision.",
+     "procedural_note": {
+      "text": "Meta said on 2023-05-22 that it would appeal the decision, including the fine.",
+      "sources": [
+       {
+        "url": "https://about.fb.com/news/2023/05/our-response-to-the-decision-on-facebooks-eu-us-data-transfers/",
+        "type": "company_site",
+        "title": "Meta Newsroom",
+        "as_of": "2023-05-22",
+        "status": "self_disclosed",
+        "quote": "We intend to appeal both the decision's substance and its orders including the fine"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/Data-Protection-Commission-announces-conclusion-of-inquiry-into-Meta-Ireland",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2023-05-22",
+       "status": "adjudicated",
+       "quote": "its Facebook service … administrative fine in the amount of €1.2 billion"
+      }
+     ]
+    },
+    {
+     "date": "2024-07-30",
+     "title": "Texas biometric privacy settlement (Capture or Use of Biometric Identifier Act)",
+     "body": "Texas Attorney General",
+     "type": "lawsuit",
+     "amount": "$1.4 billion over five years",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "concerns_app": "com.facebook.katana",
+     "notes": "Texas sued in February 2022 over facial recognition on photos uploaded to Facebook (Tag Suggestions).",
+     "sources": [
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-secures-14-billion-settlement-meta-over-its-unauthorized-capture",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2024-07-30",
+       "status": "adjudicated",
+       "quote": "$1.4 billion settlement with Meta … personal biometric data of millions of Texans"
+      },
+      {
+       "url": "https://www.texastribune.org/2024/07/30/texas-meta-facebook-biometric-data-settlement/",
+       "type": "journalism",
+       "title": "The Texas Tribune",
+       "as_of": "2024-07-30",
+       "status": "adjudicated",
+       "quote": "does not act as an admission of guilt and Meta maintains no wrongdoing"
+      }
+     ]
+    },
+    {
+     "date": "2024-09-27",
+     "title": "Irish DPC fine over passwords stored in plaintext",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€91 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "notes": "Meta notified the DPC in 2019 that it had stored some users' passwords without encryption. The release does not name the service.",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/DPC-announces-91-million-fine-of-Meta",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2024-09-27",
+       "status": "adjudicated",
+       "quote": "stored certain passwords of social media users in 'plaintext' … fine of €91million"
+      }
+     ]
+    },
+    {
+     "date": "2024-12-17",
+     "title": "Irish DPC fines over the 2018 Facebook token breach",
+     "body": "Data Protection Commission (Ireland)",
+     "type": "fine",
+     "amount": "€251 million",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "concerns_app": "com.facebook.katana",
+     "notes": "About 29 million accounts worldwide, about 3 million in the EU/EEA. Fines: €8 million (Art. 33(3)), €3 million (Art. 33(5)), €130 million (Art. 25(1)), €110 million (Art. 25(2)).",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/irish-data-protection-commission-fines-meta-eu251-million",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2024-12-17",
+       "status": "adjudicated",
+       "quote": "approximately 29 million Facebook accounts globally … administrative fines totalling €251 million"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}

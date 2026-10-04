@@ -1,0 +1,264 @@
+{
+ "apps": [
+  {
+   "package_id": "com.facebook.katana",
+   "display_name": "Facebook",
+   "developer": "Meta Platforms, Inc.",
+   "developer_company": "co-meta",
+   "summary": "Facebook lets you share posts, photos and messages with friends and groups. To run it, Meta collects what you do in the app and information about your device. According to its privacy policy (23 Jul 2026), Meta also uses what advertisers and other partners tell it about your activity elsewhere \"to personalize ads\", and receives that information \"whether or not you're logged in or have an account\". Regulators in the US and Ireland have fined Meta over its handling of Facebook users' data.",
+   "summary_notes": [
+    {
+     "text": "Meta says it doesn't sell any of your information to anyone.",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, How do we share information with third parties?",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "We don't sell any of your information to anyone, and we never will.",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      }
+     ]
+    }
+   ],
+   "risk_tags": [
+    "ad_profiling",
+    "cross_app_tracking",
+    "data_broker",
+    "breach",
+    "regulatory_action"
+   ],
+   "risk_tag_notes": {
+    "data_broker": "brokers such as LiveRamp send Meta data about you (one 2024 study); not a sale by Meta"
+   },
+   "trackers": [
+    "exodus-47",
+    "exodus-48",
+    "exodus-65",
+    "exodus-66",
+    "exodus-68",
+    "exodus-69",
+    "exodus-70",
+    "exodus-171",
+    "exodus-392"
+   ],
+   "privacy_policy_url": "https://www.facebook.com/privacy/policy/",
+   "privacy_policy_as_of": "2026-07-23",
+   "data_flows": [
+    {
+     "data": "app_activity",
+     "recipient": "co-meta",
+     "purpose": "Personalized ads and content across Meta's apps",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, How do we use your information?",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "We use information we collect to provide a personalized experience to you, including ads",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      }
+     ]
+    },
+    {
+     "data": "app_activity",
+     "recipient": "co-meta",
+     "purpose": "Ads Meta shows you in other apps, through Audience Network",
+     "bucket": "used_for_more",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, Personalizing ads on Meta Audience Network",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "When we show you ads through Meta Audience Network when you visit other apps",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Advertisers and other partners send Meta information about what you do outside its apps, and Meta uses it to personalize the ads you see. It receives this \"whether or not you're logged in or have an account\".",
+     "status": "self_disclosed",
+     "wording": "According to Meta's privacy policy dated 2026-07-23.",
+     "sources": [
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, Using information from third parties for personalizing ads",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "partners provide us about activity off the Meta Company Products … to personalize ads",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      },
+      {
+       "url": "https://www.facebook.com/privacy/policy/",
+       "type": "privacy_policy",
+       "title": "Meta Privacy Policy, Using information from third parties for personalizing ads",
+       "as_of": "2026-07-23",
+       "status": "self_disclosed",
+       "quote": "We receive this information whether or not you're logged in or have an account",
+       "wayback_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/",
+       "wayback_date": "2026-10-03",
+       "verify_url": "https://web.archive.org/web/20261003114803/https://www.facebook.com/privacy/policy/"
+      }
+     ]
+    },
+    {
+     "text": "In a 2024 Consumer Reports study of 709 volunteers' Facebook data, an average of 2,230 companies had sent Meta data about each person; the data broker LiveRamp did so for about 96% of them. The volunteers were not a representative sample.",
+     "status": "reported",
+     "wording": "Reported in a 2024 Consumer Reports study (one study)",
+     "sources": [
+      {
+       "id": "src-cr-facebook-2024-01-17",
+       "url": "https://advocacy.consumerreports.org/research/report-who-shares-your-information-with-facebook",
+       "type": "research",
+       "title": "Consumer Reports, \"Who Shares Your Information With Facebook?\"",
+       "as_of": "2024-01-17",
+       "status": "reported",
+       "single_source": true,
+       "quote": "average participant … identified in the data by 2,230 different companies … LiveRamp, a data broker"
+      },
+      {
+       "url": "https://themarkup.org/privacy/2024/01/17/each-facebook-user-is-monitored-by-thousands-of-companies-study-indicates",
+       "type": "journalism",
+       "title": "The Markup (co-published with Consumer Reports)",
+       "as_of": "2024-01-17",
+       "status": "reported",
+       "quote": "Participants were also likely more privacy conscious and technically inclined than typical users",
+       "derives_from": "src-cr-facebook-2024-01-17"
+      }
+     ]
+    },
+    {
+     "text": "In 2019 Meta, then Facebook, Inc., agreed to a $5 billion penalty and a new 20-year privacy order to settle US Federal Trade Commission charges that it deceived users about their privacy controls. A court entered the order in April 2020.",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "wording": "Settled with the US FTC (2019; order entered 2020)",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2019-07-24",
+       "status": "adjudicated",
+       "quote": "$5 billion penalty … deceiving users about their ability to control the privacy",
+       "wayback_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929152049/https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "type": "regulator",
+       "title": "US Federal Trade Commission press release",
+       "as_of": "2020-04-28",
+       "status": "adjudicated",
+       "quote": "Judge Timothy J. Kelly entered the order on April 23, 2020.",
+       "wayback_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement",
+       "wayback_date": "2026-01-04",
+       "verify_url": "https://web.archive.org/web/20260104222053/https://www.ftc.gov/news-events/news/press-releases/2020/04/ftc-gives-final-approval-modify-ftcs-2012-privacy-order-facebook-provisions-2019-settlement"
+      }
+     ]
+    },
+    {
+     "text": "Meta agreed to pay Texas $1.4 billion over five years to settle claims that it ran facial recognition on Facebook photos without consent. The settlement is not an admission of guilt.",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "wording": "Settled with the Texas Attorney General (2024), no admission of wrongdoing",
+     "sources": [
+      {
+       "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-secures-14-billion-settlement-meta-over-its-unauthorized-capture",
+       "type": "regulator",
+       "title": "Texas Attorney General news release",
+       "as_of": "2024-07-30",
+       "status": "adjudicated",
+       "quote": "$1.4 billion settlement with Meta … personal biometric data of millions of Texans"
+      },
+      {
+       "url": "https://www.texastribune.org/2024/07/30/texas-meta-facebook-biometric-data-settlement/",
+       "type": "journalism",
+       "title": "The Texas Tribune",
+       "as_of": "2024-07-30",
+       "status": "adjudicated",
+       "quote": "does not act as an admission of guilt and Meta maintains no wrongdoing"
+      }
+     ]
+    },
+    {
+     "text": "Ireland's Data Protection Commission fined Meta €1.2 billion in 2023 for unlawfully transferring EU Facebook users' data to the US.",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "wording": "Fined by Ireland's Data Protection Commission (2023)",
+     "procedural_note": {
+      "text": "Meta said on 2023-05-22 that it would appeal the decision, including the fine.",
+      "sources": [
+       {
+        "url": "https://about.fb.com/news/2023/05/our-response-to-the-decision-on-facebooks-eu-us-data-transfers/",
+        "type": "company_site",
+        "title": "Meta Newsroom",
+        "as_of": "2023-05-22",
+        "status": "self_disclosed",
+        "quote": "We intend to appeal both the decision's substance and its orders including the fine"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/Data-Protection-Commission-announces-conclusion-of-inquiry-into-Meta-Ireland",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2023-05-22",
+       "status": "adjudicated",
+       "quote": "its Facebook service … administrative fine in the amount of €1.2 billion"
+      }
+     ]
+    },
+    {
+     "text": "Ireland's Data Protection Commission fined Meta for Facebook security failures: €251 million in 2024 over a 2018 breach of about 29 million accounts, and €265 million in 2022 over Facebook data scraped and published online.",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "wording": "Fined by Ireland's Data Protection Commission (2022 and 2024)",
+     "sources": [
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/irish-data-protection-commission-fines-meta-eu251-million",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2024-12-17",
+       "status": "adjudicated",
+       "quote": "approximately 29 million Facebook accounts globally … administrative fines totalling €251 million"
+      },
+      {
+       "url": "https://www.dataprotection.ie/en/news-media/press-releases/data-protection-commission-announces-decision-in-facebook-data-scraping-inquiry",
+       "type": "regulator",
+       "title": "Data Protection Commission (Ireland) press release",
+       "as_of": "2022-11-28",
+       "status": "adjudicated",
+       "quote": "imposing a fine of €265 million … collated dataset of Facebook personal data"
+      }
+     ]
+    }
+   ],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-04"
+  }
+ ]
+}
