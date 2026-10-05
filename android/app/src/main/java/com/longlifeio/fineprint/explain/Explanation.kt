@@ -41,6 +41,8 @@ data class Explanation(
     val changes: List<Change> = emptyList(),
     /** Where the companies that get the data are based, and each country's laws and government lines. */
     val governments: Governments = NO_GOVERNMENTS,
+    /** "This record follows TikTok's privacy policy for one region: United States. …", when the record says. */
+    val regionCaveat: String? = null,
 )
 
 data class FlowLine(
@@ -62,6 +64,10 @@ data class FlowLine(
     val id: String? = null,
     /** The recipient's company record, when the line names one: where Jurisdictions places it. */
     val company: String? = null,
+    /** "on", "off" or "opt_in": whether it happens unless you act. */
+    val default: String = "on",
+    /** True when one of the record's in-app settings limits this line. */
+    val controlled: Boolean = false,
 )
 
 data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
@@ -77,8 +83,10 @@ fun explain(
     val detected = scan?.trackers.orEmpty()
     val appName = record?.displayName ?: app.label
     val lines = ArrayList<FlowLine>()
+    val controlled = record?.controls.orEmpty().flatMap { c -> c.limits.map { it.flow } }.toSet()
     record?.dataFlows?.filter { it.government == null }?.forEach { f ->
         lines += f.toLine(f.recipient?.let { bundle.companies[it]?.name } ?: f.recipientLabel ?: "Unnamed recipient", via = null)
+            .copy(controlled = f.id != null && f.id in controlled)
     }
     lines += trackerLines(detected, bundle, record?.developerCompany, signatures)
     val trackerRecords = detected.mapNotNull { bundle?.trackers?.get(it.id) }.distinct()
@@ -125,6 +133,7 @@ fun explain(
         stale = record?.stale == true,
         exodusNote = exodusNote(record?.exodusReport?.trackerCount, record?.trackers.orEmpty(), scan),
         changes = record?.changes.orEmpty().sortedByDescending { it.date },
+        regionCaveat = record?.policyRegion?.let { regionCaveat(appName, bundle?.jurisdictions?.get(it)?.name ?: countryName(it)) },
         governments = governments(
             current.mapNotNull { it.company },
             unplaced = current.any { line -> line.company?.let { bundle?.companies?.get(it)?.jurisdiction } == null },
@@ -161,7 +170,7 @@ internal fun scanFacts(app: InstalledApp, scan: TrackerScanResult?): String {
 }
 
 internal fun DataFlow.toLine(shown: String, via: String?) =
-    FlowLine(data, bucket, shown, purpose, status, attribution(status, wording), historical, sources, proceduralNote, via, id, company = recipient)
+    FlowLine(data, bucket, shown, purpose, status, attribution(status, wording), historical, sources, proceduralNote, via, id, company = recipient, default = default)
 
 /** Alleged lines always say "not proven in court", whatever the record's own wording. */
 internal fun attribution(status: String?, wording: String?): String? = when {

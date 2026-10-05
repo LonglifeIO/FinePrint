@@ -112,7 +112,8 @@ fun tier(
     scanFacts: String = NO_RECORD,
     today: LocalDate = LocalDate.now(),
 ): TierResult {
-    val raising = flows.filter { canRaise(it.status, it.sources) }
+    // A flow that's off by default, with a setting in the app that controls it, doesn't count.
+    val raising = flows.filter { canRaise(it.status, it.sources) && !(it.default == "off" && it.controlled) }
     val legal = events.filter { it.concernsThisApp && counts(it, today) }
     fun flagged(reason: String, rule: String) =
         if (curated) TierResult(Tier.FLAGGED, reason, rule) else TierResult(Tier.CAUTION, reason, rule, capped = true)

@@ -24,7 +24,7 @@
   {
    "id": "com.google.android.gms.permission.AD_ID",
    "plain": "Lets the app read your phone's advertising ID.",
-   "why_it_matters": "The advertising ID is the same in every app, so ad networks use it to link what you do across apps into one profile. You can delete it in Android's privacy settings.",
+   "why_it_matters": "The advertising ID is the same in every app, so ad networks use it to link what you do across apps into one profile. You can delete it in Android's privacy settings. Delete it once; it stays deleted until you turn it back on. This doesn't affect tracking tied to accounts you're signed into.",
    "feeds": ["device_identifiers"],
    "dangerous": false
   }

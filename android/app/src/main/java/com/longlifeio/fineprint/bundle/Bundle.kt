@@ -71,6 +71,7 @@ private fun JSONObject.toAppRecord() = AppRecord(
             it.text("tier_before"), it.text("tier_after"),
         )
     },
+    policyRegion = text("policy_region"),
 )
 
 private fun JSONObject.toTrackerRecord() = TrackerRecord(
@@ -101,6 +102,7 @@ private fun JSONObject.toDataFlow() = DataFlow(
     sources = objects("sources").map { it.toSource() },
     inOwnerApps = text("in_owner_apps"),
     government = government(),
+    default = text("default") ?: "on",
 )
 
 private fun JSONObject.toConsequence() = Consequence(

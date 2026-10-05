@@ -23,6 +23,7 @@ class MethodDocTest {
             BADGES.values.flatMap { listOf(it.label, it.definition) } +
             DIRECTIONS.values.flatMap { listOf(it.label, it.definition) } +
             GOVERNMENT_LINES.values.flatMap { listOf(it.label, it.definition) } + listOf(UNPLACED, NONE_PLACED, NO_LAWS_REVIEWED) +
+            DEFAULTS.values.flatMap { listOf(it.label, it.definition) } + listOf(regionCaveat("TikTok", "United States")) +
             Tier.entries.flatMap { listOf(it.label, it.definition) } +
             listOf(NO_RECORD, NO_RECORD_DEFINITION, STALE_DEFINITION, REVIEWED, REVIEWED_DEFINITION, CHANGED, CHANGED_DEFINITION, LIMITED_DEFINITION) +
             listOf(CHECK_ANDROID_OFF, CHECK_ANDROID_ON, CHECK_IN_APP, CHECK_ANDROID_UNSEEN)

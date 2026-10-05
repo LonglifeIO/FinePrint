@@ -74,6 +74,21 @@
    "coverage": "curated", "last_reviewed": "2026-10-01"
   },
   {
+   "package_id": "com.example.optional", "display_name": "Optional App", "developer_company": "co-dev", "policy_region": "US",
+   "summary": "Synthetic test record: one flow off by default with a setting, one only if you opt in.",
+   "trackers": [],
+   "data_flows": [
+    { "id": "flow-share", "data": "precise_location", "recipient_label": "Partners", "purpose": "Their own use", "bucket": "goes_elsewhere",
+      "status": "self_disclosed", "default": "off", "sources": [{ "url": "https://example.org/optional-policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "you can turn this on" }] },
+    { "id": "flow-ads", "data": "app_activity", "recipient": "co-dev", "purpose": "Ads", "bucket": "used_for_more",
+      "status": "self_disclosed", "default": "opt_in", "sources": [{ "url": "https://example.org/optional-policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "you can turn this on" }] }
+   ],
+   "controls": [
+    { "id": "ctl-share", "label": "Share with partners", "how": "In the app: Settings", "effect": "Optional doesn't say what changes.", "limits": ["flow-share"], "sources": [{ "url": "https://example.org/optional-policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "you can turn this on" }] }
+   ],
+   "consequences": [], "coverage": "curated", "last_reviewed": "2026-10-01"
+  },
+  {
    "package_id": "com.example.settled", "display_name": "Settled App", "developer_company": "co-old",
    "summary": "Synthetic test record: a 2019 settlement over this app's data that has ended.",
    "trackers": [], "consequences": [], "coverage": "curated", "last_reviewed": "2026-10-01"

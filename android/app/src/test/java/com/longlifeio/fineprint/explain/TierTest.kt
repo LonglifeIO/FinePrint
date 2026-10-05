@@ -90,6 +90,14 @@ class TierTest {
     }
 
     @Test
+    fun aFlowOffByDefaultCountsOnlyWithoutASetting() {
+        val off = flow("precise_location", GOES_ELSEWHERE, "self_disclosed").copy(default = "off")
+        assertEquals(Tier.EXPECTED, rate(flows = listOf(off.copy(controlled = true))).tier)
+        assertEquals("F1", rate(flows = listOf(off)).rule) // no documented setting: it counts
+        assertEquals("F1", rate(flows = listOf(off.copy(default = "opt_in", controlled = true))).rule) // opt-in still counts
+    }
+
+    @Test
     fun f3ALawsuitThatSurvivedAMotionToDismiss() {
         assertEquals("F3", rate(events = listOf(event("alleged", "survived_motion_to_dismiss"))).rule)
         assertEquals(Tier.EXPECTED, rate(events = listOf(event("alleged", "survived_motion_to_dismiss", concerns = false))).tier)

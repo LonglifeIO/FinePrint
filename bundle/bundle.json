@@ -2,7 +2,7 @@
  "schema_version": 1,
  "schema_revision": "1.3",
  "bundle_version": "2026.10.04",
- "generated_at": "2026-10-04T20:59:27-03:00",
+ "generated_at": "2026-10-04T22:04:54-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -990,6 +990,7 @@
    "trackers": [],
    "privacy_policy_url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
    "privacy_policy_as_of": "2026-07-15",
+   "policy_region": "US",
    "data_flows": [
     {
      "data": "app_activity",
@@ -1214,6 +1215,24 @@
        "wayback_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
        "wayback_date": "2026-09-01",
        "verify_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens"
+      }
+     ]
+    }
+   ],
+   "changes": [
+    {
+     "date": "2026-10-04",
+     "text": "FinePrint corrected this record: the 2024 US children's-privacy case ended in a $400 million settlement in August 2026. The record had said it was still pending.",
+     "direction": "neutral",
+     "diff": [],
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
+       "type": "lawsuit",
+       "title": "United States v. Bytedance (C.D. Cal. 2:24-cv-06535), order of 2026-08-24",
+       "as_of": "2026-08-24",
+       "status": "adjudicated",
+       "quote": "this action is dismissed with prejudice and the case closed"
       }
      ]
     }
@@ -2718,7 +2737,7 @@
   {
    "id": "com.google.android.gms.permission.AD_ID",
    "plain": "Lets the app read your phone's advertising ID.",
-   "why_it_matters": "The advertising ID is the same in every app, so ad networks use it to link what you do across apps into one profile. You can delete it in Android's privacy settings.",
+   "why_it_matters": "The advertising ID is the same in every app, so ad networks use it to link what you do across apps into one profile. You can delete it in Android's privacy settings. Delete it once; it stays deleted until you turn it back on. This doesn't affect tracking tied to accounts you're signed into.",
    "feeds": [
     "device_identifiers"
    ],

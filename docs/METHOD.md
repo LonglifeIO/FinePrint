@@ -43,6 +43,11 @@ Each group has its own colour and icon, and its name is always written out, so c
 
 Lines about a tracker come from FinePrint's record of it when there is one, and are otherwise inferred from its code (Auto). One record can explain several trackers in εxodus's list that come from the same company, such as Meta's Facebook Ads, Facebook Analytics and Facebook Login. When the app's own maker also owns a tracker in it, that tracker's data doesn't go elsewhere: its lines go under Used for more where its record says how the maker uses the data, and are otherwise left to the app's own record.
 
+A line can also say that the app doesn't do it unless you act:
+
+- Off by default: The app doesn't do this unless you turn a setting on.
+- Only if you opt in: The app asks before it does this; it doesn't happen unless you agree.
+
 ## Status badges
 
 Every line carries a badge that says how strong the evidence is. Tap a badge to see what it means.
@@ -81,11 +86,12 @@ Otherwise, an app gets Caution if any of these is true:
 
 Otherwise, an app with a reviewed record is Expected.
 
-Three limits apply to every app:
+Four limits apply to every app:
 
 - A claim reported by only one independent source never raises a tier. A re-report of the same story, or several reports that rest on one investigation, count as one source.
 - An app without a reviewed record is never Flagged or Expected. It gets Caution at most; otherwise it shows No record yet, with what the scan found, such as no third-party trackers found · 12 permissions.
 - A ruling, settlement or lawsuit counts only while it is ongoing (an order still in force, a case still pending, or a decision under appeal), or if it ended within the last three years; when the record doesn't say when it ended, its own date is used. Older ones stay under On the record, under Past, and never change a tier.
+- A line that is Off by default, when the app has a setting that controls it, doesn't count toward the tier. A line that is Only if you opt in still counts.
 
 A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. On the record also shows the developer's other actions; one that doesn't name this app is marked about the company, and it doesn't change the app's tier. For an app without a record of its own, it shows the actions on record against the companies behind its trackers, marked the same way. Under each tier, one line names the finding that set it; when a ruling or lawsuit sets it, that line names the ruling or lawsuit. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow.
 
@@ -131,6 +137,7 @@ Records follow these rules for wording:
 - A legal matter gets at most one clause in a summary; the details go under On the record.
 - A summary sentence about the company's past has that company's record behind it, shown under On the record.
 - A privacy policy's own words are quoted, not paraphrased: "their own monetization purposes", not "make money for themselves".
+- Some apps publish a different privacy policy for each region. A record that follows one region's version says so under the summary, for example: This record follows TikTok's privacy policy for one region: United States. Where you live, a different policy may apply.
 
 ## Changes to a record
 
@@ -145,7 +152,7 @@ Whether a change is better or worse for you isn't anyone's call: FinePrint works
 - Worsened: The record shows more data collected or shared, or a way to limit it removed.
 - Neutral: The wording changed; what's collected and shared didn't.
 
-A change is Worsened when it adds a flow beyond running the app, moves a flow away from Stays here, adds a kind of data, adds a tracker or removes a setting that limits a flow. It is Improved when it removes such a flow or makes it a past practice, moves a flow toward Stays here, drops a kind of data, removes a tracker or adds such a setting. A change that does both is Worsened: FinePrint never offsets one against the other. Where the reviewer recorded it, a change also shows how the tier moved, such as Caution → Flagged.
+A change is Worsened when it adds a flow beyond running the app, moves a flow away from Stays here, adds a kind of data, adds a tracker, removes a setting that limits a flow, or makes a flow happen by default. It is Improved when it removes such a flow or makes it a past practice, moves a flow toward Stays here, drops a kind of data, removes a tracker, adds such a setting, or makes a flow Off by default or Only if you opt in. A change that does both is Worsened: FinePrint never offsets one against the other. Where the reviewer recorded it, a change also shows how the tier moved, such as Caution → Flagged.
 
 ## Governments
 

@@ -54,6 +54,7 @@
    "trackers": [],
    "privacy_policy_url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
    "privacy_policy_as_of": "2026-07-15",
+   "policy_region": "US",
    "data_flows": [
     {
      "data": "app_activity",
@@ -278,6 +279,24 @@
        "wayback_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
        "wayback_date": "2026-09-01",
        "verify_url": "https://web.archive.org/web/20260901075551/https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens"
+      }
+     ]
+    }
+   ],
+   "changes": [
+    {
+     "date": "2026-10-04",
+     "text": "FinePrint corrected this record: the 2024 US children's-privacy case ended in a $400 million settlement in August 2026. The record had said it was still pending.",
+     "direction": "neutral",
+     "diff": [],
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
+       "type": "lawsuit",
+       "title": "United States v. Bytedance (C.D. Cal. 2:24-cv-06535), order of 2026-08-24",
+       "as_of": "2026-08-24",
+       "status": "adjudicated",
+       "quote": "this action is dismissed with prejudice and the case closed"
       }
      ]
     }

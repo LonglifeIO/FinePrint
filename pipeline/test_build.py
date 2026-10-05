@@ -185,6 +185,16 @@ class ChangeDirectionTest(unittest.TestCase):
         self.assertEqual(build.direction_of(better), "improved")
         self.assertEqual(build.direction_of(build.structural_diff(self.record(), self.record(trackers=("exodus-12", "exodus-65")))), "worsened")
 
+    def test_a_flow_that_stops_happening_by_default_is_better(self):
+        off = build.structural_diff(self.record([self.FLOW]), self.record([dict(self.FLOW, default="off")]))
+        self.assertEqual(off, ["now off by default: precise_location to Partners (on to off)"])
+        self.assertEqual(build.direction_of(off), "improved")
+        on = build.structural_diff(self.record([dict(self.FLOW, default="opt_in")]), self.record([self.FLOW]))
+        self.assertEqual(build.direction_of(on), "worsened")
+        self.assertEqual(build.structural_diff(self.record([dict(self.FLOW, default="off")]), self.record([dict(self.FLOW, default="opt_in")])), [])
+        self.assertEqual(schema_errors(doc(apps=[dict(self.record([dict(self.FLOW, default="off")]), policy_region="US")])), [])
+        self.assertTrue(schema_errors(doc(apps=[dict(self.record([dict(self.FLOW, default="sometimes")]))])))
+
     def test_a_change_that_does_both_is_worse(self):
         mixed = build.structural_diff(self.record([self.FLOW]), self.record([dict(self.FLOW, historical=True)], trackers=("exodus-12", "exodus-65")))
         self.assertEqual(build.direction_of(mixed), "worsened")

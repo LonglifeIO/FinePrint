@@ -38,6 +38,7 @@ import com.longlifeio.fineprint.explain.BUCKETS
 import com.longlifeio.fineprint.explain.BUCKET_TEXT
 import com.longlifeio.fineprint.explain.COLLECTS
 import com.longlifeio.fineprint.explain.DATA_LABELS
+import com.longlifeio.fineprint.explain.DEFAULTS
 import com.longlifeio.fineprint.explain.DEVICE_ACCESS
 import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.FlowLine
@@ -75,6 +76,7 @@ fun LazyListScope.detailSections(
             SourcesRow(note.text, note.sources, null, onSources)
         }
     }
+    e.regionCaveat?.let { item { Note(it) } }
     recentChange(e.changes, onSources)
 
     section("collects", COLLECTS)
@@ -193,6 +195,11 @@ private fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit) {
                 StatusBadge(line.status, line.historical)
             }
             Text("→ ${line.recipient}: ${line.purpose}", style = MaterialTheme.typography.bodyMedium)
+            DEFAULTS[line.default]?.let { d ->
+                WithDefinition(d.label, d.definition) {
+                    Text(d.label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+                }
+            }
             line.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             line.proceduralNote?.let {
                 Text(it.text, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic, modifier = Modifier.padding(top = 4.dp))

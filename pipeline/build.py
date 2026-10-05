@@ -55,8 +55,8 @@ VENDOR_VERIFY_URLS = {
 }
 USER_AGENT = "FinePrint-pipeline (+https://github.com/LonglifeIO/FinePrint)"
 BUCKET_RANK = {"stays_here": 0, "used_for_more": 1, "goes_elsewhere": 2}
-WORSENING = ("flow added", "moved away from stays here", "data kind added", "tracker added", "control removed")
-IMPROVING = ("flow removed", "moved toward stays here", "data kind removed", "tracker removed", "control added")
+WORSENING = ("flow added", "moved away from stays here", "data kind added", "tracker added", "control removed", "now on by default")
+IMPROVING = ("flow removed", "moved toward stays here", "data kind removed", "tracker removed", "control added", "now off by default")
 
 
 def merge(paths: list[Path]) -> dict[str, list]:
@@ -229,6 +229,9 @@ def structural_diff(old: dict, new: dict) -> list[str]:
         if BUCKET_RANK[b["bucket"]] != BUCKET_RANK[a["bucket"]]:
             way = "toward" if BUCKET_RANK[b["bucket"]] < BUCKET_RANK[a["bucket"]] else "away from"
             diff.append(f"moved {way} stays here: {flow_name(b)} ({a['bucket']} to {b['bucket']})")
+        was_on, is_on = a.get("default", "on") == "on", b.get("default", "on") == "on"
+        if was_on != is_on:  # off and opt_in both mean it doesn't happen unless you act
+            diff.append(f"now {'on' if is_on else 'off'} by default: {flow_name(b)} ({a.get('default', 'on')} to {b.get('default', 'on')})")
     for what, before, after in (
         ("data kind", {f["data"] for f in current(old)}, {f["data"] for f in current(new)}),
         ("tracker", set(old.get("trackers", [])), set(new.get("trackers", []))),

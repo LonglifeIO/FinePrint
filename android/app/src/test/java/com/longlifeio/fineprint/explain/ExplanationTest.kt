@@ -196,6 +196,17 @@ class ExplanationTest {
     }
 
     @Test
+    fun aFlowOffByDefaultWithASettingDoesntSetTheTier() {
+        val e = explain(app("com.example.optional"), scan(emptyList()), bundle, emptyMap())
+        // The partner line is off unless you turn its setting on, so the opt-in ads line sets the tier, not Flagged.
+        assertEquals(TierResult(Tier.CAUTION, "In-app activity is used for more — Optional App's own policy", "C1"), e.tier)
+        assertEquals(listOf("off" to true), e.flows.getValue(GOES_ELSEWHERE).map { it.default to it.controlled })
+        assertEquals("opt_in", e.flows.getValue(USED_FOR_MORE).single().default)
+        assertEquals("This record follows Optional App's privacy policy for one region: United States. Where you live, a different policy may apply.", e.regionCaveat)
+        assertNull(explain(app("com.example.kit"), scan(emptyList()), bundle, emptyMap()).regionCaveat)
+    }
+
+    @Test
     fun anAppWhoseRecipientsFinePrintCantPlaceSaysSo() {
         val e = explain(app("com.example.other"), scan(listOf(tracker("exodus-312", "Google AdMob", "Advertisement"))), bundle, emptyMap())
         assertEquals(null, e.governments.line)

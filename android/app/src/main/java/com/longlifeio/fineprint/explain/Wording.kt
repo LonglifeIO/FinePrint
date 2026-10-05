@@ -84,6 +84,18 @@ fun tierMove(before: String?, after: String?): String? {
     return label(before)?.let { b -> label(after)?.let { a -> "Tier: $b → $a" } }
 }
 
+/** A line the app doesn't do unless you act: its label and definition (never shown for "on"). */
+val DEFAULTS = mapOf(
+    "off" to BadgeText("Off by default", "The app doesn't do this unless you turn a setting on."),
+    "opt_in" to BadgeText("Only if you opt in", "The app asks before it does this; it doesn't happen unless you agree."),
+)
+
+const val REGION_CAVEAT_END = "Where you live, a different policy may apply."
+
+/** "This record follows TikTok's privacy policy for one region: United States. Where you live, …" */
+fun regionCaveat(appName: String, region: String): String =
+    "This record follows ${possessive(appName)} privacy policy for one region: $region. $REGION_CAVEAT_END"
+
 /** For alleged lines whose own wording doesn't already say it. */
 const val NOT_PROVEN = "not proven in court"
 

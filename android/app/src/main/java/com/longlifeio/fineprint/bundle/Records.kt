@@ -38,6 +38,8 @@ data class DataFlow(
     val inOwnerApps: String? = null,
     /** Set for a line about a government: how it can get the data, and its country. */
     val government: GovernmentRef? = null,
+    /** "on" (it happens unless you act), "off" (only if you turn a setting on) or "opt_in" (only if you agree when asked). */
+    val default: String = "on",
 )
 
 /** A government line's kind (can_compel, has_bought, has_used) and the government's country. */
@@ -132,6 +134,8 @@ data class AppRecord(
     val stale: Boolean,
     val lastReviewed: String,
     val changes: List<Change> = emptyList(),
+    /** The region whose version of the privacy policy the record follows (ISO code), when there are several. */
+    val policyRegion: String? = null,
 )
 
 /** A tracker explanation, found under its own id and under every tracker id it [covers] (Meta's kits). */
