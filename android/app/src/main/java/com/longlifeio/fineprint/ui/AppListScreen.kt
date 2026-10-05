@@ -35,6 +35,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
@@ -65,6 +66,8 @@ import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import com.longlifeio.fineprint.explain.Tier
 import com.longlifeio.fineprint.explain.listOrder
+import com.longlifeio.fineprint.explain.noRecordFrom
+import com.longlifeio.fineprint.explain.systemGroups
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -87,6 +90,10 @@ fun AppListScreen(
 ) {
     var query by rememberSaveable { mutableStateOf("") }
     var filters by rememberSaveable(stateSaver = FILTER_SAVER) { mutableStateOf(setOf()) }
+    var sheet by remember { mutableStateOf<SheetContent?>(null) }
+    val grouped = includeSystem && ListFilter.SYSTEM in filters
+    // The list keeps its place by app, so entering the grouped view would hide the first maker's header.
+    LaunchedEffect(grouped) { if (grouped) listState.scrollToItem(0) }
     val installed = remember(apps, includeSystem) { apps.orEmpty().filter { includeSystem || !it.isSystem } }
     val visible = remember(installed, explanations, reviews, query, filters) {
         listOrder(installed, explanations, reviews.mapValues { it.value.status }, query, filters)
@@ -113,12 +120,12 @@ fun AppListScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp),
             ) {
-                ListFilter.entries.forEach { f ->
+                ListFilter.entries.filter { it != ListFilter.SYSTEM || includeSystem }.forEach { f ->
                     FilterChip(
                         selected = f in filters,
                         onClick = { filters = if (f in filters) filters - f else filters + f },
                         label = { Text(f.label) },
-                        modifier = Modifier.height(TOUCH),
+                        modifier = Modifier.height(TOUCH).testTag("filter:${f.name}"),
                     )
                 }
             }
@@ -128,13 +135,19 @@ fun AppListScreen(
             } else {
                 LazyColumn(state = listState, modifier = Modifier.fillMaxSize().testTag("list")) {
                     if (visible.isEmpty()) item { Note("No apps match.") }
-                    items(visible, key = { it.packageName }) { app ->
+                    val row = @Composable { app: InstalledApp ->
                         AppRow(app, explanations[app.packageName], reviews[app.packageName], checks[app.packageName], results[app.scanKey], onOpen)
+                    }
+                    if (grouped) {
+                        systemGroupItems(systemGroups(visible, explanations), row, onSources = { sheet = it })
+                    } else {
+                        items(visible, key = { it.packageName }) { row(it) }
                     }
                 }
             }
         }
     }
+    sheet?.let { SourcesSheet(it) { sheet = null } }
 }
 
 @Composable
@@ -193,7 +206,12 @@ private fun ScanStatus(
 private fun AppRow(app: InstalledApp, e: Explanation?, review: ReviewView?, check: WhatYouCanDo?, result: TrackerScanResult?, onOpen: (InstalledApp) -> Unit) {
     val muted = MaterialTheme.colorScheme.onSurfaceVariant
     ListItem(
-        headlineContent = { Text(app.label, maxLines = 1, overflow = TextOverflow.Ellipsis) },
+        headlineContent = {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(app.label, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+                if (app.isSystem) SystemLabel(interactive = false)
+            }
+        },
         supportingContent = {
             Column {
                 Text(e?.tier?.reason ?: "Checking its code…", maxLines = 2, overflow = TextOverflow.Ellipsis)
@@ -202,7 +220,8 @@ private fun AppRow(app: InstalledApp, e: Explanation?, review: ReviewView?, chec
                 }
                 val notes = listOfNotNull(
                     check?.summary,
-                    NO_RECORD.takeIf { e?.coverage != "curated" && e?.tier?.tier != null }, // a Caution badge without a record
+                    // A Caution badge without a record; a preinstalled app says whose policy it shows.
+                    (e?.maker?.takeIf { it.inherited }?.let { noRecordFrom(it.name) } ?: NO_RECORD).takeIf { e?.coverage != "curated" && e?.tier?.tier != null },
                     "Stale".takeIf { e?.stale == true },
                 )
                 if (notes.isNotEmpty()) {

@@ -126,6 +126,7 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
         errors += change_problems(app)
         errors += [f"{app['package_id']}: in_owner_apps is for tracker records" for f in app.get("data_flows", []) if "in_owner_apps" in f]
     errors += tracker_problems(bundle["trackers"], tracker_ids)
+    errors += inheritance_problems(bundle["companies"])
     return errors
 
 
@@ -142,6 +143,21 @@ def tracker_problems(trackers: list[dict], tracker_ids: set[str]) -> list[str]:
                 errors.append(f"tracker {key!r} has two explanations: {explained[key]!r} and {t['id']!r}")
         if "owner_company" not in t and any("in_owner_apps" in f for f in t.get("data_flows", [])):
             errors.append(f"tracker record {t['id']!r}: in_owner_apps needs owner_company")
+    return errors
+
+
+def inheritance_problems(companies: list[dict]) -> list[str]:
+    """Default flows need a prefix to reach any app, unique flow ids, and no tracker-only or government fields."""
+    errors = []
+    for c in companies:
+        flows = c.get("default_flows", [])
+        if (flows or c.get("default_notes")) and not c.get("package_prefixes"):
+            errors.append(f"{c['id']}: default_flows and default_notes need package_prefixes to reach an app")
+        ids = [f["id"] for f in flows if "id" in f]
+        errors += [f"{c['id']}: default flow id {i!r} used twice" for i in sorted({i for i in ids if ids.count(i) > 1})]
+        errors += [f"{c['id']}: a default flow can't use {k}" for f in flows for k in ("in_owner_apps", "recipient_kind") if k in f]
+    prefixes = [(p, c["id"]) for c in companies for p in c.get("package_prefixes", [])]
+    errors += [f"package prefix {p!r} ({a}) overlaps {q!r} ({b})" for p, a in prefixes for q, b in prefixes if a != b and p.startswith(q)]
     return errors
 
 

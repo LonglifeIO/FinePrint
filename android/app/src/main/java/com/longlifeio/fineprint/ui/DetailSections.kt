@@ -46,6 +46,8 @@ import com.longlifeio.fineprint.explain.GOES_ELSEWHERE
 import com.longlifeio.fineprint.explain.STAYS_HERE
 import com.longlifeio.fineprint.explain.SUMMARY_AUTO
 import com.longlifeio.fineprint.explain.SUMMARY_CURATED
+import com.longlifeio.fineprint.explain.SUMMARY_INHERITED
+import com.longlifeio.fineprint.bundle.SummaryNote
 import com.longlifeio.fineprint.explain.SectionText
 import com.longlifeio.fineprint.explain.WHAT_YOU_CAN_DO
 import com.longlifeio.fineprint.explain.WHERE_IT_GOES
@@ -64,18 +66,9 @@ fun LazyListScope.detailSections(
     jurisdictionsOpen: Boolean = false,
     onToggleJurisdictions: () -> Unit = {},
 ) {
-    section("summary", if (e.coverage == "curated") SUMMARY_CURATED else SUMMARY_AUTO)
+    section("summary", if (e.coverage == "curated") SUMMARY_CURATED else if (e.maker?.inherited == true) SUMMARY_INHERITED else SUMMARY_AUTO)
     item { Paragraph(e.summary) }
-    items(e.summaryNotes) { note ->
-        Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(note.text, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
-                StatusBadge(note.status, historical = false)
-            }
-            note.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            SourcesRow(note.text, note.sources, null, onSources)
-        }
-    }
+    items(e.summaryNotes) { SummaryNoteRow(it, onSources) }
     e.regionCaveat?.let { item { Note(it) } }
     recentChange(e.changes, onSources)
 
@@ -179,9 +172,22 @@ private fun BucketHeader(bucket: String) {
     }
 }
 
+/** A sourced line under the summary, such as what the app's policy says it doesn't do. */
+@Composable
+internal fun SummaryNoteRow(note: SummaryNote, onSources: (SheetContent) -> Unit) {
+    Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(note.text, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+            StatusBadge(note.status, historical = false)
+        }
+        note.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        SourcesRow(note.text, note.sources, null, onSources)
+    }
+}
+
 /** Data → recipient, purpose, status and attribution; the bucket's colour runs down the left edge. */
 @Composable
-private fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit) {
+internal fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit) {
     val (color, _, _) = bucketColors(line.bucket)
     val label = DATA_LABELS[line.data] ?: line.data
     Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {

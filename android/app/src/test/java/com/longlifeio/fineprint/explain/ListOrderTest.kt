@@ -57,6 +57,24 @@ class ListOrderTest {
     }
 
     @Test
+    fun systemAppsGroupByMakerWithUnknownMakersLast() {
+        val google = Maker("co-google", "Google", inherited = true, emptyList(), emptyList())
+        val kit = Maker("co-kit", "Kit", inherited = false, emptyList(), emptyList())
+        val made = explanations + mapOf("p.Bravo" to explanation(Tier.CAUTION, "auto").copy(maker = google),
+            "p.Echo" to explanation(Tier.CAUTION, "curated").copy(maker = google), "p.delta" to explanation(Tier.EXPECTED, "curated").copy(maker = kit))
+        val groups = systemGroups(listOrder(apps, made, reviews, "", emptySet()), made)
+        assertEquals(listOf("Google", "Kit", null), groups.map { it.maker?.name })
+        assertEquals(listOf(listOf("Bravo", "Echo"), listOf("delta"), listOf("zebra", "alpha")), groups.map { g -> g.apps.map { it.label } })
+        assertEquals("Google · 2 apps", groupHeader("Google", 2))
+    }
+
+    @Test
+    fun theSystemChipKeepsOnlyPreinstalledApps() {
+        val all = apps + app("Clock").copy(isSystem = true)
+        assertEquals(listOf("Clock"), listOrder(all, explanations, reviews, "", setOf(ListFilter.SYSTEM)).map { it.label })
+    }
+
+    @Test
     fun searchMatchesTheNameIgnoringCase() {
         assertEquals(listOf("Echo"), order("ECH"))
         assertEquals(listOf("zebra", "Bravo", "Echo", "delta", "alpha"), order("  "))

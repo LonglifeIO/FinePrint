@@ -9,6 +9,7 @@ package com.longlifeio.fineprint.explain
 data class SectionText(val title: String, val subtitle: String)
 
 val SUMMARY_CURATED = SectionText("Summary", "In plain words, from FinePrint's reviewed record of this app.")
+val SUMMARY_INHERITED = SectionText("Summary", "No reviewed record of this app yet: from its maker's privacy policy, which covers it, and the tracker code found in it.")
 val SUMMARY_AUTO = SectionText("Summary", "No reviewed record yet: inferred from the tracker code found in this app.")
 val COLLECTS = SectionText("What it collects", "Data this app takes from your phone, in plain terms.")
 val WHERE_IT_GOES = SectionText("Where it goes", "Who gets that data, and whether it's used beyond running the app.")
@@ -100,6 +101,15 @@ fun regionCaveat(appName: String, region: String): String =
 const val NOT_PROVEN = "not proven in court"
 
 const val NO_RECORD = "No record yet"
+/** "No record yet · from Google's policy": a preinstalled app showing its maker's policy lines. */
+fun noRecordFrom(maker: String): String = "$NO_RECORD · from ${possessive(maker)} policy"
+val SYSTEM = BadgeText("System", "It came with your phone: Android lists it as a system app.")
+const val OTHER_PREINSTALLED = "Other preinstalled apps"
+const val OTHER_PREINSTALLED_NOTE = "FinePrint can't tell from their package names who made these."
+/** "Google · 14 apps", a maker's group in the system-apps view. */
+fun groupHeader(name: String, count: Int): String = "$name · $count ${if (count == 1) "app" else "apps"}"
+/** "From Google's privacy policy, which covers these apps.": the group's inherited lines, shown once. */
+fun fromPolicyForAll(company: String): String = "From ${possessive(company)} privacy policy, which covers these apps."
 /** Your own mark, kept on this phone. FinePrint's record review is a different thing ("No record yet"). */
 const val REVIEWED = "Reviewed"
 const val REVIEWED_DEFINITION = "You've marked this app reviewed. The mark stays on this phone and never changes the tier."

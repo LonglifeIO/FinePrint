@@ -45,9 +45,7 @@ private fun JSONObject.toAppRecord() = AppRecord(
     displayName = getString("display_name"),
     developerCompany = text("developer_company"),
     summary = getString("summary"),
-    summaryNotes = objects("summary_notes").map {
-        SummaryNote(it.getString("text"), it.getString("status"), it.text("wording"), it.objects("sources").map { s -> s.toSource() })
-    },
+    summaryNotes = objects("summary_notes").map { it.toSummaryNote() },
     trackers = strings("trackers"),
     exodusReport = optJSONObject("exodus_report")?.let {
         ExodusReport(it.getInt("id"), it.getString("app_version"), it.getString("created"), it.getInt("tracker_count"))
@@ -131,6 +129,9 @@ private fun JSONObject.toCompany() = Company(
     jurisdiction = text("jurisdiction"),
     headquarters = text("headquarters"),
     jurisdictionSources = objects("jurisdiction_sources").map { it.toSource() },
+    packagePrefixes = strings("package_prefixes"),
+    defaultFlows = objects("default_flows").map { it.toDataFlow() },
+    defaultNotes = objects("default_notes").map { it.toSummaryNote() },
     events = objects("regulatory_history").map {
         LegalEvent(
             date = it.getString("date"),
@@ -151,6 +152,9 @@ private fun JSONObject.toCompany() = Company(
         )
     },
 )
+
+private fun JSONObject.toSummaryNote() =
+    SummaryNote(getString("text"), getString("status"), text("wording"), objects("sources").map { it.toSource() })
 
 private fun JSONObject.government(): GovernmentRef? =
     if (text("recipient_kind") != "government_body") null else GovernmentRef(getString("government_line"), getString("jurisdiction"))

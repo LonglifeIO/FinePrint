@@ -196,6 +196,34 @@ class ExplanationTest {
     }
 
     @Test
+    fun aPreinstalledAppWithoutARecordInheritsItsMakersLines() {
+        val mail = app("com.kitco.mail").copy(isSystem = true)
+        val e = explain(mail, scan(emptyList()), bundle, emptyMap())
+        assertEquals("Kit", e.maker?.name)
+        assertTrue(e.maker!!.inherited)
+        assertEquals("auto", e.coverage) // still no record of its own
+        assertEquals("From Kit's privacy policy, which covers this app.", e.flows.getValue(GOES_ELSEWHERE).single().wording)
+        assertEquals(listOf("Kit's privacy policy applies to all its apps."), e.summaryNotes.map { it.text })
+        assertTrue(e.summary.contains("its package name starts with com.kitco."))
+        // Sensitive data going elsewhere would flag a reviewed app; without a record of its own it's Caution at most.
+        assertEquals(TierResult(Tier.CAUTION, "Location data goes elsewhere — Kit's own disclosure", "F1", capped = true), e.tier)
+        assertEquals("No record yet · from Kit's policy", noRecordFrom(e.maker!!.name))
+        // Its lines show before the scan has finished, too.
+        assertEquals(Tier.CAUTION, explain(mail, null, bundle, emptyMap()).tier.tier)
+    }
+
+    @Test
+    fun onlyAPreinstalledAppWithCodeAndNoRecordInherits() {
+        // Installed later, the same package name could be a lookalike: no maker, nothing inherited.
+        assertNull(explain(app("com.kitco.mail"), scan(emptyList()), bundle, emptyMap()).maker)
+        assertNull(explain(app("com.kitco.overlay").copy(isSystem = true, hasCode = false), scan(emptyList()), bundle, emptyMap()).maker)
+        // An app with its own record keeps it; its maker is still known, for grouping.
+        val kit = explain(app("com.example.kit").copy(isSystem = true), scan(emptyList()), bundle, emptyMap())
+        assertEquals("Kit", kit.maker?.name)
+        assertTrue(!kit.maker!!.inherited && kit.flows.values.flatten().none { it.purpose == "Their own use" })
+    }
+
+    @Test
     fun aFlowOffByDefaultWithASettingDoesntSetTheTier() {
         val e = explain(app("com.example.optional"), scan(emptyList()), bundle, emptyMap())
         // The partner line is off unless you turn its setting on, so the opt-in ads line sets the tier, not Flagged.

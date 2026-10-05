@@ -9,12 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.SemanticsActions
-import androidx.compose.ui.semantics.SemanticsNode
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.getOrNull
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -23,8 +17,6 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.performTouchInput
-import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -111,7 +103,7 @@ class TapTargetTest {
                 )
             }
         }
-        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("list"))
+        assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("list"))
     }
 
     @Test
@@ -126,7 +118,7 @@ class TapTargetTest {
             }
         }
         openTheRecordAndEvidence(seeAll = false)
-        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
+        assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
     }
 
     @Test
@@ -140,7 +132,7 @@ class TapTargetTest {
                 )
             }
         }
-        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
+        assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
     }
 
     /** Google's settlements, none naming Maps: the record's note and three lines about Google. */
@@ -148,7 +140,7 @@ class TapTargetTest {
     fun mapsDetailScreenWithTheRecordOpen() {
         showCurated(app("com.google.android.apps.maps", "Maps", granted = listOf("android.permission.ACCESS_FINE_LOCATION")))
         openTheRecordAndEvidence(seeAll = false)
-        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
+        assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
     }
 
     /** The heaviest record: ten items, all shown. */
@@ -156,7 +148,7 @@ class TapTargetTest {
     fun facebookDetailScreenWithAllOfTheRecordOpen() {
         showCurated(app("com.facebook.katana", "Facebook", granted = listOf("android.permission.ACCESS_FINE_LOCATION")))
         openTheRecordAndEvidence(seeAll = true)
-        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
+        assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
     }
 
     /** Recent changes shows the latest change (a worsening); History, inside On the record, shows both directions. */
@@ -184,13 +176,13 @@ class TapTargetTest {
         compose.onNode(hasContentDescription("Change: Improved", substring = true), useUnmergedTree = true).assertExists()
         compose.onNodeWithText("2026-09-12 · Now lets partners use your precise location for their own purposes.").assertExists()
         detail.performScrollToIndex(0)
-        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("detail"))
+        assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
     }
 
     @Test
     fun howToReadScreen() {
         compose.setContent { FinePrintTheme { HowToReadScreen(onBack = {}) } }
-        assertEquals(emptyList<String>(), smallTargetsWhileScrolling("howto"))
+        assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("howto"))
     }
 
     /** The check itself must catch a small target, or a passing run would prove nothing. */
@@ -202,7 +194,7 @@ class TapTargetTest {
                 item { Box(Modifier.size(48.dp).clickable {}.semantics { contentDescription = "fine" }) }
             }
         }
-        assertEquals(listOf("tiny: 20×20dp"), smallTargetsWhileScrolling("probe"))
+        assertEquals(listOf("tiny: 20×20dp"), compose.smallTargetsWhileScrolling("probe"))
     }
 
     private fun showCurated(a: InstalledApp) {
@@ -232,35 +224,5 @@ class TapTargetTest {
         detail.performScrollToNode(hasText("Evidence"))
         compose.onNodeWithText("Evidence").performClick()
         detail.performScrollToIndex(0)
-    }
-
-    /** Scrolls the list from top to bottom, collecting every interactive element under 48dp. */
-    private fun smallTargetsWhileScrolling(tag: String): List<String> {
-        compose.waitForIdle()
-        val small = linkedSetOf<String>()
-        var last = ""
-        repeat(80) {
-            val nodes = compose.onAllNodes(interactive, useUnmergedTree = true).fetchSemanticsNodes()
-            nodes.filter { it.layoutInfo.isPlaced }.forEach { node ->
-                val (w, h) = with(node.layoutInfo.density) { node.size.width.toDp() to node.size.height.toDp() }
-                if (w < TOUCH - 0.5.dp || h < TOUCH - 0.5.dp) small += "${describe(node)}: ${w.value.toInt()}×${h.value.toInt()}dp"
-            }
-            val seen = nodes.joinToString("|") { describe(it) + it.boundsInRoot.top }
-            if (seen == last) return small.toList()
-            last = seen
-            compose.onNodeWithTag(tag).performTouchInput { swipeUp() }
-            compose.waitForIdle()
-        }
-        return small.toList()
-    }
-
-    private val interactive = hasClickAction() or SemanticsMatcher.keyIsDefined(SemanticsActions.OnLongClick)
-
-    private fun describe(node: SemanticsNode): String {
-        val c = node.config
-        val words = c.getOrNull(SemanticsProperties.ContentDescription) ?: c.getOrNull(SemanticsProperties.Text)?.map { it.text }
-        val own = words?.joinToString(" ")
-        val children = node.children.flatMap { child -> child.config.getOrNull(SemanticsProperties.Text)?.map { it.text }.orEmpty() }
-        return (own ?: children.joinToString(" ")).ifBlank { "node ${node.id}" }.take(60)
     }
 }

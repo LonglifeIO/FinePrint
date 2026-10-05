@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/longlifeio/fineprint/bundle/schema.json",
   "title": "FinePrint knowledge bundle (bundle.json)",
-  "description": "Contract between the pipeline (producer) and the app (consumer). Bump schema_version on any breaking change. v1.1 (additive): companies, data_flows, device_reach, status sub-types, source independence and archives, Exodus report pinning, stale flag, a required verbatim quote on every source (with as_of, or accessed for undated pages, and verify_url for pages that block scripts), sourced procedural notes on legal items, and risk-tag qualifiers. v1.2 (additive): company short names; health, financial, biometric and children's data kinds for the tier rules; flow ids and in-app controls for the 'What you can do' checklist (a limit can be marked inferred, with a note); sourced summary notes. v1.3: covers (one tracker explanation for several tracker ids) and in_owner_apps (how a tracker's flow reads inside its owner's own apps); in_force and closed_date on legal items, so only ongoing or recent ones count toward a tier; changes[] on app records, each with a direction build.py derives from the record's structure; government lines (recipient_kind government_body: can_compel, has_bought, has_used), a required jurisdiction on companies with its sources, and jurisdictions.json, the laws by which each country can compel data (its own file, defined under $defs/jurisdictions_file); policy_region on app records, and default (on, off, opt_in) on flows. Tracker names and signatures live in trackers.json (ODbL); this file references trackers by id only and never copies Exodus fields.",
+  "description": "Contract between the pipeline (producer) and the app (consumer). Bump schema_version on any breaking change. v1.1 (additive): companies, data_flows, device_reach, status sub-types, source independence and archives, Exodus report pinning, stale flag, a required verbatim quote on every source (with as_of, or accessed for undated pages, and verify_url for pages that block scripts), sourced procedural notes on legal items, and risk-tag qualifiers. v1.2 (additive): company short names; health, financial, biometric and children's data kinds for the tier rules; flow ids and in-app controls for the 'What you can do' checklist (a limit can be marked inferred, with a note); sourced summary notes. v1.3: covers (one tracker explanation for several tracker ids) and in_owner_apps (how a tracker's flow reads inside its owner's own apps); in_force and closed_date on legal items, so only ongoing or recent ones count toward a tier; changes[] on app records, each with a direction build.py derives from the record's structure; government lines (recipient_kind government_body: can_compel, has_bought, has_used), a required jurisdiction on companies with its sources, and jurisdictions.json, the laws by which each country can compel data (its own file, defined under $defs/jurisdictions_file); policy_region on app records, and default (on, off, opt_in) on flows; companies[].default_flows and default_notes, which a preinstalled app with no record of its own inherits from the company its package name matches (package_prefixes). Tracker names and signatures live in trackers.json (ODbL); this file references trackers by id only and never copies Exodus fields.",
   "type": "object",
   "required": ["schema_version", "bundle_version", "generated_at", "trackers", "apps", "permissions"],
   "additionalProperties": false,
@@ -212,6 +212,18 @@
           "description": "Corporate registration sources for jurisdiction and headquarters: filings, registries, government orders."
         },
         "roles": { "type": "array", "minItems": 1, "items": { "enum": ["developer", "tracker_owner", "data_recipient"] } },
+        "package_prefixes": {
+          "type": "array", "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9_]+)*\\.$" },
+          "description": "Package-name prefixes of the company's own apps, e.g. 'com.google.'. A preinstalled app with code whose package starts with one, and that has no record of its own, inherits default_flows and default_notes."
+        },
+        "default_flows": {
+          "type": "array", "items": { "$ref": "#/$defs/data_flow" },
+          "description": "Flows that apply to every app from this company, sourced to its privacy policy. Shown on an inheriting app as 'From <company>'s privacy policy, which covers this app'; such an app is never rated above Caution."
+        },
+        "default_notes": {
+          "type": "array", "items": { "$ref": "#/$defs/summary_note" },
+          "description": "Sourced lines from the company's privacy policy shown under an inheriting app's summary, e.g. that the policy covers all its services."
+        },
         "regulatory_history": { "type": "array", "items": { "$ref": "#/$defs/legal_event" } },
         "last_reviewed": { "$ref": "#/$defs/date" }
       }

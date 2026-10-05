@@ -167,6 +167,11 @@ data class Company(
     /** Where its head office is, when a source says so: a separate claim. */
     val headquarters: String? = null,
     val jurisdictionSources: List<Source> = emptyList(),
+    /** Package-name prefixes of its own apps ("com.google."): how a preinstalled app without a record finds its maker. */
+    val packagePrefixes: List<String> = emptyList(),
+    /** Lines from its privacy policy that apply to every app it makes, inherited by those without a record. */
+    val defaultFlows: List<DataFlow> = emptyList(),
+    val defaultNotes: List<SummaryNote> = emptyList(),
     val events: List<LegalEvent> = emptyList(),
 )
 

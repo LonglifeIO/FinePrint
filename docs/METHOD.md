@@ -14,7 +14,7 @@ FinePrint shows, for each app on your phone, what data it collects, who gets it,
 
 Every app's page has the same sections, in the same order. A section with nothing to show is left out, except What it collects.
 
-- Summary: In plain words, from FinePrint's reviewed record of this app. For an app without a record: No reviewed record yet: inferred from the tracker code found in this app.
+- Summary: In plain words, from FinePrint's reviewed record of this app. For an app without a record: No reviewed record yet: inferred from the tracker code found in this app. For an app that came with your phone and inherits its maker's lines: No reviewed record of this app yet: from its maker's privacy policy, which covers it, and the tracker code found in it.
 - What it collects: Data this app takes from your phone, in plain terms.
 - Where it goes: Who gets that data, and whether it's used beyond running the app.
 - This applies to you because: Permissions you've actually granted that feed the above.
@@ -97,6 +97,8 @@ A lawsuit or ruling concerns this app's data when FinePrint's record ties it to 
 
 No record yet: FinePrint hasn't reviewed this app. What it shows is inferred from the tracker code in the app: it can be rated Caution, but never Flagged or Expected.
 
+An app that came with your phone can show its maker's lines instead. When it has no record of its own and its package name starts with a company's, such as com.google. for Google, FinePrint shows the lines that company's privacy policy gives for all its apps, and the app reads No record yet · from Google's policy. Each of those lines says: From Google's privacy policy, which covers this app. FinePrint does this only for apps that came with the phone, since an app installed later could borrow a package name. Like any app without a record, it is rated Caution at most.
+
 Stale: Last reviewed more than 180 days ago; it may be out of date.
 
 ## What you can do
@@ -122,6 +124,14 @@ When you've read an app's page, you can mark it reviewed at the bottom of the pa
 - Changed since you reviewed: FinePrint's record, the permissions you've granted or the tracker code in the app has changed since you marked it reviewed.
 
 A changed app moves back up the list with one line saying what changed, and keeps the date you reviewed it. Your marks and ticks stay on this phone: they aren't part of the bundle, they aren't backed up, and they are never sent anywhere.
+
+## Apps that came with your phone
+
+With Show system apps on, the apps that came with your phone join the list, each marked:
+
+- System: It came with your phone: Android lists it as a system app.
+
+The System filter lists only those apps, grouped by maker, such as Google · 14 apps. The lines a maker's privacy policy gives for all its apps show once, at the top of its group: From Google's privacy policy, which covers these apps. The rest come last, under Other preinstalled apps: FinePrint can't tell from their package names who made these.
 
 ## How records are made
 

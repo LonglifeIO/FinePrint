@@ -43,6 +43,8 @@ data class Explanation(
     val governments: Governments = NO_GOVERNMENTS,
     /** "This record follows TikTok's privacy policy for one region: United States. …", when the record says. */
     val regionCaveat: String? = null,
+    /** Who made it; for a preinstalled app without a record, whose policy lines it inherits. */
+    val maker: Maker? = null,
 )
 
 data class FlowLine(
@@ -88,7 +90,10 @@ fun explain(
         lines += f.toLine(f.recipient?.let { bundle.companies[it]?.name } ?: f.recipientLabel ?: "Unnamed recipient", via = null)
             .copy(controlled = f.id != null && f.id in controlled)
     }
-    lines += trackerLines(detected, bundle, record?.developerCompany, signatures)
+    val maker = maker(app, record, bundle)
+    val inherited = maker?.takeIf { it.inherited }
+    lines += inherited?.lines.orEmpty()
+    lines += trackerLines(detected, bundle, maker?.id, signatures)
     val trackerRecords = detected.mapNotNull { bundle?.trackers?.get(it.id) }.distinct()
     val shown = lines.distinct()
     val granted = app.permissions.filter { it.granted }
@@ -107,10 +112,12 @@ fun explain(
 
     return Explanation(
         appName = appName,
-        summary = record?.summary ?: autoSummary(detected.map { it.name }),
-        summaryNotes = record?.summaryNotes.orEmpty(),
+        summary = record?.summary
+            ?: inherited?.let { m -> inheritedSummary(app, m, bundle?.companies?.get(m.id)?.packagePrefixes?.firstOrNull { app.packageName.startsWith(it) }, detected.map { it.name }) }
+            ?: autoSummary(detected.map { it.name }),
+        summaryNotes = record?.summaryNotes ?: inherited?.notes.orEmpty(),
         coverage = if (record != null) "curated" else "auto",
-        tier = if (record == null && !readable) TierResult(null, scanFacts(app, scan), "N") else tier(
+        tier = if (record == null && inherited == null && !readable) TierResult(null, scanFacts(app, scan), "N") else tier(
             curated = record != null,
             appName = appName,
             flows = shown,
@@ -133,6 +140,7 @@ fun explain(
         stale = record?.stale == true,
         exodusNote = exodusNote(record?.exodusReport?.trackerCount, record?.trackers.orEmpty(), scan),
         changes = record?.changes.orEmpty().sortedByDescending { it.date },
+        maker = maker,
         regionCaveat = record?.policyRegion?.let { regionCaveat(appName, bundle?.jurisdictions?.get(it)?.name ?: countryName(it)) },
         governments = governments(
             current.mapNotNull { it.company },

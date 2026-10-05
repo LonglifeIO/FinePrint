@@ -134,7 +134,13 @@
  "companies": [
   { "id": "co-parent", "name": "Parent Co", "roles": ["tracker_owner"], "jurisdiction": "US", "headquarters": "US", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04" },
   { "id": "co-dev", "name": "Example Developer", "roles": ["developer"], "jurisdiction": "CA", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04" },
-  { "id": "co-kit", "name": "Kit Co", "short_name": "Kit", "roles": ["developer", "tracker_owner"], "jurisdiction": "KY", "headquarters": "IL", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04" },
+  { "id": "co-kit", "name": "Kit Co", "short_name": "Kit", "roles": ["developer", "tracker_owner"], "jurisdiction": "KY", "headquarters": "IL",
+    "package_prefixes": ["com.kitco."],
+    "default_flows": [
+     { "id": "flow-kit-location", "data": "precise_location", "recipient_label": "Kit's partners", "purpose": "Their own use", "bucket": "goes_elsewhere",
+       "status": "self_disclosed", "sources": [{ "url": "https://example.org/kit-policy", "type": "privacy_policy", "title": "Kit policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "applies to all our apps" }] }
+    ],
+    "default_notes": [ { "text": "Kit's privacy policy applies to all its apps.", "status": "self_disclosed", "sources": [{ "url": "https://example.org/kit-policy", "type": "privacy_policy", "title": "Kit policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "applies to all our apps" }] } ], "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04" },
   { "id": "co-kitlabs", "name": "Kit Labs", "parent": "co-kit", "roles": ["developer"], "jurisdiction": "IL", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04" },
   { "id": "co-old", "name": "Old Co", "short_name": "Old", "roles": ["developer"], "jurisdiction": "US", "jurisdiction_sources": [{ "url": "https://example.org/registry", "type": "company_registry", "title": "Registry", "accessed": "2026-10-04", "status": "self_disclosed", "quote": "incorporated in" }], "last_reviewed": "2026-10-04",
     "regulatory_history": [

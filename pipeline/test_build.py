@@ -267,6 +267,27 @@ class GovernmentTest(unittest.TestCase):
         self.assertEqual(build.jurisdictions_path(Path("/tmp/bundle-preview.json")), Path("/tmp/jurisdictions-preview.json"))
 
 
+class InheritanceTest(unittest.TestCase):
+    FLOW = {"id": "flow-google-ads", "data": "app_activity", "recipient": "co-google", "purpose": "Ads", "bucket": "used_for_more",
+            "status": "self_disclosed", "sources": [SOURCE]}
+
+    def test_default_flows_reach_apps_through_a_prefix(self):
+        google = company("co-google", package_prefixes=["com.google."], default_flows=[self.FLOW],
+                         default_notes=[{"text": "t", "status": "self_disclosed", "sources": [SOURCE]}])
+        self.assertEqual(build.inheritance_problems([google]), [])
+        self.assertEqual(schema_errors(doc(companies=[google])), [])
+        self.assertTrue(schema_errors(doc(companies=[company("co-google", package_prefixes=["com.google"])])))  # needs the dot
+        orphan = company("co-x", default_flows=[self.FLOW])
+        self.assertEqual(build.inheritance_problems([orphan]), ["co-x: default_flows and default_notes need package_prefixes to reach an app"])
+
+    def test_flow_ids_prefixes_and_fields(self):
+        twice = company("co-google", package_prefixes=["com.google."], default_flows=[self.FLOW, dict(self.FLOW, in_owner_apps="stays_here")])
+        self.assertEqual(build.inheritance_problems([twice]), ["co-google: default flow id 'flow-google-ads' used twice",
+                                                               "co-google: a default flow can't use in_owner_apps"])
+        nested = [company("co-google", package_prefixes=["com.google."]), company("co-x", package_prefixes=["com.google.android."])]
+        self.assertEqual(build.inheritance_problems(nested), ["package prefix 'com.google.android.' (co-x) overlaps 'com.google.' (co-google)"])
+
+
 class SourceRulesTest(unittest.TestCase):
     def with_source(self, source: dict) -> dict:
         return doc(apps=[dict(app("2026-10-01"), consequences=[{"text": "t", "status": "reported", "sources": [source]}])])

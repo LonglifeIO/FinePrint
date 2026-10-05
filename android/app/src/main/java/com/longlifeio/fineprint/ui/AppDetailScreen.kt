@@ -38,6 +38,7 @@ import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.egress.TrackerSignatures
 import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.NO_RECORD
+import com.longlifeio.fineprint.explain.noRecordFrom
 import com.longlifeio.fineprint.explain.STALE_DEFINITION
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.REVIEWED
@@ -119,8 +120,14 @@ private fun Header(app: InstalledApp, e: Explanation, check: WhatYouCanDo, revie
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             TierBadge(e.tier.tier, reviewed = review.status == ReviewStatus.REVIEWED)
             if (e.coverage == "auto" && e.tier.tier != null) {
-                Text(NO_RECORD, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(
+                    e.maker?.takeIf { it.inherited }?.let { noRecordFrom(it.name) } ?: NO_RECORD,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.weight(1f, fill = false),
+                )
             }
+            if (app.isSystem) SystemLabel(interactive = true)
             if (e.stale) StaleMarker()
         }
         Text(e.tier.reason, style = MaterialTheme.typography.bodyLarge)
