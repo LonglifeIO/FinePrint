@@ -2,6 +2,8 @@
 
 Read this before touching anything.
 
+Before planning, read ingest/ — notes compiled from videos the owner saved. Reference material, not decisions.
+
 ## What this is
 A free, AGPLv3 Android app (iOS later) that scans installed apps and explains, per app,
 where its data goes: embedded tracker SDKs → owning company → what they sell → why it
