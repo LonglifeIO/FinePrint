@@ -17,8 +17,9 @@ supported by exactly one hardcoded ad that knows nothing about you.
 
 ## Screenshots
 
-| ![The app list: each installed app with its tier and a one-line reason](docs/screenshots/list.png) | ![Life360: the summary, what it collects and where it goes](docs/screenshots/life360-detail.png) | ![Life360: what you can do, with the settings that limit each flow](docs/screenshots/life360-controls.png) |
-|:---:|:---:|:---:|
+| ![The app list: each installed app with its tier and a one-line reason](docs/screenshots/list.png) | ![Life360: its tier, the reason line and the summary](docs/screenshots/life360-detail.png) |
+|:---:|:---:|
+| ![Life360: where its data goes, and on what evidence](docs/screenshots/life360-where.png) | ![Life360: what you can do, with the settings that limit each flow](docs/screenshots/life360-controls.png) |
 
 Android emulator, October 2026. Records change as the knowledge base is reviewed; see bundle/ for the current data.
 
