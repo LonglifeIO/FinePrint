@@ -59,7 +59,29 @@
      "amount": "$391.5 million",
      "status": "adjudicated",
      "status_kind": "settlement",
+     "in_force": true,
      "notes": "Over the Location History and Web & App Activity account settings; Location History powers Timeline in Maps.",
+     "procedural_note": {
+      "text": "Most of its terms run for five years from 2023-06-14, six months after it took effect.",
+      "sources": [
+       {
+        "url": "https://www.iowaattorneygeneral.gov/media/cms/Google_LT_final_AVC_Iowa_99CF8F0FC8D45.pdf",
+        "type": "regulator",
+        "title": "Assurance of Voluntary Compliance, Google LLC (Iowa Attorney General's copy)",
+        "accessed": "2026-10-04",
+        "status": "adjudicated",
+        "quote": "a period of five (5) years from the FINAL IMPLEMENTATION DATE"
+       },
+       {
+        "url": "https://www.iowaattorneygeneral.gov/media/cms/Google_LT_final_AVC_Iowa_99CF8F0FC8D45.pdf",
+        "type": "regulator",
+        "title": "Assurance of Voluntary Compliance, Google LLC (Iowa Attorney General's copy)",
+        "accessed": "2026-10-04",
+        "status": "adjudicated",
+        "quote": "“EFFECTIVE DATE” means December 14, 2022. … means six (6) months after the"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.michigan.gov/ag/news/press-releases/2022/11/14/40-attorneys-general-announce-historic-google-settlement-over-location-tracking-practices",
@@ -98,6 +120,7 @@
      "amount": "$1.375 billion",
      "status": "adjudicated",
      "status_kind": "settlement",
+     "closed_date": "2025-10-31",
      "notes": "Settlement in principle announced 2025-05-09; Google signed the agreement, announced 2025-10-31. Ends two lawsuits filed in 2022.",
      "sources": [
       {

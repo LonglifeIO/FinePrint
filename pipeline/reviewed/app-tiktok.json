@@ -208,35 +208,66 @@
      ]
     },
     {
-     "text": "The US Justice Department and the FTC sued TikTok and ByteDance in 2024, alleging that TikTok knowingly let children under 13 create regular accounts and collected their data without their parents' consent.",
-     "status": "alleged",
-     "status_kind": "filed",
-     "wording": "Alleged in a lawsuit filed by the US Justice Department on 2024-08-02",
+     "text": "The US Justice Department and the FTC sued TikTok and ByteDance in 2024, alleging that TikTok knowingly let children under 13 create regular accounts and collected their data without their parents' consent. The companies settled in 2026 for $400 million, with no determination of liability.",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "closed_date": "2026-08-24",
+     "wording": "Settled with the US Justice Department (2026), with no determination of liability",
      "procedural_note": {
-      "text": "On 2026-08-21 the Justice Department announced a $400 million settlement, saying there had been no determination of liability. In September 2026 the court rejected the settlement as proposed and let the department refile.",
+      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of it is due only once the 2019 Musical.ly order is lifted; on 2026-09-21, in that older case, the court refused for now to lift it.",
       "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Bytedance (C.D. Cal. 2:24-cv-06535), order of 2026-08-24",
+        "as_of": "2026-08-24",
+        "status": "adjudicated",
+        "quote": "this action is dismissed with prejudice and the case closed"
+       },
        {
         "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
         "type": "regulator",
         "title": "US Department of Justice press release",
         "as_of": "2026-08-21",
-        "status": "alleged",
-        "quote": "allegations only, and there has been no determination of liability",
+        "status": "adjudicated",
+        "quote": "an additional $100 million upon entry of an order vacating a prior consent decree",
         "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
         "wayback_date": "2026-09-27",
         "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
        },
        {
-        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
-        "type": "journalism",
-        "title": "MediaPost",
-        "as_of": "2026-09-22",
-        "status": "reported",
-        "quote": "amend its request for settlement approval and refile … The deal that Wu rejected"
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.738182/gov.uscourts.cacd.738182.22.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Musical.ly (C.D. Cal. 2:19-cv-01439), minutes of 2026-09-21",
+        "as_of": "2026-09-21",
+        "status": "adjudicated",
+        "quote": "The Court DENIES the Motion without prejudice."
        }
       ]
      },
      "sources": [
+      {
+       "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2026-08-21",
+       "status": "adjudicated",
+       "quote": "the Department of Justice announced a $400 million settlement with TikTok, ByteDance",
+       "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "wayback_date": "2026-09-27",
+       "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+      },
+      {
+       "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2026-08-21",
+       "status": "adjudicated",
+       "quote": "allegations only, and there has been no determination of liability",
+       "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "wayback_date": "2026-09-27",
+       "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+      },
       {
        "url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
        "type": "regulator",

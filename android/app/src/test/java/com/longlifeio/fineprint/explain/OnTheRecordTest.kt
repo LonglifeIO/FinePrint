@@ -24,12 +24,14 @@ class OnTheRecordTest {
         val actions = maps.onTheRecord.actions
         assertEquals(
             listOf(
-                "2025-05-09 · Texas Attorney General · settled · \$1.375 billion · about Google",
-                "2022-11-14 · Attorneys general of 40 US states · settled · \$391.5 million · about Google",
+                "2025-05-09 · Texas Attorney General · settled · \$1.375 billion · closed 2025-10-31 · about Google",
+                "2022-11-14 · Attorneys general of 40 US states · settled, in force · \$391.5 million · about Google",
                 "2022-10-04 · Arizona Attorney General · settled · \$85 million · about Google",
             ),
             actions.map { it.line },
         )
+        // The 40-state settlement's terms run to mid-2028, so it's ongoing; the other two have ended.
+        assertEquals(listOf("2022-11-14"), maps.onTheRecord.ongoing.map { it.date })
         assertTrue(actions.none { it.namesThisApp }) // so the page says no action names this app
         assertEquals("Action against Google", actions.last().subject)
         // Shown, but none names Maps, so the tier stays Caution, set by Google's own label.
@@ -51,10 +53,22 @@ class OnTheRecordTest {
         assertEquals("Action against Meta concerning this app's data", record.actions.first().subject)
         assertTrue(record.actions.single { it.date == "2024-09-27" }.line.endsWith("about Meta"))
         assertEquals("2024-01-17", record.alsoReported.single().date)
-        // Until the records say which are in force or under appeal, every one of them reads as past.
-        assertEquals(record.actions, record.past)
+        // Orders in force and decisions under appeal are ongoing; only the 2021 Illinois settlement has ended.
+        assertEquals(8, record.ongoing.size)
+        assertEquals(listOf("2021-02"), record.past.map { it.date })
+        assertTrue(record.ongoing.single { it.date == "2019-07-24" }.line.contains("consent order, in force"))
         // A Flagged badge is never unexplained: the reason names the newest ruling on the app's data.
         assertEquals("A 2024 ruling on this app's data: Irish DPC fines over the 2018 Facebook token breach", facebook.tier.reason)
+    }
+
+    @Test
+    fun tiktoksChildrensPrivacyCaseEndedInASettlement() {
+        val tiktok = explainApp("com.zhiliaoapp.musically", "TikTok").onTheRecord
+        val case2024 = tiktok.past.single { it.date == "2024-08-02" }
+        assertEquals("2024-08-02 · US District Court, Central District of California · settled, no admission · \$400 million · closed 2026-08-24", case2024.line)
+        assertTrue(case2024.details.none { "not proven" in it }) // settled, so no longer only alleged
+        // The 2019 Musical.ly order is still in force: the court refused, for now, to lift it.
+        assertTrue(tiktok.ongoing.single { it.date == "2019-02-27" }.line.contains("consent order, in force"))
     }
 
     @Test

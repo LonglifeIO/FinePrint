@@ -45,8 +45,36 @@
      "type": "order",
      "status": "adjudicated",
      "status_kind": "consent_order",
+     "in_force": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Settled charges that Facebook told users they could keep information private, then let it be shared and made public.",
+     "procedural_note": {
+      "text": "On 2020-04-27 the FTC replaced this order with a modified one in the same case, which ends 20 years after it was issued.",
+      "sources": [
+       {
+        "url": "https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "type": "regulator",
+        "title": "FTC, Order Modifying Prior Decision and Order (Docket C-4365)",
+        "as_of": "2020-04-27",
+        "status": "adjudicated",
+        "quote": "the Commission hereby modifies the 2012 order with the attached Decision and Order",
+        "wayback_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "wayback_date": "2026-09-06",
+        "verify_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf"
+       },
+       {
+        "url": "https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "type": "regulator",
+        "title": "FTC, Order Modifying Prior Decision and Order (Docket C-4365)",
+        "as_of": "2020-04-27",
+        "status": "adjudicated",
+        "quote": "This Order will terminate 20 years from the date of its issuance",
+        "wayback_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "wayback_date": "2026-09-06",
+        "verify_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.ftc.gov/news-events/news/press-releases/2012/08/ftc-approves-final-settlement-facebook",
@@ -69,8 +97,25 @@
      "amount": "$5 billion",
      "status": "adjudicated",
      "status_kind": "consent_order",
+     "in_force": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Settled charges that Facebook violated its 2012 order by deceiving users about their privacy controls, including sharing friends' data with third-party apps. The court entered the order on 2020-04-23.",
+     "procedural_note": {
+      "text": "The order the FTC issued on 2020-04-27 ends 20 years after it was issued.",
+      "sources": [
+       {
+        "url": "https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "type": "regulator",
+        "title": "FTC, Order Modifying Prior Decision and Order (Docket C-4365)",
+        "as_of": "2020-04-27",
+        "status": "adjudicated",
+        "quote": "ISSUED: April 27, 2020 … will terminate 20 years from the date of its issuance",
+        "wayback_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "wayback_date": "2026-09-06",
+        "verify_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
@@ -125,8 +170,22 @@
      "amount": "€265 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Decision against Meta Platforms Ireland Limited adopted 2022-11-25: GDPR Articles 25(1) and 25(2), over Facebook Search and the contact importer tools (May 2018 to September 2019).",
+     "procedural_note": {
+      "text": "Meta asked Ireland's High Court in December 2022 to annul the decision. The case was still before the Irish courts in March 2025, in the latest ruling FinePrint found.",
+      "sources": [
+       {
+        "url": "https://www2.courts.ie/acc/alfresco/379e1267-9f4c-4b8f-a294-fc96e66222a3/2025_IECA_60.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commission [2025] IECA 60 (Court of Appeal)",
+        "as_of": "2025-03-13",
+        "status": "adjudicated",
+        "quote": "Meta sought the annulment of the Decision pursuant to s. 142 and/or s.150"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/news-media/press-releases/data-protection-commission-announces-decision-in-facebook-data-scraping-inquiry",
@@ -146,8 +205,30 @@
      "amount": "€390 million (€210 million for Facebook, €180 million for Instagram)",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Concerned Meta Ireland's reliance on contract rather than consent, including for behavioural advertising.",
+     "procedural_note": {
+      "text": "Meta's actions in the EU General Court against the board decisions behind these fines, T-129/23 (Facebook) and T-128/23 (Instagram), were listed as in progress on 2026-10-04.",
+      "sources": [
+       {
+        "url": "https://juris.curia.europa.eu/juris/liste.jsf?num=T-129/23&language=en",
+        "type": "lawsuit",
+        "title": "EU General Court case list: T-129/23 Meta Platforms Ireland v European Data Protection Board",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "T-129/23 - Meta Platforms Ireland v European Data Protection Board … [Case in progress]"
+       },
+       {
+        "url": "https://juris.curia.europa.eu/juris/liste.jsf?num=T-128/23&language=en",
+        "type": "lawsuit",
+        "title": "EU General Court case list: T-128/23 Meta Platforms Ireland v European Data Protection Board",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "T-128/23 - Meta Platforms Ireland v European Data Protection Board … [Case in progress]"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/news-media/data-protection-commission-announces-conclusion-two-inquiries-meta-ireland",
@@ -167,10 +248,11 @@
      "amount": "€1.2 billion",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Decision adopted 2023-05-12 under GDPR Article 46(1), following the EDPB's binding decision.",
      "procedural_note": {
-      "text": "Meta said on 2023-05-22 that it would appeal the decision, including the fine.",
+      "text": "Meta appealed. Its action in the EU General Court against the board decision behind the fine, T-325/23, was listed as in progress on 2026-10-04.",
       "sources": [
        {
         "url": "https://about.fb.com/news/2023/05/our-response-to-the-decision-on-facebooks-eu-us-data-transfers/",
@@ -179,6 +261,14 @@
         "as_of": "2023-05-22",
         "status": "self_disclosed",
         "quote": "We intend to appeal both the decision's substance and its orders including the fine"
+       },
+       {
+        "url": "https://juris.curia.europa.eu/juris/liste.jsf?num=T-325/23&language=en",
+        "type": "lawsuit",
+        "title": "EU General Court case list: T-325/23 Meta Platforms Ireland v European Data Protection Board",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "T-325/23 - Meta Platforms Ireland v European Data Protection Board … [Case in progress]"
        }
       ]
      },
@@ -201,8 +291,22 @@
      "amount": "$1.4 billion over five years",
      "status": "adjudicated",
      "status_kind": "settlement_no_admission",
+     "in_force": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Texas sued in February 2022 over facial recognition on photos uploaded to Facebook (Tag Suggestions).",
+     "procedural_note": {
+      "text": "Meta pays the rest in yearly instalments through 2028.",
+      "sources": [
+       {
+        "url": "https://www.texastribune.org/2024/07/30/texas-meta-facebook-biometric-data-settlement/",
+        "type": "journalism",
+        "title": "The Texas Tribune",
+        "as_of": "2024-07-30",
+        "status": "reported",
+        "quote": "Subsequent installments of $225 million each will be paid annually from 2025 to 2028."
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-secures-14-billion-settlement-meta-over-its-unauthorized-capture",
@@ -230,7 +334,29 @@
      "amount": "€91 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "notes": "Meta notified the DPC in 2019 that it had stored some users' passwords without encryption. The release does not name the service.",
+     "procedural_note": {
+      "text": "Meta's appeal in Ireland's High Court (2024/533 MCA) was pending in October 2025, and the court treated it as still open in January 2026, in the latest ruling FinePrint found.",
+      "sources": [
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/2197d0f8-8a7f-4e77-8444-13cca3c24e90/2025_IEHC_631.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commissioner [2025] IEHC 631 (High Court)",
+        "as_of": "2025-10-31",
+        "status": "adjudicated",
+        "quote": "one of its nine statutory appeals that is pending against the Data Protection Commission"
+       },
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/0c959c3e-a936-4b69-a08c-86da9b507d91/2026_IEHC_8.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commission [2026] IEHC 8 (High Court)",
+        "as_of": "2026-01-12",
+        "status": "adjudicated",
+        "quote": "it is appropriate and just to order that costs be costs in the cause"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/news-media/press-releases/DPC-announces-91-million-fine-of-Meta",
@@ -250,8 +376,30 @@
      "amount": "€251 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.facebook.katana",
      "notes": "About 29 million accounts worldwide, about 3 million in the EU/EEA. Fines: €8 million (Art. 33(3)), €3 million (Art. 33(5)), €130 million (Art. 25(1)), €110 million (Art. 25(2)).",
+     "procedural_note": {
+      "text": "Meta's appeal in Ireland's High Court (2025/6 MCA) was pending in October 2025, in the latest ruling FinePrint found.",
+      "sources": [
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/2197d0f8-8a7f-4e77-8444-13cca3c24e90/2025_IEHC_631.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commissioner [2025] IEHC 631 (High Court)",
+        "as_of": "2025-10-31",
+        "status": "adjudicated",
+        "quote": "2025/6 MCA (the “Token Breach Appeal”) … made on 2 December 2024"
+       },
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/2197d0f8-8a7f-4e77-8444-13cca3c24e90/2025_IEHC_631.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commissioner [2025] IEHC 631 (High Court)",
+        "as_of": "2025-10-31",
+        "status": "adjudicated",
+        "quote": "one of its nine statutory appeals that is pending against the Data Protection Commission"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/news-media/press-releases/irish-data-protection-commission-fines-meta-eu251-million",

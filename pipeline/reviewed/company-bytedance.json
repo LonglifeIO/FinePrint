@@ -48,8 +48,38 @@
      "amount": "$5.7 million",
      "status": "adjudicated",
      "status_kind": "consent_order",
+     "in_force": true,
      "concerns_app": "com.zhiliaoapp.musically",
      "notes": "Settled allegations that Musical.ly collected personal information from children under 13 without parental consent.",
+     "procedural_note": {
+      "text": "The 2019 order permanently bars the companies from breaking the US children's privacy rule. On 2026-09-21 the court refused, for now, the government's request to lift it.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.738182/gov.uscourts.cacd.738182.10.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Musical.ly (C.D. Cal. 2:19-cv-01439), stipulated order",
+        "as_of": "2019-03-27",
+        "status": "adjudicated",
+        "quote": "permanently restrained and enjoined from violating the Children’s Online Privacy Protection Rule"
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.738182/gov.uscourts.cacd.738182.22.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Musical.ly (C.D. Cal. 2:19-cv-01439), minutes of 2026-09-21",
+        "as_of": "2026-09-21",
+        "status": "adjudicated",
+        "quote": "The Court DENIES the Motion without prejudice."
+       },
+       {
+        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
+        "type": "journalism",
+        "title": "MediaPost",
+        "as_of": "2026-09-22",
+        "status": "reported",
+        "quote": "the government failed to prove the 2019 order should be set aside"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.ftc.gov/news-events/press-releases/2019/02/video-social-networking-app-musically-agrees-settle-ftc",
@@ -72,8 +102,30 @@
      "amount": "€345 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.zhiliaoapp.musically",
      "notes": "Decision IN-21-9-1 against TikTok Technology Limited, covering 31 July to 31 December 2020.",
+     "procedural_note": {
+      "text": "TikTok's action in the EU General Court against the board decision behind the fine, T-1030/23, was listed as in progress on 2026-10-04; TikTok also challenged the fine in the Irish courts in 2023.",
+      "sources": [
+       {
+        "url": "https://juris.curia.europa.eu/juris/liste.jsf?num=T-1030/23&language=en",
+        "type": "lawsuit",
+        "title": "EU General Court case list: T-1030/23 Tiktok Technology v European Data Protection Board",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "T-1030/23 - Tiktok Technology v European Data Protection Board … [Case in progress]"
+       },
+       {
+        "url": "https://www.irishtimes.com/business/2023/10/23/tiktok-can-pursue-challenge-to-345m-dpc-fine-over-childrens-privacy/",
+        "type": "journalism",
+        "title": "The Irish Times",
+        "as_of": "2023-10-23",
+        "status": "reported",
+        "quote": "TikTok has secured permission from the High Court to challenge"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/dpc-guidance/decisions/inquiry-tiktok-technology-limited-september-2023",
@@ -90,35 +142,67 @@
      "title": "United States v. TikTok Inc. and ByteDance Ltd. (COPPA)",
      "body": "US District Court, Central District of California",
      "type": "lawsuit",
-     "status": "alleged",
-     "status_kind": "filed",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "amount": "$400 million",
+     "closed_date": "2026-08-24",
      "concerns_app": "com.zhiliaoapp.musically",
-     "notes": "Brought by the Justice Department with the FTC. Pending; not proven.",
+     "notes": "Brought by the Justice Department with the FTC. Settled; the Justice Department said there was no determination of liability.",
      "procedural_note": {
-      "text": "On 2026-08-21 the Justice Department announced a $400 million settlement, saying there had been no determination of liability. In September 2026 the court rejected the settlement as proposed and let the department refile.",
+      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of it is due only once the 2019 Musical.ly order is lifted; on 2026-09-21, in that older case, the court refused for now to lift it.",
       "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Bytedance (C.D. Cal. 2:24-cv-06535), order of 2026-08-24",
+        "as_of": "2026-08-24",
+        "status": "adjudicated",
+        "quote": "this action is dismissed with prejudice and the case closed"
+       },
        {
         "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
         "type": "regulator",
         "title": "US Department of Justice press release",
         "as_of": "2026-08-21",
-        "status": "alleged",
-        "quote": "allegations only, and there has been no determination of liability",
+        "status": "adjudicated",
+        "quote": "an additional $100 million upon entry of an order vacating a prior consent decree",
         "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
         "wayback_date": "2026-09-27",
         "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
        },
        {
-        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
-        "type": "journalism",
-        "title": "MediaPost",
-        "as_of": "2026-09-22",
-        "status": "reported",
-        "quote": "amend its request for settlement approval and refile … The deal that Wu rejected"
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.738182/gov.uscourts.cacd.738182.22.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Musical.ly (C.D. Cal. 2:19-cv-01439), minutes of 2026-09-21",
+        "as_of": "2026-09-21",
+        "status": "adjudicated",
+        "quote": "The Court DENIES the Motion without prejudice."
        }
       ]
      },
      "sources": [
+      {
+       "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2026-08-21",
+       "status": "adjudicated",
+       "quote": "the Department of Justice announced a $400 million settlement with TikTok, ByteDance",
+       "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "wayback_date": "2026-09-27",
+       "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+      },
+      {
+       "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2026-08-21",
+       "status": "adjudicated",
+       "quote": "allegations only, and there has been no determination of liability",
+       "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "wayback_date": "2026-09-27",
+       "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+      },
       {
        "url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
        "type": "regulator",
@@ -140,10 +224,11 @@
      "amount": "€530 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.zhiliaoapp.musically",
      "notes": "Against TikTok Technology Limited, under GDPR Article 46(1) and transparency rules.",
      "procedural_note": {
-      "text": "TikTok appealed. In June 2026 Ireland's High Court upheld the finding that TikTok broke EU privacy rules and told the regulator to reconsider its order to suspend transfers to China; a separate judgment on the fine had not yet been published.",
+      "text": "TikTok appealed. In June 2026 Ireland's High Court upheld the finding that TikTok broke EU privacy rules and told the regulator to reconsider its order to suspend transfers to China. On 2026-06-30 it proposed asking the EU Court of Justice about how the fine was calculated, so the appeal on the amount is still open.",
       "sources": [
        {
         "url": "https://www.rte.ie/news/ireland/2025/0502/1510729-tiktok-fine/",
@@ -168,6 +253,14 @@
         "as_of": "2026-06-30",
         "status": "reported",
         "quote": "A separate judgment regarding TikTok's appeal against the fine"
+       },
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/65d7e861-a6f7-4fa9-b03c-91c1eb07c96c/2026_IEHC_419.pdf/pdf",
+        "type": "lawsuit",
+        "title": "TikTok Technology Ltd & Anor v Data Protection Commission [2026] IEHC 419 (High Court)",
+        "as_of": "2026-06-30",
+        "status": "adjudicated",
+        "quote": "This issue also requires to be referred to the CJEU for determination."
        }
       ]
      },

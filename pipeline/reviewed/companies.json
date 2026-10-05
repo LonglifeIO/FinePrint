@@ -49,7 +49,7 @@
      "concerns_app": "com.life360.android.safetymapd",
      "notes": "Brought under the Texas Data Privacy and Security Act, the Data Broker Law and the Insurance Code. Pending against the remaining defendants. Life360 is not a defendant.",
      "procedural_note": {
-      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
+      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex). The State appealed the dismissal of Arity 875, and the appeal was submitted on 2026-05-21 without a decision yet; the case continues against the remaining Allstate entities.",
       "sources": [
        {
         "id": "src-mlex-2025-04-10",
@@ -68,6 +68,22 @@
         "as_of": "2026-07-08",
         "status": "reported",
         "quote": "Allstate remains an active defendant … Arity was dismissed … that ruling is now on appeal"
+       },
+       {
+        "url": "https://search.txcourts.gov/SearchMedia.aspx?MediaVersionID=dc891e82-1982-4252-b29b-b1b3fad96017&coa=coa15&DT=Brief&MediaID=91cb979d-7fa4-4bad-b495-f673765aa748",
+        "type": "lawsuit",
+        "title": "Brief of Appellant State of Texas, No. 15-25-00082-CV (Fifteenth Court of Appeals)",
+        "as_of": "2025-06-25",
+        "status": "alleged",
+        "quote": "This is an appeal after the trial court granted Defendant Arity 875, LLC’s"
+       },
+       {
+        "url": "https://search.txcourts.gov/Case.aspx?cn=15-25-00082-CV&coa=coa15",
+        "type": "lawsuit",
+        "title": "Fifteenth Court of Appeals, case 15-25-00082-CV",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "Notice 05/21/2026 Submitted"
        }
       ]
      },

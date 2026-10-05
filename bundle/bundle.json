@@ -2,7 +2,7 @@
  "schema_version": 1,
  "schema_revision": "1.3",
  "bundle_version": "2026.10.04",
- "generated_at": "2026-10-04T20:57:55-03:00",
+ "generated_at": "2026-10-04T20:59:27-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -1144,35 +1144,66 @@
      ]
     },
     {
-     "text": "The US Justice Department and the FTC sued TikTok and ByteDance in 2024, alleging that TikTok knowingly let children under 13 create regular accounts and collected their data without their parents' consent.",
-     "status": "alleged",
-     "status_kind": "filed",
-     "wording": "Alleged in a lawsuit filed by the US Justice Department on 2024-08-02",
+     "text": "The US Justice Department and the FTC sued TikTok and ByteDance in 2024, alleging that TikTok knowingly let children under 13 create regular accounts and collected their data without their parents' consent. The companies settled in 2026 for $400 million, with no determination of liability.",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "closed_date": "2026-08-24",
+     "wording": "Settled with the US Justice Department (2026), with no determination of liability",
      "procedural_note": {
-      "text": "On 2026-08-21 the Justice Department announced a $400 million settlement, saying there had been no determination of liability. In September 2026 the court rejected the settlement as proposed and let the department refile.",
+      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of it is due only once the 2019 Musical.ly order is lifted; on 2026-09-21, in that older case, the court refused for now to lift it.",
       "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Bytedance (C.D. Cal. 2:24-cv-06535), order of 2026-08-24",
+        "as_of": "2026-08-24",
+        "status": "adjudicated",
+        "quote": "this action is dismissed with prejudice and the case closed"
+       },
        {
         "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
         "type": "regulator",
         "title": "US Department of Justice press release",
         "as_of": "2026-08-21",
-        "status": "alleged",
-        "quote": "allegations only, and there has been no determination of liability",
+        "status": "adjudicated",
+        "quote": "an additional $100 million upon entry of an order vacating a prior consent decree",
         "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
         "wayback_date": "2026-09-27",
         "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
        },
        {
-        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
-        "type": "journalism",
-        "title": "MediaPost",
-        "as_of": "2026-09-22",
-        "status": "reported",
-        "quote": "amend its request for settlement approval and refile … The deal that Wu rejected"
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.738182/gov.uscourts.cacd.738182.22.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Musical.ly (C.D. Cal. 2:19-cv-01439), minutes of 2026-09-21",
+        "as_of": "2026-09-21",
+        "status": "adjudicated",
+        "quote": "The Court DENIES the Motion without prejudice."
        }
       ]
      },
      "sources": [
+      {
+       "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2026-08-21",
+       "status": "adjudicated",
+       "quote": "the Department of Justice announced a $400 million settlement with TikTok, ByteDance",
+       "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "wayback_date": "2026-09-27",
+       "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+      },
+      {
+       "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2026-08-21",
+       "status": "adjudicated",
+       "quote": "allegations only, and there has been no determination of liability",
+       "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "wayback_date": "2026-09-27",
+       "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+      },
       {
        "url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
        "type": "regulator",
@@ -1587,7 +1618,7 @@
      "concerns_app": "com.life360.android.safetymapd",
      "notes": "Brought under the Texas Data Privacy and Security Act, the Data Broker Law and the Insurance Code. Pending against the remaining defendants. Life360 is not a defendant.",
      "procedural_note": {
-      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
+      "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex). The State appealed the dismissal of Arity 875, and the appeal was submitted on 2026-05-21 without a decision yet; the case continues against the remaining Allstate entities.",
       "sources": [
        {
         "id": "src-mlex-2025-04-10",
@@ -1606,6 +1637,22 @@
         "as_of": "2026-07-08",
         "status": "reported",
         "quote": "Allstate remains an active defendant … Arity was dismissed … that ruling is now on appeal"
+       },
+       {
+        "url": "https://search.txcourts.gov/SearchMedia.aspx?MediaVersionID=dc891e82-1982-4252-b29b-b1b3fad96017&coa=coa15&DT=Brief&MediaID=91cb979d-7fa4-4bad-b495-f673765aa748",
+        "type": "lawsuit",
+        "title": "Brief of Appellant State of Texas, No. 15-25-00082-CV (Fifteenth Court of Appeals)",
+        "as_of": "2025-06-25",
+        "status": "alleged",
+        "quote": "This is an appeal after the trial court granted Defendant Arity 875, LLC’s"
+       },
+       {
+        "url": "https://search.txcourts.gov/Case.aspx?cn=15-25-00082-CV&coa=coa15",
+        "type": "lawsuit",
+        "title": "Fifteenth Court of Appeals, case 15-25-00082-CV",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "Notice 05/21/2026 Submitted"
        }
       ]
      },
@@ -1783,8 +1830,38 @@
      "amount": "$5.7 million",
      "status": "adjudicated",
      "status_kind": "consent_order",
+     "in_force": true,
      "concerns_app": "com.zhiliaoapp.musically",
      "notes": "Settled allegations that Musical.ly collected personal information from children under 13 without parental consent.",
+     "procedural_note": {
+      "text": "The 2019 order permanently bars the companies from breaking the US children's privacy rule. On 2026-09-21 the court refused, for now, the government's request to lift it.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.738182/gov.uscourts.cacd.738182.10.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Musical.ly (C.D. Cal. 2:19-cv-01439), stipulated order",
+        "as_of": "2019-03-27",
+        "status": "adjudicated",
+        "quote": "permanently restrained and enjoined from violating the Children’s Online Privacy Protection Rule"
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.738182/gov.uscourts.cacd.738182.22.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Musical.ly (C.D. Cal. 2:19-cv-01439), minutes of 2026-09-21",
+        "as_of": "2026-09-21",
+        "status": "adjudicated",
+        "quote": "The Court DENIES the Motion without prejudice."
+       },
+       {
+        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
+        "type": "journalism",
+        "title": "MediaPost",
+        "as_of": "2026-09-22",
+        "status": "reported",
+        "quote": "the government failed to prove the 2019 order should be set aside"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.ftc.gov/news-events/press-releases/2019/02/video-social-networking-app-musically-agrees-settle-ftc",
@@ -1807,8 +1884,30 @@
      "amount": "€345 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.zhiliaoapp.musically",
      "notes": "Decision IN-21-9-1 against TikTok Technology Limited, covering 31 July to 31 December 2020.",
+     "procedural_note": {
+      "text": "TikTok's action in the EU General Court against the board decision behind the fine, T-1030/23, was listed as in progress on 2026-10-04; TikTok also challenged the fine in the Irish courts in 2023.",
+      "sources": [
+       {
+        "url": "https://juris.curia.europa.eu/juris/liste.jsf?num=T-1030/23&language=en",
+        "type": "lawsuit",
+        "title": "EU General Court case list: T-1030/23 Tiktok Technology v European Data Protection Board",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "T-1030/23 - Tiktok Technology v European Data Protection Board … [Case in progress]"
+       },
+       {
+        "url": "https://www.irishtimes.com/business/2023/10/23/tiktok-can-pursue-challenge-to-345m-dpc-fine-over-childrens-privacy/",
+        "type": "journalism",
+        "title": "The Irish Times",
+        "as_of": "2023-10-23",
+        "status": "reported",
+        "quote": "TikTok has secured permission from the High Court to challenge"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/dpc-guidance/decisions/inquiry-tiktok-technology-limited-september-2023",
@@ -1825,35 +1924,67 @@
      "title": "United States v. TikTok Inc. and ByteDance Ltd. (COPPA)",
      "body": "US District Court, Central District of California",
      "type": "lawsuit",
-     "status": "alleged",
-     "status_kind": "filed",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "amount": "$400 million",
+     "closed_date": "2026-08-24",
      "concerns_app": "com.zhiliaoapp.musically",
-     "notes": "Brought by the Justice Department with the FTC. Pending; not proven.",
+     "notes": "Brought by the Justice Department with the FTC. Settled; the Justice Department said there was no determination of liability.",
      "procedural_note": {
-      "text": "On 2026-08-21 the Justice Department announced a $400 million settlement, saying there had been no determination of liability. In September 2026 the court rejected the settlement as proposed and let the department refile.",
+      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of it is due only once the 2019 Musical.ly order is lifted; on 2026-09-21, in that older case, the court refused for now to lift it.",
       "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Bytedance (C.D. Cal. 2:24-cv-06535), order of 2026-08-24",
+        "as_of": "2026-08-24",
+        "status": "adjudicated",
+        "quote": "this action is dismissed with prejudice and the case closed"
+       },
        {
         "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
         "type": "regulator",
         "title": "US Department of Justice press release",
         "as_of": "2026-08-21",
-        "status": "alleged",
-        "quote": "allegations only, and there has been no determination of liability",
+        "status": "adjudicated",
+        "quote": "an additional $100 million upon entry of an order vacating a prior consent decree",
         "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
         "wayback_date": "2026-09-27",
         "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
        },
        {
-        "url": "https://www.mediapost.com/publications/article/418158/judge-rejects-ftc-tiktok-settlement-over-children.html",
-        "type": "journalism",
-        "title": "MediaPost",
-        "as_of": "2026-09-22",
-        "status": "reported",
-        "quote": "amend its request for settlement approval and refile … The deal that Wu rejected"
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.738182/gov.uscourts.cacd.738182.22.0.pdf",
+        "type": "lawsuit",
+        "title": "United States v. Musical.ly (C.D. Cal. 2:19-cv-01439), minutes of 2026-09-21",
+        "as_of": "2026-09-21",
+        "status": "adjudicated",
+        "quote": "The Court DENIES the Motion without prejudice."
        }
       ]
      },
      "sources": [
+      {
+       "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2026-08-21",
+       "status": "adjudicated",
+       "quote": "the Department of Justice announced a $400 million settlement with TikTok, ByteDance",
+       "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "wayback_date": "2026-09-27",
+       "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+      },
+      {
+       "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2026-08-21",
+       "status": "adjudicated",
+       "quote": "allegations only, and there has been no determination of liability",
+       "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "wayback_date": "2026-09-27",
+       "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+      },
       {
        "url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-tiktok-and-parent-company-bytedance-widespread-violations-childrens",
        "type": "regulator",
@@ -1875,10 +2006,11 @@
      "amount": "€530 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.zhiliaoapp.musically",
      "notes": "Against TikTok Technology Limited, under GDPR Article 46(1) and transparency rules.",
      "procedural_note": {
-      "text": "TikTok appealed. In June 2026 Ireland's High Court upheld the finding that TikTok broke EU privacy rules and told the regulator to reconsider its order to suspend transfers to China; a separate judgment on the fine had not yet been published.",
+      "text": "TikTok appealed. In June 2026 Ireland's High Court upheld the finding that TikTok broke EU privacy rules and told the regulator to reconsider its order to suspend transfers to China. On 2026-06-30 it proposed asking the EU Court of Justice about how the fine was calculated, so the appeal on the amount is still open.",
       "sources": [
        {
         "url": "https://www.rte.ie/news/ireland/2025/0502/1510729-tiktok-fine/",
@@ -1903,6 +2035,14 @@
         "as_of": "2026-06-30",
         "status": "reported",
         "quote": "A separate judgment regarding TikTok's appeal against the fine"
+       },
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/65d7e861-a6f7-4fa9-b03c-91c1eb07c96c/2026_IEHC_419.pdf/pdf",
+        "type": "lawsuit",
+        "title": "TikTok Technology Ltd & Anor v Data Protection Commission [2026] IEHC 419 (High Court)",
+        "as_of": "2026-06-30",
+        "status": "adjudicated",
+        "quote": "This issue also requires to be referred to the CJEU for determination."
        }
       ]
      },
@@ -2044,7 +2184,29 @@
      "amount": "$391.5 million",
      "status": "adjudicated",
      "status_kind": "settlement",
+     "in_force": true,
      "notes": "Over the Location History and Web & App Activity account settings; Location History powers Timeline in Maps.",
+     "procedural_note": {
+      "text": "Most of its terms run for five years from 2023-06-14, six months after it took effect.",
+      "sources": [
+       {
+        "url": "https://www.iowaattorneygeneral.gov/media/cms/Google_LT_final_AVC_Iowa_99CF8F0FC8D45.pdf",
+        "type": "regulator",
+        "title": "Assurance of Voluntary Compliance, Google LLC (Iowa Attorney General's copy)",
+        "accessed": "2026-10-04",
+        "status": "adjudicated",
+        "quote": "a period of five (5) years from the FINAL IMPLEMENTATION DATE"
+       },
+       {
+        "url": "https://www.iowaattorneygeneral.gov/media/cms/Google_LT_final_AVC_Iowa_99CF8F0FC8D45.pdf",
+        "type": "regulator",
+        "title": "Assurance of Voluntary Compliance, Google LLC (Iowa Attorney General's copy)",
+        "accessed": "2026-10-04",
+        "status": "adjudicated",
+        "quote": "“EFFECTIVE DATE” means December 14, 2022. … means six (6) months after the"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.michigan.gov/ag/news/press-releases/2022/11/14/40-attorneys-general-announce-historic-google-settlement-over-location-tracking-practices",
@@ -2083,6 +2245,7 @@
      "amount": "$1.375 billion",
      "status": "adjudicated",
      "status_kind": "settlement",
+     "closed_date": "2025-10-31",
      "notes": "Settlement in principle announced 2025-05-09; Google signed the agreement, announced 2025-10-31. Ends two lawsuits filed in 2022.",
      "sources": [
       {
@@ -2151,8 +2314,36 @@
      "type": "order",
      "status": "adjudicated",
      "status_kind": "consent_order",
+     "in_force": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Settled charges that Facebook told users they could keep information private, then let it be shared and made public.",
+     "procedural_note": {
+      "text": "On 2020-04-27 the FTC replaced this order with a modified one in the same case, which ends 20 years after it was issued.",
+      "sources": [
+       {
+        "url": "https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "type": "regulator",
+        "title": "FTC, Order Modifying Prior Decision and Order (Docket C-4365)",
+        "as_of": "2020-04-27",
+        "status": "adjudicated",
+        "quote": "the Commission hereby modifies the 2012 order with the attached Decision and Order",
+        "wayback_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "wayback_date": "2026-09-06",
+        "verify_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf"
+       },
+       {
+        "url": "https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "type": "regulator",
+        "title": "FTC, Order Modifying Prior Decision and Order (Docket C-4365)",
+        "as_of": "2020-04-27",
+        "status": "adjudicated",
+        "quote": "This Order will terminate 20 years from the date of its issuance",
+        "wayback_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "wayback_date": "2026-09-06",
+        "verify_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.ftc.gov/news-events/news/press-releases/2012/08/ftc-approves-final-settlement-facebook",
@@ -2175,8 +2366,25 @@
      "amount": "$5 billion",
      "status": "adjudicated",
      "status_kind": "consent_order",
+     "in_force": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Settled charges that Facebook violated its 2012 order by deceiving users about their privacy controls, including sharing friends' data with third-party apps. The court entered the order on 2020-04-23.",
+     "procedural_note": {
+      "text": "The order the FTC issued on 2020-04-27 ends 20 years after it was issued.",
+      "sources": [
+       {
+        "url": "https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "type": "regulator",
+        "title": "FTC, Order Modifying Prior Decision and Order (Docket C-4365)",
+        "as_of": "2020-04-27",
+        "status": "adjudicated",
+        "quote": "ISSUED: April 27, 2020 … will terminate 20 years from the date of its issuance",
+        "wayback_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf",
+        "wayback_date": "2026-09-06",
+        "verify_url": "https://web.archive.org/web/20260906051714/https://www.ftc.gov/system/files/documents/cases/c4365facebookmodifyingorder.pdf"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.ftc.gov/news-events/news/press-releases/2019/07/ftc-imposes-5-billion-penalty-sweeping-new-privacy-restrictions-facebook",
@@ -2231,8 +2439,22 @@
      "amount": "€265 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Decision against Meta Platforms Ireland Limited adopted 2022-11-25: GDPR Articles 25(1) and 25(2), over Facebook Search and the contact importer tools (May 2018 to September 2019).",
+     "procedural_note": {
+      "text": "Meta asked Ireland's High Court in December 2022 to annul the decision. The case was still before the Irish courts in March 2025, in the latest ruling FinePrint found.",
+      "sources": [
+       {
+        "url": "https://www2.courts.ie/acc/alfresco/379e1267-9f4c-4b8f-a294-fc96e66222a3/2025_IECA_60.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commission [2025] IECA 60 (Court of Appeal)",
+        "as_of": "2025-03-13",
+        "status": "adjudicated",
+        "quote": "Meta sought the annulment of the Decision pursuant to s. 142 and/or s.150"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/news-media/press-releases/data-protection-commission-announces-decision-in-facebook-data-scraping-inquiry",
@@ -2252,8 +2474,30 @@
      "amount": "€390 million (€210 million for Facebook, €180 million for Instagram)",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Concerned Meta Ireland's reliance on contract rather than consent, including for behavioural advertising.",
+     "procedural_note": {
+      "text": "Meta's actions in the EU General Court against the board decisions behind these fines, T-129/23 (Facebook) and T-128/23 (Instagram), were listed as in progress on 2026-10-04.",
+      "sources": [
+       {
+        "url": "https://juris.curia.europa.eu/juris/liste.jsf?num=T-129/23&language=en",
+        "type": "lawsuit",
+        "title": "EU General Court case list: T-129/23 Meta Platforms Ireland v European Data Protection Board",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "T-129/23 - Meta Platforms Ireland v European Data Protection Board … [Case in progress]"
+       },
+       {
+        "url": "https://juris.curia.europa.eu/juris/liste.jsf?num=T-128/23&language=en",
+        "type": "lawsuit",
+        "title": "EU General Court case list: T-128/23 Meta Platforms Ireland v European Data Protection Board",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "T-128/23 - Meta Platforms Ireland v European Data Protection Board … [Case in progress]"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/news-media/data-protection-commission-announces-conclusion-two-inquiries-meta-ireland",
@@ -2273,10 +2517,11 @@
      "amount": "€1.2 billion",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Decision adopted 2023-05-12 under GDPR Article 46(1), following the EDPB's binding decision.",
      "procedural_note": {
-      "text": "Meta said on 2023-05-22 that it would appeal the decision, including the fine.",
+      "text": "Meta appealed. Its action in the EU General Court against the board decision behind the fine, T-325/23, was listed as in progress on 2026-10-04.",
       "sources": [
        {
         "url": "https://about.fb.com/news/2023/05/our-response-to-the-decision-on-facebooks-eu-us-data-transfers/",
@@ -2285,6 +2530,14 @@
         "as_of": "2023-05-22",
         "status": "self_disclosed",
         "quote": "We intend to appeal both the decision's substance and its orders including the fine"
+       },
+       {
+        "url": "https://juris.curia.europa.eu/juris/liste.jsf?num=T-325/23&language=en",
+        "type": "lawsuit",
+        "title": "EU General Court case list: T-325/23 Meta Platforms Ireland v European Data Protection Board",
+        "accessed": "2026-10-04",
+        "status": "alleged",
+        "quote": "T-325/23 - Meta Platforms Ireland v European Data Protection Board … [Case in progress]"
        }
       ]
      },
@@ -2307,8 +2560,22 @@
      "amount": "$1.4 billion over five years",
      "status": "adjudicated",
      "status_kind": "settlement_no_admission",
+     "in_force": true,
      "concerns_app": "com.facebook.katana",
      "notes": "Texas sued in February 2022 over facial recognition on photos uploaded to Facebook (Tag Suggestions).",
+     "procedural_note": {
+      "text": "Meta pays the rest in yearly instalments through 2028.",
+      "sources": [
+       {
+        "url": "https://www.texastribune.org/2024/07/30/texas-meta-facebook-biometric-data-settlement/",
+        "type": "journalism",
+        "title": "The Texas Tribune",
+        "as_of": "2024-07-30",
+        "status": "reported",
+        "quote": "Subsequent installments of $225 million each will be paid annually from 2025 to 2028."
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-secures-14-billion-settlement-meta-over-its-unauthorized-capture",
@@ -2336,7 +2603,29 @@
      "amount": "€91 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "notes": "Meta notified the DPC in 2019 that it had stored some users' passwords without encryption. The release does not name the service.",
+     "procedural_note": {
+      "text": "Meta's appeal in Ireland's High Court (2024/533 MCA) was pending in October 2025, and the court treated it as still open in January 2026, in the latest ruling FinePrint found.",
+      "sources": [
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/2197d0f8-8a7f-4e77-8444-13cca3c24e90/2025_IEHC_631.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commissioner [2025] IEHC 631 (High Court)",
+        "as_of": "2025-10-31",
+        "status": "adjudicated",
+        "quote": "one of its nine statutory appeals that is pending against the Data Protection Commission"
+       },
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/0c959c3e-a936-4b69-a08c-86da9b507d91/2026_IEHC_8.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commission [2026] IEHC 8 (High Court)",
+        "as_of": "2026-01-12",
+        "status": "adjudicated",
+        "quote": "it is appropriate and just to order that costs be costs in the cause"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/news-media/press-releases/DPC-announces-91-million-fine-of-Meta",
@@ -2356,8 +2645,30 @@
      "amount": "€251 million",
      "status": "adjudicated",
      "status_kind": "ruling",
+     "appeal_pending": true,
      "concerns_app": "com.facebook.katana",
      "notes": "About 29 million accounts worldwide, about 3 million in the EU/EEA. Fines: €8 million (Art. 33(3)), €3 million (Art. 33(5)), €130 million (Art. 25(1)), €110 million (Art. 25(2)).",
+     "procedural_note": {
+      "text": "Meta's appeal in Ireland's High Court (2025/6 MCA) was pending in October 2025, in the latest ruling FinePrint found.",
+      "sources": [
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/2197d0f8-8a7f-4e77-8444-13cca3c24e90/2025_IEHC_631.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commissioner [2025] IEHC 631 (High Court)",
+        "as_of": "2025-10-31",
+        "status": "adjudicated",
+        "quote": "2025/6 MCA (the “Token Breach Appeal”) … made on 2 December 2024"
+       },
+       {
+        "url": "https://ww2.courts.ie/acc/alfresco/2197d0f8-8a7f-4e77-8444-13cca3c24e90/2025_IEHC_631.pdf/pdf",
+        "type": "lawsuit",
+        "title": "Meta Platforms Ireland Ltd v Data Protection Commissioner [2025] IEHC 631 (High Court)",
+        "as_of": "2025-10-31",
+        "status": "adjudicated",
+        "quote": "one of its nine statutory appeals that is pending against the Data Protection Commission"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://www.dataprotection.ie/en/news-media/press-releases/irish-data-protection-commission-fines-meta-eu251-million",
