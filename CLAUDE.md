@@ -89,3 +89,6 @@ briefly "Argus" — if you see it, it means FinePrint.
 - Vendor TrackerControl/NetGuard code before the observed-traffic gate.
 - Commit anything from `pipeline/raw/` or `pipeline/drafts/`.
 - Commit keystores, `local.properties`, tokens, or `.env`.
+- Never read other apps' screens: no Accessibility Service, no screenshots, no OCR, no overlay that
+  captures input. FinePrint may draw over other apps (Guide mode, opt-in, per session) but never
+  reads from them.
