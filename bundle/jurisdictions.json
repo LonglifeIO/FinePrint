@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generated_at": "2026-10-04T22:09:59-03:00",
+ "generated_at": "2026-10-06T19:42:41-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "jurisdictions": [
   {
@@ -406,7 +406,7 @@
      "id": "law-us-fisa-702",
      "name": "FISA Section 702",
      "citation": "50 U.S.C. § 1881a",
-     "text": "Directives issued under it require electronic communication service providers to give the government information for surveillance of people reasonably believed to be outside the United States.",
+     "text": "Directives issued under it require electronic communication service providers to give the government information for surveillance of people reasonably believed to be outside the United States. Repealed 2026-06-12; directives issued before then stay in effect until they expire.",
      "status": "self_disclosed",
      "status_note": {
       "text": "Section 702 was repealed on 2026-06-12, when its last extension ran out. Directives issued before then stay in effect until they expire, and the government can still ask the FISA court to compel compliance with them.",
@@ -443,6 +443,14 @@
         "as_of": "2024-04-20",
         "status": "self_disclosed",
         "quote": "shall continue in effect until the date of the expiration"
+       },
+       {
+        "url": "https://www.congress.gov/119/plaws/publ84/PLAW-119publ84.pdf",
+        "type": "statute",
+        "title": "Public Law 119-84, s. 1(b), extension of transition procedures (congress.gov)",
+        "as_of": "2026-04-18",
+        "status": "self_disclosed",
+        "quote": "EXTENSION OF TRANSITION PROCEDURES … inserting ‘‘REPEAL DATE’’"
        },
        {
         "url": "https://www.congress.gov/crs-product/LSB11444",

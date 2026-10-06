@@ -33,10 +33,21 @@ import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.Source
 
 /**
- * What the Sources sheet shows for one line: its sources and, for a legal claim, the procedural note's.
- * [details] (On the record) come first: who it was against, the record's own words for it, notes.
+ * What the Sources sheet shows for one line: its sources and, for a legal claim, the procedural note's
+ * under [noteHeading]. [details] (On the record) come first: who it was against, the record's own
+ * words for it, notes.
  */
-data class SheetContent(val heading: String, val sources: List<Source>, val note: ProceduralNote?, val details: List<String> = emptyList())
+data class SheetContent(
+    val heading: String,
+    val sources: List<Source>,
+    val note: ProceduralNote?,
+    val details: List<String> = emptyList(),
+    val noteHeading: String = WHERE_THE_CASE_STANDS,
+)
+
+/** The note's heading for a lawsuit or ruling, and for a law (a renewal, a repeal). */
+const val WHERE_THE_CASE_STANDS = "Where the case stands"
+const val CURRENT_STATUS = "Current status"
 
 private val SOURCE_TYPES = mapOf(
     "privacy_policy" to "Privacy policy",
@@ -57,7 +68,13 @@ fun sourceDate(source: Source): String = source.asOf ?: source.accessed?.let { "
 
 /** One 48dp row per claim, in place of a stack of small links. */
 @Composable
-fun SourcesRow(heading: String, sources: List<Source>, note: ProceduralNote?, onOpen: (SheetContent) -> Unit) {
+fun SourcesRow(
+    heading: String,
+    sources: List<Source>,
+    note: ProceduralNote?,
+    onOpen: (SheetContent) -> Unit,
+    noteHeading: String = WHERE_THE_CASE_STANDS,
+) {
     val count = sources.size + (note?.sources?.size ?: 0)
     if (count == 0) return
     Row(
@@ -65,7 +82,7 @@ fun SourcesRow(heading: String, sources: List<Source>, note: ProceduralNote?, on
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = TOUCH)
-            .clickable(onClickLabel = "Show sources") { onOpen(SheetContent(heading, sources, note)) },
+            .clickable(onClickLabel = "Show sources") { onOpen(SheetContent(heading, sources, note, noteHeading = noteHeading)) },
     ) {
         Text(
             "Sources ($count)",
@@ -104,7 +121,7 @@ fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
                     Column(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
                         HorizontalDivider()
                         Text(
-                            "Where the case stands",
+                            content.noteHeading,
                             style = MaterialTheme.typography.titleSmall,
                             modifier = Modifier.padding(top = 12.dp).semantics { heading() },
                         )

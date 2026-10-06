@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -31,6 +32,7 @@ import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -177,6 +179,47 @@ class TapTargetTest {
         compose.onNodeWithText("2026-09-12 · Now lets partners use your precise location for their own purposes.").assertExists()
         detail.performScrollToIndex(0)
         assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
+    }
+
+    /** TalkBack reads a law line's kind once, "Can compel. A company…", not "Can compel.. A company…". */
+    @Test
+    fun lawLinesReadTheirKindWithOneFullStop() {
+        compose.setContent {
+            FinePrintTheme {
+                AppDetailScreen(
+                    app = life360, explanation = explanation(life360), check = check(life360), review = changed,
+                    result = scans[life360.scanKey], signatures = null, bundleVersion = bundle.version,
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+                )
+            }
+        }
+        val detail = compose.onNodeWithTag("detail")
+        detail.performScrollToNode(hasText("Tap to show the laws"))
+        compose.onNodeWithText("Tap to show the laws").performClick()
+        detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)"))
+        assertTrue(compose.onAllNodes(hasContentDescription("Can compel. A company", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty())
+        compose.onAllNodes(hasContentDescription("..", substring = true), useUnmergedTree = true).assertCountEquals(0)
+    }
+
+    /** A law's line says it was repealed, and its Sources sheet heads the law's status "Current status", not the lawsuit heading. */
+    @Test
+    fun aLawShowsItsCurrentStatus() {
+        compose.setContent {
+            FinePrintTheme {
+                AppDetailScreen(
+                    app = life360, explanation = explanation(life360), check = check(life360), review = changed,
+                    result = scans[life360.scanKey], signatures = null, bundleVersion = bundle.version,
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+                )
+            }
+        }
+        val detail = compose.onNodeWithTag("detail")
+        detail.performScrollToNode(hasText("Tap to show the laws"))
+        compose.onNodeWithText("Tap to show the laws").performClick()
+        detail.performScrollToNode(hasText("Repealed 2026-06-12; directives issued before then stay in effect until they expire.", substring = true))
+        compose.onNodeWithText("Sources (8)").performClick()
+        compose.onNodeWithText("Current status").assertExists()
+        compose.onAllNodes(hasText("Where the case stands"), useUnmergedTree = true).assertCountEquals(0)
     }
 
     @Test

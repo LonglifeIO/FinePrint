@@ -21,6 +21,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
+import com.longlifeio.fineprint.explain.CAN_COMPEL
 import com.longlifeio.fineprint.explain.CompanyPlace
 import com.longlifeio.fineprint.explain.GOVERNMENT_LINES
 import com.longlifeio.fineprint.explain.GovernmentLine
@@ -88,7 +89,7 @@ private fun GovernmentLineRow(line: GovernmentLine, onSources: (SheetContent) ->
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             kind?.let { k ->
-                WithDefinition("${k.label}.", k.definition) {
+                WithDefinition(k.label, k.definition) {
                     Text(k.label, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
                 }
             }
@@ -97,6 +98,6 @@ private fun GovernmentLineRow(line: GovernmentLine, onSources: (SheetContent) ->
         }
         line.text?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
         line.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        SourcesRow(line.title, line.sources, line.note, onSources)
+        SourcesRow(line.title, line.sources, line.note, onSources, noteHeading = if (line.kind == CAN_COMPEL) CURRENT_STATUS else WHERE_THE_CASE_STANDS)
     }
 }
