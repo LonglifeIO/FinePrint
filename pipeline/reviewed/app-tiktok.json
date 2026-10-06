@@ -209,13 +209,13 @@
      ]
     },
     {
-     "text": "The US Justice Department and the FTC sued TikTok and ByteDance in 2024, alleging that TikTok knowingly let children under 13 create regular accounts and collected their data without their parents' consent. The companies settled in 2026 for $400 million, with no determination of liability.",
+     "text": "The US Justice Department and the FTC sued TikTok and ByteDance in 2024, alleging that TikTok knowingly let children under 13 create regular accounts and collected their data without their parents' consent. The companies settled in 2026 for $300 million, plus $100 million if the 2019 order is lifted, with no determination of liability.",
      "status": "adjudicated",
      "status_kind": "settlement_no_admission",
      "closed_date": "2026-08-24",
      "wording": "Settled with the US Justice Department (2026), with no determination of liability",
      "procedural_note": {
-      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of it is due only once the 2019 Musical.ly order is lifted; on 2026-09-21, in that older case, the court refused for now to lift it.",
+      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of it is due only once the 2019 Musical.ly order is lifted; on 2026-09-21, in that older case, the court refused for now to lift it. As of 2026-10-06 no renewed motion to lift the 2019 order had been reported.",
       "sources": [
        {
         "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
@@ -243,6 +243,15 @@
         "as_of": "2026-09-21",
         "status": "adjudicated",
         "quote": "The Court DENIES the Motion without prejudice."
+       },
+       {
+        "url": "https://www.courtlistener.com/docket/14573346/united-states-v-musically/",
+        "type": "lawsuit",
+        "title": "United States v. Musical.ly (C.D. Cal. 2:19-cv-01439), CourtListener's copy of the docket; its latest entry is from 2026-09-24. The copy can lag the court's own system.",
+        "accessed": "2026-10-06",
+        "status": "adjudicated",
+        "quote": "TRANSCRIPT ORDER as to Non-Party for Court Reporter",
+        "verify_url": "https://www.courtlistener.com/api/rest/v4/search/?type=rd&q=docket_id%3A14573346&order_by=entry_date_filed%20desc"
        }
       ]
      },
@@ -253,10 +262,18 @@
        "title": "US Department of Justice press release",
        "as_of": "2026-08-21",
        "status": "adjudicated",
-       "quote": "the Department of Justice announced a $400 million settlement with TikTok, ByteDance",
+       "quote": "TikTok will pay $300 million immediately and an additional $100 million upon entry of an order vacating a prior consent decree",
        "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
        "wayback_date": "2026-09-27",
        "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
+       "type": "lawsuit",
+       "title": "United States v. Bytedance (C.D. Cal. 2:24-cv-06535), order of 2026-08-24",
+       "as_of": "2026-08-24",
+       "status": "adjudicated",
+       "quote": "this action is dismissed with prejudice and the case closed"
       },
       {
        "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
@@ -286,7 +303,7 @@
    "changes": [
     {
      "date": "2026-10-04",
-     "text": "FinePrint corrected this record: the 2024 US children's-privacy case ended in a $400 million settlement in August 2026. The record had said it was still pending.",
+     "text": "FinePrint corrected this record: the 2024 US children's-privacy case ended in August 2026 in a settlement of $300 million, plus $100 million if the 2019 order is lifted. The record had said it was still pending.",
      "direction": "neutral",
      "diff": [],
      "sources": [
@@ -297,6 +314,17 @@
        "as_of": "2026-08-24",
        "status": "adjudicated",
        "quote": "this action is dismissed with prejudice and the case closed"
+      },
+      {
+       "url": "https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "type": "regulator",
+       "title": "US Department of Justice press release",
+       "as_of": "2026-08-21",
+       "status": "adjudicated",
+       "quote": "TikTok will pay $300 million immediately and an additional $100 million upon entry of an order vacating a prior consent decree",
+       "wayback_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy",
+       "wayback_date": "2026-09-27",
+       "verify_url": "https://web.archive.org/web/20260927214943/https://www.justice.gov/opa/pr/justice-department-secures-400m-settlement-tiktok-and-bytedance-resolve-childrens-privacy"
       }
      ]
     }

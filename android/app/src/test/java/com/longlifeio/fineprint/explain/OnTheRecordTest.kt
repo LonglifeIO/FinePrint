@@ -65,7 +65,7 @@ class OnTheRecordTest {
     fun tiktoksChildrensPrivacyCaseEndedInASettlement() {
         val tiktok = explainApp("com.zhiliaoapp.musically", "TikTok").onTheRecord
         val case2024 = tiktok.past.single { it.date == "2024-08-02" }
-        assertEquals("2024-08-02 · US District Court, Central District of California · settled, no admission · \$400 million · closed 2026-08-24", case2024.line)
+        assertEquals("2024-08-02 · US District Court, Central District of California · settled, no admission · \$300 million (+\$100 million if the 2019 order is lifted) · closed 2026-08-24", case2024.line)
         assertTrue(case2024.details.none { "not proven" in it }) // settled, so no longer only alleged
         // The 2019 Musical.ly order is still in force: the court refused, for now, to lift it.
         assertTrue(tiktok.ongoing.single { it.date == "2019-02-27" }.line.contains("consent order, in force"))
