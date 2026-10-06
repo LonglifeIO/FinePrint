@@ -85,6 +85,13 @@ Logged for later (not built yet):
   ranks governments; it ranks evidence. Three claims always stay distinct: headquartered in X,
   subject to X's law, servers in X. The principle is in `docs/METHOD.md` ("Governments").
 
+Logged for G5 (not built yet):
+- "Their words / the fine print". The detail screen's summary card opens with the app's Play Store
+  short description, verbatim and attributed ("— Google Play listing, <date>"), with asterisk
+  footnotes: each footnote is an existing sourced line from the record, in small type under it. The
+  quoted text is never edited. Schema: `store_tagline` {text, source_url, as_of} on app records,
+  fetched by the pipeline and quote-checked like everything else.
+
 ## Licence
 
 Code: AGPL-3.0-or-later. Data in `bundle/`: CC BY 4.0. Tracker signatures
