@@ -23,6 +23,9 @@ pipeline/raw/
 pipeline/drafts/
 pipeline/*.db
 pipeline/*.sqlite
+# notes compiled from saved videos — a symlink into the owner's library, never commit
+# (no trailing slash: "ingest/" would not match a symlink)
+/ingest
 
 # Secrets / tooling
 .env
