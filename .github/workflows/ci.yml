@@ -49,6 +49,10 @@ jobs:
       - name: assembleDebug
         working-directory: android
         run: ./gradlew assembleDebug --stacktrace
+      # Includes PaletteContrastTest: text contrast, and no two chip colours collapsing for a red-green colour-blind reader.
+      - name: JVM unit tests
+        working-directory: android
+        run: ./gradlew testDebugUnitTest --stacktrace
       # Debug builds may carry Compose's preview tooling; the release runtime classpath must not (CLAUDE.md).
       - name: No Compose tooling on the release runtime classpath
         working-directory: android
