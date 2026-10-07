@@ -11,6 +11,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.hasScrollToIndexAction
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -218,8 +220,10 @@ class TapTargetTest {
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText("Tap to show the laws"))
         compose.onNodeWithText("Tap to show the laws").performClick()
-        detail.performScrollToNode(hasText("Repealed 2026-06-12; directives issued before then stay in effect until they expire.", substring = true))
-        compose.onNodeWithText("Sources (8)").performClick()
+        detail.performScrollToNode(hasText("It was repealed on 2026-06-12; directives issued before then stay in force until they expire", substring = true))
+        compose.onNodeWithText("Sources (12)").performClick()
+        // The sheet lists the line's six sources first; scroll its list (not the page's) down to the note.
+        compose.onNode(hasScrollToIndexAction() and !hasTestTag("detail")).performScrollToNode(hasText("Current status"))
         compose.onNodeWithText("Current status").assertExists()
         compose.onAllNodes(hasText("Where the case stands"), useUnmergedTree = true).assertCountEquals(0)
     }

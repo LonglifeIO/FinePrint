@@ -514,16 +514,16 @@
      "id": "law-us-fisa-702",
      "name": "FISA Section 702",
      "citation": "50 U.S.C. § 1881a",
-     "text": "Directives issued under it require electronic communication service providers to give the government information for surveillance of people reasonably believed to be outside the United States. Repealed 2026-06-12; directives issued before then stay in effect until they expire.",
+     "text": "Section 702 let the government direct providers to hand over communications of foreign targets abroad. It was repealed on 2026-06-12; directives issued before then stay in force until they expire, and the FISA court can order a provider to comply. The last certification reportedly runs into 2027.",
      "status": "self_disclosed",
-     "last_reviewed": "2026-10-06",
+     "last_reviewed": "2026-10-07",
      "status_note": {
-      "text": "Section 702 was repealed on 2026-06-12, when its last extension ran out. Directives issued before then stay in effect until they expire, and the government can still ask the FISA court to compel compliance with them.",
+      "text": "Repealed when its last extension ran out (Pub. L. 119-87). Lawmakers have said the FISA court approved the last certification in March 2026, for up to a year, so it ends by March 2027 at the latest; after that, surveillance needs individual FISA Title I orders. A directive itself requires the provider to keep the surveillance secret: automatic (§ 1881a(i)(1)(A)).",
       "sources": [
        {
         "url": "https://www.congress.gov/119/plaws/publ87/PLAW-119publ87.pdf",
         "type": "statute",
-        "title": "Public Law 119-87 (congress.gov)",
+        "title": "Public Law 119-87, s. 1(a) (congress.gov)",
         "as_of": "2026-04-30",
         "status": "self_disclosed",
         "quote": "by striking ‘‘April 30, 2026’’ and inserting ‘‘June 12, 2026’’"
@@ -531,27 +531,10 @@
        {
         "url": "https://www.congress.gov/119/plaws/publ84/PLAW-119publ84.pdf",
         "type": "statute",
-        "title": "Public Law 119-84 (congress.gov)",
+        "title": "Public Law 119-84, s. 1(a) (congress.gov)",
         "as_of": "2026-04-18",
         "status": "self_disclosed",
         "quote": "title VII of the Foreign Intelligence Surveillance Act of 1978 … is repealed"
-       },
-       {
-        "url": "https://www.congress.gov/crs-product/LSB11444",
-        "type": "research",
-        "title": "Congressional Research Service, Legal Sidebar LSB11444",
-        "as_of": "2026-06-22",
-        "status": "reported",
-        "quote": "This provision was automatically repealed on June 12, 2026",
-        "verify_url": "https://www.congress.gov/crs_external_products/LSB/PDF/LSB11444/LSB11444.1.pdf"
-       },
-       {
-        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title50/html/USCODE-2024-title50-chap36-subchapI-sec1801.htm",
-        "type": "statute",
-        "title": "FISA Amendments Act of 2008, s. 404(b), transition procedures (United States Code notes, govinfo)",
-        "as_of": "2024-04-20",
-        "status": "self_disclosed",
-        "quote": "shall continue in effect until the date of the expiration"
        },
        {
         "url": "https://www.congress.gov/119/plaws/publ84/PLAW-119publ84.pdf",
@@ -564,11 +547,28 @@
        {
         "url": "https://www.congress.gov/crs-product/LSB11444",
         "type": "research",
-        "title": "Congressional Research Service, Legal Sidebar LSB11444",
+        "title": "Congressional Research Service, Legal Sidebar LSB11444, \"The Impact of FISA Section 702's Repeal\"",
         "as_of": "2026-06-22",
         "status": "reported",
-        "quote": "remains able to enforce directives by seeking an order to compel compliance",
+        "quote": "authorize surveillance and collections under it for up to one year",
         "verify_url": "https://www.congress.gov/crs_external_products/LSB/PDF/LSB11444/LSB11444.1.pdf"
+       },
+       {
+        "url": "https://www.congress.gov/crs-product/LSB11444",
+        "type": "research",
+        "title": "Congressional Research Service, Legal Sidebar LSB11444, \"The Impact of FISA Section 702's Repeal\"",
+        "as_of": "2026-06-22",
+        "status": "reported",
+        "quote": "Thereafter, FISA Title I governs electronic surveillance activity previously governed by Section 702",
+        "verify_url": "https://www.congress.gov/crs_external_products/LSB/PDF/LSB11444/LSB11444.1.pdf"
+       },
+       {
+        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title50/html/USCODE-2024-title50-chap36-subchapVI-sec1881a.htm",
+        "type": "statute",
+        "title": "50 U.S.C. § 1881a(i)(1)(A), United States Code, 2024 edition (govinfo): text as it stood before the 12 June 2026 repeal",
+        "as_of": "2024-04-20",
+        "status": "self_disclosed",
+        "quote": "in a manner that will protect the secrecy of the acquisition"
        }
       ]
      },
@@ -576,7 +576,7 @@
       {
        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title50/html/USCODE-2024-title50-chap36-subchapVI-sec1881a.htm",
        "type": "statute",
-       "title": "50 U.S.C. § 1881a, United States Code (govinfo)",
+       "title": "50 U.S.C. § 1881a(i)(1), United States Code, 2024 edition (govinfo): text as it stood before the 12 June 2026 repeal",
        "as_of": "2024-04-20",
        "status": "self_disclosed",
        "quote": "may direct, in writing, an electronic communication service provider to"
@@ -584,10 +584,45 @@
       {
        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title50/html/USCODE-2024-title50-chap36-subchapVI-sec1881a.htm",
        "type": "statute",
-       "title": "50 U.S.C. § 1881a, United States Code (govinfo)",
+       "title": "50 U.S.C. § 1881a(i)(1)(A), United States Code, 2024 edition (govinfo): text as it stood before the 12 June 2026 repeal",
        "as_of": "2024-04-20",
        "status": "self_disclosed",
        "quote": "immediately provide the Government with all information, facilities, or assistance necessary"
+      },
+      {
+       "url": "https://www.congress.gov/crs-product/LSB11444",
+       "type": "research",
+       "title": "Congressional Research Service, Legal Sidebar LSB11444, \"The Impact of FISA Section 702's Repeal\"",
+       "as_of": "2026-06-22",
+       "status": "reported",
+       "quote": "This provision was automatically repealed on June 12, 2026",
+       "verify_url": "https://www.congress.gov/crs_external_products/LSB/PDF/LSB11444/LSB11444.1.pdf"
+      },
+      {
+       "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title50/html/USCODE-2024-title50-chap36-subchapI-sec1801.htm",
+       "type": "statute",
+       "title": "FISA Amendments Act of 2008, s. 404(b)(1), transition procedures, set out as a note under 50 U.S.C. § 1801 (United States Code, 2024 edition, govinfo)",
+       "as_of": "2024-04-20",
+       "status": "self_disclosed",
+       "quote": "shall continue in effect until the date of the expiration"
+      },
+      {
+       "url": "https://www.congress.gov/crs-product/LSB11444",
+       "type": "research",
+       "title": "Congressional Research Service, Legal Sidebar LSB11444, \"The Impact of FISA Section 702's Repeal\"",
+       "as_of": "2026-06-22",
+       "status": "reported",
+       "quote": "remains able to enforce directives by seeking an order to compel compliance",
+       "verify_url": "https://www.congress.gov/crs_external_products/LSB/PDF/LSB11444/LSB11444.1.pdf"
+      },
+      {
+       "url": "https://www.congress.gov/crs-product/LSB11444",
+       "type": "research",
+       "title": "Congressional Research Service, Legal Sidebar LSB11444, \"The Impact of FISA Section 702's Repeal\"",
+       "as_of": "2026-06-22",
+       "status": "reported",
+       "quote": "the FISC approved a government certification under Section 702 in March 2026",
+       "verify_url": "https://www.congress.gov/crs_external_products/LSB/PDF/LSB11444/LSB11444.1.pdf"
       }
      ]
     }
