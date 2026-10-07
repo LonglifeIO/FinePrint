@@ -126,6 +126,7 @@ tasks.withType<Test>().configureEach {
     inputs.dir("src/test/resources").withPathSensitivity(PathSensitivity.RELATIVE).optional()
     // ...and the real bundle and the published method, which TierTest and MethodDocTest read.
     inputs.file("../../bundle/bundle.json").withPathSensitivity(PathSensitivity.RELATIVE)
+    inputs.file("../../bundle/jurisdictions.json").withPathSensitivity(PathSensitivity.RELATIVE)
     inputs.file("../../docs/METHOD.md").withPathSensitivity(PathSensitivity.RELATIVE)
     inputs.file("src/main/assets/METHOD.md").withPathSensitivity(PathSensitivity.RELATIVE)
 }

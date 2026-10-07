@@ -206,56 +206,89 @@
    "last_reviewed": "2026-10-04"
   },
   {
-   "id": "IE",
-   "name": "Ireland",
+   "id": "EU",
+   "name": "European Union",
    "laws": [
-    {
-     "id": "law-ie-retention-of-data",
-     "name": "Communications (Retention of Data) Act 2011, as amended in 2022",
-     "citation": "No. 3 of 2011, ss. 6 to 7D, as amended by No. 25 of 2022",
-     "text": "Lets a senior Garda officer require a service provider to disclose subscriber data, and lets Gardaí get a judge's order requiring providers to disclose retained traffic and location data, for state security or serious crime. Providers must comply.",
-     "status": "self_disclosed",
-     "sources": [
-      {
-       "url": "https://revisedacts.lawreform.ie/eli/2011/act/3/revised/en/html",
-       "type": "statute",
-       "title": "Communications (Retention of Data) Act 2011, revised (Law Reform Commission)",
-       "as_of": "2025-04-02",
-       "status": "self_disclosed",
-       "quote": "may require a service provider to disclose to that member user data"
-      },
-      {
-       "url": "https://revisedacts.lawreform.ie/eli/2011/act/3/revised/en/html",
-       "type": "statute",
-       "title": "Communications (Retention of Data) Act 2011, revised (Law Reform Commission)",
-       "as_of": "2025-04-02",
-       "status": "self_disclosed",
-       "quote": "may apply to an authorising judge for a production order"
-      },
-      {
-       "url": "https://revisedacts.lawreform.ie/eli/2011/act/3/revised/en/html",
-       "type": "statute",
-       "title": "Communications (Retention of Data) Act 2011, revised (Law Reform Commission)",
-       "as_of": "2025-04-02",
-       "status": "self_disclosed",
-       "quote": "shall comply with the requirement concerned"
-      }
-     ]
-    },
     {
      "id": "law-eu-e-evidence",
      "name": "e-Evidence Regulation (European Production Orders)",
      "citation": "Regulation (EU) 2023/1543",
-     "text": "Lets an authority in one EU country, in criminal proceedings, order a service provider that offers services in the EU to produce or preserve electronic evidence, wherever the data is stored. It has applied since 2026-08-18, and Ireland takes part.",
+     "text": "An authority in one EU country can order an online service based in another to hand over user data in 10 days, or 8 hours in an emergency. Account details need a prosecutor's order; content, or who contacted whom and when, needs a judge and usually a crime carrying three years or more in prison.",
      "status": "self_disclosed",
+     "applies_to": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "status_note": {
+      "text": "Applies from 2026-08-18. It covers orders from one EU country to a provider established or represented in another; a country's own powers over providers based there are national law, which FinePrint hasn't reviewed yet. It binds providers of communications, hosting and other services that store user data (art. 3(3)); FinePrint doesn't assess per company whether a provider qualifies.",
+      "sources": [
+       {
+        "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "type": "statute",
+        "title": "Regulation (EU) 2023/1543, art. 34(2) (EUR-Lex, English text)",
+        "as_of": "2023-07-28",
+        "status": "self_disclosed",
+        "quote": "It shall apply from 18 August 2026.",
+        "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "wayback_date": "2026-08-22",
+        "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+       },
+       {
+        "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "type": "statute",
+        "title": "Regulation (EU) 2023/1543, art. 1(1) (EUR-Lex, English text)",
+        "as_of": "2023-07-28",
+        "status": "self_disclosed",
+        "quote": "without prejudice to the powers of national authorities … on their territory",
+        "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "wayback_date": "2026-08-22",
+        "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+       },
+       {
+        "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "type": "statute",
+        "title": "Regulation (EU) 2023/1543, art. 3(3) (EUR-Lex, English text)",
+        "as_of": "2023-07-28",
+        "status": "self_disclosed",
+        "quote": "make it possible to store or otherwise process data on behalf of the users",
+        "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "wayback_date": "2026-08-22",
+        "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+       }
+      ]
+     },
      "sources": [
       {
        "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
        "type": "statute",
-       "title": "Regulation (EU) 2023/1543 (Official Journal)",
+       "title": "Regulation (EU) 2023/1543, art. 1(1) (EUR-Lex, English text)",
        "as_of": "2023-07-28",
        "status": "self_disclosed",
-       "quote": "to produce or to preserve electronic evidence regardless of the location of the data",
+       "quote": "established in another Member State, or, if not established, represented by a legal representative",
        "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
        "wayback_date": "2026-08-22",
        "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
@@ -263,10 +296,10 @@
       {
        "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
        "type": "statute",
-       "title": "Regulation (EU) 2023/1543 (Official Journal)",
+       "title": "Regulation (EU) 2023/1543, art. 3(3) (EUR-Lex, English text)",
        "as_of": "2023-07-28",
        "status": "self_disclosed",
-       "quote": "It shall apply from 18 August 2026.",
+       "quote": "electronic communications services … users to communicate … storage of data is a defining component",
        "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
        "wayback_date": "2026-08-22",
        "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
@@ -274,26 +307,95 @@
       {
        "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
        "type": "statute",
-       "title": "Regulation (EU) 2023/1543 (Official Journal)",
+       "title": "Regulation (EU) 2023/1543, art. 4(1) (EUR-Lex, English text)",
        "as_of": "2023-07-28",
        "status": "self_disclosed",
-       "quote": "Ireland has notified its wish to take part",
+       "quote": "a judge, a court, an investigating judge or a public prosecutor",
        "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
        "wayback_date": "2026-08-22",
        "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
       },
       {
-       "url": "https://www.irishstatutebook.ie/eli/2026/act/21/enacted/en/html",
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
        "type": "statute",
-       "title": "Criminal Justice (International Cooperation on Electronic Evidence and Other Matters) Act 2026 (Irish Statute Book)",
-       "as_of": "2026-07-15",
+       "title": "Regulation (EU) 2023/1543, art. 4(2) (EUR-Lex, English text)",
+       "as_of": "2023-07-28",
        "status": "self_disclosed",
-       "quote": "to give further effect to Regulation (EU) 2023/1543"
+       "quote": "to obtain content data may be issued only by: (a) a judge, a court",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+      },
+      {
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "type": "statute",
+       "title": "Regulation (EU) 2023/1543, art. 5(3) (EUR-Lex, English text)",
+       "as_of": "2023-07-28",
+       "status": "self_disclosed",
+       "quote": "may be issued for all criminal offences",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+      },
+      {
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "type": "statute",
+       "title": "Regulation (EU) 2023/1543, art. 5(4) (EUR-Lex, English text)",
+       "as_of": "2023-07-28",
+       "status": "self_disclosed",
+       "quote": "a custodial sentence of a maximum of at least three years",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+      },
+      {
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "type": "statute",
+       "title": "Regulation (EU) 2023/1543, art. 10(3) (EUR-Lex, English text)",
+       "as_of": "2023-07-28",
+       "status": "self_disclosed",
+       "quote": "at the latest within 10 days following receipt of the EPOC",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+      },
+      {
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "type": "statute",
+       "title": "Regulation (EU) 2023/1543, art. 10(4) (EUR-Lex, English text)",
+       "as_of": "2023-07-28",
+       "status": "self_disclosed",
+       "quote": "at the latest within eight hours following receipt of the EPOC",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+      },
+      {
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "type": "statute",
+       "title": "Regulation (EU) 2023/1543, recital 100 (EUR-Lex, English text)",
+       "as_of": "2023-07-28",
+       "status": "self_disclosed",
+       "quote": "Ireland has notified its wish to take part in the adoption and application",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+      },
+      {
+       "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "type": "statute",
+       "title": "Regulation (EU) 2023/1543, recital 101 (EUR-Lex, English text)",
+       "as_of": "2023-07-28",
+       "status": "self_disclosed",
+       "quote": "Denmark … is not bound by it or subject to its application",
+       "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+       "wayback_date": "2026-08-22",
+       "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
       }
      ]
     }
    ],
-   "last_reviewed": "2026-10-04"
+   "last_reviewed": "2026-10-07"
   },
   {
    "id": "IL",

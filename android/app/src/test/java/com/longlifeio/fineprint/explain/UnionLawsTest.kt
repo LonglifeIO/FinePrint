@@ -50,4 +50,16 @@ class UnionLawsTest {
         // No company is based in the union itself.
         assertTrue(blocks.none { it.code == "EU" })
     }
+
+    /** The shipped e-Evidence Regulation binds every member state but Denmark; Ireland has no entry of its own. */
+    @Test
+    fun eEvidenceBindsTheMemberStatesThatTakePart() {
+        val real = parseBundle(File("../../bundle/bundle.json").readText(), File("../../bundle/jurisdictions.json").readText())
+        val members = "AT BE BG CY CZ DE DK EE ES FI FR GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK".split(" ")
+        assertEquals(members - "DK", real.jurisdictions.getValue("EU").laws.single { it.id == "law-eu-e-evidence" }.appliesTo)
+        for (code in listOf("IE", "DE")) assertEquals(listOf("law-eu-e-evidence"), lawsBinding(code, real).map { it.id })
+        assertTrue(lawsBinding("DK", real).isEmpty())
+        // So Ireland, like Germany, shows the note that its own laws aren't reviewed.
+        assertTrue("IE" !in real.jurisdictions && "DE" !in real.jurisdictions)
+    }
 }
