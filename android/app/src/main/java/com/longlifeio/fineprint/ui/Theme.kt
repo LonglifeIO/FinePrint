@@ -10,42 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import java.util.Locale
-
-/**
- * Colours that carry meaning: the three buckets and the tiers. Paul Tol's colour-blind-safe
- * high-contrast scheme in light mode (blue, yellow, red), its light variants in dark mode. Colour
- * never works alone: every use comes with an icon and a text label.
- */
-@Immutable
-data class Signals(
-    val stays: Color, val onStays: Color,
-    val more: Color, val onMore: Color,
-    val elsewhere: Color, val onElsewhere: Color,
-    val none: Color, val onNone: Color,
-)
-
-private val LightSignals = Signals(
-    stays = Color(0xFF004488), onStays = Color.White,
-    more = Color(0xFFDDAA33), onMore = Color(0xFF1A1400),
-    elsewhere = Color(0xFFBB5566), onElsewhere = Color.White,
-    none = Color(0xFF63676E), onNone = Color.White,
-)
-
-private val DarkSignals = Signals(
-    stays = Color(0xFF77AADD), onStays = Color(0xFF0B1A2A),
-    more = Color(0xFFEEDD88), onMore = Color(0xFF221B00),
-    elsewhere = Color(0xFFEE6677), onElsewhere = Color(0xFF2A0A10),
-    none = Color(0xFFA9ADB4), onNone = Color(0xFF16181B),
-)
-
-val LocalSignals = staticCompositionLocalOf { LightSignals }
 
 /** A fixed palette (no wallpaper colours), so the signal colours look the same on every phone. */
 private val LightColors = lightColorScheme(
@@ -76,10 +44,7 @@ private val DarkColors = darkColorScheme(
 
 @Composable
 fun FinePrintTheme(content: @Composable () -> Unit) {
-    val dark = isSystemInDarkTheme()
-    CompositionLocalProvider(LocalSignals provides if (dark) DarkSignals else LightSignals) {
-        MaterialTheme(colorScheme = if (dark) DarkColors else LightColors, content = content)
-    }
+    MaterialTheme(colorScheme = if (isSystemInDarkTheme()) DarkColors else LightColors, content = content)
 }
 
 /** A small rounded tag such as "Granted" or "3 trackers"; [outline] draws it as a border instead of a fill. */

@@ -136,7 +136,12 @@ data class AppRecord(
     val changes: List<Change> = emptyList(),
     /** The region whose version of the privacy policy the record follows (ISO code), when there are several. */
     val policyRegion: String? = null,
+    /** The app's own short description on its store listing, quoted verbatim ("Their words"). */
+    val storeTagline: StoreTagline? = null,
 )
+
+/** A store listing's short description, verbatim, the listing it came from, and when FinePrint read it. */
+data class StoreTagline(val text: String, val sourceUrl: String, val asOf: String)
 
 /** A tracker explanation, found under its own id and under every tracker id it [covers] (Meta's kits). */
 data class TrackerRecord(

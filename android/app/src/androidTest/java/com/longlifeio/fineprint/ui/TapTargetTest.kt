@@ -28,6 +28,8 @@ import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.RequestedPermission
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
+import com.longlifeio.fineprint.explain.EVIDENCE
+import com.longlifeio.fineprint.explain.ON_THE_RECORD
 import com.longlifeio.fineprint.explain.STALE_NOTE
 import com.longlifeio.fineprint.explain.recordLastReviewed
 import com.longlifeio.fineprint.explain.explain
@@ -119,7 +121,7 @@ class TapTargetTest {
                 AppDetailScreen(
                     app = life360, explanation = explanation(life360), check = check(life360), review = changed,
                     result = scans[life360.scanKey], signatures = null, bundleVersion = bundle.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
                 )
             }
         }
@@ -134,7 +136,7 @@ class TapTargetTest {
                 AppDetailScreen(
                     app = adApp, explanation = explanation(adApp), check = check(adApp), review = ReviewView(ReviewStatus.NOT_REVIEWED),
                     result = scans[adApp.scanKey], signatures = null, bundleVersion = bundle.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> },
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
                 )
             }
         }
@@ -168,7 +170,7 @@ class TapTargetTest {
                 AppDetailScreen(
                     app = a, explanation = e, check = whatYouCanDo(a, e, fixture.apps[a.packageName], emptyMap(), emptySet()),
                     review = ReviewView(ReviewStatus.NOT_REVIEWED), result = null, signatures = null, bundleVersion = fixture.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> },
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
                 )
             }
         }
@@ -176,11 +178,11 @@ class TapTargetTest {
         compose.onNodeWithText("Tier: Caution → Flagged").assertExists()
         compose.onNode(hasContentDescription("Change: Worsened", substring = true), useUnmergedTree = true).assertExists()
         val detail = compose.onNodeWithTag("detail")
-        detail.performScrollToNode(hasText("On the record · 2 items"))
-        compose.onNodeWithText("On the record · 2 items").performClick()
-        detail.performScrollToNode(hasText("2025-11-03 · Added a setting to turn off partner sharing."))
+        detail.performScrollToNode(hasText("2 items on the record"))
+        compose.onNodeWithText("2 items on the record").performClick()
+        detail.performScrollToNode(hasText("2025-11-03 · Added a setting to turn off partner sharing.", substring = true)) // ends in its footnote number
         compose.onNode(hasContentDescription("Change: Improved", substring = true), useUnmergedTree = true).assertExists()
-        compose.onNodeWithText("2026-09-12 · Now lets partners use your precise location for their own purposes.").assertExists()
+        compose.onNodeWithText("2026-09-12 · Now lets partners use your precise location for their own purposes.", substring = true).assertExists()
         detail.performScrollToIndex(0)
         assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
     }
@@ -193,14 +195,14 @@ class TapTargetTest {
                 AppDetailScreen(
                     app = life360, explanation = explanation(life360), check = check(life360), review = changed,
                     result = scans[life360.scanKey], signatures = null, bundleVersion = bundle.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
                 )
             }
         }
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText("Tap to show the laws"))
         compose.onNodeWithText("Tap to show the laws").performClick()
-        detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)"))
+        detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)", substring = true)) // its title ends in a footnote number
         assertTrue(compose.onAllNodes(hasContentDescription("Can compel. A company", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty())
         compose.onAllNodes(hasContentDescription("..", substring = true), useUnmergedTree = true).assertCountEquals(0)
     }
@@ -213,7 +215,7 @@ class TapTargetTest {
                 AppDetailScreen(
                     app = life360, explanation = explanation(life360), check = check(life360), review = changed,
                     result = scans[life360.scanKey], signatures = null, bundleVersion = bundle.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
                 )
             }
         }
@@ -237,14 +239,14 @@ class TapTargetTest {
                 AppDetailScreen(
                     app = life360, explanation = explain(life360, scans[life360.scanKey], stale, emptyMap()), check = check(life360),
                     review = changed, result = scans[life360.scanKey], signatures = null, bundleVersion = bundle.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
                 )
             }
         }
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText("Tap to show the laws"))
         compose.onNodeWithText("Tap to show the laws").performClick()
-        detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)"))
+        detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)", substring = true)) // its title ends in a footnote number
         val reviewed = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-cloud-act" }.lastReviewed!!
         assertTrue(compose.onAllNodes(hasText(recordLastReviewed(reviewed))).fetchSemanticsNodes().isNotEmpty())
         assertTrue(compose.onAllNodes(hasText(STALE_NOTE)).fetchSemanticsNodes().isNotEmpty())
@@ -277,7 +279,7 @@ class TapTargetTest {
                 AppDetailScreen(
                     app = a, explanation = e, check = whatYouCanDo(a, e, bundle.apps[a.packageName], bundle.permissions.mapValues { it.value.feeds }, emptySet()),
                     review = ReviewView(ReviewStatus.NOT_REVIEWED), result = null, signatures = null, bundleVersion = bundle.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> },
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
                 )
             }
         }
@@ -288,14 +290,14 @@ class TapTargetTest {
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText("Tap to show the laws"))
         compose.onNodeWithText("Tap to show the laws").performClick()
-        detail.performScrollToNode(hasText("On the record ·", substring = true))
-        compose.onNodeWithText("On the record ·", substring = true).performClick()
+        detail.performScrollToNode(hasText(ON_THE_RECORD.subtitle))
+        compose.onNodeWithText(ON_THE_RECORD.subtitle).performClick()
         if (seeAll) {
             detail.performScrollToNode(hasText("See all"))
             compose.onNodeWithText("See all").performClick()
         }
-        detail.performScrollToNode(hasText("Evidence"))
-        compose.onNodeWithText("Evidence").performClick()
+        detail.performScrollToNode(hasText(EVIDENCE.subtitle))
+        compose.onNodeWithText(EVIDENCE.subtitle).performClick()
         detail.performScrollToIndex(0)
     }
 }

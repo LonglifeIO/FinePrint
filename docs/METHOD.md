@@ -14,6 +14,15 @@ FinePrint shows, for each app on your phone, what data it collects, who gets it,
 
 Every app's page has the same sections, in the same order. A section with nothing to show is left out, except What it collects.
 
+When FinePrint has an app's store description on record, its page opens with it, above the sections:
+
+- Their words: The app's own short description on its Google Play listing, word for word.
+- The fine print: At most four of FinePrint's own lines, chosen the same way for every app.
+
+The fine print starts with the line that set the app's tier: a flow, or the ruling or lawsuit the tier names. Then, for each place its data goes that has lines (Stays here, Used for more, Goes elsewhere, in that order), it adds the first line the tier rules would name that isn't already shown: a current practice before a past one; the company's own account, then a ruling, a report, an allegation, then a line inferred from tracker code; sensitive data first. An app without a store description on record opens with its Summary.
+
+Each sourced line on the page ends in a small number. The numbers match the list at the end of the page, one number per document and section, in the order they first appear; to read a source, open the line's Sources row.
+
 - Summary: In plain words, from FinePrint's reviewed record of this app. For an app without a record: No reviewed record yet: inferred from the tracker code found in this app. For an app that came with your phone and inherits its maker's lines: No reviewed record of this app yet: from its maker's privacy policy, which covers it, and the tracker code found in it.
 - What it collects: Data this app takes from your phone, in plain terms.
 - Where it goes: Who gets that data, and whether it's used beyond running the app.
@@ -23,6 +32,7 @@ Every app's page has the same sections, in the same order. A section with nothin
 - On the record: What regulators and courts have said. FinePrint relays the public record; it doesn't judge.
 - Also reported: Reported by journalists, researchers or breach trackers; no court or regulator has ruled on it.
 - Evidence: The trackers and permissions behind the sections above.
+- Sources: Every number on this page is one of these, in order.
 
 On the record and Evidence start collapsed. On the record gives each action one line: when, who acted, what came of it, and its status. The lines fall into two groups, each newest first, followed by what others have reported:
 
@@ -123,7 +133,9 @@ The page and the list say how many of the app's current flows your settings limi
 When you've read an app's page, you can mark it reviewed at the bottom of the page. On its page, a reviewed app's badge then reads, for example, Flagged · Reviewed; in the list, the badge shows a check. It moves below the apps of the same tier you haven't reviewed. Nothing you do changes a tier.
 
 - Reviewed: You've marked this app reviewed. The mark stays on this phone and never changes the tier.
-- Changed since you reviewed: FinePrint's record, the permissions you've granted or the tracker code in the app has changed since you marked it reviewed.
+- Changed since you reviewed: What FinePrint's record says the app does with your data, the permissions you've granted or the tracker code in the app has changed since you marked it reviewed.
+
+Only changes to what the app does with your data count, the same ones FinePrint uses to say whether a record got better or worse: a flow beyond running the app added or removed, a flow moved to a different place, a flow turned on or off by default, a kind of data added or removed, a tracker added to or removed from the record, or a setting that limits a flow added or removed. The same holds for the records of the trackers found in the app. A reworded line, a new or changed source, a ruling or lawsuit, and the app's store description don't count; a ruling or lawsuit shows under On the record instead.
 
 A changed app moves back up the list with one line saying what changed, and keeps the date you reviewed it. Your marks and ticks stay on this phone: they aren't part of the bundle, they aren't backed up, and they are never sent anywhere.
 

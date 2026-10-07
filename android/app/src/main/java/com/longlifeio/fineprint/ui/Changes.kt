@@ -30,7 +30,7 @@ fun DirectionBadge(direction: String) {
 /** Recent changes, under the summary: the latest change, whether it's better or worse, any tier move, its sources. */
 fun LazyListScope.recentChange(changes: List<Change>, onSources: (SheetContent) -> Unit) {
     val latest = changes.firstOrNull() ?: return
-    item(key = "recent-change") {
+    cardItem(key = "recent-change") {
         Column {
             SubHeader(RECENT_CHANGES)
             Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
@@ -38,7 +38,7 @@ fun LazyListScope.recentChange(changes: List<Change>, onSources: (SheetContent) 
                     Text(latest.date, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
                     DirectionBadge(latest.direction)
                 }
-                Text(latest.text, style = MaterialTheme.typography.bodyMedium)
+                Text(latest.text + LocalFootnotes.current.marks(latest.sources), style = MaterialTheme.typography.bodyMedium)
                 tierMove(latest.tierBefore, latest.tierAfter)?.let {
                     Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
@@ -62,7 +62,7 @@ fun ChangeLineRow(change: Change, onDetails: (SheetContent) -> Unit) {
             }
             .padding(horizontal = 16.dp, vertical = 2.dp),
     ) {
-        Text("${change.date} · ${change.text}", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+        Text("${change.date} · ${change.text}" + LocalFootnotes.current.marks(change.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
         DirectionBadge(change.direction)
     }
 }

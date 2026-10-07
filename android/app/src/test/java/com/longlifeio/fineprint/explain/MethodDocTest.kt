@@ -19,7 +19,7 @@ class MethodDocTest {
 
     @Test
     fun everyDefinitionTheScreensShowIsInTheMethod() {
-        val sections = listOf(SUMMARY_CURATED, SUMMARY_AUTO, SUMMARY_INHERITED, COLLECTS, WHERE_IT_GOES, APPLIES, WHAT_YOU_CAN_DO, ON_THE_RECORD, ONGOING, PAST, ALSO_REPORTED, DEVICE_ACCESS, EVIDENCE, RECENT_CHANGES, HISTORY, JURISDICTIONS)
+        val sections = listOf(SUMMARY_CURATED, SUMMARY_AUTO, SUMMARY_INHERITED, COLLECTS, WHERE_IT_GOES, APPLIES, WHAT_YOU_CAN_DO, ON_THE_RECORD, ONGOING, PAST, ALSO_REPORTED, DEVICE_ACCESS, EVIDENCE, RECENT_CHANGES, HISTORY, JURISDICTIONS, SOURCES, THEIR_WORDS, THE_FINE_PRINT)
         val shown = sections.flatMap { listOf(it.title, it.subtitle) } +
             BUCKET_TEXT.values.flatMap { listOf(it.title, it.subtitle) } +
             BADGES.values.flatMap { listOf(it.label, it.definition) } +

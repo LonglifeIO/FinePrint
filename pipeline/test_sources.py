@@ -21,6 +21,13 @@ SOURCE = {"url": "https://example.org/policy", "type": "privacy_policy", "as_of"
 
 
 class QuoteTest(unittest.TestCase):
+    def test_a_store_tagline_is_checked_as_a_quote(self):
+        record = {"store_tagline": {"text": "A little connection can go a long way", "as_of": "2026-10-07",
+                                    "source_url": "https://play.google.com/store/apps/details?id=com.facebook.katana"}}
+        found = check_quotes.sources_in(record, [])
+        self.assertEqual([(s["url"], s["quote"]) for s in found],
+                         [("https://play.google.com/store/apps/details?id=com.facebook.katana", "A little connection can go a long way")])
+
     def test_fragments_must_appear_in_order(self):
         page = "We'll use information that partners provide us\nto personalize ads that we show you."
         self.assertTrue(check_quotes.found_in_order(page, SOURCE["quote"]))

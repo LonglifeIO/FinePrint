@@ -55,7 +55,7 @@ class LawLinesTest {
                     app = life360, explanation = e,
                     check = whatYouCanDo(life360, e, bundle.apps[life360.packageName], bundle.permissions.mapValues { it.value.feeds }, emptySet()),
                     review = ReviewView(ReviewStatus.NOT_REVIEWED), result = scan, signatures = null, bundleVersion = bundle.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> },
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
                 )
             }
         }

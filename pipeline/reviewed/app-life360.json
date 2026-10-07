@@ -6,6 +6,11 @@
    "developer": "Life360, Inc.",
    "developer_company": "co-life360",
    "summary": "Life360 lets family members see each other's locations and get driving and crash alerts. To do that, it collects precise location, movement and driving data. According to its privacy policy (26 Aug 2026), it may also share that data with business partners for their own commercial use, and offer aggregated driving data to help insurers model driving behaviour. One partner, Arity (owned by Allstate), is the subject of ongoing lawsuits over how driving data from apps like Life360 was used; nothing is proven, and Life360 isn't a defendant. If you want the family features without the partner sharing, Life360's own settings let you turn most of it off.",
+   "store_tagline": {
+    "text": "Family locator & phone tracker: real-time GPS location sharing + SOS",
+    "source_url": "https://play.google.com/store/apps/details?id=com.life360.android.safetymapd&hl=en_CA&gl=CA",
+    "as_of": "2026-10-07"
+   },
    "summary_notes": [
     {
      "text": "Life360 says it does not share or sell data of members it knows are under 18.",

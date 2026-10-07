@@ -46,6 +46,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import com.longlifeio.fineprint.R
@@ -260,7 +261,7 @@ private val iconCache = LruCache<String, ImageBitmap>(150)
 
 /** The app's own icon from this phone (never bundled), loaded off the main thread and cached. */
 @Composable
-private fun AppIcon(packageName: String) {
+internal fun AppIcon(packageName: String, size: Dp = 40.dp) {
     val pm = LocalContext.current.packageManager
     val icon by produceState(iconCache.get(packageName), packageName) {
         if (value == null) {
@@ -271,8 +272,8 @@ private fun AppIcon(packageName: String) {
     }
     val bitmap = icon
     if (bitmap == null) {
-        Spacer(Modifier.size(40.dp))
+        Spacer(Modifier.size(size))
     } else {
-        Image(bitmap, contentDescription = null, modifier = Modifier.size(40.dp).clip(RoundedCornerShape(10.dp)))
+        Image(bitmap, contentDescription = null, modifier = Modifier.size(size).clip(RoundedCornerShape(size / 4)))
     }
 }

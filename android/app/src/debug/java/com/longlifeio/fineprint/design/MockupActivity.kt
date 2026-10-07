@@ -14,10 +14,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
@@ -58,6 +58,9 @@ class MockupActivity : ComponentActivity() {
         val scale = intent.getFloatExtra("scale", 1f)
         val out = intent.getStringExtra("out") ?: "g5-$direction-$screen-${if (dark) "dark" else "light"}"
         val app = application as FinePrintApp
+        // For the real detail screen: which app, and any draft store taglines pushed with adb (debug only).
+        val pkg = intent.getStringExtra("pkg") ?: LIFE360
+        val drafts = File(getExternalFilesDir(null), "draft-taglines.json").takeIf { it.exists() }?.let { parseDraftTaglines(it.readText()) }.orEmpty()
         app.session.refresh()
         app.bundle.refreshOnce()
         setContent {
@@ -84,7 +87,14 @@ class MockupActivity : ComponentActivity() {
                     CompositionLocalProvider(
                         LocalConfiguration provides LocalConfiguration.current.withNight(dark),
                         LocalDensity provides Density(LocalDensity.current.density, scale),
-                    ) { Capture(out, fixedHeight = REAL_HEIGHT) { RealHome(app) } }
+                    ) {
+                        val real = rememberRealState(app)
+                        if (screen == "detail") {
+                            Capture(out, fixedHeight = if (scale > 1.2f) REAL_TALL else REAL_DETAIL) { RealDetail(real, pkg, drafts, intent.getBooleanExtra("allBuckets", false)) }
+                        } else {
+                            Capture(out, fixedHeight = REAL_HEIGHT) { RealHome(real) }
+                        }
+                    }
                 }
             } else if (data == null) {
                 val missing = visible.filterNot { results.containsKey(it.scanKey) }.map { it.packageName }
@@ -106,7 +116,7 @@ class MockupActivity : ComponentActivity() {
      */
     @Composable
     private fun Capture(name: String, fixedHeight: Dp? = null, content: @Composable () -> Unit) {
-        val tiles = List(4) { rememberGraphicsLayer() }
+        val tiles = List(8) { rememberGraphicsLayer() }
         var height = 0f
         var width = 0
         Box(Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Black).verticalScroll(rememberScrollState())) {
@@ -175,6 +185,8 @@ class MockupActivity : ComponentActivity() {
         const val TAG = "FinePrintMockup"
         const val TILE = 6000f
         val REAL_HEIGHT = 4200.dp
+        val REAL_DETAIL = 10000.dp
+        val REAL_TALL = 15000.dp
     }
 }
 

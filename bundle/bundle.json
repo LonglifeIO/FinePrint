@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "schema_revision": "1.3",
+ "schema_revision": "1.4",
  "bundle_version": "2026.10.07",
- "generated_at": "2026-10-07T12:43:51-03:00",
+ "generated_at": "2026-10-07T18:10:41-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -11,6 +11,11 @@
    "developer": "Meta Platforms, Inc.",
    "developer_company": "co-meta",
    "summary": "Facebook lets you share posts, photos and messages with friends and groups. To run it, Meta collects what you do in the app and information about your device. According to its privacy policy (23 Jul 2026), Meta also uses what advertisers and other partners tell it about your activity elsewhere \"to personalize ads\", and receives that information \"whether or not you're logged in or have an account\". Regulators in the US and Ireland have fined Meta over its handling of Facebook users' data.",
+   "store_tagline": {
+    "text": "A little connection can go a long way",
+    "source_url": "https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en_CA&gl=CA",
+    "as_of": "2026-10-07"
+   },
    "summary_notes": [
     {
      "text": "Meta says it doesn't sell any of your information to anyone.",
@@ -413,6 +418,11 @@
    "developer": "Life360, Inc.",
    "developer_company": "co-life360",
    "summary": "Life360 lets family members see each other's locations and get driving and crash alerts. To do that, it collects precise location, movement and driving data. According to its privacy policy (26 Aug 2026), it may also share that data with business partners for their own commercial use, and offer aggregated driving data to help insurers model driving behaviour. One partner, Arity (owned by Allstate), is the subject of ongoing lawsuits over how driving data from apps like Life360 was used; nothing is proven, and Life360 isn't a defendant. If you want the family features without the partner sharing, Life360's own settings let you turn most of it off.",
+   "store_tagline": {
+    "text": "Family locator & phone tracker: real-time GPS location sharing + SOS",
+    "source_url": "https://play.google.com/store/apps/details?id=com.life360.android.safetymapd&hl=en_CA&gl=CA",
+    "as_of": "2026-10-07"
+   },
    "summary_notes": [
     {
      "text": "Life360 says it does not share or sell data of members it knows are under 18.",
@@ -942,6 +952,11 @@
    "developer": "TikTok Pte. Ltd. (ByteDance); in the US, TikTok USDS Joint Venture LLC",
    "developer_company": "co-bytedance",
    "summary": "TikTok shows you a feed of short videos picked for you, and collects how you interact with videos and ads, plus details about your device, to run it. Since January 2026 a joint venture in which ByteDance keeps 19.9% runs TikTok in the US. According to its US privacy policy (15 Jul 2026), TikTok uses this information for ads, and collects \"approximate or precise location information\" if you turn on location services for the app. Regulators in Ireland and Canada have ruled against TikTok over children's data and transfers of European users' data to China.",
+   "store_tagline": {
+    "text": "Videos, Music & Live Streams",
+    "source_url": "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically&hl=en_CA&gl=CA",
+    "as_of": "2026-10-04"
+   },
    "summary_notes": [
     {
      "text": "The policy quoted here is TikTok's US privacy policy. In Canada, TikTok is provided by TikTok Pte. Ltd. under its privacy policy for other regions (last updated 8 Jul 2025), which FinePrint hasn't reviewed yet.",

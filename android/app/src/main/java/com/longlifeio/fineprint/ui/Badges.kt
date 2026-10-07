@@ -1,5 +1,6 @@
 package com.longlifeio.fineprint.ui
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,7 +13,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PlainTooltip
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipBox
@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -31,11 +30,7 @@ import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.explain.AUTO
 import com.longlifeio.fineprint.explain.BADGES
 import com.longlifeio.fineprint.explain.HISTORICAL
-import com.longlifeio.fineprint.explain.NO_RECORD
-import com.longlifeio.fineprint.explain.NO_RECORD_DEFINITION
-import com.longlifeio.fineprint.explain.REVIEWED
-import com.longlifeio.fineprint.explain.REVIEWED_DEFINITION
-import com.longlifeio.fineprint.explain.Tier
+import com.longlifeio.fineprint.explain.NOT_PROVEN
 import kotlinx.coroutines.launch
 
 /** Minimum touch target on every interactive element (Material and WCAG guidance). */
@@ -65,70 +60,40 @@ fun WithDefinition(spoken: String, definition: String, content: @Composable () -
     }
 }
 
-/** Self-disclosed / Reported / Alleged / Adjudicated, or Auto for lines FinePrint inferred. */
+/** A status's icon: never colour, so badges stay neutral ink and tell themselves apart by icon and word. */
+private fun statusIcon(status: String?): Int = when (status) {
+    "self_disclosed" -> R.drawable.ms_campaign
+    "reported" -> R.drawable.ms_article
+    "alleged" -> R.drawable.ms_help
+    "adjudicated" -> R.drawable.ms_gavel
+    else -> R.drawable.ms_code
+}
+
+/**
+ * Self-disclosed / Reported / Alleged / Adjudicated, or Auto for lines FinePrint inferred: an outlined
+ * label in ink with its icon. Alleged always reads "Alleged (not proven in court)".
+ */
 @Composable
 fun StatusBadge(status: String?, historical: Boolean) {
     val c = MaterialTheme.colorScheme
     val badge = BADGES.getValue(status ?: AUTO)
-    val (container, content) = when (status) {
-        "self_disclosed" -> c.primaryContainer to c.onPrimaryContainer
-        "reported" -> c.secondaryContainer to c.onSecondaryContainer
-        "alleged" -> c.tertiaryContainer to c.onTertiaryContainer
-        "adjudicated" -> c.surface to c.onSurfaceVariant // drawn as an outline: decided, but no alarm colour
-        else -> c.surfaceVariant to c.onSurfaceVariant
-    }
-    val label = if (historical) "${badge.label} · ${BADGES.getValue(HISTORICAL).label.lowercase()}" else badge.label
+    val word = if (status == "alleged") "${badge.label} ($NOT_PROVEN)" else badge.label
+    val label = if (historical) "$word · ${BADGES.getValue(HISTORICAL).label.lowercase()}" else word
     val definition = if (historical) "${badge.definition} ${BADGES.getValue(HISTORICAL).definition}" else badge.definition
-    WithDefinition("Status: $label", definition) { StatusLabel(label, container, content, outline = status == "adjudicated") }
-}
-
-data class TierLook(val label: String, val icon: Int, val container: Color, val content: Color, val definition: String)
-
-/** A tier's colour, icon and words; null is an app with no record and nothing to rate yet. */
-@Composable
-fun tierLook(tier: Tier?): TierLook {
-    val s = LocalSignals.current
-    return when (tier) {
-        Tier.FLAGGED -> TierLook(tier.label, R.drawable.ic_flagged, s.elsewhere, s.onElsewhere, tier.definition)
-        Tier.CAUTION -> TierLook(tier.label, R.drawable.ic_caution, s.more, s.onMore, tier.definition)
-        Tier.EXPECTED -> TierLook(tier.label, R.drawable.ic_expected, s.stays, s.onStays, tier.definition)
-        null -> TierLook(NO_RECORD, R.drawable.ic_no_record, s.none, s.onNone, NO_RECORD_DEFINITION)
-    }
-}
-
-/**
- * The tier as icon + word on its colour. [interactive] shows its definition on tap; in list rows the
- * whole row is the tap target instead, so the badge is just announced. [reviewed] (your own mark)
- * mutes it: "Flagged · Reviewed", or in the [compact] list form "Flagged" with a check. The tier
- * itself never changes.
- */
-@Composable
-fun TierBadge(tier: Tier?, interactive: Boolean = true, reviewed: Boolean = false, compact: Boolean = false) {
-    val base = tierLook(tier)
-    val c = MaterialTheme.colorScheme
-    val look = if (!reviewed) base else base.copy(
-        label = if (compact) base.label else "${base.label} · $REVIEWED",
-        container = c.surfaceVariant,
-        content = c.onSurfaceVariant,
-        definition = "${base.definition} $REVIEWED_DEFINITION",
-    )
-    val badge = @Composable { modifier: Modifier ->
-        Surface(color = look.container, contentColor = look.content, shape = RoundedCornerShape(8.dp), modifier = modifier) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-            ) {
-                Icon(painterResource(look.icon), contentDescription = null, modifier = Modifier.size(16.dp))
-                Text(look.label, style = MaterialTheme.typography.labelLarge)
-                if (reviewed && compact) Icon(painterResource(R.drawable.ic_check), contentDescription = null, modifier = Modifier.size(16.dp))
-            }
+    WithDefinition("Status: $label", definition) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.border(1.dp, c.outlineVariant, RoundedCornerShape(Corner.chip)).padding(horizontal = 8.dp, vertical = 3.dp),
+        ) {
+            Icon(painterResource(statusIcon(status)), contentDescription = null, tint = c.onSurface, modifier = Modifier.size(16.dp))
+            Text(label, style = MaterialTheme.typography.labelMedium.copy(letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing), color = c.onSurface)
         }
     }
-    if (interactive) {
-        WithDefinition("Tier: ${look.label}", look.definition) { badge(Modifier) }
-    } else {
-        val spoken = if (reviewed && compact) "Tier: ${look.label}, $REVIEWED" else "Tier: ${look.label}"
-        badge(Modifier.clearAndSetSemantics { contentDescription = spoken })
-    }
+}
+
+/** A status in words, for small type such as the fine print: "Alleged (not proven in court)". */
+fun statusWord(status: String?): String {
+    val label = BADGES.getValue(status ?: AUTO).label
+    return if (status == "alleged") "$label ($NOT_PROVEN)" else label
 }

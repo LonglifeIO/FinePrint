@@ -4,6 +4,7 @@
     python3 pipeline/check_quotes.py                                   # every pipeline/reviewed/*.json
     python3 pipeline/check_quotes.py pipeline/reviewed/app-facebook.json
 
+Store taglines (an app's short description on its listing) are checked the same way, text as quote.
 A quote passes when each of its fragments (joined by " … ") appears, in order, in the visible text
 of the copy fetch_sources.py saved of the source's verify_url, url or wayback_url, once curly
 quotes, dashes and whitespace are folded. Quotes from copyrighted pages must stay under 15 words;
@@ -87,6 +88,8 @@ def sources_in(node, out: list) -> list:
     if isinstance(node, dict):
         if "url" in node and "quote" in node:
             out.append(node)
+        if "source_url" in node and "text" in node:  # a store tagline: its text is the quote
+            out.append({"url": node["source_url"], "quote": node["text"], "title": "store listing (store_tagline)"})
         for value in node.values():
             sources_in(value, out)
     elif isinstance(node, list):

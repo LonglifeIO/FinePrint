@@ -4,25 +4,20 @@ import com.longlifeio.fineprint.bundle.Bundle
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.explain.permissionLabel
-import java.security.MessageDigest
 
 /**
- * What a Reviewed mark remembers about an app: a hash of FinePrint's records for it, the permissions
- * granted and the trackers found. Kept on this phone only (see ReviewStore).
+ * What a Reviewed mark remembers about an app: the shape of FinePrint's records for it (Structure.kt:
+ * only what the structural diff compares), the permissions granted and the trackers found. Kept on
+ * this phone only (see ReviewStore).
  */
-data class Fingerprint(val record: String, val granted: List<String>, val trackers: List<String>) {
-    val digest: String get() = sha256("$record\n${granted.joinToString(",")}\n${trackers.joinToString(",")}")
-}
+data class Fingerprint(val record: String, val granted: List<String>, val trackers: List<String>)
 
 /** Null until the app's code has been scanned: the tracker set isn't known before that. */
 fun fingerprint(app: InstalledApp, scan: TrackerScanResult?, bundle: Bundle?): Fingerprint? {
     if (scan == null) return null
-    val pkg = app.packageName
-    val records = listOfNotNull(bundle?.apps?.get(pkg)?.hash) +
-        scan.trackers.mapNotNull { bundle?.trackers?.get(it.id)?.hash } +
-        bundle?.companies?.values.orEmpty().filter { c -> c.events.any { it.concernsApp == pkg } }.map { it.hash }
+    val trackerRecords = scan.trackers.map { it.id }.distinct().sorted().mapNotNull { id -> bundle?.trackers?.get(id)?.let { id to it } }
     return Fingerprint(
-        record = sha256(records.joinToString("|")),
+        record = shape(bundle?.apps?.get(app.packageName), trackerRecords).encode(),
         granted = app.permissions.filter { it.granted }.map { it.name }.distinct().sorted(),
         trackers = scan.trackers.map { it.id }.distinct().sorted(),
     )
@@ -37,11 +32,21 @@ data class ReviewView(val status: ReviewStatus, val reviewedOn: String? = null, 
     val note: String? get() = changes.takeIf { it.isNotEmpty() }?.joinToString("; ")
 }
 
-/** Until the scan finishes, a marked app counts as reviewed: nothing is known to have changed. */
-fun reviewView(mark: ReviewMark?, now: Fingerprint?, trackerNames: Map<String, String>): ReviewView = when {
-    mark == null -> ReviewView(ReviewStatus.NOT_REVIEWED)
-    now == null || now.digest == mark.fingerprint.digest -> ReviewView(ReviewStatus.REVIEWED, mark.reviewedAt.take(10))
-    else -> ReviewView(ReviewStatus.CHANGED, mark.reviewedAt.take(10), changes(mark.fingerprint, now, trackerNames))
+/**
+ * Until the scan finishes, a marked app counts as reviewed: nothing is known to have changed. After
+ * that it's changed only when [changes] finds something, so a reworded record never flips a mark.
+ */
+fun reviewView(mark: ReviewMark?, now: Fingerprint?, trackerNames: Map<String, String>): ReviewView {
+    if (mark == null) return ReviewView(ReviewStatus.NOT_REVIEWED)
+    val changed = now?.let { changes(mark.fingerprint, it, trackerNames) }.orEmpty()
+    return if (changed.isEmpty()) ReviewView(ReviewStatus.REVIEWED, mark.reviewedAt.take(10)) else ReviewView(ReviewStatus.CHANGED, mark.reviewedAt.take(10), changed)
+}
+
+/** True when the record's structure changed; a mark kept before shapes were (a bare hash) can't tell, so it isn't. */
+private fun recordChanged(old: String, now: String): Boolean {
+    val before = Shape.decode(old) ?: return false
+    val after = Shape.decode(now) ?: return false
+    return structuralDiff(before, after).isNotEmpty()
 }
 
 /** One phrase per kind of change, in plain words. */
@@ -53,13 +58,10 @@ internal fun changes(old: Fingerprint, now: Fingerprint, trackerNames: Map<Strin
     val allowed = now.granted - old.granted.toSet()
     val revoked = old.granted - now.granted.toSet()
     return listOfNotNull(
-        "FinePrint's record was updated".takeIf { old.record != now.record },
+        "FinePrint's record was updated".takeIf { recordChanged(old.record, now.record) },
         added.takeIf { it.isNotEmpty() }?.let { "new tracker code: ${names(it)}" },
         gone.takeIf { it.isNotEmpty() }?.let { "tracker code removed: ${names(it)}" },
         allowed.takeIf { it.isNotEmpty() }?.let { "now allowed: ${labels(it)}" },
         revoked.takeIf { it.isNotEmpty() }?.let { "no longer allowed: ${labels(it)}" },
     )
 }
-
-private fun sha256(text: String): String =
-    MessageDigest.getInstance("SHA-256").digest(text.toByteArray()).joinToString("") { "%02x".format(it) }

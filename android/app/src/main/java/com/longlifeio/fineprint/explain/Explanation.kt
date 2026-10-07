@@ -1,14 +1,13 @@
 package com.longlifeio.fineprint.explain
 
-import com.longlifeio.fineprint.bundle.AppRecord
 import com.longlifeio.fineprint.bundle.Bundle
 import com.longlifeio.fineprint.bundle.Change
 import com.longlifeio.fineprint.bundle.Company
-import com.longlifeio.fineprint.bundle.Consequence
 import com.longlifeio.fineprint.bundle.DataFlow
 import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.ReachText
 import com.longlifeio.fineprint.bundle.Source
+import com.longlifeio.fineprint.bundle.StoreTagline
 import com.longlifeio.fineprint.bundle.SummaryNote
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.TrackerScanResult
@@ -45,6 +44,8 @@ data class Explanation(
     val regionCaveat: String? = null,
     /** Who made it; for a preinstalled app without a record, whose policy lines it inherits. */
     val maker: Maker? = null,
+    /** Its store listing's own short description, for "Their words", when the record has one. */
+    val storeTagline: StoreTagline? = null,
 )
 
 data class FlowLine(
@@ -122,7 +123,7 @@ fun explain(
             appName = appName,
             flows = shown,
             events = onRecord.actions.filter { it.namesThisApp }
-                .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }) },
+                .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }, line = it) },
             reach = app.deviceReach,
             scanFacts = scanFacts(app, scan),
             today = today,
@@ -141,6 +142,7 @@ fun explain(
         exodusNote = exodusNote(record?.exodusReport?.trackerCount, record?.trackers.orEmpty(), scan),
         changes = record?.changes.orEmpty().sortedByDescending { it.date },
         maker = maker,
+        storeTagline = record?.storeTagline,
         regionCaveat = record?.policyRegion?.let { regionCaveat(appName, bundle?.jurisdictions?.get(it)?.name ?: countryName(it)) },
         governments = governments(
             current.mapNotNull { it.company },

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,7 +40,7 @@ import com.longlifeio.fineprint.explain.recordLastReviewed
  */
 fun LazyListScope.jurisdictionsItems(g: Governments, open: Boolean, onToggle: () -> Unit, onSources: (SheetContent) -> Unit) {
     if (g.blocks.isEmpty() && !g.unplaced) return
-    item(key = "jurisdictions") {
+    cardItem(key = "jurisdictions") {
         Column {
             SubHeader(JURISDICTIONS)
             val toggle = if (g.blocks.isEmpty()) Modifier else Modifier
@@ -64,23 +63,23 @@ fun LazyListScope.jurisdictionsItems(g: Governments, open: Boolean, onToggle: ()
     }
     if (!open) return
     for (block in g.blocks) {
-        item(key = "country:${block.code}") {
+        cardItem(key = "country:${block.code}") {
             Text(
                 block.name,
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 12.dp).semantics { heading() },
             )
         }
-        items(block.companies) { CompanyPlaceRow(it, onSources) }
-        items(block.lines) { GovernmentLineRow(it, onSources) }
-        if (!block.lawsReviewed) item { Note(NO_LAWS_REVIEWED) }
+        cardItems(block.companies) { CompanyPlaceRow(it, onSources) }
+        cardItems(block.lines) { GovernmentLineRow(it, onSources) }
+        if (!block.lawsReviewed) cardItem { Note(NO_LAWS_REVIEWED) }
     }
 }
 
 @Composable
 private fun CompanyPlaceRow(place: CompanyPlace, onSources: (SheetContent) -> Unit) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
-        Text(place.text, style = MaterialTheme.typography.bodyMedium)
+        Text(place.text + LocalFootnotes.current.marks(place.sources), style = MaterialTheme.typography.bodyMedium)
         SourcesRow(place.name, place.sources, null, onSources)
     }
 }
@@ -101,7 +100,7 @@ private fun GovernmentLineBody(line: GovernmentLine, kind: BadgeText?, onSources
                     Text(k.label, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
                 }
             }
-            Text(line.title, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f).padding(start = 8.dp))
+            Text(line.title + LocalFootnotes.current.marks(line.sources), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f).padding(start = 8.dp))
             StatusBadge(line.status, historical = false)
             if (line.stale) StaleMarker()
         }

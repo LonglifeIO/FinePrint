@@ -43,6 +43,10 @@ const val CHECK_IN_APP = "Check this yourself — FinePrint can't see settings i
 const val CHECK_ANDROID_UNSEEN = "Check this yourself — FinePrint can't see this Android setting."
 val DEVICE_ACCESS = SectionText("Device access", "Extra powers this app has registered, beyond ordinary permissions.")
 val EVIDENCE = SectionText("Evidence", "The trackers and permissions behind the sections above.")
+val SOURCES = SectionText("Sources", "Every number on this page is one of these, in order.")
+/** The top of an app's page, when its store description is on record. */
+val THEIR_WORDS = SectionText("Their words", "The app's own short description on its Google Play listing, word for word.")
+val THE_FINE_PRINT = SectionText("The fine print", "At most four of FinePrint's own lines, chosen the same way for every app.")
 
 const val STAYS_HERE = "stays_here"
 const val USED_FOR_MORE = "used_for_more"
@@ -114,7 +118,7 @@ fun fromPolicyForAll(company: String): String = "From ${possessive(company)} pri
 const val REVIEWED = "Reviewed"
 const val REVIEWED_DEFINITION = "You've marked this app reviewed. The mark stays on this phone and never changes the tier."
 const val CHANGED = "Changed since you reviewed"
-const val CHANGED_DEFINITION = "FinePrint's record, the permissions you've granted or the tracker code in the app has changed since you marked it reviewed."
+const val CHANGED_DEFINITION = "What FinePrint's record says the app does with your data, the permissions you've granted or the tracker code in the app has changed since you marked it reviewed."
 const val LIMITED_DEFINITION = "A flow counts as limited when a setting you've changed applies to it: an Android permission turned off, or an in-app setting ticked. Limited doesn't mean stopped."
 const val STALE_DEFINITION = "Last reviewed more than 180 days ago; it may be out of date."
 

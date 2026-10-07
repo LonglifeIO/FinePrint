@@ -22,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.explain.BUCKETS
 import com.longlifeio.fineprint.explain.FlowLine
 import com.longlifeio.fineprint.explain.GOES_ELSEWHERE

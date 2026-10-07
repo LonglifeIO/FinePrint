@@ -80,7 +80,7 @@ class SystemAppsTest {
                 AppDetailScreen(
                     app = gmail, explanation = e, check = whatYouCanDo(gmail, e, null, bundle.permissions.mapValues { it.value.feeds }, emptySet()),
                     review = ReviewView(ReviewStatus.NOT_REVIEWED), result = scan, signatures = null, bundleVersion = bundle.version,
-                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
                 )
             }
         }

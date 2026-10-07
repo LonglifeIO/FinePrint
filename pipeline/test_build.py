@@ -25,7 +25,7 @@ VALIDATOR = build.jsonschema.Draft202012Validator(
 
 
 def doc(**sections) -> dict:
-    base = {"schema_version": 1, "schema_revision": "1.3", "bundle_version": "2026.10.04",
+    base = {"schema_version": 1, "schema_revision": "1.4", "bundle_version": "2026.10.04",
             "generated_at": "2026-10-04T12:00:00-03:00", "apps": [], "trackers": [], "companies": [],
             "permissions": [], "device_reach": []}
     return dict(base, **sections)
@@ -387,6 +387,18 @@ class RiskTagTest(unittest.TestCase):
         action = {"text": "t", "status": "alleged", "status_kind": "filed", "subject_company": subject, "sources": [SOURCE]}
         return dict(app("2026-10-01"), developer_company="co-dev", risk_tags=["regulatory_action"],
                     consequences=[action], **extra)
+
+    def test_a_store_tagline_quotes_this_apps_own_play_listing(self):
+        good = {"text": "Videos, Music & Live Streams", "as_of": "2026-10-04",
+                "source_url": "https://play.google.com/store/apps/details?id=com.example&hl=en_CA&gl=CA"}
+        self.assertEqual(build.tagline_problems(dict(app("2026-10-01"), store_tagline=good)), [])
+        self.assertEqual(schema_errors(doc(apps=[dict(app("2026-10-01"), store_tagline=good)])), [])
+        other = dict(good, source_url="https://play.google.com/store/apps/details?id=com.other&hl=en_CA")
+        self.assertEqual(len(build.tagline_problems(dict(app("2026-10-01"), store_tagline=other))), 1)
+        site = dict(good, source_url="https://example.com/?id=com.example")
+        self.assertEqual(len(build.tagline_problems(dict(app("2026-10-01"), store_tagline=site))), 1)
+        self.assertTrue(schema_errors(doc(apps=[dict(app("2026-10-01"), store_tagline=dict(good, text="x" * 81))])))
+        self.assertTrue(schema_errors(doc(apps=[dict(app("2026-10-01"), store_tagline={"text": "t"})])))
 
     def test_regulatory_action_against_someone_else_needs_a_qualifier(self):
         self.assertTrue(build.risk_tag_problems(self.record("co-other")))

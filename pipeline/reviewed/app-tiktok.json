@@ -6,6 +6,11 @@
    "developer": "TikTok Pte. Ltd. (ByteDance); in the US, TikTok USDS Joint Venture LLC",
    "developer_company": "co-bytedance",
    "summary": "TikTok shows you a feed of short videos picked for you, and collects how you interact with videos and ads, plus details about your device, to run it. Since January 2026 a joint venture in which ByteDance keeps 19.9% runs TikTok in the US. According to its US privacy policy (15 Jul 2026), TikTok uses this information for ads, and collects \"approximate or precise location information\" if you turn on location services for the app. Regulators in Ireland and Canada have ruled against TikTok over children's data and transfers of European users' data to China.",
+   "store_tagline": {
+    "text": "Videos, Music & Live Streams",
+    "source_url": "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically&hl=en_CA&gl=CA",
+    "as_of": "2026-10-04"
+   },
    "summary_notes": [
     {
      "text": "The policy quoted here is TikTok's US privacy policy. In Canada, TikTok is provided by TikTok Pte. Ltd. under its privacy policy for other regions (last updated 8 Jul 2025), which FinePrint hasn't reviewed yet.",

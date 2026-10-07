@@ -6,6 +6,11 @@
    "developer": "Meta Platforms, Inc.",
    "developer_company": "co-meta",
    "summary": "Facebook lets you share posts, photos and messages with friends and groups. To run it, Meta collects what you do in the app and information about your device. According to its privacy policy (23 Jul 2026), Meta also uses what advertisers and other partners tell it about your activity elsewhere \"to personalize ads\", and receives that information \"whether or not you're logged in or have an account\". Regulators in the US and Ireland have fined Meta over its handling of Facebook users' data.",
+   "store_tagline": {
+    "text": "A little connection can go a long way",
+    "source_url": "https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en_CA&gl=CA",
+    "as_of": "2026-10-07"
+   },
    "summary_notes": [
     {
      "text": "Meta says it doesn't sell any of your information to anyone.",

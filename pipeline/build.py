@@ -29,7 +29,7 @@ import os
 import sys
 import tempfile
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 from zoneinfo import ZoneInfo
 
 import jsonschema
@@ -123,6 +123,7 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
     for app in bundle["apps"]:
         errors += [f"{app['package_id']}: tracker {t!r} not in trackers.json" for t in app["trackers"] if t not in tracker_ids]
         errors += risk_tag_problems(app)
+        errors += tagline_problems(app)
         errors += control_problems(app)
         errors += change_problems(app)
         errors += [f"{app['package_id']}: in_owner_apps is for tracker records" for f in app.get("data_flows", []) if "in_owner_apps" in f]
@@ -326,6 +327,18 @@ def control_problems(app: dict) -> list[str]:
     return errors
 
 
+def tagline_problems(app: dict) -> list[str]:
+    """A store tagline quotes this app's own Google Play listing."""
+    tagline = app.get("store_tagline")
+    if not tagline:
+        return []
+    url = urlparse(tagline["source_url"])
+    ids = parse_qs(url.query).get("id", [])
+    if url.hostname != "play.google.com" or not url.path.startswith("/store/apps/details") or ids != [app["package_id"]]:
+        return [f"{app['package_id']}: store_tagline must cite this app's Google Play listing, not {tagline['source_url']}"]
+    return []
+
+
 def risk_tag_problems(app: dict) -> list[str]:
     """A regulatory_action tag must not read as an action against the developer when it isn't one."""
     tags, notes = app.get("risk_tags", []), app.get("risk_tag_notes", {})
@@ -344,6 +357,8 @@ def check_urls(bundle: dict, now: dt.datetime) -> list[str]:
     def collect(n: dict) -> None:
         if "url" in n:  # a source: its verify_url stands in for url when the page blocks scripts
             urls.add(n.get("verify_url", n["url"]))
+        if "source_url" in n:  # a store tagline's listing
+            urls.add(n["source_url"])
         for k in ("wayback_url", "vendor_archive_url"):
             if k in n:
                 urls.add(VENDOR_VERIFY_URLS.get(n[k], n[k]))
@@ -392,7 +407,7 @@ def build(reviewed: list[Path], now: dt.datetime) -> dict:
     mark_stale(merged["apps"], now.date())
     return {
         "schema_version": 1,
-        "schema_revision": "1.3",
+        "schema_revision": "1.4",
         "bundle_version": now.strftime("%Y.%m.%d"),
         "generated_at": now.isoformat(timespec="seconds"),
         "licence": LICENCE,

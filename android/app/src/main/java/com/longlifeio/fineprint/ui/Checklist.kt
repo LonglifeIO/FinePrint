@@ -50,7 +50,7 @@ internal fun CheckRow(item: CheckItem, onTick: (String, Boolean) -> Unit, onSour
                 }
             }
             Column(Modifier.padding(start = 12.dp)) {
-                Text(item.label, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                Text(item.label + LocalFootnotes.current.marks(item.sources), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
                 Text(item.how, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 item.effect?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                 item.notes.forEach { Text(it, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic) }
