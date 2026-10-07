@@ -21,12 +21,14 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.longlifeio.fineprint.bundle.Bundle
 import com.longlifeio.fineprint.bundle.parseBundle
 import com.longlifeio.fineprint.egress.DetectedTracker
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.RequestedPermission
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
+import com.longlifeio.fineprint.explain.STALE_NOTE
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
@@ -220,6 +222,30 @@ class TapTargetTest {
         compose.onNodeWithText("Sources (8)").performClick()
         compose.onNodeWithText("Current status").assertExists()
         compose.onAllNodes(hasText("Where the case stands"), useUnmergedTree = true).assertCountEquals(0)
+    }
+
+    /** A law line shows when it was last reviewed and, once stale, the same marker and note as a stale record. */
+    @Test
+    fun aLawLineShowsItsReviewDateAndGoesStaleLikeARecord() {
+        val stale = Bundle(bundle.version, bundle.generatedAt, bundle.apps, bundle.trackers, bundle.companies, bundle.permissions,
+            bundle.deviceReach, bundle.jurisdictions.mapValues { (_, j) -> j.copy(laws = j.laws.map { it.copy(stale = true) }) })
+        compose.setContent {
+            FinePrintTheme {
+                AppDetailScreen(
+                    app = life360, explanation = explain(life360, scans[life360.scanKey], stale, emptyMap()), check = check(life360),
+                    review = changed, result = scans[life360.scanKey], signatures = null, bundleVersion = bundle.version,
+                    onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+                )
+            }
+        }
+        val detail = compose.onNodeWithTag("detail")
+        detail.performScrollToNode(hasText("Tap to show the laws"))
+        compose.onNodeWithText("Tap to show the laws").performClick()
+        detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)"))
+        assertTrue(compose.onAllNodes(hasText("Record last reviewed 2026-10-06.")).fetchSemanticsNodes().isNotEmpty())
+        assertTrue(compose.onAllNodes(hasText(STALE_NOTE)).fetchSemanticsNodes().isNotEmpty())
+        // Life360's own record isn't stale, so a Stale marker here is a law's.
+        assertTrue(compose.onAllNodes(hasContentDescription("Stale. ", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty())
     }
 
     @Test

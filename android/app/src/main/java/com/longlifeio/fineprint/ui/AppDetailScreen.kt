@@ -40,6 +40,8 @@ import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.NO_RECORD
 import com.longlifeio.fineprint.explain.noRecordFrom
 import com.longlifeio.fineprint.explain.STALE_DEFINITION
+import com.longlifeio.fineprint.explain.STALE_NOTE
+import com.longlifeio.fineprint.explain.recordLastReviewed
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.REVIEWED
 import com.longlifeio.fineprint.explain.WhatYouCanDo
@@ -100,9 +102,9 @@ fun AppDetailScreen(
                 Column(Modifier.padding(top = 16.dp, bottom = 24.dp)) {
                     ReviewControls(review, onMarkReviewed, onClearMark)
                     HorizontalDivider(Modifier.padding(vertical = 8.dp))
-                    Note(explanation.lastReviewed?.let { "Record last reviewed $it." } ?: "No reviewed record for this app yet.")
+                    Note(explanation.lastReviewed?.let(::recordLastReviewed) ?: "No reviewed record for this app yet.")
                     bundleVersion?.let { Note("Knowledge bundle $it.") }
-                    if (explanation.stale) Note("This record is more than 180 days old and may be out of date.")
+                    if (explanation.stale) Note(STALE_NOTE)
                     if (result?.trackers?.isNotEmpty() == true) Note("Tracker names and signatures: εxodus Privacy, ODbL 1.0 (details under Evidence).")
                     LinkRow("How to read this", R.drawable.ic_chevron_right, onHowToRead)
                     LinkRow("Report an error", R.drawable.ic_open_in_new) { uriHandler.openUri(REPORT_ERROR_URL) }

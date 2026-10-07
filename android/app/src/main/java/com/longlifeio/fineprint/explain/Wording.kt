@@ -117,6 +117,10 @@ const val CHANGED = "Changed since you reviewed"
 const val CHANGED_DEFINITION = "FinePrint's record, the permissions you've granted or the tracker code in the app has changed since you marked it reviewed."
 const val LIMITED_DEFINITION = "A flow counts as limited when a setting you've changed applies to it: an Android permission turned off, or an in-app setting ticked. Limited doesn't mean stopped."
 const val STALE_DEFINITION = "Last reviewed more than 180 days ago; it may be out of date."
+
+/** Under a reviewed record, and under each law line: when it was last reviewed, and whether that was too long ago. */
+fun recordLastReviewed(date: String) = "Record last reviewed $date."
+const val STALE_NOTE = "This record is more than 180 days old and may be out of date."
 const val NO_RECORD_DEFINITION = "FinePrint hasn't reviewed this app. What it shows is inferred from the tracker code in the app: it can be rated Caution, but never Flagged or Expected."
 
 /** Plain names for data kinds: flow headings and "What it collects". */

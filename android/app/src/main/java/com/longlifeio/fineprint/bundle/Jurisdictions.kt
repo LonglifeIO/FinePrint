@@ -20,6 +20,9 @@ data class Law(
     val sources: List<Source>,
     /** The countries a union's law binds (an EU regulation); null: it binds the country of its own entry. */
     val appliesTo: List<String>? = null,
+    /** When the owner last reviewed this entry; stale, from build.py, once that's more than 180 days before the build. */
+    val lastReviewed: String? = null,
+    val stale: Boolean = false,
 )
 
 fun parseJurisdictions(json: String): Map<String, Jurisdiction> {
@@ -34,6 +37,7 @@ fun parseJurisdictions(json: String): Map<String, Jurisdiction> {
                     it.getString("id"), it.getString("name"), it.getString("citation"), it.getString("text"), it.getString("status"),
                     it.optJSONObject("status_note")?.toProceduralNote(), it.objects("sources").map { s -> s.toSource() },
                     it.optJSONArray("applies_to")?.let { a -> List(a.length()) { i -> a.getString(i) } },
+                    it.text("last_reviewed"), it.optBoolean("stale"),
                 )
             },
             lastReviewed = j.getString("last_reviewed"),

@@ -21,6 +21,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
+import com.longlifeio.fineprint.explain.BadgeText
 import com.longlifeio.fineprint.explain.CAN_COMPEL
 import com.longlifeio.fineprint.explain.CompanyPlace
 import com.longlifeio.fineprint.explain.GOVERNMENT_LINES
@@ -29,7 +30,9 @@ import com.longlifeio.fineprint.explain.Governments
 import com.longlifeio.fineprint.explain.JURISDICTIONS
 import com.longlifeio.fineprint.explain.NONE_PLACED
 import com.longlifeio.fineprint.explain.NO_LAWS_REVIEWED
+import com.longlifeio.fineprint.explain.STALE_NOTE
 import com.longlifeio.fineprint.explain.UNPLACED
+import com.longlifeio.fineprint.explain.recordLastReviewed
 
 /**
  * Jurisdictions, at the end of Where it goes: one line saying where the companies that get the data
@@ -82,10 +85,15 @@ private fun CompanyPlaceRow(place: CompanyPlace, onSources: (SheetContent) -> Un
     }
 }
 
-/** "Can compel · CLOUD Act (18 U.S.C. § 2713)", its status, what it lets the government do, and its sources. */
+/** "Can compel · CLOUD Act (18 U.S.C. § 2713)", its status, what it lets the government do, its sources and, for a law, its review date. */
 @Composable
 private fun GovernmentLineRow(line: GovernmentLine, onSources: (SheetContent) -> Unit) {
     val kind = GOVERNMENT_LINES[line.kind]
+    Column(Modifier.fillMaxWidth()) { GovernmentLineBody(line, kind, onSources); ReviewNotes(line) }
+}
+
+@Composable
+private fun GovernmentLineBody(line: GovernmentLine, kind: BadgeText?, onSources: (SheetContent) -> Unit) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             kind?.let { k ->
@@ -95,9 +103,17 @@ private fun GovernmentLineRow(line: GovernmentLine, onSources: (SheetContent) ->
             }
             Text(line.title, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f).padding(start = 8.dp))
             StatusBadge(line.status, historical = false)
+            if (line.stale) StaleMarker()
         }
         line.text?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
         line.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         SourcesRow(line.title, line.sources, line.note, onSources, noteHeading = if (line.kind == CAN_COMPEL) CURRENT_STATUS else WHERE_THE_CASE_STANDS)
     }
+}
+
+/** A law's review date and, once it's stale, the stale note: worded and drawn as under a record. Other lines have neither. */
+@Composable
+private fun ReviewNotes(line: GovernmentLine) {
+    line.lastReviewed?.let { Note(recordLastReviewed(it)) }
+    if (line.stale) Note(STALE_NOTE)
 }
