@@ -23,6 +23,8 @@ data class Law(
     /** When the owner last reviewed this entry; stale, from build.py, once that's more than 180 days before the build. */
     val lastReviewed: String? = null,
     val stale: Boolean = false,
+    /** Who it binds, with its own sources. */
+    val scope: ProceduralNote? = null,
 )
 
 fun parseJurisdictions(json: String): Map<String, Jurisdiction> {
@@ -37,7 +39,7 @@ fun parseJurisdictions(json: String): Map<String, Jurisdiction> {
                     it.getString("id"), it.getString("name"), it.getString("citation"), it.getString("text"), it.getString("status"),
                     it.optJSONObject("status_note")?.toProceduralNote(), it.objects("sources").map { s -> s.toSource() },
                     it.optJSONArray("applies_to")?.let { a -> List(a.length()) { i -> a.getString(i) } },
-                    it.text("last_reviewed"), it.optBoolean("stale"),
+                    it.text("last_reviewed"), it.optBoolean("stale"), it.optJSONObject("scope")?.toProceduralNote(),
                 )
             },
             lastReviewed = j.getString("last_reviewed"),

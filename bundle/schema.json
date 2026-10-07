@@ -430,7 +430,7 @@
     "law": {
       "description": "A law in force that lets a government compel a company to provide data (a Can compel line).",
       "type": "object",
-      "required": ["id", "name", "citation", "text", "status", "sources", "last_reviewed"],
+      "required": ["id", "name", "citation", "text", "status", "sources", "last_reviewed", "scope"],
       "additionalProperties": false,
       "properties": {
         "id": { "type": "string", "pattern": "^law-[a-z0-9-]+$" },
@@ -441,8 +441,20 @@
         "status_note": { "$ref": "#/$defs/procedural_note", "description": "Where the law stands (a renewal, a sunset), with sources." },
         "last_reviewed": { "$ref": "#/$defs/date", "description": "When the owner last reviewed this law's entry." },
         "stale": { "type": "boolean", "description": "Computed by build.py: last_reviewed more than 180 days before the build." },
+        "scope": { "$ref": "#/$defs/law_scope" },
         "applies_to": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/country" }, "description": "The countries a union's law binds (an EU regulation: the member states taking part). Without it, a law binds the country of its entry." },
         "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" }, "description": "The first is the law's official text (type statute)." }
+      }
+    },
+
+    "law_scope": {
+      "description": "Who a law binds, in plain words, with sources: every law has one, shown under its line.",
+      "type": "object",
+      "required": ["text", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string", "maxLength": 300 },
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } }
       }
     },
 

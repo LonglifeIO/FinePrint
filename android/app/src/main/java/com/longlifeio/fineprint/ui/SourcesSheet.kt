@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -23,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -33,9 +35,9 @@ import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.Source
 
 /**
- * What the Sources sheet shows for one line: its sources and, for a legal claim, the procedural note's
- * under [noteHeading]. [details] (On the record) come first: who it was against, the record's own
- * words for it, notes.
+ * What the Sources sheet shows for one line: its sources; for a law, who it binds ([scope], under
+ * "Who it binds"); and, for a legal claim or a law, the procedural note's under [noteHeading].
+ * [details] (On the record) come first: who it was against, the record's own words for it, notes.
  */
 data class SheetContent(
     val heading: String,
@@ -43,11 +45,13 @@ data class SheetContent(
     val note: ProceduralNote?,
     val details: List<String> = emptyList(),
     val noteHeading: String = WHERE_THE_CASE_STANDS,
+    val scope: ProceduralNote? = null,
 )
 
 /** The note's heading for a lawsuit or ruling, and for a law (a renewal, a repeal). */
 const val WHERE_THE_CASE_STANDS = "Where the case stands"
 const val CURRENT_STATUS = "Current status"
+const val WHO_IT_BINDS = "Who it binds"
 
 private val SOURCE_TYPES = mapOf(
     "privacy_policy" to "Privacy policy",
@@ -74,15 +78,16 @@ fun SourcesRow(
     note: ProceduralNote?,
     onOpen: (SheetContent) -> Unit,
     noteHeading: String = WHERE_THE_CASE_STANDS,
+    scope: ProceduralNote? = null,
 ) {
-    val count = sources.size + (note?.sources?.size ?: 0)
+    val count = sources.size + (scope?.sources?.size ?: 0) + (note?.sources?.size ?: 0)
     if (count == 0) return
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = TOUCH)
-            .clickable(onClickLabel = "Show sources") { onOpen(SheetContent(heading, sources, note, noteHeading = noteHeading)) },
+            .clickable(onClickLabel = "Show sources") { onOpen(SheetContent(heading, sources, note, noteHeading = noteHeading, scope = scope)) },
     ) {
         Text(
             "Sources ($count)",
@@ -98,9 +103,9 @@ fun SourcesRow(
 @Composable
 fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
     val uriHandler = LocalUriHandler.current
-    val all = content.sources + content.note?.sources.orEmpty()
+    val all = content.sources + content.scope?.sources.orEmpty() + content.note?.sources.orEmpty()
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState()) {
-        LazyColumn(contentPadding = PaddingValues(bottom = 32.dp)) {
+        LazyColumn(Modifier.testTag("sources"), contentPadding = PaddingValues(bottom = 32.dp)) {
             item {
                 Text(
                     content.heading,
@@ -116,22 +121,22 @@ fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
                 )
             }
             itemsIndexed(content.sources) { i, s -> SourceCard(s, primary = i == 0, all) { uriHandler.openUri(s.url) } }
-            content.note?.let { note ->
-                item {
-                    Column(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
-                        HorizontalDivider()
-                        Text(
-                            content.noteHeading,
-                            style = MaterialTheme.typography.titleSmall,
-                            modifier = Modifier.padding(top = 12.dp).semantics { heading() },
-                        )
-                        Text(note.text, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic)
-                    }
-                }
-                itemsIndexed(note.sources) { _, s -> SourceCard(s, primary = false, all) { uriHandler.openUri(s.url) } }
-            }
+            content.scope?.let { notePart(WHO_IT_BINDS, it, all) { s -> uriHandler.openUri(s.url) } }
+            content.note?.let { notePart(content.noteHeading, it, all) { s -> uriHandler.openUri(s.url) } }
         }
     }
+}
+
+/** A titled part of the sheet (who a law binds, or where a matter stands): its text, then its own sources. */
+private fun LazyListScope.notePart(title: String, note: ProceduralNote, all: List<Source>, open: (Source) -> Unit) {
+    item {
+        Column(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
+            HorizontalDivider()
+            Text(title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 12.dp).semantics { heading() })
+            Text(note.text, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic)
+        }
+    }
+    itemsIndexed(note.sources) { _, s -> SourceCard(s, primary = false, all) { open(s) } }
 }
 
 @Composable

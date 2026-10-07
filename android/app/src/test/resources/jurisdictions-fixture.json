@@ -23,7 +23,20 @@
        "quote": "shall disclose"
       }
      ],
-     "last_reviewed": "2026-10-04"
+     "last_reviewed": "2026-10-04",
+     "scope": {
+      "text": "It binds anyone who holds the data.",
+      "sources": [
+       {
+        "url": "https://example.org/act",
+        "type": "statute",
+        "title": "Test Act",
+        "as_of": "2018-03-23",
+        "status": "self_disclosed",
+        "quote": "shall disclose"
+       }
+      ]
+     }
     }
    ],
    "last_reviewed": "2026-10-04"
@@ -54,7 +67,20 @@
        "quote": "shall disclose"
       }
      ],
-     "last_reviewed": "2026-10-04"
+     "last_reviewed": "2026-10-04",
+     "scope": {
+      "text": "It binds anyone who holds the data.",
+      "sources": [
+       {
+        "url": "https://example.org/act",
+        "type": "statute",
+        "title": "Test Act",
+        "as_of": "2018-03-23",
+        "status": "self_disclosed",
+        "quote": "shall disclose"
+       }
+      ]
+     }
     }
    ],
    "last_reviewed": "2026-10-04"

@@ -21,6 +21,8 @@ data class GovernmentLine(
     /** A law's own review date and stale flag, shown on its line the way a record shows its own. */
     val lastReviewed: String? = null,
     val stale: Boolean = false,
+    /** For a law: who it binds, with sources. */
+    val scope: ProceduralNote? = null,
 )
 
 /** A company that gets the data, as a country's block shows it: headquartered there, or registered there. */
@@ -58,7 +60,7 @@ internal fun governments(companyIds: Collection<String>, unplaced: Boolean, reco
             name = name(code),
             companies = here.map { CompanyPlace(it.name, it.headquarters == code, it.jurisdictionSources) },
             lines = laws.map {
-                GovernmentLine(CAN_COMPEL, code, "${it.name} (${it.citation})", it.text, it.status, null, it.sources, it.statusNote, it.lastReviewed, it.stale)
+                GovernmentLine(CAN_COMPEL, code, "${it.name} (${it.citation})", it.text, it.status, null, it.sources, it.statusNote, it.lastReviewed, it.stale, it.scope)
             } +
                 recorded.filter { it.country == code },
             lawsReviewed = place != null || here.isEmpty(),

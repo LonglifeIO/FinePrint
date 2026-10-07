@@ -251,7 +251,8 @@ class GovernmentTest(unittest.TestCase):
 
     def test_the_jurisdictions_file(self):
         law = {"id": "law-us-cloud-act", "name": "CLOUD Act", "citation": "18 U.S.C. § 2713", "text": "t", "status": "self_disclosed",
-               "sources": [STATUTE], "last_reviewed": "2026-10-04"}
+               "sources": [STATUTE], "last_reviewed": "2026-10-04",
+               "scope": {"text": "It binds providers.", "sources": [STATUTE]}}
         with tempfile.TemporaryDirectory() as d:
             path = Path(d) / "jurisdictions.json"
             path.write_text(json.dumps({"jurisdictions": [{"id": "US", "name": "United States", "laws": [law], "last_reviewed": "2026-10-04"}]}))
@@ -266,7 +267,8 @@ class GovernmentTest(unittest.TestCase):
         self.assertEqual(build.jurisdictions_path(Path("bundle/bundle.json")), Path("bundle/jurisdictions.json"))
 
     def test_each_law_carries_its_own_review_date_and_goes_stale_like_an_app(self):
-        law = {"id": "law-us-x", "name": "X Act", "citation": "1 U.S.C. § 1", "text": "t", "status": "self_disclosed", "sources": [STATUTE]}
+        law = {"id": "law-us-x", "name": "X Act", "citation": "1 U.S.C. § 1", "text": "t", "status": "self_disclosed", "sources": [STATUTE],
+               "scope": {"text": "It binds providers.", "sources": [STATUTE]}}
         def places(*laws):
             with tempfile.TemporaryDirectory() as d:
                 path = Path(d) / "jurisdictions.json"
@@ -280,9 +282,22 @@ class GovernmentTest(unittest.TestCase):
         self.assertEqual(build.schema_problems(schema, built, "jurisdictions_file"), [])
         self.assertEqual([l["stale"] for l in built["jurisdictions"][0]["laws"]], [False, True])  # 180 and 181 days
 
+    def test_every_law_says_who_it_binds(self):
+        law = {"id": "law-us-x", "name": "X Act", "citation": "1 U.S.C. § 1", "text": "t", "status": "self_disclosed", "sources": [STATUTE],
+               "last_reviewed": "2026-10-07"}
+        places = {"schema_version": 1, "generated_at": "2026-10-07T00:00:00-03:00",
+                  "jurisdictions": [{"id": "US", "name": "United States", "laws": [law], "last_reviewed": "2026-10-07"}]}
+        schema = json.loads(build.SCHEMA.read_text(encoding="utf-8"))
+        self.assertIn("'scope' is a required property", " ".join(build.schema_problems(schema, places, "jurisdictions_file")))
+        scoped = dict(places, jurisdictions=[dict(places["jurisdictions"][0], laws=[dict(law, scope={"text": "It binds providers.", "sources": [STATUTE]})])])
+        self.assertEqual(build.schema_problems(schema, scoped, "jurisdictions_file"), [])
+        unsourced = dict(places, jurisdictions=[dict(places["jurisdictions"][0], laws=[dict(law, scope={"text": "It binds providers.", "sources": []})])])
+        self.assertTrue(build.schema_problems(schema, unsourced, "jurisdictions_file"))
+
     def test_a_union_entry_says_which_countries_each_law_binds(self):
         law = {"id": "law-eu-x", "name": "X Regulation", "citation": "Regulation (EU) 1/2026", "text": "t", "status": "self_disclosed",
-               "sources": [STATUTE], "last_reviewed": "2026-10-07"}
+               "sources": [STATUTE], "last_reviewed": "2026-10-07",
+               "scope": {"text": "It binds providers.", "sources": [STATUTE]}}
         eu = {"id": "EU", "name": "European Union", "laws": [law], "last_reviewed": "2026-10-07"}
         places = {"schema_version": 1, "generated_at": "2026-10-07T00:00:00-03:00", "jurisdictions": [eu]}
         self.assertEqual(build.law_problems(places), ["law-eu-x: a law in the EU entry says which countries it binds (applies_to)"])

@@ -106,8 +106,12 @@ private fun GovernmentLineBody(line: GovernmentLine, kind: BadgeText?, onSources
             if (line.stale) StaleMarker()
         }
         line.text?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+        line.scope?.let { Text(it.text, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         line.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        SourcesRow(line.title, line.sources, line.note, onSources, noteHeading = if (line.kind == CAN_COMPEL) CURRENT_STATUS else WHERE_THE_CASE_STANDS)
+        SourcesRow(
+            line.title, line.sources, line.note, onSources,
+            noteHeading = if (line.kind == CAN_COMPEL) CURRENT_STATUS else WHERE_THE_CASE_STANDS, scope = line.scope,
+        )
     }
 }
 

@@ -10,12 +10,12 @@
      "citation": "R.S.C. 1985, c. C-46, s. 487.014",
      "text": "A judge or justice of the peace can order a person or company to produce documents or data in its possession or control, when there are reasonable grounds to believe they will be evidence of an offence.",
      "status": "self_disclosed",
-     "last_reviewed": "2026-10-06",
+     "last_reviewed": "2026-10-07",
      "sources": [
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.014.html",
        "type": "statute",
-       "title": "Criminal Code, s. 487.014 (Justice Laws Website)",
+       "title": "Criminal Code, s. 487.014 (Justice Laws Website, current to 2026-09-21; S.C. 2014, c. 31, s. 20; earlier 2004, c. 3, s. 7)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "a justice or judge may order a person … to prepare and produce a document"
@@ -23,7 +23,7 @@
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.014.html",
        "type": "statute",
-       "title": "Criminal Code, s. 487.014(2) (Justice Laws Website)",
+       "title": "Criminal Code, s. 487.014(2) (Justice Laws Website, current to 2026-09-21; S.C. 2014, c. 31, s. 20; earlier 2004, c. 3, s. 7)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "will afford evidence respecting the commission of the offence"
@@ -31,7 +31,7 @@
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
        "type": "statute",
-       "title": "Criminal Code, s. 2, definitions (Justice Laws Website)",
+       "title": "Criminal Code, s. 2, definitions (Justice Laws Website, current to 2026-09-21; the section's history doesn't attribute each definition)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "every one, person and owner, and similar expressions, include Her Majesty and an organization"
@@ -39,12 +39,46 @@
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
        "type": "statute",
-       "title": "Criminal Code, s. 2, definitions (Justice Laws Website)",
+       "title": "Criminal Code, s. 2, definitions (Justice Laws Website, current to 2026-09-21; the section's history doesn't attribute each definition)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "organization means (a) a public body, body corporate, society, company"
       }
-     ]
+     ],
+     "scope": {
+      "text": "It binds anyone who holds the data, companies included (s. 2).",
+      "sources": [
+       {
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
+        "type": "statute",
+        "title": "Criminal Code, s. 2, definitions (Justice Laws Website, current to 2026-09-21; the section's history doesn't attribute each definition)",
+        "as_of": "2026-09-21",
+        "status": "self_disclosed",
+        "quote": "every one, person and owner, and similar expressions, include Her Majesty and an organization"
+       }
+      ]
+     },
+     "status_note": {
+      "text": "A judge or justice of the peace can order the company not to disclose the order: by order (s. 487.0191). If the person asks the company about a disclosure, the government can object, and the company then may not tell them (PIPEDA s. 9(2.3)–(2.4)).",
+      "sources": [
+       {
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.0191.html",
+        "type": "statute",
+        "title": "Criminal Code, s. 487.0191(1) (Justice Laws Website, current to 2026-09-21; S.C. 2014, c. 31, s. 20; 2024, c. 17, s. 359)",
+        "as_of": "2026-09-21",
+        "status": "self_disclosed",
+        "quote": "may make an order prohibiting a person from disclosing the existence"
+       },
+       {
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html",
+        "type": "statute",
+        "title": "Personal Information Protection and Electronic Documents Act, s. 9(2.4) (Justice Laws Website, current to 2026-09-21)",
+        "as_of": "2026-09-21",
+        "status": "self_disclosed",
+        "quote": "shall not disclose to the individual"
+       }
+      ]
+     }
     },
     {
      "id": "law-ca-criminal-code-487-016",
@@ -52,12 +86,12 @@
      "citation": "R.S.C. 1985, c. C-46, s. 487.016",
      "text": "A judge or justice of the peace can order a person or company to produce transmission data in its possession or control: when, how long and between whom communications happened, but not what they said. It takes reasonable grounds to suspect the data will help investigate an offence.",
      "status": "self_disclosed",
-     "last_reviewed": "2026-10-06",
+     "last_reviewed": "2026-10-07",
      "sources": [
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.016.html",
        "type": "statute",
-       "title": "Criminal Code, s. 487.016 (Justice Laws Website)",
+       "title": "Criminal Code, s. 487.016 (Justice Laws Website, current to 2026-09-21; S.C. 2014, c. 31, s. 20; earlier 2004, c. 3, s. 7)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "to prepare and produce a document containing transmission data"
@@ -65,7 +99,7 @@
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.016.html",
        "type": "statute",
-       "title": "Criminal Code, s. 487.016(2) (Justice Laws Website)",
+       "title": "Criminal Code, s. 487.016(2) (Justice Laws Website, current to 2026-09-21; S.C. 2014, c. 31, s. 20; earlier 2004, c. 3, s. 7)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "will assist in the investigation of the offence"
@@ -73,7 +107,7 @@
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.011.html",
        "type": "statute",
-       "title": "Criminal Code, s. 487.011, definition of transmission data (Justice Laws Website)",
+       "title": "Criminal Code, s. 487.011, definition of transmission data (Justice Laws Website, current to 2026-09-21; S.C. 2014, c. 31, s. 20; earlier 2004, c. 3, s. 7)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "type, direction, date, time, duration, size, origin, destination or termination of the communication"
@@ -81,7 +115,7 @@
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.011.html",
        "type": "statute",
-       "title": "Criminal Code, s. 487.011, definition of transmission data (Justice Laws Website)",
+       "title": "Criminal Code, s. 487.011, definition of transmission data (Justice Laws Website, current to 2026-09-21; S.C. 2014, c. 31, s. 20; earlier 2004, c. 3, s. 7)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "does not reveal the substance, meaning or purpose of the communication"
@@ -89,7 +123,7 @@
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
        "type": "statute",
-       "title": "Criminal Code, s. 2, definitions (Justice Laws Website)",
+       "title": "Criminal Code, s. 2, definitions (Justice Laws Website, current to 2026-09-21; the section's history doesn't attribute each definition)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "every one, person and owner, and similar expressions, include Her Majesty and an organization"
@@ -97,12 +131,46 @@
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
        "type": "statute",
-       "title": "Criminal Code, s. 2, definitions (Justice Laws Website)",
+       "title": "Criminal Code, s. 2, definitions (Justice Laws Website, current to 2026-09-21; the section's history doesn't attribute each definition)",
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "organization means (a) a public body, body corporate, society, company"
       }
-     ]
+     ],
+     "scope": {
+      "text": "It binds anyone who holds the data, companies included (s. 2).",
+      "sources": [
+       {
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
+        "type": "statute",
+        "title": "Criminal Code, s. 2, definitions (Justice Laws Website, current to 2026-09-21; the section's history doesn't attribute each definition)",
+        "as_of": "2026-09-21",
+        "status": "self_disclosed",
+        "quote": "every one, person and owner, and similar expressions, include Her Majesty and an organization"
+       }
+      ]
+     },
+     "status_note": {
+      "text": "A judge or justice of the peace can order the company not to disclose the order: by order (s. 487.0191). If the person asks the company about a disclosure, the government can object, and the company then may not tell them (PIPEDA s. 9(2.3)–(2.4)).",
+      "sources": [
+       {
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.0191.html",
+        "type": "statute",
+        "title": "Criminal Code, s. 487.0191(1) (Justice Laws Website, current to 2026-09-21; S.C. 2014, c. 31, s. 20; 2024, c. 17, s. 359)",
+        "as_of": "2026-09-21",
+        "status": "self_disclosed",
+        "quote": "may make an order prohibiting a person from disclosing the existence"
+       },
+       {
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html",
+        "type": "statute",
+        "title": "Personal Information Protection and Electronic Documents Act, s. 9(2.4) (Justice Laws Website, current to 2026-09-21)",
+        "as_of": "2026-09-21",
+        "status": "self_disclosed",
+        "quote": "shall not disclose to the individual"
+       }
+      ]
+     }
     }
    ],
    "last_reviewed": "2026-10-04"
@@ -117,12 +185,12 @@
      "citation": "National Intelligence Law of the People's Republic of China (2017, amended 2018), arts. 7 and 14",
      "text": "Requires all organizations and citizens to support, assist and cooperate with national intelligence work in accordance with law, and to keep confidential any secrets of that work they become aware of. Intelligence agencies can ask them for that support.",
      "status": "self_disclosed",
-     "last_reviewed": "2026-10-06",
+     "last_reviewed": "2026-10-07",
      "sources": [
       {
        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf8498d09f1",
        "type": "statute",
-       "title": "中华人民共和国国家情报法 (National Intelligence Law, as amended 2018-04-27), National Laws and Regulations Database",
+       "title": "中华人民共和国国家情报法 (National Intelligence Law), art. 7, as amended by 《关于修改〈中华人民共和国国境卫生检疫法〉等六部法律的决定》 (2018-04-27), National Laws and Regulations Database",
        "as_of": "2018-04-27",
        "status": "self_disclosed",
        "quote": "任何组织和公民都应当依法支持、协助和配合国家情报工作",
@@ -131,7 +199,7 @@
       {
        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf8498d09f1",
        "type": "statute",
-       "title": "中华人民共和国国家情报法 (National Intelligence Law, as amended 2018-04-27), National Laws and Regulations Database",
+       "title": "中华人民共和国国家情报法 (National Intelligence Law), art. 7, as amended by 《关于修改〈中华人民共和国国境卫生检疫法〉等六部法律的决定》 (2018-04-27), National Laws and Regulations Database",
        "as_of": "2018-04-27",
        "status": "self_disclosed",
        "quote": "保守所知悉的国家情报工作秘密",
@@ -140,7 +208,7 @@
       {
        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf8498d09f1",
        "type": "statute",
-       "title": "中华人民共和国国家情报法 (National Intelligence Law, as amended 2018-04-27), National Laws and Regulations Database",
+       "title": "中华人民共和国国家情报法 (National Intelligence Law), art. 14, as amended by 《关于修改〈中华人民共和国国境卫生检疫法〉等六部法律的决定》 (2018-04-27), National Laws and Regulations Database",
        "as_of": "2018-04-27",
        "status": "self_disclosed",
        "quote": "可以要求有关机关、组织和公民提供必要的支持、协助和配合",
@@ -149,7 +217,7 @@
       {
        "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/",
        "type": "research",
-       "title": "China Law Translate, unofficial English translation",
+       "title": "China Law Translate, unofficial English translation of the National Intelligence Law as amended in 2018, art. 7",
        "accessed": "2026-10-04",
        "status": "self_disclosed",
        "quote": "All organizations and citizens shall support, assist, and cooperate with national intelligence efforts"
@@ -157,7 +225,7 @@
       {
        "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/",
        "type": "research",
-       "title": "China Law Translate, unofficial English translation",
+       "title": "China Law Translate, unofficial English translation of the National Intelligence Law as amended in 2018, art. 7",
        "accessed": "2026-10-04",
        "status": "self_disclosed",
        "quote": "shall protect national intelligence work secrets they are aware of"
@@ -165,12 +233,26 @@
       {
        "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/",
        "type": "research",
-       "title": "China Law Translate, unofficial English translation",
+       "title": "China Law Translate, unofficial English translation of the National Intelligence Law as amended in 2018, art. 14",
        "accessed": "2026-10-04",
        "status": "self_disclosed",
        "quote": "may request that relevant organs, organizations, and citizens provide necessary support"
       }
-     ]
+     ],
+     "scope": {
+      "text": "It binds any organization or citizen (art. 7).",
+      "sources": [
+       {
+        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf8498d09f1",
+        "type": "statute",
+        "title": "中华人民共和国国家情报法 (National Intelligence Law), art. 7, as amended by 《关于修改〈中华人民共和国国境卫生检疫法〉等六部法律的决定》 (2018-04-27), National Laws and Regulations Database",
+        "as_of": "2018-04-27",
+        "status": "self_disclosed",
+        "quote": "任何组织和公民都应当依法支持、协助和配合国家情报工作",
+        "verify_url": "https://flk.npc.gov.cn/law-search/download/mobile?format=docx&bbbs=2c909fdd678bf17901678bf8498d09f1&fileId="
+       }
+      ]
+     }
     }
    ],
    "last_reviewed": "2026-10-04"
@@ -215,7 +297,7 @@
       "SK"
      ],
      "status_note": {
-      "text": "Applies from 2026-08-18. It covers orders from one EU country to a provider established or represented in another; a country's own powers over providers based there are national law, which FinePrint hasn't reviewed yet. It binds providers of communications, hosting and other services that store user data (art. 3(3)); FinePrint doesn't assess per company whether a provider qualifies.",
+      "text": "Applies from 2026-08-18. It covers orders from one EU country to a provider established or represented in another; a country's own powers over providers based there are national law, which FinePrint hasn't reviewed yet. The provider must keep the order confidential; the issuing authority tells the person, unless national law lets it delay or skip that (art. 13).",
       "sources": [
        {
         "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
@@ -242,10 +324,21 @@
        {
         "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
         "type": "statute",
-        "title": "Regulation (EU) 2023/1543, art. 3(3) (EUR-Lex, English text)",
+        "title": "Regulation (EU) 2023/1543, art. 13(4) (EUR-Lex, English text)",
         "as_of": "2023-07-28",
         "status": "self_disclosed",
-        "quote": "make it possible to store or otherwise process data on behalf of the users",
+        "quote": "confidentiality, secrecy and integrity of the EPOC",
+        "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "wayback_date": "2026-08-22",
+        "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+       },
+       {
+        "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "type": "statute",
+        "title": "Regulation (EU) 2023/1543, art. 13(2) (EUR-Lex, English text)",
+        "as_of": "2023-07-28",
+        "status": "self_disclosed",
+        "quote": "delay or restrict informing, or omit to inform, the person",
         "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
         "wayback_date": "2026-08-22",
         "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
@@ -363,7 +456,23 @@
        "wayback_date": "2026-08-22",
        "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
       }
-     ]
+     ],
+     "scope": {
+      "text": "It binds providers of communications, hosting and other services that store user data (art. 3(3)). FinePrint doesn't assess per company whether a provider qualifies.",
+      "sources": [
+       {
+        "url": "https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "type": "statute",
+        "title": "Regulation (EU) 2023/1543, art. 3(3) (EUR-Lex, English text)",
+        "as_of": "2023-07-28",
+        "status": "self_disclosed",
+        "quote": "make it possible to store or otherwise process data on behalf of the users",
+        "wayback_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj",
+        "wayback_date": "2026-08-22",
+        "verify_url": "https://web.archive.org/web/20260822063338/https://eur-lex.europa.eu/eli/reg/2023/1543/oj"
+       }
+      ]
+     }
     }
    ],
    "last_reviewed": "2026-10-07"
@@ -404,7 +513,20 @@
        "status": "self_disclosed",
        "quote": "לרבות תעודה, מסמך, חומר מחשב או בעל חיים"
       }
-     ]
+     ],
+     "scope": {
+      "text": "It binds any person thought to hold the object (s. 43).",
+      "sources": [
+       {
+        "url": "https://www.nevo.co.il/law_html/law00/74918.htm",
+        "type": "statute",
+        "title": "פקודת סדר הדין הפלילי (מעצר וחיפוש) [נוסח חדש], תשכ\"ט-1969, s. 43 (Nevo, current to 2026-07-21)",
+        "as_of": "2026-07-21",
+        "status": "self_disclosed",
+        "quote": "רשאי הוא להזמין כל אדם"
+       }
+      ]
+     }
     }
    ],
    "last_reviewed": "2026-10-04"
@@ -475,7 +597,44 @@
        "quote": "информацию, необходимую для декодирования",
        "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
       }
-     ]
+     ],
+     "scope": {
+      "text": "It binds anyone running systems or programs used to receive, send, deliver or process users' electronic messages (part 1). FinePrint doesn't assess per company whether a service qualifies.",
+      "sources": [
+       {
+        "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
+        "type": "statute",
+        "title": "Федеральный закон № 149-ФЗ «Об информации…», art. 10.1, part 1 (pravo.gov.ru)",
+        "as_of": "2026-06-26",
+        "status": "self_disclosed",
+        "quote": "используются для приема, передачи, доставки и (или) обработки электронных сообщений пользователей",
+        "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
+       }
+      ]
+     },
+     "status_note": {
+      "text": "Part 3.1 hands the data to the bodies that carry out operational-search activity. Requests they make under the Operational-Search Activity Law must not be disclosed, and each request says so: automatic, by law (art. 12.1).",
+      "sources": [
+       {
+        "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
+        "type": "statute",
+        "title": "Федеральный закон № 149-ФЗ «Об информации…», art. 10.1, part 3.1 (pravo.gov.ru; added by No. 374-FZ of 6 July 2016, amended by No. 241-FZ of 29 July 2017)",
+        "as_of": "2026-06-26",
+        "status": "self_disclosed",
+        "quote": "осуществляющим оперативно-разыскную деятельность или обеспечение безопасности Российской Федерации",
+        "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
+       },
+       {
+        "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102037058",
+        "type": "statute",
+        "title": "Федеральный закон № 144-ФЗ «Об оперативно-розыскной деятельности», art. 12.1 (pravo.gov.ru; added by No. 515-FZ of 30 December 2020; consolidated through No. 41-FZ of 1 April 2025)",
+        "as_of": "2025-04-01",
+        "status": "self_disclosed",
+        "quote": "Сведения, содержащиеся в запросах, направляемых гражданам и организациям … не подлежат разглашению",
+        "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102037058&page=1&rdk=39"
+       }
+      ]
+     }
     }
    ],
    "last_reviewed": "2026-10-04"
@@ -490,12 +649,12 @@
      "citation": "18 U.S.C. § 2713",
      "text": "Requires providers of communication and cloud services to disclose data in their possession, custody or control under US legal process, whether it is stored in the United States or elsewhere.",
      "status": "self_disclosed",
-     "last_reviewed": "2026-10-06",
+     "last_reviewed": "2026-10-07",
      "sources": [
       {
        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/html/USCODE-2024-title18-partI-chap121-sec2713.htm",
        "type": "statute",
-       "title": "18 U.S.C. § 2713, United States Code (govinfo)",
+       "title": "18 U.S.C. § 2713, United States Code, 2024 edition (govinfo; added by Pub. L. 115-141, div. V, § 103(a)(1), 2018-03-23)",
        "as_of": "2018-03-23",
        "status": "self_disclosed",
        "quote": "shall comply with the obligations of this chapter to … disclose"
@@ -503,12 +662,38 @@
       {
        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/html/USCODE-2024-title18-partI-chap121-sec2713.htm",
        "type": "statute",
-       "title": "18 U.S.C. § 2713, United States Code (govinfo)",
+       "title": "18 U.S.C. § 2713, United States Code, 2024 edition (govinfo; added by Pub. L. 115-141, div. V, § 103(a)(1), 2018-03-23)",
        "as_of": "2018-03-23",
        "status": "self_disclosed",
        "quote": "regardless of whether such communication … is located within or outside of the United States"
       }
-     ]
+     ],
+     "scope": {
+      "text": "It binds providers of electronic communication or remote computing services (§ 2713). FinePrint doesn't assess per company whether a provider qualifies.",
+      "sources": [
+       {
+        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/html/USCODE-2024-title18-partI-chap121-sec2713.htm",
+        "type": "statute",
+        "title": "18 U.S.C. § 2713, United States Code, 2024 edition (govinfo; added by Pub. L. 115-141, div. V, § 103(a)(1), 2018-03-23)",
+        "as_of": "2018-03-23",
+        "status": "self_disclosed",
+        "quote": "A provider of electronic communication service or remote computing service"
+       }
+      ]
+     },
+     "status_note": {
+      "text": "No automatic gag, but a court can order the provider not to tell anyone, the user included, about a warrant, subpoena or order it received: by order (18 U.S.C. § 2705(b)).",
+      "sources": [
+       {
+        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/html/USCODE-2024-title18-partI-chap121-sec2705.htm",
+        "type": "statute",
+        "title": "18 U.S.C. § 2705(b), United States Code, 2024 edition (govinfo; added by Pub. L. 99-508, 1986-10-21)",
+        "as_of": "1986-10-21",
+        "status": "self_disclosed",
+        "quote": "not to notify any other person of the existence of the warrant"
+       }
+      ]
+     }
     },
     {
      "id": "law-us-fisa-702",
@@ -624,7 +809,20 @@
        "quote": "the FISC approved a government certification under Section 702 in March 2026",
        "verify_url": "https://www.congress.gov/crs_external_products/LSB/PDF/LSB11444/LSB11444.1.pdf"
       }
-     ]
+     ],
+     "scope": {
+      "text": "It bound electronic communication service providers: telecom carriers, email, messaging and cloud providers, and others with access to communications (§ 1881(b)(4)). FinePrint doesn't assess per company whether a provider qualifies.",
+      "sources": [
+       {
+        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title50/html/USCODE-2024-title50-chap36-subchapVI-sec1881.htm",
+        "type": "statute",
+        "title": "50 U.S.C. § 1881(b)(4), United States Code, 2024 edition (govinfo): text as it stood before the 12 June 2026 repeal",
+        "as_of": "2024-04-20",
+        "status": "self_disclosed",
+        "quote": "any other communication service provider who has access to wire or electronic communications"
+       }
+      ]
+     }
     }
    ],
    "last_reviewed": "2026-10-04"

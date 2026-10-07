@@ -11,8 +11,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasContentDescription
-import androidx.compose.ui.test.hasScrollToIndexAction
-import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -31,6 +29,7 @@ import com.longlifeio.fineprint.egress.RequestedPermission
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.explain.STALE_NOTE
+import com.longlifeio.fineprint.explain.recordLastReviewed
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
@@ -221,9 +220,8 @@ class TapTargetTest {
         detail.performScrollToNode(hasText("Tap to show the laws"))
         compose.onNodeWithText("Tap to show the laws").performClick()
         detail.performScrollToNode(hasText("It was repealed on 2026-06-12; directives issued before then stay in force until they expire", substring = true))
-        compose.onNodeWithText("Sources (12)").performClick()
-        // The sheet lists the line's six sources first; scroll its list (not the page's) down to the note.
-        compose.onNode(hasScrollToIndexAction() and !hasTestTag("detail")).performScrollToNode(hasText("Current status"))
+        compose.onNodeWithText("Sources (13)").performClick()
+        compose.onNodeWithTag("sources").performScrollToNode(hasText("Current status"))
         compose.onNodeWithText("Current status").assertExists()
         compose.onAllNodes(hasText("Where the case stands"), useUnmergedTree = true).assertCountEquals(0)
     }
@@ -246,7 +244,8 @@ class TapTargetTest {
         detail.performScrollToNode(hasText("Tap to show the laws"))
         compose.onNodeWithText("Tap to show the laws").performClick()
         detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)"))
-        assertTrue(compose.onAllNodes(hasText("Record last reviewed 2026-10-06.")).fetchSemanticsNodes().isNotEmpty())
+        val reviewed = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-cloud-act" }.lastReviewed!!
+        assertTrue(compose.onAllNodes(hasText(recordLastReviewed(reviewed))).fetchSemanticsNodes().isNotEmpty())
         assertTrue(compose.onAllNodes(hasText(STALE_NOTE)).fetchSemanticsNodes().isNotEmpty())
         // Life360's own record isn't stale, so a Stale marker here is a law's.
         assertTrue(compose.onAllNodes(hasContentDescription("Stale. ", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty())
