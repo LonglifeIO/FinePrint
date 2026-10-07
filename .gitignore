@@ -21,11 +21,14 @@ __pycache__/
 pipeline/raw/
 # LLM drafts awaiting review — never commit
 pipeline/drafts/
-pipeline/*.db
-pipeline/*.sqlite
 # notes compiled from saved videos — a symlink into the owner's library, never commit
 # (no trailing slash: "ingest/" would not match a symlink)
 /ingest
+
+# Databases, anywhere: none in the repo, and none on the device (no Room, no SQLite)
+*.db
+*.sqlite
+*.sqlite3
 
 # Secrets / tooling
 .env
