@@ -1,6 +1,7 @@
 package com.longlifeio.fineprint.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -79,7 +80,7 @@ fun LazyListScope.jurisdictionsItems(g: Governments, open: Boolean, onToggle: ()
 @Composable
 private fun CompanyPlaceRow(place: CompanyPlace, onSources: (SheetContent) -> Unit) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
-        Text(place.text + LocalFootnotes.current.marks(place.sources), style = MaterialTheme.typography.bodyMedium)
+        Text(place.text + LocalFootnotes.current.marks(place.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks(place.text))
         SourcesRow(place.name, place.sources, null, onSources)
     }
 }
@@ -100,7 +101,10 @@ private fun GovernmentLineBody(line: GovernmentLine, kind: BadgeText?, onSources
                     Text(k.label, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
                 }
             }
-            Text(line.title + LocalFootnotes.current.marks(line.sources), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f).padding(start = 8.dp))
+            Text(line.title + LocalFootnotes.current.marks(line.sources), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.speaks(line.title).weight(1f).padding(start = 8.dp))
+        }
+        // Status and Stale on their own line, so neither is squeezed below a 48dp target beside a long title.
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             StatusBadge(line.status, historical = false)
             if (line.stale) StaleMarker()
         }

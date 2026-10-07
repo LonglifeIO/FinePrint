@@ -2,11 +2,9 @@ package com.longlifeio.fineprint.ui
 
 import android.content.Context
 import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.onNodeWithText
@@ -27,12 +25,16 @@ import com.longlifeio.fineprint.explain.SUMMARY_CURATED
 import com.longlifeio.fineprint.explain.THEIR_WORDS
 import com.longlifeio.fineprint.explain.THE_FINE_PRINT
 import com.longlifeio.fineprint.explain.explain
+import com.longlifeio.fineprint.explain.FINE_PRINT_MAX
 import com.longlifeio.fineprint.explain.finePrint
+import com.longlifeio.fineprint.explain.spoken
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -42,6 +44,9 @@ import org.junit.runner.RunWith
 class DetailTest {
 
     @get:Rule val compose = createComposeRule()
+
+    /** Accessibility Test Framework checks (touch targets, contrast, labels) on every action in these tests. */
+    @Before fun accessibilityChecks() = compose.enableAccessibilityChecks()
 
     private val bundle = InstrumentationRegistry.getInstrumentation().context.assets.let { assets ->
         parseBundle(assets.open("bundle.json").bufferedReader().use { it.readText() }, assets.open("jurisdictions.json").bufferedReader().use { it.readText() })
@@ -77,14 +82,15 @@ class DetailTest {
     fun withAStoreTaglineThePageOpensWithTheirWordsAndTheFinePrint() {
         val e = explain(life360, scan, bundle, emptyMap()).copy(storeTagline = tagline)
         show(life360, e)
-        compose.onNodeWithText(THEIR_WORDS.title.uppercase()).assertExists()
-        compose.onNodeWithText("“${tagline.text}” *").assertExists()
+        compose.onNodeWithText(THEIR_WORDS.title).assertExists()
+        compose.onNodeWithText("“${tagline.text}”").assertExists() // read without the asterisk that points at the fine print
         compose.onNodeWithText("— Google Play listing (Canada), read 2026-10-07").assertExists()
-        compose.onNodeWithText(THE_FINE_PRINT.title.uppercase()).assertExists()
-        // One asterisk per fine-print line, at most four.
+        compose.onNodeWithText(THE_FINE_PRINT.title).assertExists()
+        // At most four fine-print lines, each one stop for TalkBack; their asterisks are drawn, not read.
         val lines = finePrint(e)
-        compose.onAllNodesWithText("*").assertCountEquals(lines.size)
-        lines.forEach { compose.onNodeWithText(it.text).assertExists() }
+        assertTrue(lines.size in 1..FINE_PRINT_MAX)
+        compose.onAllNodesWithText("*").assertCountEquals(0)
+        lines.forEach { compose.onNodeWithText(spoken(it.text)).assertExists() } // as TalkBack reads it: "→" said as "to"
         // The Summary card still follows: the hero doesn't replace a section.
         compose.onNodeWithTag("detail").performScrollToNode(hasText(SUMMARY_CURATED.subtitle))
         assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
@@ -93,7 +99,7 @@ class DetailTest {
     @Test
     fun withoutOneThePageOpensWithItsSummary() {
         show(adApp, explain(adApp, scan, bundle, emptyMap()))
-        compose.onAllNodesWithText(THEIR_WORDS.title.uppercase()).assertCountEquals(0)
+        compose.onAllNodesWithText(THEIR_WORDS.title).assertCountEquals(0)
         compose.onNodeWithText(SUMMARY_AUTO.subtitle).assertExists()
     }
 
@@ -114,14 +120,14 @@ class DetailTest {
         }
         val detail = compose.onNodeWithTag("detail")
         // The chip keeps the full count while four lines show.
-        detail.performScrollToNode(hasContentDescription("Goes elsewhere: $count lines", substring = true))
-        compose.onNodeWithContentDescription("Goes elsewhere: $count lines", useUnmergedTree = true).assertExists()
+        detail.performScrollToNode(hasText("Goes elsewhere: $count lines", substring = true))
+        compose.onNodeWithText("Goes elsewhere: $count lines", useUnmergedTree = true).assertExists()
         detail.performScrollToNode(hasText("See all $count"))
         compose.onNodeWithText("See all $count").performClick()
         detail.performScrollToNode(hasText("Show the first $BUCKET_FIRST"))
         assertTrue(prefs.getBoolean("all:$GOES_ELSEWHERE", false))
         assertTrue(OpenBuckets.of(prefs).isOpen(GOES_ELSEWHERE)) // the next launch shows them all too
-        prefs.edit().clear().commit()
+        InstrumentationRegistry.getInstrumentation().targetContext.deleteSharedPreferences("detail-test") // leaves nothing in the app's data
     }
 
     @Test

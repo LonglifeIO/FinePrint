@@ -158,7 +158,7 @@ private fun BucketHeader(bucket: String, count: Int) {
 @Composable
 internal fun SummaryNoteRow(note: SummaryNote, onSources: (SheetContent) -> Unit) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
-        Text(note.text + LocalFootnotes.current.marks(note.sources), style = MaterialTheme.typography.bodyMedium)
+        Text(note.text + LocalFootnotes.current.marks(note.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks(note.text))
         Row(Modifier.padding(top = 4.dp)) { StatusBadge(note.status, historical = false) }
         note.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         SourcesRow(note.text, note.sources, null, onSources)
@@ -171,7 +171,7 @@ internal fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit) {
     val label = DATA_LABELS[line.data] ?: line.data
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 8.dp)) {
         Text(label, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
-        Text("→ ${line.recipient}: ${line.purpose}" + LocalFootnotes.current.marks(line.sources), style = MaterialTheme.typography.bodyMedium)
+        Text("→ ${line.recipient}: ${line.purpose}" + LocalFootnotes.current.marks(line.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks("→ ${line.recipient}: ${line.purpose}"))
         Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             StatusBadge(line.status, line.historical)
             DEFAULTS[line.default]?.let { d ->

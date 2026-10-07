@@ -164,7 +164,7 @@ class MockupActivity : ComponentActivity() {
         val json = fixtureJson(apps, results)
         File(getExternalFilesDir(null), FIXTURE_ASSET).writeText(json)
         val (fixed, scans) = parseFixture(json)
-        val strip = { d: MockupData? -> d?.apps?.map { it.copy(icon = null, app = it.app.copy(apkPaths = emptyList(), lastUpdateTime = 0)) } }
+        val strip = { d: MockupData? -> d?.apps?.map { it.copy(icon = null, app = it.app.copy(apkPaths = List(it.app.apkPaths.size) { i -> "apk-${i + 1}" }, lastUpdateTime = 0)) } }
         Log.i(TAG, "fixture: ${apps.size} apps; rebuilds the same explanations: ${strip(mockupData(fixed, scans, bundle, signatures) { null }) == strip(live)}")
     }
 

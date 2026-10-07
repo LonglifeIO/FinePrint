@@ -48,6 +48,9 @@ private fun lab(v: List<Double>): Triple<Double, Double, Double> {
     return Triple(116 * f(y) - 16, 500 * (f(x) - f(y)), 200 * (f(y) - f(z)))
 }
 
+/** CIELAB chroma: how far from grey a colour is (warm and cool greys sit under 10). */
+fun chroma(c: Color): Double = lab(linearRgb(c)).let { (_, a, b) -> hypot(a, b) }
+
 private fun Double.rad() = Math.toRadians(this)
 
 /** CIEDE2000 difference between two colours as someone with [vision] sees them. */

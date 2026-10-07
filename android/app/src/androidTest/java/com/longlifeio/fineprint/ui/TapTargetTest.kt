@@ -38,7 +38,10 @@ import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
+import org.junit.Before
 import org.junit.Rule
+import org.junit.rules.TestName
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -51,6 +54,16 @@ import org.junit.runner.RunWith
 class TapTargetTest {
 
     @get:Rule val compose = createComposeRule()
+
+    @get:Rule val test = TestName()
+
+    /**
+     * Accessibility Test Framework checks (touch targets, contrast, labels) on every action in these tests,
+     * except the one that draws a too-small target on purpose to show our own check catches it.
+     */
+    @Before fun accessibilityChecks() {
+        if (test.methodName != "theCheckCatchesASmallTarget") compose.enableAccessibilityChecks()
+    }
 
     private val bundle = InstrumentationRegistry.getInstrumentation().context.assets.let { assets ->
         parseBundle(

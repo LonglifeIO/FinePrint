@@ -2,6 +2,7 @@ package com.longlifeio.fineprint.ui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,13 +26,17 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.explain.BUCKET_TEXT
 import com.longlifeio.fineprint.explain.GOES_ELSEWHERE
@@ -86,10 +91,15 @@ fun IndicatorChip(
     dashed: Boolean = false,
 ) {
     val shape = RoundedCornerShape(Corner.chip)
-    val edge = if (dashed) Modifier.dashedOutline(tone.content, Corner.chip) else Modifier
+    val edge = when {
+        dashed -> Modifier.dashedOutline(tone.content, Corner.chip)
+        tone.border != null -> Modifier.border(1.dp, tone.border, shape) // a faint tint's hairline
+        else -> Modifier
+    }
     Row(
         modifier
-            .clearAndSetSemantics { contentDescription = spoken }
+            // Spoken as text, not a content description: a row that merges the chip then reads its own lines too.
+            .clearAndSetSemantics { text = AnnotatedString(spoken) }
             .clip(shape)
             .background(tone.container)
             .then(edge)
@@ -98,12 +108,20 @@ fun IndicatorChip(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Icon(painterResource(icon), contentDescription = null, tint = tone.content, modifier = Modifier.size(18.dp))
+        TextIcon(icon, 18.sp, tone.content)
         Text(word, style = MaterialTheme.typography.labelLarge, color = tone.content)
         count?.let { Text("$it", style = MaterialTheme.typography.labelLarge, color = tone.content) }
-        if (reviewed) Icon(painterResource(R.drawable.ic_check), contentDescription = null, tint = tone.content, modifier = Modifier.size(16.dp))
+        if (reviewed) TextIcon(R.drawable.ic_check, 16.sp, tone.content)
     }
 }
+
+/**
+ * An icon that sits beside words and means something with them (a chip's glyph, a badge's): sized in
+ * sp, so it grows with the text when you choose a larger font size (TextIconTest).
+ */
+@Composable
+fun TextIcon(icon: Int, size: TextUnit, tint: Color, modifier: Modifier = Modifier) =
+    Icon(painterResource(icon), contentDescription = null, tint = tint, modifier = modifier.size(with(LocalDensity.current) { size.toDp() }))
 
 /** A tier as an indicator chip: "Flagged", "Flagged 3", "Flagged ✓"; [noun] names what's counted. */
 @Composable
@@ -154,10 +172,13 @@ fun Modifier.dashedOutline(color: Color, radius: Dp, width: Dp = 1.5.dp) = drawB
     )
 }
 
-/** "AT A GLANCE": a card's eyebrow, upper case and tracked out, a heading for TalkBack. */
+/** "AT A GLANCE": a card's eyebrow, upper case and tracked out; a heading for TalkBack, which reads it in ordinary case. */
 @Composable
 fun Eyebrow(text: String) {
-    Text(text.uppercase(), style = MaterialTheme.typography.labelMedium, color = LocalPalette.current.muted, modifier = Modifier.semantics { heading() })
+    Text(
+        text.uppercase(), style = MaterialTheme.typography.labelMedium, color = LocalPalette.current.muted,
+        modifier = Modifier.clearAndSetSemantics { this.text = AnnotatedString(text); heading() },
+    )
 }
 
 /**

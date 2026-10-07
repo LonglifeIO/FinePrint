@@ -17,6 +17,8 @@ import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
+import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,6 +28,9 @@ import org.junit.runner.RunWith
 class LawLinesTest {
 
     @get:Rule val compose = createComposeRule()
+
+    /** Accessibility Test Framework checks (touch targets, contrast, labels) on every action in these tests. */
+    @Before fun accessibilityChecks() = compose.enableAccessibilityChecks()
 
     private val bundle = InstrumentationRegistry.getInstrumentation().context.assets.let { assets ->
         parseBundle(

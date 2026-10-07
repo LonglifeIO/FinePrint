@@ -30,6 +30,9 @@ import com.longlifeio.fineprint.ui.AppDetailScreen
 import com.longlifeio.fineprint.ui.AppListScreen
 import com.longlifeio.fineprint.ui.FinePrintTheme
 import com.longlifeio.fineprint.ui.HowToReadScreen
+import com.longlifeio.fineprint.ui.OnboardingScreen
+import com.longlifeio.fineprint.ui.introSeen
+import com.longlifeio.fineprint.ui.markIntroSeen
 import com.longlifeio.fineprint.ui.bundleStatus
 import java.time.OffsetDateTime
 
@@ -50,6 +53,7 @@ class MainActivity : ComponentActivity() {
                 val includeSystem by session.includeSystem.collectAsState()
                 val bundleState by bundleSession.state.collectAsState()
                 val marks by reviewStore.entries.collectAsState()
+                var introDone by rememberSaveable { mutableStateOf(introSeen(this@MainActivity)) }
                 var showAbout by rememberSaveable { mutableStateOf(false) }
                 var showHowTo by rememberSaveable { mutableStateOf(false) }
                 val listState = rememberLazyListState() // hoisted so the list keeps its place
@@ -77,6 +81,8 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 when {
+                    // First launch: the three-screen introduction, once.
+                    !introDone -> OnboardingScreen(onDone = { markIntroSeen(this@MainActivity); introDone = true })
                     showHowTo -> {
                         BackHandler { showHowTo = false }
                         HowToReadScreen(onBack = { showHowTo = false })

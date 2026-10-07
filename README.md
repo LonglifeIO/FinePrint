@@ -17,11 +17,14 @@ supported by exactly one hardcoded ad that knows nothing about you.
 
 ## Screenshots
 
-| ![The app list: each installed app with its tier and a one-line reason](docs/screenshots/list.png) | ![Life360: its tier, the reason line and the summary](docs/screenshots/life360-detail.png) |
-|:---:|:---:|
-| ![Life360: where its data goes, and on what evidence](docs/screenshots/life360-where.png) | ![Life360: what you can do, with the settings that limit each flow](docs/screenshots/life360-controls.png) |
+<p>
+  <img src="docs/screenshots/home-light.png" width="300" alt="The home: At a glance, where your apps' data can go, then the Flagged apps">
+  <img src="docs/screenshots/detail-light.png" width="300" alt="Life360's page: its tier, its own Play description, and the fine print, each line with its source">
+</p>
 
-Android emulator, October 2026. Records change as the knowledge base is reviewed; see bundle/ for the current data.
+Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, from knowledge bundle 2026.10.07
+and the test emulator's apps. In dark mode: [the home](docs/screenshots/home-dark.png) and
+[Life360](docs/screenshots/detail-dark.png).
 
 ## Layout
 

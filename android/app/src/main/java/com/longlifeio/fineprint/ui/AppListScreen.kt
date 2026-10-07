@@ -4,14 +4,12 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Checkbox
@@ -112,11 +110,7 @@ fun AppListScreen(
             }
             return@Scaffold
         }
-        LazyColumn(
-            state = listState,
-            contentPadding = PaddingValues(top = padding.calculateTopPadding(), bottom = padding.calculateBottomPadding() + Space.xxl),
-            modifier = Modifier.fillMaxSize().testTag("list"),
-        ) {
+        CentredList(padding, Modifier.testTag("list"), listState, extraBottom = Space.xxl) {
             if (progress.running) item(key = "progress") { ScanProgressLine(progress) }
             item(key = "glance") { AtAGlance(summary, latest, bundleLine, onOpen, Modifier.padding(horizontal = Space.screen)) }
             item(key = "search") { SearchAndFilters(query, { query = it }, filters, { filters = it }, includeSystem) }

@@ -19,6 +19,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.bundle.Source
@@ -45,7 +51,7 @@ internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo
     val reviewed = review.status == ReviewStatus.REVIEWED
     Column(Modifier.padding(horizontal = Space.screen, vertical = Space.s), verticalArrangement = Arrangement.spacedBy(Space.s)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            AppIcon(app.packageName, 56.dp)
+            AppIcon(app.packageName, 56.dp, app.label)
             Text(app.label, style = MaterialTheme.typography.headlineSmall, color = p.ink, modifier = Modifier.padding(start = Space.l))
         }
         FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.s), verticalArrangement = Arrangement.spacedBy(Space.xs), itemVerticalAlignment = Alignment.CenterVertically) {
@@ -63,7 +69,7 @@ internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo
         if (review.status == ReviewStatus.CHANGED) Text("$CHANGED: ${review.note}.", style = MaterialTheme.typography.bodyMedium, color = p.ink)
         check.summary?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = p.muted) }
         Column {
-            Text(app.packageName, style = MaterialTheme.typography.bodySmall, fontFamily = FontFamily.Monospace, color = p.muted)
+            PackageName(app.packageName, color = p.muted)
             Text(
                 "Version ${app.versionName ?: "unknown"} (${app.versionCode}) · " +
                     (if (app.isSystem) "system app" else "user-installed") + " · " +
@@ -98,7 +104,8 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, onSou
         verticalArrangement = Arrangement.spacedBy(Space.s),
     ) {
         Eyebrow(THEIR_WORDS.title)
-        Text("“${tagline.text}” *", style = Quote, color = p.ink)
+        // The asterisk points at the fine print below; TalkBack reads the quote without it.
+        Text("“${tagline.text}” *", style = Quote, color = p.ink, modifier = Modifier.clearAndSetSemantics { text = AnnotatedString("“${tagline.text}”") })
         Text("— ${listingName(tagline.sourceUrl)}, read ${tagline.asOf}", style = MaterialTheme.typography.labelLarge, color = p.muted)
         Text(THEIR_WORDS.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
         if (lines.isNotEmpty()) {
@@ -106,10 +113,10 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, onSou
             Eyebrow(THE_FINE_PRINT.title)
             Text(THE_FINE_PRINT.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
             lines.forEach { line ->
-                Row(horizontalArrangement = Arrangement.spacedBy(Space.s), modifier = Modifier.padding(top = Space.xs)) {
-                    Text("*", style = MaterialTheme.typography.titleMedium, color = p.ink)
+                Row(horizontalArrangement = Arrangement.spacedBy(Space.s), modifier = Modifier.padding(top = Space.xs).semantics(mergeDescendants = true) { }) {
+                    Text("*", style = MaterialTheme.typography.titleMedium, color = p.ink, modifier = Modifier.clearAndSetSemantics { })
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        Text(line.text, style = MaterialTheme.typography.bodySmall, color = p.ink)
+                        Text(line.text, style = MaterialTheme.typography.bodySmall, color = p.ink, modifier = Modifier.speaks(line.text))
                         val s = line.sources.firstOrNull()
                         Text(statusWord(line.status) + (s?.let { " · ${it.title}, ${sourceDate(it)}" } ?: ""), style = MaterialTheme.typography.labelSmall, color = p.muted)
                     }
@@ -120,3 +127,13 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, onSou
         SourcesRow("${THEIR_WORDS.title} and ${THE_FINE_PRINT.title.lowercase()}", sources, null, onSources)
     }
 }
+
+/** "com.life360.android.safetymapd" with a break opportunity after each dot, so a long name wraps at a dot, never mid-word. */
+internal fun breakAtDots(name: String) = name.replace(".", ".\u200B")
+
+/** A package name in monospace; TalkBack reads it as written, without the break marks. */
+@Composable
+internal fun PackageName(name: String, color: Color, modifier: Modifier = Modifier) = Text(
+    breakAtDots(name), style = MaterialTheme.typography.bodySmall, fontFamily = FontFamily.Monospace, color = color,
+    modifier = modifier.semantics { contentDescription = name },
+)

@@ -208,10 +208,31 @@ If something is wrong or out of date, open an issue on GitHub: https://github.co
 
 Say which app, what's wrong and, if you can, where the right information is. The link opens an empty form; FinePrint never sends anything about your apps.
 
+## Before each release
+
+FinePrint checks every release against this list, from its design brief; a release that fails one doesn't ship.
+
+- No screen uses red as a status colour, and no screen is mostly one warning colour.
+- Every coloured element also carries an icon and a word, so each screen still makes sense in greyscale; the build fails if any two of the tier and bucket colours look alike to someone with red-green colour blindness.
+- No single score, grade, gauge, ring or letter appears anywhere it could be read as a verdict on an app.
+- No scan, sweep or "analysing" animation that doesn't stand for real work: progress names the real step and counts it.
+- No notification that creates urgency; Changed since you reviewed appears only inside the app.
+- No words like danger, threat, spying, creepy, infected, risk score or unsafe in the app, its store listing or its screenshots; the build checks the app's own text.
+- Every claim has a date and a source one tap away, and every Alleged line reads not proven in court, at every text size and to a screen reader.
+- No suggestion or button to uninstall anything.
+- Progress counts only flows you actually limited, and keeps what Android reports apart from what you ticked yourself.
+- The ad tile can't be mistaken for a real ad: no Sponsored label, no tracking, no network call, and it tells screen readers it's a joke.
+- Other apps' icons come from your phone when the app runs, never bundled; other apps' names only identify them.
+- The store listing has no best, #1, top or free in its title, icon or developer name, and no emoji there; every store screenshot shows what the app really does.
+- Store screenshots use made-up demo apps, not real brands, so no company looks judged.
+- The Play data safety form and what the app says agree: FinePrint collects nothing.
+- Touch targets are 48dp or larger, text sizes follow your font size, every icon-only control has a description, and the accessibility checks pass.
+
 ## Licences
 
 - FinePrint's code: AGPL-3.0-or-later.
 - FinePrint's records (bundle.json and jurisdictions.json): CC BY 4.0, attribution FinePrint.
 - Tracker list (trackers.json): Open Database License (ODbL) 1.0, from the εxodus tracker database (https://reports.exodus-privacy.eu.org/); individual contents under the Database Contents License (DbCL) 1.0.
 - dexlib2 (smali): Apache License 2.0.
-- Icons: Material Icons, Apache License 2.0.
+- Icons: Material Symbols and Material Icons (Google), Apache License 2.0.
+- Fonts: Atkinson Hyperlegible Next and Fraunces, SIL Open Font License 1.1.

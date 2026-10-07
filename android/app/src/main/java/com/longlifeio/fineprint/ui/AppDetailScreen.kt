@@ -3,11 +3,9 @@ package com.longlifeio.fineprint.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -96,7 +94,7 @@ fun AppDetailScreen(
                     )
                 },
             ) { padding ->
-                LazyColumn(contentPadding = padding, modifier = Modifier.fillMaxSize().testTag("detail")) {
+                CentredList(padding, Modifier.testTag("detail")) {
                     item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings) }
                     // Their words: only when the record has the store's own description.
                     explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation)) { sheet = it } } }

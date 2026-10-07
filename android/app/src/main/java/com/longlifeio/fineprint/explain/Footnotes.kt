@@ -32,6 +32,14 @@ class Footnotes(sources: List<Source>) {
 private const val SUPERSCRIPTS = "⁰¹²³⁴⁵⁶⁷⁸⁹"
 fun superscript(n: Int): String = n.toString().map { SUPERSCRIPTS[it - '0'] }.joinToString("")
 
+private val MARKS = Regex("[$SUPERSCRIPTS]+(,[$SUPERSCRIPTS]+)*")
+
+/**
+ * What TalkBack reads for a line: without its footnote marks (the Sources rows carry the sources),
+ * and "→" said as "to" ("Precise location to Select business partners").
+ */
+fun spoken(text: String): String = text.replace(MARKS, "").replace(" → ", " to ").replace("→ ", "to ")
+
 /** In page order: Summary's notes and latest change, Where it goes and its countries, What you can do, On the record. */
 fun footnotes(e: Explanation, check: WhatYouCanDo): Footnotes = Footnotes(
     e.summaryNotes.flatMap { it.sources } +

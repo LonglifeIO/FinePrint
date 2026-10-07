@@ -10,8 +10,8 @@ import org.json.JSONObject
 /*
  * The scan fixture the @Previews draw from: the test emulator's installed apps and their scans as
  * MockupActivity saw them, saved as scan-fixture.json and copied into the debug assets. It keeps package
- * names, labels, versions, permissions, manifest capabilities, tracker ids and matched class names. APK
- * paths, install times, scan timings and problem details (which can hold paths) are left out; nothing
+ * names, labels, versions, permissions, manifest capabilities, tracker ids, matched class names and how many
+ * APK files each has. APK paths, install times, scan timings and problem details (which can hold paths) are left out; nothing
  * in an explanation depends on them.
  */
 
@@ -21,7 +21,7 @@ fun fixtureJson(apps: List<InstalledApp>, results: Map<String, TrackerScanResult
     val r = results.getValue(a.scanKey)
     JSONObject()
         .put("package", a.packageName).put("label", a.label).put("version_name", a.versionName ?: JSONObject.NULL)
-        .put("version_code", a.versionCode).put("has_code", a.hasCode)
+        .put("version_code", a.versionCode).put("has_code", a.hasCode).put("apk_count", a.apkPaths.size)
         .put("permissions", JSONArray(a.permissions.map { JSONObject().put("name", it.name).put("granted", it.granted).put("dangerous", it.dangerous) }))
         .put("device_reach", JSONArray(a.deviceReach))
         .put("trackers", JSONArray(r.trackers.map {
@@ -38,7 +38,9 @@ fun parseFixture(json: String): Pair<List<InstalledApp>, Map<String, TrackerScan
             packageName = o.getString("package"), label = o.getString("label"),
             versionName = if (o.isNull("version_name")) null else o.getString("version_name"),
             versionCode = o.getLong("version_code"), lastUpdateTime = 0,
-            isSystem = false, hasCode = o.getBoolean("has_code"), apkPaths = emptyList(),
+            isSystem = false, hasCode = o.getBoolean("has_code"),
+            // How many APK files, not where they are: the paths stay on the phone.
+            apkPaths = List(o.optInt("apk_count", 0)) { "apk-${it + 1}" },
             permissions = o.getJSONArray("permissions").objects().map { RequestedPermission(it.getString("name"), it.getBoolean("granted"), it.getBoolean("dangerous")) },
             deviceReach = o.getJSONArray("device_reach").strings(),
         )

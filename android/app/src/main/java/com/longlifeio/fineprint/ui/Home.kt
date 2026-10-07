@@ -11,6 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -42,12 +43,14 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.bundle.Change
@@ -113,7 +116,7 @@ private fun WhatChanged(app: InstalledApp, change: Change, onOpen: (InstalledApp
             .padding(vertical = Space.s),
         horizontalArrangement = Arrangement.spacedBy(Space.s),
     ) {
-        Icon(painterResource(R.drawable.ms_update), contentDescription = null, tint = p.muted, modifier = Modifier.size(20.dp))
+        TextIcon(R.drawable.ms_update, 20.sp, p.muted)
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text("What changed · ${app.label} · ${change.date}", style = MaterialTheme.typography.labelLarge, color = p.ink)
             Text(change.text, style = MaterialTheme.typography.bodySmall, color = p.muted, maxLines = 2, overflow = TextOverflow.Ellipsis)
@@ -205,7 +208,7 @@ fun HomeRow(app: InstalledApp, e: Explanation?, review: ReviewView?, check: What
             Modifier.fillMaxWidth().heightIn(min = 72.dp).padding(horizontal = Space.l, vertical = Space.m),
             horizontalArrangement = Arrangement.spacedBy(Space.l),
         ) {
-            AppIcon(app.packageName)
+            AppIcon(app.packageName, label = app.label)
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(Space.xs)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Space.s)) {
                     Text(app.label, style = MaterialTheme.typography.titleMedium, color = p.ink, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
@@ -214,7 +217,7 @@ fun HomeRow(app: InstalledApp, e: Explanation?, review: ReviewView?, check: What
                 Text(e?.tier?.reason ?: "Checking its code…", style = MaterialTheme.typography.bodyMedium, color = p.muted, maxLines = 2, overflow = TextOverflow.Ellipsis)
                 if (review?.status == ReviewStatus.CHANGED) {
                     Row(horizontalArrangement = Arrangement.spacedBy(Space.xs)) {
-                        Icon(painterResource(R.drawable.ms_update), contentDescription = null, tint = p.ink, modifier = Modifier.size(16.dp))
+                        TextIcon(R.drawable.ms_update, 16.sp, p.ink)
                         Text("$CHANGED: ${review.note}", style = MaterialTheme.typography.labelMedium.copy(letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing), color = p.ink, maxLines = 2, overflow = TextOverflow.Ellipsis)
                     }
                 }
@@ -234,7 +237,7 @@ fun HomeRow(app: InstalledApp, e: Explanation?, review: ReviewView?, check: What
                     // Each note wraps as a whole ("No record yet" never splits); the dot travels with the note after it.
                     notes.forEachIndexed { i, note ->
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Space.xs)) {
-                            if (note == "Stale") Icon(painterResource(R.drawable.ic_stale), contentDescription = null, tint = p.muted, modifier = Modifier.size(14.dp))
+                            if (note == "Stale") TextIcon(R.drawable.ic_stale, 14.sp, p.muted)
                             Text(if (i == 0) note else "· $note", style = MaterialTheme.typography.labelMedium.copy(letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing), color = p.muted)
                         }
                     }
@@ -259,9 +262,9 @@ private fun SystemTag() {
 private const val ICON_PX = 96
 private val iconCache = LruCache<String, ImageBitmap>(150)
 
-/** The app's own icon from this phone (never bundled), loaded off the main thread and cached. */
+/** The app's own icon from this phone (never bundled), loaded off the main thread and cached; its initial until then, or if it has none. */
 @Composable
-internal fun AppIcon(packageName: String, size: Dp = 40.dp) {
+internal fun AppIcon(packageName: String, size: Dp = 40.dp, label: String = "") {
     val pm = LocalContext.current.packageManager
     val icon by produceState(iconCache.get(packageName), packageName) {
         if (value == null) {
@@ -272,7 +275,10 @@ internal fun AppIcon(packageName: String, size: Dp = 40.dp) {
     }
     val bitmap = icon
     if (bitmap == null) {
-        Spacer(Modifier.size(size))
+        val p = LocalPalette.current
+        Box(Modifier.size(size).clip(RoundedCornerShape(size / 4)).background(p.raised).clearAndSetSemantics { }, contentAlignment = Alignment.Center) {
+            Text(label.take(1).uppercase(), style = MaterialTheme.typography.titleMedium, color = p.ink)
+        }
     } else {
         Image(bitmap, contentDescription = null, modifier = Modifier.size(size).clip(RoundedCornerShape(size / 4)))
     }

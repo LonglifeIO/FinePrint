@@ -6,11 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Text
@@ -22,10 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.explain.AUTO
 import com.longlifeio.fineprint.explain.BADGES
@@ -86,7 +84,7 @@ fun StatusBadge(status: String?, historical: Boolean) {
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             modifier = Modifier.border(1.dp, c.outlineVariant, RoundedCornerShape(Corner.chip)).padding(horizontal = 8.dp, vertical = 3.dp),
         ) {
-            Icon(painterResource(statusIcon(status)), contentDescription = null, tint = c.onSurface, modifier = Modifier.size(16.dp))
+            TextIcon(statusIcon(status), 16.sp, c.onSurface)
             Text(label, style = MaterialTheme.typography.labelMedium.copy(letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing), color = c.onSurface)
         }
     }

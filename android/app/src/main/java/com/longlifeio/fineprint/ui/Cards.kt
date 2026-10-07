@@ -4,15 +4,23 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,14 +30,20 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.explain.Footnotes
 import com.longlifeio.fineprint.explain.SOURCES
 import com.longlifeio.fineprint.explain.SectionText
+import com.longlifeio.fineprint.explain.spoken
 
 /*
  * The detail screen's cards (G5 stop B, after the brief's "ledger of cards"): each section is one card
@@ -105,3 +119,34 @@ fun LazyListScope.sourcesCard(notes: Footnotes) {
     }
     cardEnd("sources")
 }
+
+/** Cards and text stop widening here: on a tablet the column sits in the middle of the screen. */
+val MAX_CONTENT = 640.dp
+
+/**
+ * A screen's list, its content no wider than [MAX_CONTENT] and centred by padding, so the whole width
+ * still scrolls it. [inner] is the Scaffold's padding; [extraBottom] adds room under the last item.
+ */
+@Composable
+fun CentredList(
+    inner: PaddingValues,
+    modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
+    extraBottom: Dp = 0.dp,
+    content: LazyListScope.() -> Unit,
+) = BoxWithConstraints(Modifier.fillMaxSize()) {
+    val side = ((maxWidth - MAX_CONTENT) / 2).coerceAtLeast(0.dp)
+    val direction = LocalLayoutDirection.current
+    LazyColumn(
+        state = state,
+        contentPadding = PaddingValues(
+            start = inner.calculateStartPadding(direction) + side, end = inner.calculateEndPadding(direction) + side,
+            top = inner.calculateTopPadding(), bottom = inner.calculateBottomPadding() + extraBottom,
+        ),
+        modifier = modifier.fillMaxSize(),
+        content = content,
+    )
+}
+
+/** Reads [text] to TalkBack as spoken() has it: no footnote marks, "→" as "to". */
+fun Modifier.speaks(text: String) = clearAndSetSemantics { this.text = AnnotatedString(spoken(text)) }

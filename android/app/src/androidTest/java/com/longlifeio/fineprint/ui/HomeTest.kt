@@ -7,7 +7,6 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -28,6 +27,8 @@ import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,6 +38,9 @@ import org.junit.runner.RunWith
 class HomeTest {
 
     @get:Rule val compose = createComposeRule()
+
+    /** Accessibility Test Framework checks (touch targets, contrast, labels) on every action in these tests. */
+    @Before fun accessibilityChecks() = compose.enableAccessibilityChecks()
 
     private val bundle = InstrumentationRegistry.getInstrumentation().context.assets.let { assets ->
         parseBundle(
@@ -82,7 +86,7 @@ class HomeTest {
         show(listOf(life360, unread), reviews = mapOf(life360.packageName to ReviewView(ReviewStatus.REVIEWED, "2026-10-07")), open = OpenSections.of(prefs))
 
         // Flagged starts open, and Life360, marked reviewed, shows "Flagged ✓".
-        compose.onNodeWithContentDescription("Tier: Flagged, Reviewed", useUnmergedTree = true).assertExists()
+        compose.onNodeWithText("Tier: Flagged, Reviewed", useUnmergedTree = true).assertExists()
         // No record yet starts closed: scrolled to the end, its app isn't there.
         compose.onNodeWithTag("list").performScrollToNode(hasText(NO_RECORD_DEFINITION))
         assertEquals("Collapsed", stateOf(NO_RECORD_DEFINITION))
@@ -94,7 +98,7 @@ class HomeTest {
         // Kept on this phone: the next launch opens it too.
         assertTrue(prefs.getBoolean("open:NO_RECORD", false))
         assertTrue(OpenSections.of(prefs).isOpen(null))
-        prefs.edit().clear().commit()
+        InstrumentationRegistry.getInstrumentation().targetContext.deleteSharedPreferences("home-test") // leaves nothing in the app's data
     }
 
     @Test
@@ -109,6 +113,6 @@ class HomeTest {
     fun whatChangedIsHiddenWhenNoneOfYourAppsHasAChange() {
         show(listOf(life360, unread))
         compose.onAllNodesWithText("What changed", substring = true).assertCountEquals(0)
-        compose.onNodeWithText("At a glance".uppercase()).assertExists()
+        compose.onNodeWithText("At a glance").assertExists()
     }
 }

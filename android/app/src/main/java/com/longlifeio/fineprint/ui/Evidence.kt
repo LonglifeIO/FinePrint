@@ -44,7 +44,7 @@ fun LazyListScope.evidenceSection(
     exodusNote?.let { cardItem { Note(it) } }
     cardItem { SectionTitle("Permissions it declares") }
     cardItem {
-        Note("${app.permissions.size} declared · ${app.permissions.count { it.granted }} granted · ${app.permissions.count { it.dangerous }} dangerous")
+        Note("${app.permissions.size} declared · ${app.permissions.count { it.granted }} granted · ${app.permissions.count { it.dangerous }} that Android asks you about first")
     }
     cardItems(app.permissions, key = { "permission:" + it.name }) { PermissionRow(it) }
     cardEnd("evidence")
@@ -119,8 +119,8 @@ private fun PermissionRow(permission: RequestedPermission) {
         headlineContent = { Text(permission.name.removePrefix("android.permission."), style = MaterialTheme.typography.bodyMedium) },
         trailingContent = {
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                // Neutral words, no alarm colour: "Dangerous" is Android's own name for runtime permissions.
-                if (permission.dangerous) StatusLabel("Dangerous", colors.surface, colors.onSurface, outline = true)
+                // Android calls these "dangerous"; FinePrint says what it means, without the alarm word or colour.
+                if (permission.dangerous) StatusLabel("Asks first", colors.surface, colors.onSurface, outline = true)
                 StatusLabel(if (permission.granted) "Granted" else "Denied", colors.surfaceContainerHigh, colors.onSurface)
             }
         },

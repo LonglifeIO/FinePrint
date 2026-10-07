@@ -1,10 +1,8 @@
 package com.longlifeio.fineprint.ui
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -50,7 +48,7 @@ fun HowToReadScreen(onBack: () -> Unit) {
             )
         },
     ) { padding ->
-        LazyColumn(contentPadding = padding, modifier = Modifier.fillMaxSize().testTag("howto")) {
+        CentredList(padding, Modifier.testTag("howto")) {
             items(blocks) { MethodBlockView(it) }
             item { LinkRow("Report an error", R.drawable.ic_open_in_new) { uriHandler.openUri(REPORT_ERROR_URL) } }
         }

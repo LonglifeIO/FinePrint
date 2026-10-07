@@ -52,6 +52,10 @@ android {
         // The instrumented tests render the real reviewed records, read from the test APK's assets.
         getByName("androidTest").assets.directories.add("../../bundle")
     }
+    testOptions {
+        // Robolectric needs the merged resources and assets: the screenshot tests draw real screens with real fonts.
+        unitTests.isIncludeAndroidResources = true
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -146,9 +150,22 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     // Real org.json for JVM unit tests (android.jar only has stubs).
     testImplementation(libs.org.json)
+    // Screenshot tests (G5 stop C): Robolectric draws the real screens on the JVM, Roborazzi saves them. Test-only.
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.robolectric)
+    testImplementation(libs.roborazzi)
+    testImplementation(libs.roborazzi.compose)
+    testImplementation(libs.androidx.compose.ui.test.junit4)
+    // enableAccessibilityChecks() in the on-device tests (Accessibility Test Framework). Test-only.
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4.accessibility)
 }
 
 tasks.withType<Test>().configureEach {
+    // Roborazzi saves every captureRoboImage call; the images land in build/outputs/roborazzi (an output, so the cache keeps them).
+    systemProperty("roborazzi.test.record", "true")
+    outputs.dir(layout.buildDirectory.dir("outputs/roborazzi"))
+    // Robolectric's SDK 35+ sandbox reads FileDescriptor internals, which JDK 17+ keeps closed unless opened for tests.
+    jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED", "--add-exports=java.base/jdk.internal.access=ALL-UNNAMED")
     // The tests read the bundled signatures and bundle files from disk; rerun them when those change.
     inputs.file("src/main/assets/trackers.json").withPathSensitivity(PathSensitivity.RELATIVE)
     inputs.dir("src/test/resources").withPathSensitivity(PathSensitivity.RELATIVE).optional()
@@ -186,4 +203,14 @@ val checkReleaseClasspath = tasks.register<CheckReleaseClasspath>("checkReleaseC
     root.set(configurations.named("releaseRuntimeClasspath").flatMap { it.incoming.resolutionResult.rootComponent })
 }
 tasks.named("check") { dependsOn(checkReleaseClasspath) }
+
+// gradle.properties keeps the app installed after device tests; the test APK itself is removed.
+tasks.matching { it.name == "connectedDebugAndroidTest" }.configureEach { finalizedBy("uninstallDebugAndroidTest") }
 tasks.matching { it.name == "preReleaseBuild" }.configureEach { dependsOn(checkReleaseClasspath) }
+
+/** The README's screenshots come from the screenshot tests (ScreenshotTest), never by hand: ./gradlew readmeScreenshots. */
+tasks.register<Copy>("readmeScreenshots") {
+    dependsOn("testDebugUnitTest")
+    from(layout.buildDirectory.dir("outputs/roborazzi")) { include("home-light.png", "home-dark.png", "detail-light.png", "detail-dark.png") }
+    into(layout.projectDirectory.dir("../../docs/screenshots"))
+}

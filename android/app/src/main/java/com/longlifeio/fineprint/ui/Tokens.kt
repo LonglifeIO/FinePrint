@@ -13,6 +13,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -30,9 +31,9 @@ import com.longlifeio.fineprint.R
  * first); FinePrintTheme serves the others until then.
  */
 
-/** A chip's colours: its fill, and the ink for its icon, word and count. */
+/** A chip's colours: its tint, the ink for its icon, word and count, and a hairline [border] where the tint alone barely shows (null: none). */
 @Immutable
-data class Tone(val container: Color, val content: Color)
+data class Tone(val container: Color, val content: Color, val border: Color? = null)
 
 /**
  * Colour rule: three semantic hues plus grey, on indicator chips only. The buckets own the hues, and
@@ -41,10 +42,17 @@ data class Tone(val container: Color, val content: Color)
  * traffic light: nothing is red. Surfaces, cards, rows, headers, the bar and links stay neutral ink,
  * and colour never works alone (every chip has an icon and a word).
  *
+ * Chips are tonal: the fill is a 20% tint of the hue over the card (a dark one in dark mode), and the
+ * icon and word carry the hue, darkened in light mode and lightened in dark mode. If any of a theme's
+ * tints sits under 1.3:1 against the card or the page, all three chips get a hairline border in their
+ * hue, so a row never mixes bordered and unbordered chips.
+ *
  * PaletteContrastTest checks, in both modes: ink and muted text 4.5:1 or more on every surface; chip
- * ink 4.5:1 or more on its fill; every hue's fill (grey's dashed edge) 3:1 or more against the page and
- * the card; and every pair of chip colours at least ΔE2000 25 apart for normal, protanopic and
- * deuteranopic vision (Machado 2009 simulation), so no two collapse for a red-green colour-blind reader.
+ * ink 4.5:1 or more on its tint, the card and the page; the borders, all or none in a theme; neutral
+ * colours everywhere but the chips; and the three chip inks at least ΔE2000 25 apart
+ * for normal, protanopic and deuteranopic vision (Machado 2009 simulation), so no two collapse for a
+ * red-green colour-blind reader. The light teal ink is the darkest because of that last rule: any
+ * lighter and it nears the ochre for a protanopic reader.
  */
 @Immutable
 data class Palette(
@@ -72,25 +80,62 @@ data class Palette(
     val noRecord: Tone,
 )
 
-val FieldNotesLight = Palette(
-    dark = false,
-    surface = Color(0xFFFBFAF7), ink = Color(0xFF1B1C1A), muted = Color(0xFF5D5B54),
-    card = Color(0xFFF0EEE6), raised = Color(0xFFE4E1D7), divider = Color(0xFFD7D3C7), outline = Color(0xFF7C786E), track = Color(0xFFCFCABD),
-    stays = Tone(Color(0xFF3C9187), Color(0xFF1B1C1A)),
-    more = Tone(Color(0xFF9F690A), Color(0xFFFFFFFF)),
-    elsewhere = Tone(Color(0xFF3753A1), Color(0xFFFFFFFF)),
-    noRecord = Tone(Color(0xFFEEEEEE), Color(0xFF4A4A4A)),
+/** How much of its hue a chip's tint holds over the card (the owner chose 20% over 12%). */
+const val CHIP_TINT = 0.20f
+
+/** The three hues the tints are made from, in both modes. */
+private val TEAL = Color(0xFF3C9187)
+private val OCHRE = Color(0xFF9F690A)
+private val INDIGO = Color(0xFF3753A1)
+
+/** [fraction] of [top] over [under], as drawing one at that opacity over the other would. */
+private fun over(top: Color, under: Color, fraction: Float) = Color(
+    red = top.red * fraction + under.red * (1 - fraction),
+    green = top.green * fraction + under.green * (1 - fraction),
+    blue = top.blue * fraction + under.blue * (1 - fraction),
 )
 
-val FieldNotesDark = Palette(
-    dark = true,
-    surface = Color(0xFF141311), ink = Color(0xFFE7E3DA), muted = Color(0xFFADA89D),
-    card = Color(0xFF1F1D1A), raised = Color(0xFF2E2B27), divider = Color(0xFF3B3833), outline = Color(0xFF8C877C), track = Color(0xFF4A4640),
-    stays = Tone(Color(0xFF9BE3CA), Color(0xFF141311)),
-    more = Tone(Color(0xFFDEAC2B), Color(0xFF141311)),
-    elsewhere = Tone(Color(0xFFA0AAEC), Color(0xFF141311)),
-    noRecord = Tone(Color(0xFF262626), Color(0xFFC9C9C9)),
-)
+/** WCAG contrast ratio. */
+internal fun contrastRatio(a: Color, b: Color): Float {
+    val (hi, lo) = listOf(a.luminance(), b.luminance()).sortedDescending()
+    return (hi + 0.05f) / (lo + 0.05f)
+}
+
+/** Below this against the card or the page, a tint needs its hairline border. */
+internal const val FAINT_TINT = 1.3f
+
+/** A theme's three hue chips, each a hue and its ink: tinted over the card, and all bordered if any tint is faint. */
+private fun tonal(card: Color, surface: Color, vararg chips: Pair<Color, Color>): List<Tone> {
+    val fills = chips.map { (hue, _) -> over(hue, card, CHIP_TINT) }
+    val faint = fills.any { minOf(contrastRatio(it, card), contrastRatio(it, surface)) < FAINT_TINT }
+    return chips.mapIndexed { i, (_, ink) -> Tone(fills[i], ink, border = if (faint) over(ink, fills[i], 0.5f) else null) }
+}
+
+val FieldNotesLight: Palette = run {
+    val card = Color(0xFFF0EEE6)
+    val surface = Color(0xFFFBFAF7)
+    val (stays, more, elsewhere) = tonal(card, surface, TEAL to Color(0xFF122B28), OCHRE to Color(0xFF7D5208), INDIGO to Color(0xFF3753A1))
+    Palette(
+        dark = false,
+        surface = surface, ink = Color(0xFF1B1C1A), muted = Color(0xFF5D5B54),
+        card = card, raised = Color(0xFFE4E1D7), divider = Color(0xFFD7D3C7), outline = Color(0xFF7C786E), track = Color(0xFFCFCABD),
+        stays = stays, more = more, elsewhere = elsewhere,
+        noRecord = Tone(Color(0xFFEEEEEE), Color(0xFF4A4A4A)),
+    )
+}
+
+val FieldNotesDark: Palette = run {
+    val card = Color(0xFF1F1D1A)
+    val surface = Color(0xFF141311)
+    val (stays, more, elsewhere) = tonal(card, surface, TEAL to Color(0xFFB0DED9), OCHRE to Color(0xFFCC870D), INDIGO to Color(0xFF768ED0))
+    Palette(
+        dark = true,
+        surface = surface, ink = Color(0xFFE7E3DA), muted = Color(0xFFADA89D),
+        card = card, raised = Color(0xFF2E2B27), divider = Color(0xFF3B3833), outline = Color(0xFF8C877C), track = Color(0xFF4A4640),
+        stays = stays, more = more, elsewhere = elsewhere,
+        noRecord = Tone(Color(0xFF262626), Color(0xFFC9C9C9)),
+    )
+}
 
 /** Spacing on a 4dp grid (the brief's tokens), and the named gaps the screens use. */
 object Space {

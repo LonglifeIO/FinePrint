@@ -38,7 +38,7 @@ fun LazyListScope.recentChange(changes: List<Change>, onSources: (SheetContent) 
                     Text(latest.date, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
                     DirectionBadge(latest.direction)
                 }
-                Text(latest.text + LocalFootnotes.current.marks(latest.sources), style = MaterialTheme.typography.bodyMedium)
+                Text(latest.text + LocalFootnotes.current.marks(latest.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks(latest.text))
                 tierMove(latest.tierBefore, latest.tierAfter)?.let {
                     Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
@@ -62,7 +62,7 @@ fun ChangeLineRow(change: Change, onDetails: (SheetContent) -> Unit) {
             }
             .padding(horizontal = 16.dp, vertical = 2.dp),
     ) {
-        Text("${change.date} · ${change.text}" + LocalFootnotes.current.marks(change.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+        Text("${change.date} · ${change.text}" + LocalFootnotes.current.marks(change.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks("${change.date} · ${change.text}").weight(1f))
         DirectionBadge(change.direction)
     }
 }

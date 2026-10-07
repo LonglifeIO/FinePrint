@@ -2,6 +2,7 @@ package com.longlifeio.fineprint.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -9,9 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -26,13 +29,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.paneTitle
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.Source
+import com.longlifeio.fineprint.explain.spoken
 
 /**
  * What the Sources sheet shows for one line: its sources; for a law, who it binds ([scope], under
@@ -88,7 +98,7 @@ fun SourcesRow(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = TOUCH)
-            .clickable(onClickLabel = "Show sources") { onOpen(SheetContent(heading, sources, note, noteHeading = noteHeading, scope = scope)) },
+            .clickable(onClickLabel = "Show sources", role = Role.Button) { onOpen(SheetContent(heading, sources, note, noteHeading = noteHeading, scope = scope)) },
     ) {
         Text(
             "Sources ($count)",
@@ -105,13 +115,20 @@ fun SourcesRow(
 fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
     val uriHandler = LocalUriHandler.current
     val all = content.sources + content.scope?.sources.orEmpty() + content.note?.sources.orEmpty()
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState()) {
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        // TalkBack announces the sheet by this name as it opens, in place of Material's "Bottom Sheet".
+        modifier = Modifier.semantics { paneTitle = "Sources: ${spoken(content.heading)}" },
+        sheetState = rememberModalBottomSheetState(),
+        // The handle is tappable (expand, collapse): give it a 48dp target around Material's 32dp pill.
+        dragHandle = { Box(Modifier.sizeIn(minWidth = TOUCH, minHeight = TOUCH), contentAlignment = Alignment.Center) { BottomSheetDefaults.DragHandle() } },
+    ) {
         LazyColumn(Modifier.testTag("sources"), contentPadding = PaddingValues(bottom = 32.dp)) {
             item {
                 Text(
                     content.heading,
                     style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(horizontal = 16.dp).semantics { heading() },
+                    modifier = Modifier.padding(horizontal = 16.dp).clearAndSetSemantics { text = AnnotatedString(spoken(content.heading)); heading() },
                 )
             }
             itemsIndexed(content.details) { i, text ->
@@ -161,7 +178,7 @@ private fun SourceCard(source: Source, primary: Boolean, all: List<Source>, onOp
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        OutlinedButton(onClick = onOpen, modifier = Modifier.padding(top = 4.dp).heightIn(min = TOUCH)) {
+        OutlinedButton(onClick = onOpen, modifier = Modifier.padding(top = 4.dp).heightIn(min = TOUCH).semantics { contentDescription = "Open ${source.title}" }) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Icon(painterResource(R.drawable.ic_open_in_new), contentDescription = null, modifier = Modifier.size(18.dp))
                 Text("Open")

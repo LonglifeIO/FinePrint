@@ -1,7 +1,5 @@
 package com.longlifeio.fineprint.ui
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -44,7 +42,7 @@ fun AboutScreen(state: BundleState, baseUrl: String, onBack: () -> Unit, onRefre
             )
         },
     ) { padding ->
-        LazyColumn(contentPadding = padding, modifier = Modifier.fillMaxSize()) {
+        CentredList(padding) {
             item {
                 Text(
                     "FinePrint — read it so you don't have to.",

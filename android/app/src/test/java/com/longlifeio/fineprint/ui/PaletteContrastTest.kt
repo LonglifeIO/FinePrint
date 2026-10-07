@@ -5,53 +5,71 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * Both Field notes palettes, against the brief's rules and the owner's: readable text, chips that hold
- * their shape on the page and the cards, and chip colours that stay apart for a red-green colour-blind
+ * Both Field notes palettes against the brief's rules and the owner's: readable text, chips whose icon
+ * and word read on their tint and around it, borders all or none in a theme (all wherever any tint
+ * barely shows), colour on chips only, and chip inks that stay apart for a red-green colour-blind
  * reader. The build fails if any two semantic colours collapse.
  */
 class PaletteContrastTest {
 
-    private fun name(p: Palette) = if (p.dark) "dark" else "light"
+    private val palettes = listOf("light" to FieldNotesLight, "dark" to FieldNotesDark)
 
-    private fun chips(p: Palette) = mapOf("Stays here / Expected" to p.stays, "Used for more / Caution" to p.more, "Goes elsewhere / Flagged" to p.elsewhere, "No record yet" to p.noRecord)
+    private fun hues(p: Palette) = mapOf("Stays here / Expected" to p.stays, "Used for more / Caution" to p.more, "Goes elsewhere / Flagged" to p.elsewhere)
 
-    private fun contrastFailures(p: Palette): List<String> = buildList {
+    private fun contrastFailures(name: String, p: Palette): List<String> = buildList {
         fun need(what: String, fg: Color, bg: Color, min: Double) {
             val r = contrast(fg, bg)
-            if (r < min) add("${name(p)} $what: ${"%.2f".format(r)} < $min")
+            if (r < min) add("$name $what: ${"%.2f".format(r)} < $min")
         }
         for ((where, bg) in listOf("surface" to p.surface, "card" to p.card, "raised" to p.raised)) {
             need("ink on $where", p.ink, bg, 4.5)
             need("muted on $where", p.muted, bg, 4.5)
         }
         need("outline on surface", p.outline, p.surface, 3.0) // the search field's border, a control boundary
-        for ((chip, tone) in chips(p)) {
-            need("$chip ink on its fill", tone.content, tone.container, 4.5)
-            // The chip's edge: its fill for the three hues, the dashed outline (drawn in its ink) for grey.
-            val edge = if (tone == p.noRecord) tone.content else tone.container
-            need("$chip edge on surface", edge, p.surface, 3.0)
-            need("$chip edge on card", edge, p.card, 3.0)
+        // A row never mixes bordered and unbordered chips: if any tint barely shows, all three are bordered.
+        val faint = hues(p).values.any { minOf(contrast(it.container, p.card), contrast(it.container, p.surface)) < FAINT_TINT }
+        for ((chip, tone) in hues(p)) {
+            need("$chip ink on its tint", tone.content, tone.container, 4.5)
+            // Where the tint barely shows, the icon and word still read on the card and the page.
+            need("$chip ink on card", tone.content, p.card, 4.5)
+            need("$chip ink on surface", tone.content, p.surface, 4.5)
+            if (faint != (tone.border != null)) add("$name $chip: ${if (faint) "a tint in this theme is under $FAINT_TINT:1, so every chip needs" else "no tint is faint, so no chip needs"} a border")
         }
+        // No record yet: grey, its dashed edge drawn in its ink.
+        need("No record yet ink on its fill", p.noRecord.content, p.noRecord.container, 4.5)
+        need("No record yet edge on surface", p.noRecord.content, p.surface, 3.0)
+        need("No record yet edge on card", p.noRecord.content, p.card, 3.0)
     }
 
-    private fun collapses(p: Palette): List<String> = buildList {
-        val fills = chips(p).mapValues { it.value.container }.toList()
+    private fun collapses(name: String, p: Palette): List<String> = buildList {
+        val inks = hues(p).mapValues { it.value.content }.toList()
         for (vision in Vision.entries) {
-            for (i in fills.indices) for (j in i + 1 until fills.size) {
-                val d = difference(fills[i].second, fills[j].second, vision)
-                if (d < MIN_DIFFERENCE) add("${name(p)} ${vision.name.lowercase()}: ${fills[i].first} vs ${fills[j].first} ΔE2000 ${"%.1f".format(d)} < $MIN_DIFFERENCE")
+            for (i in inks.indices) for (j in i + 1 until inks.size) {
+                val d = difference(inks[i].second, inks[j].second, vision)
+                if (d < MIN_DIFFERENCE) add("$name ${vision.name.lowercase()}: ${inks[i].first} vs ${inks[j].first} ΔE2000 ${"%.1f".format(d)} < $MIN_DIFFERENCE")
             }
         }
     }
 
     @Test
-    fun everyTextAndChipEdgeMeetsWcag() {
-        assertEquals(emptyList<String>(), contrastFailures(FieldNotesLight) + contrastFailures(FieldNotesDark))
+    fun everyTextAndChipMeetsWcag() {
+        assertEquals(emptyList<String>(), palettes.flatMap { (name, p) -> contrastFailures(name, p) })
     }
 
     @Test
-    fun noTwoChipColoursCollapseForRedGreenColourBlindness() {
-        assertEquals(emptyList<String>(), collapses(FieldNotesLight) + collapses(FieldNotesDark))
+    fun noTwoChipInksCollapseForRedGreenColourBlindness() {
+        assertEquals(emptyList<String>(), palettes.flatMap { (name, p) -> collapses(name, p) })
+    }
+
+    /** Colour on chips only: every other colour of the palette is a grey, warm or cool. */
+    @Test
+    fun nothingOutsideTheChipsCarriesHue() {
+        val hued = palettes.flatMap { (name, p) ->
+            listOf("surface" to p.surface, "ink" to p.ink, "muted" to p.muted, "card" to p.card, "raised" to p.raised,
+                "divider" to p.divider, "outline" to p.outline, "track" to p.track)
+                .filter { chroma(it.second) >= MAX_GREY_CHROMA }.map { "$name ${it.first}: chroma ${"%.1f".format(chroma(it.second))}" }
+        }
+        assertEquals(emptyList<String>(), hued)
     }
 
     /** The simulation itself: red and green, far apart in normal vision, become near twins without red-green vision. */
@@ -67,5 +85,6 @@ class PaletteContrastTest {
     private companion object {
         /** Clearly different at a glance, in CIEDE2000 units (10 is a noticeable difference). */
         const val MIN_DIFFERENCE = 25.0
+        const val MAX_GREY_CHROMA = 10.0
     }
 }

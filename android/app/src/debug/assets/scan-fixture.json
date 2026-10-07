@@ -6,6 +6,7 @@
    "version_name": "3.4",
    "version_code": 13,
    "has_code": true,
+   "apk_count": 1,
    "permissions": [
     {
      "name": "android.permission.ACCESS_LOCAL_NETWORK",
@@ -108,6 +109,7 @@
    "version_name": "581.0.0.45.58",
    "version_code": 475215363,
    "has_code": true,
+   "apk_count": 2,
    "permissions": [
     {
      "name": "android.permission.ACCESS_LOCAL_NETWORK",
@@ -616,6 +618,7 @@
    "version_name": "0.2.0",
    "version_code": 1,
    "has_code": true,
+   "apk_count": 1,
    "permissions": [
     {
      "name": "android.permission.ACCESS_LOCAL_NETWORK",
@@ -644,7 +647,7 @@
    "problems": 0,
    "out_of_memory": false,
    "dex_files": 7,
-   "classes": 17510
+   "classes": 17594
   },
   {
    "package": "fr.francetv.apps.info",
@@ -652,6 +655,7 @@
    "version_name": "5.6.1",
    "version_code": 493,
    "has_code": true,
+   "apk_count": 1,
    "permissions": [
     {
      "name": "android.permission.ACCESS_LOCAL_NETWORK",
@@ -905,6 +909,7 @@
    "version_name": "0.9.1804011545",
    "version_code": 1804011545,
    "has_code": true,
+   "apk_count": 1,
    "permissions": [
     {
      "name": "android.permission.ACCESS_LOCAL_NETWORK",
@@ -1001,6 +1006,7 @@
    "version_name": "26.37.0",
    "version_code": 2924500,
    "has_code": true,
+   "apk_count": 4,
    "permissions": [
     {
      "name": "android.permission.ACCESS_COARSE_LOCATION",
@@ -1383,6 +1389,7 @@
    "version_name": "3.0.0",
    "version_code": 30000099,
    "has_code": true,
+   "apk_count": 1,
    "permissions": [
     {
      "name": "android.permission.ACCESS_LOCAL_NETWORK",
@@ -1520,6 +1527,7 @@
    "version_name": "0.13",
    "version_code": 13,
    "has_code": true,
+   "apk_count": 1,
    "permissions": [
     {
      "name": "android.permission.ACCESS_BACKGROUND_LOCATION",
@@ -1627,6 +1635,7 @@
    "version_name": "47.1.4",
    "version_code": 2024701040,
    "has_code": true,
+   "apk_count": 31,
    "permissions": [
     {
      "name": "android.permission.ACCESS_COARSE_LOCATION",
