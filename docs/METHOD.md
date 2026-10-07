@@ -180,6 +180,12 @@ A company is based where it has its head office, or, when FinePrint has no sourc
 
 A law is quoted from its own text, so its badge reads Self-disclosed. A company registered or headquartered in a country is subject to its law. Three claims always stay separate: where a company is headquartered, which country's law it is subject to, and where its servers are. FinePrint shows the first two, from company records and the laws themselves; where servers are would take traffic seen from the phone, so FinePrint doesn't show it. Lines about governments don't change an app's tier.
 
+Under each law, a line says who it binds, such as anyone who holds the data, or only certain kinds of provider; its sources are under Who it binds. FinePrint doesn't check, company by company, whether a provider qualifies.
+
+Each law also shows when FinePrint last reviewed it. After 180 days it's marked Stale, as a record is.
+
+A law's Sources end with its Current status: where the law stands, such as a repeal or the date it starts to apply. When a law stops the company telling you it handed your data over, the law's line or its Current status says so, and how: automatically, by a judge's order, or on the government's objection.
+
 When FinePrint can't place every recipient, the line says: Some recipients aren't named or have no record, so FinePrint can't say where they're based. When it can't place any: FinePrint can't say where the companies that get this data are based. A country whose laws FinePrint hasn't reviewed says: FinePrint hasn't reviewed this country's laws yet.
 
 ## Reporting an error
