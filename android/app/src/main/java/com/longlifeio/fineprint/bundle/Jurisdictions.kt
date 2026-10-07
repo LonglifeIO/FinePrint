@@ -2,7 +2,10 @@ package com.longlifeio.fineprint.bundle
 
 import org.json.JSONObject
 
-/** jurisdictions.json (CC BY 4.0): for each country, the laws that let its government compel a company to hand over data. */
+/**
+ * jurisdictions.json (CC BY 4.0): for each country, and for a union of countries such as the EU, the laws that let a
+ * government compel a company to hand over data.
+ */
 data class Jurisdiction(val id: String, val name: String, val laws: List<Law>, val lastReviewed: String)
 
 /** A law in force, quoted from its own text: a Can compel line. */
@@ -15,6 +18,8 @@ data class Law(
     val statusNote: ProceduralNote?,
     /** The first is the law's own text. */
     val sources: List<Source>,
+    /** The countries a union's law binds (an EU regulation); null: it binds the country of its own entry. */
+    val appliesTo: List<String>? = null,
 )
 
 fun parseJurisdictions(json: String): Map<String, Jurisdiction> {
@@ -28,6 +33,7 @@ fun parseJurisdictions(json: String): Map<String, Jurisdiction> {
                 Law(
                     it.getString("id"), it.getString("name"), it.getString("citation"), it.getString("text"), it.getString("status"),
                     it.optJSONObject("status_note")?.toProceduralNote(), it.objects("sources").map { s -> s.toSource() },
+                    it.optJSONArray("applies_to")?.let { a -> List(a.length()) { i -> a.getString(i) } },
                 )
             },
             lastReviewed = j.getString("last_reviewed"),

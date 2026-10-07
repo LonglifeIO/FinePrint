@@ -264,6 +264,19 @@ class GovernmentTest(unittest.TestCase):
         self.assertEqual(build.law_problems(twice), ["law id 'law-us-cloud-act' used twice",
                                                      "law-us-cloud-act: its first source is the law's own text (type statute)"])
         self.assertEqual(build.jurisdictions_path(Path("bundle/bundle.json")), Path("bundle/jurisdictions.json"))
+
+    def test_a_union_entry_says_which_countries_each_law_binds(self):
+        law = {"id": "law-eu-x", "name": "X Regulation", "citation": "Regulation (EU) 1/2026", "text": "t", "status": "self_disclosed",
+               "sources": [STATUTE]}
+        eu = {"id": "EU", "name": "European Union", "laws": [law], "last_reviewed": "2026-10-07"}
+        places = {"schema_version": 1, "generated_at": "2026-10-07T00:00:00-03:00", "jurisdictions": [eu]}
+        self.assertEqual(build.law_problems(places), ["law-eu-x: a law in the EU entry says which countries it binds (applies_to)"])
+        keyed = dict(places, jurisdictions=[dict(eu, laws=[dict(law, applies_to=["DE", "IE"])])])
+        self.assertEqual(build.law_problems(keyed), [])
+        schema = json.loads(build.SCHEMA.read_text(encoding="utf-8"))
+        self.assertEqual(build.schema_problems(schema, keyed, "jurisdictions_file"), [])
+        self.assertTrue(build.schema_problems(schema, dict(places, jurisdictions=[dict(eu, laws=[dict(law, applies_to=["DEU"])])]),
+                                              "jurisdictions_file"))
         self.assertEqual(build.jurisdictions_path(Path("/tmp/bundle-preview.json")), Path("/tmp/jurisdictions-preview.json"))
 
 

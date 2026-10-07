@@ -3,6 +3,7 @@ package com.longlifeio.fineprint.explain
 import com.longlifeio.fineprint.bundle.Bundle
 import com.longlifeio.fineprint.bundle.Consequence
 import com.longlifeio.fineprint.bundle.DataFlow
+import com.longlifeio.fineprint.bundle.Law
 import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.Source
 import java.util.Locale
@@ -48,7 +49,7 @@ internal fun governments(companyIds: Collection<String>, unplaced: Boolean, reco
         val place = bundle?.jurisdictions?.get(code)
         val here = companies.filter { code == it.jurisdiction || code == it.headquarters }
         // A country's laws apply to the companies subject to them; with none here, only what's on record shows.
-        val laws = if (here.isEmpty()) emptyList() else place?.laws.orEmpty()
+        val laws = if (here.isEmpty()) emptyList() else lawsBinding(code, bundle)
         CountryBlock(
             code = code,
             name = name(code),
@@ -73,4 +74,16 @@ internal fun Consequence.governmentLine(): GovernmentLine? = government?.let {
 const val CAN_COMPEL = "can_compel"
 
 /** "United States", "Cayman Islands": the same form for every country without a reviewed entry of its own. */
+/**
+ * The laws that bind a country: its own entry's, then any union's (an EU regulation) whose applies_to names it. A law
+ * with applies_to binds exactly those countries; one without binds the country of its own entry.
+ */
+internal fun lawsBinding(code: String, bundle: Bundle?): List<Law> {
+    val entries = bundle?.jurisdictions.orEmpty()
+    val own = entries[code]
+    return (listOfNotNull(own) + entries.values.filter { it !== own }).flatMap { j ->
+        j.laws.filter { it.appliesTo?.contains(code) ?: (j.id == code) }
+    }
+}
+
 internal fun countryName(code: String): String = Locale.Builder().setRegion(code).build().getDisplayCountry(Locale.ENGLISH).ifEmpty { code }

@@ -44,6 +44,7 @@ URL_CACHE = REPO / "pipeline" / "raw" / "url-checks.json"  # gitignored
 HALIFAX = ZoneInfo("America/Halifax")
 SECTIONS = ("apps", "trackers", "companies", "permissions", "device_reach")
 JURISDICTIONS = "jurisdictions"  # written to bundle/jurisdictions.json, not bundle.json
+UNIONS = {"EU"}  # jurisdictions entries for a union of countries: each law lists the countries it binds (applies_to)
 LICENCE = "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint"
 STALE_DAYS = 180
 URL_CACHE_DAYS = 30
@@ -191,11 +192,13 @@ def government_problems(line: dict) -> list[str]:
 
 
 def law_problems(places: dict) -> list[str]:
-    """Each law has one id, cites its own text first, and quotes every source."""
+    """Each law has one id, cites its own text first, quotes every source, and, in a union's entry, names the countries it binds."""
     laws = [law for j in places[JURISDICTIONS] for law in j["laws"]]
     ids = [law["id"] for law in laws]
     errors = [f"law id {i!r} used twice" for i in sorted({i for i in ids if ids.count(i) > 1})]
     errors += [f"{law['id']}: its first source is the law's own text (type statute)" for law in laws if law["sources"][0]["type"] != "statute"]
+    errors += [f"{law['id']}: a law in the {j['id']} entry says which countries it binds (applies_to)"
+               for j in places[JURISDICTIONS] if j["id"] in UNIONS for law in j["laws"] if not law.get("applies_to")]
     def visit(n: dict) -> None:
         if "url" in n and not str(n.get("quote", "")).strip():
             errors.append(f"source without a quote: {n['url']}")

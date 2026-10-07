@@ -403,7 +403,7 @@
     },
 
     "jurisdictions_file": {
-      "description": "bundle/jurisdictions.json (CC BY 4.0), written by build.py from pipeline/reviewed: for each country, the laws that let its government compel a company to hand over data. Every entry is reviewed by the owner; a law is quoted from its own text (status self_disclosed).",
+      "description": "bundle/jurisdictions.json (CC BY 4.0), written by build.py from pipeline/reviewed: for each country, and for a union of countries such as the EU, the laws that let a government compel a company to hand over data. Every entry is reviewed by the owner; a law is quoted from its own text (status self_disclosed).",
       "type": "object",
       "required": ["schema_version", "generated_at", "jurisdictions"],
       "additionalProperties": false,
@@ -420,7 +420,7 @@
       "required": ["id", "name", "laws", "last_reviewed"],
       "additionalProperties": false,
       "properties": {
-        "id": { "$ref": "#/$defs/country" },
+        "id": { "$ref": "#/$defs/country", "description": "A country, or EU for the European Union; a union's laws say which countries they bind (applies_to)." },
         "name": { "type": "string", "description": "The country's name as the app shows it, the same form for every country." },
         "laws": { "type": "array", "items": { "$ref": "#/$defs/law" } },
         "last_reviewed": { "$ref": "#/$defs/date" }
@@ -428,7 +428,7 @@
     },
 
     "law": {
-      "description": "A law in force that lets the country's government compel a company to provide data (a Can compel line).",
+      "description": "A law in force that lets a government compel a company to provide data (a Can compel line).",
       "type": "object",
       "required": ["id", "name", "citation", "text", "status", "sources"],
       "additionalProperties": false,
@@ -439,6 +439,7 @@
         "text": { "type": "string", "maxLength": 300, "description": "What it lets the government do, in neutral plain words." },
         "status": { "const": "self_disclosed", "description": "Quoted from the law's own text." },
         "status_note": { "$ref": "#/$defs/procedural_note", "description": "Where the law stands (a renewal, a sunset), with sources." },
+        "applies_to": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/country" }, "description": "The countries a union's law binds (an EU regulation: the member states taking part). Without it, a law binds the country of its entry." },
         "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" }, "description": "The first is the law's official text (type statute)." }
       }
     },
