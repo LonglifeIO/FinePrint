@@ -416,15 +416,51 @@
     {
      "id": "law-ru-149-fz-10-1",
      "name": "Federal Law No. 149-FZ on Information, Article 10.1",
-     "citation": "Federal Law of 27 July 2006 No. 149-FZ, art. 10.1 (as amended by No. 374-FZ of 6 July 2016)",
-     "text": "Requires internet services that handle users' messages to store data about their communications, and the messages for up to six months, in Russia; to give them to the authorities in cases set by federal law; and to give the security service what it needs to decode encrypted messages.",
+     "citation": "Federal Law of 27 July 2006 No. 149-FZ, art. 10.1, parts 1, 3, 3.1 and 4.1 (consolidated through No. 210-FZ of 26 June 2026)",
+     "text": "Requires internet services that handle users' messages to store, in Russia, data about those communications and users for three years and the messages for up to six months; to give them to the authorities in cases set by federal law; and to give the security service what it needs to decrypt them.",
      "status": "self_disclosed",
-     "last_reviewed": "2026-10-04",
+     "last_reviewed": "2026-10-07",
      "sources": [
       {
        "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
        "type": "statute",
-       "title": "Федеральный закон № 149-ФЗ «Об информации…», ст. 10.1 (pravo.gov.ru)",
+       "title": "Федеральный закон № 149-ФЗ «Об информации…», art. 10.1, part 1 (pravo.gov.ru)",
+       "as_of": "2026-06-26",
+       "status": "self_disclosed",
+       "quote": "используются для приема, передачи, доставки и (или) обработки электронных сообщений пользователей",
+       "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
+      },
+      {
+       "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
+       "type": "statute",
+       "title": "Федеральный закон № 149-ФЗ «Об информации…», art. 10.1, part 3 (pravo.gov.ru; restated by No. 374-FZ of 6 July 2016)",
+       "as_of": "2026-06-26",
+       "status": "self_disclosed",
+       "quote": "обязан хранить на территории Российской Федерации",
+       "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
+      },
+      {
+       "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
+       "type": "statute",
+       "title": "Федеральный закон № 149-ФЗ «Об информации…», art. 10.1, part 3(1) (pravo.gov.ru; amended by No. 41-FZ of 1 April 2025)",
+       "as_of": "2026-06-26",
+       "status": "self_disclosed",
+       "quote": "в течение трех лет с момента окончания осуществления таких действий",
+       "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
+      },
+      {
+       "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
+       "type": "statute",
+       "title": "Федеральный закон № 149-ФЗ «Об информации…», art. 10.1, part 3(2) (pravo.gov.ru; restated by No. 374-FZ of 6 July 2016)",
+       "as_of": "2026-06-26",
+       "status": "self_disclosed",
+       "quote": "до шести месяцев с момента окончания их приема",
+       "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
+      },
+      {
+       "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
+       "type": "statute",
+       "title": "Федеральный закон № 149-ФЗ «Об информации…», art. 10.1, part 3.1 (pravo.gov.ru; added by No. 374-FZ of 6 July 2016, amended by No. 241-FZ of 29 July 2017)",
        "as_of": "2026-06-26",
        "status": "self_disclosed",
        "quote": "обязан предоставлять указанную в части 3 настоящей статьи информацию уполномоченным государственным органам",
@@ -433,20 +469,11 @@
       {
        "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
        "type": "statute",
-       "title": "Федеральный закон № 149-ФЗ «Об информации…», ст. 10.1 (pravo.gov.ru)",
+       "title": "Федеральный закон № 149-ФЗ «Об информации…», art. 10.1, part 4.1 (pravo.gov.ru; added by No. 374-FZ of 6 July 2016)",
        "as_of": "2026-06-26",
        "status": "self_disclosed",
        "quote": "информацию, необходимую для декодирования",
        "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102108264&page=1&rdk=94"
-      },
-      {
-       "url": "https://hudoc.echr.coe.int/eng?i=001-230854",
-       "type": "lawsuit",
-       "title": "Podchasov v. Russia, European Court of Human Rights (2024)",
-       "as_of": "2024-02-13",
-       "status": "adjudicated",
-       "quote": "must also submit any information necessary to decrypt electronic communications",
-       "verify_url": "https://hudoc.echr.coe.int/app/conversion/docx/html/body?library=ECHR&id=001-230854"
       }
      ]
     }
