@@ -2,11 +2,15 @@
 """Tests for fetch_sources.py and check_quotes.py:  python3 pipeline/test_sources.py"""
 from __future__ import annotations
 
+import io
 import json
 import sys
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
+
+import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_quotes  # noqa: E402
@@ -69,6 +73,25 @@ class FetchTest(unittest.TestCase):
         self.assertEqual(fetch_sources.decode(russian, "text/html; charset=windows-1251"), "Операторы связи обязаны")
         self.assertEqual(fetch_sources.decode(b'<meta charset="windows-1251">' + russian), '<meta charset="windows-1251">Операторы связи обязаны')
         self.assertEqual(fetch_sources.decode("driver’s".encode("utf-8"), "text/html; charset=iso-8859-1"), "driver’s")
+
+    def test_a_word_file_is_saved_as_docx_and_read_by_paragraph(self):
+        # China's national law database serves laws as .docx; its content type contains "xml".
+        body = ('<w:document><w:body><w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r><w:t>第七条　任何组织</w:t></w:r>'
+                '<w:r><w:t>和公民</w:t></w:r></w:p><w:p w:rsidR="1"><w:r><w:t>A &amp; B</w:t></w:r></w:p></w:body></w:document>')
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w") as z:
+            z.writestr("word/document.xml", body)
+        resp = requests.Response()
+        resp._content, resp.url = buf.getvalue(), "https://example.org/law.docx"
+        resp.headers["content-type"] = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        with tempfile.TemporaryDirectory() as d:
+            out, fetch_sources.OUT = fetch_sources.OUT, Path(d)
+            try:
+                entry = fetch_sources.save("law", resp.url, resp)
+                self.assertEqual(entry["file"], "law.docx")
+                self.assertEqual((Path(d) / "law.txt").read_text(encoding="utf-8"), "第七条　任何组织和公民\nA & B")
+            finally:
+                fetch_sources.OUT = out
 
     def test_list_lines(self):
         with tempfile.TemporaryDirectory() as d:

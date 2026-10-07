@@ -5,7 +5,7 @@
     python3 pipeline/fetch_sources.py LIST --force    # fetch again even if <name> is already saved
     python3 pipeline/fetch_sources.py --retext        # rebuild every <name>.txt from the saved pages
 
-Each page is saved as it was served (<name>.html, .pdf, .json or .raw) next to its visible text
+Each page is saved as it was served (<name>.html, .pdf, .docx, .json or .raw) next to its visible text
 (<name>.txt) in pipeline/raw/sources/, and pipeline/raw/sources/index.json records which URL each
 name holds, so check_quotes.py can find the copy behind any source. For a page that blocks scripts,
 list the address its record names as verify_url (an archived copy or the same article's API).
@@ -24,6 +24,7 @@ import shutil
 import subprocess
 import sys
 import time
+import zipfile
 from pathlib import Path
 from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
@@ -76,9 +77,19 @@ def text_of_pdf(path: Path) -> str:
     return subprocess.run(["pdftotext", "-layout", str(path), "-"], capture_output=True, text=True, check=True).stdout
 
 
+def text_of_docx(path: Path) -> str:
+    """A Word file's paragraphs, one per line (China's national law database serves laws as .docx)."""
+    with zipfile.ZipFile(path) as z:
+        body = z.read("word/document.xml").decode("utf-8")
+    paragraphs = (html.unescape(re.sub(r"<[^>]+>", "", p)).strip() for p in re.findall(r"(?s)<w:p[ >].*?</w:p>", body))
+    return "\n".join(p for p in paragraphs if p)
+
+
 def text_of(raw: Path, content_type: str = "") -> str:
     if raw.suffix == ".pdf":
         return text_of_pdf(raw)
+    if raw.suffix == ".docx":
+        return text_of_docx(raw)
     text = decode(raw.read_bytes(), content_type)
     if raw.suffix == ".json":
         body = json.loads(text)
@@ -91,6 +102,8 @@ def save(name: str, url: str, resp: requests.Response) -> dict:
     ctype = resp.headers.get("content-type", "").lower()
     if "pdf" in ctype or resp.content[:5] == b"%PDF-":
         suffix = ".pdf"
+    elif "wordprocessingml" in ctype:  # before "xml": the Word type is application/vnd.openxmlformats-…
+        suffix = ".docx"
     elif "json" in ctype:
         suffix = ".json"
     elif "html" in ctype or "xml" in ctype:
