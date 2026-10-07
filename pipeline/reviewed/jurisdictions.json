@@ -146,30 +146,35 @@
      "id": "law-cn-national-intelligence",
      "name": "National Intelligence Law, Articles 7 and 14",
      "citation": "National Intelligence Law of the People's Republic of China (2017, amended 2018), arts. 7 and 14",
-     "text": "Requires all organizations and citizens to support, assist and cooperate with national intelligence work in accordance with law, and lets intelligence agencies ask them for that support.",
+     "text": "Requires all organizations and citizens to support, assist and cooperate with national intelligence work in accordance with law, and to keep confidential any secrets of that work they become aware of. Intelligence agencies can ask them for that support.",
      "status": "self_disclosed",
      "sources": [
       {
-       "url": "http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm",
+       "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf8498d09f1",
        "type": "statute",
-       "title": "中华人民共和国国家情报法 (National Intelligence Law), National People's Congress",
-       "as_of": "2017-06-27",
+       "title": "中华人民共和国国家情报法 (National Intelligence Law, as amended 2018-04-27), National Laws and Regulations Database",
+       "as_of": "2018-04-27",
        "status": "self_disclosed",
        "quote": "任何组织和公民都应当依法支持、协助和配合国家情报工作",
-       "wayback_url": "https://web.archive.org/web/20260401153134/http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm",
-       "wayback_date": "2026-04-01",
-       "verify_url": "https://web.archive.org/web/20260401153134/http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm"
+       "verify_url": "https://flk.npc.gov.cn/law-search/download/mobile?format=docx&bbbs=2c909fdd678bf17901678bf8498d09f1&fileId="
       },
       {
-       "url": "http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm",
+       "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf8498d09f1",
        "type": "statute",
-       "title": "中华人民共和国国家情报法 (National Intelligence Law), National People's Congress",
-       "as_of": "2017-06-27",
+       "title": "中华人民共和国国家情报法 (National Intelligence Law, as amended 2018-04-27), National Laws and Regulations Database",
+       "as_of": "2018-04-27",
+       "status": "self_disclosed",
+       "quote": "保守所知悉的国家情报工作秘密",
+       "verify_url": "https://flk.npc.gov.cn/law-search/download/mobile?format=docx&bbbs=2c909fdd678bf17901678bf8498d09f1&fileId="
+      },
+      {
+       "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf8498d09f1",
+       "type": "statute",
+       "title": "中华人民共和国国家情报法 (National Intelligence Law, as amended 2018-04-27), National Laws and Regulations Database",
+       "as_of": "2018-04-27",
        "status": "self_disclosed",
        "quote": "可以要求有关机关、组织和公民提供必要的支持、协助和配合",
-       "wayback_url": "https://web.archive.org/web/20260401153134/http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm",
-       "wayback_date": "2026-04-01",
-       "verify_url": "https://web.archive.org/web/20260401153134/http://www.npc.gov.cn/zgrdw/npc/xinwen/2017-06/27/content_2024529.htm"
+       "verify_url": "https://flk.npc.gov.cn/law-search/download/mobile?format=docx&bbbs=2c909fdd678bf17901678bf8498d09f1&fileId="
       },
       {
        "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/",
@@ -178,6 +183,14 @@
        "accessed": "2026-10-04",
        "status": "self_disclosed",
        "quote": "All organizations and citizens shall support, assist, and cooperate with national intelligence efforts"
+      },
+      {
+       "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/",
+       "type": "research",
+       "title": "China Law Translate, unofficial English translation",
+       "accessed": "2026-10-04",
+       "status": "self_disclosed",
+       "quote": "shall protect national intelligence work secrets they are aware of"
       },
       {
        "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/",
