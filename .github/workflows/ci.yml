@@ -1,5 +1,7 @@
 # Pipeline tests, schema validation of pipeline/reviewed/*.json, and a debug build of the app.
-# Actions are pinned to commit SHAs; the comment after each is the release it came from.
+# Actions are pinned to commit SHAs; the comment after each is the release it came from. The runner is
+# pinned too (ubuntu-24.04, not ubuntu-latest), so a new Ubuntu image never changes the build unasked;
+# moving to a newer one is its own change.
 name: CI
 
 on:
@@ -16,7 +18,7 @@ concurrency:
 jobs:
   pipeline:
     name: Pipeline tests and record validation
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -35,7 +37,7 @@ jobs:
 
   android:
     name: Android debug build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
