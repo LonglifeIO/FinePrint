@@ -164,6 +164,17 @@ class ChangeDirectionTest(unittest.TestCase):
         unnamed = {k: v for k, v in self.FLOW.items() if k != "id"}
         self.assertEqual(build.structural_diff(self.record([unnamed]), self.record([dict(unnamed, recipient_label="Selected partners")])), [])
 
+    def test_two_flows_of_the_same_data_to_the_same_recipient_pair_in_order(self):
+        # Facebook's record has two: ads on Meta's apps, and ads in other apps through Audience Network.
+        named = {"data": "app_activity", "recipient": "co-meta", "purpose": "Ads on Meta's apps", "bucket": "used_for_more",
+                 "status": "self_disclosed", "sources": [SOURCE]}
+        twice = [named, dict(named, purpose="Ads in other apps")]
+        self.assertEqual(build.structural_diff(self.record(twice), self.record(twice)), [])
+        self.assertEqual(build.structural_diff(self.record(twice), self.record(twice[:1])), ["flow removed: app_activity to co-meta (used_for_more)"])
+        for path in sorted((Path(__file__).resolve().parent / "reviewed").glob("app-*.json")):
+            for a in json.loads(path.read_text(encoding="utf-8"))["apps"]:
+                self.assertEqual(build.structural_diff(a, a), [], a["package_id"])
+
     def test_a_new_flow_beyond_running_the_app_is_worse(self):
         diff = build.structural_diff(self.record(), self.record([self.FLOW]))
         self.assertEqual(diff, ["flow added: precise_location to Partners (goes_elsewhere)", "data kind added: precise_location"])

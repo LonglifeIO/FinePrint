@@ -109,6 +109,21 @@ class ReviewTest {
         assertEquals(listOf("now off by default: f1"), structuralDiff(base, base.copy(flows = listOf(flow("f1", on = false), base.flows[1]))))
     }
 
+    /** Facebook's record has two flows of the same data to Meta: they pair in order, so a mark never flips on an unchanged record. */
+    @Test
+    fun aRecordComparedWithItselfHasNoChanges() {
+        val meta = flow("app_activity|co-meta", "app_activity", "used_for_more")
+        val twice = Shape(listOf(meta, meta), emptyList(), emptyList())
+        assertEquals(emptyList<String>(), structuralDiff(twice, twice))
+        assertEquals(listOf("flow removed: app_activity|co-meta (used_for_more)"), structuralDiff(twice, twice.copy(flows = listOf(meta))))
+        // Every app in the real bundle, as a mark stores its shape and reads it back.
+        val real = parseBundle(File("../../bundle/bundle.json").readText())
+        real.apps.forEach { (pkg, record) ->
+            val now = shape(record, record.trackers.mapNotNull { id -> real.trackers[id]?.let { id to it } })
+            assertEquals(pkg, emptyList<String>(), structuralDiff(Shape.decode(now.encode())!!, now))
+        }
+    }
+
     @Test
     fun noFingerprintUntilTheCodeIsScanned() {
         assertNull(fingerprint(app(location), null, bundle))

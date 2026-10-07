@@ -57,15 +57,16 @@ private val RANK = mapOf("stays_here" to 0, "used_for_more" to 1, "goes_elsewher
 
 /**
  * build.py's structural_diff on shapes: flows added or removed (outside Stays here), moved between
- * buckets or turned on or off by default; data kinds, trackers and controls added or removed. A
- * reworded unnamed recipient pairs with the flow of the same data and bucket.
+ * buckets or turned on or off by default; data kinds, trackers and controls added or removed. Flows
+ * pair by key, in order when a record has two with the same one (Facebook's two flows of app activity
+ * to Meta); a reworded unnamed recipient pairs with the flow of the same data and bucket.
  */
 fun structuralDiff(old: Shape, new: Shape): List<String> {
-    val left = LinkedHashMap<String, FlowShape>().apply { old.flows.forEach { put(it.key, it) } }
+    val left = LinkedHashMap<String, ArrayDeque<FlowShape>>().apply { old.flows.forEach { getOrPut(it.key) { ArrayDeque() }.add(it) } }
     val pairs = ArrayList<Pair<FlowShape, FlowShape>>()
     val added = ArrayList<FlowShape>()
-    for (f in new.flows) left.remove(f.key)?.let { pairs += it to f } ?: added.add(f)
-    val removed = left.values.toMutableList()
+    for (f in new.flows) left[f.key]?.removeFirstOrNull()?.let { pairs += it to f } ?: added.add(f)
+    val removed = left.values.flatten().toMutableList()
     for (f in added.toList()) {
         val twin = removed.firstOrNull { !it.named && !f.named && it.data == f.data && it.bucket == f.bucket } ?: continue
         pairs += twin to f

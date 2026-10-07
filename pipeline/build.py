@@ -212,18 +212,21 @@ def flow_name(f: dict) -> str:
 
 
 def match_flows(before: list[dict], after: list[dict]) -> tuple[list[tuple[dict, dict]], list[dict], list[dict]]:
-    """Pairs flows across two versions of a record: by id, else by data and recipient. A reworded
-    unnamed recipient pairs with the flow of the same data and bucket. Returns pairs, removed, added."""
+    """Pairs flows across two versions of a record: by id, else by data and recipient, in order when a
+    record has two of the same (Facebook's two flows of app activity to Meta). A reworded unnamed
+    recipient pairs with the flow of the same data and bucket. Returns pairs, removed, added."""
     def key(f: dict):
         return f.get("id") or (f["data"], f.get("recipient") or f.get("recipient_label"))
-    left = {key(f): f for f in before}
+    left: dict = {}
+    for f in before:
+        left.setdefault(key(f), []).append(f)
     pairs, added = [], []
     for f in after:
-        if key(f) in left:
-            pairs.append((left.pop(key(f)), f))
+        if left.get(key(f)):
+            pairs.append((left[key(f)].pop(0), f))
         else:
             added.append(f)
-    removed = list(left.values())
+    removed = [f for same in left.values() for f in same]
     for f in list(added):
         twin = next((r for r in removed if "recipient" not in r and "recipient" not in f
                      and (r["data"], r["bucket"]) == (f["data"], f["bucket"])), None)
