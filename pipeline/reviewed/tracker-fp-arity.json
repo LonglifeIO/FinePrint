@@ -25,6 +25,7 @@
    ],
    "data_flows": [
     {
+     "id": "flow-arity-insurers",
      "data": "movement_and_driving",
      "recipient": "co-allstate",
      "purpose": "A driving database that the Texas AG and a federal class action allege was sold to insurers, who used it to raise premiums",

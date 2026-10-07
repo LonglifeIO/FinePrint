@@ -46,7 +46,7 @@
    "summary": "Synthetic test record: an app made by the company whose kits it contains.",
    "trackers": ["exodus-65"],
    "data_flows": [
-    { "data": "app_activity", "recipient": "co-kit", "purpose": "Kit's own ads", "bucket": "used_for_more", "status": "self_disclosed",
+    { "id": "flow-kit-ads", "data": "app_activity", "recipient": "co-kit", "purpose": "Kit's own ads", "bucket": "used_for_more", "status": "self_disclosed",
       "sources": [{ "url": "https://example.org/kit-policy", "type": "privacy_policy", "title": "Kit policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "we use your activity for ads" }] }
    ],
    "consequences": [],
@@ -58,11 +58,11 @@
    "summary": "Synthetic test record: companies in two countries, an unnamed recipient, and two government lines.",
    "trackers": ["exodus-65"],
    "data_flows": [
-    { "data": "app_activity", "recipient": "co-parent", "purpose": "Ads", "bucket": "goes_elsewhere", "status": "self_disclosed",
+    { "id": "flow-watched-ads", "data": "app_activity", "recipient": "co-parent", "purpose": "Ads", "bucket": "goes_elsewhere", "status": "self_disclosed",
       "sources": [{ "url": "https://example.org/watched-policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "we share activity" }] },
-    { "data": "precise_location", "recipient_label": "Partners", "purpose": "Their own use", "bucket": "goes_elsewhere", "status": "self_disclosed",
+    { "id": "flow-watched-partners", "data": "precise_location", "recipient_label": "Partners", "purpose": "Their own use", "bucket": "goes_elsewhere", "status": "self_disclosed",
       "sources": [{ "url": "https://example.org/watched-policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "partners for their own use" }] },
-    { "data": "precise_location", "recipient_kind": "government_body", "recipient_label": "A US agency", "government_line": "has_bought", "jurisdiction": "US",
+    { "id": "flow-watched-agency", "data": "precise_location", "recipient_kind": "government_body", "recipient_label": "A US agency", "government_line": "has_bought", "jurisdiction": "US",
       "purpose": "Bought location data like this app's from a broker", "bucket": "goes_elsewhere", "status": "reported", "sources": [{ "url": "https://example.org/report-a", "type": "journalism", "title": "Report A", "as_of": "2025-01-01", "status": "reported", "quote": "an agency bought" },
        { "url": "https://example.org/report-b", "type": "journalism", "title": "Report B", "as_of": "2025-02-01", "status": "reported", "quote": "the agency bought" }] }
    ],
@@ -104,7 +104,7 @@
    "id": "fp-arity", "owner": "Parent Co", "owner_company": "co-parent", "owner_chain": ["Unit", "Parent Co"],
    "party": "third_party", "categories": ["telematics"],
    "data_flows": [
-    { "data": "movement_and_driving", "recipient": "co-parent", "purpose": "Alleged resale", "bucket": "goes_elsewhere",
+    { "id": "flow-arity-resale", "data": "movement_and_driving", "recipient": "co-parent", "purpose": "Alleged resale", "bucket": "goes_elsewhere",
       "status": "alleged", "status_kind": "survived_motion_to_dismiss", "wording": "Alleged (not proven in court)",
       "procedural_note": { "text": "Part dismissed; on appeal.",
         "sources": [{ "url": "https://example.org/appeal", "type": "journalism", "title": "Appeal news", "as_of": "2026-07-08", "status": "reported", "quote": "on appeal" }] },
@@ -119,9 +119,9 @@
    "id": "fp-kit", "name": "Kit SDKs", "covers": ["exodus-65", "exodus-66"], "owner": "Kit Co", "owner_company": "co-kit",
    "party": "third_party", "categories": ["advertising"],
    "data_flows": [
-    { "data": "app_activity", "recipient": "co-kit", "purpose": "Ads Kit shows you", "bucket": "goes_elsewhere", "status": "self_disclosed",
+    { "id": "flow-kitsdk-ads", "data": "app_activity", "recipient": "co-kit", "purpose": "Ads Kit shows you", "bucket": "goes_elsewhere", "status": "self_disclosed",
       "sources": [{ "url": "https://example.org/kit-policy", "type": "privacy_policy", "title": "Kit policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "partners send us your activity" }] },
-    { "data": "device_identifiers", "recipient": "co-kit", "purpose": "Measuring Kit's ads", "bucket": "goes_elsewhere", "in_owner_apps": "used_for_more", "status": "self_disclosed",
+    { "id": "flow-kitsdk-ids", "data": "device_identifiers", "recipient": "co-kit", "purpose": "Measuring Kit's ads", "bucket": "goes_elsewhere", "in_owner_apps": "used_for_more", "status": "self_disclosed",
       "sources": [{ "url": "https://example.org/kit-policy", "type": "privacy_policy", "title": "Kit policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "we measure our ads" }] }
    ],
    "consequences": [

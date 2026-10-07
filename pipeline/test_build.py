@@ -179,6 +179,10 @@ class ChangeDirectionTest(unittest.TestCase):
         facebook = next(a for a in merged["apps"] if a["package_id"] == "com.facebook.katana")
         self.assertEqual(len(build.legal_items(facebook, merged["companies"], merged["trackers"])), 12)  # 8 Meta actions, 4 of its own lines
 
+    def test_every_flow_needs_an_id(self):
+        unnamed = {k: v for k, v in self.FLOW.items() if k != "id"}
+        self.assertIn("'id' is a required property", schema_errors(doc(apps=[self.record([unnamed])])))
+
     ACTION = {"date": "2026-09-01", "title": "A ruling", "body": "A regulator", "type": "fine", "status": "adjudicated",
               "status_kind": "ruling", "concerns_app": "com.example", "sources": [SOURCE]}
     LINE = {"text": "A court fined it.", "status": "adjudicated", "status_kind": "ruling", "sources": [SOURCE]}
@@ -306,7 +310,7 @@ class ChangeDirectionTest(unittest.TestCase):
 
 class GovernmentTest(unittest.TestCase):
     def line(self, kind: str, status: str = "self_disclosed", sources=(STATUTE,)) -> dict:
-        return {"data": "precise_location", "recipient_kind": "government_body", "recipient_label": "A government agency",
+        return {"id": "flow-government", "data": "precise_location", "recipient_kind": "government_body", "recipient_label": "A government agency",
                 "government_line": kind, "jurisdiction": "US", "purpose": "p", "bucket": "goes_elsewhere",
                 "status": status, "sources": list(sources)}
 

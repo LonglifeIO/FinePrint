@@ -2,7 +2,7 @@
  "schema_version": 1,
  "schema_revision": "1.5",
  "bundle_version": "2026.10.07",
- "generated_at": "2026-10-07T20:12:06-03:00",
+ "generated_at": "2026-10-07T20:14:08-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -61,6 +61,7 @@
    "privacy_policy_as_of": "2026-07-23",
    "data_flows": [
     {
+     "id": "flow-fb-meta-ads",
      "data": "app_activity",
      "recipient": "co-meta",
      "purpose": "Personalized ads and content across Meta's apps",
@@ -82,6 +83,7 @@
      ]
     },
     {
+     "id": "flow-fb-audience-network",
      "data": "app_activity",
      "recipient": "co-meta",
      "purpose": "Ads Meta shows you in other apps, through Audience Network",
@@ -289,6 +291,7 @@
    "privacy_controls": "In your Google Account: Location History, which powers Timeline in Maps, and Web & App Activity. Google said in 2023 that Timeline would be saved on your device.",
    "data_flows": [
     {
+     "id": "flow-gmaps-location",
      "data": "precise_location",
      "recipient": "co-google",
      "purpose": "Running Maps, personalization and analytics",
@@ -307,6 +310,7 @@
      ]
     },
     {
+     "id": "flow-gmaps-area-ads",
      "data": "approximate_location",
      "recipient": "co-google",
      "purpose": "Google's advertising or marketing, among other uses",
@@ -325,6 +329,7 @@
      ]
     },
     {
+     "id": "flow-gmaps-searches-ads",
      "data": "app_activity",
      "recipient": "co-google",
      "purpose": "Google's advertising or marketing, among other uses (your searches in Maps)",
@@ -343,6 +348,7 @@
      ]
     },
     {
+     "id": "flow-gmaps-ad-ids",
      "data": "device_identifiers",
      "recipient": "co-google",
      "purpose": "Google's advertising or marketing, among other uses",
@@ -1008,6 +1014,7 @@
    "policy_region": "US",
    "data_flows": [
     {
+     "id": "flow-tiktok-ads-profile",
      "data": "app_activity",
      "recipient": "co-tiktok-usds",
      "purpose": "Ads TikTok shows you, and inferring your age, gender and interests",
@@ -1311,6 +1318,7 @@
    ],
    "data_flows": [
     {
+     "id": "flow-arity-insurers",
      "data": "movement_and_driving",
      "recipient": "co-allstate",
      "purpose": "A driving database that the Texas AG and a federal class action allege was sold to insurers, who used it to raise premiums",
@@ -1495,6 +1503,7 @@
    "monetization_model": "Meta uses what apps and other partners send about your activity to personalize the ads it shows you, on its own apps and, through Audience Network, in other apps (Meta's privacy policy).",
    "data_flows": [
     {
+     "id": "flow-meta-sdk-ads",
      "data": "app_activity",
      "recipient": "co-meta",
      "purpose": "Personalizing the ads Meta shows you, on its apps and in others",

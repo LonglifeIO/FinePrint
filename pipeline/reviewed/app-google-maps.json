@@ -18,6 +18,7 @@
    "privacy_controls": "In your Google Account: Location History, which powers Timeline in Maps, and Web & App Activity. Google said in 2023 that Timeline would be saved on your device.",
    "data_flows": [
     {
+     "id": "flow-gmaps-location",
      "data": "precise_location",
      "recipient": "co-google",
      "purpose": "Running Maps, personalization and analytics",
@@ -36,6 +37,7 @@
      ]
     },
     {
+     "id": "flow-gmaps-area-ads",
      "data": "approximate_location",
      "recipient": "co-google",
      "purpose": "Google's advertising or marketing, among other uses",
@@ -54,6 +56,7 @@
      ]
     },
     {
+     "id": "flow-gmaps-searches-ads",
      "data": "app_activity",
      "recipient": "co-google",
      "purpose": "Google's advertising or marketing, among other uses (your searches in Maps)",
@@ -72,6 +75,7 @@
      ]
     },
     {
+     "id": "flow-gmaps-ad-ids",
      "data": "device_identifiers",
      "recipient": "co-google",
      "purpose": "Google's advertising or marketing, among other uses",

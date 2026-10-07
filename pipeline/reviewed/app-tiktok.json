@@ -62,6 +62,7 @@
    "policy_region": "US",
    "data_flows": [
     {
+     "id": "flow-tiktok-ads-profile",
      "data": "app_activity",
      "recipient": "co-tiktok-usds",
      "purpose": "Ads TikTok shows you, and inferring your age, gender and interests",

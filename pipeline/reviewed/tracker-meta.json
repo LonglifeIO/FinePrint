@@ -34,6 +34,7 @@
    "monetization_model": "Meta uses what apps and other partners send about your activity to personalize the ads it shows you, on its own apps and, through Audience Network, in other apps (Meta's privacy policy).",
    "data_flows": [
     {
+     "id": "flow-meta-sdk-ads",
      "data": "app_activity",
      "recipient": "co-meta",
      "purpose": "Personalizing the ads Meta shows you, on its apps and in others",
