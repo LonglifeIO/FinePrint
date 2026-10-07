@@ -1,4 +1,6 @@
 import java.util.Properties
+import org.gradle.api.artifacts.result.ResolvedComponentResult
+import org.gradle.api.artifacts.result.ResolvedDependencyResult
 
 plugins {
     alias(libs.plugins.android.application)
@@ -130,3 +132,32 @@ tasks.withType<Test>().configureEach {
     inputs.file("../../docs/METHOD.md").withPathSensitivity(PathSensitivity.RELATIVE)
     inputs.file("src/main/assets/METHOD.md").withPathSensitivity(PathSensitivity.RELATIVE)
 }
+
+/**
+ * Fails if any Compose tooling artefact (ui-tooling*, ui-test-manifest) is on the release runtime
+ * classpath. Debug builds may carry them for @Preview (CLAUDE.md, Conventions); release never does.
+ * Runs with `check`, before every release build, and in CI.
+ */
+abstract class CheckReleaseClasspath : DefaultTask() {
+    @get:Input abstract val root: Property<ResolvedComponentResult>
+
+    @TaskAction
+    fun check() {
+        val modules = mutableSetOf<String>()
+        fun walk(component: ResolvedComponentResult) {
+            for (dependency in component.dependencies) {
+                if (dependency is ResolvedDependencyResult && modules.add(dependency.selected.id.displayName)) walk(dependency.selected)
+            }
+        }
+        walk(root.get())
+        val tooling = modules.filter { m -> listOf("androidx.compose.ui:ui-tooling", "androidx.compose.ui:ui-test-manifest").any { m.startsWith(it) } }
+        if (tooling.isNotEmpty()) throw GradleException("Compose tooling on the release runtime classpath: ${tooling.sorted().joinToString()}")
+        logger.lifecycle("Release runtime classpath: ${modules.size} modules, no Compose tooling.")
+    }
+}
+
+val checkReleaseClasspath = tasks.register<CheckReleaseClasspath>("checkReleaseClasspath") {
+    root.set(configurations.named("releaseRuntimeClasspath").flatMap { it.incoming.resolutionResult.rootComponent })
+}
+tasks.named("check") { dependsOn(checkReleaseClasspath) }
+tasks.matching { it.name == "preReleaseBuild" }.configureEach { dependsOn(checkReleaseClasspath) }

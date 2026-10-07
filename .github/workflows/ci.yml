@@ -49,3 +49,7 @@ jobs:
       - name: assembleDebug
         working-directory: android
         run: ./gradlew assembleDebug --stacktrace
+      # Debug builds may carry Compose's preview tooling; the release runtime classpath must not (CLAUDE.md).
+      - name: No Compose tooling on the release runtime classpath
+        working-directory: android
+        run: ./gradlew checkReleaseClasspath --stacktrace

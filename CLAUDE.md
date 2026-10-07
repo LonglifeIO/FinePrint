@@ -78,6 +78,9 @@ briefly "Argus" — if you see it, it means FinePrint.
 - Timestamps: America/Halifax. Canadian spelling in user-facing text.
 - Kotlin files under ~300 lines; plain functions over frameworks (no DI library,
   no Room). Python: stdlib + `requests` + `jsonschema`; keep it scripts, not a package.
+- Debug builds may carry Compose's preview tooling (`ui-tooling`, `ui-tooling-preview`) for `@Preview`
+  mockups; release builds never do. `checkReleaseClasspath` fails the build, and CI, if any Compose
+  tooling reaches the release runtime classpath.
 - Commit only reviewed records to `bundle/`. Add a pre-commit check that
   `bundle/bundle.json` validates and every `source_url` resolves.
 - Don't estimate timelines in docs or commits. Next steps, blockers, dependencies.
