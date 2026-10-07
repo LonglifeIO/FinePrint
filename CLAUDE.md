@@ -87,7 +87,8 @@ briefly "Argus" — if you see it, it means FinePrint.
 - Add network calls to the app beyond the bundle fetch.
 - Send package names, permission grants, or detections off-device for any reason.
 - Vendor TrackerControl/NetGuard code before the observed-traffic gate.
-- Commit anything from `pipeline/raw/` or `pipeline/drafts/`.
+- Commit anything from `pipeline/raw/`, `pipeline/drafts/` or `ingest/` (third-party transcripts and
+  personal material).
 - Commit keystores, `local.properties`, tokens, or `.env`.
 - Never read other apps' screens: no Accessibility Service, no screenshots, no OCR, no overlay that
   captures input. FinePrint may draw over other apps (Guide mode, opt-in, per session) but never
