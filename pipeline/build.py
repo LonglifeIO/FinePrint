@@ -58,6 +58,10 @@ USER_AGENT = "FinePrint-pipeline (+https://github.com/LonglifeIO/FinePrint)"
 BUCKET_RANK = {"stays_here": 0, "used_for_more": 1, "goes_elsewhere": 2}
 WORSENING = ("flow added", "moved away from stays here", "data kind added", "tracker added", "control removed", "now on by default")
 IMPROVING = ("flow removed", "moved toward stays here", "data kind removed", "tracker removed", "control added", "now off by default")
+# A flow's evidence and the legal items naming an app count by what they did to the tier (tier_before, tier_after).
+BY_TIER = ("flow status", "event added", "event removed", "event status")
+TIERS = ("expected", "caution", "flagged")
+LEGAL = ("alleged", "adjudicated")
 
 
 def merge(paths: list[Path]) -> dict[str, list]:
@@ -237,9 +241,70 @@ def match_flows(before: list[dict], after: list[dict]) -> tuple[list[tuple[dict,
     return pairs, removed, added
 
 
-def structural_diff(old: dict, new: dict) -> list[str]:
-    """What changed in an app record's structure, one '<kind>: <what>' line each. Purposes, wording,
-    sources and legal lines aren't structure: a change to them alone leaves the diff empty."""
+def independent_sources(sources: list[dict]) -> int:
+    """Copies (derives_from) and claims that rest on one investigation (single_source) count once."""
+    return 1 if any(s.get("single_source") for s in sources) else sum(1 for s in sources if not s.get("derives_from"))
+
+
+def evidence(f: dict) -> str:
+    """What the tier rules read of a flow's evidence: its status, and whether a report has the second
+    independent source it needs to raise a tier."""
+    return f"{f['status']}, one source" if f["status"] == "reported" and independent_sources(f["sources"]) < 2 else f["status"]
+
+
+def standing(item: dict) -> str:
+    """What the tier rules read of a legal item: 'adjudicated/ruling, in force, closed 2026-08-24'."""
+    parts = (item["status"] + (f"/{item['status_kind']}" if item.get("status_kind") else ""),
+             "in force" if item.get("in_force") else "", "appeal pending" if item.get("appeal_pending") else "",
+             f"closed {item['closed_date']}" if item.get("closed_date") else "")
+    return ", ".join(p for p in parts if p)
+
+
+def legal_items(app: dict, companies: list[dict] = (), trackers: list[dict] = ()) -> dict[str, str]:
+    """The legal items the tier rules read for an app, each with its standing: every company's actions
+    naming the app (breaches aside), by company, date and type; the app's own alleged or adjudicated
+    lines, and those of the trackers in it that name the app, by owner and first source."""
+    pkg, found = app["package_id"], {}
+
+    def put(key: str, item: dict):
+        k, n = key, 2
+        while k in found:
+            k, n = f"{key} #{n}", n + 1
+        found[k] = standing(item)
+    for c in companies:
+        for e in c.get("regulatory_history", []):
+            if e.get("concerns_app") == pkg and e["type"] != "breach":
+                put(f"{c['id']} {e['date']} {e['type']}", e)
+    for q in app.get("consequences", []):
+        if q["status"] in LEGAL and q.get("concerns_app") in (None, pkg):
+            put(f"{pkg} {q['sources'][0]['url']}", q)
+    ids = set(app.get("trackers", []))
+    for t in trackers:
+        if t["id"] in ids or ids & set(t.get("covers", [])):
+            for q in t.get("consequences", []):
+                if q["status"] in LEGAL and q.get("concerns_app") == pkg:
+                    put(f"{t['id']} {q['sources'][0]['url']}", q)
+    return found
+
+
+def legal_diff(old: dict[str, str], new: dict[str, str]) -> list[str]:
+    """Legal items added, removed or changed in standing. A line reworded or cited to another first
+    source pairs with a removed line of the same owner and standing."""
+    came = {k: v for k, v in new.items() if k not in old}
+    gone = {k: v for k, v in old.items() if k not in new}
+    for k, v in list(came.items()):
+        twin = next((g for g, w in gone.items() if "://" in g and "://" in k and g.split(" ")[0] == k.split(" ")[0] and w == v), None)
+        if twin:
+            del came[k], gone[twin]
+    return ([f"event added: {k} ({v})" for k, v in came.items()] + [f"event removed: {k} ({v})" for k, v in gone.items()]
+            + [f"event status: {k} ({old[k]} to {v})" for k, v in new.items() if k in old and old[k] != v])
+
+
+def structural_diff(old: dict, new: dict, old_legal: dict | None = None, new_legal: dict | None = None) -> list[str]:
+    """What changed in an app record's structure, one '<kind>: <what>' line each: what feeds the tier
+    rules or the controls (docs/METHOD.md, Your Reviewed marks). Purposes, wording and the store
+    tagline aren't structure: a change to them alone leaves the diff empty. [old_legal] and
+    [new_legal] are legal_items() with the companies and trackers; without them, the record's own."""
     def current(r: dict) -> list[dict]:
         return [f for f in r.get("data_flows", []) if not f.get("historical")]
     pairs, removed, added = match_flows(current(old), current(new))
@@ -255,6 +320,8 @@ def structural_diff(old: dict, new: dict) -> list[str]:
         was_on, is_on = a.get("default", "on") == "on", b.get("default", "on") == "on"
         if was_on != is_on:  # off and opt_in both mean it doesn't happen unless you act
             diff.append(f"now {'on' if is_on else 'off'} by default: {flow_name(b)} ({a.get('default', 'on')} to {b.get('default', 'on')})")
+        if evidence(a) != evidence(b):
+            diff.append(f"flow status: {flow_name(b)} ({evidence(a)} to {evidence(b)})")
     for what, before, after in (
         ("data kind", {f["data"] for f in current(old)}, {f["data"] for f in current(new)}),
         ("tracker", set(old.get("trackers", [])), set(new.get("trackers", []))),
@@ -262,16 +329,18 @@ def structural_diff(old: dict, new: dict) -> list[str]:
     ):
         diff += [f"{what} added: {k}" for k in sorted(after - before)]
         diff += [f"{what} removed: {k}" for k in sorted(before - after)]
-    return diff
+    return diff + legal_diff(legal_items(old) if old_legal is None else old_legal, legal_items(new) if new_legal is None else new_legal)
 
 
-def direction_of(diff: list[str]) -> str:
+def direction_of(diff: list[str], tier_before: str | None = None, tier_after: str | None = None) -> str:
     """Worsened if anything got worse (a gain is never netted against a loss), else improved if
-    anything got better, else neutral: the wording changed, not the practice."""
+    anything got better, else neutral: the wording changed, not the practice. A flow's evidence and a
+    legal item count by the tier: worse if it rose, better if it fell, neither if it stayed."""
     kinds = {line.split(": ", 1)[0] for line in diff}
-    if kinds & set(WORSENING):
+    moved = TIERS.index(tier_after) - TIERS.index(tier_before) if kinds & set(BY_TIER) and tier_before and tier_after else 0
+    if kinds & set(WORSENING) or moved > 0:
         return "worsened"
-    return "improved" if kinds & set(IMPROVING) else "neutral"
+    return "improved" if kinds & set(IMPROVING) or moved < 0 else "neutral"
 
 
 def change_problems(app: dict) -> list[str]:
@@ -280,21 +349,35 @@ def change_problems(app: dict) -> list[str]:
     for c in app.get("changes", []):
         if "direction" not in c or "diff" not in c:
             errors.append(f"{app['package_id']}: change of {c['date']} has no direction yet; run build.py --previous <the record before it>")
-        elif c["direction"] != direction_of(c["diff"]):
-            errors.append(f"{app['package_id']}: change of {c['date']} says {c['direction']}, but its diff makes it {direction_of(c['diff'])}")
+        elif {line.split(": ", 1)[0] for line in c["diff"]} & set(BY_TIER) and not (c.get("tier_before") and c.get("tier_after")):
+            errors.append(f"{app['package_id']}: change of {c['date']} names a legal item or a flow's evidence; "
+                          "record tier_before and tier_after, which set its direction")
+        elif c["direction"] != (implied := direction_of(c["diff"], c.get("tier_before"), c.get("tier_after"))):
+            errors.append(f"{app['package_id']}: change of {c['date']} says {c['direction']}, but its diff makes it {implied}")
     return errors
 
 
 def derive_directions(reviewed: list[Path], previous: list[Path]) -> list[str]:
     """For each app in the previous records, diffs it against the reviewed record and fills in the
-    diff and direction of the reviewed record's one change that has none, writing the file back."""
-    before = {}
+    diff and direction of the reviewed record's one change that has none, writing the file back.
+    Pass the earlier version of every file that changed, company and tracker records too: a file left
+    out counts as unchanged."""
+    docs = {path: json.loads(path.read_text(encoding="utf-8")) for path in reviewed}
+    now: dict[str, dict] = {"companies": {}, "trackers": {}}
+    for doc in docs.values():
+        for kind, found in now.items():
+            found.update({r["id"]: r for r in doc.get(kind, [])})
+    before, then = {}, {kind: dict(found) for kind, found in now.items()}
     for path in previous:
         doc = json.loads(path.read_text(encoding="utf-8"))
-        before.update({a["package_id"]: a for a in doc.get("apps", [doc] if "package_id" in doc else [])})
+        if "package_id" in doc:  # a bare app record
+            before[doc["package_id"]] = doc
+            continue
+        before.update({a["package_id"]: a for a in doc.get("apps", [])})
+        for kind, found in then.items():
+            found.update({r["id"]: r for r in doc.get(kind, [])})
     done = []
-    for path in reviewed:
-        doc = json.loads(path.read_text(encoding="utf-8"))
+    for path, doc in docs.items():
         touched = False
         for app in doc.get("apps", []):
             changes = app.get("changes", [])
@@ -303,14 +386,16 @@ def derive_directions(reviewed: list[Path], previous: list[Path]) -> list[str]:
                 continue
             if len(pending) > 1:
                 raise ValueError(f"{app['package_id']}: {len(pending)} changes have no direction; derive them one record version at a time")
-            diff = structural_diff(before[app["package_id"]], app)
+            old = before[app["package_id"]]
+            diff = structural_diff(old, app, legal_items(old, list(then["companies"].values()), list(then["trackers"].values())),
+                                   legal_items(app, list(now["companies"].values()), list(now["trackers"].values())))
             c = changes[pending[0]]
             changes[pending[0]] = {k: v for k, v in (
-                ("date", c["date"]), ("text", c["text"]), ("direction", direction_of(diff)), ("diff", diff),
+                ("date", c["date"]), ("text", c["text"]), ("direction", direction_of(diff, c.get("tier_before"), c.get("tier_after"))), ("diff", diff),
                 ("tier_before", c.get("tier_before")), ("tier_after", c.get("tier_after")), ("sources", c["sources"]),
             ) if v is not None}
             touched = True
-            done.append(f"{app['package_id']}, change of {c['date']}: {direction_of(diff)} ({len(diff)} structural changes)")
+            done.append(f"{app['package_id']}, change of {c['date']}: {changes[pending[0]]['direction']} ({len(diff)} structural changes)")
         if touched:
             path.write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     return done
@@ -410,7 +495,7 @@ def build(reviewed: list[Path], now: dt.datetime) -> dict:
     mark_stale(merged["apps"], now.date())
     return {
         "schema_version": 1,
-        "schema_revision": "1.4",
+        "schema_revision": "1.5",
         "bundle_version": now.strftime("%Y.%m.%d"),
         "generated_at": now.isoformat(timespec="seconds"),
         "licence": LICENCE,
@@ -445,7 +530,7 @@ def main() -> int:
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--skip-url-check", action="store_true", help="dry runs only; never for a real build")
     parser.add_argument("--previous", type=Path, nargs="+", default=[],
-                        help="earlier versions of app records: derive the direction of each one's new change")
+                        help="earlier versions of the changed files (app, company and tracker records): derive the direction of each app's new change")
     args = parser.parse_args()
 
     for line in derive_directions(sorted(args.reviewed.glob("*.json")), args.previous):

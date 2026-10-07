@@ -24,6 +24,7 @@ import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import com.longlifeio.fineprint.review.fingerprint
+import com.longlifeio.fineprint.review.reachNames
 import com.longlifeio.fineprint.review.reviewView
 import com.longlifeio.fineprint.ui.AboutScreen
 import com.longlifeio.fineprint.ui.AppDetailScreen
@@ -67,8 +68,9 @@ class MainActivity : ComponentActivity() {
                 // Your marks and ticks (on this phone only) against what the app looks like now.
                 val reviews = remember(apps, results, bundleState.bundle, marks, signatures) {
                     val names = signatures?.trackers.orEmpty().associate { it.id to it.name }
+                    val reach = reachNames(bundleState.bundle)
                     apps.orEmpty().associate {
-                        it.packageName to reviewView(marks[it.packageName]?.mark, fingerprint(it, results[it.scanKey], bundleState.bundle), names)
+                        it.packageName to reviewView(marks[it.packageName]?.mark, fingerprint(it, results[it.scanKey], bundleState.bundle), names, reach)
                     }
                 }
                 val checks = remember(apps, explanations, marks, bundleState.bundle) {

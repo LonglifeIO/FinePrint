@@ -25,7 +25,7 @@ VALIDATOR = build.jsonschema.Draft202012Validator(
 
 
 def doc(**sections) -> dict:
-    base = {"schema_version": 1, "schema_revision": "1.4", "bundle_version": "2026.10.04",
+    base = {"schema_version": 1, "schema_revision": "1.5", "bundle_version": "2026.10.04",
             "generated_at": "2026-10-04T12:00:00-03:00", "apps": [], "trackers": [], "companies": [],
             "permissions": [], "device_reach": []}
     return dict(base, **sections)
@@ -171,9 +171,85 @@ class ChangeDirectionTest(unittest.TestCase):
         twice = [named, dict(named, purpose="Ads in other apps")]
         self.assertEqual(build.structural_diff(self.record(twice), self.record(twice)), [])
         self.assertEqual(build.structural_diff(self.record(twice), self.record(twice[:1])), ["flow removed: app_activity to co-meta (used_for_more)"])
-        for path in sorted((Path(__file__).resolve().parent / "reviewed").glob("app-*.json")):
-            for a in json.loads(path.read_text(encoding="utf-8"))["apps"]:
-                self.assertEqual(build.structural_diff(a, a), [], a["package_id"])
+        # Every reviewed app against itself, with the legal items its companies and trackers hold.
+        merged = build.merge(sorted((Path(__file__).resolve().parent / "reviewed").glob("*.json")))
+        for a in merged["apps"]:
+            items = build.legal_items(a, merged["companies"], merged["trackers"])
+            self.assertEqual(build.structural_diff(a, a, items, dict(items)), [], a["package_id"])
+        facebook = next(a for a in merged["apps"] if a["package_id"] == "com.facebook.katana")
+        self.assertEqual(len(build.legal_items(facebook, merged["companies"], merged["trackers"])), 12)  # 8 Meta actions, 4 of its own lines
+
+    ACTION = {"date": "2026-09-01", "title": "A ruling", "body": "A regulator", "type": "fine", "status": "adjudicated",
+              "status_kind": "ruling", "concerns_app": "com.example", "sources": [SOURCE]}
+    LINE = {"text": "A court fined it.", "status": "adjudicated", "status_kind": "ruling", "sources": [SOURCE]}
+
+    def legal(self, actions=(), lines=(), tracker_lines=()) -> dict:
+        tracker = {"id": "fp-x", "covers": ["exodus-12"], "consequences": list(tracker_lines)}
+        return build.legal_items(dict(self.record(), consequences=list(lines)), [company("co-x", regulatory_history=list(actions))], [tracker])
+
+    def test_a_ruling_or_lawsuit_naming_the_app_counts_and_moves_with_the_tier(self):
+        r, none, one = self.record(), self.legal(), self.legal([self.ACTION])
+        added = build.structural_diff(r, r, none, one)
+        self.assertEqual(added, ["event added: co-x 2026-09-01 fine (adjudicated/ruling)"])
+        self.assertEqual(build.direction_of(added, "caution", "flagged"), "worsened")
+        self.assertEqual(build.direction_of(added, "flagged", "flagged"), "neutral")
+        closed = self.legal([dict(self.ACTION, closed_date="2026-10-01")])
+        self.assertEqual(build.structural_diff(r, r, one, closed),
+                         ["event status: co-x 2026-09-01 fine (adjudicated/ruling to adjudicated/ruling, closed 2026-10-01)"])
+        self.assertEqual(build.direction_of(build.structural_diff(r, r, one, closed), "flagged", "caution"), "improved")
+        self.assertEqual(build.structural_diff(r, r, one, none), ["event removed: co-x 2026-09-01 fine (adjudicated/ruling)"])
+        # Reworded: no change. About another app, or a breach: not counted.
+        self.assertEqual(build.structural_diff(r, r, one, self.legal([dict(self.ACTION, title="A fine", body="The regulator")])), [])
+        self.assertEqual(self.legal([dict(self.ACTION, concerns_app="com.other"), dict(self.ACTION, type="breach")]), {})
+
+    def test_the_apps_and_its_trackers_own_legal_lines_count(self):
+        r, line = self.record(), self.LINE
+        self.assertEqual(build.structural_diff(r, r, self.legal(), self.legal(lines=[line])),
+                         ["event added: com.example https://example.org/a (adjudicated/ruling)"])
+        lawsuit = dict(line, status="alleged", status_kind="filed")
+        self.assertEqual(build.structural_diff(r, r, self.legal(lines=[lawsuit]), self.legal(lines=[dict(lawsuit, status_kind="survived_motion_to_dismiss")])),
+                         ["event status: com.example https://example.org/a (alleged/filed to alleged/survived_motion_to_dismiss)"])
+        # Reworded, or its source swapped for another: the same line.
+        moved = dict(line, text="A regulator fined it.", sources=[dict(SOURCE, url="https://example.org/b")])
+        self.assertEqual(build.structural_diff(r, r, self.legal(lines=[line]), self.legal(lines=[moved])), [])
+        # A reported line isn't legal; a tracker's line counts only when it names the app.
+        self.assertEqual(self.legal(lines=[dict(line, status="reported")]), {})
+        naming = dict(line, concerns_app="com.example", sources=[dict(SOURCE, url="https://example.org/c")])
+        self.assertEqual(list(self.legal(tracker_lines=[line, naming])), ["fp-x https://example.org/c"])
+
+    def test_a_flows_evidence_counts_and_moves_with_the_tier(self):
+        one = dict(self.FLOW, status="reported")
+        two = dict(one, sources=[SOURCE, dict(SOURCE, url="https://example.org/b")])
+        diff = build.structural_diff(self.record([one]), self.record([two]))
+        self.assertEqual(diff, ["flow status: precise_location to Partners (reported, one source to reported)"])
+        self.assertEqual(build.direction_of(diff, "caution", "flagged"), "worsened")
+        self.assertEqual(build.structural_diff(self.record([two]), self.record([dict(two, status="self_disclosed")])),
+                         ["flow status: precise_location to Partners (reported to self_disclosed)"])
+        # A copy of the same report isn't a second source.
+        copy = dict(one, sources=[SOURCE, dict(SOURCE, url="https://example.org/b", derives_from="https://example.org/a")])
+        self.assertEqual(build.structural_diff(self.record([one]), self.record([copy])), [])
+
+    def test_a_legal_or_evidence_change_records_the_tiers(self):
+        change = {"date": "2026-10-05", "text": "A ruling.", "direction": "neutral",
+                  "diff": ["event added: co-x 2026-09-01 fine (adjudicated/ruling)"], "sources": [SOURCE]}
+        self.assertEqual(build.change_problems(dict(self.record(), changes=[change])), [
+            "com.example: change of 2026-10-05 names a legal item or a flow's evidence; record tier_before and tier_after, which set its direction"])
+        tiered = dict(change, tier_before="caution", tier_after="flagged", direction="worsened")
+        self.assertEqual(build.change_problems(dict(self.record(), changes=[tiered])), [])
+        self.assertEqual(schema_errors(doc(apps=[dict(self.record(), changes=[tiered])])), [])
+
+    def test_derive_directions_reads_the_previous_companies_too(self):
+        change = {"date": "2026-10-05", "text": "A regulator ruled.", "tier_before": "caution", "tier_after": "flagged", "sources": [SOURCE]}
+        with tempfile.TemporaryDirectory() as d:
+            files = {name: Path(d) / name for name in ("app-example.json", "companies.json", "old-app.json", "old-companies.json")}
+            files["app-example.json"].write_text(json.dumps({"apps": [dict(self.record(), changes=[change])]}), encoding="utf-8")
+            files["companies.json"].write_text(json.dumps({"companies": [company("co-x", regulatory_history=[self.ACTION])]}), encoding="utf-8")
+            files["old-app.json"].write_text(json.dumps(self.record()), encoding="utf-8")
+            files["old-companies.json"].write_text(json.dumps({"companies": [company("co-x")]}), encoding="utf-8")
+            done = build.derive_directions([files["app-example.json"], files["companies.json"]], [files["old-app.json"], files["old-companies.json"]])
+            self.assertEqual(done, ["com.example, change of 2026-10-05: worsened (1 structural changes)"])
+            derived = json.loads(files["app-example.json"].read_text(encoding="utf-8"))["apps"][0]["changes"][0]
+        self.assertEqual(derived["diff"], ["event added: co-x 2026-09-01 fine (adjudicated/ruling)"])
 
     def test_a_new_flow_beyond_running_the_app_is_worse(self):
         diff = build.structural_diff(self.record(), self.record([self.FLOW]))

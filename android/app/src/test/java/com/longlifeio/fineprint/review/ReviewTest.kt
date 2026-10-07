@@ -8,6 +8,7 @@ import com.longlifeio.fineprint.egress.TrackerScanResult
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
+import org.json.JSONObject
 import org.junit.Test
 import java.io.File
 import java.nio.file.Files
@@ -89,10 +90,12 @@ class ReviewTest {
         val now = fingerprint(app(location), scan("fp-arity"), bundle)!!
         val legacy = now.copy(record = "4f86365a9e3d0c2b7b1d5e0a8c6f4e2d1b0a9c8e7f6d5c4b3a291807f6e5d4c3")
         assertEquals(emptyList<String>(), changes(legacy, now, names))
+        // A shape kept before legal items were part of it can't tell either.
+        assertNull(Shape.decode(JSONObject(now.record).apply { remove("legal") }.toString()))
     }
 
-    private fun flow(key: String, data: String = "precise_location", bucket: String = "goes_elsewhere", named: Boolean = true, on: Boolean = true) =
-        FlowShape(key, data, named, bucket, on)
+    private fun flow(key: String, data: String = "precise_location", bucket: String = "goes_elsewhere", named: Boolean = true, on: Boolean = true, evidence: String = "self_disclosed") =
+        FlowShape(key, data, named, bucket, on, evidence)
 
     /** The port follows pipeline/build.py's structural_diff (test_build.py has the same cases). */
     @Test
@@ -107,6 +110,58 @@ class ReviewTest {
         assertEquals(emptyList<String>(), structuralDiff(unnamed, Shape(listOf(flow("precise_location|Business partners", named = false)), emptyList(), emptyList())))
         assertEquals(listOf("flow added: f2 (used_for_more)"), structuralDiff(base, base.copy(flows = base.flows + flow("f2", bucket = "used_for_more"))))
         assertEquals(listOf("now off by default: f1"), structuralDiff(base, base.copy(flows = listOf(flow("f1", on = false), base.flows[1]))))
+        // A flow's evidence, and the legal items naming the app, by presence and standing.
+        assertEquals(
+            listOf("flow status: f1 (reported, one source to reported)"),
+            structuralDiff(base.copy(flows = listOf(flow("f1", evidence = "reported, one source"), base.flows[1])), base.copy(flows = listOf(flow("f1", evidence = "reported"), base.flows[1]))),
+        )
+        val ruled = base.copy(legal = mapOf("co-x 2026-09-01 fine" to "adjudicated/ruling"))
+        assertEquals(listOf("event added: co-x 2026-09-01 fine (adjudicated/ruling)"), structuralDiff(base, ruled))
+        assertEquals(listOf("event removed: co-x 2026-09-01 fine (adjudicated/ruling)"), structuralDiff(ruled, base))
+        assertEquals(
+            listOf("event status: co-x 2026-09-01 fine (adjudicated/ruling to adjudicated/ruling, closed 2026-10-01)"),
+            structuralDiff(ruled, base.copy(legal = mapOf("co-x 2026-09-01 fine" to "adjudicated/ruling, closed 2026-10-01"))),
+        )
+        // A line cited to another first source pairs with the old one of the same owner and standing.
+        val line = base.copy(legal = mapOf("com.example https://example.org/a" to "adjudicated/ruling"))
+        assertEquals(emptyList<String>(), structuralDiff(line, base.copy(legal = mapOf("com.example https://example.org/b" to "adjudicated/ruling"))))
+    }
+
+    private fun edited(vararg edits: Pair<String, String>) =
+        parseBundle(edits.fold(fixture) { text, (from, to) -> check(text.contains(from)) { from }; text.replace(from, to) })
+
+    private fun between(a: com.longlifeio.fineprint.bundle.Bundle, b: com.longlifeio.fineprint.bundle.Bundle) =
+        changes(fingerprint(app(location), scan("fp-arity"), a)!!, fingerprint(app(location), scan("fp-arity"), b)!!, names)
+
+    /** docs/METHOD.md, Your Reviewed marks: a ruling or lawsuit naming the app, or a change in its standing, counts; rewording it doesn't. */
+    @Test
+    fun aRulingOrLawsuitNamingTheAppIsAChange() {
+        val updated = listOf("FinePrint's record was updated")
+        val leak = "\"text\": \"Emails leaked.\", \"status\": \"reported\""
+        val filed = "\"text\": \"Emails leaked.\", \"status\": \"alleged\", \"status_kind\": \"filed\""
+        val lawsuit = edited(leak to filed)
+        assertEquals(updated, between(bundle, lawsuit))
+        assertEquals(updated, between(lawsuit, edited(leak to filed.replace("filed", "survived_motion_to_dismiss"))))
+        assertEquals(updated, between(lawsuit, edited(leak to "$filed, \"closed_date\": \"2026-09-01\"")))
+        assertEquals(emptyList<String>(), between(lawsuit, edited(leak to filed.replace("Emails leaked.", "Emails were leaked."))))
+        // A company's action that names the app.
+        assertEquals(updated, changedBy(bundleWith("\"concerns_app\": \"com.example.settled\"", "\"concerns_app\": \"com.example.family\"")))
+    }
+
+    @Test
+    fun aFlowsEvidenceIsAChange() {
+        val wording = "\"wording\": \"According to its privacy policy dated 2026-01-01.\""
+        assertEquals(listOf("FinePrint's record was updated"), changedBy(bundleWith("\"status\": \"self_disclosed\", $wording", "\"status\": \"reported\", $wording")))
+    }
+
+    @Test
+    fun newDeviceReachIsAChange() {
+        val then = fingerprint(app(location), scan("fp-arity"), bundle)!!
+        val now = fingerprint(app(location).copy(deviceReach = listOf("autostart")), scan("fp-arity"), bundle)!!
+        assertEquals(listOf("now: starts itself"), changes(then, now, names, reachNames(bundle)))
+        assertEquals(listOf("no longer: starts itself"), changes(now, then, names, reachNames(bundle)))
+        // A mark kept before device reach was can't tell.
+        assertEquals(emptyList<String>(), changes(then.copy(reach = null), now, names))
     }
 
     /** Facebook's record has two flows of the same data to Meta: they pair in order, so a mark never flips on an unchanged record. */
@@ -118,10 +173,14 @@ class ReviewTest {
         assertEquals(listOf("flow removed: app_activity|co-meta (used_for_more)"), structuralDiff(twice, twice.copy(flows = listOf(meta))))
         // Every app in the real bundle, as a mark stores its shape and reads it back.
         val real = parseBundle(File("../../bundle/bundle.json").readText())
+        fun trackersOf(pkg: String) = real.apps.getValue(pkg).trackers.mapNotNull { real.trackers[it] }.distinctBy { it.id }
         real.apps.forEach { (pkg, record) ->
-            val now = shape(record, record.trackers.mapNotNull { id -> real.trackers[id]?.let { id to it } })
+            val now = shape(pkg, record, trackersOf(pkg), real.companies.values)
             assertEquals(pkg, emptyList<String>(), structuralDiff(Shape.decode(now.encode())!!, now))
         }
+        // As in test_build.py: Meta's eight actions naming Facebook, and four of its own lines.
+        val facebook = "com.facebook.katana"
+        assertEquals(12, legalItems(facebook, real.apps[facebook], trackersOf(facebook), real.companies.values).size)
     }
 
     @Test

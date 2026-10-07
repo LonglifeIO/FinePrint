@@ -133,9 +133,9 @@ The page and the list say how many of the app's current flows your settings limi
 When you've read an app's page, you can mark it reviewed at the bottom of the page. On its page, a reviewed app's badge then reads, for example, Flagged · Reviewed; in the list, the badge shows a check. It moves below the apps of the same tier you haven't reviewed. Nothing you do changes a tier.
 
 - Reviewed: You've marked this app reviewed. The mark stays on this phone and never changes the tier.
-- Changed since you reviewed: What FinePrint's record says the app does with your data, the permissions you've granted or the tracker code in the app has changed since you marked it reviewed.
+- Changed since you reviewed: Since you marked it reviewed, something has changed in what FinePrint's record says the app does with your data, in what's on the record about it, in the permissions you've granted, or in the app's tracker code or device access.
 
-Only changes to what the app does with your data count, the same ones FinePrint uses to say whether a record got better or worse: a flow beyond running the app added or removed, a flow moved to a different place, a flow turned on or off by default, a kind of data added or removed, a tracker added to or removed from the record, or a setting that limits a flow added or removed. The same holds for the records of the trackers found in the app. A reworded line, a new or changed source, a ruling or lawsuit, and the app's store description don't count; a ruling or lawsuit shows under On the record instead.
+Only changes that feed the tier or the settings count, the same ones FinePrint uses to say whether a record got better or worse: a flow beyond running the app added or removed, moved to a different place, turned on or off by default, or resting on stronger or weaker evidence (such as a report confirmed by a second independent source); a kind of data added or removed; a tracker added to or removed from the record; a setting that limits a flow added or removed; and a ruling, lawsuit, order or settlement naming the app added, removed or changed in status (such as a lawsuit surviving a motion to dismiss, or a matter closed). The same holds for the records of the trackers found in the app. On this phone, a permission you grant or take back, and tracker code or device access the app gains or loses, count too. A reworded line, another source for the same claim and the app's store description don't count.
 
 A changed app moves back up the list with one line saying what changed, and keeps the date you reviewed it. Your marks and ticks stay on this phone: they aren't part of the bundle, they aren't backed up, and they are never sent anywhere.
 
@@ -172,11 +172,11 @@ When FinePrint changes its record of an app, the page says so. The latest change
 
 Whether a change is better or worse for you isn't anyone's call: FinePrint works it out from what changed in the record's structure, never from how it's worded.
 
-- Improved: The record shows less data collected or shared, or a new way to limit it.
-- Worsened: The record shows more data collected or shared, or a way to limit it removed.
-- Neutral: The wording changed; what's collected and shared didn't.
+- Improved: The record shows less data collected or shared, a new way to limit it, or a legal matter or evidence that lowered the tier.
+- Worsened: The record shows more data collected or shared, a way to limit it removed, or a legal matter or evidence that raised the tier.
+- Neutral: The wording changed, or a legal matter or evidence changed without moving the tier; what's collected and shared didn't.
 
-A change is Worsened when it adds a flow beyond running the app, moves a flow away from Stays here, adds a kind of data, adds a tracker, removes a setting that limits a flow, or makes a flow happen by default. It is Improved when it removes such a flow or makes it a past practice, moves a flow toward Stays here, drops a kind of data, removes a tracker, adds such a setting, or makes a flow Off by default or Only if you opt in. A change that does both is Worsened: FinePrint never offsets one against the other. Where the reviewer recorded it, a change also shows how the tier moved, such as Caution → Flagged.
+A change is Worsened when it adds a flow beyond running the app, moves a flow away from Stays here, adds a kind of data, adds a tracker, removes a setting that limits a flow, or makes a flow happen by default. It is Improved when it removes such a flow or makes it a past practice, moves a flow toward Stays here, drops a kind of data, removes a tracker, adds such a setting, or makes a flow Off by default or Only if you opt in. A change that does both is Worsened: FinePrint never offsets one against the other. A ruling, lawsuit, order or settlement naming the app, or a flow's evidence, counts by what it did to the tier: Worsened if the tier went up, Improved if it went down, Neutral if it stayed. For such a change the reviewer records the tier before and after, and the build fails without them. Where the reviewer recorded it, a change also shows how the tier moved, such as Caution → Flagged.
 
 ## Governments
 

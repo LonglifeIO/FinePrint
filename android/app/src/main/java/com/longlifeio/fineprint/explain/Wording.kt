@@ -78,9 +78,9 @@ val BADGES = mapOf(
 
 /** How a change to the record moves things for you; build.py works it out from the record's structure. */
 val DIRECTIONS = mapOf(
-    "improved" to BadgeText("Improved", "The record shows less data collected or shared, or a new way to limit it."),
-    "worsened" to BadgeText("Worsened", "The record shows more data collected or shared, or a way to limit it removed."),
-    "neutral" to BadgeText("Neutral", "The wording changed; what's collected and shared didn't."),
+    "improved" to BadgeText("Improved", "The record shows less data collected or shared, a new way to limit it, or a legal matter or evidence that lowered the tier."),
+    "worsened" to BadgeText("Worsened", "The record shows more data collected or shared, a way to limit it removed, or a legal matter or evidence that raised the tier."),
+    "neutral" to BadgeText("Neutral", "The wording changed, or a legal matter or evidence changed without moving the tier; what's collected and shared didn't."),
 )
 
 /** "Tier: Caution → Flagged", when the change records both. */
@@ -118,7 +118,7 @@ fun fromPolicyForAll(company: String): String = "From ${possessive(company)} pri
 const val REVIEWED = "Reviewed"
 const val REVIEWED_DEFINITION = "You've marked this app reviewed. The mark stays on this phone and never changes the tier."
 const val CHANGED = "Changed since you reviewed"
-const val CHANGED_DEFINITION = "What FinePrint's record says the app does with your data, the permissions you've granted or the tracker code in the app has changed since you marked it reviewed."
+const val CHANGED_DEFINITION = "Since you marked it reviewed, something has changed in what FinePrint's record says the app does with your data, in what's on the record about it, in the permissions you've granted, or in the app's tracker code or device access."
 const val LIMITED_DEFINITION = "A flow counts as limited when a setting you've changed applies to it: an Android permission turned off, or an in-app setting ticked. Limited doesn't mean stopped."
 const val STALE_DEFINITION = "Last reviewed more than 180 days ago; it may be out of date."
 

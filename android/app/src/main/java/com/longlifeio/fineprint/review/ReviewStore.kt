@@ -64,6 +64,7 @@ class ReviewStore(private val file: File, private val io: Executor = Executors.n
                             put("record", m.fingerprint.record)
                             put("granted", JSONArray(m.fingerprint.granted))
                             put("trackers", JSONArray(m.fingerprint.trackers))
+                            m.fingerprint.reach?.let { put("reach", JSONArray(it)) }
                         }
                         if (e.ticked.isNotEmpty()) put("ticked", JSONArray(e.ticked.sorted()))
                     })
@@ -76,7 +77,8 @@ class ReviewStore(private val file: File, private val io: Executor = Executors.n
             return apps.keys().asSequence().associateWith { pkg ->
                 val o = apps.getJSONObject(pkg)
                 val mark = if (o.has("reviewed_at")) {
-                    ReviewMark(o.getString("reviewed_at"), Fingerprint(o.getString("record"), o.getJSONArray("granted").strings(), o.getJSONArray("trackers").strings()))
+                    val fingerprint = Fingerprint(o.getString("record"), o.getJSONArray("granted").strings(), o.getJSONArray("trackers").strings(), o.optJSONArray("reach")?.strings())
+                    ReviewMark(o.getString("reviewed_at"), fingerprint)
                 } else null
                 ReviewEntry(mark, o.optJSONArray("ticked")?.strings()?.toSet().orEmpty())
             }
