@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generated_at": "2026-10-07T09:34:55-03:00",
+ "generated_at": "2026-10-07T10:34:35-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "jurisdictions": [
   {
@@ -408,24 +408,32 @@
      "id": "law-il-arrest-search-s43",
      "name": "Criminal Procedure Ordinance (Arrest and Search), section 43",
      "citation": "5729-1969, s. 43",
-     "text": "Lets a judge summon any person thought to hold an object, including a document or computer material, to produce it for an investigation or trial.",
+     "text": "Lets a judge summon any person thought to hold an object, including a document or computer material, to produce it when the judge finds that necessary or desirable for an investigation or trial.",
      "status": "self_disclosed",
      "sources": [
       {
        "url": "https://www.nevo.co.il/law_html/law00/74918.htm",
        "type": "statute",
-       "title": "פקודת סדר הדין הפלילי (מעצר וחיפוש), Nevo",
+       "title": "פקודת סדר הדין הפלילי (מעצר וחיפוש) [נוסח חדש], תשכ\"ט-1969, s. 43 (Nevo, current to 2026-07-21)",
        "as_of": "2026-07-21",
        "status": "self_disclosed",
        "quote": "רשאי הוא להזמין כל אדם"
       },
       {
-       "url": "https://versa.cardozo.yu.edu/node/548",
-       "type": "lawsuit",
-       "title": "Supreme Court of Israel, 2012 ruling (Versa, Cardozo School of Law; unofficial translation)",
-       "as_of": "2012-05-28",
-       "status": "adjudicated",
-       "quote": "a court’s order to produce documents issued according to section 43"
+       "url": "https://www.nevo.co.il/law_html/law00/74918.htm",
+       "type": "statute",
+       "title": "פקודת סדר הדין הפלילי (מעצר וחיפוש) [נוסח חדש], תשכ\"ט-1969, s. 43 (Nevo, current to 2026-07-21)",
+       "as_of": "2026-07-21",
+       "status": "self_disclosed",
+       "quote": "ראה שופט שהצגת חפץ נחוצה או רצויה לצרכי חקירה או משפט"
+      },
+      {
+       "url": "https://www.nevo.co.il/law_html/law00/74918.htm",
+       "type": "statute",
+       "title": "פקודת סדר הדין הפלילי (מעצר וחיפוש) [נוסח חדש], תשכ\"ט-1969, s. 1 (Nevo, current to 2026-07-21)",
+       "as_of": "2026-07-21",
+       "status": "self_disclosed",
+       "quote": "לרבות תעודה, מסמך, חומר מחשב או בעל חיים"
       }
      ]
     }
