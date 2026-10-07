@@ -515,7 +515,7 @@
       }
      ],
      "scope": {
-      "text": "It binds any person thought to hold the object (s. 43).",
+      "text": "It binds any person thought to hold the object, companies included (s. 43; Interpretation Law, 1981, s. 4).",
       "sources": [
        {
         "url": "https://www.nevo.co.il/law_html/law00/74918.htm",
@@ -524,6 +524,14 @@
         "as_of": "2026-07-21",
         "status": "self_disclosed",
         "quote": "רשאי הוא להזמין כל אדם"
+       },
+       {
+        "url": "https://www.nevo.co.il/law_html/law00/4667.htm",
+        "type": "statute",
+        "title": "חוק הפרשנות, התשמ\"א-1981 (Interpretation Law), s. 4 (Nevo, current to 2023-09-18)",
+        "as_of": "2023-09-18",
+        "status": "self_disclosed",
+        "quote": "מקום שמדובר באדם – אף חבר-בני-אדם במשמע, בין שהוא תאגיד ובין שאינו תאגיד"
        }
       ]
      }
