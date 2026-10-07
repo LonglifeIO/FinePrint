@@ -47,6 +47,9 @@ briefly "Argus" — if you see it, it means FinePrint.
   "alleged in a lawsuit filed by … on … (not proven in court)".
 - Findings carry an `evidence_tier`: `contains_code` (SDK present in APK) vs
   `observed_contact` (traffic actually seen). Never upgrade one into the other.
+- Consolidated or revised statutes: quote only text the editor marks in force, cite the section
+  the words actually sit in, and record the amending act and commencement date from the
+  annotation. Deleted and not-yet-commenced text stays in the page and passes the quote check.
 - Nothing lands in `bundle/bundle.json` without human review. Drafts live in
   `pipeline/drafts/` (gitignored). Raw fetched policies live in `pipeline/raw/`
   (gitignored — copyrighted).
