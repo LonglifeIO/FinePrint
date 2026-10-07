@@ -10,6 +10,7 @@
      "citation": "R.S.C. 1985, c. C-46, s. 487.014",
      "text": "A judge or justice of the peace can order a person or company to produce documents or data in its possession or control, when there are reasonable grounds to believe they will be evidence of an offence.",
      "status": "self_disclosed",
+     "last_reviewed": "2026-10-06",
      "sources": [
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.014.html",
@@ -51,6 +52,7 @@
      "citation": "R.S.C. 1985, c. C-46, s. 487.016",
      "text": "A judge or justice of the peace can order a person or company to produce transmission data in its possession or control: when, how long and between whom communications happened, but not what they said. It takes reasonable grounds to suspect the data will help investigate an offence.",
      "status": "self_disclosed",
+     "last_reviewed": "2026-10-06",
      "sources": [
       {
        "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.016.html",
@@ -115,6 +117,7 @@
      "citation": "National Intelligence Law of the People's Republic of China (2017, amended 2018), arts. 7 and 14",
      "text": "Requires all organizations and citizens to support, assist and cooperate with national intelligence work in accordance with law, and to keep confidential any secrets of that work they become aware of. Intelligence agencies can ask them for that support.",
      "status": "self_disclosed",
+     "last_reviewed": "2026-10-06",
      "sources": [
       {
        "url": "https://flk.npc.gov.cn/detail?id=2c909fdd678bf17901678bf8498d09f1",
@@ -182,6 +185,7 @@
      "citation": "Regulation (EU) 2023/1543",
      "text": "An authority in one EU country can order an online service based in another to hand over user data in 10 days, or 8 hours in an emergency. Account details need a prosecutor's order; content, or who contacted whom and when, needs a judge and usually a crime carrying three years or more in prison.",
      "status": "self_disclosed",
+     "last_reviewed": "2026-10-07",
      "applies_to": [
       "AT",
       "BE",
@@ -374,6 +378,7 @@
      "citation": "5729-1969, s. 43",
      "text": "Lets a judge summon any person thought to hold an object, including a document or computer material, to produce it when the judge finds that necessary or desirable for an investigation or trial.",
      "status": "self_disclosed",
+     "last_reviewed": "2026-10-07",
      "sources": [
       {
        "url": "https://www.nevo.co.il/law_html/law00/74918.htm",
@@ -414,6 +419,7 @@
      "citation": "Federal Law of 27 July 2006 No. 149-FZ, art. 10.1 (as amended by No. 374-FZ of 6 July 2016)",
      "text": "Requires internet services that handle users' messages to store data about their communications, and the messages for up to six months, in Russia; to give them to the authorities in cases set by federal law; and to give the security service what it needs to decode encrypted messages.",
      "status": "self_disclosed",
+     "last_reviewed": "2026-10-04",
      "sources": [
       {
        "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102108264",
@@ -457,6 +463,7 @@
      "citation": "18 U.S.C. § 2713",
      "text": "Requires providers of communication and cloud services to disclose data in their possession, custody or control under US legal process, whether it is stored in the United States or elsewhere.",
      "status": "self_disclosed",
+     "last_reviewed": "2026-10-06",
      "sources": [
       {
        "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/html/USCODE-2024-title18-partI-chap121-sec2713.htm",
@@ -482,6 +489,7 @@
      "citation": "50 U.S.C. § 1881a",
      "text": "Directives issued under it require electronic communication service providers to give the government information for surveillance of people reasonably believed to be outside the United States. Repealed 2026-06-12; directives issued before then stay in effect until they expire.",
      "status": "self_disclosed",
+     "last_reviewed": "2026-10-06",
      "status_note": {
       "text": "Section 702 was repealed on 2026-06-12, when its last extension ran out. Directives issued before then stay in effect until they expire, and the government can still ask the FISA court to compel compliance with them.",
       "sources": [

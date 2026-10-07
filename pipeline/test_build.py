@@ -251,7 +251,7 @@ class GovernmentTest(unittest.TestCase):
 
     def test_the_jurisdictions_file(self):
         law = {"id": "law-us-cloud-act", "name": "CLOUD Act", "citation": "18 U.S.C. § 2713", "text": "t", "status": "self_disclosed",
-               "sources": [STATUTE]}
+               "sources": [STATUTE], "last_reviewed": "2026-10-04"}
         with tempfile.TemporaryDirectory() as d:
             path = Path(d) / "jurisdictions.json"
             path.write_text(json.dumps({"jurisdictions": [{"id": "US", "name": "United States", "laws": [law], "last_reviewed": "2026-10-04"}]}))
@@ -265,9 +265,24 @@ class GovernmentTest(unittest.TestCase):
                                                      "law-us-cloud-act: its first source is the law's own text (type statute)"])
         self.assertEqual(build.jurisdictions_path(Path("bundle/bundle.json")), Path("bundle/jurisdictions.json"))
 
+    def test_each_law_carries_its_own_review_date_and_goes_stale_like_an_app(self):
+        law = {"id": "law-us-x", "name": "X Act", "citation": "1 U.S.C. § 1", "text": "t", "status": "self_disclosed", "sources": [STATUTE]}
+        def places(*laws):
+            with tempfile.TemporaryDirectory() as d:
+                path = Path(d) / "jurisdictions.json"
+                path.write_text(json.dumps({"jurisdictions": [{"id": "US", "name": "United States", "laws": list(laws),
+                                                               "last_reviewed": "2026-10-07"}]}))
+                return build.build_jurisdictions([path], dt.datetime(2026, 10, 7, tzinfo=build.HALIFAX))
+        schema = json.loads(build.SCHEMA.read_text(encoding="utf-8"))
+        self.assertIn("'last_reviewed' is a required property", " ".join(build.schema_problems(schema, places(law), "jurisdictions_file")))
+        fresh, old = dict(law, last_reviewed="2026-04-10"), dict(law, id="law-us-y", last_reviewed="2026-04-09")
+        built = places(fresh, old)
+        self.assertEqual(build.schema_problems(schema, built, "jurisdictions_file"), [])
+        self.assertEqual([l["stale"] for l in built["jurisdictions"][0]["laws"]], [False, True])  # 180 and 181 days
+
     def test_a_union_entry_says_which_countries_each_law_binds(self):
         law = {"id": "law-eu-x", "name": "X Regulation", "citation": "Regulation (EU) 1/2026", "text": "t", "status": "self_disclosed",
-               "sources": [STATUTE]}
+               "sources": [STATUTE], "last_reviewed": "2026-10-07"}
         eu = {"id": "EU", "name": "European Union", "laws": [law], "last_reviewed": "2026-10-07"}
         places = {"schema_version": 1, "generated_at": "2026-10-07T00:00:00-03:00", "jurisdictions": [eu]}
         self.assertEqual(build.law_problems(places), ["law-eu-x: a law in the EU entry says which countries it binds (applies_to)"])

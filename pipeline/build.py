@@ -78,11 +78,11 @@ def merge(paths: list[Path]) -> dict[str, list]:
     return merged
 
 
-def mark_stale(apps: list[dict], today: dt.date) -> None:
-    """stale = last reviewed more than STALE_DAYS before the build."""
-    for app in apps:
-        reviewed = dt.date.fromisoformat(app["last_reviewed"])
-        app["stale"] = (today - reviewed).days > STALE_DAYS
+def mark_stale(records: list[dict], today: dt.date) -> None:
+    """stale = last reviewed more than STALE_DAYS before the build (app records, and each law)."""
+    for record in records:
+        reviewed = dt.date.fromisoformat(record["last_reviewed"])
+        record["stale"] = (today - reviewed).days > STALE_DAYS
 
 
 def walk(node, visit) -> None:
@@ -402,8 +402,10 @@ def build(reviewed: list[Path], now: dt.datetime) -> dict:
 
 def build_jurisdictions(reviewed: list[Path], now: dt.datetime) -> dict:
     """bundle/jurisdictions.json: each country's laws that let its government compel data."""
-    return {"schema_version": 1, "generated_at": now.isoformat(timespec="seconds"), "licence": LICENCE,
-            JURISDICTIONS: merge(reviewed)[JURISDICTIONS]}
+    places = merge(reviewed)[JURISDICTIONS]
+    # A law without its own review date fails the schema check; one without it can't be marked stale either.
+    mark_stale([law for j in places for law in j["laws"] if "last_reviewed" in law], now.date())
+    return {"schema_version": 1, "generated_at": now.isoformat(timespec="seconds"), "licence": LICENCE, JURISDICTIONS: places}
 
 
 def jurisdictions_path(out: Path) -> Path:
