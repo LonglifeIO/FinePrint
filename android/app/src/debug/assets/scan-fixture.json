@@ -1,0 +1,2014 @@
+{
+ "apps": [
+  {
+   "package": "fr.mobdev.blooddonation",
+   "label": "Don du Sang",
+   "version_name": "3.4",
+   "version_code": 13,
+   "has_code": true,
+   "permissions": [
+    {
+     "name": "android.permission.ACCESS_LOCAL_NETWORK",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_BACKGROUND_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_COARSE_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_FINE_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_MEDIA_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.POST_NOTIFICATIONS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_AUDIO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_IMAGES",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VIDEO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.INTERNET",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+     "granted": true,
+     "dangerous": false
+    }
+   ],
+   "device_reach": [
+    "autostart"
+   ],
+   "trackers": [
+    {
+     "id": "exodus-312",
+     "name": "Google AdMob",
+     "categories": [
+      "Advertisement"
+     ],
+     "matched_class": "com.google.ads.AdRequest$ErrorCode"
+    }
+   ],
+   "referenced_only": [],
+   "problems": 0,
+   "out_of_memory": false,
+   "dex_files": 1,
+   "classes": 4359
+  },
+  {
+   "package": "com.facebook.katana",
+   "label": "Facebook",
+   "version_name": "581.0.0.45.58",
+   "version_code": 475215363,
+   "has_code": true,
+   "permissions": [
+    {
+     "name": "android.permission.ACCESS_LOCAL_NETWORK",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_COARSE_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_FINE_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_MEDIA_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_CONNECT",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.CALL_PHONE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.CAMERA",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.GET_ACCOUNTS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.POST_NOTIFICATIONS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_CALENDAR",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_CONTACTS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_IMAGES",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VIDEO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_PHONE_NUMBERS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_PHONE_STATE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.RECORD_AUDIO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.WRITE_CALENDAR",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.WRITE_CONTACTS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_ADSERVICES_AD_ID",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_ADSERVICES_ATTRIBUTION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_ADSERVICES_CUSTOM_AUDIENCE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_ADSERVICES_TOPICS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_WIFI_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.AUTHENTICATE_ACCOUNTS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.BLUETOOTH",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.BLUETOOTH_ADMIN",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.BROADCAST_STICKY",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CHANGE_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CHANGE_WIFI_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CREDENTIAL_MANAGER_SET_ALLOWED_PROVIDERS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.DETECT_SCREEN_CAPTURE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.DETECT_SCREEN_RECORDING",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.DOWNLOAD_WITHOUT_NOTIFICATION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_CAMERA",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_MICROPHONE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_PHONE_CALL",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.GET_TASKS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.INTERNET",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.MANAGE_ACCOUNTS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.MANAGE_OWN_CALLS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.MODIFY_AUDIO_SETTINGS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.NFC",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.READ_BASIC_PHONE_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.READ_PROFILE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.READ_SYNC_SETTINGS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.REORDER_TASKS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.RUN_USER_INITIATED_JOBS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.USE_BIOMETRIC",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.USE_FINGERPRINT",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.USE_FULL_SCREEN_INTENT",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.VIBRATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WAKE_LOCK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WRITE_SYNC_SETTINGS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.android.launcher.permission.INSTALL_SHORTCUT",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.katana.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.katana.permission.CREATE_SHORTCUT",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.katana.permission.CROSS_PROCESS_BROADCAST_MANAGER",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.katana.permission.RECEIVE_ADM_MESSAGE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.katana.provider.ACCESS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.permission.prod.FB_APP_COMMUNICATION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.receiver.permission.ACCESS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.c2dm.permission.RECEIVE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.gms.permission.AD_ID",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.providers.gsf.permission.READ_GSERVICES",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.BATTERY_STATS",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CAPTURE_VIDEO_OUTPUT",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.SYSTEM_ALERT_WINDOW",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.amazon.device.messaging.permission.RECEIVE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.android.vending.BILLING",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.appmanager.UNPROTECTED_API_ACCESS",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.mlite.provider.ACCESS",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.orca.provider.ACCESS",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.pages.app.provider.ACCESS",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.facebook.services.identity.FEO2",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.apps.aicore.service.BIND_SERVICE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.htc.launcher.permission.READ_SETTINGS",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.htc.launcher.permission.UPDATE_SHORTCUT",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.motorola.launcher3.permission.UNREAD_BADGE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.nokia.pushnotifications.permission.RECEIVE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.oculus.twilight.provider.ACCESS",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.sec.android.provider.badge.permission.READ",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.sec.android.provider.badge.permission.WRITE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.sonyericsson.home.permission.BROADCAST_BADGE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.sonymobile.home.permission.PROVIDER_INSERT_BADGE",
+     "granted": false,
+     "dangerous": false
+    }
+   ],
+   "device_reach": [
+    "overlay",
+    "autostart"
+   ],
+   "trackers": [
+    {
+     "id": "exodus-65",
+     "name": "Facebook Ads",
+     "categories": [
+      "Advertisement"
+     ],
+     "matched_class": "com.facebook.ads.internal.ipc.AudienceNetworkExportedActivity"
+    }
+   ],
+   "referenced_only": [],
+   "problems": 0,
+   "out_of_memory": false,
+   "dex_files": 1,
+   "classes": 4412
+  },
+  {
+   "package": "com.longlifeio.fineprint",
+   "label": "FinePrint",
+   "version_name": "0.2.0",
+   "version_code": 1,
+   "has_code": true,
+   "permissions": [
+    {
+     "name": "android.permission.ACCESS_LOCAL_NETWORK",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.INTERNET",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.QUERY_ALL_PACKAGES",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.longlifeio.fineprint.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+     "granted": true,
+     "dangerous": false
+    }
+   ],
+   "device_reach": [],
+   "trackers": [],
+   "referenced_only": [],
+   "problems": 0,
+   "out_of_memory": false,
+   "dex_files": 7,
+   "classes": 17510
+  },
+  {
+   "package": "fr.francetv.apps.info",
+   "label": "franceinfo",
+   "version_name": "5.6.1",
+   "version_code": 493,
+   "has_code": true,
+   "permissions": [
+    {
+     "name": "android.permission.ACCESS_LOCAL_NETWORK",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_BACKGROUND_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_COARSE_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_MEDIA_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.CAMERA",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.POST_NOTIFICATIONS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_AUDIO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_IMAGES",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VIDEO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_WIFI_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.INTERNET",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.MODIFY_AUDIO_SETTINGS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.VIBRATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WAKE_LOCK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.c2dm.permission.RECEIVE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "fr.francetv.apps.info.permission.C2D_MESSAGE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "fr.francetv.apps.info.permission.RECEIVE_ADM_MESSAGE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "fr.francetv.apps.info.permission.UA_DATA",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CHANGE_CONFIGURATION",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CLEAR_APP_CACHE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WRITE_SETTINGS",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.amazon.device.messaging.permission.RECEIVE",
+     "granted": false,
+     "dangerous": false
+    }
+   ],
+   "device_reach": [],
+   "trackers": [
+    {
+     "id": "exodus-52",
+     "name": "Adjust",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.adjust.sdk.ActivityHandler$10"
+    },
+    {
+     "id": "exodus-401",
+     "name": "Analytics by NPAW (Youbora Suite)",
+     "categories": [
+      "Analytics",
+      "Profiling",
+      "Location"
+     ],
+     "matched_class": "com.npaw.youbora.adnalyzers.AdnalyzerGeneric"
+    },
+    {
+     "id": "exodus-31",
+     "name": "ATInternet",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.atinternet.tracker.ATInternet"
+    },
+    {
+     "id": "exodus-3",
+     "name": "Audience Studio (Krux)",
+     "categories": [
+      "Analytics",
+      "Profiling"
+     ],
+     "matched_class": "com.krux.androidsdk.aggregator.KruxEventAggregator"
+    },
+    {
+     "id": "exodus-66",
+     "name": "Facebook Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.facebook.appevents.AccessTokenAppIdPair$1"
+    },
+    {
+     "id": "exodus-67",
+     "name": "Facebook Login",
+     "categories": [
+      "Identification"
+     ],
+     "matched_class": "com.facebook.login.CustomTabLoginMethodHandler$1"
+    },
+    {
+     "id": "exodus-70",
+     "name": "Facebook Share",
+     "categories": [],
+     "matched_class": "com.facebook.share.model.ShareMedia$Builder"
+    },
+    {
+     "id": "exodus-312",
+     "name": "Google AdMob",
+     "categories": [
+      "Advertisement"
+     ],
+     "matched_class": "com.google.ads.AdRequest"
+    },
+    {
+     "id": "exodus-48",
+     "name": "Google Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.google.android.gms.analytics.CampaignTrackingService"
+    },
+    {
+     "id": "exodus-27",
+     "name": "Google CrashLytics",
+     "categories": [
+      "Crash reporting"
+     ],
+     "matched_class": "com.crashlytics.android.BuildConfig"
+    },
+    {
+     "id": "exodus-49",
+     "name": "Google Firebase Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.google.android.gms.measurement.AppMeasurement"
+    },
+    {
+     "id": "exodus-105",
+     "name": "Google Tag Manager",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.google.android.gms.tagmanager.TagManagerApiImpl"
+    },
+    {
+     "id": "exodus-123",
+     "name": "Urbanairship",
+     "categories": [],
+     "matched_class": "com.urbanairship.ActivityMonitor"
+    }
+   ],
+   "referenced_only": [
+    "exodus-15",
+    "exodus-224"
+   ],
+   "problems": 0,
+   "out_of_memory": false,
+   "dex_files": 3,
+   "classes": 19950
+  },
+  {
+   "package": "com.olivierpayen.leaninstapaper",
+   "label": "Lean for Instapaper",
+   "version_name": "0.9.1804011545",
+   "version_code": 1804011545,
+   "has_code": true,
+   "permissions": [
+    {
+     "name": "android.permission.ACCESS_LOCAL_NETWORK",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.POST_NOTIFICATIONS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.INTERNET",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WAKE_LOCK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.c2dm.permission.RECEIVE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.olivierpayen.leaninstapaper.permission.C2D_MESSAGE",
+     "granted": true,
+     "dangerous": false
+    }
+   ],
+   "device_reach": [],
+   "trackers": [
+    {
+     "id": "exodus-66",
+     "name": "Facebook Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.facebook.appevents.AccessTokenAppIdPair$1"
+    },
+    {
+     "id": "exodus-67",
+     "name": "Facebook Login",
+     "categories": [
+      "Identification"
+     ],
+     "matched_class": "com.facebook.login.CustomTabLoginMethodHandler$1"
+    },
+    {
+     "id": "exodus-69",
+     "name": "Facebook Places",
+     "categories": [],
+     "matched_class": "com.facebook.places.Places"
+    },
+    {
+     "id": "exodus-70",
+     "name": "Facebook Share",
+     "categories": [],
+     "matched_class": "com.facebook.share.Share"
+    },
+    {
+     "id": "exodus-27",
+     "name": "Google CrashLytics",
+     "categories": [
+      "Crash reporting"
+     ],
+     "matched_class": "com.crashlytics.android.BuildConfig"
+    },
+    {
+     "id": "exodus-49",
+     "name": "Google Firebase Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.google.android.gms.measurement.AppMeasurement$b"
+    }
+   ],
+   "referenced_only": [],
+   "problems": 0,
+   "out_of_memory": false,
+   "dex_files": 1,
+   "classes": 4249
+  },
+  {
+   "package": "com.life360.android.safetymapd",
+   "label": "Life360",
+   "version_name": "26.37.0",
+   "version_code": 2924500,
+   "has_code": true,
+   "permissions": [
+    {
+     "name": "android.permission.ACCESS_COARSE_LOCATION",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_FINE_LOCATION",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_LOCAL_NETWORK",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_BACKGROUND_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACTIVITY_RECOGNITION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_ADVERTISE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_CONNECT",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_SCAN",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.CALL_PHONE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.CAMERA",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.POST_NOTIFICATIONS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_CONTACTS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.RECORD_AUDIO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_ADSERVICES_AD_ID",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_ADSERVICES_ATTRIBUTION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_ADSERVICES_TOPICS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_NOTIFICATION_POLICY",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_WIFI_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CHANGE_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CHANGE_WIFI_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.DETECT_SCREEN_CAPTURE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_LOCATION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.HIGH_SAMPLING_RATE_SENSORS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.INTERNET",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.NFC",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.POST_PROMOTED_NOTIFICATIONS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.READ_USER_DICTIONARY",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.SCHEDULE_EXACT_ALARM",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.USE_BIOMETRIC",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.USE_FINGERPRINT",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.VIBRATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WAKE_LOCK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.c2dm.permission.RECEIVE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.gms.permission.ACTIVITY_RECOGNITION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.gms.permission.AD_ID",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.life360.android.safetymapd.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.amazon.privacypass.ATTEST",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.android.vending.BILLING",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.samsung.android.mapsagent.permission.READ_APP_INFO",
+     "granted": false,
+     "dangerous": false
+    }
+   ],
+   "device_reach": [
+    "autostart",
+    "background_ble_scan"
+   ],
+   "trackers": [
+    {
+     "id": "exodus-125",
+     "name": "Amplitude",
+     "categories": [
+      "Analytics",
+      "Profiling"
+     ],
+     "matched_class": "com.amplitude.api.CursorWindowAllocationException"
+    },
+    {
+     "id": "exodus-12",
+     "name": "AppsFlyer",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.appsflyer.AppsFlyerConversionListener"
+    },
+    {
+     "id": "fp-arity",
+     "name": "Arity",
+     "categories": [
+      "Location"
+     ],
+     "matched_class": "com.arity.coreengine.obfuscated.o4"
+    },
+    {
+     "id": "exodus-167",
+     "name": "Branch",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "io.branch.referral.network.BranchRemoteInterface$BranchRemoteException"
+    },
+    {
+     "id": "exodus-65",
+     "name": "Facebook Ads",
+     "categories": [
+      "Advertisement"
+     ],
+     "matched_class": "com.facebook.ads.BuildConfig"
+    },
+    {
+     "id": "exodus-66",
+     "name": "Facebook Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.facebook.appevents.g"
+    },
+    {
+     "id": "exodus-312",
+     "name": "Google AdMob",
+     "categories": [
+      "Advertisement"
+     ],
+     "matched_class": "com.google.android.gms.ads.mediation.MediationBannerAdapter"
+    },
+    {
+     "id": "exodus-27",
+     "name": "Google CrashLytics",
+     "categories": [
+      "Crash reporting"
+     ],
+     "matched_class": "com.google.firebase.crashlytics.CrashlyticsRegistrar"
+    },
+    {
+     "id": "exodus-49",
+     "name": "Google Firebase Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.google.android.gms.dynamite.descriptors.com.google.android.gms.measurement.dynamite.ModuleDescriptor"
+    },
+    {
+     "id": "exodus-328",
+     "name": "IAB Open Measurement",
+     "categories": [
+      "Identification",
+      "Advertisement"
+     ],
+     "matched_class": "com.iab.omid.library.life360.adsession.media.a"
+    },
+    {
+     "id": "exodus-432",
+     "name": "Rollbar",
+     "categories": [
+      "Crash reporting"
+     ],
+     "matched_class": "com.rollbar.android.anr.AnrException"
+    },
+    {
+     "id": "exodus-290",
+     "name": "Sentiance",
+     "categories": [],
+     "matched_class": "com.sentiance.sdk.diagnostics.GooglePlayServicesObserver"
+    },
+    {
+     "id": "exodus-447",
+     "name": "Sentry",
+     "categories": [
+      "Crash reporting"
+     ],
+     "matched_class": "io.sentry.util.e"
+    }
+   ],
+   "referenced_only": [
+    "exodus-53",
+    "exodus-72",
+    "exodus-90",
+    "exodus-92",
+    "exodus-104",
+    "exodus-106",
+    "exodus-121",
+    "exodus-124",
+    "exodus-146",
+    "exodus-183",
+    "exodus-198",
+    "exodus-200",
+    "exodus-236",
+    "exodus-347",
+    "exodus-363",
+    "exodus-368",
+    "exodus-370"
+   ],
+   "problems": 0,
+   "out_of_memory": false,
+   "dex_files": 9,
+   "classes": 79578
+  },
+  {
+   "package": "com.nextcloud.client",
+   "label": "Nextcloud",
+   "version_name": "3.0.0",
+   "version_code": 30000099,
+   "has_code": true,
+   "permissions": [
+    {
+     "name": "android.permission.ACCESS_LOCAL_NETWORK",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_MEDIA_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.POST_NOTIFICATIONS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_CONTACTS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_AUDIO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_IMAGES",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VIDEO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.WRITE_CONTACTS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.BROADCAST_STICKY",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.INTERNET",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.READ_SYNC_SETTINGS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.READ_SYNC_STATS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.RECEIVE_BOOT_COMPLETED",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.USE_FINGERPRINT",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WAKE_LOCK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WRITE_SYNC_SETTINGS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.c2dm.permission.RECEIVE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.nextcloud.client.permission.C2D_MESSAGE",
+     "granted": true,
+     "dangerous": false
+    }
+   ],
+   "device_reach": [
+    "autostart"
+   ],
+   "trackers": [
+    {
+     "id": "exodus-49",
+     "name": "Google Firebase Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.google.android.gms.measurement.AppMeasurement$zzb"
+    }
+   ],
+   "referenced_only": [],
+   "problems": 0,
+   "out_of_memory": false,
+   "dex_files": 2,
+   "classes": 10819
+  },
+  {
+   "package": "org.briarproject.briar",
+   "label": "Secure",
+   "version_name": "0.13",
+   "version_code": 13,
+   "has_code": true,
+   "permissions": [
+    {
+     "name": "android.permission.ACCESS_BACKGROUND_LOCATION",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_COARSE_LOCATION",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_LOCAL_NETWORK",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_ADVERTISE",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_CONNECT",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_SCAN",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.CAMERA",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.POST_NOTIFICATIONS",
+     "granted": true,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_WIFI_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.BLUETOOTH",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.BLUETOOTH_ADMIN",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.INTERNET",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.VIBRATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WAKE_LOCK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.READ_LOGS",
+     "granted": false,
+     "dangerous": false
+    }
+   ],
+   "device_reach": [
+    "background_ble_scan"
+   ],
+   "trackers": [
+    {
+     "id": "exodus-444",
+     "name": "ACRA",
+     "categories": [
+      "Crash reporting"
+     ],
+     "matched_class": "org.acra.ACRA$1"
+    }
+   ],
+   "referenced_only": [],
+   "problems": 0,
+   "out_of_memory": false,
+   "dex_files": 1,
+   "classes": 5756
+  },
+  {
+   "package": "com.zhiliaoapp.musically",
+   "label": "TikTok",
+   "version_name": "47.1.4",
+   "version_code": 2024701040,
+   "has_code": true,
+   "permissions": [
+    {
+     "name": "android.permission.ACCESS_COARSE_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_FINE_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_LOCAL_NETWORK",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_MEDIA_LOCATION",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_ADVERTISE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_CONNECT",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.BLUETOOTH_SCAN",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.CAMERA",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.POST_NOTIFICATIONS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_CONTACTS",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_AUDIO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_IMAGES",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VIDEO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.RECORD_AUDIO",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.WRITE_EXTERNAL_STORAGE",
+     "granted": false,
+     "dangerous": true
+    },
+    {
+     "name": "android.permission.ACCESS_ADSERVICES_AD_ID",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_ADSERVICES_ATTRIBUTION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.ACCESS_WIFI_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CHANGE_NETWORK_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.CHANGE_WIFI_STATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.DETECT_SCREEN_CAPTURE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.DETECT_SCREEN_RECORDING",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_CAMERA",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_DATA_SYNC",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_MICROPHONE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.FOREGROUND_SERVICE_PHONE_CALL",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.INTERNET",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.MANAGE_OWN_CALLS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.MODIFY_AUDIO_SETTINGS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.NFC",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.REORDER_TASKS",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.SET_WALLPAPER",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.USE_BIOMETRIC",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.USE_FINGERPRINT",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.USE_FULL_SCREEN_INTENT",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.VIBRATE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.WAKE_LOCK",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.c2dm.permission.RECEIVE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.gms.permission.AD_ID",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.zhiliaoapp.musically.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.zhiliaoapp.musically.permission.PRF_INTERNAL",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "com.zhiliaoapp.musically.permission.RECEIVE_ADM_MESSAGE",
+     "granted": true,
+     "dangerous": false
+    },
+    {
+     "name": "android.permission.SYSTEM_ALERT_WINDOW",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.amazon.device.messaging.permission.RECEIVE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.android.launcher.permission.READ_SETTINGS",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.android.vending.BILLING",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.apps.aicore.service.BIND_SERVICE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.oplus.ocs.permission.third",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.orange.update.permission.READ_ATTRIBUTION",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.samsung.android.mapsagent.permission.READ_APP_INFO",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.sec.android.provider.badge.permission.READ",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.sec.android.provider.badge.permission.WRITE",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.tiktok.manager.SYS_START_PERMISSION",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.tiktok.preload.permission.IDENTIFY",
+     "granted": false,
+     "dangerous": false
+    },
+    {
+     "name": "com.zhiliao.musically.livewallpaper.permission.wallpaperplugin",
+     "granted": false,
+     "dangerous": false
+    }
+   ],
+   "device_reach": [
+    "overlay"
+   ],
+   "trackers": [
+    {
+     "id": "exodus-12",
+     "name": "AppsFlyer",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.appsflyer.internal.AFf1eSDK"
+    },
+    {
+     "id": "exodus-66",
+     "name": "Facebook Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.facebook.appevents.FacebookSDKJSInterface"
+    },
+    {
+     "id": "exodus-67",
+     "name": "Facebook Login",
+     "categories": [
+      "Identification"
+     ],
+     "matched_class": "com.facebook.login.R$styleable"
+    },
+    {
+     "id": "exodus-70",
+     "name": "Facebook Share",
+     "categories": [],
+     "matched_class": "com.facebook.share.R$styleable"
+    },
+    {
+     "id": "exodus-49",
+     "name": "Google Firebase Analytics",
+     "categories": [
+      "Analytics"
+     ],
+     "matched_class": "com.google.android.gms.measurement.api.R$styleable"
+    },
+    {
+     "id": "exodus-328",
+     "name": "IAB Open Measurement",
+     "categories": [
+      "Identification",
+      "Advertisement"
+     ],
+     "matched_class": "com.iab.omid.library.bytedance1.R$styleable"
+    },
+    {
+     "id": "exodus-363",
+     "name": "Pangle",
+     "categories": [
+      "Advertisement"
+     ],
+     "matched_class": "com.bytedance.amg.minigameruntime.api.IClientLogger"
+    }
+   ],
+   "referenced_only": [],
+   "problems": 0,
+   "out_of_memory": false,
+   "dex_files": 44,
+   "classes": 475045
+  }
+ ]
+}

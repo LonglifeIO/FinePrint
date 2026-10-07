@@ -90,9 +90,32 @@ val debugNetworkConfig = tasks.register<DebugNetworkConfig>("debugNetworkConfig"
     outputDir.set(layout.buildDirectory.dir("generated/networkConfig/res"))
 }
 
+/**
+ * Copies the reviewed records into the debug build's assets at build time, for the G5 mockups'
+ * @Previews. bundle/ stays the only copy in git; release builds get nothing from here.
+ */
+abstract class DebugBundleAssets : DefaultTask() {
+    @get:InputFiles @get:PathSensitive(PathSensitivity.NAME_ONLY) abstract val records: ConfigurableFileCollection
+    @get:OutputDirectory abstract val outputDir: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val out = outputDir.get().asFile
+        out.deleteRecursively()
+        out.mkdirs()
+        records.files.forEach { it.copyTo(File(out, it.name)) }
+    }
+}
+
+val debugBundleAssets = tasks.register<DebugBundleAssets>("debugBundleAssets") {
+    records.from("../../bundle/bundle.json", "../../bundle/jurisdictions.json")
+    outputDir.set(layout.buildDirectory.dir("generated/bundleAssets"))
+}
+
 androidComponents {
     onVariants(selector().withBuildType("debug")) { variant ->
         variant.sources.res?.addGeneratedSourceDirectory(debugNetworkConfig, DebugNetworkConfig::outputDir)
+        variant.sources.assets?.addGeneratedSourceDirectory(debugBundleAssets, DebugBundleAssets::outputDir)
     }
 }
 
@@ -118,6 +141,9 @@ dependencies {
     // Compose's test library pulls in Espresso 3.5, which can't drive Android 17 (InputManager.getInstance is gone).
     androidTestImplementation(libs.androidx.test.espresso.core)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // G5 mockups: @Preview and the preview renderer, debug builds only; checkReleaseClasspath keeps them out of release.
+    debugImplementation(libs.androidx.compose.ui.tooling.preview)
+    debugImplementation(libs.androidx.compose.ui.tooling)
     // Real org.json for JVM unit tests (android.jar only has stubs).
     testImplementation(libs.org.json)
 }

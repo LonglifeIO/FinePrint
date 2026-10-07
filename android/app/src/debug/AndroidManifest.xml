@@ -5,4 +5,9 @@
      Release builds fetch the bundle over the public internet and never declare it. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.ACCESS_LOCAL_NETWORK" />
+
+    <!-- Debug only (G5 step 1): renders design mockups from this phone's real data; started with adb. -->
+    <application>
+        <activity android:name="com.longlifeio.fineprint.design.MockupActivity" android:exported="true" />
+    </application>
 </manifest>
