@@ -8,7 +8,7 @@
      "id": "law-ca-criminal-code-487-014",
      "name": "Criminal Code, general production order",
      "citation": "R.S.C. 1985, c. C-46, s. 487.014",
-     "text": "A judge can order a person or company to produce documents or data in its possession or control, when there are reasonable grounds to believe they will be evidence of an offence.",
+     "text": "A judge or justice of the peace can order a person or company to produce documents or data in its possession or control, when there are reasonable grounds to believe they will be evidence of an offence.",
      "status": "self_disclosed",
      "sources": [
       {
@@ -18,6 +18,30 @@
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "a justice or judge may order a person … to prepare and produce a document"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.014.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 487.014(2) (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "will afford evidence respecting the commission of the offence"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 2, definitions (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "every one, person and owner, and similar expressions, include Her Majesty and an organization"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 2, definitions (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "organization means (a) a public body, body corporate, society, company"
       }
      ]
     },
@@ -25,7 +49,7 @@
      "id": "law-ca-criminal-code-487-016",
      "name": "Criminal Code, production order for transmission data",
      "citation": "R.S.C. 1985, c. C-46, s. 487.016",
-     "text": "A judge can order a person or company, such as a telecom or online service, to produce transmission data in its possession or control, when there are reasonable grounds to suspect it will help an investigation.",
+     "text": "A judge or justice of the peace can order a person or company to produce transmission data in its possession or control: when, how long and between whom communications happened, but not what they said. It takes reasonable grounds to suspect the data will help investigate an offence.",
      "status": "self_disclosed",
      "sources": [
       {
@@ -35,6 +59,46 @@
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "to prepare and produce a document containing transmission data"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.016.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 487.016(2) (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "will assist in the investigation of the offence"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.011.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 487.011, definition of transmission data (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "type, direction, date, time, duration, size, origin, destination or termination of the communication"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-487.011.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 487.011, definition of transmission data (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "does not reveal the substance, meaning or purpose of the communication"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 2, definitions (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "every one, person and owner, and similar expressions, include Her Majesty and an organization"
+      },
+      {
+       "url": "https://laws-lois.justice.gc.ca/eng/acts/C-46/section-2.html",
+       "type": "statute",
+       "title": "Criminal Code, s. 2, definitions (Justice Laws Website)",
+       "as_of": "2026-09-21",
+       "status": "self_disclosed",
+       "quote": "organization means (a) a public body, body corporate, society, company"
       }
      ]
     },
