@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generated_at": "2026-10-07T10:34:35-03:00",
+ "generated_at": "2026-10-07T10:36:23-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "jurisdictions": [
   {
@@ -102,39 +102,6 @@
        "as_of": "2026-09-21",
        "status": "self_disclosed",
        "quote": "organization means (a) a public body, body corporate, society, company"
-      }
-     ]
-    },
-    {
-     "id": "law-ca-pipeda-7-3",
-     "name": "PIPEDA, disclosure without consent",
-     "citation": "S.C. 2000, c. 5, s. 7(3)(c) and (c.1)",
-     "text": "Lets a company disclose personal information without your knowledge or consent to comply with a subpoena, warrant or court order, or when a government institution that has identified its lawful authority asks for it.",
-     "status": "self_disclosed",
-     "sources": [
-      {
-       "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html",
-       "type": "statute",
-       "title": "Personal Information Protection and Electronic Documents Act, s. 7(3) (Justice Laws Website)",
-       "as_of": "2026-09-21",
-       "status": "self_disclosed",
-       "quote": "may disclose personal information without the knowledge or consent of the individual"
-      },
-      {
-       "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html",
-       "type": "statute",
-       "title": "Personal Information Protection and Electronic Documents Act, s. 7(3) (Justice Laws Website)",
-       "as_of": "2026-09-21",
-       "status": "self_disclosed",
-       "quote": "required to comply with a subpoena or warrant issued or an order"
-      },
-      {
-       "url": "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html",
-       "type": "statute",
-       "title": "Personal Information Protection and Electronic Documents Act, s. 7(3) (Justice Laws Website)",
-       "as_of": "2026-09-21",
-       "status": "self_disclosed",
-       "quote": "identified its lawful authority to obtain the information"
       }
      ]
     }
