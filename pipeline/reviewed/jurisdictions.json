@@ -402,56 +402,6 @@
    "name": "Israel",
    "laws": [
     {
-     "id": "law-il-communications-data",
-     "name": "Criminal Procedure (Enforcement Powers – Communications Data) Law, 2007",
-     "citation": "5768-2007, s. 3",
-     "text": "Lets a court order that police or another investigating authority get communications data (location, subscriber and traffic data, not content) from a licensed telecom or internet provider's database.",
-     "status": "self_disclosed",
-     "sources": [
-      {
-       "url": "https://fs.knesset.gov.il/25/law/25_ls_bk_4668356.pdf",
-       "type": "statute",
-       "title": "חוק סדר הדין הפלילי (סמכויות אכיפה – נתוני תקשורת), Knesset, updated version",
-       "as_of": "2023-09-19",
-       "status": "self_disclosed",
-       "quote": "קבלת נתוני תקשורת ממאגר מידע של ספק מורשה"
-      },
-      {
-       "url": "https://versa.cardozo.yu.edu/node/548",
-       "type": "lawsuit",
-       "title": "Supreme Court of Israel, 2012 ruling on the law (Versa, Cardozo School of Law; unofficial translation)",
-       "as_of": "2012-05-28",
-       "status": "adjudicated",
-       "quote": "obtain communications data from the database of a telecommunications licensee"
-      }
-     ]
-    },
-    {
-     "id": "law-il-gss-s11",
-     "name": "General Security Service Law, 2002, section 11",
-     "citation": "5762-2002, s. 11",
-     "text": "Lets the Prime Minister set rules naming kinds of information in licensed communications providers' databases that the providers must then transfer to the General Security Service.",
-     "status": "self_disclosed",
-     "sources": [
-      {
-       "url": "https://www.nevo.co.il/law_html/law00/5051.htm",
-       "type": "statute",
-       "title": "חוק שירות הביטחון הכללי (General Security Service Law), Nevo",
-       "as_of": "2026-08-03",
-       "status": "self_disclosed",
-       "quote": "וכי על הספק המורשה להעביר מידע מסוגים אלה לידי השירות"
-      },
-      {
-       "url": "https://www.jewishvirtuallibrary.org/jsource/Politics/GeneralSecurityServicesLaw.pdf",
-       "type": "research",
-       "title": "General Security Service Law, English translation (Jewish Virtual Library; translator not stated)",
-       "as_of": "2002-02-21",
-       "status": "self_disclosed",
-       "quote": "the license holder must transmit information of these categories to the Service"
-      }
-     ]
-    },
-    {
      "id": "law-il-arrest-search-s43",
      "name": "Criminal Procedure Ordinance (Arrest and Search), section 43",
      "citation": "5729-1969, s. 43",
@@ -516,33 +466,6 @@
        "status": "adjudicated",
        "quote": "must also submit any information necessary to decrypt electronic communications",
        "verify_url": "https://hudoc.echr.coe.int/app/conversion/docx/html/body?library=ECHR&id=001-230854"
-      }
-     ]
-    },
-    {
-     "id": "law-ru-126-fz-64",
-     "name": "Federal Law No. 126-FZ on Communications, Article 64",
-     "citation": "Federal Law of 7 July 2003 No. 126-FZ, art. 64 (as amended by No. 374-FZ of 6 July 2016)",
-     "text": "Requires telecom operators to store data about users' communications, and the communications for up to six months, in Russia, and to give them and information about users to the authorities in cases set by federal law.",
-     "status": "self_disclosed",
-     "sources": [
-      {
-       "url": "http://pravo.gov.ru/proxy/ips/?docbody=&nd=102082548",
-       "type": "statute",
-       "title": "Федеральный закон № 126-ФЗ «О связи», ст. 64 (pravo.gov.ru)",
-       "as_of": "2025-12-29",
-       "status": "self_disclosed",
-       "quote": "Операторы связи обязаны предоставлять уполномоченным государственным органам",
-       "verify_url": "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102082548&page=1&rdk=122"
-      },
-      {
-       "url": "https://hudoc.echr.coe.int/eng?i=001-159324",
-       "type": "lawsuit",
-       "title": "Roman Zakharov v. Russia, European Court of Human Rights (2015)",
-       "as_of": "2015-12-04",
-       "status": "adjudicated",
-       "quote": "an obligation on communications service providers to provide the law-enforcement agencies",
-       "verify_url": "https://hudoc.echr.coe.int/app/conversion/docx/html/body?library=ECHR&id=001-159324"
       }
      ]
     }
