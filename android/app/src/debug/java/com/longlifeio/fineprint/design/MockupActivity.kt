@@ -8,10 +8,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,6 +25,11 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.rememberGraphicsLayer
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.IntSize
 import androidx.core.graphics.drawable.toBitmap
 import com.longlifeio.fineprint.FinePrintApp
@@ -38,6 +46,8 @@ import java.io.File
  *
  *   adb shell am start -n com.longlifeio.fineprint/.design.MockupActivity \
  *     --es direction ledger|dashboard|label --es screen home|detail --es mode light|dark --ef scale 1.5 --es out <name>
+ *
+ * --es direction app draws the app's real screen instead (RealScreens.kt): the home, for G5 step 2.
  */
 class MockupActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +76,17 @@ class MockupActivity : ComponentActivity() {
                     runCatching { packageManager.getApplicationIcon(pkg).toBitmap(144, 144).asImageBitmap() }.getOrNull()
                 }
             }
-            if (data == null) {
+            if (direction == "app") {
+                // The real screen: drawn as the phone shows it, once every app is scanned.
+                if (!ready) {
+                    Text("Loading… ${progress.done}/${progress.total}")
+                } else {
+                    CompositionLocalProvider(
+                        LocalConfiguration provides LocalConfiguration.current.withNight(dark),
+                        LocalDensity provides Density(LocalDensity.current.density, scale),
+                    ) { Capture(out, fixedHeight = REAL_HEIGHT) { RealHome(app) } }
+                }
+            } else if (data == null) {
                 val missing = visible.filterNot { results.containsKey(it.scanKey) }.map { it.packageName }
                 Text("Loading… apps=${apps?.size} results=${results.size} running=${progress.running} ${progress.done}/${progress.total} bundle=${bundle != null} missing=$missing")
             } else {
@@ -85,7 +105,7 @@ class MockupActivity : ComponentActivity() {
      * (8,192px here), so each tile stays under it and the tiles are joined on a CPU bitmap.
      */
     @Composable
-    private fun Capture(name: String, content: @Composable () -> Unit) {
+    private fun Capture(name: String, fixedHeight: Dp? = null, content: @Composable () -> Unit) {
         val tiles = List(4) { rememberGraphicsLayer() }
         var height = 0f
         var width = 0
@@ -102,7 +122,10 @@ class MockupActivity : ComponentActivity() {
                     }
                 }
                 drawContent()
-            }) { content() }
+            }) {
+                // A lazy list needs a bounded height: give it room for everything, then trim the empty end.
+                if (fixedHeight == null) content() else Box(Modifier.fillMaxWidth().height(fixedHeight)) { content() }
+            }
         }
         LaunchedEffect(name) {
             delay(2500) // fonts, icons and layout settle
@@ -115,9 +138,10 @@ class MockupActivity : ComponentActivity() {
                 }
             }
             val dir = getExternalFilesDir(null)!!
-            File(dir, "$name.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
-            File(dir, "$name.done").writeText("${bitmap.width}x${bitmap.height}")
-            Log.i(TAG, "saved $name.png ${bitmap.width}x${bitmap.height}")
+            val out = if (fixedHeight == null) bitmap else trimBottom(bitmap)
+            File(dir, "$name.png").outputStream().use { out.compress(Bitmap.CompressFormat.PNG, 100, it) }
+            File(dir, "$name.done").writeText("${out.width}x${out.height}")
+            Log.i(TAG, "saved $name.png ${out.width}x${out.height}")
             finish() // so the next render starts a fresh instance
         }
     }
@@ -134,9 +158,23 @@ class MockupActivity : ComponentActivity() {
         Log.i(TAG, "fixture: ${apps.size} apps; rebuilds the same explanations: ${strip(mockupData(fixed, scans, bundle, signatures) { null }) == strip(live)}")
     }
 
+    /** Cuts the run of rows at the bottom that are all the background colour, keeping a 48px margin. */
+    private fun trimBottom(b: Bitmap): Bitmap {
+        val background = b.getPixel(0, b.height - 1)
+        val row = IntArray(b.width)
+        var last = b.height - 1
+        while (last > 0) {
+            b.getPixels(row, 0, b.width, 0, last, b.width, 1)
+            if (row.any { it != background }) break
+            last--
+        }
+        return Bitmap.createBitmap(b, 0, 0, b.width, minOf(b.height, last + 48))
+    }
+
     private companion object {
         const val TAG = "FinePrintMockup"
         const val TILE = 6000f
+        val REAL_HEIGHT = 4200.dp
     }
 }
 

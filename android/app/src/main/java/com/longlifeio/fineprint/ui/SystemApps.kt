@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +25,7 @@ import com.longlifeio.fineprint.explain.groupHeader
  * The system-apps view: preinstalled apps grouped by maker ("Google · 14 apps"), each group headed by
  * the lines its maker's privacy policy gives for all its apps, shown once; then its apps in list order.
  */
-fun LazyListScope.systemGroupItems(groups: List<SystemGroup>, row: @Composable (InstalledApp) -> Unit, onSources: (SheetContent) -> Unit) {
+fun LazyListScope.systemGroupItems(groups: List<SystemGroup>, row: @Composable (InstalledApp, Int, Int) -> Unit, onSources: (SheetContent) -> Unit) {
     for (group in groups) {
         val maker = group.maker
         item(key = "group:" + (maker?.id ?: "other")) {
@@ -47,7 +48,7 @@ fun LazyListScope.systemGroupItems(groups: List<SystemGroup>, row: @Composable (
             items(maker.notes) { SummaryNoteRow(it.copy(wording = null), onSources) }
             items(maker.lines) { FlowLineRow(it.copy(wording = null), onSources) }
         }
-        items(group.apps, key = { it.packageName }) { row(it) }
+        itemsIndexed(group.apps, key = { _, app -> app.packageName }) { i, app -> row(app, i, group.apps.size) }
     }
 }
 

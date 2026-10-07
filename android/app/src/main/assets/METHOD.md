@@ -39,9 +39,11 @@ Each line under Where it goes says what data goes to whom, and why. Lines fall i
 - Used for more: The same company uses it for ads, profiling, or other products.
 - Goes elsewhere: Shared with, licensed to, or sold to other companies.
 
-Each group has its own colour and icon, and its name is always written out, so colour is never the only clue.
+Each group has its own colour and icon, and its name is always written out, so colour is never the only clue. The tiers share the three colours, following the rules that set them: Flagged takes Goes elsewhere's, Caution takes Used for more's and Expected takes Stays here's; No record yet is grey, with a dashed edge.
 
 Lines about a tracker come from FinePrint's record of it when there is one, and are otherwise inferred from its code (Auto). One record can explain several trackers in εxodus's list that come from the same company, such as Meta's Facebook Ads, Facebook Analytics and Facebook Login. When the app's own maker also owns a tracker in it, that tracker's data doesn't go elsewhere: its lines go under Used for more where its record says how the maker uses the data, and are otherwise left to the app's own record.
+
+On the home screen, At a glance counts an app in a group when its page has at least one current line there, whether from FinePrint's record or inferred from tracker code (Auto); lines about a past practice don't count. Tracker code shows where data can go, not that it went, so the count says FinePrint lists data that "can go" to other companies. An app with no line in a group isn't said to send nothing there.
 
 A line can also say that the app doesn't do it unless you act:
 

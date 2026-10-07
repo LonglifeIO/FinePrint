@@ -105,6 +105,7 @@ class TapTargetTest {
                     checks = apps.associate { it.packageName to check(it) }, results = scans,
                     progress = ScanProgress(), includeSystem = false, onIncludeSystemChange = {}, onOpen = {},
                     listState = rememberLazyListState(), bundleLine = "bundle: test", onAbout = {}, onHowToRead = {},
+                    openSections = OpenSections.allOpen(), // every section open, so every row is measured
                 )
             }
         }
