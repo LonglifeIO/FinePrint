@@ -86,6 +86,10 @@ briefly "Argus" — if you see it, it means FinePrint.
   response in `pipeline/raw/`, and every rebuild uses `--from-file`. Never crawl Exodus report
   pages, and never fetch from Exodus in parallel subagents. (Their limit is 3 requests per minute
   on that endpoint; a burst on 2026-10-02 got this Mac's IP blocked.)
+- Before any push: `git fetch origin`, then `git merge-base --is-ancestor origin/main HEAD` must
+  succeed. A push runs as its own command after the checks have been read, never chained with `;`.
+- Never `--no-verify`, nor any other way round a hook (such as `core.hooksPath`), rebase conflict
+  resolutions included. If a hook blocks a resolution, fix the content or stop and report.
 
 ## Do not
 - Add network calls to the app beyond the bundle fetch.
