@@ -216,8 +216,9 @@ tasks.matching { it.name == "preReleaseBuild" }.configureEach { dependsOn(checkR
 
 /**
  * The README's screenshots come from the screenshot tests (ScreenshotTest), never by hand: ./gradlew readmeScreenshots.
- * Each is scaled to the width the README shows it at, so the PNGs stay small: a new pixel is the average of the
- * captured pixels it covers, weighted by how much of each it covers. Screens are opaque, so the PNGs carry no alpha.
+ * Each is scaled to twice the width the README shows it at, sharp on high-density screens and still small: a new
+ * pixel is the average of the captured pixels it covers, weighted by how much of each it covers. Screens are
+ * opaque, so the PNGs carry no alpha.
  */
 abstract class ReadmeScreenshots : DefaultTask() {
     @get:InputFiles @get:PathSensitive(PathSensitivity.NAME_ONLY) abstract val screens: ConfigurableFileCollection
@@ -258,6 +259,6 @@ abstract class ReadmeScreenshots : DefaultTask() {
 tasks.register<ReadmeScreenshots>("readmeScreenshots") {
     dependsOn("testDebugUnitTest")
     screens.from(listOf("home-light", "home-dark", "detail-light", "detail-dark").map { layout.buildDirectory.file("outputs/roborazzi/$it.png") })
-    width.set(300) // the README's <img width="300">
+    width.set(600) // twice the README's <img width="300">
     outputDir.set(layout.projectDirectory.dir("../../docs/screenshots"))
 }
