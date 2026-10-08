@@ -154,6 +154,8 @@ The System filter lists only those apps, grouped by maker, such as Google · 14 
 - Every source carries the exact words that support the claim, and a date.
 - The status follows the evidence: an app's own policy is Self-disclosed, journalism is Reported, and a lawsuit stays Alleged until a court or regulator decides it.
 
+FinePrint re-reads the pages it quotes, and privacy regulators' feeds of findings and rulings, on a schedule. When a quote is no longer on its page, the words around it change, a page moves, or a regulator publishes something about a company FinePrint has a record of, a person is told. Nothing in the app changes until a person has reviewed it and the bundle is rebuilt. Sources whose sites refuse automated checks are listed in every digest and checked by hand before each release.
+
 Records follow these rules for wording:
 
 - A summary opens with what the app does for you and what it needs to do it.

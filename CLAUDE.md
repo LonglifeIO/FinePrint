@@ -94,12 +94,33 @@ briefly "Argus" — if you see it, it means FinePrint.
 - Never `--no-verify`, nor any other way round a hook (such as `core.hooksPath`), rebase conflict
   resolutions included. If a hook blocks a resolution, fix the content or stop and report.
 
+## The watcher (`pipeline/watch.py`)
+- It writes only under `pipeline/watch/`: queue items and a digest, never a record, a bundle file or anything
+  in `pipeline/reviewed/`. Items state facts; they never suggest a status or a tier.
+- `pipeline/watch/snapshots/`, `queue/`, `acked/`, `digest/` and `local.json` are gitignored and refused by the
+  forbidden-files hook, as `pipeline/raw/` is: they hold third-party copies.
+- It identifies itself: `FinePrint-watcher/<version> (+https://github.com/LonglifeIO/FinePrint; <contact>)`. The
+  contact comes only from `pipeline/watch/local.json` and never appears in a tracked file (it is listed in
+  `.git/private-patterns`, so the private-strings hook enforces it). Without a contact the watcher refuses to run.
+- A refusal is a refusal: robots.txt is read for each host before any path, and a disallow or a 401, 403 or 451
+  parks the URL and writes one digest line. No headless browser, no JavaScript, no retries with a different
+  client, ever.
+- A 401 or 403 on robots.txt counts as disallowing everything: stricter than RFC 9309's 4xx rule on purpose, because a block page is a refusal in plain words.
+- Politeness: one request at a time per host, at least 5 s apart; conditional GETs (ETag, Last-Modified);
+  `Retry-After` honoured; exponential backoff, three tries, then a `fetch_failure` item; after three failed runs
+  a URL is parked until a person acks its item. 30 s timeout, 5 MB body cap.
+- The denylist in `pipeline/watch/sources.json` is refused even when a record cites it:
+  `play.google.com/store/apps/datasafety`, Play pages of any kind (the owner captures them by hand), `canlii.org`
+  and Exodus.
+- Python stdlib + `requests` + `jsonschema` only (RSS and Atom through `xml.etree`); scripts, not a package;
+  files under ~300 lines; timestamps in America/Halifax.
+
 ## Do not
 - Add network calls to the app beyond the bundle fetch.
 - Send package names, permission grants, or detections off-device for any reason.
 - Vendor TrackerControl/NetGuard code before the observed-traffic gate.
-- Commit anything from `pipeline/raw/`, `pipeline/drafts/` or `ingest/` (third-party transcripts and
-  personal material).
+- Commit anything from `pipeline/raw/`, `pipeline/drafts/`, the watcher's ignored folders or `ingest/`
+  (third-party pages and transcripts, and personal material).
 - Commit keystores, `local.properties`, tokens, or `.env`.
 - Never read other apps' screens: no Accessibility Service, no screenshots, no OCR, no overlay that
   captures input. FinePrint may draw over other apps (Guide mode, opt-in, per session) but never

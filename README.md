@@ -81,6 +81,8 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   over, its own review date and a Stale marker; an EU regulation is keyed to the member states it
   binds. Laws that bind only licensed telecoms, or that permit disclosure rather than compel it,
   are parked as drafts.
+- The watcher (`pipeline/watch.py`): it re-reads every quoted page weekly and two regulators' feeds
+  daily, and queues what changed for a person to review; it never edits a record.
 
 A real-device check and the Tailscale path are deferred by choice. See `CLAUDE.md` for the gates.
 
