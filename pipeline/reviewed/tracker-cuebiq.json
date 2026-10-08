@@ -1,0 +1,184 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-57",
+   "aka": [
+    "Cuebiq SDK"
+   ],
+   "owner": "Cuebiq Group, LLC",
+   "owner_company": "co-cuebiq",
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Cuebiq's location SDK for app partners; since a 2023 foreclosure sale the business is run by Cuebiq Group, LLC",
+   "categories": [
+    "location",
+    "advertising",
+    "profiling",
+    "identification"
+   ],
+   "data_collected": [
+    "GPS-level latitude and longitude, and Wi-Fi data where feasible",
+    "the mobile advertising ID the location is tied to",
+    "other device identifiers, IP address and device details, for cross-device identity"
+   ],
+   "monetization_model": "Cuebiq sells location intelligence built from location data its SDK and app partners send, for advertising, attribution, analytics, research and cross-device identity; its privacy policy says it sold or shared identifiers and geolocation data in the past 12 months (Cuebiq's privacy policy, updated 2026-08-21).",
+   "data_flows": [
+    {
+     "id": "flow-cuebiq-location",
+     "data": "precise_location",
+     "recipient": "co-cuebiq",
+     "purpose": "GPS-level location tied to your advertising ID, for advertising, attribution, analytics, research and cross-device identity; Cuebiq says it sells or shares location data",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Cuebiq's privacy policy, updated 2026-08-21.",
+     "sources": [
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "from an “SDK” (software development kit) that it provides to mobile application partners"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "lat/long (latitudinal and longitudinal) data, i.e., GPS-level data"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "associated with a mobile advertising ID"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "for purposes related to advertising, attribution, analytics, research, and cross-device identity"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "collected, sold, or shared in the past 12 months: Identifiers, Geolocation Data"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "NOTICE: We may sell your sensitive personal data."
+      }
+     ]
+    },
+    {
+     "id": "flow-cuebiq-ids",
+     "data": "device_identifiers",
+     "recipient": "co-cuebiq",
+     "purpose": "Your advertising ID and other device identifiers, which Cuebiq and its partners use to recognize you and your devices across the internet",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Cuebiq's privacy policy, updated 2026-08-21.",
+     "sources": [
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "help recognize you and your device across the internet"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "Cuebiq may also share this information with partners"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Cuebiq's business has been run since 2023 by Cuebiq Group, LLC. After Cuebiq, Inc. defaulted on a loan, its lender foreclosed and Espresso Special Acquisition LLC, since renamed Cuebiq Group, bought the business at a private foreclosure sale, according to Cuebiq Group's own filing, as summarized by the court.",
+     "status": "self_disclosed",
+     "wording": "According to Cuebiq Group's own filing, as summarized by the court (US District Court for the Southern District of New York, 2025-08-21).",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.826372/gov.uscourts.casd.826372.45.0.pdf",
+       "type": "lawsuit",
+       "title": "Cuebiq Group, LLC v. PaeDae, Inc. (S.D.N.Y. No. 24-CV-7542, transferred to S.D. Cal. as No. 3:25-cv-02255), opinion and order",
+       "as_of": "2025-08-21",
+       "status": "self_disclosed",
+       "quote": "in June of 2023, Espresso foreclosed on the collateral pledged by Cuebiq to secure the loan through a private foreclosure sale"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.826372/gov.uscourts.casd.826372.45.0.pdf",
+       "type": "lawsuit",
+       "title": "Cuebiq Group, LLC v. PaeDae, Inc. (S.D.N.Y. No. 24-CV-7542, transferred to S.D. Cal. as No. 3:25-cv-02255), opinion and order",
+       "as_of": "2025-08-21",
+       "status": "self_disclosed",
+       "quote": "Espresso Special Acquisition, LLC has since been renamed Cuebiq Group, LLC"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.826372/gov.uscourts.casd.826372.45.0.pdf",
+       "type": "lawsuit",
+       "title": "Cuebiq Group, LLC v. PaeDae, Inc. (S.D.N.Y. No. 24-CV-7542, transferred to S.D. Cal. as No. 3:25-cv-02255), opinion and order",
+       "as_of": "2025-08-21",
+       "status": "self_disclosed",
+       "quote": "Cuebiq breached the Amended Loan Agreement and did not have the financial resources to cure the default"
+      }
+     ]
+    },
+    {
+     "text": "In 2021 The Markup reported that Cuebiq received raw, precise location data from the family-tracking app Life360, and that the US Centers for Disease Control and Prevention had a contract with Cuebiq for aggregated location data. Life360 said in 2022 it would stop selling precise data to most buyers.",
+     "status": "reported",
+     "historical": true,
+     "wording": "Reported by The Markup (2021, 2022).",
+     "sources": [
+      {
+       "url": "https://themarkup.org/privacy/2021/12/06/the-popular-family-safety-app-life360-is-selling-precise-location-data-on-its-tens-of-millions-of-user",
+       "type": "journalism",
+       "title": "The Markup",
+       "as_of": "2021-12-06",
+       "status": "reported",
+       "quote": "Cuebiq, which receives raw location data from Life360",
+       "single_source": true
+      },
+      {
+       "url": "https://themarkup.org/privacy/2021/12/06/the-popular-family-safety-app-life360-is-selling-precise-location-data-on-its-tens-of-millions-of-user",
+       "type": "journalism",
+       "title": "The Markup",
+       "as_of": "2021-12-06",
+       "status": "reported",
+       "quote": "Cuebiq also worked with the Centers for Disease Control … for aggregated location data",
+       "single_source": true
+      },
+      {
+       "url": "https://themarkup.org/privacy/2022/01/27/life360-says-it-will-stop-selling-precise-location-data",
+       "type": "journalism",
+       "title": "The Markup",
+       "as_of": "2022-01-27",
+       "status": "reported",
+       "quote": "selling to about a dozen location data partners to just Placer.ai and Arity"
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
