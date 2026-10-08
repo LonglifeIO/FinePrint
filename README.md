@@ -51,7 +51,7 @@ and commit with the GitHub noreply address (`git config user.email <id>+<user>@u
 
 ## Status
 
-G1 to G3 are signed off on an Android 17 emulator, and schema v1.3 is complete:
+G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema is at v1.5:
 
 - G1, the scanner: installed apps, their permissions and the tracker SDKs in their code (Arity in
   Life360).
@@ -61,11 +61,21 @@ G1 to G3 are signed off on an Android 17 emulator, and schema v1.3 is complete:
 - G3, the UI pass: tiers by a published formula (`docs/METHOD.md`), the same sections with their
   definitions on every page, a Sources sheet, How to read this, Reviewed marks and the "What you
   can do" checklist, with tap targets of 48dp or more enforced by a test.
+- G5, the design pass: the Field notes design system on the home, the detail screen and a
+  three-page introduction, with colour only on tier and bucket chips and its contrast and
+  colour-blind separation enforced by a test. The detail screen opens with "Their words", the app's
+  Play listing short description quoted verbatim, then the fine print. Screenshot tests draw the
+  home, Life360, its Sources sheet, How to read this and the introduction, light and dark, at 150%
+  and 200% text and on a small phone and a tablet (and the README's images); every device test runs
+  the accessibility checks, and TalkBack was checked on the emulator.
 - Schema v1.3: one tracker record covers several Exodus ids (`covers[]`); a record's history, with
   the direction of each change (`changes[]`); ongoing and past legal actions, where only ongoing
   or recent ones set a tier; government access, with a reviewed table of laws per country
   (`bundle/jurisdictions.json`) and where each company is based; a policy's region; flows that are
   off by default or opt-in; and apps that came with the phone showing their maker's policy lines.
+- Schema v1.4 and v1.5: `store_tagline` on app records (Life360, Facebook and TikTok, quote-checked
+  against the saved listing); every flow has an id; and a record's changes, like Reviewed marks,
+  count rulings, lawsuits and a flow's evidence, never wording.
 - The laws table, reviewed entry by entry: eight laws in force (the US, Canada, China, the EU,
   Israel and Russia), each with who it binds, whether the company may tell you it handed data
   over, its own review date and a Stale marker; an EU regulation is keyed to the member states it
@@ -76,26 +86,10 @@ A real-device check and the Tailscale path are deferred by choice. See `CLAUDE.m
 
 Next, in order:
 
-1. G5, a design pass: mockups of three directions first, in a debug-only source set; then the
-   chosen direction on the production screens.
-2. Tracker records for common SDKs (`kb/trackers`). Company records there need `jurisdiction` and
-   `jurisdiction_sources` (schema v1.3) before they merge.
-3. G6: guided paths and Guide mode.
-4. A test on a phone.
-
-Logged for G5 (not built yet):
-- "Their words / the fine print". The detail screen's summary card opens with the app's Play Store
-  short description, verbatim and attributed ("— Google Play listing, <date>"), with asterisk
-  footnotes: each footnote is an existing sourced line from the record, in small type under it. The
-  quoted text is never edited. Schema: `store_tagline` {text, source_url, as_of} on app records,
-  fetched by the pipeline and quote-checked like everything else.
-- Step 2, after a direction is picked: apply it to the production screens; a segmented progress
-  bar, not a ring; home sections keep their expanded state; Reviewed shown as "Flagged ✓" in rows;
-  an onboarding of three screens (what FinePrint does; the three buckets; "FinePrint relays the
-  public record; it doesn't judge — nobody's telling you to uninstall anything"); screenshot tests
-  (Roborazzi or the Compose Preview screenshot plugin) and `enableAccessibilityChecks()` in the
-  instrumented tests; a TalkBack and 200%-font pass. A release checklist from the brief's
-  anti-pattern list, added to `docs/METHOD.md`.
+1. Tracker records for common SDKs (`kb/trackers`). Company records there need `jurisdiction` and
+   `jurisdiction_sources` (schema v1.3), and every flow an id (v1.5), before they merge.
+2. G6: guided paths and Guide mode.
+3. A test on a phone.
 
 Logged for G6 (not built yet):
 - Guided paths. Each in-app control gets `path.steps[]` (screen → the exact label to tap, verbatim
@@ -119,8 +113,8 @@ Logged for G6 (not built yet):
   in scope: a sandbox copy of another app with a test account, or any Accessibility-based
   highlighting.
 
-Schema items queued: `settings_url` on controls; `store_tagline` {text, source_url, as_of} on app
-records (quote-checked); `controls[].path.steps[]`, `help_url` and `verified_on`.
+Schema items queued: `settings_url` on controls; `controls[].path.steps[]`, `help_url` and
+`verified_on`.
 
 Queued: laws to review (not started):
 - Ireland's domestic powers over companies based there: its e-Evidence implementing act and the
@@ -128,15 +122,12 @@ Queued: laws to review (not started):
 - US national law beyond the CLOUD Act and FISA: the Stored Communications Act, 18 U.S.C. § 2703
   (the everyday warrant, order and subpoena route for app data); national security letters,
   § 2709; FISA Title I, 50 U.S.C. § 1805(c)(2)(B).
-- Israel, Arrest and Search Ordinance s. 43: add "companies included" to its scope, citing the
-  Interpretation Law, 1981, s. 4 ("מקום שמדובר באדם – אף חבר-בני-אדם במשמע, בין שהוא תאגיד ובין
-  שאינו תאגיד"). A text copy is now saved (Nevo, current to 2023-09-18); JSON first.
 
 Logged for later:
-- After the push, the owner decides: a fourth government line type for voluntary hand-over on
+- Open, for the owner to decide: a fourth government line type for voluntary hand-over on
   request, applied evenly to every country (US 18 U.S.C. § 2702; GDPR arts. 6 and 48; Canada's
   PIPEDA s. 7(3)(c.1); the rest), or whether that belongs at the company-policy layer instead.
-- After the push, the owner decides: court findings about a law as a line of their own under
+- Open, for the owner to decide: court findings about a law as a line of their own under
   Jurisdictions, applied evenly to every law or not at all. Podchasov v. Russia (ECtHR, 2024: the
   decryption duty breached art. 8; Russia left the Convention in 2022 and the ruling doesn't change
   its law) for art. 10.1; Schrems II (CJEU, 2020) for FISA 702; whatever exists for the others.
