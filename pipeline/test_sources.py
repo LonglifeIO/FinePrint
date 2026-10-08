@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import check_quotes  # noqa: E402
 import fetch_sources  # noqa: E402
 
+FIXTURES = Path(__file__).resolve().parent / "watch" / "fixtures"
 SOURCE = {"url": "https://example.org/policy", "type": "privacy_policy", "as_of": "2026-01-01",
           "status": "self_disclosed", "quote": "We’ll use information … to personalize ads"}
 
@@ -77,6 +78,18 @@ class FetchTest(unittest.TestCase):
     def test_visible_text_drops_scripts_and_keeps_blocks(self):
         page = "<p>One&nbsp;line</p><script>var x = 'hidden';</script><div>Two</div>"
         self.assertEqual(fetch_sources.text_of_html(page), "One line\nTwo")
+
+    def test_a_comment_naming_noscript_keeps_the_page(self):
+        # placer.ai: "<noscript>" in a head comment used to open a block that ran to the body's last </noscript>.
+        page = (FIXTURES / "placer-noscript-comment.html").read_text(encoding="utf-8")
+        self.assertEqual(fetch_sources.text_of_html(page), "SDK Privacy Policy\n"
+                         "This policy explains what the SDK collects from the apps it is built into.\n"
+                         "The SDK collects precise location data from mobile devices.")
+
+    def test_comments_end_where_a_browser_ends_them(self):
+        # At --!> and at <!-->, and a script's "<!--" opens no comment.
+        page = "<p>A</p><!-- note --!><p>B</p><!--><p>C</p><script>var s = '<!--';</script><p>D</p><!-- x -->"
+        self.assertEqual(fetch_sources.text_of_html(page), "A\nB\nC\nD")
 
     def test_utf8_without_a_charset_decodes(self):
         self.assertEqual(fetch_sources.decode("driver’s".encode("utf-8")), "driver’s")

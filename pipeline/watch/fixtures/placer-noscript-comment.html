@@ -1,0 +1,19 @@
+<!doctype html>
+<!-- Made up for the tests, in the shape of placer.ai's SDK privacy page (2026-10): head comments that name
+     tags, the policy in the body, and Google Tag Manager's noscript iframe as the body's last element. -->
+<html lang="en">
+<head>
+<!-- Critical path: a plain <script src> is a no-CORS fetch. -->
+<script src="https://example.org/app.js"></script>
+<!-- Tag manager, moved from the footer: it belongs in the head. The matching <noscript> iframe stays in the body. -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TEST"></script>
+</head>
+<body>
+<main>
+<h1>SDK Privacy Policy</h1>
+<p>This policy explains what the SDK collects from the apps it is built into.</p>
+<p>The SDK collects precise location data from mobile devices.</p>
+</main>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TEST" height="0" width="0"></iframe></noscript>
+</body>
+</html>

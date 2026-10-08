@@ -59,7 +59,10 @@ def decode(data: bytes, content_type: str = "") -> str:
 
 def text_of_html(page: str) -> str:
     """The page's visible text, one block per line."""
-    page = re.sub(r"(?is)<(script|style|noscript|template)\b.*?</\1>", " ", page)
+    # Comments go in the same pass as these blocks, whichever opens first, as in a browser: a comment that
+    # names <noscript> (placer.ai's does) opens no block, and a script's "<!--" opens no comment. A comment
+    # ends at --> or --!>; <!--> and <!---> are empty ones.
+    page = re.sub(r"(?is)<!--(?:-?>|.*?--!?>)|<(script|style|noscript|template)\b.*?</\1>", " ", page)
     page = re.sub(r"(?i)<br\s*/?>|</(p|div|li|h[1-6]|tr|section|article|blockquote|dd|dt)>", "\n", page)
     page = re.sub(r"(?s)<[^>]+>", " ", page)
     page = html.unescape(page).replace(" ", " ")
