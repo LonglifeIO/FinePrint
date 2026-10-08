@@ -1,0 +1,236 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-49",
+   "aka": [
+    "Google Analytics for Firebase",
+    "Firebase SDK for Google Analytics"
+   ],
+   "owner": "Alphabet Inc.",
+   "owner_company": "co-google",
+   "owner_chain": [
+    "Google LLC",
+    "Alphabet Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Google Analytics for Firebase (the Firebase SDK for Google Analytics)",
+   "categories": [
+    "analytics"
+   ],
+   "data_collected": [
+    "an app-instance ID for each install",
+    "the Android advertising ID",
+    "coarse location, derived from a masked IP address",
+    "screen views, sessions and in-app purchases",
+    "a user ID, if the app's developer sets one; signed-in account information, if Google signals is on"
+   ],
+   "monetization_model": "Free analytics for app developers. If the developer has turned on data sharing with Google or linked an ads account, Google may use the data for its own products and personalized ads (Google's Analytics Help and Firebase documentation).",
+   "data_flows": [
+    {
+     "id": "flow-firebase-analytics-usage",
+     "data": "app_activity",
+     "recipient": "co-google",
+     "purpose": "Usage statistics for the app's developer: the screens you view, your sessions and your in-app purchases",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Analytics Help (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://support.google.com/analytics/answer/11582702?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Prepare for Google Play's data disclosure requirements (Google Analytics for Firebase SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Collects in-app purchase and subscription events … Collects screen views and sessions"
+      },
+      {
+       "url": "https://support.google.com/analytics/answer/9234069?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Automatically collected events",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "you don't need to write any additional code to collect these events"
+      }
+     ]
+    },
+    {
+     "id": "flow-firebase-analytics-ids",
+     "data": "device_identifiers",
+     "recipient": "co-google",
+     "purpose": "An ID for each install of the app, used to count its users. The code also collects your Android advertising ID; Google's documentation doesn't say what it's used for",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Analytics Help (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://support.google.com/analytics/answer/11582702?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Prepare for Google Play's data disclosure requirements (Google Analytics for Firebase SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "app-instance id … for purposes of computing user metrics"
+      },
+      {
+       "url": "https://support.google.com/analytics/answer/11582702?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Prepare for Google Play's data disclosure requirements (Google Analytics for Firebase SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Collects the Android Advertising ID"
+      }
+     ]
+    },
+    {
+     "id": "flow-firebase-analytics-location",
+     "data": "approximate_location",
+     "recipient": "co-google",
+     "purpose": "Your coarse location, worked out from your masked IP address, for the developer's reports",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Analytics Help (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://support.google.com/analytics/answer/11582702?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Prepare for Google Play's data disclosure requirements (Google Analytics for Firebase SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Derives coarse location data from the masked IP addresses of the device"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "If the developer has turned on data sharing or linked an ads account, Google may use this data for its own products and personalized ads. FinePrint can't see that setting. This code also ships inside Google's ads SDK, so finding it doesn't show the developer uses Analytics.",
+     "status": "self_disclosed",
+     "wording": "According to Google's Analytics Help (read 2026-10-08), Firebase documentation (updated 2026-10-08) and the package lists in Google's Maven repository (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://support.google.com/analytics/answer/1011397?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Data sharing settings",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "When you turn this setting ON, Google can access and analyze data"
+      },
+      {
+       "url": "https://support.google.com/analytics/answer/1011397?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Data sharing settings",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Google is, for GDPR purposes, an independent controller of such data"
+      },
+      {
+       "url": "https://firebase.google.com/docs/analytics/configure-data-collection?platform=android",
+       "type": "company_site",
+       "title": "Firebase documentation: Configure Analytics data collection and usage",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "your Analytics data may be eligible for use in personalized advertising"
+      },
+      {
+       "url": "https://dl.google.com/android/maven2/com/google/firebase/firebase-analytics/24.0.0/firebase-analytics-24.0.0.pom",
+       "type": "company_site",
+       "title": "Google Maven repository: firebase-analytics 24.0.0 (the Analytics SDK) declares a dependency on play-services-measurement-api",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "play-services-measurement-api"
+      },
+      {
+       "url": "https://dl.google.com/android/maven2/com/google/android/gms/play-services-measurement-api/24.0.0/play-services-measurement-api-24.0.0.pom",
+       "type": "company_site",
+       "title": "Google Maven repository: play-services-measurement-api 24.0.0 declares a dependency on play-services-measurement-sdk-api",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "play-services-measurement-sdk-api"
+      },
+      {
+       "url": "https://dl.google.com/android/maven2/com/google/android/gms/play-services-ads/25.5.0/play-services-ads-25.5.0.pom",
+       "type": "company_site",
+       "title": "Google Maven repository: play-services-ads 25.5.0 (the Google Mobile Ads SDK) declares a dependency on play-services-ads-api",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "play-services-ads-api"
+      },
+      {
+       "url": "https://dl.google.com/android/maven2/com/google/android/gms/play-services-ads-api/25.5.0/play-services-ads-api-25.5.0.pom",
+       "type": "company_site",
+       "title": "Google Maven repository: play-services-ads-api 25.5.0 declares a dependency on play-services-measurement-sdk-api",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "play-services-measurement-sdk-api"
+      }
+     ]
+    },
+    {
+     "text": "In 2025 a US federal jury found Google liable for invading the privacy of people who had turned off Web & App Activity, whose activity in other companies' apps still reached Google through its Firebase or Google Mobile Ads code. Judgment for about $425.7 million was entered in 2026; Google has appealed.",
+     "subject_company": "co-google",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "appeal_pending": true,
+     "wording": "Decided by a jury in a US federal court (verdict 2025-09-03, judgment 2026-03-02); under appeal.",
+     "procedural_note": {
+      "text": "The court denied Google's renewed motion for judgment as a matter of law on 2026-08-28. Google appealed to the Ninth Circuit on 2026-09-21 (No. 26-6237); the plaintiffs filed a conditional cross-appeal on 2026-10-05.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.1009.0_1.pdf",
+        "type": "lawsuit",
+        "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), order denying the renewed motions for judgment as a matter of law",
+        "as_of": "2026-08-28",
+        "status": "adjudicated",
+        "quote": "For the reasons set forth below, both motions are denied."
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.1017.0.pdf",
+        "type": "lawsuit",
+        "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), Google's notice of appeal",
+        "as_of": "2026-09-21",
+        "status": "adjudicated",
+        "quote": "Defendant Google LLC hereby appeals to the United States Court of Appeals for the Ninth Circuit from the final judgment entered on March 2, 2026"
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.1028.0.pdf",
+        "type": "lawsuit",
+        "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), plaintiffs' notice of conditional cross-appeal",
+        "as_of": "2026-10-05",
+        "status": "adjudicated",
+        "quote": "This is a conditional cross-appeal. … Google’s appeal from the final judgment (Case No. 26-6237)"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.725.0.pdf",
+       "type": "lawsuit",
+       "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), final judgment",
+       "as_of": "2026-03-02",
+       "status": "adjudicated",
+       "quote": "Final judgment is entered for Plaintiffs and against Google LLC on Plaintiffs’ claims for invasion of privacy and intrusion upon seclusion"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.666.0.pdf",
+       "type": "lawsuit",
+       "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), jury instructions (the two classes)",
+       "as_of": "2025-09-04",
+       "status": "adjudicated",
+       "quote": "whose activity on a non-Google-branded mobile app was still transmitted to Google … because of the Firebase Software Development Kit (“SDK”) and/or Google Mobile Ads SDK"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.1009.0_1.pdf",
+       "type": "lawsuit",
+       "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), order denying the renewed motions for judgment as a matter of law",
+       "as_of": "2026-08-28",
+       "status": "adjudicated",
+       "quote": "It awarded the class $425,651,947 in actual damages."
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

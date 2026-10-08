@@ -1,0 +1,188 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-312",
+   "aka": [
+    "Google Mobile Ads SDK",
+    "Google AdMob"
+   ],
+   "owner": "Alphabet Inc.",
+   "owner_company": "co-google",
+   "owner_chain": [
+    "Google LLC",
+    "Alphabet Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Google Mobile Ads SDK (AdMob)",
+   "categories": [
+    "advertising",
+    "identification"
+   ],
+   "data_collected": [
+    "IP address, which can be used to estimate the device's general location",
+    "interactions with the app and its ads: app launches, taps and video views",
+    "diagnostics: app launch time, hang rate and energy use",
+    "the Android advertising ID, the app set ID and, if applicable, signed-in account identifiers"
+   ],
+   "monetization_model": "Advertising: AdMob shows Google's ads in other companies' apps. The SDK sends Google identifiers and interactions for advertising, analytics and fraud prevention, and Google uses information from apps that use its ad services to measure and personalize ads (Google's AdMob documentation and its page on partner sites and apps).",
+   "data_flows": [
+    {
+     "id": "flow-admob-ids",
+     "data": "device_identifiers",
+     "recipient": "co-google",
+     "purpose": "Advertising, analytics and fraud prevention: your advertising ID, the app set ID and any signed-in account identifiers",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Google's AdMob documentation (updated 2026-10-07) and its page on information from partner apps (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "Collects Android advertising (ad) ID, app set ID"
+      },
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "for advertising, analytics, and fraud prevention"
+      },
+      {
+       "url": "https://policies.google.com/technologies/partner-sites?hl=en-US",
+       "type": "privacy_policy",
+       "title": "Google: How Google uses information from sites or apps that use our services",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "such as the name of the app and a unique identifier for advertising"
+      },
+      {
+       "url": "https://policies.google.com/technologies/partner-sites?hl=en-US",
+       "type": "privacy_policy",
+       "title": "Google: How Google uses information from sites or apps that use our services",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "measure the effectiveness of advertising … personalize content and ads you see"
+      }
+     ]
+    },
+    {
+     "id": "flow-admob-activity",
+     "data": "app_activity",
+     "recipient": "co-google",
+     "purpose": "Advertising, analytics and fraud prevention: when you open the app, and your taps and video views",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Google's AdMob documentation (updated 2026-10-07).",
+     "sources": [
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "Collects user product interactions and interaction information, including app launch, taps, and video views"
+      },
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "for advertising, analytics, and fraud prevention"
+      }
+     ]
+    },
+    {
+     "id": "flow-admob-location",
+     "data": "approximate_location",
+     "recipient": "co-google",
+     "purpose": "Your general location, estimated from your IP address, for advertising, analytics and fraud prevention",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Google's AdMob documentation (updated 2026-10-07).",
+     "sources": [
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "IP address, which may be used to estimate the general location of a device"
+      },
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "for advertising, analytics, and fraud prevention"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "A class action brought by parents alleges that Google's AdMob collected personal information from children under 13 in apps of Google Play's Designed for Families program, without their parents' consent, to target them with behavioural advertising. Google has agreed to pay $8.25 million to settle.",
+     "subject_company": "co-google",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "wording": "Alleged in a class action filed by parents on 2023-06-22 (not proven in court); the court let it go ahead in 2024, and Google agreed to settle.",
+     "procedural_note": {
+      "text": "Under the settlement, Google pays $8,250,000 into a fund for class members. The court granted preliminary approval on 2026-05-01 and set the final approval hearing for 2026-09-24.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.414466/gov.uscourts.cand.414466.91.0.pdf",
+        "type": "lawsuit",
+        "title": "A.B. v. Google LLC (N.D. Cal. No. 5:23-cv-03101), order granting preliminary approval of the class settlement",
+        "as_of": "2026-05-01",
+        "status": "alleged",
+        "quote": "defendants will make a $8,250,000 non-reversionary cash payment to create a settlement fund"
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.414466/gov.uscourts.cand.414466.91.0.pdf",
+        "type": "lawsuit",
+        "title": "A.B. v. Google LLC (N.D. Cal. No. 5:23-cv-03101), order granting preliminary approval of the class settlement",
+        "as_of": "2026-05-01",
+        "status": "alleged",
+        "quote": "A final approval hearing will be held on September 24, 2026"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.414466/gov.uscourts.cand.414466.91.0.pdf",
+       "type": "lawsuit",
+       "title": "A.B. v. Google LLC (N.D. Cal. No. 5:23-cv-03101), order granting preliminary approval of the class settlement",
+       "as_of": "2026-05-01",
+       "status": "alleged",
+       "quote": "alleging that defendants collected personal information from plaintiffs without parental consent in order to target these children with behavioral advertising"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.414466/gov.uscourts.cand.414466.91.0.pdf",
+       "type": "lawsuit",
+       "title": "A.B. v. Google LLC (N.D. Cal. No. 5:23-cv-03101), order granting preliminary approval of the class settlement",
+       "as_of": "2026-05-01",
+       "status": "alleged",
+       "quote": "Plaintiffs sued defendants on June 22, 2023 … The Court denied defendants’ motion to dismiss on June 18, 2024."
+      },
+      {
+       "url": "https://www.mediapost.com/publications/article/412017",
+       "type": "journalism",
+       "title": "MediaPost",
+       "as_of": "2026-01-14",
+       "status": "reported",
+       "quote": "Google has agreed to pay $8.25 million to resolve a class-action lawsuit"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

@@ -1,0 +1,337 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-354",
+   "aka": [
+    "X-Mode Social",
+    "Outlogic"
+   ],
+   "owner": "Landmark Media Enterprises",
+   "owner_company": "co-outlogic",
+   "owner_chain": [
+    "Outlogic (formerly X-Mode)",
+    "Digital Envoy",
+    "Landmark Media Enterprises"
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "X-Mode location SDK; in 2021 X-Mode moved its business to Outlogic, a wholly owned subsidiary of Digital Envoy, whose majority owner is Landmark Media Enterprises",
+   "categories": [
+    "location",
+    "advertising",
+    "profiling",
+    "identification"
+   ],
+   "data_collected": [
+    "precise location (latitude and longitude) with a timestamp",
+    "the advertising ID (MAID) and installation IDs",
+    "app usage data",
+    "nearby Bluetooth beacons"
+   ],
+   "monetization_model": "Paid app makers to embed its SDK (\"passive revenue\" for each device that shares its location, per the FTC), then licensed the raw location data, tied to advertising IDs, and audience segments built from it. Since 2021 the business runs as Outlogic, which licenses location data to ad networks, data resellers, financial institutions and governments (Outlogic's privacy notice).",
+   "sold_to": [
+    "advertisers and ad-tech companies",
+    "analytics, consulting and research firms",
+    "data aggregators and resellers",
+    "financial institutions",
+    "private government contractors",
+    "government entities"
+   ],
+   "data_flows": [
+    {
+     "id": "flow-xmode-location-sold",
+     "data": "precise_location",
+     "recipient": "co-outlogic",
+     "purpose": "Sold, tied to your advertising ID, to hundreds of clients, from advertisers and analytics firms to private government contractors",
+     "bucket": "goes_elsewhere",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "wording": "Settled with the US FTC (2024); X-Mode and Outlogic neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "X-Mode is a location data broker that sells consumer location data to hundreds of clients in industries ranging from real estate to finance, as well as private government … contractors",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "X-Mode licenses to third parties raw location data tied to unique persistent identifiers",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "the X-Mode SDK receives the device’s precise latitude and longitude, along with a timestamp",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "promising the app developers passive revenue for each consumer’s mobile device that allows the SDK to collect their location data",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "These third parties range from advertisers, software as a service (SaaS) companies, analytics firms, consulting firms, commercial and educational research organizations, and private government contractors.",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      }
+     ]
+    },
+    {
+     "id": "flow-xmode-outlogic-location",
+     "data": "precise_location",
+     "recipient": "co-outlogic",
+     "purpose": "Licensed to Outlogic's clients, among them ad networks, data resellers, financial institutions and governments; Outlogic says it may sell your phone's precise coordinates",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Outlogic's privacy notice, last updated January 2026.",
+     "sources": [
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "may receive and sell the precise latitude and longitude coordinates of your mobile device"
+      },
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "latitude-longitude coordinates compiled through GPS features of our SDK"
+      },
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Advertising networks … Data aggregators and resellers; … Financial institutions; Government entities"
+      },
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "license the information to assist businesses and governments with planning, physical security, information security"
+      }
+     ]
+    },
+    {
+     "id": "flow-xmode-outlogic-ids",
+     "data": "device_identifiers",
+     "recipient": "co-outlogic",
+     "purpose": "Shared with Outlogic's customers along with your location, and linked in \"identity\" graphs that help them find you across channels",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Outlogic's privacy notice, last updated January 2026.",
+     "sources": [
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "We share Advertising IDs, Installation IDs, Location Information … with our customers"
+      },
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Create “identity” graphs to assist our Clients in finding users across multiple channels"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2024 the US FTC barred X-Mode and its successor Outlogic from selling or sharing sensitive location data, such as visits to medical and reproductive health clinics, places of worship and domestic abuse shelters, and ordered them to delete the location data they had collected unless people consent or it is deidentified. The ban covers places in the US.",
+     "subject_company": "co-outlogic",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "wording": "Settled with the US FTC (2024); X-Mode and Outlogic neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "type": "regulator",
+       "title": "FTC press release: order with X-Mode and Outlogic finalized",
+       "as_of": "2024-04-12",
+       "status": "adjudicated",
+       "quote": "prohibiting data broker X-Mode and its successor Outlogic from sharing or selling any sensitive location data",
+       "wayback_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "wayback_date": "2026-09-08",
+       "verify_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order prohibits X-Mode and Outlogic from selling sensitive location data",
+       "as_of": "2024-01-09",
+       "status": "adjudicated",
+       "quote": "sensitive locations such as medical and reproductive health clinics, places of religious worship and domestic abuse shelters",
+       "wayback_url": "https://web.archive.org/web/20261001101243/https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data",
+       "wayback_date": "2026-10-01",
+       "verify_url": "https://web.archive.org/web/20261001101243/https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "type": "regulator",
+       "title": "FTC press release: order with X-Mode and Outlogic finalized",
+       "as_of": "2024-04-12",
+       "status": "adjudicated",
+       "quote": "delete or destroy all the location data it previously collected and any products developed from this data unless it obtains consumer consent or ensures the data has been deidentified",
+       "wayback_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "wayback_date": "2026-09-08",
+       "verify_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-D%26O.pdf",
+       "type": "regulator",
+       "title": "FTC proposed Decision and Order, X-Mode Social and Outlogic (Definition G, kept in the final order)",
+       "as_of": "2024-01-09",
+       "status": "adjudicated",
+       "quote": "“Sensitive Locations” means locations within the United States",
+       "wayback_url": "https://web.archive.org/web/20260425071833/https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-D%26O.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425071833/https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-D%26O.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      }
+     ]
+    },
+    {
+     "text": "The FTC also charged that X-Mode didn't tell people their location would be sold to private government contractors for national security purposes, and that from 2018 to 2020 it collected and sold location data from Android users who had opted out of ad personalization. The order doesn't cover data collected outside the US for federal agencies' national security work.",
+     "subject_company": "co-outlogic",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "wording": "Settled with the US FTC (2024); X-Mode and Outlogic neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "X-Mode failed to inform consumers that it would be selling data to government contractors for national security purposes.",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "From at least June 2018 to July 2020, X-Mode ingested the MAIDs, mobile location data, and flags of consumers who had enabled the “Opt out of Ads Personalization”",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "Respondents have collected and sold location data for the purposes of developing consumer profiles, surveilling consumers and targeting consumers with advertising even if consumers had opted-out of having their location data used for such purposes",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "collected outside the United States and used for … conducted by federal agencies or other federal entities is not Location Data",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-APCOAPC.pdf",
+       "type": "regulator",
+       "title": "FTC analysis of the proposed X-Mode consent order",
+       "as_of": "2024-01-09",
+       "status": "adjudicated",
+       "quote": "private government contractors for national security, and other data brokers",
+       "wayback_url": "https://web.archive.org/web/20251221150737/https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-APCOAPC.pdf",
+       "wayback_date": "2025-12-21",
+       "verify_url": "https://web.archive.org/web/20251221150737/https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-APCOAPC.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

@@ -1,0 +1,300 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-313",
+   "aka": [
+    "Unacast Pure SDK",
+    "Pure SDK"
+   ],
+   "owner": "Gravy Analytics, Inc.",
+   "owner_company": "co-unacast",
+   "owner_chain": [
+    "Unacast AS",
+    "Unacast, Inc.",
+    "Gravy Analytics, Inc."
+   ],
+   "jurisdiction": "NO",
+   "party": "third_party",
+   "product_line": "Unacast Pure SDK; Gravy Analytics, Inc. now does business as Unacast",
+   "categories": [
+    "location",
+    "advertising",
+    "identification"
+   ],
+   "data_collected": [
+    "precise location, collected in the background",
+    "nearby Wi-Fi networks and Bluetooth beacons (iBeacon, Eddystone)",
+    "the advertising ID",
+    "device details: maker, model, operating system, carrier codes, battery level"
+   ],
+   "monetization_model": "The Pure SDK sends location data to Unacast's cloud so that users can be targeted in other contexts (the SDK's documentation, last published November 2019). Unacast, now Gravy Analytics trading as Unacast, sells location-based data services to customers including advertisers, law enforcement and national security agencies, and says it may sell sensitive personal data (its privacy policy); its subsidiary Venntel sells location data to public sector customers (FTC).",
+   "sold_to": [
+    "advertisers and marketers",
+    "research, analytics and fraud-detection firms",
+    "law enforcement and national security customers",
+    "public sector customers, through Venntel"
+   ],
+   "data_flows": [
+    {
+     "id": "flow-unacast-pure-location",
+     "data": "precise_location",
+     "recipient": "co-unacast",
+     "purpose": "Collected in the background with nearby Wi-Fi networks and Bluetooth beacons, and sent to Unacast's cloud, where it can be used to target you in other contexts",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to the SDK's documentation, last published November 2019.",
+     "sources": [
+      {
+       "url": "https://github.com/unacast/pure-sdk",
+       "type": "company_site",
+       "title": "Unacast Pure SDK documentation (GitHub; last changed 2019-09-05)",
+       "as_of": "2019-09-05",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Location data is gathered and sent to the cloud for analysis"
+      },
+      {
+       "url": "https://github.com/unacast/pure-sdk",
+       "type": "company_site",
+       "title": "Unacast Pure SDK documentation (GitHub; last changed 2019-09-05)",
+       "as_of": "2019-09-05",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "makes it possible to target users in other contexts based on location data"
+      },
+      {
+       "url": "https://github.com/unacast/pure-sdk-android",
+       "type": "company_site",
+       "title": "Unacast Pure SDK documentation for Android (GitHub; last changed 2019-11-22, archived by Unacast on 2021-04-23)",
+       "as_of": "2019-11-22",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "the SDK will collect information about nearby wifis, geo location and BLE devices"
+      },
+      {
+       "url": "https://storage02.forbrukerradet.no/media/2020/01/mnemonic-security-test-report-v1.0.pdf",
+       "type": "research",
+       "title": "mnemonic for the Norwegian Consumer Council, \"Out of Control\" technical report (section 3.3.5)",
+       "as_of": "2020-01-14",
+       "status": "reported",
+       "quote": "The messages contain information about the current Wifi network, device, battery level, and location",
+       "single_source": true
+      },
+      {
+       "url": "https://storage02.forbrukerradet.no/media/2020/01/mnemonic-security-test-report-v1.0.pdf",
+       "type": "research",
+       "title": "mnemonic for the Norwegian Consumer Council, \"Out of Control\" technical report (section 3.3.5)",
+       "as_of": "2020-01-14",
+       "status": "reported",
+       "quote": "Data sent from the Perfect365 app to what we think is Unacast",
+       "single_source": true
+      }
+     ]
+    },
+    {
+     "id": "flow-unacast-pure-adid",
+     "data": "device_identifiers",
+     "recipient": "co-unacast",
+     "purpose": "Your advertising ID and device details, sent with every location event; Unacast's documentation doesn't say what the ID is used for",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to the SDK's documentation, last published November 2019.",
+     "sources": [
+      {
+       "url": "https://github.com/unacast/pure-sdk-android",
+       "type": "company_site",
+       "title": "Unacast Pure SDK documentation for Android (GitHub; last changed 2019-11-22, archived by Unacast on 2021-04-23)",
+       "as_of": "2019-11-22",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "All of these data are sent with each event regardless of type … \"adid\""
+      }
+     ]
+    },
+    {
+     "id": "flow-unacast-customers",
+     "data": "precise_location",
+     "recipient": "co-gravy-analytics",
+     "purpose": "Shared with Unacast's customers with your advertising ID, for advertising, research, law enforcement and national security; Unacast says it may sell your sensitive personal data",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Unacast's privacy policy, last updated September 2026.",
+     "sources": [
+      {
+       "url": "https://www.unacast.com/privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unacast Privacy Policy (Gravy Analytics, Inc. dba Unacast), last updated September 2026",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "share with our Customers your information, including your device’s location information, mobile advertising identifier"
+      },
+      {
+       "url": "https://www.unacast.com/privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unacast Privacy Policy (Gravy Analytics, Inc. dba Unacast), last updated September 2026",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "law enforcement and national security"
+      },
+      {
+       "url": "https://www.unacast.com/privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unacast Privacy Policy (Gravy Analytics, Inc. dba Unacast), last updated September 2026",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "We may sell your sensitive personal data"
+      }
+     ]
+    },
+    {
+     "id": "flow-venntel-us-agencies",
+     "data": "precise_location",
+     "recipient_label": "US federal agencies, including Immigration and Customs Enforcement, Customs and Border Protection and the Environmental Protection Agency",
+     "recipient_kind": "government_body",
+     "government_line": "has_bought",
+     "jurisdiction": "US",
+     "purpose": "Bought location data from Venntel, a subsidiary of this SDK's owner that the FTC says sells to public sector customers; no source says this SDK's data was part of it",
+     "bucket": "goes_elsewhere",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "wording": "Documented by the US FTC (2025) and by US federal contract records.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "Gravy Analytics focuses on selling this information to commercial customers, while its subsidiary, Venntel, sells the information to public sector customers.",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "targeted advertising, and selling it to the government",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      },
+      {
+       "url": "https://www.usaspending.gov/award/CONT_AWD_70CMSD18P00000127_7012_-NONE-_-NONE-",
+       "type": "filing",
+       "title": "USAspending.gov: purchase order 70CMSD18P00000127 (US Immigration and Customs Enforcement, 2018)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "DATA SERVICES SUBSCRIPTION … U.S. Immigration and Customs Enforcement … VENNTEL INC",
+       "verify_url": "https://api.usaspending.gov/api/v2/awards/CONT_AWD_70CMSD18P00000127_7012_-NONE-_-NONE-/"
+      },
+      {
+       "url": "https://www.usaspending.gov/award/CONT_AWD_70B02C20P00000521_7014_-NONE-_-NONE-",
+       "type": "filing",
+       "title": "USAspending.gov: purchase order 70B02C20P00000521 (US Customs and Border Protection, 2020)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "PURCHASE OF PORTAL (LICENSE) SEAT … U.S. Customs and Border Protection … VENNTEL INC",
+       "verify_url": "https://api.usaspending.gov/api/v2/awards/CONT_AWD_70B02C20P00000521_7014_-NONE-_-NONE-/"
+      },
+      {
+       "url": "https://www.usaspending.gov/award/CONT_AWD_68HE0B24P0493_6800_-NONE-_-NONE-",
+       "type": "filing",
+       "title": "USAspending.gov: purchase order 68HE0B24P0493 (US Environmental Protection Agency, 2024)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "ON DEMAND ACCESS TO AGGREGATED HUMAN MOBILITY DATA … Environmental Protection Agency … VENNTEL INC",
+       "verify_url": "https://api.usaspending.gov/api/v2/awards/CONT_AWD_68HE0B24P0493_6800_-NONE-_-NONE-/"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2025 the US FTC barred Gravy Analytics, which now trades as Unacast, and its subsidiary Venntel from selling, disclosing or using sensitive location data, except in limited national security and law enforcement cases. The FTC charged that they sold location data, including visits to health-related places and places of worship, without verifying people's consent.",
+     "subject_company": "co-gravy-analytics",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "wording": "Settled with the US FTC (2025); Gravy Analytics and Venntel neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers",
+       "type": "regulator",
+       "title": "FTC press release: action against Gravy Analytics and Venntel",
+       "as_of": "2024-12-03",
+       "status": "adjudicated",
+       "quote": "unlawfully tracking and selling sensitive location data from users, including selling data about consumers’ visits to health-related locations and places of worship",
+       "wayback_url": "https://web.archive.org/web/20260930012519/https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012519/https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers",
+       "type": "regulator",
+       "title": "FTC press release: action against Gravy Analytics and Venntel",
+       "as_of": "2024-12-03",
+       "status": "adjudicated",
+       "quote": "collecting and using consumers’ location data without obtaining verifiable user consent for commercial and government uses",
+       "wayback_url": "https://web.archive.org/web/20260930012519/https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012519/https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order with Gravy Analytics and Venntel finalized",
+       "as_of": "2025-01-14",
+       "status": "adjudicated",
+       "quote": "prohibited from selling, disclosing, or using sensitive location data except in limited circumstances involving national security or law enforcement",
+       "wayback_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      }
+     ]
+    },
+    {
+     "text": "In January 2025 Unacast told Norway's data protection authority that files had been stolen from a Gravy Analytics server using a misappropriated key; experts told Reuters the leaked location data appeared genuine.",
+     "subject_company": "co-gravy-analytics",
+     "status": "reported",
+     "wording": "Reported by Reuters (2025-01-11), one report.",
+     "sources": [
+      {
+       "url": "https://www.yahoo.com/news/location-tracking-company-unacast-tells-001837522.html",
+       "type": "journalism",
+       "title": "Reuters (via Yahoo News): Location tracking company Unacast tells Norway its data was hacked",
+       "as_of": "2025-01-11",
+       "status": "reported",
+       "quote": "confirmed to the Norwegian government that it was the victim of a hack",
+       "single_source": true
+      },
+      {
+       "url": "https://www.yahoo.com/news/location-tracking-company-unacast-tells-001837522.html",
+       "type": "journalism",
+       "title": "Reuters (via Yahoo News): Location tracking company Unacast tells Norway its data was hacked",
+       "as_of": "2025-01-11",
+       "status": "reported",
+       "quote": "leaked data published to the internet … appeared to be genuine",
+       "single_source": true
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
