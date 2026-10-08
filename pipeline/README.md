@@ -26,6 +26,54 @@ Build order (each is a separate script, each is idempotent):
 
 Serve for dev: `python3 -m http.server <port> --directory ../bundle` (see `android/README.md`).
 
+## The watcher
+
+`watch.py` notices change at the pages the reviewed records quote and at regulators' feeds, and puts it in
+front of a person: queue items in `watch/queue/` and a digest a day in `watch/digest/`. It never writes a
+record, a bundle file or anything in `reviewed/`; what it finds reaches the app only through review and a
+rebuild. The rules it keeps are in `../CLAUDE.md` ("The watcher").
+
+    python3 pipeline/watch.py poll [--adapter quote_drift|rss] [--dry-run]   # what's due; writes today's digest
+    python3 pipeline/watch.py digest [--date YYYY-MM-DD]
+    python3 pipeline/watch.py ack ITEM_ID [--note TEXT]                       # done with an item; it moves to acked/
+    python3 pipeline/watch.py status                                           # open items, parked URLs, the last check
+
+- `quote_drift` (`watch_quotes.py`), every 7 days: each page a reviewed record quotes, at its `verify_url` when
+  that is the publisher's own copy, otherwise at its `url` (an archived copy never changes). Each quote is
+  found with `check_quotes.py`'s own matching. Items: `quote_missing`; `context_changed` when the quote's
+  paragraph, or a neighbouring paragraph that reads as a full sentence (terminal punctuation, 40 characters or
+  more), changed, so related links and sidebars don't count; and `url_moved`. Every item shows the text within
+  300 characters of the quote, before and now. A page's first check compares with the copy `fetch_sources.py`
+  saved when the quote was verified. A copy the shared extractor can't read parks its URL with a note, and
+  `sources` in `watch/sources.json` can give a page its own `max_bytes` (5 MB otherwise).
+- `rss` (`watch_rss.py`), daily: the OPC's "Investigations into businesses" and BC OIPC's "Rulings and
+  Reports". An entry naming a recorded company, app or tracker is a `new_event`. The FTC's feed is not watched:
+  ftc.gov refuses the watcher (see `watch/sources.json`).
+- Failures: `fetch_failure` on a URL's first failed run, `parked` after three in a row or at once on a
+  robots.txt disallow (a 401 or 403 on robots.txt itself counts as one) or a 401, 403 or 451, and `refused` for
+  the denylist. A parked URL is checked again once its item is acked; a host that refuses for good belongs on
+  the denylist instead. Every digest ends with the parked and denylisted sources, for checking by hand before
+  each release.
+- Items follow `watch/queue-item.schema.json`: facts, never a status or a tier. Each finding is written once.
+- `watch/sources.json` (committed) holds the adapters, feeds, cadences and denylist. `watch/local.json`
+  (gitignored) holds `{"contact": "<email or URL>", "copy_to": "<folder>"}`; the contact goes in every
+  request's User-Agent, and without it the watcher refuses to run. `copy_to` is optional (Hermes reads the
+  digest there). `snapshots/`, `queue/`, `acked/` and `digest/` are gitignored: they hold other people's pages.
+
+The daily run is a launchd template, `watch/launchd/com.longlifeio.fineprint.watch.plist` (06:15 each day);
+it isn't installed by anything. To install it, from the repository's folder:
+
+```sh
+sed "s|__FINEPRINT__|$PWD|g" pipeline/watch/launchd/com.longlifeio.fineprint.watch.plist \
+  > ~/Library/LaunchAgents/com.longlifeio.fineprint.watch.plist
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.longlifeio.fineprint.watch.plist
+launchctl print gui/$(id -u)/com.longlifeio.fineprint.watch | head   # loaded?
+```
+
+`gui/` needs someone logged in at the Mac; on a Mac nobody logs in to, use `user/$(id -u)` in both commands.
+The run's output goes to `watch/digest/launchd.log`. `/usr/bin/python3` needs `requests` and `jsonschema`.
+To remove it: `launchctl bootout gui/$(id -u)/com.longlifeio.fineprint.watch`, then delete the file.
+
 ## Test APKs: where they come from
 
 APKs used to check detection (e.g. Life360 for `fp-arity`) are someone else's copyrighted code.

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- A template: one watcher run a day; each adapter applies its own every_days. __FINEPRINT__ stands for the
+     repository's folder. Install it as pipeline/README.md says ("The watcher"); nothing installs it for you. -->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.longlifeio.fineprint.watch</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/python3</string>
+		<string>__FINEPRINT__/pipeline/watch.py</string>
+		<string>poll</string>
+	</array>
+	<key>WorkingDirectory</key>
+	<string>__FINEPRINT__</string>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>6</integer>
+		<key>Minute</key>
+		<integer>15</integer>
+	</dict>
+	<key>StandardOutPath</key>
+	<string>__FINEPRINT__/pipeline/watch/digest/launchd.log</string>
+	<key>StandardErrorPath</key>
+	<string>__FINEPRINT__/pipeline/watch/digest/launchd.log</string>
+	<key>ProcessType</key>
+	<string>Background</string>
+	<key>LowPriorityIO</key>
+	<true/>
+</dict>
+</plist>

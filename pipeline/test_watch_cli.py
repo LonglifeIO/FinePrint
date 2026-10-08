@@ -56,6 +56,17 @@ class CliTest(unittest.TestCase):
             self.assertIn(rule, denylist)
 
 
+class LaunchdTest(unittest.TestCase):
+    def test_the_template_runs_one_poll_a_day(self):
+        import plistlib
+        with open(REPO / "pipeline" / "watch" / "launchd" / "com.longlifeio.fineprint.watch.plist", "rb") as f:
+            job = plistlib.load(f)
+        self.assertEqual(job["Label"], "com.longlifeio.fineprint.watch")
+        self.assertEqual(job["ProgramArguments"][1:], ["__FINEPRINT__/pipeline/watch.py", "poll"])
+        self.assertEqual(sorted(job["StartCalendarInterval"]), ["Hour", "Minute"])  # once a day; adapters keep their own every_days
+        self.assertTrue(job["StandardOutPath"].startswith("__FINEPRINT__/pipeline/watch/digest/"))  # gitignored
+
+
 class IgnoredTest(unittest.TestCase):
     def test_the_watchers_copies_are_ignored_and_never_tracked(self):
         try:
