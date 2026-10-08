@@ -1,0 +1,107 @@
+{
+ "companies": [
+  {
+   "id": "co-unity",
+   "name": "Unity Software Inc.",
+   "short_name": "Unity",
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1810806/000181080626000011/unity-20251231.htm",
+     "type": "filing",
+     "title": "Unity Software Inc., annual report on Form 10-K for 2025 (filed 2026-02-11)",
+     "as_of": "2026-02-11",
+     "status": "self_disclosed",
+     "verify_url": "https://web.archive.org/web/20260211122059id_/https://www.sec.gov/Archives/edgar/data/1810806/000181080626000011/unity-20251231.htm",
+     "quote": "UNITY SOFTWARE INC. (Exact name of registrant as specified in its charter) Delaware"
+    },
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1810806/000181080626000011/unity-20251231.htm",
+     "type": "filing",
+     "title": "Unity Software Inc., annual report on Form 10-K for 2025 (filed 2026-02-11)",
+     "as_of": "2026-02-11",
+     "status": "self_disclosed",
+     "verify_url": "https://web.archive.org/web/20260211122059id_/https://www.sec.gov/Archives/edgar/data/1810806/000181080626000011/unity-20251231.htm",
+     "quote": "116 New Montgomery Street San Francisco, California 94105-3607"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2021-04-12",
+     "title": "Rushing v. The Walt Disney Company (N.D. Cal. No. 3:17-cv-04419-JD): class settlement with Unity Technologies SF approved",
+     "body": "US District Court for the Northern District of California",
+     "type": "class_action",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "closed_date": "2021-04-12",
+     "subject_company": "co-unity",
+     "notes": "Final approval with no finding of wrongdoing. Unity's injunctive terms, which ran three years from the settlement's effective date: keep a COPPA flag; offer a contextual-ads-only setting, switched on for Designed for Families and Kids Category apps; delete advertising IDs it held from listed children's apps; let users opt out of interest-based ads.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.12.pdf",
+       "type": "lawsuit",
+       "title": "Rushing v. The Walt Disney Company (N.D. Cal. No. 3:17-cv-04419-JD), order granting final approval of the class settlement with Unity Technologies SF (filed as Dkt 406-12 in McDonald v. Kiloo ApS, No. 3:17-cv-04344-JD)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "By entering this Order, the Court does not make any finding of liability or wrongdoing as to Unity."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.12.pdf",
+       "type": "lawsuit",
+       "title": "Rushing v. The Walt Disney Company (N.D. Cal. No. 3:17-cv-04419-JD), order granting final approval of the class settlement with Unity Technologies SF (filed as Dkt 406-12 in McDonald v. Kiloo ApS, No. 3:17-cv-04344-JD)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "Unity agrees to continue to make available in the Unity advertising SDK dashboard the flag entitled “COPPA”"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.12.pdf",
+       "type": "lawsuit",
+       "title": "Rushing v. The Walt Disney Company (N.D. Cal. No. 3:17-cv-04419-JD), order granting final approval of the class settlement with Unity Technologies SF (filed as Dkt 406-12 in McDonald v. Kiloo ApS, No. 3:17-cv-04344-JD)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "the only advertising Unity will serve within that application is Contextual Advertising"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.12.pdf",
+       "type": "lawsuit",
+       "title": "Rushing v. The Walt Disney Company (N.D. Cal. No. 3:17-cv-04419-JD), order granting final approval of the class settlement with Unity Technologies SF (filed as Dkt 406-12 in McDonald v. Kiloo ApS, No. 3:17-cv-04344-JD)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "included in either the “Designed for Families” program in the Google Play Store or the “Kids Category” of the Apple App Store, Unity will automatically enable the Context Flag"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.12.pdf",
+       "type": "lawsuit",
+       "title": "Rushing v. The Walt Disney Company (N.D. Cal. No. 3:17-cv-04419-JD), order granting final approval of the class settlement with Unity Technologies SF (filed as Dkt 406-12 in McDonald v. Kiloo ApS, No. 3:17-cv-04344-JD)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "any Identifier for Advertising (IDFA) and Google Advertising ID (AAID) within Unity’s possession shall be deleted, deidentified, or aggregated"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.12.pdf",
+       "type": "lawsuit",
+       "title": "Rushing v. The Walt Disney Company (N.D. Cal. No. 3:17-cv-04419-JD), order granting final approval of the class settlement with Unity Technologies SF (filed as Dkt 406-12 in McDonald v. Kiloo ApS, No. 3:17-cv-04344-JD)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "a tool to allow them to opt out of receiving future interest-based advertising from Unity’s advertising network"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.12.pdf",
+       "type": "lawsuit",
+       "title": "Rushing v. The Walt Disney Company (N.D. Cal. No. 3:17-cv-04419-JD), order granting final approval of the class settlement with Unity Technologies SF (filed as Dkt 406-12 in McDonald v. Kiloo ApS, No. 3:17-cv-04344-JD)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "The injunctive relief set forth in this Order shall remain in effect for a period of three years from the Effective Date"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
