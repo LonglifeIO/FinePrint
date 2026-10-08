@@ -1,0 +1,144 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-285",
+   "aka": [
+    "Placer SDK",
+    "Placer.ai",
+    "placer.io"
+   ],
+   "owner": "Placer Labs, Inc.",
+   "owner_company": "co-placer",
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Placer's SDK in other companies' apps; Placer Labs runs the Placer.ai foot-traffic analytics platform, formerly at placer.io",
+   "categories": [
+    "location",
+    "analytics"
+   ],
+   "data_collected": [
+    "geolocation and proximity data, and time spent near points of interest, from beacon, Wi-Fi and other signals",
+    "time and date information"
+   ],
+   "monetization_model": "Placer runs a foot-traffic analytics platform for customers such as retailers, brands, researchers and ad agencies; its policy says they see only aggregated data and that it doesn't sell personal information (Placer's privacy policy for consumers, updated 2026-04-15).",
+   "data_flows": [
+    {
+     "id": "flow-placer-location",
+     "data": "precise_location",
+     "recipient": "co-placer",
+     "purpose": "Your precise location and time spent near places, which Placer says arrive without your advertising ID, for foot-traffic analytics for retailers, brands, researchers and ad agencies",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Placer's privacy policy for consumers, updated 2026-04-15.",
+     "sources": [
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "geolocation data, which is scrubbed of any identifiers such as MAIDs"
+      },
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "dwell time near points of interest"
+      },
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "Sensitive Personal Information (Precise Geolocation) … Yes"
+      },
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "Placer Customers may be retail stores, restaurants, brands, researchers, and advertising agencies"
+      },
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "We do not sell personal information to, or share personal information with, third parties"
+      },
+      {
+       "url": "https://techcrunch.com/2024/08/05/placer-ai-boosts-valuation-to-1-5b-after-quietly-raising-another-75m/",
+       "type": "journalism",
+       "title": "TechCrunch",
+       "as_of": "2024-08-05",
+       "status": "reported",
+       "quote": "an SDK that it installs with hundreds of app publishers"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2022 Motherboard reported that Placer.ai's platform gave approximate heat maps of where visitors to abortion clinics lived. Placer told a US senator that data on 17 Planned Parenthood locations was looked up between 2020 and 2022, some of it by journalists, and it removed the ability to search them.",
+     "status": "reported",
+     "historical": true,
+     "wording": "Reported by Motherboard (Vice), 2022.",
+     "sources": [
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "providing heatmaps of approximately where abortion clinic visitors live",
+       "single_source": true
+      },
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "between 2020 and 2022, data on 17 Planned Parenthood locations was accessed",
+       "single_source": true
+      },
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "removed the ability to search for Planned Parenthood related data on its website",
+       "single_source": true
+      },
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "Placer.ai wrote in a letter addressed to Senator Elizabeth Warren in June",
+       "single_source": true
+      },
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "Some of those instances would have included Motherboard and reporters from The Markup",
+       "single_source": true
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

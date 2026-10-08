@@ -1,0 +1,33 @@
+{
+ "companies": [
+  {
+   "id": "co-placer",
+   "name": "Placer Labs, Inc.",
+   "short_name": "Placer.ai",
+   "jurisdiction": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.placer.ai/terms-of-service",
+     "type": "company_site",
+     "title": "Placer.ai Terms of Service",
+     "as_of": "2022-12-27",
+     "status": "self_disclosed",
+     "quote": "Placer Labs, Inc., a Delaware corporation"
+    },
+    {
+     "url": "https://www.placer.ai/terms-of-service",
+     "type": "company_site",
+     "title": "Placer.ai Terms of Service",
+     "as_of": "2022-12-27",
+     "status": "self_disclosed",
+     "quote": "the website located at http://placer.io … software development kit (SDK) as integrated into mobile apps"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
