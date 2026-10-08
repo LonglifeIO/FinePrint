@@ -1,0 +1,128 @@
+{
+ "companies": [
+  {
+   "id": "co-ironsource",
+   "name": "ironSource Ltd.",
+   "short_name": "ironSource",
+   "parent": "co-unity",
+   "jurisdiction": "IL",
+   "headquarters": "IL",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1810806/000181080626000011/ex211-q42025subsidiaries.htm",
+     "type": "filing",
+     "title": "Unity Software Inc., subsidiaries (Exhibit 21.1 to the annual report for 2025, filed 2026-02-11)",
+     "as_of": "2026-02-11",
+     "status": "self_disclosed",
+     "verify_url": "https://web.archive.org/web/20260211121730id_/https://www.sec.gov/Archives/edgar/data/1810806/000181080626000011/ex211-q42025subsidiaries.htm",
+     "quote": "ironSource Ltd. Israel"
+    },
+    {
+     "url": "https://unity.com/legal/game-player-and-app-user-privacy-policy",
+     "type": "privacy_policy",
+     "title": "Unity Game Player and App User Privacy Policy",
+     "as_of": "2025-07-24",
+     "status": "self_disclosed",
+     "quote": "including ironSource which is headquartered in Israel"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2021-04-12",
+     "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD): class settlement with ironSource USA, Inc. approved",
+     "body": "US District Court for the Northern District of California",
+     "type": "class_action",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "closed_date": "2021-04-12",
+     "subject_company": "co-ironsource",
+     "notes": "Final approval with no finding of wrongdoing; amended on 2021-08-16. For US devices, ironSource agreed to serve only contextual ads, without persistent identifiers or street-level location, in Subway Surfers and other children's apps, and to make developers certify whether apps are directed to children under 13.",
+     "procedural_note": {
+      "text": "On 2021-08-16 the court amended the order to correct a drafting error in the term on developers re-confirming their children's settings after SDK updates.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.410.0.pdf",
+        "type": "lawsuit",
+        "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), stipulation and order amending the final approval order with ironSource (Dkt 410)",
+        "as_of": "2021-08-16",
+        "status": "adjudicated",
+        "quote": "ironSource became aware of a drafting error to Paragraph 19(C) of the Final Approval Order"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "By entering this Order, the Court does not make any finding of liability or wrongdoing as to Defendant."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "that the Defendants worked in concert to surreptitiously collect Class Members’ children’s personal data for commercial purposes by embedding SDKs"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "who are under the age of 13, or were under the age of 13 when they played Subway Surfers"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "shall only apply to devices located in the United States as determined by Internet Protocol (IP) address"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "limit its ad network advertising service exclusively to Contextual Advertising"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "any persistent identifier (hashed or otherwise) that can be used to recognize a user or a user’s device over time"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "any geolocation information sufficient to identify street name and name of a city or town"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "Require Developers to click a button certifying yes/no that a particular application is directed at children under 13"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
