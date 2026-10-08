@@ -1,0 +1,26 @@
+{
+ "companies": [
+  {
+   "id": "co-branch",
+   "name": "Branch Metrics, Inc.",
+   "short_name": "Branch",
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://legal.branch.io/saas/privacy-policy/",
+     "type": "privacy_policy",
+     "title": "Branch Privacy Policy (version 8.6)",
+     "as_of": "2025-09-15",
+     "status": "self_disclosed",
+     "quote": "Branch Metrics, Inc. 1975 W El Camino Real Ste. 102 Mountain View, CA 94040"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
