@@ -42,14 +42,22 @@ def words(quote: str) -> int:
     return sum(1 for token in quote.replace("…", " ").split() if re.search(r"\w", token))
 
 
-def found_in_order(text: str, quote: str) -> bool:
-    page, pos = fold(text), 0
+def locate(page: str, quote: str) -> tuple[int, int] | None:
+    """Where the quote sits in an already folded page: from its first fragment's start to its last
+    fragment's end, or None if any fragment is missing or out of order. The watcher uses this too, so
+    the build and the watcher always agree on whether a quote matches."""
+    start, pos = None, 0
     for fragment in (fold(f) for f in quote.split("…")):
         at = page.find(fragment, pos)
         if not fragment or at < 0:
-            return False
+            return None
+        start = at if start is None else start
         pos = at + len(fragment)
-    return True
+    return (start, pos) if start is not None else None
+
+
+def found_in_order(text: str, quote: str) -> bool:
+    return locate(fold(text), quote) is not None
 
 
 def public_domain(url: str) -> bool:

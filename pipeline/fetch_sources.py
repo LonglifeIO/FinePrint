@@ -98,19 +98,22 @@ def text_of(raw: Path, content_type: str = "") -> str:
     return text_of_html(text) if raw.suffix == ".html" else text
 
 
+def suffix_for(ctype: str, content: bytes) -> str:
+    """The file type a page is saved as, which decides how text_of reads it (ctype in lower case)."""
+    if "pdf" in ctype or content[:5] == b"%PDF-":
+        return ".pdf"
+    if "wordprocessingml" in ctype:  # before "xml": the Word type is application/vnd.openxmlformats-…
+        return ".docx"
+    if "json" in ctype:
+        return ".json"
+    if "html" in ctype or "xml" in ctype:
+        return ".html"
+    return ".raw"
+
+
 def save(name: str, url: str, resp: requests.Response) -> dict:
     ctype = resp.headers.get("content-type", "").lower()
-    if "pdf" in ctype or resp.content[:5] == b"%PDF-":
-        suffix = ".pdf"
-    elif "wordprocessingml" in ctype:  # before "xml": the Word type is application/vnd.openxmlformats-…
-        suffix = ".docx"
-    elif "json" in ctype:
-        suffix = ".json"
-    elif "html" in ctype or "xml" in ctype:
-        suffix = ".html"
-    else:
-        suffix = ".raw"
-    raw = OUT / f"{name}{suffix}"
+    raw = OUT / f"{name}{suffix_for(ctype, resp.content)}"
     raw.write_bytes(resp.content)
     (OUT / f"{name}.txt").write_text(text_of(raw, ctype), encoding="utf-8")
     return {

@@ -34,6 +34,13 @@ class QuoteTest(unittest.TestCase):
         self.assertFalse(check_quotes.found_in_order(page, "to personalize ads … We’ll use information"))
         self.assertFalse(check_quotes.found_in_order(page, "We’ll use information …  … ads"))
 
+    def test_locate_spans_the_quote_in_the_folded_page(self):
+        page = check_quotes.fold("Intro.  We’ll use information that partners provide us to personalize ads. End.")
+        start, end = check_quotes.locate(page, SOURCE["quote"])
+        self.assertEqual(page[start:end], "We'll use information that partners provide us to personalize ads")
+        self.assertIsNone(check_quotes.locate(page, "to personalize ads … We’ll use information"))
+        self.assertIsNone(check_quotes.locate(page, ""))
+
     def test_curly_quotes_dashes_and_whitespace_fold(self):
         self.assertTrue(check_quotes.found_in_order("the “Services” – apps, sites", '"Services" - apps, sites'))
         # A link's closing tag leaves a space before the comma in the saved text.
@@ -99,6 +106,13 @@ class FetchTest(unittest.TestCase):
                 self.assertEqual((Path(d) / "law.txt").read_text(encoding="utf-8"), "第七条　任何组织和公民\nA & B")
             finally:
                 fetch_sources.OUT = out
+
+    def test_a_page_is_saved_by_its_type(self):
+        self.assertEqual(fetch_sources.suffix_for("application/octet-stream", b"%PDF-1.7"), ".pdf")
+        self.assertEqual(fetch_sources.suffix_for("application/vnd.openxmlformats-officedocument.wordprocessingml.document", b"PK"), ".docx")
+        self.assertEqual(fetch_sources.suffix_for("application/json; charset=utf-8", b"{}"), ".json")
+        self.assertEqual(fetch_sources.suffix_for("application/rss+xml", b"<rss/>"), ".html")
+        self.assertEqual(fetch_sources.suffix_for("text/plain", b"law"), ".raw")
 
     def test_list_lines(self):
         with tempfile.TemporaryDirectory() as d:
