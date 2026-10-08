@@ -1,0 +1,310 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-127",
+   "aka": [
+    "Kochava SDK",
+    "Free App Analytics (FAA)"
+   ],
+   "owner": "Kochava Inc.",
+   "owner_company": "co-kochava",
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Kochava's measurement SDK for app developers (attribution and analytics), including its free plan, Free App Analytics; the Kochava Collective data marketplace is a separate line of business",
+   "categories": [
+    "analytics",
+    "advertising",
+    "identification"
+   ],
+   "data_collected": [
+    "Google, Amazon Fire and Huawei advertising IDs, and the Google app set ID",
+    "a Kochava ID scoped to the install, and the device's user agent",
+    "IP address, from which Kochava derives a general location",
+    "app details: name, package, version, install date and source, whether notifications are on",
+    "device details such as model, operating system version and orientation",
+    "the first launch, sessions and events the app measures"
+   ],
+   "monetization_model": "Kochava sells measurement and attribution to app developers, and runs a data marketplace, the Kochava Collective, through its subsidiary Collective Data Solutions. Under a 2025 class settlement, data the SDK collects may be used only for the app that collected it (Kochava's 2022 open letter; court order of 2025-11-14).",
+   "data_flows": [
+    {
+     "id": "flow-kochava-ids",
+     "data": "device_identifiers",
+     "recipient": "co-kochava",
+     "purpose": "Your advertising ID, app set ID and an ID for this install, used to work out which ad led to the install and to remove duplicates, for the app's developer",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Kochava's SDK documentation (updated 2025-05-20) and a 2025 court-approved settlement.",
+     "sources": [
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "primarily used for attribution and install deduplication … Google Advertising ID … Google App Set ID"
+      },
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "Kochava’s internal identifier, which is scoped to the current install, rather than the device"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "restrictions limiting any SDK-collected data to use by the originating app developer"
+      }
+     ]
+    },
+    {
+     "id": "flow-kochava-location",
+     "data": "approximate_location",
+     "recipient": "co-kochava",
+     "purpose": "Your general location, worked out from your IP address, for the developer's analytics and reports",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Kochava's SDK documentation (updated 2025-05-20).",
+     "sources": [
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "The IP address is used to derive a general location for purposes of analytics"
+      }
+     ]
+    },
+    {
+     "id": "flow-kochava-activity",
+     "data": "app_activity",
+     "recipient": "co-kochava",
+     "purpose": "When you first open the app, your sessions, and events the developer chooses to measure, for its analytics and reports",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Kochava's SDK documentation (updated 2025-05-20).",
+     "sources": [
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "the first app launch, user session envelopes, and … measuring an event"
+      },
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "They are used primarily for your analytics and reporting"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2026 a US federal court entered an order, agreed with the US FTC, that for 10 years bars Kochava and its data marketplace subsidiary from selling or sharing location data tied to sensitive places in the US, such as medical facilities, places of worship and shelters. The FTC had charged that Kochava sold such data; Kochava neither admitted nor denied it.",
+     "subject_company": "co-kochava",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "wording": "Settled with the US FTC: a court order entered 2026-06-25. Kochava neither admitted nor denied the charges.",
+     "procedural_note": {
+      "text": "The FTC sued in 2022 and also charged that Kochava's free SDK sent it what people did in apps, which it sold. The court dismissed the first complaint with leave to amend in 2023 and refused to dismiss the amended complaints in 2024 and 2025.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.86.0_1.pdf",
+        "type": "regulator",
+        "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), the FTC's second amended complaint",
+        "as_of": "2024-07-15",
+        "status": "alleged",
+        "quote": "When a consumer uses a mobile app in which Kochava’s FAA SDK has been included, the FAA SDK passes information to Kochava about the user’s activity on the app."
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.24.0_1.pdf",
+        "type": "lawsuit",
+        "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+        "as_of": "2023-05-04",
+        "status": "alleged",
+        "quote": "IT IS ORDERED that Defendant’s Motion to Dismiss (Dkt. 7) is GRANTED with leave to amend."
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.71.0.pdf",
+        "type": "lawsuit",
+        "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+        "as_of": "2024-02-03",
+        "status": "alleged",
+        "quote": "IT IS ORDERED that Kochava’s Motion to Dismiss First Amended Complaint Pursuant to Fed. R. Civ. P. 12(b)(6) (Dkts. 33 & 34) is DENIED."
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.101.0_1.pdf",
+        "type": "lawsuit",
+        "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+        "as_of": "2025-02-03",
+        "status": "alleged",
+        "quote": "Defendant’s Motion to Dismiss Second Amended Complaint (Dkt. 96) is DENIED."
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "must not sell, license, transfer, share, or disclose in any products or services Sensitive Location Data"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "(1) medical facilities; (2) religious organizations"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "providing temporary shelter or social services to homeless, or survivors of domestic violence"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "Defendants neither admit nor deny any of the allegations in the Complaint"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "this Order will terminate 10 years from the date it is entered by the Court. … DATED: June 25, 2026"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.86.0_1.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), the FTC's second amended complaint",
+       "as_of": "2024-07-15",
+       "status": "alleged",
+       "quote": "Kochava is a data broker, and its business is to sell information about consumers."
+      }
+     ]
+    },
+    {
+     "text": "In 2025 a US federal court approved Kochava's settlement of a class action brought for people who said Kochava sold their data, including location, without consent. Kochava must keep data its SDK collects for the app that collected it, delete older SDK data it kept for itself, and filter out location data tied to sensitive places. Kochava denied the claims.",
+     "subject_company": "co-kochava",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "in_force": true,
+     "wording": "A class action settled with a court's approval on 2025-11-14; Kochava denied the claims.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "all persons over the age of 18 in the United States whose data, including but not limited to their geolocation data, was sold by Kochava without their consent"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "restrictions limiting any SDK-collected data to use by the originating app developer; and permanent deletion of legacy SDK data retained for Kochava’s own benefit"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "a “privacy block” that filters and prevents dissemination of location data associated with Sensitive Locations"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "Defendant denies the material factual allegations and legal claims asserted by Settlement Class Representatives in this Action"
+      },
+      {
+       "url": "https://www.mediapost.com/publications/article/410644/kochava-privacy-settlement-granted-final-approval.html",
+       "type": "journalism",
+       "title": "MediaPost",
+       "as_of": "2025-11-12",
+       "status": "reported",
+       "quote": "Kochava specifically agreed to an injunction that will last for two years"
+      }
+     ]
+    },
+    {
+     "text": "Kochava said in 2019 that data from apps on its free plan, Free App Analytics, was the backbone of its data marketplace, the Kochava Collective, while paying clients' data was kept apart; in 2020 it told free-plan apps to say they may sell identifiers and geolocation data to third parties. FinePrint can't see which plan an app uses.",
+     "status": "self_disclosed",
+     "historical": true,
+     "wording": "According to Kochava's 2019 press release and 2020 notice to Free App Analytics customers; a 2025 settlement now limits SDK data to the app that collected it.",
+     "sources": [
+      {
+       "url": "https://www.prnewswire.com/in/news-releases/kochava-collective-provides-audience-insights-and-data-enrichment-at-scale-804325013.html",
+       "type": "company_site",
+       "title": "Kochava press release: Kochava Collective provides audience insights and data enrichment at scale",
+       "as_of": "2019-03-08",
+       "status": "self_disclosed",
+       "quote": "Kochava retains first-party data rights for these Free App Analytics accounts"
+      },
+      {
+       "url": "https://www.prnewswire.com/in/news-releases/kochava-collective-provides-audience-insights-and-data-enrichment-at-scale-804325013.html",
+       "type": "company_site",
+       "title": "Kochava press release: Kochava Collective provides audience insights and data enrichment at scale",
+       "as_of": "2019-03-08",
+       "status": "self_disclosed",
+       "quote": "this data is the backbone that has fueled the Kochava Collective"
+      },
+      {
+       "url": "https://www.prnewswire.com/in/news-releases/kochava-collective-provides-audience-insights-and-data-enrichment-at-scale-804325013.html",
+       "type": "company_site",
+       "title": "Kochava press release: Kochava Collective provides audience insights and data enrichment at scale",
+       "as_of": "2019-03-08",
+       "status": "self_disclosed",
+       "quote": "Kochava enterprise client data is processed and stored independently from the Collective"
+      },
+      {
+       "url": "https://www.kochava.com/blog/all-faa-customers-important-steps-related-to-your-user-privacy-policy-consent-management/",
+       "type": "company_site",
+       "title": "Kochava blog: All FAA customers, important steps related to your user privacy policy and consent management",
+       "as_of": "2020-03-03",
+       "status": "self_disclosed",
+       "quote": "may sell it to third parties: identifiers … geolocation data"
+      },
+      {
+       "url": "https://www.kochava.com/blog/open-letter-from-kochava-ceo/",
+       "type": "company_site",
+       "title": "Kochava blog: Open letter from Kochava CEO",
+       "as_of": "2022-09-20",
+       "status": "self_disclosed",
+       "quote": "no precision geo data in the data marketplace that originates from the Kochava SDK"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

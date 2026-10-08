@@ -1,0 +1,214 @@
+{
+ "companies": [
+  {
+   "id": "co-kochava",
+   "name": "Kochava Inc.",
+   "short_name": "Kochava",
+   "subsidiaries": [
+    "Collective Data Solutions, LLC"
+   ],
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50612/gov.uscourts.idd.50612.1.0.pdf",
+     "type": "lawsuit",
+     "title": "Kochava Inc. v. FTC (D. Idaho No. 2:22-cv-00349), Kochava's complaint",
+     "as_of": "2022-08-12",
+     "status": "self_disclosed",
+     "quote": "Kochava is a Delaware corporation with its corporate headquarters at 201 Church Street, Sandpoint"
+    },
+    {
+     "url": "https://www.kochava.com/legal/website-visitor-privacy-policy/",
+     "type": "privacy_policy",
+     "title": "Kochava Website Visitor Privacy Policy",
+     "as_of": "2026-10-01",
+     "status": "self_disclosed",
+     "quote": "201 Church Street, Sandpoint, ID 83864"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2026-06-25",
+     "title": "FTC v. Kochava Inc. and Collective Data Solutions, LLC (D. Idaho No. 2:22-cv-00377): stipulated order",
+     "body": "US District Court for the District of Idaho, in a case brought by the US Federal Trade Commission",
+     "type": "order",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "subject_company": "co-kochava",
+     "notes": "Filed 2022-08-29. The first complaint was dismissed with leave to amend (2023-05-04); motions to dismiss the amended complaints were denied (2024-02-03, 2025-02-03). The order bars selling or sharing location data tied to sensitive places in the US and runs 10 years. Collective Data Solutions, which took over part of the data business in 2023, is bound too. Kochava's own 2022 suit against the FTC was dismissed on 2023-05-03.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "must not sell, license, transfer, share, or disclose in any products or services Sensitive Location Data"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "this Order will terminate 10 years from the date it is entered by the Court. … DATED: June 25, 2026"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "Defendants neither admit nor deny any of the allegations in the Complaint"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.86.0_1.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), the FTC's second amended complaint",
+       "as_of": "2024-07-15",
+       "status": "alleged",
+       "quote": "In or around July 2023, Kochava transferred at least part of its data broker business to its wholly-owned subsidiary, Defendant Collective Data Solutions, LLC (“CDS”)."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.24.0_1.pdf",
+       "type": "lawsuit",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+       "as_of": "2023-05-04",
+       "status": "alleged",
+       "quote": "IT IS ORDERED that Defendant’s Motion to Dismiss (Dkt. 7) is GRANTED with leave to amend."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.71.0.pdf",
+       "type": "lawsuit",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+       "as_of": "2024-02-03",
+       "status": "alleged",
+       "quote": "IT IS ORDERED that Kochava’s Motion to Dismiss First Amended Complaint Pursuant to Fed. R. Civ. P. 12(b)(6) (Dkts. 33 & 34) is DENIED."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.101.0_1.pdf",
+       "type": "lawsuit",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+       "as_of": "2025-02-03",
+       "status": "alleged",
+       "quote": "Defendant’s Motion to Dismiss Second Amended Complaint (Dkt. 96) is DENIED."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50612/gov.uscourts.idd.50612.18.0_1.pdf",
+       "type": "lawsuit",
+       "title": "Kochava Inc. v. FTC (D. Idaho No. 2:22-cv-00349), memorandum decision and order",
+       "as_of": "2023-05-03",
+       "status": "adjudicated",
+       "quote": "IT IS ORDERED that the FTC’s Motion to Dismiss (Dkt. 12) is GRANTED without leave to amend. This case is dismissed."
+      }
+     ]
+    },
+    {
+     "date": "2025-11-14",
+     "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058): class settlement approved",
+     "body": "US District Court for the District of Idaho",
+     "type": "class_action",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "in_force": true,
+     "subject_company": "co-kochava",
+     "notes": "Consolidated suits filed in 2022 and 2023, including Maattala's from Massachusetts. Injunctive relief only: a privacy block for sensitive locations, SDK data limited to the app that collected it, deletion of older SDK data kept for Kochava's own benefit, an opt-out list, and consent checks on data suppliers. Class members keep their right to seek damages.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "restrictions limiting any SDK-collected data to use by the originating app developer; and permanent deletion of legacy SDK data retained for Kochava’s own benefit"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "a “privacy block” that filters and prevents dissemination of location data associated with Sensitive Locations"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "a consumer opt-out and … blacklisting mechanism to prevent future ingestion or sale of covered data"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "a verification process requiring Kochava to obtain representative consent prompts from data suppliers"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "the Releasing Parties do not release claims for monetary relief or damages"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "Defendant denies the material factual allegations and legal claims asserted by Settlement Class Representatives in this Action"
+      }
+     ]
+    },
+    {
+     "date": "2022-09-06",
+     "title": "Greenley v. Kochava, Inc. (S.D. Cal. No. 3:22-cv-01327)",
+     "body": "US District Court for the Southern District of California",
+     "type": "class_action",
+     "status": "alleged",
+     "status_kind": "dismissed",
+     "closed_date": "2024-10-17",
+     "subject_company": "co-kochava",
+     "notes": "Alleged that Kochava's SDK secretly collected app users' data, which Kochava sold for advertising (not proven in court). The court let part of the case go ahead on 2023-07-27; it was dismissed without prejudice by agreement on 2024-10-17.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.741822/gov.uscourts.casd.741822.27.0.pdf",
+       "type": "lawsuit",
+       "title": "Greenley v. Kochava, Inc. (S.D. Cal. No. 3:22-cv-01327), order on the motion to dismiss",
+       "as_of": "2023-07-27",
+       "status": "alleged",
+       "quote": "Defendant coded its SDK for data collection and embedded it in third-party apps; the SDK secretly collected app users’ data"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.741822/gov.uscourts.casd.741822.27.0.pdf",
+       "type": "lawsuit",
+       "title": "Greenley v. Kochava, Inc. (S.D. Cal. No. 3:22-cv-01327), order on the motion to dismiss",
+       "as_of": "2023-07-27",
+       "status": "alleged",
+       "quote": "Court GRANTS IN PART and DENIES IN PART Defendant’s Motion to Dismiss"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.741822/gov.uscourts.casd.741822.87.0.pdf",
+       "type": "lawsuit",
+       "title": "Greenley v. Kochava, Inc. (S.D. Cal. No. 3:22-cv-01327), order granting the joint motion to dismiss",
+       "as_of": "2024-10-17",
+       "status": "alleged",
+       "quote": "the Court DISMISSES WITHOUT PREJUDICE the action against Defendant"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
