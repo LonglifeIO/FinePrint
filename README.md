@@ -138,6 +138,10 @@ Logged for later:
 - v2: data exports the user supplies (Facebook's "Download your information", Google Takeout),
   read on the phone to check the in-app settings they report, the same pattern as the iOS App
   Privacy Report import.
+- The watcher's slice 2 (archived copies for parked hosts, more regulator and court sources,
+  app-version signals): `pipeline/README.md`, "Watcher: slice 2".
+- Sources sheet: an archived-copy link beside each source, so a cited page that goes dead for users
+  still opens.
 
 ## Licence
 

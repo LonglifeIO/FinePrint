@@ -74,6 +74,20 @@ launchctl print gui/$(id -u)/com.longlifeio.fineprint.watch | head   # loaded?
 The run's output goes to `watch/digest/launchd.log`. `/usr/bin/python3` needs `requests` and `jsonschema`.
 To remove it: `launchctl bootout gui/$(id -u)/com.longlifeio.fineprint.watch`, then delete the file.
 
+## Watcher: slice 2
+
+Not built yet:
+
+- Wayback latest-capture mode for parked hosts, so pages like TikTok's are still compared through the
+  archive's copies.
+- CourtListener via its API and alerts (read the current rate limit from Free Law's docs when you get
+  there).
+- Justice Laws bulk XML.
+- LEGISinfo.
+- EUR-Lex custom RSS per watched act.
+- FTC actions through the Federal Register API, since ftc.gov blocks the watcher.
+- App-version signals.
+
 ## Test APKs: where they come from
 
 APKs used to check detection (e.g. Life360 for `fp-arity`) are someone else's copyrighted code.
