@@ -78,8 +78,8 @@ class WhatYouCanDoTest {
             1, 1, 1, emptyList(),
         )
         val c = whatYouCanDo(life360, explain(life360, scan, real, emptyMap()), real.apps.getValue(life360.packageName), real.permissions.mapValues { it.value.feeds }, emptySet())
-        // Six current lines from Life360's record and Arity's alleged line; AdMob's lines restate the ad-partner flows.
-        assertEquals("3 of 7 flows limited by your settings", c.summary)
+        // Six current lines from Life360's record, Arity's alleged line and AdMob's three from Google's own disclosure.
+        assertEquals("3 of 10 flows limited by your settings", c.summary)
         val choices = c.items.single { it.id == "ctl-l360-privacy-choices" }
         assertEquals(listOf(true), choices.notes.map { it.startsWith("Life360's policy says this covers sales of precise location") })
         assertEquals(CHECK_IN_APP, choices.subtext)

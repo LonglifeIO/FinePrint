@@ -30,7 +30,10 @@ class FinePrintTest {
 
     private val life360 = explanation("com.life360.android.safetymapd", scan(Triple("fp-arity", "Arity", "Location"), Triple("exodus-312", "Google AdMob", "Advertisement")))
     private val facebook = explanation("com.facebook.katana", scan(Triple("exodus-65", "Facebook Ads", "Advertisement")))
-    private val unknown = explanation("org.example.ads", scan(Triple("exodus-312", "Google AdMob", "Advertisement")))
+    // No app record and an ad tracker FinePrint has no record of either, so its lines are inferred from its category.
+    private val unknown = explanation("org.example.ads", scan(Triple("test-ads", "Some Ads", "Advertisement")))
+    // No app record, but AdMob has a tracker record: Google's own disclosure, so its lines are sourced.
+    private val admob = explanation("org.example.admob", scan(Triple("exodus-312", "Google AdMob", "Advertisement")))
 
     @Test
     fun theFinePrintIsTheReadingOrderUpToFourLinesWithRunningTheAppFoldedAfter() {
@@ -66,8 +69,9 @@ class FinePrintTest {
         val e = explanation("org.example.analytics", scan(Triple("exodus-27", "Some Crashes", "Crash reporting"), Triple("exodus-49", "Some Analytics", "Analytics"), Triple("exodus-312", "Google AdMob", "Advertisement")))
         assertTrue(finePrint(e).none { it.text.startsWith("Crash") || it.text.contains("Usage statistics") })
         val folded = alsoCollected(e)!!
-        assertEquals("Also collected to run the app: usage and crash data", folded.text)
-        assertEquals(2, folded.lines.size)
+        // Firebase Analytics' and Crashlytics' own records: coarse location, install IDs, usage and crash reports, all for the developer.
+        assertEquals("Also collected to run the app: location, device, usage and crash data", folded.text)
+        assertEquals(5, folded.lines.size)
         assertEquals(null, alsoCollected(life360)) // nothing of Life360's is only for running it
     }
 
@@ -97,6 +101,7 @@ class FinePrintTest {
     fun headlinesSayGoesOnlyWhereASourcedLineDoes() {
         assertEquals("Some of it goes to other companies", whereHeadline(life360))
         assertEquals("Some of it can go to other companies", whereHeadline(unknown))
+        assertEquals("Some of it goes to other companies", whereHeadline(admob))
         assertEquals("What com.life360.android.safetymapd does with what it collects".replace("com.life360.android.safetymapd", life360.appName), summaryHeadline(life360))
         assertEquals("What the tracker code in it suggests", summaryHeadline(unknown))
     }

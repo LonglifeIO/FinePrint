@@ -2,7 +2,7 @@
  "schema_version": 1,
  "schema_revision": "1.5",
  "bundle_version": "2026.10.08",
- "generated_at": "2026-10-08T14:04:08-03:00",
+ "generated_at": "2026-10-08T19:19:00-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -1294,6 +1294,186 @@
  ],
  "trackers": [
   {
+   "id": "exodus-57",
+   "aka": [
+    "Cuebiq SDK"
+   ],
+   "owner": "Cuebiq Group, LLC",
+   "owner_company": "co-cuebiq",
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Cuebiq's location SDK for app partners; since a 2023 foreclosure sale the business is run by Cuebiq Group, LLC",
+   "categories": [
+    "location",
+    "advertising",
+    "profiling",
+    "identification"
+   ],
+   "data_collected": [
+    "GPS-level latitude and longitude, and Wi-Fi data where feasible",
+    "the mobile advertising ID the location is tied to",
+    "other device identifiers, IP address and device details, for cross-device identity"
+   ],
+   "monetization_model": "Cuebiq sells location intelligence built from location data its SDK and app partners send, for advertising, attribution, analytics, research and cross-device identity; its privacy policy says it sold or shared identifiers and geolocation data in the past 12 months (Cuebiq's privacy policy, updated 2026-08-21).",
+   "data_flows": [
+    {
+     "id": "flow-cuebiq-location",
+     "data": "precise_location",
+     "recipient": "co-cuebiq",
+     "purpose": "GPS-level location tied to your advertising ID, for advertising, attribution, analytics, research and cross-device identity; Cuebiq says it sells or shares location data",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Cuebiq's privacy policy, updated 2026-08-21.",
+     "sources": [
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "from an “SDK” (software development kit) that it provides to mobile application partners"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "lat/long (latitudinal and longitudinal) data, i.e., GPS-level data"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "associated with a mobile advertising ID"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "for purposes related to advertising, attribution, analytics, research, and cross-device identity"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "collected, sold, or shared in the past 12 months: Identifiers, Geolocation Data"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "NOTICE: We may sell your sensitive personal data."
+      }
+     ]
+    },
+    {
+     "id": "flow-cuebiq-ids",
+     "data": "device_identifiers",
+     "recipient": "co-cuebiq",
+     "purpose": "Your advertising ID and other device identifiers, which Cuebiq and its partners use to recognize you and your devices across the internet",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Cuebiq's privacy policy, updated 2026-08-21.",
+     "sources": [
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "help recognize you and your device across the internet"
+      },
+      {
+       "url": "https://cuebiq.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Cuebiq Group, LLC Privacy Policy",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "Cuebiq may also share this information with partners"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Cuebiq's business has been run since 2023 by Cuebiq Group, LLC. After Cuebiq, Inc. defaulted on a loan, its lender foreclosed and Espresso Special Acquisition LLC, since renamed Cuebiq Group, bought the business at a private foreclosure sale, according to Cuebiq Group's own filing, as summarized by the court.",
+     "status": "self_disclosed",
+     "wording": "According to Cuebiq Group's own filing, as summarized by the court (US District Court for the Southern District of New York, 2025-08-21).",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.826372/gov.uscourts.casd.826372.45.0.pdf",
+       "type": "lawsuit",
+       "title": "Cuebiq Group, LLC v. PaeDae, Inc. (S.D.N.Y. No. 24-CV-7542, transferred to S.D. Cal. as No. 3:25-cv-02255), opinion and order",
+       "as_of": "2025-08-21",
+       "status": "self_disclosed",
+       "quote": "in June of 2023, Espresso foreclosed on the collateral pledged by Cuebiq to secure the loan through a private foreclosure sale"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.826372/gov.uscourts.casd.826372.45.0.pdf",
+       "type": "lawsuit",
+       "title": "Cuebiq Group, LLC v. PaeDae, Inc. (S.D.N.Y. No. 24-CV-7542, transferred to S.D. Cal. as No. 3:25-cv-02255), opinion and order",
+       "as_of": "2025-08-21",
+       "status": "self_disclosed",
+       "quote": "Espresso Special Acquisition, LLC has since been renamed Cuebiq Group, LLC"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.826372/gov.uscourts.casd.826372.45.0.pdf",
+       "type": "lawsuit",
+       "title": "Cuebiq Group, LLC v. PaeDae, Inc. (S.D.N.Y. No. 24-CV-7542, transferred to S.D. Cal. as No. 3:25-cv-02255), opinion and order",
+       "as_of": "2025-08-21",
+       "status": "self_disclosed",
+       "quote": "Cuebiq breached the Amended Loan Agreement and did not have the financial resources to cure the default"
+      }
+     ]
+    },
+    {
+     "text": "In 2021 The Markup reported that Cuebiq received raw, precise location data from the family-tracking app Life360, and that the US Centers for Disease Control and Prevention had a contract with Cuebiq for aggregated location data. Life360 said in 2022 it would stop selling precise data to most buyers.",
+     "status": "reported",
+     "historical": true,
+     "wording": "Reported by The Markup (2021, 2022).",
+     "sources": [
+      {
+       "url": "https://themarkup.org/privacy/2021/12/06/the-popular-family-safety-app-life360-is-selling-precise-location-data-on-its-tens-of-millions-of-user",
+       "type": "journalism",
+       "title": "The Markup",
+       "as_of": "2021-12-06",
+       "status": "reported",
+       "quote": "Cuebiq, which receives raw location data from Life360",
+       "single_source": true
+      },
+      {
+       "url": "https://themarkup.org/privacy/2021/12/06/the-popular-family-safety-app-life360-is-selling-precise-location-data-on-its-tens-of-millions-of-user",
+       "type": "journalism",
+       "title": "The Markup",
+       "as_of": "2021-12-06",
+       "status": "reported",
+       "quote": "Cuebiq also worked with the Centers for Disease Control … for aggregated location data",
+       "single_source": true
+      },
+      {
+       "url": "https://themarkup.org/privacy/2022/01/27/life360-says-it-will-stop-selling-precise-location-data",
+       "type": "journalism",
+       "title": "The Markup",
+       "as_of": "2022-01-27",
+       "status": "reported",
+       "quote": "selling to about a dozen location data partners to just Placer.ai and Arity"
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-08"
+  },
+  {
    "id": "fp-arity",
    "name": "Arity",
    "aka": [
@@ -1470,6 +1650,853 @@
    "last_reviewed": "2026-10-04"
   },
   {
+   "id": "exodus-312",
+   "aka": [
+    "Google Mobile Ads SDK",
+    "Google AdMob"
+   ],
+   "owner": "Alphabet Inc.",
+   "owner_company": "co-google",
+   "owner_chain": [
+    "Google LLC",
+    "Alphabet Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Google Mobile Ads SDK (AdMob)",
+   "categories": [
+    "advertising",
+    "identification"
+   ],
+   "data_collected": [
+    "IP address, which can be used to estimate the device's general location",
+    "interactions with the app and its ads: app launches, taps and video views",
+    "diagnostics: app launch time, hang rate and energy use",
+    "the Android advertising ID, the app set ID and, if applicable, signed-in account identifiers"
+   ],
+   "monetization_model": "Advertising: AdMob shows Google's ads in other companies' apps. The SDK sends Google identifiers and interactions for advertising, analytics and fraud prevention, and Google uses information from apps that use its ad services to measure and personalize ads (Google's AdMob documentation and its page on partner sites and apps).",
+   "data_flows": [
+    {
+     "id": "flow-admob-ids",
+     "data": "device_identifiers",
+     "recipient": "co-google",
+     "purpose": "Advertising, analytics and fraud prevention: your advertising ID, the app set ID and any signed-in account identifiers",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Google's AdMob documentation (updated 2026-10-07) and its page on information from partner apps (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "Collects Android advertising (ad) ID, app set ID"
+      },
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "for advertising, analytics, and fraud prevention"
+      },
+      {
+       "url": "https://policies.google.com/technologies/partner-sites?hl=en-US",
+       "type": "privacy_policy",
+       "title": "Google: How Google uses information from sites or apps that use our services",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "such as the name of the app and a unique identifier for advertising"
+      },
+      {
+       "url": "https://policies.google.com/technologies/partner-sites?hl=en-US",
+       "type": "privacy_policy",
+       "title": "Google: How Google uses information from sites or apps that use our services",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "measure the effectiveness of advertising … personalize content and ads you see"
+      }
+     ]
+    },
+    {
+     "id": "flow-admob-activity",
+     "data": "app_activity",
+     "recipient": "co-google",
+     "purpose": "Advertising, analytics and fraud prevention: when you open the app, and your taps and video views",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Google's AdMob documentation (updated 2026-10-07).",
+     "sources": [
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "Collects user product interactions and interaction information, including app launch, taps, and video views"
+      },
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "for advertising, analytics, and fraud prevention"
+      }
+     ]
+    },
+    {
+     "id": "flow-admob-location",
+     "data": "approximate_location",
+     "recipient": "co-google",
+     "purpose": "Your general location, estimated from your IP address, for advertising, analytics and fraud prevention",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Google's AdMob documentation (updated 2026-10-07).",
+     "sources": [
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "IP address, which may be used to estimate the general location of a device"
+      },
+      {
+       "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+       "type": "company_site",
+       "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "for advertising, analytics, and fraud prevention"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "A class action brought by parents alleges that Google's AdMob collected personal information from children under 13 in apps of Google Play's Designed for Families program, without their parents' consent, to target them with behavioural advertising. Google has agreed to pay $8.25 million to settle.",
+     "subject_company": "co-google",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "wording": "Alleged in a class action filed by parents on 2023-06-22 (not proven in court); the court let it go ahead in 2024, and Google agreed to settle.",
+     "procedural_note": {
+      "text": "Under the settlement, Google pays $8,250,000 into a fund for class members. The court granted preliminary approval on 2026-05-01 and set the final approval hearing for 2026-09-24.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.414466/gov.uscourts.cand.414466.91.0.pdf",
+        "type": "lawsuit",
+        "title": "A.B. v. Google LLC (N.D. Cal. No. 5:23-cv-03101), order granting preliminary approval of the class settlement",
+        "as_of": "2026-05-01",
+        "status": "alleged",
+        "quote": "defendants will make a $8,250,000 non-reversionary cash payment to create a settlement fund"
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.414466/gov.uscourts.cand.414466.91.0.pdf",
+        "type": "lawsuit",
+        "title": "A.B. v. Google LLC (N.D. Cal. No. 5:23-cv-03101), order granting preliminary approval of the class settlement",
+        "as_of": "2026-05-01",
+        "status": "alleged",
+        "quote": "A final approval hearing will be held on September 24, 2026"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.414466/gov.uscourts.cand.414466.91.0.pdf",
+       "type": "lawsuit",
+       "title": "A.B. v. Google LLC (N.D. Cal. No. 5:23-cv-03101), order granting preliminary approval of the class settlement",
+       "as_of": "2026-05-01",
+       "status": "alleged",
+       "quote": "alleging that defendants collected personal information from plaintiffs without parental consent in order to target these children with behavioral advertising"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.414466/gov.uscourts.cand.414466.91.0.pdf",
+       "type": "lawsuit",
+       "title": "A.B. v. Google LLC (N.D. Cal. No. 5:23-cv-03101), order granting preliminary approval of the class settlement",
+       "as_of": "2026-05-01",
+       "status": "alleged",
+       "quote": "Plaintiffs sued defendants on June 22, 2023 … The Court denied defendants’ motion to dismiss on June 18, 2024."
+      },
+      {
+       "url": "https://www.mediapost.com/publications/article/412017",
+       "type": "journalism",
+       "title": "MediaPost",
+       "as_of": "2026-01-14",
+       "status": "reported",
+       "quote": "Google has agreed to pay $8.25 million to resolve a class-action lawsuit"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "exodus-27",
+   "aka": [
+    "Firebase Crashlytics",
+    "Fabric Crashlytics"
+   ],
+   "owner": "Alphabet Inc.",
+   "owner_company": "co-google",
+   "owner_chain": [
+    "Google LLC",
+    "Alphabet Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "first_party",
+   "product_line": "Firebase Crashlytics, the crash reporter Google runs for app developers",
+   "categories": [
+    "crash_reporting"
+   ],
+   "data_collected": [
+    "stack traces and the app's state when it crashes",
+    "device details at the moment of a crash: model, operating system version, RAM and disk space, whether it is rooted",
+    "a Crashlytics installation ID",
+    "custom keys, logs and a user ID, if the app's developer adds them"
+   ],
+   "monetization_model": "A free crash reporter for app developers. Google processes the reports on the developer's behalf, as its processor or service provider (Firebase's privacy page and data processing terms).",
+   "data_flows": [
+    {
+     "id": "flow-crashlytics-reports",
+     "data": "crash_diagnostics",
+     "recipient": "co-google",
+     "purpose": "Crash reports for the app's developer: what the app was doing when it crashed, and details of the device. Google processes them for the developer and keeps them for 90 days",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Firebase documentation (updated 2026-10-08) and the Firebase Data Processing and Security Terms (2024-08-21).",
+     "sources": [
+      {
+       "url": "https://firebase.google.com/docs/android/play-data-disclosure",
+       "type": "company_site",
+       "title": "Firebase documentation: Prepare for Google Play's data disclosure requirements",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Collects stack traces when an application crashes"
+      },
+      {
+       "url": "https://firebase.google.com/docs/android/play-data-disclosure",
+       "type": "company_site",
+       "title": "Firebase documentation: Prepare for Google Play's data disclosure requirements",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Collects point-in-time metadata about the device when an application crashes"
+      },
+      {
+       "url": "https://firebase.google.com/docs/crashlytics/android/customize-crash-reports",
+       "type": "company_site",
+       "title": "Firebase documentation: Customize your Firebase Crashlytics crash reports",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "by default, Crashlytics automatically collects crash reports for all your app's users"
+      },
+      {
+       "url": "https://firebase.google.com/support/privacy",
+       "type": "company_site",
+       "title": "Firebase: Privacy and Security in Firebase",
+       "as_of": "2026-09-15",
+       "status": "self_disclosed",
+       "quote": "Google generally operates as a \"data processor\" (GDPR) or \"service provider\" (CCPA/CPRA)"
+      },
+      {
+       "url": "https://firebase.google.com/terms/data-processing-terms",
+       "type": "company_site",
+       "title": "Firebase Data Processing and Security Terms (they cover Crashlytics)",
+       "as_of": "2024-08-21",
+       "status": "self_disclosed",
+       "quote": "Google is a processor of that Customer Personal Data"
+      },
+      {
+       "url": "https://firebase.google.com/support/privacy",
+       "type": "company_site",
+       "title": "Firebase: Privacy and Security in Firebase",
+       "as_of": "2026-09-15",
+       "status": "self_disclosed",
+       "quote": "help Firebase customers debug crashes"
+      },
+      {
+       "url": "https://firebase.google.com/support/privacy",
+       "type": "company_site",
+       "title": "Firebase: Privacy and Security in Firebase",
+       "as_of": "2026-09-15",
+       "status": "self_disclosed",
+       "quote": "for 90 days before starting the process of removing it"
+      }
+     ]
+    },
+    {
+     "id": "flow-crashlytics-ids",
+     "data": "device_identifiers",
+     "recipient": "co-google",
+     "purpose": "A Crashlytics installation ID, to count how many users a crash affects",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Firebase documentation (updated 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://firebase.google.com/docs/android/play-data-disclosure",
+       "type": "company_site",
+       "title": "Firebase documentation: Prepare for Google Play's data disclosure requirements",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "measure the number of users impacted by a crash"
+      },
+      {
+       "url": "https://firebase.google.com/docs/android/play-data-disclosure",
+       "type": "company_site",
+       "title": "Firebase documentation: Prepare for Google Play's data disclosure requirements",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Firebase does not transfer this data to third-parties except"
+      }
+     ]
+    }
+   ],
+   "consequences": [],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "exodus-49",
+   "aka": [
+    "Google Analytics for Firebase",
+    "Firebase SDK for Google Analytics"
+   ],
+   "owner": "Alphabet Inc.",
+   "owner_company": "co-google",
+   "owner_chain": [
+    "Google LLC",
+    "Alphabet Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Google Analytics for Firebase (the Firebase SDK for Google Analytics)",
+   "categories": [
+    "analytics"
+   ],
+   "data_collected": [
+    "an app-instance ID for each install",
+    "the Android advertising ID",
+    "coarse location, derived from a masked IP address",
+    "screen views, sessions and in-app purchases",
+    "a user ID, if the app's developer sets one; signed-in account information, if Google signals is on"
+   ],
+   "monetization_model": "Free analytics for app developers. If the developer has turned on data sharing with Google or linked an ads account, Google may use the data for its own products and personalized ads (Google's Analytics Help and Firebase documentation).",
+   "data_flows": [
+    {
+     "id": "flow-firebase-analytics-usage",
+     "data": "app_activity",
+     "recipient": "co-google",
+     "purpose": "Usage statistics for the app's developer: the screens you view, your sessions and your in-app purchases",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Analytics Help (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://support.google.com/analytics/answer/11582702?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Prepare for Google Play's data disclosure requirements (Google Analytics for Firebase SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Collects in-app purchase and subscription events … Collects screen views and sessions"
+      },
+      {
+       "url": "https://support.google.com/analytics/answer/9234069?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Automatically collected events",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "you don't need to write any additional code to collect these events"
+      }
+     ]
+    },
+    {
+     "id": "flow-firebase-analytics-ids",
+     "data": "device_identifiers",
+     "recipient": "co-google",
+     "purpose": "An ID for each install of the app, used to count its users. The code also collects your Android advertising ID; Google's documentation doesn't say what it's used for",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Analytics Help (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://support.google.com/analytics/answer/11582702?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Prepare for Google Play's data disclosure requirements (Google Analytics for Firebase SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "app-instance id … for purposes of computing user metrics"
+      },
+      {
+       "url": "https://support.google.com/analytics/answer/11582702?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Prepare for Google Play's data disclosure requirements (Google Analytics for Firebase SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Collects the Android Advertising ID"
+      }
+     ]
+    },
+    {
+     "id": "flow-firebase-analytics-location",
+     "data": "approximate_location",
+     "recipient": "co-google",
+     "purpose": "Your coarse location, worked out from your masked IP address, for the developer's reports",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Analytics Help (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://support.google.com/analytics/answer/11582702?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Prepare for Google Play's data disclosure requirements (Google Analytics for Firebase SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Derives coarse location data from the masked IP addresses of the device"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "If the developer has turned on data sharing or linked an ads account, Google may use this data for its own products and personalized ads. FinePrint can't see that setting. This code also ships inside Google's ads SDK, so finding it doesn't show the developer uses Analytics.",
+     "status": "self_disclosed",
+     "wording": "According to Google's Analytics Help (read 2026-10-08), Firebase documentation (updated 2026-10-08) and the package lists in Google's Maven repository (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://support.google.com/analytics/answer/1011397?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Data sharing settings",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "When you turn this setting ON, Google can access and analyze data"
+      },
+      {
+       "url": "https://support.google.com/analytics/answer/1011397?hl=en",
+       "type": "company_site",
+       "title": "Google Analytics Help: Data sharing settings",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Google is, for GDPR purposes, an independent controller of such data"
+      },
+      {
+       "url": "https://firebase.google.com/docs/analytics/configure-data-collection?platform=android",
+       "type": "company_site",
+       "title": "Firebase documentation: Configure Analytics data collection and usage",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "your Analytics data may be eligible for use in personalized advertising"
+      },
+      {
+       "url": "https://dl.google.com/android/maven2/com/google/firebase/firebase-analytics/24.0.0/firebase-analytics-24.0.0.pom",
+       "type": "company_site",
+       "title": "Google Maven repository: firebase-analytics 24.0.0 (the Analytics SDK) declares a dependency on play-services-measurement-api",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "play-services-measurement-api"
+      },
+      {
+       "url": "https://dl.google.com/android/maven2/com/google/android/gms/play-services-measurement-api/24.0.0/play-services-measurement-api-24.0.0.pom",
+       "type": "company_site",
+       "title": "Google Maven repository: play-services-measurement-api 24.0.0 declares a dependency on play-services-measurement-sdk-api",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "play-services-measurement-sdk-api"
+      },
+      {
+       "url": "https://dl.google.com/android/maven2/com/google/android/gms/play-services-ads/25.5.0/play-services-ads-25.5.0.pom",
+       "type": "company_site",
+       "title": "Google Maven repository: play-services-ads 25.5.0 (the Google Mobile Ads SDK) declares a dependency on play-services-ads-api",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "play-services-ads-api"
+      },
+      {
+       "url": "https://dl.google.com/android/maven2/com/google/android/gms/play-services-ads-api/25.5.0/play-services-ads-api-25.5.0.pom",
+       "type": "company_site",
+       "title": "Google Maven repository: play-services-ads-api 25.5.0 declares a dependency on play-services-measurement-sdk-api",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "play-services-measurement-sdk-api"
+      }
+     ]
+    },
+    {
+     "text": "In 2025 a US federal jury found Google liable for invading the privacy of people who had turned off Web & App Activity, whose activity in other companies' apps still reached Google through its Firebase or Google Mobile Ads code. Judgment for about $425.7 million was entered in 2026; Google has appealed.",
+     "subject_company": "co-google",
+     "status": "adjudicated",
+     "status_kind": "ruling",
+     "appeal_pending": true,
+     "wording": "Decided by a jury in a US federal court (verdict 2025-09-03, judgment 2026-03-02); under appeal.",
+     "procedural_note": {
+      "text": "The court denied Google's renewed motion for judgment as a matter of law on 2026-08-28. Google appealed to the Ninth Circuit on 2026-09-21 (No. 26-6237); the plaintiffs filed a conditional cross-appeal on 2026-10-05.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.1009.0_1.pdf",
+        "type": "lawsuit",
+        "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), order denying the renewed motions for judgment as a matter of law",
+        "as_of": "2026-08-28",
+        "status": "adjudicated",
+        "quote": "For the reasons set forth below, both motions are denied."
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.1017.0.pdf",
+        "type": "lawsuit",
+        "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), Google's notice of appeal",
+        "as_of": "2026-09-21",
+        "status": "adjudicated",
+        "quote": "Defendant Google LLC hereby appeals to the United States Court of Appeals for the Ninth Circuit from the final judgment entered on March 2, 2026"
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.1028.0.pdf",
+        "type": "lawsuit",
+        "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), plaintiffs' notice of conditional cross-appeal",
+        "as_of": "2026-10-05",
+        "status": "adjudicated",
+        "quote": "This is a conditional cross-appeal. … Google’s appeal from the final judgment (Case No. 26-6237)"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.725.0.pdf",
+       "type": "lawsuit",
+       "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), final judgment",
+       "as_of": "2026-03-02",
+       "status": "adjudicated",
+       "quote": "Final judgment is entered for Plaintiffs and against Google LLC on Plaintiffs’ claims for invasion of privacy and intrusion upon seclusion"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.666.0.pdf",
+       "type": "lawsuit",
+       "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), jury instructions (the two classes)",
+       "as_of": "2025-09-04",
+       "status": "adjudicated",
+       "quote": "whose activity on a non-Google-branded mobile app was still transmitted to Google … because of the Firebase Software Development Kit (“SDK”) and/or Google Mobile Ads SDK"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.362381/gov.uscourts.cand.362381.1009.0_1.pdf",
+       "type": "lawsuit",
+       "title": "Rodriguez v. Google LLC (N.D. Cal. No. 3:20-cv-04688), order denying the renewed motions for judgment as a matter of law",
+       "as_of": "2026-08-28",
+       "status": "adjudicated",
+       "quote": "It awarded the class $425,651,947 in actual damages."
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "exodus-127",
+   "aka": [
+    "Kochava SDK",
+    "Free App Analytics (FAA)"
+   ],
+   "owner": "Kochava Inc.",
+   "owner_company": "co-kochava",
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Kochava's measurement SDK for app developers (attribution and analytics), including its free plan, Free App Analytics; the Kochava Collective data marketplace is a separate line of business",
+   "categories": [
+    "analytics",
+    "advertising",
+    "identification"
+   ],
+   "data_collected": [
+    "Google, Amazon Fire and Huawei advertising IDs, and the Google app set ID",
+    "a Kochava ID scoped to the install, and the device's user agent",
+    "IP address, from which Kochava derives a general location",
+    "app details: name, package, version, install date and source, whether notifications are on",
+    "device details such as model, operating system version and orientation",
+    "the first launch, sessions and events the app measures"
+   ],
+   "monetization_model": "Kochava sells measurement and attribution to app developers, and runs a data marketplace, the Kochava Collective, through its subsidiary Collective Data Solutions. Under a 2025 class settlement, data the SDK collects may be used only for the app that collected it (Kochava's 2022 open letter; court order of 2025-11-14).",
+   "data_flows": [
+    {
+     "id": "flow-kochava-ids",
+     "data": "device_identifiers",
+     "recipient": "co-kochava",
+     "purpose": "Your advertising ID, app set ID and an ID for this install, used to work out which ad led to the install and to remove duplicates, for the app's developer",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Kochava's SDK documentation (updated 2025-05-20) and a 2025 court-approved settlement.",
+     "sources": [
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "primarily used for attribution and install deduplication … Google Advertising ID … Google App Set ID"
+      },
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "Kochava’s internal identifier, which is scoped to the current install, rather than the device"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "restrictions limiting any SDK-collected data to use by the originating app developer"
+      }
+     ]
+    },
+    {
+     "id": "flow-kochava-location",
+     "data": "approximate_location",
+     "recipient": "co-kochava",
+     "purpose": "Your general location, worked out from your IP address, for the developer's analytics and reports",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Kochava's SDK documentation (updated 2025-05-20).",
+     "sources": [
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "The IP address is used to derive a general location for purposes of analytics"
+      }
+     ]
+    },
+    {
+     "id": "flow-kochava-activity",
+     "data": "app_activity",
+     "recipient": "co-kochava",
+     "purpose": "When you first open the app, your sessions, and events the developer chooses to measure, for its analytics and reports",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Kochava's SDK documentation (updated 2025-05-20).",
+     "sources": [
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "the first app launch, user session envelopes, and … measuring an event"
+      },
+      {
+       "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+       "type": "company_site",
+       "title": "Kochava support: SDK Data Privacy and Safety",
+       "as_of": "2025-05-20",
+       "status": "self_disclosed",
+       "quote": "They are used primarily for your analytics and reporting"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2026 a US federal court entered an order, agreed with the US FTC, that for 10 years bars Kochava and its data marketplace subsidiary from selling or sharing location data tied to sensitive places in the US, such as medical facilities, places of worship and shelters. The FTC had charged that Kochava sold such data; Kochava neither admitted nor denied it.",
+     "subject_company": "co-kochava",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "wording": "Settled with the US FTC: a court order entered 2026-06-25. Kochava neither admitted nor denied the charges.",
+     "procedural_note": {
+      "text": "The FTC sued in 2022 and also charged that Kochava's free SDK sent it what people did in apps, which it sold. The court dismissed the first complaint with leave to amend in 2023 and refused to dismiss the amended complaints in 2024 and 2025.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.86.0_1.pdf",
+        "type": "regulator",
+        "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), the FTC's second amended complaint",
+        "as_of": "2024-07-15",
+        "status": "alleged",
+        "quote": "When a consumer uses a mobile app in which Kochava’s FAA SDK has been included, the FAA SDK passes information to Kochava about the user’s activity on the app."
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.24.0_1.pdf",
+        "type": "lawsuit",
+        "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+        "as_of": "2023-05-04",
+        "status": "alleged",
+        "quote": "IT IS ORDERED that Defendant’s Motion to Dismiss (Dkt. 7) is GRANTED with leave to amend."
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.71.0.pdf",
+        "type": "lawsuit",
+        "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+        "as_of": "2024-02-03",
+        "status": "alleged",
+        "quote": "IT IS ORDERED that Kochava’s Motion to Dismiss First Amended Complaint Pursuant to Fed. R. Civ. P. 12(b)(6) (Dkts. 33 & 34) is DENIED."
+       },
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.101.0_1.pdf",
+        "type": "lawsuit",
+        "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+        "as_of": "2025-02-03",
+        "status": "alleged",
+        "quote": "Defendant’s Motion to Dismiss Second Amended Complaint (Dkt. 96) is DENIED."
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "must not sell, license, transfer, share, or disclose in any products or services Sensitive Location Data"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "(1) medical facilities; (2) religious organizations"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "providing temporary shelter or social services to homeless, or survivors of domestic violence"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "Defendants neither admit nor deny any of the allegations in the Complaint"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "this Order will terminate 10 years from the date it is entered by the Court. … DATED: June 25, 2026"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.86.0_1.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), the FTC's second amended complaint",
+       "as_of": "2024-07-15",
+       "status": "alleged",
+       "quote": "Kochava is a data broker, and its business is to sell information about consumers."
+      }
+     ]
+    },
+    {
+     "text": "In 2025 a US federal court approved Kochava's settlement of a class action brought for people who said Kochava sold their data, including location, without consent. Kochava must keep data its SDK collects for the app that collected it, delete older SDK data it kept for itself, and filter out location data tied to sensitive places. Kochava denied the claims.",
+     "subject_company": "co-kochava",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "in_force": true,
+     "wording": "A class action settled with a court's approval on 2025-11-14; Kochava denied the claims.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "all persons over the age of 18 in the United States whose data, including but not limited to their geolocation data, was sold by Kochava without their consent"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "restrictions limiting any SDK-collected data to use by the originating app developer; and permanent deletion of legacy SDK data retained for Kochava’s own benefit"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "a “privacy block” that filters and prevents dissemination of location data associated with Sensitive Locations"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "Defendant denies the material factual allegations and legal claims asserted by Settlement Class Representatives in this Action"
+      },
+      {
+       "url": "https://www.mediapost.com/publications/article/410644/kochava-privacy-settlement-granted-final-approval.html",
+       "type": "journalism",
+       "title": "MediaPost",
+       "as_of": "2025-11-12",
+       "status": "reported",
+       "quote": "Kochava specifically agreed to an injunction that will last for two years"
+      }
+     ]
+    },
+    {
+     "text": "Kochava said in 2019 that data from apps on its free plan, Free App Analytics, was the backbone of its data marketplace, the Kochava Collective, while paying clients' data was kept apart; in 2020 it told free-plan apps to say they may sell identifiers and geolocation data to third parties. FinePrint can't see which plan an app uses.",
+     "status": "self_disclosed",
+     "historical": true,
+     "wording": "According to Kochava's 2019 press release and 2020 notice to Free App Analytics customers; a 2025 settlement now limits SDK data to the app that collected it.",
+     "sources": [
+      {
+       "url": "https://www.prnewswire.com/in/news-releases/kochava-collective-provides-audience-insights-and-data-enrichment-at-scale-804325013.html",
+       "type": "company_site",
+       "title": "Kochava press release: Kochava Collective provides audience insights and data enrichment at scale",
+       "as_of": "2019-03-08",
+       "status": "self_disclosed",
+       "quote": "Kochava retains first-party data rights for these Free App Analytics accounts"
+      },
+      {
+       "url": "https://www.prnewswire.com/in/news-releases/kochava-collective-provides-audience-insights-and-data-enrichment-at-scale-804325013.html",
+       "type": "company_site",
+       "title": "Kochava press release: Kochava Collective provides audience insights and data enrichment at scale",
+       "as_of": "2019-03-08",
+       "status": "self_disclosed",
+       "quote": "this data is the backbone that has fueled the Kochava Collective"
+      },
+      {
+       "url": "https://www.prnewswire.com/in/news-releases/kochava-collective-provides-audience-insights-and-data-enrichment-at-scale-804325013.html",
+       "type": "company_site",
+       "title": "Kochava press release: Kochava Collective provides audience insights and data enrichment at scale",
+       "as_of": "2019-03-08",
+       "status": "self_disclosed",
+       "quote": "Kochava enterprise client data is processed and stored independently from the Collective"
+      },
+      {
+       "url": "https://www.kochava.com/blog/all-faa-customers-important-steps-related-to-your-user-privacy-policy-consent-management/",
+       "type": "company_site",
+       "title": "Kochava blog: All FAA customers, important steps related to your user privacy policy and consent management",
+       "as_of": "2020-03-03",
+       "status": "self_disclosed",
+       "quote": "may sell it to third parties: identifiers … geolocation data"
+      },
+      {
+       "url": "https://www.kochava.com/blog/open-letter-from-kochava-ceo/",
+       "type": "company_site",
+       "title": "Kochava blog: Open letter from Kochava CEO",
+       "as_of": "2022-09-20",
+       "status": "self_disclosed",
+       "quote": "no precision geo data in the data marketplace that originates from the Kochava SDK"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  },
+  {
    "id": "fp-meta",
    "name": "Meta SDKs",
    "covers": [
@@ -1637,6 +2664,775 @@
    ],
    "confidence": "medium",
    "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "exodus-285",
+   "aka": [
+    "Placer SDK",
+    "Placer.ai",
+    "placer.io"
+   ],
+   "owner": "Placer Labs, Inc.",
+   "owner_company": "co-placer",
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Placer's SDK in other companies' apps; Placer Labs runs the Placer.ai foot-traffic analytics platform, formerly at placer.io",
+   "categories": [
+    "location",
+    "analytics"
+   ],
+   "data_collected": [
+    "geolocation and proximity data, and time spent near points of interest, from beacon, Wi-Fi and other signals",
+    "time and date information"
+   ],
+   "monetization_model": "Placer runs a foot-traffic analytics platform for customers such as retailers, brands, researchers and ad agencies; its policy says they see only aggregated data and that it doesn't sell personal information (Placer's privacy policy for consumers, updated 2026-04-15).",
+   "data_flows": [
+    {
+     "id": "flow-placer-location",
+     "data": "precise_location",
+     "recipient": "co-placer",
+     "purpose": "Your precise location and time spent near places, which Placer says arrive without your advertising ID, for foot-traffic analytics for retailers, brands, researchers and ad agencies",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Placer's privacy policy for consumers, updated 2026-04-15.",
+     "sources": [
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "geolocation data, which is scrubbed of any identifiers such as MAIDs"
+      },
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "dwell time near points of interest"
+      },
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "Sensitive Personal Information (Precise Geolocation) … Yes"
+      },
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "Placer Customers may be retail stores, restaurants, brands, researchers, and advertising agencies"
+      },
+      {
+       "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Placer.ai Privacy Policy (Consumers)",
+       "as_of": "2026-04-15",
+       "status": "self_disclosed",
+       "quote": "We do not sell personal information to, or share personal information with, third parties"
+      },
+      {
+       "url": "https://techcrunch.com/2024/08/05/placer-ai-boosts-valuation-to-1-5b-after-quietly-raising-another-75m/",
+       "type": "journalism",
+       "title": "TechCrunch",
+       "as_of": "2024-08-05",
+       "status": "reported",
+       "quote": "an SDK that it installs with hundreds of app publishers"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2022 Motherboard reported that Placer.ai's platform gave approximate heat maps of where visitors to abortion clinics lived. Placer told a US senator that data on 17 Planned Parenthood locations was looked up between 2020 and 2022, some of it by journalists, and it removed the ability to search them.",
+     "status": "reported",
+     "historical": true,
+     "wording": "Reported by Motherboard (Vice), 2022.",
+     "sources": [
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "providing heatmaps of approximately where abortion clinic visitors live",
+       "single_source": true
+      },
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "between 2020 and 2022, data on 17 Planned Parenthood locations was accessed",
+       "single_source": true
+      },
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "removed the ability to search for Planned Parenthood related data on its website",
+       "single_source": true
+      },
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "Placer.ai wrote in a letter addressed to Senator Elizabeth Warren in June",
+       "single_source": true
+      },
+      {
+       "url": "https://vice.com/en/article/location-data-broker-placer-admits-accessed-planned-parenthood-data",
+       "type": "journalism",
+       "title": "Motherboard (Vice)",
+       "as_of": "2022-07-08",
+       "status": "reported",
+       "quote": "Some of those instances would have included Motherboard and reporters from The Markup",
+       "single_source": true
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "exodus-313",
+   "aka": [
+    "Unacast Pure SDK",
+    "Pure SDK"
+   ],
+   "owner": "Gravy Analytics, Inc.",
+   "owner_company": "co-unacast",
+   "owner_chain": [
+    "Unacast AS",
+    "Unacast, Inc.",
+    "Gravy Analytics, Inc."
+   ],
+   "jurisdiction": "NO",
+   "party": "third_party",
+   "product_line": "Unacast Pure SDK; Gravy Analytics, Inc. now does business as Unacast",
+   "categories": [
+    "location",
+    "advertising",
+    "identification"
+   ],
+   "data_collected": [
+    "precise location, collected in the background",
+    "nearby Wi-Fi networks and Bluetooth beacons (iBeacon, Eddystone)",
+    "the advertising ID",
+    "device details: maker, model, operating system, carrier codes, battery level"
+   ],
+   "monetization_model": "The Pure SDK sends location data to Unacast's cloud so that users can be targeted in other contexts (the SDK's documentation, last published November 2019). Unacast, now Gravy Analytics trading as Unacast, sells location-based data services to customers including advertisers, law enforcement and national security agencies, and says it may sell sensitive personal data (its privacy policy); its subsidiary Venntel sells location data to public sector customers (FTC).",
+   "sold_to": [
+    "advertisers and marketers",
+    "research, analytics and fraud-detection firms",
+    "law enforcement and national security customers",
+    "public sector customers, through Venntel"
+   ],
+   "data_flows": [
+    {
+     "id": "flow-unacast-pure-location",
+     "data": "precise_location",
+     "recipient": "co-unacast",
+     "purpose": "Collected in the background with nearby Wi-Fi networks and Bluetooth beacons, and sent to Unacast's cloud, where it can be used to target you in other contexts",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to the SDK's documentation, last published November 2019.",
+     "sources": [
+      {
+       "url": "https://github.com/unacast/pure-sdk",
+       "type": "company_site",
+       "title": "Unacast Pure SDK documentation (GitHub; last changed 2019-09-05)",
+       "as_of": "2019-09-05",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Location data is gathered and sent to the cloud for analysis"
+      },
+      {
+       "url": "https://github.com/unacast/pure-sdk",
+       "type": "company_site",
+       "title": "Unacast Pure SDK documentation (GitHub; last changed 2019-09-05)",
+       "as_of": "2019-09-05",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "makes it possible to target users in other contexts based on location data"
+      },
+      {
+       "url": "https://github.com/unacast/pure-sdk-android",
+       "type": "company_site",
+       "title": "Unacast Pure SDK documentation for Android (GitHub; last changed 2019-11-22, archived by Unacast on 2021-04-23)",
+       "as_of": "2019-11-22",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "the SDK will collect information about nearby wifis, geo location and BLE devices"
+      },
+      {
+       "url": "https://storage02.forbrukerradet.no/media/2020/01/mnemonic-security-test-report-v1.0.pdf",
+       "type": "research",
+       "title": "mnemonic for the Norwegian Consumer Council, \"Out of Control\" technical report (section 3.3.5)",
+       "as_of": "2020-01-14",
+       "status": "reported",
+       "quote": "The messages contain information about the current Wifi network, device, battery level, and location",
+       "single_source": true
+      },
+      {
+       "url": "https://storage02.forbrukerradet.no/media/2020/01/mnemonic-security-test-report-v1.0.pdf",
+       "type": "research",
+       "title": "mnemonic for the Norwegian Consumer Council, \"Out of Control\" technical report (section 3.3.5)",
+       "as_of": "2020-01-14",
+       "status": "reported",
+       "quote": "Data sent from the Perfect365 app to what we think is Unacast",
+       "single_source": true
+      }
+     ]
+    },
+    {
+     "id": "flow-unacast-pure-adid",
+     "data": "device_identifiers",
+     "recipient": "co-unacast",
+     "purpose": "Your advertising ID and device details, sent with every location event; Unacast's documentation doesn't say what the ID is used for",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to the SDK's documentation, last published November 2019.",
+     "sources": [
+      {
+       "url": "https://github.com/unacast/pure-sdk-android",
+       "type": "company_site",
+       "title": "Unacast Pure SDK documentation for Android (GitHub; last changed 2019-11-22, archived by Unacast on 2021-04-23)",
+       "as_of": "2019-11-22",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "All of these data are sent with each event regardless of type … \"adid\""
+      }
+     ]
+    },
+    {
+     "id": "flow-unacast-customers",
+     "data": "precise_location",
+     "recipient": "co-gravy-analytics",
+     "purpose": "Shared with Unacast's customers with your advertising ID, for advertising, research, law enforcement and national security; Unacast says it may sell your sensitive personal data",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Unacast's privacy policy, last updated September 2026.",
+     "sources": [
+      {
+       "url": "https://www.unacast.com/privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unacast Privacy Policy (Gravy Analytics, Inc. dba Unacast), last updated September 2026",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "share with our Customers your information, including your device’s location information, mobile advertising identifier"
+      },
+      {
+       "url": "https://www.unacast.com/privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unacast Privacy Policy (Gravy Analytics, Inc. dba Unacast), last updated September 2026",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "law enforcement and national security"
+      },
+      {
+       "url": "https://www.unacast.com/privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unacast Privacy Policy (Gravy Analytics, Inc. dba Unacast), last updated September 2026",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "We may sell your sensitive personal data"
+      }
+     ]
+    },
+    {
+     "id": "flow-venntel-us-agencies",
+     "data": "precise_location",
+     "recipient_label": "US federal agencies, including Immigration and Customs Enforcement, Customs and Border Protection and the Environmental Protection Agency",
+     "recipient_kind": "government_body",
+     "government_line": "has_bought",
+     "jurisdiction": "US",
+     "purpose": "Bought location data from Venntel, a subsidiary of this SDK's owner that the FTC says sells to public sector customers; no source says this SDK's data was part of it",
+     "bucket": "goes_elsewhere",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "wording": "Documented by the US FTC (2025) and by US federal contract records.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "Gravy Analytics focuses on selling this information to commercial customers, while its subsidiary, Venntel, sells the information to public sector customers.",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "targeted advertising, and selling it to the government",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      },
+      {
+       "url": "https://www.usaspending.gov/award/CONT_AWD_70CMSD18P00000127_7012_-NONE-_-NONE-",
+       "type": "filing",
+       "title": "USAspending.gov: purchase order 70CMSD18P00000127 (US Immigration and Customs Enforcement, 2018)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "DATA SERVICES SUBSCRIPTION … U.S. Immigration and Customs Enforcement … VENNTEL INC",
+       "verify_url": "https://api.usaspending.gov/api/v2/awards/CONT_AWD_70CMSD18P00000127_7012_-NONE-_-NONE-/"
+      },
+      {
+       "url": "https://www.usaspending.gov/award/CONT_AWD_70B02C20P00000521_7014_-NONE-_-NONE-",
+       "type": "filing",
+       "title": "USAspending.gov: purchase order 70B02C20P00000521 (US Customs and Border Protection, 2020)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "PURCHASE OF PORTAL (LICENSE) SEAT … U.S. Customs and Border Protection … VENNTEL INC",
+       "verify_url": "https://api.usaspending.gov/api/v2/awards/CONT_AWD_70B02C20P00000521_7014_-NONE-_-NONE-/"
+      },
+      {
+       "url": "https://www.usaspending.gov/award/CONT_AWD_68HE0B24P0493_6800_-NONE-_-NONE-",
+       "type": "filing",
+       "title": "USAspending.gov: purchase order 68HE0B24P0493 (US Environmental Protection Agency, 2024)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "ON DEMAND ACCESS TO AGGREGATED HUMAN MOBILITY DATA … Environmental Protection Agency … VENNTEL INC",
+       "verify_url": "https://api.usaspending.gov/api/v2/awards/CONT_AWD_68HE0B24P0493_6800_-NONE-_-NONE-/"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2025 the US FTC barred Gravy Analytics, which now trades as Unacast, and its subsidiary Venntel from selling, disclosing or using sensitive location data, except in limited national security and law enforcement cases. The FTC charged that they sold location data, including visits to health-related places and places of worship, without verifying people's consent.",
+     "subject_company": "co-gravy-analytics",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "wording": "Settled with the US FTC (2025); Gravy Analytics and Venntel neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers",
+       "type": "regulator",
+       "title": "FTC press release: action against Gravy Analytics and Venntel",
+       "as_of": "2024-12-03",
+       "status": "adjudicated",
+       "quote": "unlawfully tracking and selling sensitive location data from users, including selling data about consumers’ visits to health-related locations and places of worship",
+       "wayback_url": "https://web.archive.org/web/20260930012519/https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012519/https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers",
+       "type": "regulator",
+       "title": "FTC press release: action against Gravy Analytics and Venntel",
+       "as_of": "2024-12-03",
+       "status": "adjudicated",
+       "quote": "collecting and using consumers’ location data without obtaining verifiable user consent for commercial and government uses",
+       "wayback_url": "https://web.archive.org/web/20260930012519/https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012519/https://www.ftc.gov/news-events/news/press-releases/2024/12/ftc-takes-action-against-gravy-analytics-venntel-unlawfully-selling-location-data-tracking-consumers"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order with Gravy Analytics and Venntel finalized",
+       "as_of": "2025-01-14",
+       "status": "adjudicated",
+       "quote": "prohibited from selling, disclosing, or using sensitive location data except in limited circumstances involving national security or law enforcement",
+       "wayback_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      }
+     ]
+    },
+    {
+     "text": "In January 2025 Unacast told Norway's data protection authority that files had been stolen from a Gravy Analytics server using a misappropriated key; experts told Reuters the leaked location data appeared genuine.",
+     "subject_company": "co-gravy-analytics",
+     "status": "reported",
+     "wording": "Reported by Reuters (2025-01-11), one report.",
+     "sources": [
+      {
+       "url": "https://www.yahoo.com/news/location-tracking-company-unacast-tells-001837522.html",
+       "type": "journalism",
+       "title": "Reuters (via Yahoo News): Location tracking company Unacast tells Norway its data was hacked",
+       "as_of": "2025-01-11",
+       "status": "reported",
+       "quote": "confirmed to the Norwegian government that it was the victim of a hack",
+       "single_source": true
+      },
+      {
+       "url": "https://www.yahoo.com/news/location-tracking-company-unacast-tells-001837522.html",
+       "type": "journalism",
+       "title": "Reuters (via Yahoo News): Location tracking company Unacast tells Norway its data was hacked",
+       "as_of": "2025-01-11",
+       "status": "reported",
+       "quote": "leaked data published to the internet … appeared to be genuine",
+       "single_source": true
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "exodus-354",
+   "aka": [
+    "X-Mode Social",
+    "Outlogic"
+   ],
+   "owner": "Landmark Media Enterprises",
+   "owner_company": "co-outlogic",
+   "owner_chain": [
+    "Outlogic (formerly X-Mode)",
+    "Digital Envoy",
+    "Landmark Media Enterprises"
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "X-Mode location SDK; in 2021 X-Mode moved its business to Outlogic, a wholly owned subsidiary of Digital Envoy, whose majority owner is Landmark Media Enterprises",
+   "categories": [
+    "location",
+    "advertising",
+    "profiling",
+    "identification"
+   ],
+   "data_collected": [
+    "precise location (latitude and longitude) with a timestamp",
+    "the advertising ID (MAID) and installation IDs",
+    "app usage data",
+    "nearby Bluetooth beacons"
+   ],
+   "monetization_model": "Paid app makers to embed its SDK (\"passive revenue\" for each device that shares its location, per the FTC), then licensed the raw location data, tied to advertising IDs, and audience segments built from it. Since 2021 the business runs as Outlogic, which licenses location data to ad networks, data resellers, financial institutions and governments (Outlogic's privacy notice).",
+   "sold_to": [
+    "advertisers and ad-tech companies",
+    "analytics, consulting and research firms",
+    "data aggregators and resellers",
+    "financial institutions",
+    "private government contractors",
+    "government entities"
+   ],
+   "data_flows": [
+    {
+     "id": "flow-xmode-location-sold",
+     "data": "precise_location",
+     "recipient": "co-outlogic",
+     "purpose": "Sold, tied to your advertising ID, to hundreds of clients, from advertisers and analytics firms to private government contractors",
+     "bucket": "goes_elsewhere",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "wording": "Settled with the US FTC (2024); X-Mode and Outlogic neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "X-Mode is a location data broker that sells consumer location data to hundreds of clients in industries ranging from real estate to finance, as well as private government … contractors",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "X-Mode licenses to third parties raw location data tied to unique persistent identifiers",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "the X-Mode SDK receives the device’s precise latitude and longitude, along with a timestamp",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "promising the app developers passive revenue for each consumer’s mobile device that allows the SDK to collect their location data",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "These third parties range from advertisers, software as a service (SaaS) companies, analytics firms, consulting firms, commercial and educational research organizations, and private government contractors.",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      }
+     ]
+    },
+    {
+     "id": "flow-xmode-outlogic-location",
+     "data": "precise_location",
+     "recipient": "co-outlogic",
+     "purpose": "Licensed to Outlogic's clients, among them ad networks, data resellers, financial institutions and governments; Outlogic says it may sell your phone's precise coordinates",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Outlogic's privacy notice, last updated January 2026.",
+     "sources": [
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "may receive and sell the precise latitude and longitude coordinates of your mobile device"
+      },
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "latitude-longitude coordinates compiled through GPS features of our SDK"
+      },
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Advertising networks … Data aggregators and resellers; … Financial institutions; Government entities"
+      },
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "license the information to assist businesses and governments with planning, physical security, information security"
+      }
+     ]
+    },
+    {
+     "id": "flow-xmode-outlogic-ids",
+     "data": "device_identifiers",
+     "recipient": "co-outlogic",
+     "purpose": "Shared with Outlogic's customers along with your location, and linked in \"identity\" graphs that help them find you across channels",
+     "bucket": "goes_elsewhere",
+     "status": "self_disclosed",
+     "wording": "According to Outlogic's privacy notice, last updated January 2026.",
+     "sources": [
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "We share Advertising IDs, Installation IDs, Location Information … with our customers"
+      },
+      {
+       "url": "https://outlogic.io/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Outlogic Privacy Notice (last updated January 2026)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Create “identity” graphs to assist our Clients in finding users across multiple channels"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2024 the US FTC barred X-Mode and its successor Outlogic from selling or sharing sensitive location data, such as visits to medical and reproductive health clinics, places of worship and domestic abuse shelters, and ordered them to delete the location data they had collected unless people consent or it is deidentified. The ban covers places in the US.",
+     "subject_company": "co-outlogic",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "wording": "Settled with the US FTC (2024); X-Mode and Outlogic neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "type": "regulator",
+       "title": "FTC press release: order with X-Mode and Outlogic finalized",
+       "as_of": "2024-04-12",
+       "status": "adjudicated",
+       "quote": "prohibiting data broker X-Mode and its successor Outlogic from sharing or selling any sensitive location data",
+       "wayback_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "wayback_date": "2026-09-08",
+       "verify_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order prohibits X-Mode and Outlogic from selling sensitive location data",
+       "as_of": "2024-01-09",
+       "status": "adjudicated",
+       "quote": "sensitive locations such as medical and reproductive health clinics, places of religious worship and domestic abuse shelters",
+       "wayback_url": "https://web.archive.org/web/20261001101243/https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data",
+       "wayback_date": "2026-10-01",
+       "verify_url": "https://web.archive.org/web/20261001101243/https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "type": "regulator",
+       "title": "FTC press release: order with X-Mode and Outlogic finalized",
+       "as_of": "2024-04-12",
+       "status": "adjudicated",
+       "quote": "delete or destroy all the location data it previously collected and any products developed from this data unless it obtains consumer consent or ensures the data has been deidentified",
+       "wayback_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "wayback_date": "2026-09-08",
+       "verify_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-D%26O.pdf",
+       "type": "regulator",
+       "title": "FTC proposed Decision and Order, X-Mode Social and Outlogic (Definition G, kept in the final order)",
+       "as_of": "2024-01-09",
+       "status": "adjudicated",
+       "quote": "“Sensitive Locations” means locations within the United States",
+       "wayback_url": "https://web.archive.org/web/20260425071833/https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-D%26O.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425071833/https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-D%26O.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      }
+     ]
+    },
+    {
+     "text": "The FTC also charged that X-Mode didn't tell people their location would be sold to private government contractors for national security purposes, and that from 2018 to 2020 it collected and sold location data from Android users who had opted out of ad personalization. The order doesn't cover data collected outside the US for federal agencies' national security work.",
+     "subject_company": "co-outlogic",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "wording": "Settled with the US FTC (2024); X-Mode and Outlogic neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "X-Mode failed to inform consumers that it would be selling data to government contractors for national security purposes.",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "From at least June 2018 to July 2020, X-Mode ingested the MAIDs, mobile location data, and flags of consumers who had enabled the “Opt out of Ads Personalization”",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "type": "regulator",
+       "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "Respondents have collected and sold location data for the purposes of developing consumer profiles, surveilling consumers and targeting consumers with advertising even if consumers had opted-out of having their location data used for such purposes",
+       "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+       "wayback_date": "2026-09-30",
+       "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "collected outside the United States and used for … conducted by federal agencies or other federal entities is not Location Data",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-APCOAPC.pdf",
+       "type": "regulator",
+       "title": "FTC analysis of the proposed X-Mode consent order",
+       "as_of": "2024-01-09",
+       "status": "adjudicated",
+       "quote": "private government contractors for national security, and other data brokers",
+       "wayback_url": "https://web.archive.org/web/20251221150737/https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-APCOAPC.pdf",
+       "wayback_date": "2025-12-21",
+       "verify_url": "https://web.archive.org/web/20251221150737/https://www.ftc.gov/system/files/ftc_gov/pdf/X-Mode-APCOAPC.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
   }
  ],
  "companies": [
@@ -2215,6 +4011,58 @@
    "last_reviewed": "2026-10-04"
   },
   {
+   "id": "co-cuebiq",
+   "name": "Cuebiq Group, LLC",
+   "short_name": "Cuebiq",
+   "jurisdiction": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://cuebiq.com/privacy-policy/",
+     "type": "privacy_policy",
+     "title": "Cuebiq Group, LLC Privacy Policy",
+     "as_of": "2026-08-21",
+     "status": "self_disclosed",
+     "quote": "a U.S. company with a registered office at 1460 Broadway, New York"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2023-07-25",
+     "title": "Egan v. Cuebiq, Inc. (D. Mass. No. 1:23-cv-11650)",
+     "body": "US District Court for the District of Massachusetts",
+     "type": "class_action",
+     "status": "alleged",
+     "status_kind": "dismissed",
+     "closed_date": "2023-08-18",
+     "subject_company": "co-cuebiq",
+     "notes": "Against Cuebiq, Inc., before Cuebiq Group, LLC took over its business. Alleged that Cuebiq sold app users' precise location data without their consent (not proven in court). The plaintiff dropped the case three weeks after filing it.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.mad.259580/gov.uscourts.mad.259580.1.0.pdf",
+       "type": "lawsuit",
+       "title": "Egan v. Cuebiq, Inc. (D. Mass. No. 1:23-cv-11650), complaint",
+       "as_of": "2023-07-25",
+       "status": "alleged",
+       "quote": "first acquiring and tracking consumers’ precise geolocation data and other data using spyware, and then profiting from that data by selling it"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.mad.259580/gov.uscourts.mad.259580.5.0.pdf",
+       "type": "lawsuit",
+       "title": "Egan v. Cuebiq, Inc. (D. Mass. No. 1:23-cv-11650), notice of voluntary dismissal",
+       "as_of": "2023-08-18",
+       "status": "alleged",
+       "quote": "hereby dismisses without prejudice all claims against Defendant Cuebiq, Inc."
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  },
+  {
    "id": "co-google",
    "name": "Google LLC",
    "short_name": "Google",
@@ -2436,6 +4284,407 @@
     }
    ],
    "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "co-gravy-analytics",
+   "name": "Gravy Analytics, Inc.",
+   "short_name": "Gravy Analytics",
+   "subsidiaries": [
+    "Venntel",
+    "Unacast"
+   ],
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+     "type": "regulator",
+     "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+     "as_of": "2025-01-13",
+     "status": "adjudicated",
+     "quote": "Respondent Gravy Analytics, Inc. (“Gravy Analytics”) is a Delaware corporation with its principal office or place of business at 44679 Endicott Dr Suite 300, Ashburn, VA 20147.",
+     "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+     "wayback_date": "2026-10-02",
+     "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+    },
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+     "type": "regulator",
+     "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+     "as_of": "2025-01-13",
+     "status": "adjudicated",
+     "quote": "Venntel is a wholly-owned subsidiary of Gravy Analytics.",
+     "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+     "wayback_date": "2026-10-02",
+     "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+    },
+    {
+     "url": "https://www.unacast.com/privacy-policy",
+     "type": "privacy_policy",
+     "title": "Unacast Privacy Policy (Gravy Analytics, Inc. dba Unacast), last updated September 2026",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "Gravy Analytics, Inc. dba ‘Unacast"
+    },
+    {
+     "url": "https://www.unacast.com/privacy-policy-eea",
+     "type": "privacy_policy",
+     "title": "Unacast EEA privacy statement: Data Privacy Framework section (last updated September 2026)",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "its subsidiary and covered entity including Venntel, Inc., and Unacast, Inc."
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2025-01-13",
+     "title": "In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (FTC Docket No. C-4810)",
+     "body": "US Federal Trade Commission",
+     "type": "order",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "subject_company": "co-gravy-analytics",
+     "notes": "Proposed 2024-12-03 and final 2025-01-13 (announced 2025-01-14, approved 5-0). It bars Gravy Analytics and Venntel from selling, disclosing or using sensitive location data except in limited national security and law enforcement cases, and requires a sensitive location data program. The order runs 20 years. No admission of the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "ISSUED: January 13, 2025",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order with Gravy Analytics and Venntel finalized",
+       "as_of": "2025-01-14",
+       "status": "adjudicated",
+       "quote": "prohibited from selling, disclosing, or using sensitive location data except in limited circumstances involving national security or law enforcement",
+       "wayback_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order with Gravy Analytics and Venntel finalized",
+       "as_of": "2025-01-14",
+       "status": "adjudicated",
+       "quote": "the Commission voted 5-0 to approve the final order",
+       "wayback_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "This Order will terminate 20 years from the date of its issuance",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      }
+     ]
+    },
+    {
+     "date": "2025-01",
+     "title": "Hack of a Gravy Analytics server, reported to Norway's data protection authority",
+     "type": "breach",
+     "status": "reported",
+     "notes": "Unacast told Norway's data protection authority that information had been taken from a Gravy Analytics web server with a misappropriated key; the breach was discovered on 2025-01-04.",
+     "sources": [
+      {
+       "url": "https://www.yahoo.com/news/location-tracking-company-unacast-tells-001837522.html",
+       "type": "journalism",
+       "title": "Reuters (via Yahoo News): Location tracking company Unacast tells Norway its data was hacked",
+       "as_of": "2025-01-11",
+       "status": "reported",
+       "quote": "confirmed to the Norwegian government that it was the victim of a hack",
+       "single_source": true
+      },
+      {
+       "url": "https://www.yahoo.com/news/location-tracking-company-unacast-tells-001837522.html",
+       "type": "journalism",
+       "title": "Reuters (via Yahoo News): Location tracking company Unacast tells Norway its data was hacked",
+       "as_of": "2025-01-11",
+       "status": "reported",
+       "quote": "theft of information from a Gravy Analytic's web server using a \"misappropriated\" key",
+       "single_source": true
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "co-unacast",
+   "name": "Unacast AS",
+   "short_name": "Unacast",
+   "parent": "co-gravy-analytics",
+   "jurisdiction": "NO",
+   "jurisdiction_sources": [
+    {
+     "url": "https://data.brreg.no/enhetsregisteret/api/enheter/913820746",
+     "type": "company_registry",
+     "title": "Brønnøysund Register Centre (Norway), Central Coordinating Register for Legal Entities: Unacast AS, 913820746",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "\"landkode\":\"NO\" … \"navn\":\"UNACAST AS\" … \"beskrivelse\":\"Aksjeselskap\""
+    },
+    {
+     "url": "https://www.unacast.com/privacy-policy-eea",
+     "type": "privacy_policy",
+     "title": "Unacast EEA privacy statement: partner data (last updated August 30, 2021)",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "Unacast, Inc. and our subsidiary Unacast AS of Norway"
+    },
+    {
+     "url": "https://www.unacast.com/privacy-policy-eea",
+     "type": "privacy_policy",
+     "title": "Unacast EEA privacy statement: Data Privacy Framework section (last updated September 2026)",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "its subsidiary and covered entity including Venntel, Inc., and Unacast, Inc."
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "co-kochava",
+   "name": "Kochava Inc.",
+   "short_name": "Kochava",
+   "subsidiaries": [
+    "Collective Data Solutions, LLC"
+   ],
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50612/gov.uscourts.idd.50612.1.0.pdf",
+     "type": "lawsuit",
+     "title": "Kochava Inc. v. FTC (D. Idaho No. 2:22-cv-00349), Kochava's complaint",
+     "as_of": "2022-08-12",
+     "status": "self_disclosed",
+     "quote": "Kochava is a Delaware corporation with its corporate headquarters at 201 Church Street, Sandpoint"
+    },
+    {
+     "url": "https://www.kochava.com/legal/website-visitor-privacy-policy/",
+     "type": "privacy_policy",
+     "title": "Kochava Website Visitor Privacy Policy",
+     "as_of": "2026-10-01",
+     "status": "self_disclosed",
+     "quote": "201 Church Street, Sandpoint, ID 83864"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2026-06-25",
+     "title": "FTC v. Kochava Inc. and Collective Data Solutions, LLC (D. Idaho No. 2:22-cv-00377): stipulated order",
+     "body": "US District Court for the District of Idaho, in a case brought by the US Federal Trade Commission",
+     "type": "order",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "subject_company": "co-kochava",
+     "notes": "Filed 2022-08-29. The first complaint was dismissed with leave to amend (2023-05-04); motions to dismiss the amended complaints were denied (2024-02-03, 2025-02-03). The order bars selling or sharing location data tied to sensitive places in the US and runs 10 years. Collective Data Solutions, which took over part of the data business in 2023, is bound too. Kochava's own 2022 suit against the FTC was dismissed on 2023-05-03.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "must not sell, license, transfer, share, or disclose in any products or services Sensitive Location Data"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "this Order will terminate 10 years from the date it is entered by the Court. … DATED: June 25, 2026"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.138.0.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), stipulated order for injunction and other relief",
+       "as_of": "2026-06-25",
+       "status": "adjudicated",
+       "quote": "Defendants neither admit nor deny any of the allegations in the Complaint"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.86.0_1.pdf",
+       "type": "regulator",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), the FTC's second amended complaint",
+       "as_of": "2024-07-15",
+       "status": "alleged",
+       "quote": "In or around July 2023, Kochava transferred at least part of its data broker business to its wholly-owned subsidiary, Defendant Collective Data Solutions, LLC (“CDS”)."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.24.0_1.pdf",
+       "type": "lawsuit",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+       "as_of": "2023-05-04",
+       "status": "alleged",
+       "quote": "IT IS ORDERED that Defendant’s Motion to Dismiss (Dkt. 7) is GRANTED with leave to amend."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.71.0.pdf",
+       "type": "lawsuit",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+       "as_of": "2024-02-03",
+       "status": "alleged",
+       "quote": "IT IS ORDERED that Kochava’s Motion to Dismiss First Amended Complaint Pursuant to Fed. R. Civ. P. 12(b)(6) (Dkts. 33 & 34) is DENIED."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50683/gov.uscourts.idd.50683.101.0_1.pdf",
+       "type": "lawsuit",
+       "title": "FTC v. Kochava Inc. (D. Idaho No. 2:22-cv-00377), memorandum decision and order",
+       "as_of": "2025-02-03",
+       "status": "alleged",
+       "quote": "Defendant’s Motion to Dismiss Second Amended Complaint (Dkt. 96) is DENIED."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.50612/gov.uscourts.idd.50612.18.0_1.pdf",
+       "type": "lawsuit",
+       "title": "Kochava Inc. v. FTC (D. Idaho No. 2:22-cv-00349), memorandum decision and order",
+       "as_of": "2023-05-03",
+       "status": "adjudicated",
+       "quote": "IT IS ORDERED that the FTC’s Motion to Dismiss (Dkt. 12) is GRANTED without leave to amend. This case is dismissed."
+      }
+     ]
+    },
+    {
+     "date": "2025-11-14",
+     "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058): class settlement approved",
+     "body": "US District Court for the District of Idaho",
+     "type": "class_action",
+     "status": "adjudicated",
+     "status_kind": "settlement_no_admission",
+     "in_force": true,
+     "subject_company": "co-kochava",
+     "notes": "Consolidated suits filed in 2022 and 2023, including Maattala's from Massachusetts. Injunctive relief only: a privacy block for sensitive locations, SDK data limited to the app that collected it, deletion of older SDK data kept for Kochava's own benefit, an opt-out list, and consent checks on data suppliers. Class members keep their right to seek damages.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "restrictions limiting any SDK-collected data to use by the originating app developer; and permanent deletion of legacy SDK data retained for Kochava’s own benefit"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "a “privacy block” that filters and prevents dissemination of location data associated with Sensitive Locations"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "a consumer opt-out and … blacklisting mechanism to prevent future ingestion or sale of covered data"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "a verification process requiring Kochava to obtain representative consent prompts from data suppliers"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "the Releasing Parties do not release claims for monetary relief or damages"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",
+       "type": "lawsuit",
+       "title": "Murphy v. Kochava, Inc. (D. Idaho No. 2:23-cv-00058), final order approving the class settlement",
+       "as_of": "2025-11-14",
+       "status": "adjudicated",
+       "quote": "Defendant denies the material factual allegations and legal claims asserted by Settlement Class Representatives in this Action"
+      }
+     ]
+    },
+    {
+     "date": "2022-09-06",
+     "title": "Greenley v. Kochava, Inc. (S.D. Cal. No. 3:22-cv-01327)",
+     "body": "US District Court for the Southern District of California",
+     "type": "class_action",
+     "status": "alleged",
+     "status_kind": "dismissed",
+     "closed_date": "2024-10-17",
+     "subject_company": "co-kochava",
+     "notes": "Alleged that Kochava's SDK secretly collected app users' data, which Kochava sold for advertising (not proven in court). The court let part of the case go ahead on 2023-07-27; it was dismissed without prejudice by agreement on 2024-10-17.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.741822/gov.uscourts.casd.741822.27.0.pdf",
+       "type": "lawsuit",
+       "title": "Greenley v. Kochava, Inc. (S.D. Cal. No. 3:22-cv-01327), order on the motion to dismiss",
+       "as_of": "2023-07-27",
+       "status": "alleged",
+       "quote": "Defendant coded its SDK for data collection and embedded it in third-party apps; the SDK secretly collected app users’ data"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.741822/gov.uscourts.casd.741822.27.0.pdf",
+       "type": "lawsuit",
+       "title": "Greenley v. Kochava, Inc. (S.D. Cal. No. 3:22-cv-01327), order on the motion to dismiss",
+       "as_of": "2023-07-27",
+       "status": "alleged",
+       "quote": "Court GRANTS IN PART and DENIES IN PART Defendant’s Motion to Dismiss"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.casd.741822/gov.uscourts.casd.741822.87.0.pdf",
+       "type": "lawsuit",
+       "title": "Greenley v. Kochava, Inc. (S.D. Cal. No. 3:22-cv-01327), order granting the joint motion to dismiss",
+       "as_of": "2024-10-17",
+       "status": "alleged",
+       "quote": "the Court DISMISSES WITHOUT PREJUDICE the action against Defendant"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
   },
   {
    "id": "co-meta",
@@ -2850,6 +5099,168 @@
     }
    ],
    "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "co-outlogic",
+   "name": "Outlogic, LLC",
+   "short_name": "X-Mode/Outlogic",
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+     "type": "regulator",
+     "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+     "as_of": "2024-04-11",
+     "status": "adjudicated",
+     "quote": "Respondent Outlogic, LLC (“Outlogic”) is a Virginia Limited Liability Company with its principal office or place of business at 150 Granby St, Norfolk, VA 23510.",
+     "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+     "wayback_date": "2026-09-30",
+     "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+    },
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+     "type": "regulator",
+     "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+     "as_of": "2024-04-11",
+     "status": "adjudicated",
+     "quote": "X-Mode transferred its business and substantially all of its assets to its successor, Outlogic, and Outlogic became a wholly-owned subsidiary of Digital Envoy",
+     "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+     "wayback_date": "2026-09-30",
+     "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+    },
+    {
+     "url": "https://www.digitalenvoy.com/",
+     "type": "company_site",
+     "title": "Digital Envoy home page",
+     "accessed": "2026-10-04",
+     "status": "self_disclosed",
+     "quote": "Landmark Media Enterprises is the majority owner of Digital Envoy."
+    },
+    {
+     "url": "https://www.digitalenvoy.com/digital-envoy-acquires-x-mode/",
+     "type": "company_site",
+     "title": "Digital Envoy press release: Digital Envoy acquires X-Mode",
+     "as_of": "2021-08-04",
+     "status": "self_disclosed",
+     "quote": "Landmark Media Enterprises is the majority owner of Digital Envoy."
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2024-04-11",
+     "title": "In the Matter of X-Mode Social, Inc. and Outlogic, LLC (FTC Docket No. C-4802)",
+     "body": "US Federal Trade Commission",
+     "type": "order",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "subject_company": "co-outlogic",
+     "notes": "Announced 2024-01-09 and final 2024-04-11: the FTC's first settlement with a data broker over sensitive location data. It bans selling or sharing sensitive location data (sensitive places in the US) and requires deleting location data collected without consent unless it is deidentified. The order runs 20 years from its issuance. No admission of the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "ISSUED: April 11, 2024",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "20 years from the date of its issuance",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order prohibits X-Mode and Outlogic from selling sensitive location data",
+       "as_of": "2024-01-09",
+       "status": "adjudicated",
+       "quote": "first settlement with a data broker concerning the collection and sale of sensitive location information",
+       "wayback_url": "https://web.archive.org/web/20261001101243/https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data",
+       "wayback_date": "2026-10-01",
+       "verify_url": "https://web.archive.org/web/20261001101243/https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "type": "regulator",
+       "title": "FTC press release: order with X-Mode and Outlogic finalized",
+       "as_of": "2024-04-12",
+       "status": "adjudicated",
+       "quote": "prohibiting data broker X-Mode and its successor Outlogic from sharing or selling any sensitive location data",
+       "wayback_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "wayback_date": "2026-09-08",
+       "verify_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "type": "regulator",
+       "title": "FTC press release: order with X-Mode and Outlogic finalized",
+       "as_of": "2024-04-12",
+       "status": "adjudicated",
+       "quote": "delete or destroy all the location data it previously collected and any products developed from this data unless it obtains consumer consent or ensures the data has been deidentified",
+       "wayback_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "wayback_date": "2026-09-08",
+       "verify_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "co-placer",
+   "name": "Placer Labs, Inc.",
+   "short_name": "Placer.ai",
+   "jurisdiction": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.placer.ai/terms-of-service",
+     "type": "company_site",
+     "title": "Placer.ai Terms of Service",
+     "as_of": "2022-12-27",
+     "status": "self_disclosed",
+     "quote": "Placer Labs, Inc., a Delaware corporation"
+    },
+    {
+     "url": "https://www.placer.ai/terms-of-service",
+     "type": "company_site",
+     "title": "Placer.ai Terms of Service",
+     "as_of": "2022-12-27",
+     "status": "self_disclosed",
+     "quote": "the website located at http://placer.io … software development kit (SDK) as integrated into mobile apps"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-08"
   }
  ],
  "permissions": [
