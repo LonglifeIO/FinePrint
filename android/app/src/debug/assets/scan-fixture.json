@@ -2018,6 +2018,23 @@
    "out_of_memory": false,
    "dex_files": 44,
    "classes": 475045
+  },
+  {
+   "package": "com.google.android.apps.maps",
+   "label": "Google Maps",
+   "note": "not scanned",
+   "version_name": null,
+   "version_code": 0,
+   "has_code": true,
+   "apk_count": 0,
+   "permissions": [],
+   "device_reach": [],
+   "trackers": [],
+   "referenced_only": [],
+   "problems": 1,
+   "out_of_memory": false,
+   "dex_files": 0,
+   "classes": 0
   }
  ]
 }

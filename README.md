@@ -23,8 +23,8 @@ supported by exactly one hardcoded ad that knows nothing about you.
 </p>
 
 Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, from knowledge bundle 2026.10.08
-and the test emulator's apps. In dark mode: [the home](docs/screenshots/home-dark.png) and
-[Life360](docs/screenshots/detail-dark.png).
+and the scan fixture: the test emulator's apps, plus Google Maps, which has a record but isn't installed there.
+In dark mode: [the home](docs/screenshots/home-dark.png) and [Life360](docs/screenshots/detail-dark.png).
 
 ## Preview build
 

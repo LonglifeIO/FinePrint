@@ -10,7 +10,10 @@ Build order (each is a separate script, each is idempotent):
 2. `fetch_app.py <package>` — Exodus report, Play listing metadata, privacy-policy URL → `raw/` (gitignored).
 3. `draft.py <package>` — LLM draft of tracker/app records with mandatory `sources`; refuses to emit
    a consequence with no source. Writes to `drafts/` (gitignored). Hand-run via Codex CLI for now.
-4. `review.py` — opens the draft queue; approved records move into `reviewed/`.
+4. `review.py` — opens the draft queue; approved records move into `reviewed/`. A new app record's package also
+   goes into the scan fixture, `android/app/src/debug/assets/scan-fixture.json`: as scanned on the test emulator,
+   or, if it isn't installed there, with no trackers and `"note": "not scanned"`. Then the preview build shows every
+   record; `test_scan_fixture.py` fails until it's there.
 5. `build.py` — merges `reviewed/*.json`, rejects duplicate ids, marks records older than 180 days
    `stale`, validates against `../bundle/schema.json`, cross-checks company, source and tracker ids
    (a tracker record may cover several ids; each id has one explanation at most),
