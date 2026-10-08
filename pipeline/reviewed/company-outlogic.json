@@ -1,0 +1,137 @@
+{
+ "companies": [
+  {
+   "id": "co-outlogic",
+   "name": "Outlogic, LLC",
+   "short_name": "X-Mode/Outlogic",
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+     "type": "regulator",
+     "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+     "as_of": "2024-04-11",
+     "status": "adjudicated",
+     "quote": "Respondent Outlogic, LLC (“Outlogic”) is a Virginia Limited Liability Company with its principal office or place of business at 150 Granby St, Norfolk, VA 23510.",
+     "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+     "wayback_date": "2026-09-30",
+     "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+    },
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+     "type": "regulator",
+     "title": "FTC complaint, In the Matter of X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+     "as_of": "2024-04-11",
+     "status": "adjudicated",
+     "quote": "X-Mode transferred its business and substantially all of its assets to its successor, Outlogic, and Outlogic became a wholly-owned subsidiary of Digital Envoy",
+     "wayback_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf",
+     "wayback_date": "2026-09-30",
+     "verify_url": "https://web.archive.org/web/20260930012546/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialComplaint.pdf"
+    },
+    {
+     "url": "https://www.digitalenvoy.com/",
+     "type": "company_site",
+     "title": "Digital Envoy home page",
+     "accessed": "2026-10-04",
+     "status": "self_disclosed",
+     "quote": "Landmark Media Enterprises is the majority owner of Digital Envoy."
+    },
+    {
+     "url": "https://www.digitalenvoy.com/digital-envoy-acquires-x-mode/",
+     "type": "company_site",
+     "title": "Digital Envoy press release: Digital Envoy acquires X-Mode",
+     "as_of": "2021-08-04",
+     "status": "self_disclosed",
+     "quote": "Landmark Media Enterprises is the majority owner of Digital Envoy."
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2024-04-11",
+     "title": "In the Matter of X-Mode Social, Inc. and Outlogic, LLC (FTC Docket No. C-4802)",
+     "body": "US Federal Trade Commission",
+     "type": "order",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "subject_company": "co-outlogic",
+     "notes": "Announced 2024-01-09 and final 2024-04-11: the FTC's first settlement with a data broker over sensitive location data. It bans selling or sharing sensitive location data (sensitive places in the US) and requires deleting location data collected without consent unless it is deidentified. The order runs 20 years from its issuance. No admission of the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "ISSUED: April 11, 2024",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "20 years from the date of its issuance",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order prohibits X-Mode and Outlogic from selling sensitive location data",
+       "as_of": "2024-01-09",
+       "status": "adjudicated",
+       "quote": "first settlement with a data broker concerning the collection and sale of sensitive location information",
+       "wayback_url": "https://web.archive.org/web/20261001101243/https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data",
+       "wayback_date": "2026-10-01",
+       "verify_url": "https://web.archive.org/web/20261001101243/https://www.ftc.gov/news-events/news/press-releases/2024/01/ftc-order-prohibits-data-broker-x-mode-social-outlogic-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "type": "regulator",
+       "title": "FTC press release: order with X-Mode and Outlogic finalized",
+       "as_of": "2024-04-12",
+       "status": "adjudicated",
+       "quote": "prohibiting data broker X-Mode and its successor Outlogic from sharing or selling any sensitive location data",
+       "wayback_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "wayback_date": "2026-09-08",
+       "verify_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "type": "regulator",
+       "title": "FTC press release: order with X-Mode and Outlogic finalized",
+       "as_of": "2024-04-12",
+       "status": "adjudicated",
+       "quote": "delete or destroy all the location data it previously collected and any products developed from this data unless it obtains consumer consent or ensures the data has been deidentified",
+       "wayback_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location",
+       "wayback_date": "2026-09-08",
+       "verify_url": "https://web.archive.org/web/20260908194855/https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "type": "regulator",
+       "title": "FTC Decision and Order, X-Mode Social, Inc. and Outlogic, LLC (Docket No. C-4802)",
+       "as_of": "2024-04-11",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf",
+       "wayback_date": "2026-04-25",
+       "verify_url": "https://web.archive.org/web/20260425073848/https://www.ftc.gov/system/files/ftc_gov/pdf/X-ModeSocialDecisionandOrder.pdf"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
