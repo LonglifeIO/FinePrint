@@ -1,0 +1,172 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-125",
+   "aka": [
+    "Amplitude SDK",
+    "Amplitude Analytics"
+   ],
+   "owner": "Amplitude, Inc.",
+   "owner_company": "co-amplitude",
+   "owner_chain": [
+    "Amplitude, Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Amplitude's product analytics SDK for app developers",
+   "categories": [
+    "analytics"
+   ],
+   "data_collected": [
+    "events the developer tracks",
+    "a device ID; the advertising ID if the developer chooses",
+    "carrier, language, platform, OS and device model",
+    "IP address, turned into city and country",
+    "precise coordinates, if the developer turns on location listening (by default before version 2.40.3)"
+   ],
+   "monetization_model": "Amplitude sells product analytics to app developers and processes app users' data on their behalf; the developer is responsible for what is collected (its privacy notice).",
+   "data_flows": [
+    {
+     "id": "flow-amplitude-events",
+     "data": "app_activity",
+     "recipient": "co-amplitude",
+     "bucket": "stays_here",
+     "purpose": "The events the developer chooses to track, such as what you do in the app, for the developer's product analytics",
+     "status": "self_disclosed",
+     "wording": "According to Amplitude's Android SDK documentation and its privacy notice (last updated 2026-08-31).",
+     "sources": [
+      {
+       "url": "https://amplitude.com/privacy",
+       "type": "privacy_policy",
+       "title": "Amplitude Privacy Notice",
+       "as_of": "2026-08-31",
+       "status": "self_disclosed",
+       "quote": "a cloud-based product analytics platform that helps customers build better products"
+      },
+      {
+       "url": "https://amplitude.com/privacy",
+       "type": "privacy_policy",
+       "title": "Amplitude Privacy Notice",
+       "as_of": "2026-08-31",
+       "status": "self_disclosed",
+       "quote": "Amplitude is processing Customer End User Data on behalf of that customer"
+      }
+     ]
+    },
+    {
+     "id": "flow-amplitude-device",
+     "data": "device_identifiers",
+     "recipient": "co-amplitude",
+     "bucket": "stays_here",
+     "purpose": "A device ID, with your carrier, language and platform; your advertising ID only if the developer chooses it as the device ID",
+     "status": "self_disclosed",
+     "wording": "According to Amplitude's Android SDK documentation and its privacy notice (last updated 2026-08-31).",
+     "sources": [
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "user properties such as carrier , city , country , ip_address , language , and platform"
+      },
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "you can use useAdvertisingIdForDeviceId to set it as the device ID"
+      },
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "disableDeviceModel() Disable tracking of device model"
+      },
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "disableOsVersion() Disable tracking of device's OS Version"
+      },
+      {
+       "url": "https://amplitude.com/privacy",
+       "type": "privacy_policy",
+       "title": "Amplitude Privacy Notice",
+       "as_of": "2026-08-31",
+       "status": "self_disclosed",
+       "quote": "Amplitude is processing Customer End User Data on behalf of that customer"
+      }
+     ]
+    },
+    {
+     "id": "flow-amplitude-location",
+     "data": "approximate_location",
+     "recipient": "co-amplitude",
+     "bucket": "stays_here",
+     "purpose": "Your IP address, which Amplitude turns into your city and country by default",
+     "status": "self_disclosed",
+     "wording": "According to Amplitude's Android SDK documentation and its privacy notice (last updated 2026-08-31).",
+     "sources": [
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "converts the IP of a user event into a location (GeoIP lookup) by default"
+      },
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "user properties such as carrier , city , country , ip_address"
+      },
+      {
+       "url": "https://amplitude.com/privacy",
+       "type": "privacy_policy",
+       "title": "Amplitude Privacy Notice",
+       "as_of": "2026-08-31",
+       "status": "self_disclosed",
+       "quote": "Amplitude is processing Customer End User Data on behalf of that customer"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "If the developer has turned on location listening, Amplitude adds your precise coordinates from Android's location services to each event; versions before 2.40.3 did this by default. FinePrint can't see that setting or the version.",
+     "status": "self_disclosed",
+     "wording": "According to Amplitude's Android SDK documentation (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "As of version v2.40.3, the SDK disables location tracking by default."
+      },
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Amplitude uses Android location services (if available) to add specific coordinates (longitude and latitude)"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

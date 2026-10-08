@@ -1,0 +1,89 @@
+{
+ "companies": [
+  {
+   "id": "co-amplitude",
+   "name": "Amplitude, Inc.",
+   "short_name": "Amplitude",
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.433999/gov.uscourts.cand.433999.63.0.pdf",
+     "type": "lawsuit",
+     "title": "Atkins v. Amplitude, Inc. (N.D. Cal. No. 3:24-cv-04913), notice of dismissal with prejudice",
+     "as_of": "2026-06-29",
+     "status": "self_disclosed",
+     "quote": "AMPLITUDE, INC., a Delaware corporation"
+    },
+    {
+     "url": "https://amplitude.com/privacy",
+     "type": "privacy_policy",
+     "title": "Amplitude Privacy Notice",
+     "as_of": "2026-08-31",
+     "status": "self_disclosed",
+     "quote": "Amplitude, Inc. Attn: Privacy 201 Third Street, Suite 200 San Francisco, CA 94103"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2024-08-08",
+     "title": "Atkins v. Amplitude, Inc. (N.D. Cal. No. 3:24-cv-04913)",
+     "body": "US District Court for the Northern District of California",
+     "type": "class_action",
+     "status": "alleged",
+     "status_kind": "dismissed",
+     "closed_date": "2026-06-29",
+     "subject_company": "co-amplitude",
+     "notes": "Alleged that Amplitude's SDK secretly collected app users' activity, search terms and location data from apps that didn't disclose it. The court sent the named plaintiffs' claims to arbitration on 2025-09-02 and refused an interlocutory appeal on 2026-03-25; the plaintiffs dismissed their own claims with prejudice on 2026-06-29, which doesn't affect other class members' claims.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.433999/gov.uscourts.cand.433999.23.0.pdf",
+       "type": "lawsuit",
+       "title": "Atkins v. Amplitude, Inc. (N.D. Cal. No. 3:24-cv-04913), first amended class action complaint",
+       "as_of": "2024-11-15",
+       "status": "alleged",
+       "quote": "Amplitude is a data analytics company that surreptitiously collects sensitive information about consumers and their mobile devices."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.433999/gov.uscourts.cand.433999.48.0.pdf",
+       "type": "lawsuit",
+       "title": "Atkins v. Amplitude, Inc. (N.D. Cal. No. 3:24-cv-04913), order granting motion to compel arbitration",
+       "as_of": "2025-09-02",
+       "status": "alleged",
+       "quote": "MOTION TO COMPEL ARBITRATION"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.433999/gov.uscourts.cand.433999.62.0.pdf",
+       "type": "lawsuit",
+       "title": "Atkins v. Amplitude, Inc. (N.D. Cal. No. 3:24-cv-04913), order denying certification of interlocutory appeal",
+       "as_of": "2026-03-25",
+       "status": "alleged",
+       "quote": "DENYING MOTION FOR CERTIFICATION OF INTERLOCUTORY APPEAL"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.433999/gov.uscourts.cand.433999.63.0.pdf",
+       "type": "lawsuit",
+       "title": "Atkins v. Amplitude, Inc. (N.D. Cal. No. 3:24-cv-04913), notice of dismissal with prejudice",
+       "as_of": "2026-06-29",
+       "status": "alleged",
+       "quote": "dismissing with prejudice all of Plaintiffs’ individual claims asserted against Defendant Amplitude, Inc."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.433999/gov.uscourts.cand.433999.63.0.pdf",
+       "type": "lawsuit",
+       "title": "Atkins v. Amplitude, Inc. (N.D. Cal. No. 3:24-cv-04913), notice of dismissal with prejudice",
+       "as_of": "2026-06-29",
+       "status": "alleged",
+       "quote": "The dismissal of Plaintiffs’ individual claims has no effect on the claims of any absent putative class members."
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
