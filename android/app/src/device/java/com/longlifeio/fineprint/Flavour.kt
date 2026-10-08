@@ -10,6 +10,7 @@ import android.provider.Settings
 import android.widget.Toast
 import com.longlifeio.fineprint.bundle.BundleSession
 import com.longlifeio.fineprint.bundle.BundleState
+import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.ScanSession
 import com.longlifeio.fineprint.ui.bundleStatus
 
@@ -27,6 +28,13 @@ internal fun FinePrintApp.newScanner(): AppScanner = ScanSession(this) { bundle.
 
 /** A line under "At a glance"; none here, where the apps are your own. */
 val GLANCE_NOTICE: String? = null
+
+/** The introduction's line on what FinePrint reads, where a build says it differently; this one keeps its own. */
+val INTRO_WHAT_IT_READS: String? = null
+
+/** In place of an app's version and APK count in its header; never here, where every app is installed and scanned. */
+@Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
+fun ScanSession.installLine(app: InstalledApp): String? = null
 
 /** Opens an app's Android settings; every app listed is installed here, so it always can. */
 fun Activity.settingsOpener(packageName: String): (() -> Unit)? = { openAppSettings(packageName) }

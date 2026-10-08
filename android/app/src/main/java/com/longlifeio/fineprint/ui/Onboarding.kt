@@ -45,6 +45,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.longlifeio.fineprint.INTRO_WHAT_IT_READS
 import com.longlifeio.fineprint.explain.BUCKETS
 import com.longlifeio.fineprint.explain.BUCKET_TEXT
 import kotlinx.coroutines.delay
@@ -137,7 +138,7 @@ private fun WhatItDoes() {
         }
     }
     Title("See where your apps' data can go")
-    Body("FinePrint reads the code of the apps on this phone, checks it against its own reviewed records, and shows where each app's data can go, with a source for every line.")
+    Body(INTRO_WHAT_IT_READS ?: "FinePrint reads the code of the apps on this phone, checks it against its own reviewed records, and shows where each app's data can go, with a source for every line.")
     Body("It all happens on this phone. FinePrint downloads its records whole and never tells anyone which apps you have.")
 }
 

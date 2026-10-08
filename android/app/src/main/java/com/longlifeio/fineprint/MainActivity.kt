@@ -119,6 +119,7 @@ class MainActivity : ComponentActivity() {
                             onBack = { openPackage = null },
                             onOpenSettings = settingsOpener(open.packageName),
                             settingsUnavailable = SETTINGS_UNAVAILABLE,
+                            installLine = session.installLine(open),
                             onHowToRead = { showHowTo = true },
                             onMarkReviewed = now?.let { fp -> { reviewStore.markReviewed(open.packageName, fp, OffsetDateTime.now().toString()) } },
                             onClearMark = { reviewStore.clearMark(open.packageName) },

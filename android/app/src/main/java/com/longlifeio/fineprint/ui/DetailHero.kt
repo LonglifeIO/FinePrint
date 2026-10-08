@@ -58,7 +58,7 @@ import com.longlifeio.fineprint.review.ReviewView
 /** The app, its tier as an indicator chip ("Flagged ✓" once reviewed) and the line that set it: the answer before the detail. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo, review: ReviewView, onOpenSettings: (() -> Unit)?, settingsUnavailable: String?) {
+internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo, review: ReviewView, onOpenSettings: (() -> Unit)?, settingsUnavailable: String?, installLine: String?) {
     val p = LocalPalette.current
     val reviewed = review.status == ReviewStatus.REVIEWED
     Column(Modifier.padding(horizontal = Space.screen, vertical = Space.s), verticalArrangement = Arrangement.spacedBy(Space.s)) {
@@ -83,9 +83,9 @@ internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo
         Column {
             PackageName(app.packageName, color = p.muted)
             Text(
-                "Version ${app.versionName ?: "unknown"} (${app.versionCode}) · " +
+                installLine ?: ("Version ${app.versionName ?: "unknown"} (${app.versionCode}) · " +
                     (if (app.isSystem) "system app" else "user-installed") + " · " +
-                    (if (app.apkPaths.size == 1) "1 APK" else "${app.apkPaths.size} APKs"),
+                    (if (app.apkPaths.size == 1) "1 APK" else "${app.apkPaths.size} APKs")),
                 style = MaterialTheme.typography.bodySmall, color = p.muted,
             )
         }

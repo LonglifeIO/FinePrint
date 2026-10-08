@@ -21,6 +21,8 @@ internal fun FinePrintApp.newScanner(): AppScanner = FixtureScanner(this) { bund
 
 val GLANCE_NOTICE: String? = "Preview — sample apps, not your phone."
 
+val INTRO_WHAT_IT_READS: String? = "This preview shows sample apps. It reads nothing on this phone."
+
 /** The sample apps may not be on this phone, and the preview doesn't look: no settings to open. */
 @Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
 fun Activity.settingsOpener(packageName: String): (() -> Unit)? = null

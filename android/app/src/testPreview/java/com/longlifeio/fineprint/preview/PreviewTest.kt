@@ -104,12 +104,22 @@ class PreviewTest {
     fun noAppsSettingsOpenAndTheLineSaysWhy() {
         compose.onNodeWithTag("list").performScrollToNode(hasText("Life360"))
         compose.onNodeWithText("Life360").performClick()
+        compose.onNodeWithText("Version 26.37.0", substring = true).assertIsDisplayed() // a scanned sample app keeps its version
         compose.onNodeWithText("Open app settings").assertIsNotEnabled().performClick()
         compose.onAllNodesWithText(SETTINGS_UNAVAILABLE!!).onFirst().assertIsDisplayed()
         compose.onNodeWithTag("detail").performScrollToNode(hasText("Open app settings to change these"))
         compose.onNodeWithText("Open app settings to change these").performClick()
         assertNull("nothing opened", shadowOf(compose.activity).nextStartedActivity)
         compose.onRoot().captureRoboImage("build/outputs/roborazzi/preview-detail.png")
+    }
+
+    @Test
+    fun anAppThatWasNotScannedSaysSoInPlaceOfItsVersion() {
+        compose.onNodeWithTag("list").performScrollToNode(hasText("Google Maps"))
+        compose.onNodeWithText("Google Maps").performClick()
+        compose.onNodeWithText("Not scanned in this preview").assertIsDisplayed()
+        assertEquals(0, compose.onAllNodesWithText("Version", substring = true).fetchSemanticsNodes().size)
+        assertEquals(0, compose.onAllNodesWithText("APKs", substring = true).fetchSemanticsNodes().size)
     }
 
     @Test

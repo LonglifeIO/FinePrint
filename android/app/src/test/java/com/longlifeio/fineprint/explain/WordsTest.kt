@@ -6,8 +6,8 @@ import java.io.File
 
 /**
  * docs/METHOD.md, Before each release: none of the brief's alarm words in the app's own text. Checks
- * every string literal in the app's code and the published method; the one sentence that names
- * uninstalling says nobody's asking you to.
+ * every string literal in the app's code, shared and each flavour's, and the published method; the one
+ * sentence that names uninstalling says nobody's asking you to.
  */
 class WordsTest {
 
@@ -19,7 +19,8 @@ class WordsTest {
         // Comments and the code inside "${…}" templates aren't text anyone reads.
         val comments = Regex("""/\*[\s\S]*?\*/|//[^\n]*""")
         val templates = Regex("""\$\{[^}]*\}""")
-        val literals = File("src/main/java").walk().filter { it.extension == "kt" }.flatMap { f ->
+        val code = listOf("src/main/java", "src/device/java", "src/preview/java").map(::File)
+        val literals = code.asSequence().flatMap { it.walk() }.filter { it.extension == "kt" }.flatMap { f ->
             Regex(""""((?:[^"\\]|\\.)*)"""").findAll(comments.replace(f.readText(), "")).map { f.name to templates.replace(it.groupValues[1], "") }
         }
         val found = literals.filter { (_, text) -> banned.containsMatchIn(text) && text !in allowed }.map { (file, text) -> "$file: $text" }.toList()

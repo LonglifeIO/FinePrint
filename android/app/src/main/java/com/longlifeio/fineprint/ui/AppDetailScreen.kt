@@ -72,6 +72,8 @@ fun AppDetailScreen(
     /** Which buckets show all their lines; kept on this phone. */
     buckets: OpenBuckets = rememberOpenBuckets(),
     settingsUnavailable: String? = null,
+    /** Said in place of the app's version and APK count, when they aren't known (a sample app never scanned). */
+    installLine: String? = null,
 ) {
     var evidenceOpen by rememberSaveable { mutableStateOf(false) }
     var recordOpen by rememberSaveable { mutableStateOf(false) }
@@ -98,7 +100,7 @@ fun AppDetailScreen(
                 },
             ) { padding ->
                 CentredList(padding, Modifier.testTag("detail")) {
-                    item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings, settingsUnavailable) }
+                    item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings, settingsUnavailable, installLine) }
                     // Their words: only when the record has the store's own description.
                     explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation), alsoCollected(explanation)) { sheet = it } } }
                     detailSections(
