@@ -1,0 +1,195 @@
+{
+ "companies": [
+  {
+   "id": "co-gravy-analytics",
+   "name": "Gravy Analytics, Inc.",
+   "short_name": "Gravy Analytics",
+   "subsidiaries": [
+    "Venntel",
+    "Unacast"
+   ],
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+     "type": "regulator",
+     "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+     "as_of": "2025-01-13",
+     "status": "adjudicated",
+     "quote": "Respondent Gravy Analytics, Inc. (“Gravy Analytics”) is a Delaware corporation with its principal office or place of business at 44679 Endicott Dr Suite 300, Ashburn, VA 20147.",
+     "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+     "wayback_date": "2026-10-02",
+     "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+    },
+    {
+     "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+     "type": "regulator",
+     "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+     "as_of": "2025-01-13",
+     "status": "adjudicated",
+     "quote": "Venntel is a wholly-owned subsidiary of Gravy Analytics.",
+     "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+     "wayback_date": "2026-10-02",
+     "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+    },
+    {
+     "url": "https://www.unacast.com/privacy-policy",
+     "type": "privacy_policy",
+     "title": "Unacast Privacy Policy (Gravy Analytics, Inc. dba Unacast), last updated September 2026",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "Gravy Analytics, Inc. dba ‘Unacast"
+    },
+    {
+     "url": "https://www.unacast.com/privacy-policy-eea",
+     "type": "privacy_policy",
+     "title": "Unacast EEA privacy statement: Data Privacy Framework section (last updated September 2026)",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "its subsidiary and covered entity including Venntel, Inc., and Unacast, Inc."
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2025-01-13",
+     "title": "In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (FTC Docket No. C-4810)",
+     "body": "US Federal Trade Commission",
+     "type": "order",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "subject_company": "co-gravy-analytics",
+     "notes": "Proposed 2024-12-03 and final 2025-01-13 (announced 2025-01-14, approved 5-0). It bars Gravy Analytics and Venntel from selling, disclosing or using sensitive location data except in limited national security and law enforcement cases, and requires a sensitive location data program. The order runs 20 years. No admission of the charges.",
+     "sources": [
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "ISSUED: January 13, 2025",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order with Gravy Analytics and Venntel finalized",
+       "as_of": "2025-01-14",
+       "status": "adjudicated",
+       "quote": "prohibited from selling, disclosing, or using sensitive location data except in limited circumstances involving national security or law enforcement",
+       "wayback_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "type": "regulator",
+       "title": "FTC press release: order with Gravy Analytics and Venntel finalized",
+       "as_of": "2025-01-14",
+       "status": "adjudicated",
+       "quote": "the Commission voted 5-0 to approve the final order",
+       "wayback_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data",
+       "wayback_date": "2026-09-29",
+       "verify_url": "https://web.archive.org/web/20260929211501/https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-finalizes-order-prohibiting-gravy-analytics-venntel-selling-sensitive-location-data"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "This Order will terminate 20 years from the date of its issuance",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      },
+      {
+       "url": "https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "type": "regulator",
+       "title": "FTC complaint and Decision and Order, In the Matter of Gravy Analytics, Inc. and Venntel, Inc. (Docket No. C-4810)",
+       "as_of": "2025-01-13",
+       "status": "adjudicated",
+       "quote": "neither admit nor deny any of the allegations in the Complaint",
+       "wayback_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf",
+       "wayback_date": "2026-10-02",
+       "verify_url": "https://web.archive.org/web/20261002165806/https://www.ftc.gov/system/files/ftc_gov/pdf/212_3035_-_gravy_analytics_final_consent_package_without_signatures.pdf"
+      }
+     ]
+    },
+    {
+     "date": "2025-01",
+     "title": "Hack of a Gravy Analytics server, reported to Norway's data protection authority",
+     "type": "breach",
+     "status": "reported",
+     "notes": "Unacast told Norway's data protection authority that information had been taken from a Gravy Analytics web server with a misappropriated key; the breach was discovered on 2025-01-04.",
+     "sources": [
+      {
+       "url": "https://www.yahoo.com/news/location-tracking-company-unacast-tells-001837522.html",
+       "type": "journalism",
+       "title": "Reuters (via Yahoo News): Location tracking company Unacast tells Norway its data was hacked",
+       "as_of": "2025-01-11",
+       "status": "reported",
+       "quote": "confirmed to the Norwegian government that it was the victim of a hack",
+       "single_source": true
+      },
+      {
+       "url": "https://www.yahoo.com/news/location-tracking-company-unacast-tells-001837522.html",
+       "type": "journalism",
+       "title": "Reuters (via Yahoo News): Location tracking company Unacast tells Norway its data was hacked",
+       "as_of": "2025-01-11",
+       "status": "reported",
+       "quote": "theft of information from a Gravy Analytic's web server using a \"misappropriated\" key",
+       "single_source": true
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "co-unacast",
+   "name": "Unacast AS",
+   "short_name": "Unacast",
+   "parent": "co-gravy-analytics",
+   "jurisdiction": "NO",
+   "jurisdiction_sources": [
+    {
+     "url": "https://data.brreg.no/enhetsregisteret/api/enheter/913820746",
+     "type": "company_registry",
+     "title": "Brønnøysund Register Centre (Norway), Central Coordinating Register for Legal Entities: Unacast AS, 913820746",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "\"landkode\":\"NO\" … \"navn\":\"UNACAST AS\" … \"beskrivelse\":\"Aksjeselskap\""
+    },
+    {
+     "url": "https://www.unacast.com/privacy-policy-eea",
+     "type": "privacy_policy",
+     "title": "Unacast EEA privacy statement: partner data (last updated August 30, 2021)",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "Unacast, Inc. and our subsidiary Unacast AS of Norway"
+    },
+    {
+     "url": "https://www.unacast.com/privacy-policy-eea",
+     "type": "privacy_policy",
+     "title": "Unacast EEA privacy statement: Data Privacy Framework section (last updated September 2026)",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "its subsidiary and covered entity including Venntel, Inc., and Unacast, Inc."
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
