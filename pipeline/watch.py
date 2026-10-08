@@ -5,6 +5,7 @@ a bundle file or anything in pipeline/reviewed/. Nothing it finds reaches the ap
 reviewed it and the bundle is rebuilt.
 
     python3 pipeline/watch.py poll [--adapter NAME] [--dry-run]   # the sources that are due (each adapter's every_days)
+    python3 pipeline/watch.py digest [--date YYYY-MM-DD]             # rewrite a day's digest (poll writes today's)
     python3 pipeline/watch.py ack ITEM_ID [--note TEXT]               # done with an item: it moves to acked/
     python3 pipeline/watch.py status
 
@@ -16,11 +17,13 @@ from __future__ import annotations
 
 import argparse
 import collections
+import datetime as dt
 import sys
 import time
 
 import requests
 
+import watch_digest
 import watch_fetch
 import watch_queue
 import watch_quotes
@@ -32,25 +35,30 @@ ADAPTERS = {"quote_drift": watch_quotes.poll, "rss": watch_rss.poll}  # name -> 
 
 
 def poll(store: Store, config: dict, local: dict, adapter: str | None = None, dry_run: bool = False,
-         http=requests, sleep=time.sleep, when=None) -> int:
+         http=requests, sleep=time.sleep, when=None, adapters: dict | None = None) -> int:
     contact = str(local.get("contact") or "").strip()
     if not contact:
         print("refusing to run: no contact in pipeline/watch/local.json. Every request names FinePrint and a "
               'contact; add {"contact": "<email or URL>"} there (the file is gitignored).', file=sys.stderr)
         return 2
-    names = [adapter] if adapter else [n for n in config["adapters"] if n in ADAPTERS]
-    unknown = [n for n in names if n not in ADAPTERS or n not in config["adapters"]]
+    adapters = adapters or ADAPTERS
+    names = [adapter] if adapter else [n for n in config["adapters"] if n in adapters]
+    unknown = [n for n in names if n not in adapters or n not in config["adapters"]]
     if unknown:
         print(f"unknown adapter {unknown[0]!r}; configured: {', '.join(config['adapters']) or 'none'}", file=sys.stderr)
         return 2
     fetcher = None if dry_run else watch_fetch.Fetcher(contact, config["denylist"], http=http, sleep=sleep)
     run = Run(store, fetcher, when or watch_store.now(), config["denylist"], dry_run)
     for name in names:
-        ADAPTERS[name](run, config["adapters"][name])
+        adapters[name](run, config["adapters"][name])
     for line in run.notes:
         print(line)
-    tail = " (dry run: nothing fetched or written)" if dry_run else f", {fetcher.requests} requests"
-    print(f"checked {len(run.checked)} sources, {len(run.written)} new items{tail}")
+    if dry_run:
+        print(f"{len(run.notes)} lines above; nothing fetched or written (dry run)")
+        return 0
+    watch_digest.log_run(run, names)
+    path = watch_digest.write(store, run.when.date(), local.get("copy_to"))
+    print(f"checked {len(set(run.checked))} sources with {fetcher.requests} requests; {len(run.written)} new items; digest {path}")
     return 0
 
 
@@ -77,12 +85,20 @@ def ack(store: Store, key: str, note: str) -> int:
     return 0
 
 
+def digest(store: Store, local: dict, day: str | None) -> int:
+    path = watch_digest.write(store, dt.date.fromisoformat(day) if day else watch_store.now().date(), local.get("copy_to"))
+    print(path.read_text(encoding="utf-8"), end="")
+    return 0
+
+
 def main(argv: list[str] | None = None, root=watch_store.WATCH) -> int:
-    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser = argparse.ArgumentParser(description="FinePrint's watcher: what changed at the pages FinePrint quotes and at regulators' feeds.")
     commands = parser.add_subparsers(dest="command", required=True)
     p = commands.add_parser("poll", help="check the sources that are due")
     p.add_argument("--adapter", help="only this adapter")
     p.add_argument("--dry-run", action="store_true", help="say what is due; fetch and write nothing")
+    d = commands.add_parser("digest", help="write a day's digest from its items")
+    d.add_argument("--date", help="YYYY-MM-DD (default: today, Halifax time)")
     a = commands.add_parser("ack", help="move a queue item to acked/, with a note")
     a.add_argument("item_id", help="the item's id, or enough of it to be unique (6 digits or more)")
     a.add_argument("--note", default="", help="what was done about it")
@@ -94,6 +110,8 @@ def main(argv: list[str] | None = None, root=watch_store.WATCH) -> int:
         return status(store)
     if args.command == "ack":
         return ack(store, args.item_id, args.note)
+    if args.command == "digest":
+        return digest(store, watch_store.read_json(root / "local.json", {}), args.date)
     config = watch_store.read_json(root / "sources.json")
     if config is None:
         print(f"no readable {root / 'sources.json'}", file=sys.stderr)
