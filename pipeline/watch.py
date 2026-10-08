@@ -24,10 +24,11 @@ import requests
 import watch_fetch
 import watch_queue
 import watch_quotes
+import watch_rss
 import watch_store
 from watch_store import Run, Store
 
-ADAPTERS = {"quote_drift": watch_quotes.poll}  # name -> poll(run, settings)
+ADAPTERS = {"quote_drift": watch_quotes.poll, "rss": watch_rss.poll}  # name -> poll(run, settings)
 
 
 def poll(store: Store, config: dict, local: dict, adapter: str | None = None, dry_run: bool = False,

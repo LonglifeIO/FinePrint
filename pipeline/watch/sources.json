@@ -15,6 +15,32 @@
      "_about": "Consumer Reports' study, a PDF over 5 MB."
     }
    }
+  },
+  "rss": {
+   "_about": "Regulators' feeds (pipeline/watch_rss.py): an entry naming a recorded company, app or tracker becomes a new_event. Entries older than max_age_days are skipped.",
+   "every_days": 1,
+   "max_age_days": 30,
+   "feeds": [
+    {
+     "name": "OPC: Investigations into businesses",
+     "url": "https://www.priv.gc.ca/en/rss/pipeda/",
+     "licence_class": "quotable",
+     "_about": "Findings under PIPEDA. FinePrint already quotes OPC pages under its 15-word rule."
+    },
+    {
+     "name": "BC OIPC: Rulings and Reports",
+     "url": "https://www.oipc.bc.ca/RulingsAndReports.xml",
+     "licence_class": "lead_only",
+     "_about": "Orders, decisions and investigation reports. Its terms of reuse haven't been checked, so its entries are leads for now."
+    }
+   ],
+   "_not_watched": [
+    {
+     "name": "FTC press releases: consumer protection",
+     "url": "https://www.ftc.gov/feeds/press-release-consumer-protection.xml",
+     "why": "On 2026-10-08 ftc.gov answered the watcher's robots.txt request with a block page (it said the request resembled an abusive automated request), which counts as disallowing everything. A refusal is a refusal: not watched."
+    }
+   ]
   }
  },
  "denylist": [
