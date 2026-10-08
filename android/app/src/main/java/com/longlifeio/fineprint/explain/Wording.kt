@@ -47,6 +47,8 @@ val SOURCES = SectionText("Sources", "Every number on this page is one of these,
 /** The top of an app's page, when its store description is on record. */
 val THEIR_WORDS = SectionText("Their words", "The app's own short description on its Google Play listing, word for word.")
 val THE_FINE_PRINT = SectionText("The fine print", "At most four of FinePrint's own lines, chosen the same way for every app.")
+/** The home's bar: the product's name, shown on no other screen. */
+const val HOME_WORDMARK = "FinePrint"
 
 const val STAYS_HERE = "stays_here"
 const val USED_FOR_MORE = "used_for_more"

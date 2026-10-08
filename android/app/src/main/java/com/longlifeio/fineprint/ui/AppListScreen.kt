@@ -20,12 +20,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,14 +37,17 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.traversalIndex
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.explain.Explanation
+import com.longlifeio.fineprint.explain.HOME_WORDMARK
 import com.longlifeio.fineprint.explain.ListFilter
 import com.longlifeio.fineprint.explain.TIER_SECTIONS
 import com.longlifeio.fineprint.explain.WhatYouCanDo
@@ -55,9 +58,10 @@ import com.longlifeio.fineprint.explain.systemGroups
 import com.longlifeio.fineprint.review.ReviewView
 
 /**
- * The home (G5): "At a glance" first, then search and filters, then your apps in four tier sections
- * (or, with System on, grouped by maker), and the ad tile that knows nothing about you. Drawn in the
- * Field notes design system; [openSections] keeps which sections you've opened.
+ * The home (G5): the wordmark bar, "At a glance", then search and filters, then your apps in four tier
+ * sections (or, with System on, grouped by maker), and the ad tile that knows nothing about you. Drawn
+ * in the Field notes design system; [openSections] keeps which sections you've opened. No "Your apps"
+ * headline over search: on a 360 × 780 phone it pushed the search field below the fold.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,16 +94,16 @@ fun AppListScreen(
     val summary = remember(installed, explanations, checks) { glance(installed, explanations, checks) }
     val latest = remember(installed, explanations) { latestChange(installed, explanations) }
     val p = LocalPalette.current
-    val bar = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
-        modifier = Modifier.nestedScroll(bar.nestedScrollConnection),
         containerColor = p.surface,
         topBar = {
-            LargeTopAppBar(
-                title = { Text("Your apps") },
+            // 64dp and never collapsing, so nothing empty sits over the first card. The list under it
+            // starts at the same top, so the bar is put first for TalkBack: wordmark, menu, then the list.
+            TopAppBar(
+                title = { Text(HOME_WORDMARK, style = MaterialTheme.typography.titleLarge.copy(fontFamily = Fraunces), color = p.ink, modifier = Modifier.semantics { heading() }) },
                 actions = { OverflowMenu(includeSystem, onIncludeSystemChange, onAbout, onHowToRead) },
-                scrollBehavior = bar,
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = p.surface, scrolledContainerColor = p.surface),
+                modifier = Modifier.testTag("bar").semantics { traversalIndex = -1f },
             )
         },
     ) { padding ->
@@ -112,7 +116,7 @@ fun AppListScreen(
         }
         CentredList(padding, Modifier.testTag("list"), listState, extraBottom = Space.xxl) {
             if (progress.running) item(key = "progress") { ScanProgressLine(progress) }
-            item(key = "glance") { AtAGlance(summary, latest, bundleLine, onOpen, Modifier.padding(horizontal = Space.screen)) }
+            item(key = "glance") { AtAGlance(summary, latest, bundleLine, onOpen, Modifier.padding(horizontal = Space.screen).testTag("glance")) }
             item(key = "search") { SearchAndFilters(query, { query = it }, filters, { filters = it }, includeSystem) }
             if (visible.isEmpty()) item(key = "none") { Note("No apps match.") }
             val row = @Composable { app: InstalledApp, index: Int, count: Int ->
