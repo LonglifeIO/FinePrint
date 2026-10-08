@@ -1,0 +1,129 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-27",
+   "aka": [
+    "Firebase Crashlytics",
+    "Fabric Crashlytics"
+   ],
+   "owner": "Alphabet Inc.",
+   "owner_company": "co-google",
+   "owner_chain": [
+    "Google LLC",
+    "Alphabet Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "first_party",
+   "product_line": "Firebase Crashlytics, the crash reporter Google runs for app developers",
+   "categories": [
+    "crash_reporting"
+   ],
+   "data_collected": [
+    "stack traces and the app's state when it crashes",
+    "device details at the moment of a crash: model, operating system version, RAM and disk space, whether it is rooted",
+    "a Crashlytics installation ID",
+    "custom keys, logs and a user ID, if the app's developer adds them"
+   ],
+   "monetization_model": "A free crash reporter for app developers. Google processes the reports on the developer's behalf, as its processor or service provider (Firebase's privacy page and data processing terms).",
+   "data_flows": [
+    {
+     "id": "flow-crashlytics-reports",
+     "data": "crash_diagnostics",
+     "recipient": "co-google",
+     "purpose": "Crash reports for the app's developer: what the app was doing when it crashed, and details of the device. Google processes them for the developer and keeps them for 90 days",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Firebase documentation (updated 2026-10-08) and the Firebase Data Processing and Security Terms (2024-08-21).",
+     "sources": [
+      {
+       "url": "https://firebase.google.com/docs/android/play-data-disclosure",
+       "type": "company_site",
+       "title": "Firebase documentation: Prepare for Google Play's data disclosure requirements",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Collects stack traces when an application crashes"
+      },
+      {
+       "url": "https://firebase.google.com/docs/android/play-data-disclosure",
+       "type": "company_site",
+       "title": "Firebase documentation: Prepare for Google Play's data disclosure requirements",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Collects point-in-time metadata about the device when an application crashes"
+      },
+      {
+       "url": "https://firebase.google.com/docs/crashlytics/android/customize-crash-reports",
+       "type": "company_site",
+       "title": "Firebase documentation: Customize your Firebase Crashlytics crash reports",
+       "as_of": "2026-10-07",
+       "status": "self_disclosed",
+       "quote": "by default, Crashlytics automatically collects crash reports for all your app's users"
+      },
+      {
+       "url": "https://firebase.google.com/support/privacy",
+       "type": "company_site",
+       "title": "Firebase: Privacy and Security in Firebase",
+       "as_of": "2026-09-15",
+       "status": "self_disclosed",
+       "quote": "Google generally operates as a \"data processor\" (GDPR) or \"service provider\" (CCPA/CPRA)"
+      },
+      {
+       "url": "https://firebase.google.com/terms/data-processing-terms",
+       "type": "company_site",
+       "title": "Firebase Data Processing and Security Terms (they cover Crashlytics)",
+       "as_of": "2024-08-21",
+       "status": "self_disclosed",
+       "quote": "Google is a processor of that Customer Personal Data"
+      },
+      {
+       "url": "https://firebase.google.com/support/privacy",
+       "type": "company_site",
+       "title": "Firebase: Privacy and Security in Firebase",
+       "as_of": "2026-09-15",
+       "status": "self_disclosed",
+       "quote": "help Firebase customers debug crashes"
+      },
+      {
+       "url": "https://firebase.google.com/support/privacy",
+       "type": "company_site",
+       "title": "Firebase: Privacy and Security in Firebase",
+       "as_of": "2026-09-15",
+       "status": "self_disclosed",
+       "quote": "for 90 days before starting the process of removing it"
+      }
+     ]
+    },
+    {
+     "id": "flow-crashlytics-ids",
+     "data": "device_identifiers",
+     "recipient": "co-google",
+     "purpose": "A Crashlytics installation ID, to count how many users a crash affects",
+     "bucket": "stays_here",
+     "status": "self_disclosed",
+     "wording": "According to Google's Firebase documentation (updated 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://firebase.google.com/docs/android/play-data-disclosure",
+       "type": "company_site",
+       "title": "Firebase documentation: Prepare for Google Play's data disclosure requirements",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "measure the number of users impacted by a crash"
+      },
+      {
+       "url": "https://firebase.google.com/docs/android/play-data-disclosure",
+       "type": "company_site",
+       "title": "Firebase documentation: Prepare for Google Play's data disclosure requirements",
+       "as_of": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Firebase does not transfer this data to third-parties except"
+      }
+     ]
+    }
+   ],
+   "consequences": [],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
