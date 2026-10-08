@@ -11,9 +11,9 @@ permissions, device_reach and jurisdictions; they are merged, validated against 
 (company ids, derives_from ids, tracker ids against bundle/trackers.json and one explanation per
 tracker id, a quote on every source, one definition per source id, qualified regulatory_action
 tags), and every source URL must answer
-HTTP 200, or its verify_url when the page blocks scripts (an OK result is cached in pipeline/raw/
-for 30 days). Exodus pages are never fetched (see CLAUDE.md, Exodus etiquette). Nothing reaches
-bundle.json without review.
+HTTP 200, and not by redirecting to a not-found page, or its verify_url when the page blocks scripts
+(an OK result is cached in pipeline/raw/ for 30 days). Exodus pages are never fetched (see CLAUDE.md,
+Exodus etiquette). Nothing reaches bundle.json without review.
 
 An app record's changes[] are written by the reviewer (date, text, sources). Their direction is
 never typed: given the record as it was before (--previous, e.g. from `git show HEAD:<file>`),
@@ -26,6 +26,7 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -48,6 +49,7 @@ UNIONS = {"EU"}  # jurisdictions entries for a union of countries: each law list
 LICENCE = "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint"
 STALE_DAYS = 180
 URL_CACHE_DAYS = 30
+NOT_FOUND = re.compile(r"(?<!\d)404(?!\d)")  # a redirect's path naming 404, not a number such as 18404
 NOT_FETCHED_HOSTS = ("exodus-privacy.eu.org",)
 # Vendor archive pages that block scripts, and the API address of the same article.
 VENDOR_VERIFY_URLS = {
@@ -464,14 +466,17 @@ def check_urls(bundle: dict, now: dt.datetime) -> list[str]:
         hit = cache.get(url)
         if hit and hit["status"] == 200 and (now - dt.datetime.fromisoformat(hit["checked_at"])).days < URL_CACHE_DAYS:
             continue
+        final, redirected = url, False
         try:
             resp = requests.get(url, timeout=30, headers={"User-Agent": USER_AGENT}, allow_redirects=True, stream=True)
-            status = resp.status_code
+            status, final, redirected = resp.status_code, resp.url, bool(resp.history)
             resp.close()
         except requests.RequestException as e:
             status = f"error: {e.__class__.__name__}"
         print(f"  {status}  {url}")
-        if status == 200:
+        if status == 200 and redirected and NOT_FOUND.search(urlparse(final).path):
+            errors.append(f"source URL redirects to a not-found page ({final}): {url}")
+        elif status == 200:
             cache[url] = {"status": 200, "checked_at": now.isoformat(timespec="seconds")}
         else:
             errors.append(f"source URL did not answer 200 ({status}): {url}")

@@ -14,8 +14,8 @@ Build order (each is a separate script, each is idempotent):
 5. `build.py` — merges `reviewed/*.json`, rejects duplicate ids, marks records older than 180 days
    `stale`, validates against `../bundle/schema.json`, cross-checks company, source and tracker ids
    (a tracker record may cover several ids; each id has one explanation at most),
-   rejects any source without a `quote`, checks every `source_url` resolves (HTTP 200; a source may
-   name a `verify_url` when the page itself blocks scripts), and writes `../bundle/bundle.json`. URL
+   rejects any source without a `quote`, checks every `source_url` resolves (HTTP 200, not reached by a
+   redirect to a not-found page; a source may name a `verify_url` when the page itself blocks scripts), and writes `../bundle/bundle.json`. URL
    results are cached for 30 days in `raw/url-checks.json`. Use `--out <path>` for a preview and
    `--skip-url-check` offline. A new entry in an app's `changes[]` (date, text, sources) gets its
    direction from `--previous <file>`, the record as it was before the change (for example
