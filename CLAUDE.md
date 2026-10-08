@@ -25,6 +25,19 @@ briefly "Argus" — if you see it, it means FinePrint.
   Exodus signatures, joins results to the bundle, renders explanations, deep-links to
   `ACTION_APPLICATION_DETAILS_SETTINGS`.
 
+## Android flavours and tasks
+- `device` is the app itself: it reads this phone's apps and downloads the bundle. `preview` is a debug-only build
+  for browsing on any phone: the scan fixture's sample apps and the bundle built in, no package query, no network,
+  nothing read from the phone. All of the preview lives in `src/preview`; shared code uses only the slots each
+  flavour's `Flavour.kt` defines (`AppScanner`, `BundleSource`, the notices). There is no preview release. Every app
+  record's package must be in the scan fixture (`pipeline/test_scan_fixture.py`).
+- Tasks: `installDeviceDebug` installs the app's debug build (there is no `installDebug`), `assembleDeviceRelease`
+  builds the release; `assemblePreviewDebug` and `installPreviewDebug` the preview (its APK is in
+  `android/app/build/outputs/apk/preview/debug/`); `assembleDebug` builds both. `testDebugUnitTest` and
+  `connectedDebugAndroidTest` are aliases: the device flavour's full suite plus the preview's own tests
+  (`src/testPreview`), and the device tests, which run on the device flavour only. Device tasks and adb always run
+  with `ANDROID_SERIAL=emulator-5554`.
+
 ## Decisions already made (don't relitigate)
 - The app downloads the **whole** bundle file; it never queries a server per app.
   Per-app lookups would reveal the user's installed apps. Dev: served over Tailscale
