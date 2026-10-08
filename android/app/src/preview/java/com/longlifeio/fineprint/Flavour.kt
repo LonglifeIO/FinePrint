@@ -23,6 +23,8 @@ val GLANCE_NOTICE: String? = "Preview — sample apps, not your phone."
 
 val INTRO_WHAT_IT_READS: String? = "This preview shows sample apps. It reads nothing on this phone."
 
+val INTRO_ITS_RECORDS: String? = "This preview has its records built in. The app itself downloads them whole, never one app at a time."
+
 /** The sample apps may not be on this phone, and the preview doesn't look: no settings to open. */
 @Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
 fun Activity.settingsOpener(packageName: String): (() -> Unit)? = null

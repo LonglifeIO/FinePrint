@@ -32,6 +32,9 @@ val GLANCE_NOTICE: String? = null
 /** The introduction's line on what FinePrint reads, where a build says it differently; this one keeps its own. */
 val INTRO_WHAT_IT_READS: String? = null
 
+/** The introduction's line on where FinePrint's records come from; this build keeps its own too. */
+val INTRO_ITS_RECORDS: String? = null
+
 /** In place of an app's version and APK count in its header; never here, where every app is installed and scanned. */
 @Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
 fun ScanSession.installLine(app: InstalledApp): String? = null
