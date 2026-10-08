@@ -42,6 +42,7 @@ import com.longlifeio.fineprint.explain.recordLastReviewed
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.REVIEWED
 import com.longlifeio.fineprint.explain.WhatYouCanDo
+import com.longlifeio.fineprint.explain.alsoCollected
 import com.longlifeio.fineprint.explain.finePrint
 import com.longlifeio.fineprint.explain.footnotes
 import com.longlifeio.fineprint.review.ReviewStatus
@@ -97,7 +98,7 @@ fun AppDetailScreen(
                 CentredList(padding, Modifier.testTag("detail")) {
                     item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings) }
                     // Their words: only when the record has the store's own description.
-                    explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation)) { sheet = it } } }
+                    explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation), alsoCollected(explanation)) { sheet = it } } }
                     detailSections(
                         explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, onTick = onTick,
                         jurisdictionsOpen = jurisdictionsOpen, onToggleJurisdictions = { jurisdictionsOpen = !jurisdictionsOpen },

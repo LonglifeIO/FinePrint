@@ -22,7 +22,7 @@ supported by exactly one hardcoded ad that knows nothing about you.
   <img src="docs/screenshots/detail-light.png" width="300" alt="Life360's page: its tier, its own Play description, and the fine print, each line with its source">
 </p>
 
-Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, from knowledge bundle 2026.10.07
+Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, from knowledge bundle 2026.10.08
 and the test emulator's apps. In dark mode: [the home](docs/screenshots/home-dark.png) and
 [Life360](docs/screenshots/detail-dark.png).
 

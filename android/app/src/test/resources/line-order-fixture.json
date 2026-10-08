@@ -1,0 +1,58 @@
+{
+ "schema_version": 1,
+ "schema_revision": "1.5",
+ "bundle_version": "2026.10.08",
+ "generated_at": "2026-10-08T12:00:00-03:00",
+ "apps": [
+  {
+   "package_id": "com.example.lines",
+   "display_name": "Example Lines",
+   "developer_company": "co-lines",
+   "summary": "Synthetic test record: one line of each kind, for the order of FinePrint's lines.",
+   "trackers": [],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-08",
+   "store_tagline": {"text": "Your day, mapped", "source_url": "https://play.google.com/store/apps/details?id=com.example.lines", "as_of": "2026-10-08"},
+   "data_flows": [
+    {
+     "id": "flow-analytics", "data": "app_activity", "recipient_label": "Analytics provider", "purpose": "Usage statistics for the developer",
+     "bucket": "stays_here", "status": "self_disclosed", "wording": "According to its privacy policy dated 2026-01-01.",
+     "sources": [{"url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy, analytics", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "to understand how the app is used"}]
+    },
+    {
+     "id": "flow-crash", "data": "crash_diagnostics", "recipient_label": "Crash reporting provider", "purpose": "Crash reports for the developer",
+     "bucket": "stays_here", "status": "self_disclosed", "wording": "According to its privacy policy dated 2026-01-01.",
+     "sources": [{"url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy, crashes", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "to fix crashes"}]
+    },
+    {
+     "id": "flow-ads", "data": "device_identifiers", "recipient_label": "Advertising partners", "purpose": "Target ads to you in other apps",
+     "bucket": "goes_elsewhere", "status": "self_disclosed", "wording": "According to its privacy policy dated 2026-01-01.",
+     "sources": [{"url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy, ads", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "advertising partners"}]
+    },
+    {
+     "id": "flow-own", "data": "app_activity", "recipient": "co-lines", "purpose": "The company's own ads, across its apps",
+     "bucket": "used_for_more", "status": "self_disclosed", "wording": "According to its privacy policy dated 2026-01-01.",
+     "sources": [{"url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy, own ads", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "our own advertising"}]
+    },
+    {
+     "id": "flow-government", "data": "precise_location", "recipient_kind": "government_body", "government_line": "has_bought", "jurisdiction": "US",
+     "recipient_label": "US government agencies", "purpose": "Bought from data brokers", "bucket": "goes_elsewhere", "status": "reported",
+     "wording": "Reported by Example News",
+     "sources": [{"url": "https://example.org/news/agencies", "type": "journalism", "title": "Example News", "as_of": "2026-02-01", "status": "reported", "quote": "agencies bought the location data"}]
+    },
+    {
+     "id": "flow-broker", "data": "precise_location", "recipient_label": "Data brokers", "purpose": "Sold to data brokers",
+     "bucket": "goes_elsewhere", "status": "self_disclosed", "wording": "According to its privacy policy dated 2026-01-01.",
+     "sources": [{"url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy, sale", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "we may sell location data"}]
+    }
+   ],
+   "consequences": []
+  }
+ ],
+ "trackers": [],
+ "companies": [
+  {"id": "co-lines", "name": "Example Lines Inc.", "roles": ["developer"], "jurisdiction": "US", "last_reviewed": "2026-10-08"}
+ ],
+ "permissions": [],
+ "device_reach": []
+}

@@ -2,6 +2,7 @@ package com.longlifeio.fineprint.ui
 
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -13,26 +14,37 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.bundle.Source
 import com.longlifeio.fineprint.bundle.StoreTagline
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.FinePrintLine
+import com.longlifeio.fineprint.explain.FoldedLines
 import com.longlifeio.fineprint.explain.NO_RECORD
 import com.longlifeio.fineprint.explain.NO_RECORD_DEFINITION
 import com.longlifeio.fineprint.explain.REVIEWED_DEFINITION
@@ -94,10 +106,11 @@ internal fun StoreTagline.asSource() = Source(sourceUrl, listingName(sourceUrl),
 
 /**
  * The hero (docs/METHOD.md, An app's page): the app's own short description, verbatim and attributed,
- * then The fine print, at most four of FinePrint's lines, each marked with an asterisk, in small type.
+ * then The fine print, at most four of FinePrint's lines in reading order, each marked with an asterisk, in
+ * small type, and last what it collects to run the app, folded into one line that opens to those lines.
  */
 @Composable
-internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, onSources: (SheetContent) -> Unit) {
+internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folded: FoldedLines?, onSources: (SheetContent) -> Unit) {
     val p = LocalPalette.current
     Column(
         Modifier.padding(horizontal = Space.screen, vertical = Space.s).fillMaxWidth().clip(RoundedCornerShape(Corner.hero)).background(p.card).padding(Space.hero),
@@ -108,7 +121,7 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, onSou
         Text("“${tagline.text}” *", style = Quote, color = p.ink, modifier = Modifier.clearAndSetSemantics { text = AnnotatedString("“${tagline.text}”") })
         Text("— ${listingName(tagline.sourceUrl)}, read ${tagline.asOf}", style = MaterialTheme.typography.labelLarge, color = p.muted)
         Text(THEIR_WORDS.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
-        if (lines.isNotEmpty()) {
+        if (lines.isNotEmpty() || folded != null) {
             HorizontalDivider(Modifier.padding(vertical = Space.s), color = p.divider)
             Eyebrow(THE_FINE_PRINT.title)
             Text(THE_FINE_PRINT.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
@@ -122,9 +135,38 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, onSou
                     }
                 }
             }
+            folded?.let { FoldedRow(it) }
         }
-        val sources = (listOf(tagline.asSource()) + lines.flatMap { it.sources }).distinctBy { it.url + "|" + it.title }
+        val sources = (listOf(tagline.asSource()) + lines.flatMap { it.sources } + folded?.lines.orEmpty().flatMap { it.sources })
+            .distinctBy { it.url + "|" + it.title }
         SourcesRow("${THEIR_WORDS.title} and ${THE_FINE_PRINT.title.lowercase()}", sources, null, onSources)
+    }
+}
+
+/** "* Also collected to run the app: usage and crash data", a 48dp row that opens to those lines, each with its badge. */
+@Composable
+private fun FoldedRow(folded: FoldedLines) {
+    val p = LocalPalette.current
+    var open by rememberSaveable { mutableStateOf(false) }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(Space.s),
+        modifier = Modifier.fillMaxWidth().heightIn(min = TOUCH).testTag("also-collected")
+            .clickable(onClickLabel = if (open) "Hide these lines" else "Show these lines", role = Role.Button) { open = !open }
+            .semantics(mergeDescendants = true) { stateDescription = if (open) "Expanded" else "Collapsed" },
+    ) {
+        Text("*", style = MaterialTheme.typography.titleMedium, color = p.ink, modifier = Modifier.clearAndSetSemantics { })
+        Text(folded.text, style = MaterialTheme.typography.bodySmall, color = p.ink, modifier = Modifier.weight(1f))
+        Icon(painterResource(if (open) R.drawable.ic_expand_less else R.drawable.ic_expand_more), contentDescription = null, tint = p.muted)
+    }
+    if (open) folded.lines.forEach { line ->
+        Column(Modifier.padding(start = Space.l, top = Space.xs).testTag("also-collected-line").semantics(mergeDescendants = true) { }, verticalArrangement = Arrangement.spacedBy(Space.xs)) {
+            Text(line.text, style = MaterialTheme.typography.bodySmall, color = p.ink, modifier = Modifier.speaks(line.text))
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Space.s)) {
+                StatusBadge(line.status, line.historical)
+                line.sources.firstOrNull()?.let { Text("${it.title}, ${sourceDate(it)}", style = MaterialTheme.typography.labelSmall, color = p.muted) }
+            }
+        }
     }
 }
 

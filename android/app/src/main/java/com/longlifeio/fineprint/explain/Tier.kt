@@ -101,7 +101,7 @@ private val REASON_DATA = mapOf(
 internal val NAMED_FIRST = compareBy<FlowLine>({ it.historical }, { NAMING_ORDER.indexOf(it.status) }, { if (it.data in SENSITIVE_DATA) 0 else 1 })
 
 /** Self-disclosed first: a current flow the maker discloses is named before a ruling (null is auto). */
-private val NAMING_ORDER = listOf("self_disclosed", "adjudicated", "reported", "alleged", null)
+internal val NAMING_ORDER = listOf("self_disclosed", "adjudicated", "reported", "alleged", null)
 
 /** Copies (derives_from) and claims that rest on one investigation (single_source) count once. */
 internal fun independentSources(sources: List<Source>): Int =

@@ -6,14 +6,13 @@ import com.longlifeio.fineprint.egress.InstalledApp
 /** The home's summary of the apps listed: how many have lines in each bucket, and the flows you've limited. */
 data class Glance(
     val apps: Int,
-    /** Apps with at least one current line in each bucket, in BUCKETS order. */
+    /** Apps with at least one current line in each bucket, in BUCKETS order: the chips. */
     val perBucket: Map<String, Int>,
     val limited: Int,
     val flows: Int,
-) {
-    /** Apps with a current line in Goes elsewhere. */
-    val sending: Int get() = perBucket[GOES_ELSEWHERE] ?: 0
-}
+    /** Apps with a current line in the first group of the reading order (LineOrder.kt): the headline. */
+    val othersForMore: Int = perBucket[GOES_ELSEWHERE] ?: 0,
+)
 
 fun glance(apps: List<InstalledApp>, explanations: Map<String, Explanation>, checks: Map<String, WhatYouCanDo>): Glance {
     fun hasLine(app: InstalledApp, bucket: String) = explanations[app.packageName]?.flows?.get(bucket).orEmpty().any { !it.historical }
@@ -22,31 +21,32 @@ fun glance(apps: List<InstalledApp>, explanations: Map<String, Explanation>, che
         perBucket = BUCKETS.associateWith { bucket -> apps.count { hasLine(it, bucket) } },
         limited = apps.sumOf { checks[it.packageName]?.limited ?: 0 },
         flows = apps.sumOf { checks[it.packageName]?.total ?: 0 },
+        othersForMore = apps.count { app ->
+            explanations[app.packageName]?.let(::readingOrder).orEmpty().any { it.group() == LineGroup.OTHER_COMPANIES && !it.historical }
+        },
     )
 }
 
 /**
- * "For 5 of your 9 apps, FinePrint lists data that can go to other companies. You've limited 4 of the
- * 19 flows you can change." The count includes Auto lines (tracker code found, no record), and code
- * shows where data can go, not that it went: so "can go", never "goes" (docs/METHOD.md, Where data goes).
- * An app it lists nothing for isn't said to send nothing.
+ * "For 5 of your 9 apps, FinePrint lists data that can go to other companies for more than running the
+ * app." It counts apps with a current line in the first group of the reading order; the chips below count
+ * each place as before, and the bar's caption says how many flows you've limited. The count includes Auto
+ * lines (tracker code found, no record), and code shows where data can go, not that it went: so "can go",
+ * never "goes" (docs/METHOD.md, Where data goes). An app it lists nothing for isn't said to send nothing.
  */
 fun glanceHeadline(g: Glance): String {
-    val sending = when {
+    val n = g.othersForMore
+    return when {
         g.apps == 0 -> "No apps to show yet."
-        g.sending == 0 && g.apps == 1 -> "FinePrint doesn't yet list data that can go to other companies for your app."
-        g.sending == 0 -> "FinePrint doesn't yet list data that can go to other companies for any of your ${g.apps} apps."
-        g.sending == g.apps && g.apps == 1 -> "For your app, FinePrint lists data that can go to other companies."
-        g.sending == g.apps -> "For all ${g.apps} of your apps, FinePrint lists data that can go to other companies."
-        else -> "For ${g.sending} of your ${g.apps} apps, FinePrint lists data that can go to other companies."
+        n == 0 && g.apps == 1 -> "FinePrint doesn't yet list, for your app, data that $FOR_MORE."
+        n == 0 -> "FinePrint doesn't yet list, for any of your ${g.apps} apps, data that $FOR_MORE."
+        n == g.apps && g.apps == 1 -> "For your app, FinePrint lists data that $FOR_MORE."
+        n == g.apps -> "For all ${g.apps} of your apps, FinePrint lists data that $FOR_MORE."
+        else -> "For $n of your ${g.apps} apps, FinePrint lists data that $FOR_MORE."
     }
-    val limited = when {
-        g.flows == 0 -> null
-        g.flows == 1 -> "You've limited ${g.limited} of the 1 flow you can change."
-        else -> "You've limited ${g.limited} of the ${g.flows} flows you can change."
-    }
-    return listOfNotNull(sending, limited).joinToString(" ")
 }
+
+private const val FOR_MORE = "can go to other companies for more than running the app"
 
 /** "4 of 19 flows limited by your settings", under the segmented bar. */
 fun limitedLine(g: Glance): String = "${g.limited} of ${g.flows} ${if (g.flows == 1) "flow" else "flows"} limited by your settings"

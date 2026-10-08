@@ -27,7 +27,7 @@ data class Explanation(
     val privacyControls: String?,
     /** Plain labels: data kinds from the flows, then what granted permissions give the app. */
     val collects: List<String>,
-    /** bucket -> lines, in BUCKETS order; empty buckets are left out. */
+    /** bucket -> lines, in BUCKETS order, each place's lines in reading order (LINE_ORDER); empty buckets are left out. */
     val flows: Map<String, List<FlowLine>>,
     val applies: List<AppliesLine>,
     /** Actions by regulators and courts (this app's, then the developer's), and what others reported. */
@@ -46,6 +46,10 @@ data class Explanation(
     val maker: Maker? = null,
     /** Its store listing's own short description, for "Their words", when the record has one. */
     val storeTagline: StoreTagline? = null,
+    /** Lines about a government getting the data (Has bought, Has used): under Jurisdictions, and first in reading order. */
+    val governmentFlows: List<FlowLine> = emptyList(),
+    /** Trackers with no record and no category: one line, outside the three places (LineOrder.kt). */
+    val unrecorded: List<FlowLine> = emptyList(),
 )
 
 data class FlowLine(
@@ -110,12 +114,14 @@ fun explain(
     val recorded = (record?.dataFlows.orEmpty() + trackerRecords.flatMap { it.dataFlows }).mapNotNull { it.governmentLine() } +
         (record?.consequences.orEmpty() + trackerRecords.flatMap { it.consequences }).mapNotNull { it.governmentLine() }
     val current = shown.filterNot { it.historical }
+    // The summary names the trackers in reading order: other companies' uses first, running the app last.
+    val trackerNames = detected.sortedBy { trackerGroup(it, bundle, maker?.id, signatures) }.map { it.name }
 
     return Explanation(
         appName = appName,
         summary = record?.summary
-            ?: inherited?.let { m -> inheritedSummary(app, m, bundle?.companies?.get(m.id)?.packagePrefixes?.firstOrNull { app.packageName.startsWith(it) }, detected.map { it.name }) }
-            ?: autoSummary(detected.map { it.name }),
+            ?: inherited?.let { m -> inheritedSummary(app, m, bundle?.companies?.get(m.id)?.packagePrefixes?.firstOrNull { app.packageName.startsWith(it) }, trackerNames) }
+            ?: autoSummary(trackerNames),
         summaryNotes = record?.summaryNotes ?: inherited?.notes.orEmpty(),
         coverage = if (record != null) "curated" else "auto",
         tier = if (record == null && inherited == null && !readable) TierResult(null, scanFacts(app, scan), "N") else tier(
@@ -130,7 +136,7 @@ fun explain(
         ),
         privacyControls = record?.privacyControls,
         collects = (shown.map { DATA_LABELS[it.data] ?: it.data } + granted.mapNotNull { permissionLabel(it.name) }).distinct(),
-        flows = BUCKETS.associateWith { b -> forDisplay(shown.filter { it.bucket == b }) }.filterValues { it.isNotEmpty() },
+        flows = BUCKETS.associateWith { b -> forDisplay(shown.filter { it.bucket == b }).sortedWith(LINE_ORDER) }.filterValues { it.isNotEmpty() },
         applies = granted.mapNotNull { p ->
             bundle?.permissions?.get(p.name)?.takeIf { text -> text.feeds.any { it in shownData } }
                 ?.let { AppliesLine(p.name, permissionLabel(p.name) ?: p.name.substringAfterLast('.'), it.plain, it.whyItMatters) }
@@ -143,6 +149,10 @@ fun explain(
         changes = record?.changes.orEmpty().sortedByDescending { it.date },
         maker = maker,
         storeTagline = record?.storeTagline,
+        governmentFlows = (record?.dataFlows.orEmpty() + trackerRecords.flatMap { it.dataFlows }).mapNotNull { f ->
+            f.government?.let { g -> f.toLine(f.recipientLabel ?: countryName(g.jurisdiction), via = null).copy(bucket = GOES_ELSEWHERE) }
+        },
+        unrecorded = unrecordedLines(detected, bundle, maker?.id, signatures),
         regionCaveat = record?.policyRegion?.let { regionCaveat(appName, bundle?.jurisdictions?.get(it)?.name ?: countryName(it)) },
         governments = governments(
             current.mapNotNull { it.company },

@@ -20,6 +20,11 @@ const val UNPLACED = "Some recipients aren't named or have no record, so FinePri
 const val NONE_PLACED = "FinePrint can't say where the companies that get this data are based."
 const val NO_LAWS_REVIEWED = "FinePrint hasn't reviewed this country's laws yet."
 
+/** Lines in the order a reader needs them (docs/METHOD.md, Where data goes). */
+const val ALSO_COLLECTED = "Also collected to run the app"
+const val PURPOSE_NOT_RECORDED = "What it's used for isn't recorded"
+val NOT_RECORDED = SectionText("Purpose not recorded", "Tracker code FinePrint has no record of and no category for, so it can't say where its data goes.")
+
 /** The three kinds of government line (docs/METHOD.md, Governments). */
 val GOVERNMENT_LINES = mapOf(
     "can_compel" to BadgeText("Can compel", "A company in a country is subject to a law that lets that country's government demand the data. FinePrint cites the law."),
@@ -145,6 +150,7 @@ val DATA_LABELS = mapOf(
     "financial" to "Financial data",
     "biometric" to "Biometric data",
     "childrens_data" to "Children's data",
+    UNRECORDED_DATA to "Data from this app",
 )
 
 /** What a granted permission gives the app, in the same plain terms (no permission names). */

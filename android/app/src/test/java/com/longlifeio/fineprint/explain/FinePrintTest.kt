@@ -33,25 +33,28 @@ class FinePrintTest {
     private val unknown = explanation("org.example.ads", scan(Triple("exodus-312", "Google AdMob", "Advertisement")))
 
     @Test
-    fun theLineThatSetTheTierComesFirstThenOneLinePerBucket() {
+    fun theFinePrintIsTheReadingOrderUpToFourLinesWithRunningTheAppFoldedAfter() {
         for (e in listOf(life360, facebook, unknown)) {
             val lines = finePrint(e)
             assertTrue(lines.size in 1..FINE_PRINT_MAX)
             assertEquals(lines.size, lines.distinct().size) // nothing repeated
+            val order = readingOrder(e)
+            assertEquals(order.filter { it.group() != LineGroup.RUNS_THE_APP }.take(FINE_PRINT_MAX).map { it.claim() }, lines.map { it.text })
+            assertEquals(order.filter { it.group() == LineGroup.RUNS_THE_APP }.map { it.claim() }, alsoCollected(e)?.lines.orEmpty().map { it.text })
         }
-        // Life360: Flagged by a flow it discloses itself (F1); that flow is the first line.
-        assertEquals("F1", life360.tier.rule)
-        assertEquals(life360.tier.flow!!.claim(), finePrint(life360).first().text)
-        assertEquals("self_disclosed", finePrint(life360).first().status)
-        // Facebook: Flagged by a ruling (F2); the ruling's On the record line comes first.
+        // Life360: what goes to other companies comes first, sensitive data first, its own account before reports.
+        val first = life360.flows.getValue(GOES_ELSEWHERE).first()
+        assertEquals(first.claim(), finePrint(life360).first().text)
+        assertTrue(first.data in SENSITIVE_DATA && !first.historical && first.status == "self_disclosed")
+        assertTrue(finePrint(life360).all { line -> life360.flows.getValue(GOES_ELSEWHERE).any { it.claim() == line.text } })
+        // Facebook: nothing goes to other companies, so its fine print is Meta's own uses; the ruling stays under the tier and On the record.
         assertEquals("F2", facebook.tier.rule)
-        val ruling = facebook.tier.event!!.line!!
-        assertEquals(FinePrintLine(ruling.line, "adjudicated", ruling.sources), finePrint(facebook).first())
-        assertTrue(ruling.line.startsWith(ruling.date))
+        assertTrue(finePrint(facebook).all { line -> facebook.flows.getValue(USED_FOR_MORE).any { it.claim() == line.text } })
+        assertTrue(finePrint(facebook).none { it.text == facebook.tier.event!!.line!!.line })
     }
 
     @Test
-    fun anAppWithoutARecordShowsTheInferredLineItsTierNames() {
+    fun anAppWithoutARecordShowsItsInferredLinesInTheSameOrder() {
         assertEquals("C2", unknown.tier.rule)
         val first = finePrint(unknown).first()
         assertEquals(null, first.status) // Auto
@@ -59,13 +62,13 @@ class FinePrintTest {
     }
 
     @Test
-    fun eachBucketAddsTheFirstLineTheTierRulesWouldNameThatIsntShownYet() {
-        val first = finePrint(life360).first().text
-        val expected = BUCKETS.mapNotNull { b -> life360.flows[b].orEmpty().sortedWith(NAMED_FIRST).firstOrNull { it.claim() != first } }.map { it.claim() }
-        assertEquals(expected.take(FINE_PRINT_MAX - 1), finePrint(life360).drop(1).map { it.text })
-        // Goes elsewhere's first line set the tier, so that bucket adds its next one.
-        val elsewhere = life360.flows.getValue(GOES_ELSEWHERE).map { it.claim() }
-        assertEquals(2, finePrint(life360).count { it.text in elsewhere })
+    fun runningTheAppIsOneFoldedLineNamingItsDataKinds() {
+        val e = explanation("org.example.analytics", scan(Triple("exodus-27", "Some Crashes", "Crash reporting"), Triple("exodus-49", "Some Analytics", "Analytics"), Triple("exodus-312", "Google AdMob", "Advertisement")))
+        assertTrue(finePrint(e).none { it.text.startsWith("Crash") || it.text.contains("Usage statistics") })
+        val folded = alsoCollected(e)!!
+        assertEquals("Also collected to run the app: usage and crash data", folded.text)
+        assertEquals(2, folded.lines.size)
+        assertEquals(null, alsoCollected(life360)) // nothing of Life360's is only for running it
     }
 
     private fun source(url: String, title: String) = Source(url, title, "privacy_policy", "self_disclosed", "2026-01-01", null, "q")

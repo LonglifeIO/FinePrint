@@ -37,6 +37,7 @@ import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.FlowLine
 import com.longlifeio.fineprint.explain.SUMMARY_AUTO
 import com.longlifeio.fineprint.explain.SUMMARY_CURATED
+import com.longlifeio.fineprint.explain.NOT_RECORDED
 import com.longlifeio.fineprint.explain.SUMMARY_INHERITED
 import com.longlifeio.fineprint.explain.SectionText
 import com.longlifeio.fineprint.explain.WHAT_YOU_CAN_DO
@@ -82,7 +83,7 @@ fun LazyListScope.detailSections(
     }
     cardEnd("collects")
 
-    if (e.flows.isNotEmpty() || e.governments.blocks.isNotEmpty()) {
+    if (e.flows.isNotEmpty() || e.unrecorded.isNotEmpty() || e.governments.blocks.isNotEmpty()) {
         cardTop("goes", WHERE_IT_GOES, whereHeadline(e))
         for (bucket in BUCKETS) {
             val lines = e.flows[bucket] ?: continue
@@ -95,6 +96,11 @@ fun LazyListScope.detailSections(
                     LinkRow(if (all) "Show the first $BUCKET_FIRST" else "See all ${lines.size}", if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more) { buckets.toggle(bucket) }
                 }
             }
+        }
+        // Trackers with no record and no category: outside the three places, so no place's count includes them.
+        if (e.unrecorded.isNotEmpty()) {
+            cardItem(key = "not-recorded") { SubHeader(NOT_RECORDED) }
+            cardItems(e.unrecorded) { FlowLineRow(it, onSources) }
         }
         jurisdictionsItems(e.governments, jurisdictionsOpen, onToggleJurisdictions, onSources)
         cardEnd("goes")

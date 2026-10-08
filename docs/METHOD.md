@@ -19,7 +19,7 @@ When FinePrint has an app's store description on record, its page opens with it,
 - Their words: The app's own short description on its Google Play listing, word for word.
 - The fine print: At most four of FinePrint's own lines, chosen the same way for every app.
 
-The fine print starts with the line that set the app's tier: a flow, or the ruling or lawsuit the tier names. Then, for each place its data goes that has lines (Stays here, Used for more, Goes elsewhere, in that order), it adds the first line the tier rules would name that isn't already shown: a current practice before a past one; the company's own account, then a ruling, a report, an allegation, then a line inferred from tracker code; sensitive data first. An app without a store description on record opens with its Summary.
+The fine print lists FinePrint's lines in the reading order set out under Where data goes: at most four of them, from what goes to other companies and what the app's own company uses it for. What the app collects to run itself follows as one line, Also collected to run the app, which opens to those lines, each with its badge. An app without a store description on record opens with its Summary.
 
 Each sourced line on the page ends in a small number. The numbers match the list at the end of the page, one number per document and section, in the order they first appear; to read a source, open the line's Sources row.
 
@@ -53,7 +53,19 @@ Each group has its own colour and icon, and its name is always written out, so c
 
 Lines about a tracker come from FinePrint's record of it when there is one, and are otherwise inferred from its code (Auto). One record can explain several trackers in εxodus's list that come from the same company, such as Meta's Facebook Ads, Facebook Analytics and Facebook Login. When the app's own maker also owns a tracker in it, that tracker's data doesn't go elsewhere: its lines go under Used for more where its record says how the maker uses the data, and are otherwise left to the app's own record.
 
-On the home screen, At a glance counts an app in a group when its page has at least one current line there, whether from FinePrint's record or inferred from tracker code (Auto); lines about a past practice don't count. Tracker code shows where data can go, not that it went, so the count says FinePrint lists data that "can go" to other companies. An app with no line in a group isn't said to send nothing there.
+FinePrint's lines are always read in the same order, on every page:
+
+- First: data that goes to other companies for more than running the app, such as ads, profiling, resale and government access, with sensitive data first: the same kinds the tiers treat as sensitive.
+- Then: data the app's own company uses for more than running the app.
+- Last: data collected to run and maintain the app, such as crash reports, usage analytics and service providers. The fine print shows these as one line, Also collected to run the app, which opens to the full list.
+
+Within each, a current practice comes before a past one and sensitive data comes first; then the company's own account, a ruling, a report, an allegation, and a line inferred from tracker code. Each group under Where it goes lists its lines in this order; the groups keep their order and colours. The summary of an app without a record names its trackers in the same order. The order changes nothing else: tiers and Reviewed marks read the lines, not their order.
+
+A reviewed line's purpose is the one its record states, which also sets its group. A line inferred from tracker code takes its purpose from the tracker's εxodus category: crash reporting and analytics are for running the app; advertising, profiling, location and identification are other companies' uses. A tracker with neither a record nor a category comes first, as What it's used for isn't recorded, under its own heading after the three groups:
+
+- Purpose not recorded: Tracker code FinePrint has no record of and no category for, so it can't say where its data goes.
+
+On the home screen, At a glance's headline counts the apps whose page has at least one current line that can go to other companies for more than running the app, the first in the reading order; its chips count an app in a group when its page has at least one current line there. Lines count whether they come from FinePrint's record or are inferred from tracker code (Auto); lines about a past practice don't. Tracker code shows where data can go, not that it went, so the headline says FinePrint lists data that "can go" to other companies. An app with no line in a group isn't said to send nothing there.
 
 A line can also say that the app doesn't do it unless you act:
 

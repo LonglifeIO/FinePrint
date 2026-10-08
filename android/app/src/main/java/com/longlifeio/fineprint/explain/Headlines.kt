@@ -26,7 +26,7 @@ fun whereHeadline(e: Explanation): String {
     val more = current(USED_FOR_MORE)
     return when {
         elsewhere.any { it.status != null } -> "Some of it goes to other companies"
-        elsewhere.isNotEmpty() -> "Some of it can go to other companies"
+        elsewhere.isNotEmpty() || e.unrecorded.isNotEmpty() -> "Some of it can go to other companies"
         more.any { it.status != null } -> "Some of it is used for more than running the app"
         more.isNotEmpty() -> "Some of it can be used for more than running the app"
         current(STAYS_HERE).isNotEmpty() -> "It stays with ${e.appName}"
