@@ -1,0 +1,9 @@
+{
+ "_about": "What www.tiktok.com answered the watcher on 2026-10-08 for TikTok's US privacy policy: its robots.txt group for all agents (as served) allows /legal, and the page answers 302 to /404. The Wayback Machine has 200 captures of the same address from 2026-10-05 to 2026-10-07, so this is a refusal, not a move.",
+ "url": "https://www.tiktok.com/legal/page/us/privacy-policy/en",
+ "robots_txt": "User-agent: *\nAllow: /foryou\nAllow: /discover\nAllow: /about\nAllow: /legal\nAllow: /safety\nAllow: /forgood\nAllow: /community-guidelines\nAllow: /tag\nAllow: /amp\nAllow: /transparency\nAllow: /share\nAllow: /music\nDisallow: /inapp\nDisallow: /auth\nDisallow: /embed/@\nDisallow: /embed/v2\nDisallow: /embed/curated\nDisallow: /link\nDisallow: */directory/\nDisallow: /search/video?\nDisallow: /search/user?q=\nDisallow: /shop/view/product/\nDisallow: /sgtm/g/collect\nDisallow: /api/share/settings\nDisallow: /api/recommend/embed_videos\nDisallow: /discover/trending/detail/\nDisallow: /search?\nDisallow: /search/live?\n\n",
+ "answer": {
+  "status": 302,
+  "location": "/404"
+ }
+}

@@ -50,10 +50,10 @@ rebuild. The rules it keeps are in `../CLAUDE.md` ("The watcher").
   Reports". An entry naming a recorded company, app or tracker is a `new_event`. The FTC's feed is not watched:
   ftc.gov refuses the watcher (see `watch/sources.json`).
 - Failures: `fetch_failure` on a URL's first failed run, `parked` after three in a row or at once on a
-  robots.txt disallow (a 401 or 403 on robots.txt itself counts as one) or a 401, 403 or 451, and `refused` for
-  the denylist. A parked URL is checked again once its item is acked; a host that refuses for good belongs on
-  the denylist instead. Every digest ends with the parked and denylisted sources, for checking by hand before
-  each release.
+  robots.txt disallow (a 401 or 403 on robots.txt itself counts as one), a 401, 403 or 451, or a redirect to
+  a not-found page (a refusal, not a move), and `refused` for the denylist. A parked URL is checked again
+  once its item is acked; a host that refuses for good belongs on the denylist instead. Every digest ends
+  with the parked and denylisted sources, for checking by hand before each release.
 - Items follow `watch/queue-item.schema.json`: facts, never a status or a tier. Each finding is written once.
 - `watch/sources.json` (committed) holds the adapters, feeds, cadences and denylist. `watch/local.json`
   (gitignored) holds `{"contact": "<email or URL>", "copy_to": "<folder>"}`; the contact goes in every

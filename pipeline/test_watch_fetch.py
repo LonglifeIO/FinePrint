@@ -144,6 +144,16 @@ class FetchTest(unittest.TestCase):
         self.assertEqual(f.fetch("https://a.example/app").outcome, "refused")
         self.assertNotIn("https://play.google.com/store/apps/details?id=x", http.urls())
 
+    def test_a_redirect_to_a_not_found_page_is_a_refusal_not_a_move(self):
+        f, http, _ = fetcher({"https://a.example/robots.txt": [ALLOW], "https://a.example/policy": [(302, {"Location": "/404"}, b"")],
+                              "https://a.example/404": [(200, {}, b"<p>Not found</p>")],
+                              "https://a.example/doc": [(301, {"Location": "/documents/2020-18404"}, b"")],
+                              "https://a.example/documents/2020-18404": [(200, {}, b"<p>A notice</p>")]})
+        got = f.fetch("https://a.example/policy")
+        self.assertEqual((got.outcome, got.reason, got.final_url), ("parked", "redirects the watcher to a not-found page", "https://a.example/404"))
+        self.assertNotIn("https://a.example/404", http.urls())  # never followed
+        self.assertEqual(f.fetch("https://a.example/doc").outcome, "ok")  # 404 inside a number is not a not-found page
+
     def test_the_last_copys_validators_make_it_a_conditional_get(self):
         f, http, _ = fetcher({"https://a.example/robots.txt": [ALLOW], "https://a.example/p": [(304, {}, b"")]})
         got = f.fetch("https://a.example/p", {"etag": '"v1"', "last_modified": "Wed, 07 Oct 2026 10:00:00 GMT"})

@@ -102,9 +102,9 @@ briefly "Argus" — if you see it, it means FinePrint.
 - It identifies itself: `FinePrint-watcher/<version> (+https://github.com/LonglifeIO/FinePrint; <contact>)`. The
   contact comes only from `pipeline/watch/local.json` and never appears in a tracked file (it is listed in
   `.git/private-patterns`, so the private-strings hook enforces it). Without a contact the watcher refuses to run.
-- A refusal is a refusal: robots.txt is read for each host before any path, and a disallow or a 401, 403 or 451
-  parks the URL and writes one digest line. No headless browser, no JavaScript, no retries with a different
-  client, ever.
+- A refusal is a refusal: robots.txt is read for each host before any path, and a disallow, a 401, 403 or 451,
+  or a redirect to a not-found page parks the URL and writes one digest line. No headless browser, no
+  JavaScript, no retries with a different client, ever.
 - A 401 or 403 on robots.txt counts as disallowing everything: stricter than RFC 9309's 4xx rule on purpose, because a block page is a refusal in plain words.
 - Politeness: one request at a time per host, at least 5 s apart; conditional GETs (ETag, Last-Modified);
   `Retry-After` honoured; exponential backoff, three tries, then a `fetch_failure` item; after three failed runs

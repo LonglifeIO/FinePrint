@@ -1,7 +1,7 @@
 """The watcher's only way onto the network: one identified, polite client (see CLAUDE.md, the watcher).
 
 Every request names FinePrint and the owner's contact. Before any path on a host, its robots.txt is read;
-a disallow, a 401, 403 or 451 is a refusal and parks the URL. A refusal is never retried with another
+a disallow, a 401, 403 or 451, or a redirect to a not-found page is a refusal and parks the URL. A refusal is never retried with another
 client, and there is no browser and no JavaScript. Requests go one at a time, at least GAP seconds apart
 per host, with the validators of the last copy (ETag, Last-Modified). 429 and 5xx are retried with
 exponential backoff, honouring Retry-After, TRIES times in all. Redirects are followed one hop at a time,
@@ -18,6 +18,8 @@ from urllib.parse import urljoin, urlparse
 
 import requests
 
+from build import NOT_FOUND  # the same not-found test as build.py's URL check
+
 VERSION = "0.1"
 TIMEOUT = 30
 BODY_CAP = 5 * 1024 * 1024
@@ -28,6 +30,7 @@ MAX_HOPS = 5
 REFUSED = (401, 403, 451)
 RETRIED = (429, 500, 502, 503, 504)
 REDIRECTS = (301, 302, 303, 307, 308)
+NOT_FOUND_REASON = "redirects the watcher to a not-found page"
 
 
 def user_agent(contact: str) -> str:
@@ -47,8 +50,8 @@ def denied(url: str, denylist: list[str]) -> str | None:
 
 @dataclass
 class Fetched:
-    """What one fetch came to. outcome: ok, unchanged (304), refused (denylist), parked (robots.txt or a
-    401/403/451), failed (anything else), redirect (internal: one hop)."""
+    """What one fetch came to. outcome: ok, unchanged (304), refused (denylist), parked (robots.txt, a
+    401/403/451 or a redirect to a not-found page), failed (anything else), redirect (internal: one hop)."""
     outcome: str
     url: str
     final_url: str = ""
@@ -93,6 +96,8 @@ class Fetcher:
             if got.outcome != "redirect":
                 got.url, got.final_url = url, got.final_url or current
                 return got
+            if NOT_FOUND.search(urlparse(got.final_url).path):  # a refusal, not a move: parked like a 403, never followed
+                return Fetched("parked", url, got.final_url, got.status, reason=NOT_FOUND_REASON)
             current = got.final_url
         return Fetched("failed", url, current, reason=f"more than {MAX_HOPS} redirects")
 

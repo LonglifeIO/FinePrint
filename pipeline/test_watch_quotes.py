@@ -19,6 +19,7 @@ import watch_fetch  # noqa: E402
 import watch_queue  # noqa: E402
 import watch_quotes  # noqa: E402
 import watch_store  # noqa: E402
+import watch_digest  # noqa: E402
 import watch_text  # noqa: E402
 from test_watch_fetch import ALLOW, Clock, FakeHttp  # noqa: E402
 
@@ -106,6 +107,19 @@ class QuoteDriftTest(unittest.TestCase):
     def test_a_neighbour_counts_only_when_it_reads_as_a_full_sentence(self):
         text = "Related\nWhy data centres matter for family apps\nWe share driving data with insurers.\nYou can turn this off in the app's settings at any time."
         self.assertEqual(watch_text.context(text, QUOTE), "We share driving data with insurers. You can turn this off in the app's settings at any time.")
+
+    def test_tiktoks_policy_redirecting_to_404_is_parked_and_checked_by_hand(self):
+        case = json.loads((FIXTURES / "tiktok-us-policy.json").read_text(encoding="utf-8"))
+        self.write_record(record(case["url"], "U.S. Privacy Policy Last updated: July 15, 2026"))
+        items = self.poll({"https://www.tiktok.com/robots.txt": [(200, {}, case["robots_txt"].encode())],
+                           case["url"]: [(case["answer"]["status"], {"Location": case["answer"]["location"]}, b"")],
+                           "https://www.tiktok.com/404": [(200, {"content-type": "text/html"}, b"<div id=app></div>")]})
+        self.assertEqual(self.kinds(items), ["parked"])  # a refusal, not url_moved
+        self.assertEqual(items[0]["notes"], "Parked: redirects the watcher to a not-found page. Not checked again until this item is acked.")
+        self.assertEqual(items[0]["final_url"], "https://www.tiktok.com/404")
+        self.assertNotIn("https://www.tiktok.com/404", self.http.urls())
+        md, _ = watch_digest.build(self.store, WHEN.date())
+        self.assertIn(f"- {case['url']} (redirects the watcher to a not-found page)", md[md.index("## Checked by hand"):])
 
     def test_the_first_check_compares_with_the_copy_the_quote_was_verified_against(self):
         (self.saved / "policy.txt").write_text(check_quotes.fold(f"{FILLER} {QUOTE} for risk scoring. {FILLER}"), encoding="utf-8")
