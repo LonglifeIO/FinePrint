@@ -26,11 +26,27 @@ Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, fr
 and the test emulator's apps. In dark mode: [the home](docs/screenshots/home-dark.png) and
 [Life360](docs/screenshots/detail-dark.png).
 
+## Preview build
+
+A debug build for browsing FinePrint on any phone as it evolves, installed beside the real app. It shows the
+sample apps in the scan fixture with the knowledge bundle built in. It scans nothing on the phone and makes no
+network calls: its manifest has no internet or package-query permission, and Open app settings is turned off.
+
+- Build it: `cd android && ./gradlew assemblePreviewDebug`; the APK is
+  `android/app/build/outputs/apk/preview/debug/app-preview-debug.apk`.
+- Or download it: every CI run keeps it for 30 days as the `fineprint-preview` artifact, a zip on the run's page
+  under Actions (signed-in GitHub users only). It's never attached to a release.
+- Sideload it: copy the APK to the phone and open it, letting your browser or file manager install unknown apps
+  when asked (or `adb install` it). It installs as FinePrint preview (`com.longlifeio.fineprint.preview`), with
+  its own Reviewed marks.
+- It's debug-signed, so Play Protect warns that it comes from an unknown developer.
+
 ## Layout
 
 - `bundle/` — the knowledge base: `schema.json` (the contract), `bundle.json` (reviewed, sourced records) and `jurisdictions.json` (each country's laws for compelled access). CC BY 4.0.
 - `pipeline/` — Python scripts that fetch sources, draft records with an LLM, queue them for human review, and build the bundle. Runs on a Mac Mini.
-- `android/` — Kotlin / Jetpack Compose app. The scanning module is called `egress`.
+- `android/` — Kotlin / Jetpack Compose app. The scanning module is called `egress`. Two flavours: `device`, the
+  app itself, and `preview` (above), whose code lives only in `src/preview`.
 - `prompts/` — Claude Code prompts for each build slice.
 
 ## Before committing

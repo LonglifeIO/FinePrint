@@ -48,14 +48,28 @@ jobs:
       - name: Install the Android 17 (API 37) platform
         run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-37.0"'
       - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      # Both debug flavours: the app (device) and the preview.
       - name: assembleDebug
         working-directory: android
         run: ./gradlew assembleDebug --stacktrace
-      # Includes PaletteContrastTest: text contrast, and no two chip colours collapsing for a red-green colour-blind reader.
+      # The preview build (README, Preview build): sample apps and a bundle built in, no scan and no network. Kept as
+      # this run's artifact for 30 days, to download from the Actions page and sideload; never attached to a release.
+      - name: Preview APK
+        working-directory: android
+        run: ./gradlew assemblePreviewDebug --stacktrace
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: fineprint-preview
+          path: android/app/build/outputs/apk/preview/debug/app-preview-debug.apk
+          retention-days: 30
+          if-no-files-found: error
+      # The device flavour's full suite and the preview's own tests (PreviewTest). Includes PaletteContrastTest: text
+      # contrast, and no two chip colours collapsing for a red-green colour-blind reader.
       - name: JVM unit tests
         working-directory: android
         run: ./gradlew testDebugUnitTest --stacktrace
-      # Debug builds may carry Compose's preview tooling; the release runtime classpath must not (CLAUDE.md).
-      - name: No Compose tooling on the release runtime classpath
+      # Debug builds may carry Compose's preview tooling; the release runtime classpath must not (CLAUDE.md). Nor may
+      # the release build hold any of the preview flavour: its classes, assets or manifest.
+      - name: No Compose tooling or preview code in the release build
         working-directory: android
         run: ./gradlew checkReleaseClasspath --stacktrace

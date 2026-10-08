@@ -58,7 +58,8 @@ fun LazyListScope.detailSections(
     e: Explanation,
     check: WhatYouCanDo,
     onSources: (SheetContent) -> Unit,
-    onOpenSettings: () -> Unit,
+    onOpenSettings: (() -> Unit)?,
+    settingsUnavailable: String?,
     onTick: (String, Boolean) -> Unit,
     jurisdictionsOpen: Boolean = false,
     onToggleJurisdictions: () -> Unit = {},
@@ -116,6 +117,7 @@ fun LazyListScope.detailSections(
             }
         }
         cardItem { LinkRow("Open app settings to change these", R.drawable.ic_open_in_new, onOpenSettings) }
+        settingsUnavailable?.let { cardItem { Note(it) } }
         cardEnd("applies")
     }
 
@@ -203,14 +205,16 @@ private fun DataChip(label: String) {
 
 /** A text link with an icon, 48dp tall. */
 @Composable
-fun LinkRow(text: String, icon: Int, onClick: () -> Unit) {
+fun LinkRow(text: String, icon: Int, onClick: (() -> Unit)?) {
+    val colour = if (onClick != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxWidth().heightIn(min = TOUCH).clickable(onClick = onClick).padding(horizontal = 16.dp),
+        // Null: shown, but it opens nothing (a note under it says why).
+        modifier = Modifier.fillMaxWidth().heightIn(min = TOUCH).clickable(enabled = onClick != null) { onClick?.invoke() }.padding(horizontal = 16.dp),
     ) {
-        Text(text, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.weight(1f))
-        Icon(painterResource(icon), contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
+        Text(text, style = MaterialTheme.typography.labelLarge, color = colour, modifier = Modifier.weight(1f))
+        Icon(painterResource(icon), contentDescription = null, tint = colour, modifier = Modifier.size(20.dp))
     }
 }
 

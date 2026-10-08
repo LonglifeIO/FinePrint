@@ -28,10 +28,10 @@ import com.longlifeio.fineprint.explain.CheckItem
  * app's Android settings; an item FinePrint can't see is a 48dp checkbox row you tick yourself.
  */
 @Composable
-internal fun CheckRow(item: CheckItem, onTick: (String, Boolean) -> Unit, onSources: (SheetContent) -> Unit, onOpenSettings: () -> Unit) {
+internal fun CheckRow(item: CheckItem, onTick: (String, Boolean) -> Unit, onSources: (SheetContent) -> Unit, onOpenSettings: (() -> Unit)?) {
     val row = if (item.automatic) {
         Modifier
-            .clickable(onClickLabel = "Open this app's Android settings", onClick = onOpenSettings)
+            .then(onOpenSettings?.let { Modifier.clickable(onClickLabel = "Open this app's Android settings", onClick = it) } ?: Modifier)
             .semantics(mergeDescendants = true) { stateDescription = if (item.ticked) "Off" else "Still on" }
     } else {
         Modifier.toggleable(value = item.ticked, role = Role.Checkbox) { onTick(item.id, it) }

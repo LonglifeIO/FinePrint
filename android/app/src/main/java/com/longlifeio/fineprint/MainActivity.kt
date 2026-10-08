@@ -1,11 +1,6 @@
 package com.longlifeio.fineprint
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -18,7 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import com.longlifeio.fineprint.egress.ScanSession
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
@@ -34,11 +28,10 @@ import com.longlifeio.fineprint.ui.HowToReadScreen
 import com.longlifeio.fineprint.ui.OnboardingScreen
 import com.longlifeio.fineprint.ui.introSeen
 import com.longlifeio.fineprint.ui.markIntroSeen
-import com.longlifeio.fineprint.ui.bundleStatus
 import java.time.OffsetDateTime
 
 class MainActivity : ComponentActivity() {
-    private val session: ScanSession get() = (application as FinePrintApp).session
+    private val session: AppScanner get() = (application as FinePrintApp).session
     private val bundleSession get() = (application as FinePrintApp).bundle
     private val reviewStore get() = (application as FinePrintApp).reviews
 
@@ -91,7 +84,7 @@ class MainActivity : ComponentActivity() {
                     }
                     showAbout -> {
                         BackHandler { showAbout = false }
-                        AboutScreen(bundleState, bundleSession.baseUrl, onBack = { showAbout = false }, onRefresh = bundleSession::refreshNow)
+                        AboutScreen(bundleState, bundleSession.status(bundleState), bundleSession.origin, onBack = { showAbout = false }, onRefresh = bundleSession.update)
                     }
                     open == null -> AppListScreen(
                         apps = apps,
@@ -104,7 +97,8 @@ class MainActivity : ComponentActivity() {
                         onIncludeSystemChange = session::setIncludeSystem,
                         onOpen = { openPackage = it.packageName },
                         listState = listState,
-                        bundleLine = bundleStatus(bundleState),
+                        bundleLine = bundleSession.status(bundleState),
+                        notice = GLANCE_NOTICE,
                         onAbout = { showAbout = true },
                         onHowToRead = { showHowTo = true },
                     )
@@ -123,7 +117,8 @@ class MainActivity : ComponentActivity() {
                             signatures = signatures,
                             bundleVersion = bundleState.bundle?.version,
                             onBack = { openPackage = null },
-                            onOpenSettings = { openAppSettings(open.packageName) },
+                            onOpenSettings = settingsOpener(open.packageName),
+                            settingsUnavailable = SETTINGS_UNAVAILABLE,
                             onHowToRead = { showHowTo = true },
                             onMarkReviewed = now?.let { fp -> { reviewStore.markReviewed(open.packageName, fp, OffsetDateTime.now().toString()) } },
                             onClearMark = { reviewStore.clearMark(open.packageName) },
@@ -139,14 +134,5 @@ class MainActivity : ComponentActivity() {
         super.onStart()
         session.refresh() // picks up apps installed or updated while we were away
         bundleSession.refreshOnce() // the one network call: download the bundle, once per launch
-    }
-
-    private fun openAppSettings(packageName: String) {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null))
-        try {
-            startActivity(intent)
-        } catch (e: ActivityNotFoundException) { // some OEM builds strip the app-info screen
-            Toast.makeText(this, "This device has no app settings screen to open.", Toast.LENGTH_LONG).show()
-        }
     }
 }

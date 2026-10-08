@@ -62,7 +62,8 @@ fun AppDetailScreen(
     signatures: TrackerSignatures?,
     bundleVersion: String?,
     onBack: () -> Unit,
-    onOpenSettings: () -> Unit,
+    /** Null where an app's settings can't be opened, with [settingsUnavailable] saying why. */
+    onOpenSettings: (() -> Unit)?,
     onHowToRead: () -> Unit,
     /** Null until the app's code has been checked: a mark needs the tracker set it was given for. */
     onMarkReviewed: (() -> Unit)?,
@@ -70,6 +71,7 @@ fun AppDetailScreen(
     onTick: (String, Boolean) -> Unit,
     /** Which buckets show all their lines; kept on this phone. */
     buckets: OpenBuckets = rememberOpenBuckets(),
+    settingsUnavailable: String? = null,
 ) {
     var evidenceOpen by rememberSaveable { mutableStateOf(false) }
     var recordOpen by rememberSaveable { mutableStateOf(false) }
@@ -96,11 +98,11 @@ fun AppDetailScreen(
                 },
             ) { padding ->
                 CentredList(padding, Modifier.testTag("detail")) {
-                    item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings) }
+                    item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings, settingsUnavailable) }
                     // Their words: only when the record has the store's own description.
                     explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation), alsoCollected(explanation)) { sheet = it } } }
                     detailSections(
-                        explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, onTick = onTick,
+                        explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, settingsUnavailable = settingsUnavailable, onTick = onTick,
                         jurisdictionsOpen = jurisdictionsOpen, onToggleJurisdictions = { jurisdictionsOpen = !jurisdictionsOpen },
                         buckets = buckets,
                     )

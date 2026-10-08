@@ -80,6 +80,8 @@ fun AppListScreen(
     onAbout: () -> Unit,
     onHowToRead: () -> Unit,
     openSections: OpenSections = rememberOpenSections(),
+    /** A line under "At a glance" saying what these apps are, if they aren't simply yours. */
+    notice: String? = null,
 ) = FieldNotesTheme {
     var query by rememberSaveable { mutableStateOf("") }
     var filters by rememberSaveable(stateSaver = FILTER_SAVER) { mutableStateOf(setOf()) }
@@ -116,7 +118,7 @@ fun AppListScreen(
         }
         CentredList(padding, Modifier.testTag("list"), listState, extraBottom = Space.xxl) {
             if (progress.running) item(key = "progress") { ScanProgressLine(progress) }
-            item(key = "glance") { AtAGlance(summary, latest, bundleLine, onOpen, Modifier.padding(horizontal = Space.screen).testTag("glance")) }
+            item(key = "glance") { AtAGlance(summary, latest, bundleLine, onOpen, Modifier.padding(horizontal = Space.screen).testTag("glance"), notice) }
             item(key = "search") { SearchAndFilters(query, { query = it }, filters, { filters = it }, includeSystem) }
             if (visible.isEmpty()) item(key = "none") { Note("No apps match.") }
             val row = @Composable { app: InstalledApp, index: Int, count: Int ->

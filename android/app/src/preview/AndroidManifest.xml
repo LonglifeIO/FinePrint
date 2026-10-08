@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The preview flavour (debug only): sample apps and a bundle built in, so it lists no installed apps and uses
+     no network. The local-network permission and the mockup activity, which reads this phone's apps, are in
+     src/deviceDebug's manifest, so the preview never has them; PreviewTest checks all three permissions are
+     absent. Its own label, and the .preview suffix, so it installs beside the app with separate state. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:node="remove" />
+    <uses-permission android:name="android.permission.INTERNET" tools:node="remove" />
+
+    <application android:label="FinePrint preview" tools:replace="android:label" />
+</manifest>

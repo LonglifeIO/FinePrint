@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import com.longlifeio.fineprint.R
+import com.longlifeio.fineprint.appIcon
 import com.longlifeio.fineprint.bundle.Change
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.explain.BUCKETS
@@ -82,13 +83,14 @@ import kotlinx.coroutines.withContext
 /** "At a glance": what FinePrint lists for your apps, apps per bucket, the flows you've limited, the newest change. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun AtAGlance(g: Glance, latest: Pair<InstalledApp, Change>?, bundleLine: String, onOpen: (InstalledApp) -> Unit, modifier: Modifier = Modifier) {
+fun AtAGlance(g: Glance, latest: Pair<InstalledApp, Change>?, bundleLine: String, onOpen: (InstalledApp) -> Unit, modifier: Modifier = Modifier, notice: String? = null) {
     val p = LocalPalette.current
     Column(
         modifier.fillMaxWidth().clip(RoundedCornerShape(Corner.hero)).background(p.card).padding(Space.hero),
         verticalArrangement = Arrangement.spacedBy(Space.m),
     ) {
         Eyebrow("At a glance")
+        notice?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = p.ink) }
         Text(glanceHeadline(g), style = CardHeadline, color = p.ink)
         Text("Apps with lines in each place", style = MaterialTheme.typography.bodySmall, color = p.muted)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.s), verticalArrangement = Arrangement.spacedBy(Space.s)) {
@@ -269,7 +271,7 @@ internal fun AppIcon(packageName: String, size: Dp = 40.dp, label: String = "") 
     val icon by produceState(iconCache.get(packageName), packageName) {
         if (value == null) {
             value = withContext(Dispatchers.IO) {
-                runCatching { pm.getApplicationIcon(packageName).toBitmap(ICON_PX, ICON_PX).asImageBitmap() }.getOrNull()
+                runCatching { appIcon(pm, packageName)?.toBitmap(ICON_PX, ICON_PX)?.asImageBitmap() }.getOrNull()
             }?.also { iconCache.put(packageName, it) }
         }
     }

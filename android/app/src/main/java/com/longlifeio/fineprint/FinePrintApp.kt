@@ -3,16 +3,17 @@ package com.longlifeio.fineprint
 import android.app.Application
 import android.os.Build
 import android.os.StrictMode
-import com.longlifeio.fineprint.bundle.BundleSession
-import com.longlifeio.fineprint.egress.ScanSession
 import com.longlifeio.fineprint.review.ReviewStore
 import dalvik.system.ZipPathValidator
 import java.io.File
 
-/** Owns the session, so scan results outlive activity recreation for as long as the process lives. */
+/**
+ * Owns the session, so scan results outlive activity recreation for as long as the process lives. Which scanner
+ * and bundle it builds is the flavour's (Flavour.kt): this phone's apps and the downloaded bundle, or the preview's.
+ */
 class FinePrintApp : Application() {
-    val bundle: BundleSession by lazy { BundleSession(this) }
-    val session: ScanSession by lazy { ScanSession(this) { bundle.state.value.signatures } }
+    val bundle: BundleSource by lazy { newBundleSource() }
+    val session: AppScanner by lazy { newScanner() }
     /** Your Reviewed marks and ticks: in the no-backup directory, and never sent anywhere. */
     val reviews: ReviewStore by lazy { ReviewStore(File(noBackupFilesDir, "reviews.json")) }
 

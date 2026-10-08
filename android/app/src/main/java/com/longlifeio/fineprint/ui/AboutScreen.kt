@@ -30,7 +30,7 @@ import java.time.OffsetDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen(state: BundleState, baseUrl: String, onBack: () -> Unit, onRefresh: () -> Unit) {
+fun AboutScreen(state: BundleState, status: String, origin: String, onBack: () -> Unit, onRefresh: (() -> Unit)?) {
     var licences by rememberSaveable { mutableStateOf(false) }
     Scaffold(
         topBar = {
@@ -51,12 +51,14 @@ fun AboutScreen(state: BundleState, baseUrl: String, onBack: () -> Unit, onRefre
                 )
             }
             item { SectionTitle("Knowledge bundle") }
-            item { Note(bundleStatus(state)) }
-            item { Note("Downloaded whole from $baseUrl; the app never asks a server about a particular app.") }
+            item { Note(status) }
+            item { Note(origin) }
             state.error?.let { item { Note(it) } }
-            item {
-                OutlinedButton(onClick = onRefresh, enabled = !state.refreshing, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = TOUCH)) {
-                    Text(if (state.refreshing) "Updating…" else "Update now")
+            onRefresh?.let { refresh ->
+                item {
+                    OutlinedButton(onClick = refresh, enabled = !state.refreshing, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = TOUCH)) {
+                        Text(if (state.refreshing) "Updating…" else "Update now")
+                    }
                 }
             }
             item { SectionTitle("Tracker data") }

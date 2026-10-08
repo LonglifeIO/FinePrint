@@ -58,7 +58,7 @@ import com.longlifeio.fineprint.review.ReviewView
 /** The app, its tier as an indicator chip ("Flagged ✓" once reviewed) and the line that set it: the answer before the detail. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo, review: ReviewView, onOpenSettings: () -> Unit) {
+internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo, review: ReviewView, onOpenSettings: (() -> Unit)?, settingsUnavailable: String?) {
     val p = LocalPalette.current
     val reviewed = review.status == ReviewStatus.REVIEWED
     Column(Modifier.padding(horizontal = Space.screen, vertical = Space.s), verticalArrangement = Arrangement.spacedBy(Space.s)) {
@@ -89,7 +89,8 @@ internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo
                 style = MaterialTheme.typography.bodySmall, color = p.muted,
             )
         }
-        Button(onClick = onOpenSettings, modifier = Modifier.heightIn(min = TOUCH)) { Text("Open app settings") }
+        Button(onClick = { onOpenSettings?.invoke() }, enabled = onOpenSettings != null, modifier = Modifier.heightIn(min = TOUCH)) { Text("Open app settings") }
+        settingsUnavailable?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = p.muted) }
     }
 }
 

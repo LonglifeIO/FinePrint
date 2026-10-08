@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Debug only: Android 17 blocks connections to local-network addresses (the emulator host 10.0.2.2,
-     a LAN or Tailscale bundle server) unless the app holds this runtime permission. Grant it with
+<!-- The device flavour's debug build only (the preview has no network): Android 17 blocks connections to
+     local-network addresses (the emulator host 10.0.2.2, a LAN or Tailscale bundle server) unless the app holds
+     this runtime permission. Grant it with
      adb shell pm grant com.longlifeio.fineprint android.permission.ACCESS_LOCAL_NETWORK
      Release builds fetch the bundle over the public internet and never declare it. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">

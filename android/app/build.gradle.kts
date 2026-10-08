@@ -1,10 +1,9 @@
-import java.awt.image.BufferedImage
+import com.android.build.api.artifact.ScopedArtifact
+import com.android.build.api.artifact.SingleArtifact
+import com.android.build.api.variant.DeviceTestBuilder
+import com.android.build.api.variant.ScopedArtifacts
 import java.util.Properties
-import javax.imageio.ImageIO
-import kotlin.math.ceil
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.roundToInt
+import java.util.zip.ZipFile
 import org.gradle.api.artifacts.result.ResolvedComponentResult
 import org.gradle.api.artifacts.result.ResolvedDependencyResult
 
@@ -42,6 +41,15 @@ android {
         release {
             buildConfigField("String", "BUNDLE_BASE_URL", "\"https://github.com/LonglifeIO/FinePrint/releases/latest/download/\"")
         }
+    }
+
+    // Where the apps come from. device: this phone's, with the bundle downloaded (the app itself). preview: the
+    // scan fixture's sample apps and a bundle built in (src/preview), a debug build to browse on any phone that
+    // never reads its apps and has no network permission. Shared code names neither; each flavour's Flavour.kt does.
+    flavorDimensions += "apps"
+    productFlavors {
+        create("device") { dimension = "apps"; isDefault = true }
+        create("preview") { dimension = "apps"; applicationIdSuffix = ".preview" }
     }
 
     compileOptions {
@@ -122,10 +130,40 @@ val debugBundleAssets = tasks.register<DebugBundleAssets>("debugBundleAssets") {
     outputDir.set(layout.buildDirectory.dir("generated/bundleAssets"))
 }
 
+/**
+ * The preview's sample apps and built-in bundle, copied into its assets (assets/preview/) at build time: the scan
+ * fixture the tests use and the bundle's three files. Generated, so never in git; no other build gets them.
+ */
+abstract class PreviewAssets : DefaultTask() {
+    @get:InputFiles @get:PathSensitive(PathSensitivity.NAME_ONLY) abstract val files: ConfigurableFileCollection
+    @get:OutputDirectory abstract val outputDir: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val out = outputDir.get().asFile
+        out.deleteRecursively()
+        files.files.forEach { it.copyTo(File(out, "preview/${it.name}")) }
+    }
+}
+
+val previewAssets = tasks.register<PreviewAssets>("previewAssets") {
+    files.from("src/debug/assets/scan-fixture.json", "../../bundle/bundle.json", "../../bundle/trackers.json", "../../bundle/jurisdictions.json")
+    outputDir.set(layout.buildDirectory.dir("generated/previewAssets"))
+}
+
 androidComponents {
+    beforeVariants(selector().withFlavor("apps" to "preview")) { variant ->
+        variant.enable = variant.buildType == "debug" // there is no preview release
+        variant.deviceTests[DeviceTestBuilder.ANDROID_TEST_TYPE]?.enable = false // the device tests run on the device flavour
+    }
     onVariants(selector().withBuildType("debug")) { variant ->
         variant.sources.res?.addGeneratedSourceDirectory(debugNetworkConfig, DebugNetworkConfig::outputDir)
+    }
+    onVariants(selector().withBuildType("debug").withFlavor("apps" to "device")) { variant ->
         variant.sources.assets?.addGeneratedSourceDirectory(debugBundleAssets, DebugBundleAssets::outputDir)
+    }
+    onVariants(selector().withFlavor("apps" to "preview")) { variant ->
+        variant.sources.assets?.addGeneratedSourceDirectory(previewAssets, PreviewAssets::outputDir)
     }
 }
 
@@ -184,11 +222,17 @@ tasks.withType<Test>().configureEach {
 
 /**
  * Fails if any Compose tooling artefact (ui-tooling*, ui-test-manifest) is on the release runtime
- * classpath. Debug builds may carry them for @Preview (CLAUDE.md, Conventions); release never does.
- * Runs with `check`, before every release build, and in CI.
+ * classpath, or if any of the preview flavour reaches the release build: its classes (the preview package),
+ * its assets (the sample apps and the built-in bundle) or its manifest. Debug builds may carry the tooling
+ * for @Preview (CLAUDE.md, Conventions); release never does. Runs with `check`, before a release is
+ * assembled, and in CI.
  */
 abstract class CheckReleaseClasspath : DefaultTask() {
     @get:Input abstract val root: Property<ResolvedComponentResult>
+    @get:InputFiles abstract val classJars: ListProperty<RegularFile>
+    @get:InputFiles abstract val classDirs: ListProperty<Directory>
+    @get:InputDirectory abstract val assets: DirectoryProperty
+    @get:InputFile abstract val manifest: RegularFileProperty
 
     @TaskAction
     fun check() {
@@ -201,64 +245,38 @@ abstract class CheckReleaseClasspath : DefaultTask() {
         walk(root.get())
         val tooling = modules.filter { m -> listOf("androidx.compose.ui:ui-tooling", "androidx.compose.ui:ui-test-manifest").any { m.startsWith(it) } }
         if (tooling.isNotEmpty()) throw GradleException("Compose tooling on the release runtime classpath: ${tooling.sorted().joinToString()}")
-        logger.lifecycle("Release runtime classpath: ${modules.size} modules, no Compose tooling.")
+        fun File.paths() = walk().filter { it.isFile }.map { it.relativeTo(this).invariantSeparatorsPath }.toList()
+        val classes = classDirs.get().flatMap { it.asFile.paths() } + classJars.get().flatMap { ZipFile(it.asFile).use { z -> z.entries().toList().map { e -> e.name } } }
+        val preview = classes.filter { it.startsWith("com/longlifeio/fineprint/preview/") } +
+            assets.get().asFile.paths().filter { it.startsWith("preview/") || it == "scan-fixture.json" } +
+            listOf("the preview's manifest").filter { "FinePrint preview" in manifest.get().asFile.readText() }
+        if (preview.isNotEmpty()) throw GradleException("The preview flavour reaches the release build: ${preview.take(5).joinToString()}")
+        logger.lifecycle("Release: ${modules.size} runtime modules, no Compose tooling; ${classes.size} class files and its assets and manifest, nothing of the preview.")
     }
 }
 
 val checkReleaseClasspath = tasks.register<CheckReleaseClasspath>("checkReleaseClasspath") {
-    root.set(configurations.named("releaseRuntimeClasspath").flatMap { it.incoming.resolutionResult.rootComponent })
+    root.set(configurations.named("deviceReleaseRuntimeClasspath").flatMap { it.incoming.resolutionResult.rootComponent })
+}
+androidComponents {
+    onVariants(selector().withBuildType("release")) { variant ->
+        checkReleaseClasspath.configure {
+            assets.set(variant.artifacts.get(SingleArtifact.ASSETS))
+            manifest.set(variant.artifacts.get(SingleArtifact.MERGED_MANIFEST))
+        }
+        variant.artifacts.forScope(ScopedArtifacts.Scope.PROJECT).use(checkReleaseClasspath)
+            .toGet(ScopedArtifact.CLASSES, CheckReleaseClasspath::classJars, CheckReleaseClasspath::classDirs)
+    }
 }
 tasks.named("check") { dependsOn(checkReleaseClasspath) }
+tasks.matching { it.name == "assembleDeviceRelease" || it.name == "bundleDeviceRelease" }.configureEach { dependsOn(checkReleaseClasspath) }
 
+// The app itself is the device flavour; these keep the usual commands (CLAUDE.md, CI) as they were. testDebugUnitTest
+// runs the full suite on the device flavour and the preview's own tests (src/testPreview) on the preview.
+tasks.register("testDebugUnitTest") { group = "verification"; dependsOn("testDeviceDebugUnitTest", "testPreviewDebugUnitTest") }
+tasks.register("connectedDebugAndroidTest") { group = "verification"; dependsOn("connectedDeviceDebugAndroidTest") }
+tasks.withType<Test>().matching { it.name == "testPreviewDebugUnitTest" }.configureEach { filter.includeTestsMatching("com.longlifeio.fineprint.preview.*") }
 // gradle.properties keeps the app installed after device tests; the test APK itself is removed.
-tasks.matching { it.name == "connectedDebugAndroidTest" }.configureEach { finalizedBy("uninstallDebugAndroidTest") }
-tasks.matching { it.name == "preReleaseBuild" }.configureEach { dependsOn(checkReleaseClasspath) }
+tasks.matching { it.name == "connectedDeviceDebugAndroidTest" }.configureEach { finalizedBy("uninstallDeviceDebugAndroidTest") }
 
-/**
- * The README's screenshots come from the screenshot tests (ScreenshotTest), never by hand: ./gradlew readmeScreenshots.
- * Each is scaled to twice the width the README shows it at, sharp on high-density screens and still small: a new
- * pixel is the average of the captured pixels it covers, weighted by how much of each it covers. Screens are
- * opaque, so the PNGs carry no alpha.
- */
-abstract class ReadmeScreenshots : DefaultTask() {
-    @get:InputFiles @get:PathSensitive(PathSensitivity.NAME_ONLY) abstract val screens: ConfigurableFileCollection
-    @get:Input abstract val width: Property<Int>
-    @get:OutputDirectory abstract val outputDir: DirectoryProperty
-
-    @TaskAction
-    fun export() {
-        screens.files.forEach { ImageIO.write(scaled(ImageIO.read(it), width.get()), "png", outputDir.get().file(it.name).asFile) }
-    }
-
-    private fun scaled(image: BufferedImage, width: Int): BufferedImage {
-        val height = (image.height.toDouble() * width / image.width).roundToInt()
-        val sx = image.width.toDouble() / width
-        val sy = image.height.toDouble() / height
-        val pixels = image.getRGB(0, 0, image.width, image.height, null, 0, image.width)
-        val out = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
-        for (y in 0 until height) for (x in 0 until width) {
-            val top = y * sy
-            val left = x * sx
-            val sum = DoubleArray(3)
-            var area = 0.0
-            for (row in top.toInt() until min(ceil(top + sy).toInt(), image.height)) {
-                val h = min(row + 1.0, top + sy) - max(row.toDouble(), top)
-                for (col in left.toInt() until min(ceil(left + sx).toInt(), image.width)) {
-                    val w = (min(col + 1.0, left + sx) - max(col.toDouble(), left)) * h
-                    val p = pixels[row * image.width + col]
-                    for (c in 0..2) sum[c] += (p shr (16 - 8 * c) and 0xff) * w
-                    area += w
-                }
-            }
-            out.setRGB(x, y, sum.fold(0xff) { rgb, s -> (rgb shl 8) or (s / area).roundToInt() })
-        }
-        return out
-    }
-}
-
-tasks.register<ReadmeScreenshots>("readmeScreenshots") {
-    dependsOn("testDebugUnitTest")
-    screens.from(listOf("home-light", "home-dark", "detail-light", "detail-dark").map { layout.buildDirectory.file("outputs/roborazzi/$it.png") })
-    width.set(600) // twice the README's <img width="300">
-    outputDir.set(layout.projectDirectory.dir("../../docs/screenshots"))
-}
+apply(from = "readme-screenshots.gradle.kts") // the README's screenshots (readmeScreenshots)
