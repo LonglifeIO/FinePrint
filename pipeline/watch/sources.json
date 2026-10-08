@@ -1,6 +1,22 @@
 {
  "_about": "The watcher's configuration (pipeline/watch.py). Each adapter runs when its every_days have passed since a source was last checked. The denylist is never fetched, even when a record cites it: Play pages of any kind (owner captures them by hand), CanLII (its terms bar systematic downloading) and Exodus (CLAUDE.md, Exodus etiquette).",
- "adapters": {},
+ "adapters": {
+  "quote_drift": {
+   "_about": "Every page a reviewed record quotes (pipeline/watch_quotes.py). These are pages FinePrint already quotes under its 15-word rule. sources gives a page its own settings: max_bytes raises the 5 MB cap for that page only.",
+   "every_days": 7,
+   "licence_class": "quotable",
+   "sources": {
+    "https://eur-lex.europa.eu/eli/reg/2023/1543/oj": {
+     "max_bytes": 20971520,
+     "_about": "The e-Evidence Regulation's page is over 5 MB."
+    },
+    "https://advocacy.consumerreports.org/wp-content/uploads/2024/01/CR_Who-Shares-Your-Information-With-Facebook_01_17_23_vf.pdf": {
+     "max_bytes": 20971520,
+     "_about": "Consumer Reports' study, a PDF over 5 MB."
+    }
+   }
+  }
+ },
  "denylist": [
   "play.google.com/store/apps/datasafety",
   "play.google.com",
