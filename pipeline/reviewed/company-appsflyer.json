@@ -1,0 +1,33 @@
+{
+ "companies": [
+  {
+   "id": "co-appsflyer",
+   "name": "AppsFlyer Ltd.",
+   "short_name": "AppsFlyer",
+   "jurisdiction": "IL",
+   "jurisdiction_sources": [
+    {
+     "url": "https://data.gov.il/api/3/action/datastore_search?resource_id=f004176c-b85f-4542-8901-7b3176f9a054&q=514708106",
+     "type": "company_registry",
+     "title": "Israel's Registrar of Companies, open data on data.gov.il: APPSFLYER LTD, company no. 514708106, an Israeli private company, active",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "\"שם באנגלית\":\"APPSFLYER LTD\",\"סוג תאגיד\":\"ישראלית חברה פרטית\",\"סטטוס חברה\":\"פעילה\""
+    },
+    {
+     "url": "https://www.appsflyer.com/legal/privacy-policy/",
+     "type": "privacy_policy",
+     "title": "AppsFlyer Website Privacy Policy",
+     "as_of": "2026-08-06",
+     "status": "self_disclosed",
+     "quote": "AppsFlyer Ltd. (Attn: Legal Dept.) 14 Maskit St., Herzliya, Israel"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
