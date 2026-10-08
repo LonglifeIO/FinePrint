@@ -1,0 +1,51 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "A watcher queue item",
+ "description": "One thing the watcher noticed, for a person to review: facts only, never a status or a tier. Written to pipeline/watch/queue/<id>.json and moved to acked/ when a person acks it. id is the first 16 hex digits of sha256(kind + source_url + snapshot_sha256 + quote_id), so the same finding is written once. For an item without a page copy (a failure or a refusal), snapshot_sha256 hashes what stood in for it: the failure and the day it began, so each new run of failures is reported once.",
+ "type": "object",
+ "additionalProperties": false,
+ "required": ["id", "kind", "created_at", "source_url", "final_url", "fetched_at", "snapshot_sha256", "prior_snapshot_sha256",
+              "record_refs", "quote_id", "quote", "diff_window", "http_status", "licence_class", "notes", "event"],
+ "properties": {
+  "id": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
+  "kind": {"enum": ["quote_missing", "context_changed", "url_moved", "new_event", "fetch_failure", "parked", "refused"]},
+  "created_at": {"$ref": "#/$defs/time"},
+  "source_url": {"type": "string", "pattern": "^https?://"},
+  "final_url": {"type": ["string", "null"]},
+  "fetched_at": {"oneOf": [{"$ref": "#/$defs/time"}, {"type": "null"}]},
+  "snapshot_sha256": {"$ref": "#/$defs/sha256"},
+  "prior_snapshot_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+  "record_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true,
+                  "description": "<reviewed file>:<record id>:<JSON pointer within the record>, or <file>:<record id> for a name match"},
+  "quote_id": {"type": ["string", "null"], "description": "the source's id, or q- and 12 hex digits of sha256(url + newline + quote)"},
+  "quote": {"type": ["string", "null"]},
+  "diff_window": {
+   "oneOf": [{"type": "null"}, {
+    "type": "object", "additionalProperties": false, "required": ["before", "after"],
+    "description": "Up to 300 characters either side of the quote, from the earlier copy and the new one (folded as check_quotes.py folds them)",
+    "properties": {"before": {"type": ["string", "null"]}, "after": {"type": ["string", "null"]}}
+   }]
+  },
+  "http_status": {"type": ["integer", "null"]},
+  "licence_class": {"enum": ["quotable", "lead_only"]},
+  "notes": {"type": "string", "minLength": 1},
+  "event": {
+   "oneOf": [{"type": "null"}, {
+    "type": "object", "additionalProperties": false, "required": ["feed", "title", "link", "published", "matched"],
+    "properties": {
+     "feed": {"type": "string"}, "title": {"type": "string"}, "link": {"type": "string"},
+     "published": {"type": ["string", "null"]},
+     "matched": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+    }
+   }]
+  },
+  "ack": {
+   "type": "object", "additionalProperties": false, "required": ["at", "note"],
+   "properties": {"at": {"$ref": "#/$defs/time"}, "note": {"type": "string"}}
+  }
+ },
+ "$defs": {
+  "time": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[+-]\\d{2}:\\d{2}$"},
+  "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+ }
+}

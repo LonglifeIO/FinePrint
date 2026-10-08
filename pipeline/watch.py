@@ -5,6 +5,7 @@ a bundle file or anything in pipeline/reviewed/. Nothing it finds reaches the ap
 reviewed it and the bundle is rebuilt.
 
     python3 pipeline/watch.py poll [--adapter NAME] [--dry-run]   # the sources that are due (each adapter's every_days)
+    python3 pipeline/watch.py ack ITEM_ID [--note TEXT]               # done with an item: it moves to acked/
     python3 pipeline/watch.py status
 
 Configuration: pipeline/watch/sources.json (committed: adapters, feeds, cadences, the denylist) and
@@ -21,6 +22,7 @@ import time
 import requests
 
 import watch_fetch
+import watch_queue
 import watch_store
 from watch_store import Run, Store
 
@@ -64,18 +66,32 @@ def status(store: Store) -> int:
     return 0
 
 
+def ack(store: Store, key: str, note: str) -> int:
+    item = watch_queue.ack(store, key, note, watch_store.now())
+    if item is None:
+        print(f"no queued item {key!r} (or more than one starts with it)", file=sys.stderr)
+        return 1
+    print(f"acked {item['id']} ({item['kind']}: {item['source_url']})" + ("; it will be checked again" if item["kind"] == "parked" else ""))
+    return 0
+
+
 def main(argv: list[str] | None = None, root=watch_store.WATCH) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     commands = parser.add_subparsers(dest="command", required=True)
     p = commands.add_parser("poll", help="check the sources that are due")
     p.add_argument("--adapter", help="only this adapter")
     p.add_argument("--dry-run", action="store_true", help="say what is due; fetch and write nothing")
+    a = commands.add_parser("ack", help="move a queue item to acked/, with a note")
+    a.add_argument("item_id", help="the item's id, or enough of it to be unique (6 digits or more)")
+    a.add_argument("--note", default="", help="what was done about it")
     commands.add_parser("status", help="open items, parked URLs, the last check")
     args = parser.parse_args(argv)
 
     store = Store(root)
     if args.command == "status":
         return status(store)
+    if args.command == "ack":
+        return ack(store, args.item_id, args.note)
     config = watch_store.read_json(root / "sources.json")
     if config is None:
         print(f"no readable {root / 'sources.json'}", file=sys.stderr)
