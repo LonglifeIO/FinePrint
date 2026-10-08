@@ -10,7 +10,7 @@ data class Glance(
     val perBucket: Map<String, Int>,
     val limited: Int,
     val flows: Int,
-    /** Apps with a current line in the first group of the reading order (LineOrder.kt): the headline. */
+    /** Apps with a current line in the first group of the reading order (LineOrder.kt), other than Purpose not recorded: the headline. */
     val othersForMore: Int = perBucket[GOES_ELSEWHERE] ?: 0,
 )
 
@@ -22,7 +22,8 @@ fun glance(apps: List<InstalledApp>, explanations: Map<String, Explanation>, che
         limited = apps.sumOf { checks[it.packageName]?.limited ?: 0 },
         flows = apps.sumOf { checks[it.packageName]?.total ?: 0 },
         othersForMore = apps.count { app ->
-            explanations[app.packageName]?.let(::readingOrder).orEmpty().any { it.group() == LineGroup.OTHER_COMPANIES && !it.historical }
+            explanations[app.packageName]?.let(::readingOrder).orEmpty()
+                .any { it.group() == LineGroup.OTHER_COMPANIES && !it.historical && it.data != UNRECORDED_DATA }
         },
     )
 }
@@ -32,7 +33,9 @@ fun glance(apps: List<InstalledApp>, explanations: Map<String, Explanation>, che
  * app." It counts apps with a current line in the first group of the reading order; the chips below count
  * each place as before, and the bar's caption says how many flows you've limited. The count includes Auto
  * lines (tracker code found, no record), and code shows where data can go, not that it went: so "can go",
- * never "goes" (docs/METHOD.md, Where data goes). An app it lists nothing for isn't said to send nothing.
+ * never "goes" (docs/METHOD.md, Where data goes). It leaves out a tracker whose purpose isn't recorded: it
+ * comes first in the order, but FinePrint can't say its data is used for more than running the app. An app it
+ * lists nothing for isn't said to send nothing.
  */
 fun glanceHeadline(g: Glance): String {
     val n = g.othersForMore

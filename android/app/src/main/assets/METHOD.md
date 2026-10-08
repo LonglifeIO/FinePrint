@@ -65,7 +65,7 @@ A reviewed line's purpose is the one its record states, which also sets its grou
 
 - Purpose not recorded: Tracker code FinePrint has no record of and no category for, so it can't say where its data goes.
 
-On the home screen, At a glance's headline counts the apps whose page has at least one current line that can go to other companies for more than running the app, the first in the reading order; its chips count an app in a group when its page has at least one current line there. Lines count whether they come from FinePrint's record or are inferred from tracker code (Auto); lines about a past practice don't. Tracker code shows where data can go, not that it went, so the headline says FinePrint lists data that "can go" to other companies. An app with no line in a group isn't said to send nothing there.
+On the home screen, At a glance's headline counts the apps whose page has at least one current line that can go to other companies for more than running the app, the first in the reading order; its chips count an app in a group when its page has at least one current line there. Lines count whether they come from FinePrint's record or are inferred from tracker code (Auto); lines about a past practice don't, and neither does a tracker whose purpose isn't recorded: it comes first in the order, but FinePrint can't say its data is used for more than running the app. Tracker code shows where data can go, not that it went, so the headline says FinePrint lists data that "can go" to other companies. An app with no line in a group isn't said to send nothing there.
 
 A line can also say that the app doesn't do it unless you act:
 

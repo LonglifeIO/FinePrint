@@ -41,7 +41,7 @@ const val UNRECORDED_DATA = "unrecorded"
  * One line for the trackers found in an app that FinePrint has no record of and no εxodus category it can
  * read ("Data from this app → Urbanairship: What it's used for isn't recorded"). Trackers the app's own maker
  * owns are left to the app's own record, as their lines are. Display only, outside the three places: neither
- * the tier nor the places' counts read it.
+ * the tier, the places' counts nor the home's headline reads it.
  */
 internal fun unrecordedLines(detected: List<DetectedTracker>, bundle: Bundle?, developer: String?, signatures: Map<String, TrackerSignature>): List<FlowLine> {
     val names = detected.filter { t ->

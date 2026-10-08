@@ -86,7 +86,7 @@ class LineOrderTest {
     }
 
     @Test
-    fun theHomeHeadlineCountsTheFirstGroupAndTheChipsCountEachPlaceAsBefore() {
+    fun theHomeHeadlineCountsTheFirstGroupButNotATrackerWhosePurposeIsNotRecorded() {
         val apps = listOf(lines, app("org.example.mystery"), app("org.example.analytics"))
         val explanations = mapOf(
             lines.packageName to e,
@@ -95,8 +95,13 @@ class LineOrderTest {
         )
         val g = glance(apps, explanations, emptyMap())
         assertEquals(mapOf(STAYS_HERE to 3, USED_FOR_MORE to 1, GOES_ELSEWHERE to 1), g.perBucket)
-        assertEquals(2, g.othersForMore)
-        assertEquals("For 2 of your 3 apps, FinePrint lists data that can go to other companies for more than running the app.", glanceHeadline(g))
+        // Mystery SDK comes first on its app's page, but FinePrint doesn't know it's for more than running the app.
+        assertEquals(1, g.othersForMore)
+        assertEquals("For 1 of your 3 apps, FinePrint lists data that can go to other companies for more than running the app.", glanceHeadline(g))
+        assertEquals(
+            "FinePrint doesn't yet list, for your app, data that can go to other companies for more than running the app.",
+            glanceHeadline(glance(listOf(apps[1]), explanations, emptyMap())),
+        )
     }
 
     @Test
