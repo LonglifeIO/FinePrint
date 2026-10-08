@@ -18,12 +18,13 @@ supported by exactly one hardcoded ad that knows nothing about you.
 ## Screenshots
 
 <p>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/home-dark.png"><img src="docs/screenshots/home-light.png" width="300" alt="The home: At a glance, where your apps' data can go, then the Flagged apps"></picture>
-  <picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/detail-dark.png"><img src="docs/screenshots/detail-light.png" width="300" alt="Life360's page: its tier, its own Play description, and the fine print, each line with its source"></picture>
+  <img src="docs/screenshots/home-light.png" width="300" alt="The home: At a glance, where your apps' data can go, then the Flagged apps">
+  <img src="docs/screenshots/detail-light.png" width="300" alt="Life360's page: its tier, its own Play description, and the fine print, each line with its source">
 </p>
 
 Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, from knowledge bundle 2026.10.08
-and the test emulator's apps.
+and the test emulator's apps. In dark mode: [the home](docs/screenshots/home-dark.png) and
+[Life360](docs/screenshots/detail-dark.png).
 
 ## Layout
 
