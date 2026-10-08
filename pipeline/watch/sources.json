@@ -1,0 +1,10 @@
+{
+ "_about": "The watcher's configuration (pipeline/watch.py). Each adapter runs when its every_days have passed since a source was last checked. The denylist is never fetched, even when a record cites it: Play pages of any kind (owner captures them by hand), CanLII (its terms bar systematic downloading) and Exodus (CLAUDE.md, Exodus etiquette).",
+ "adapters": {},
+ "denylist": [
+  "play.google.com/store/apps/datasafety",
+  "play.google.com",
+  "canlii.org",
+  "exodus-privacy.eu.org"
+ ]
+}

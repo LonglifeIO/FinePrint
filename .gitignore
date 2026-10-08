@@ -21,6 +21,12 @@ __pycache__/
 pipeline/raw/
 # LLM drafts awaiting review — never commit
 pipeline/drafts/
+# the watcher's copies of other people's pages, its queue and digests, and the owner's contact — never commit
+pipeline/watch/snapshots/
+pipeline/watch/queue/
+pipeline/watch/acked/
+pipeline/watch/digest/
+pipeline/watch/local.json
 # notes compiled from saved videos — a symlink into the owner's library, never commit
 # (no trailing slash: "ingest/" would not match a symlink)
 /ingest

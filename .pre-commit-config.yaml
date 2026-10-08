@@ -11,10 +11,10 @@ repos:
   - repo: local
     hooks:
       - id: forbidden-files
-        name: no keystores, local.properties, .env, databases, pipeline/raw, pipeline/drafts or ingest
+        name: no keystores, local.properties, .env, databases, pipeline/raw, pipeline/drafts, the watcher's copies or ingest
         language: fail
         entry: "never commit this file (see CLAUDE.md, Do not)"
-        files: '(\.jks|\.keystore)$|(^|/)local\.properties$|(^|/)\.env$|(?i:\.(db|sqlite3?))$|^pipeline/(raw|drafts)/|^ingest(/|$)'
+        files: '(\.jks|\.keystore)$|(^|/)local\.properties$|(^|/)\.env$|(?i:\.(db|sqlite3?))$|^pipeline/(raw|drafts)/|^pipeline/watch/(snapshots|queue|acked|digest)/|^pipeline/watch/local\.json$|^ingest(/|$)'
         types: []                  # the default, [file], would skip ingest, which is a symlink
         types_or: [file, symlink]
 
