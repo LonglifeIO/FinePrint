@@ -1,0 +1,72 @@
+{
+ "companies": [
+  {
+   "id": "co-appsflyer",
+   "name": "AppsFlyer Ltd.",
+   "short_name": "AppsFlyer",
+   "jurisdiction": "IL",
+   "jurisdiction_sources": [
+    {
+     "url": "https://data.gov.il/api/3/action/datastore_search?resource_id=f004176c-b85f-4542-8901-7b3176f9a054&q=514708106",
+     "type": "company_registry",
+     "title": "Israel's Registrar of Companies, open data on data.gov.il: APPSFLYER LTD, company no. 514708106, an Israeli private company, active",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "\"שם באנגלית\":\"APPSFLYER LTD\",\"סוג תאגיד\":\"ישראלית חברה פרטית\",\"סטטוס חברה\":\"פעילה\""
+    },
+    {
+     "url": "https://www.appsflyer.com/legal/privacy-policy/",
+     "type": "privacy_policy",
+     "title": "AppsFlyer Website Privacy Policy",
+     "as_of": "2026-08-06",
+     "status": "self_disclosed",
+     "quote": "AppsFlyer Ltd. (Attn: Legal Dept.) 14 Maskit St., Herzliya, Israel"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2025-12",
+     "title": "noyb complaint against TikTok, Grindr and AppsFlyer (data sharing; Articles 6 and 9 GDPR)",
+     "body": "Datenschutzbehörde (Austria's data protection authority)",
+     "type": "regulator_action",
+     "status": "alleged",
+     "status_kind": "filed",
+     "forum": "regulator",
+     "subject_company": "co-appsflyer",
+     "notes": "Filed by noyb for a TikTok and Grindr user, announced on 2025-12-17. It alleges that AppsFlyer passed his Grindr activity to TikTok, directly or indirectly, without a legal basis, and asks the authority to stop the processing and impose a fine.",
+     "sources": [
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "noyb has therefore filed two complaints with the Austrian data protection authority (DSB)"
+      },
+      {
+       "url": "https://noyb.eu/sites/default/files/2025-12/TikTok%20Grindr%20Complaint_EN_redacted.pdf",
+       "type": "lawsuit",
+       "title": "noyb's complaint against TikTok, Grindr and AppsFlyer to Austria's data protection authority (English, redacted)",
+       "accessed": "2026-10-08",
+       "status": "alleged",
+       "quote": "AppsFlyer then shared the complainant's activity data (directly or indirectly) with TikTok"
+      },
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "we suggest that the authority impose an “ effective, proportionate and dissuasive ” fine"
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

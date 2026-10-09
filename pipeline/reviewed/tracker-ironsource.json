@@ -1,0 +1,340 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-146",
+   "aka": [
+    "Unity LevelPlay",
+    "ironSource SDK",
+    "ironSource mediation"
+   ],
+   "owner": "Unity Software Inc.",
+   "owner_company": "co-ironsource",
+   "owner_chain": [
+    "ironSource Ltd.",
+    "Unity Software Inc."
+   ],
+   "jurisdiction": "IL",
+   "party": "third_party",
+   "product_line": "Unity LevelPlay, the ironSource SDK: mediation that runs auctions among ad networks for an app's ad space, with Unity's Ad Quality monitoring built in",
+   "categories": [
+    "advertising",
+    "analytics"
+   ],
+   "data_collected": [
+    "device identifiers",
+    "approximate location",
+    "interactions with ads",
+    "app diagnostics",
+    "for Ad Quality: each ad shown, its network and advertiser, taps and closes, the revenue, a user ID, device model, OS version and country"
+   ],
+   "monetization_model": "Unity earns from mediating ad auctions in apps through LevelPlay and from its own ad networks; its privacy policy, which covers LevelPlay and its affiliate ironSource, lists identifiers, internet activity and approximate location as sold to and shared with ad networks.",
+   "data_flows": [
+    {
+     "id": "flow-levelplay-ids",
+     "data": "device_identifiers",
+     "recipient": "co-ironsource",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your device identifiers, collected and shared for advertising, analytics and fraud prevention",
+     "status": "self_disclosed",
+     "wording": "According to Unity's data safety disclosure for LevelPlay and Unity's privacy policy (last updated 2025-07-24).",
+     "sources": [
+      {
+       "url": "https://docs.unity.com/en-us/grow/levelplay/platform/legal-resources/google-data-safety-questionnaire",
+       "type": "company_site",
+       "title": "Unity documentation: Google Data Safety Questionnaire for LevelPlay",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Device or other IDs No Required Yes Yes Analytics; Fraud prevention"
+      },
+      {
+       "url": "https://unity.com/legal/game-player-and-app-user-privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unity Game Player and App User Privacy Policy",
+       "as_of": "2025-07-24",
+       "status": "self_disclosed",
+       "quote": "Unity Levelplay: Allows Developers to manage and optimize their monetization strategy through mediation"
+      },
+      {
+       "url": "https://unity.com/legal/game-player-and-app-user-privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unity Game Player and App User Privacy Policy",
+       "as_of": "2025-07-24",
+       "status": "self_disclosed",
+       "quote": "Our Affiliates, including ironSource All purposes described in this Privacy Policy"
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/levelplay/platform/legal-resources/google-data-safety-questionnaire",
+       "type": "company_site",
+       "title": "Unity documentation: Google Data Safety Questionnaire for LevelPlay",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "App info and performance No Required Yes – Diagnostics No"
+      },
+      {
+       "url": "https://www.sec.gov/Archives/edgar/data/1810806/000181080626000011/unity-20251231.htm",
+       "type": "filing",
+       "title": "Unity Software Inc., annual report on Form 10-K for 2025 (filed 2026-02-11)",
+       "as_of": "2026-02-11",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260211122059id_/https://www.sec.gov/Archives/edgar/data/1810806/000181080626000011/unity-20251231.htm",
+       "quote": "our mediation platform, ad networks (like the Unity Ad Network"
+      }
+     ]
+    },
+    {
+     "id": "flow-levelplay-location",
+     "data": "approximate_location",
+     "recipient": "co-ironsource",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your approximate location, collected and shared for advertising, analytics and fraud prevention",
+     "status": "self_disclosed",
+     "wording": "According to Unity's data safety disclosure for LevelPlay and Unity's privacy policy (last updated 2025-07-24).",
+     "sources": [
+      {
+       "url": "https://docs.unity.com/en-us/grow/levelplay/platform/legal-resources/google-data-safety-questionnaire",
+       "type": "company_site",
+       "title": "Unity documentation: Google Data Safety Questionnaire for LevelPlay",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Yes – Approximate location Yes – Approximate location Analytics; Fraud prevention"
+      },
+      {
+       "url": "https://unity.com/legal/game-player-and-app-user-privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unity Game Player and App User Privacy Policy",
+       "as_of": "2025-07-24",
+       "status": "self_disclosed",
+       "quote": "approximate location derived from IP address"
+      }
+     ]
+    },
+    {
+     "id": "flow-levelplay-ad-networks",
+     "data": "device_identifiers",
+     "recipient_label": "Ad networks",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your identifiers, how you interact with ads and your approximate location, shared with ad networks; Unity's privacy policy lists these kinds of data as sold to and shared with ad networks",
+     "status": "self_disclosed",
+     "wording": "According to Unity's data safety disclosure for LevelPlay and Unity's privacy policy (last updated 2025-07-24).",
+     "sources": [
+      {
+       "url": "https://docs.unity.com/en-us/grow/levelplay/platform/legal-resources/google-data-safety-questionnaire",
+       "type": "company_site",
+       "title": "Unity documentation: Google Data Safety Questionnaire for LevelPlay",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Yes – Other actions (interaction with ads) Yes – Other actions (interaction with ads)"
+      },
+      {
+       "url": "https://unity.com/legal/game-player-and-app-user-privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unity Game Player and App User Privacy Policy",
+       "as_of": "2025-07-24",
+       "status": "self_disclosed",
+       "quote": "Identifiers, such as name … Sold to Which Categories of Third Parties Ad networks"
+      },
+      {
+       "url": "https://unity.com/legal/game-player-and-app-user-privacy-policy",
+       "type": "privacy_policy",
+       "title": "Unity Game Player and App User Privacy Policy",
+       "as_of": "2025-07-24",
+       "status": "self_disclosed",
+       "quote": "location derived from IP address … Sold to Which Categories of Third Parties Ad networks"
+      }
+     ]
+    },
+    {
+     "id": "flow-levelplay-ad-quality",
+     "data": "app_activity",
+     "recipient": "co-ironsource",
+     "bucket": "stays_here",
+     "purpose": "A record of each ad you're shown, from any ad network: the advertiser and ad, whether you tapped or closed it, the revenue, an ID for you, your device and country, for the developer's ad checks",
+     "status": "self_disclosed",
+     "wording": "According to Unity's Ad Quality documentation (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://docs.unity.com/grow/levelplay/sdk/android/integrate-ad-quality",
+       "type": "company_site",
+       "title": "Unity documentation: integrate the Ad Quality SDK (LevelPlay, Android)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "integrated into the LevelPlay SDK and automatically initializes when LevelPlay is implemented"
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/overview",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality overview",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Ad Quality helps you to monitor and control the ad content in your apps."
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/ad-quality-raw-data",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality Raw Data API",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "ad_source The Network name that serves the ad"
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/ad-quality-raw-data",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality Raw Data API",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "user_id String"
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/ad-quality-raw-data",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality Raw Data API",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "device_model String"
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/ad-quality-raw-data",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality Raw Data API",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "advertiser advertiser name"
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/ad-quality-raw-data",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality Raw Data API",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "click An integer where 1 indicates a click occurred"
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/ad-quality-raw-data",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality Raw Data API",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "ad_closed An integer where 1 indicates an ad closed"
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/ad-quality-raw-data",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality Raw Data API",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "revenue The Revenue generated by the user (USD)."
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/ad-quality-raw-data",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality Raw Data API",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "country 2 letter country code"
+      },
+      {
+       "url": "https://docs.unity.com/en-us/grow/ad-quality/ad-quality-raw-data",
+       "type": "company_site",
+       "title": "Unity documentation: Ad Quality Raw Data API",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "os_version String"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2021 a US federal court approved ironSource's settlement of a parents' class action alleging that SDKs in children's games such as Subway Surfers secretly collected children's data; it made no finding of wrongdoing. ironSource agreed to serve only contextual ads, without persistent IDs or street-level location, in US children's apps, and to make developers certify whether apps are for children.",
+     "subject_company": "co-ironsource",
+     "status": "adjudicated",
+     "status_kind": "settlement",
+     "historical": true,
+     "closed_date": "2021-04-12",
+     "wording": "Settled with a US federal court's approval on 2021-04-12, with no finding of wrongdoing.",
+     "procedural_note": {
+      "text": "On 2021-08-16 the court amended the order to correct a drafting error in the term on developers re-confirming their children's settings after SDK updates.",
+      "sources": [
+       {
+        "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.410.0.pdf",
+        "type": "lawsuit",
+        "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), stipulation and order amending the final approval order with ironSource (Dkt 410)",
+        "as_of": "2021-08-16",
+        "status": "adjudicated",
+        "quote": "ironSource became aware of a drafting error to Paragraph 19(C) of the Final Approval Order"
+       }
+      ]
+     },
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "By entering this Order, the Court does not make any finding of liability or wrongdoing as to Defendant."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "that the Defendants worked in concert to surreptitiously collect Class Members’ children’s personal data for commercial purposes by embedding SDKs"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "who are under the age of 13, or were under the age of 13 when they played Subway Surfers"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "shall only apply to devices located in the United States as determined by Internet Protocol (IP) address"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "limit its ad network advertising service exclusively to Contextual Advertising"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "any persistent identifier (hashed or otherwise) that can be used to recognize a user or a user’s device over time"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "any geolocation information sufficient to identify street name and name of a city or town"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.315023/gov.uscourts.cand.315023.406.6.pdf",
+       "type": "lawsuit",
+       "title": "McDonald v. Kiloo ApS (N.D. Cal. No. 3:17-cv-04344-JD), order granting final approval of the class settlement with ironSource USA, Inc. (Dkt 406-6)",
+       "as_of": "2021-04-12",
+       "status": "adjudicated",
+       "quote": "Require Developers to click a button certifying yes/no that a particular application is directed at children under 13"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

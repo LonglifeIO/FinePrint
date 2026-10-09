@@ -1,0 +1,396 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-72",
+   "aka": [
+    "AppLovin SDK",
+    "AppLovin MAX"
+   ],
+   "owner": "AppLovin Corporation",
+   "owner_company": "co-applovin",
+   "owner_chain": [
+    "AppLovin Corporation"
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "AppLovin's SDK: its own ad network, run by its Axon AI recommendation engine, and MAX, the in-app bidding auction ad networks use to buy app ad space",
+   "categories": [
+    "advertising",
+    "profiling",
+    "identification",
+    "analytics"
+   ],
+   "data_collected": [
+    "advertising ID, vendor ID and app set ID",
+    "IP address, user agent and HTTP request details",
+    "device details: make, model, screen, battery, storage, memory, settings, boot time and integrity signals",
+    "the app you use it in, with session and install information",
+    "country, time zone and language settings",
+    "email address, phone number and user ID, if the app's publisher provides them",
+    "purchase and install events that advertisers send"
+   ],
+   "monetization_model": "AppLovin earns from advertisers who buy app installs and ads through Axon Ads Manager, run by its Axon AI recommendation engine, and from a percentage of spend through MAX (its 2025 annual report). It uses what the SDK collects, with your activity in other apps, to choose ads, and passes device data to ad buyers in bid requests (its privacy policy and US privacy notice).",
+   "data_flows": [
+    {
+     "id": "flow-applovin-ids",
+     "data": "device_identifiers",
+     "recipient": "co-applovin",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your advertising ID, app set ID, IP address and device details, which AppLovin uses with what you did in other apps to choose ads for you, and keeps for up to two years",
+     "status": "self_disclosed",
+     "wording": "According to AppLovin's privacy policy, effective 2026-08-06.",
+     "sources": [
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "an application which contains the AppLovin SDK"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "Advertising IDs (IDFA/GAID/Amazon Advertising ID); Vendor IDs (IDFV); App Set IDs"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "previous actions on that or other apps or websites) to suggest advertising to you"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "typically up to two (2) years"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "IP Address; Internet browser user-agent"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "HTTP header and request information"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "Device make, model, hardware, and operating system"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "battery, storage, memory usage, settings, and boot time"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "Device integrity and security signals"
+      }
+     ]
+    },
+    {
+     "id": "flow-applovin-activity",
+     "data": "app_activity",
+     "recipient": "co-applovin",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your sessions and installs, and purchase and install events that advertisers send it, combined with other information to show you ads that fit your likely interests",
+     "status": "self_disclosed",
+     "wording": "According to AppLovin's privacy policy, effective 2026-08-06.",
+     "sources": [
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "session information, and installation information of the mobile application"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "information about purchases or application installations"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "We may also combine information we collect with other information we derive"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "present you with advertising that appears more relevant based on your possible interests"
+      },
+      {
+       "url": "https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+       "type": "filing",
+       "title": "AppLovin Corporation, annual report on Form 10-K for 2025 (filed 2026-02-19)",
+       "as_of": "2026-02-19",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260307091041id_/https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+       "quote": "Axon Ads Manager is powered by our Axon AI advertising recommendation engine"
+      }
+     ]
+    },
+    {
+     "id": "flow-applovin-bid-requests",
+     "data": "device_identifiers",
+     "recipient_label": "Ad buyers in AppLovin's auctions: advertisers, ad networks, exchanges and demand-side platforms",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your device information, sent in bid requests to ad buyers, who may use it for ads based on your interests. AppLovin says this may count as a \"sale\" under US state privacy laws",
+     "status": "self_disclosed",
+     "wording": "According to AppLovin's privacy policy (effective 2026-08-06) and its US multistate privacy notice (effective 2026-08-21).",
+     "sources": [
+      {
+       "url": "https://legal.applovin.com/multistate-privacy-notice/",
+       "type": "privacy_policy",
+       "title": "AppLovin U.S. Multistate Privacy Notice",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "we’ll send a bid request that contains certain of your device information (if available)"
+      },
+      {
+       "url": "https://legal.applovin.com/multistate-privacy-notice/",
+       "type": "privacy_policy",
+       "title": "AppLovin U.S. Multistate Privacy Notice",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "passing device data in a bid request … may be a “sale” of personal information"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "advertisers, ad networks, exchanges, demand side platforms"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "each AppLovin advertising partner is an independent controller of your data"
+      },
+      {
+       "url": "https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+       "type": "filing",
+       "title": "AppLovin Corporation, annual report on Form 10-K for 2025 (filed 2026-02-19)",
+       "as_of": "2026-02-19",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260307091041id_/https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+       "quote": "MAX is our in-app bidding solution"
+      },
+      {
+       "url": "https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+       "type": "filing",
+       "title": "AppLovin Corporation, annual report on Form 10-K for 2025 (filed 2026-02-19)",
+       "as_of": "2026-02-19",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260307091041id_/https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+       "quote": "Advertising networks use MAX to optimize purchases of app advertising inventory"
+      },
+      {
+       "url": "https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+       "type": "filing",
+       "title": "AppLovin Corporation, annual report on Form 10-K for 2025 (filed 2026-02-19)",
+       "as_of": "2026-02-19",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260307091041id_/https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+       "quote": "Revenue from MAX is generated based on a percentage of client spend"
+      }
+     ]
+    },
+    {
+     "id": "flow-applovin-location",
+     "data": "approximate_location",
+     "recipient": "co-applovin",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your general location, such as your country, from your device; AppLovin uses it to deliver ads and discloses it to its advertising partners",
+     "status": "self_disclosed",
+     "wording": "According to AppLovin's US multistate privacy notice, effective 2026-08-21.",
+     "sources": [
+      {
+       "url": "https://legal.applovin.com/multistate-privacy-notice/",
+       "type": "privacy_policy",
+       "title": "AppLovin U.S. Multistate Privacy Notice",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "General Location Data, such as country"
+      },
+      {
+       "url": "https://legal.applovin.com/multistate-privacy-notice/",
+       "type": "privacy_policy",
+       "title": "AppLovin U.S. Multistate Privacy Notice",
+       "as_of": "2026-08-21",
+       "status": "self_disclosed",
+       "quote": "state, city, and zip code collected in connection with e-commerce services only"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "Country, time zone, and locale settings"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "If the app's publisher provides them, AppLovin also receives your email address, phone number or the publisher's user ID for you. FinePrint can't see that setting.",
+     "status": "self_disclosed",
+     "wording": "According to AppLovin's privacy policy, effective 2026-08-06.",
+     "sources": [
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "Email addresses, phone numbers, and Publisher User IDs (if provided by publisher)"
+      }
+     ]
+    },
+    {
+     "text": "San Diego County alleges that AppLovin collected data from children even when their parents had opted out, and let inappropriate ads appear in children's games despite parental controls.",
+     "subject_company": "co-applovin",
+     "status": "alleged",
+     "status_kind": "filed",
+     "forum": "court",
+     "wording": "Alleged in a lawsuit filed by San Diego County on 2026-10-05.",
+     "sources": [
+      {
+       "url": "https://www.countynewscenter.com/county-introduces-new-consumer-fairness-and-public-protection-division-launches-three-major-lawsuits/",
+       "type": "regulator",
+       "title": "County of San Diego: new consumer protection division and three lawsuits, People v. AppLovin Corporation among them",
+       "as_of": "2026-10-05",
+       "status": "alleged",
+       "quote": "collected data from minors even when parents opted out"
+      },
+      {
+       "url": "https://www.countynewscenter.com/county-introduces-new-consumer-fairness-and-public-protection-division-launches-three-major-lawsuits/",
+       "type": "regulator",
+       "title": "County of San Diego: new consumer protection division and three lawsuits, People v. AppLovin Corporation among them",
+       "as_of": "2026-10-05",
+       "status": "alleged",
+       "quote": "allowed inappropriate advertising content to appear in children’s gaming apps despite parental controls"
+      },
+      {
+       "url": "https://www.countynewscenter.com/county-introduces-new-consumer-fairness-and-public-protection-division-launches-three-major-lawsuits/",
+       "type": "regulator",
+       "title": "County of San Diego: new consumer protection division and three lawsuits, People v. AppLovin Corporation among them",
+       "as_of": "2026-10-05",
+       "status": "alleged",
+       "quote": "Our first three lawsuits filed today in San Diego Superior Court"
+      }
+     ]
+    },
+    {
+     "text": "A Dutch privacy foundation alleges that AppLovin's and Adjust's SDKs collect app users' data, build profiles from it and share it through ad auctions, since 2018, without a valid legal basis or the protections children are owed. It seeks damages and an end to the practices.",
+     "subject_company": "co-applovin",
+     "status": "alleged",
+     "status_kind": "filed",
+     "forum": "court",
+     "wording": "Alleged in a collective action by Stichting The Privacy Collective in the Amsterdam District Court; the summons was issued on 2026-05-21.",
+     "sources": [
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "worden persoonsgegevens van gebruikers verzameld, gecombineerd, geanalyseerd, en tot gebruikersprofielen verrijkt"
+      },
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "op grote schaal worden gedeeld via de advertentieveilingsystemen van AppLovin c.s."
+      },
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "zonder geldige rechtsgrond … zonder inachtneming van de bijzondere beschermingsregels voor kinderen"
+      },
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "vanaf 25 mei 2018 plaatsvonden en tot op heden voortduren"
+      },
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "te doen staken en de door de Gedupeerden geleden schade vergoed te krijgen"
+      },
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "zoals uitgebracht op 21 mei 2026"
+      },
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "aan te brengen bij de rechtbank Amsterdam"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

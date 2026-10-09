@@ -1,0 +1,187 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-167",
+   "aka": [
+    "Branch SDK",
+    "Branch.io"
+   ],
+   "owner": "Branch Metrics, Inc.",
+   "owner_company": "co-branch",
+   "owner_chain": [
+    "Branch Metrics, Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Branch's deep linking and attribution SDK for app developers",
+   "categories": [
+    "analytics"
+   ],
+   "data_collected": [
+    "advertising ID and Android ID",
+    "IP address",
+    "device details used to identify the device, such as model, screen resolution and local IP address",
+    "taps on links and ads, app pages visited, installs, and events the developer measures"
+   ],
+   "monetization_model": "Branch sells deep linking and attribution to app developers. It says it doesn't rent or sell end users' data; subject to its client contracts it may use the data to improve its services, support its other products and develop new ones, and it may use de-identified or aggregated data for any purpose (its privacy policy).",
+   "data_flows": [
+    {
+     "id": "flow-branch-ids",
+     "data": "device_identifiers",
+     "recipient": "co-branch",
+     "bucket": "stays_here",
+     "purpose": "Your advertising ID and Android ID, with device details such as model, screen resolution and local IP address, to identify your device and work out which link or ad brought you to the app",
+     "status": "self_disclosed",
+     "wording": "According to Branch's privacy policy, last updated 2025-09-15.",
+     "sources": [
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "Advertising identifier (e.g., GAID, Android ID, IDFA, IDFV, RIDA) Used for device identification"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "Local IP address Metadata feature used for device identification and attribution"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "Screen resolution Metadata feature used for device identification and attribution"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "Device model Metadata feature used for device identification and attribution"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "We do not rent or sell customer end user data."
+      }
+     ]
+    },
+    {
+     "id": "flow-branch-engagement",
+     "data": "app_activity",
+     "recipient": "co-branch",
+     "bucket": "stays_here",
+     "purpose": "Your taps on the developer's links and ads, the app pages you visit, installs, and events the developer chooses, such as purchases, for the developer's attribution and analytics",
+     "status": "self_disclosed",
+     "wording": "According to Branch's privacy policy, last updated 2025-09-15.",
+     "sources": [
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "clicks on Client ads, Client ad impressions viewed"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "pages on Client’s application visited by a User, downloads"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "Other interactions, events and actions Clients choose to measure and analyze within their application"
+      }
+     ]
+    },
+    {
+     "id": "flow-branch-location",
+     "data": "approximate_location",
+     "recipient": "co-branch",
+     "bucket": "stays_here",
+     "purpose": "Your IP address, used to identify your device, for attribution and to understand your general location",
+     "status": "self_disclosed",
+     "wording": "According to Branch's privacy policy, last updated 2025-09-15.",
+     "sources": [
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "IP Address … used for device identification, attribution, and to understand general location"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Depending on its contract with the app's developer, Branch may also use this data to support its other products, develop new ones and market products or services, and may de-identify or aggregate it and then use it for any purpose. FinePrint can't see that contract.",
+     "status": "self_disclosed",
+     "wording": "According to Branch's privacy policy, last updated 2025-09-15.",
+     "sources": [
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "Subject to Agreements with our Clients, data that Branch collects"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "including to support other Branch products and services"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "develop new products and services, and market products or services"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "Where authorized by Agreements with our Clients, we may aggregate and/or de-identify"
+      },
+      {
+       "url": "https://legal.branch.io/saas/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Branch Privacy Policy (version 8.6)",
+       "as_of": "2025-09-15",
+       "status": "self_disclosed",
+       "quote": "We may use de-identified and/or aggregated data for any purpose"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

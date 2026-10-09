@@ -1,0 +1,399 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-12",
+   "aka": [
+    "AppsFlyer SDK"
+   ],
+   "owner": "AppsFlyer Ltd.",
+   "owner_company": "co-appsflyer",
+   "owner_chain": [
+    "AppsFlyer Ltd."
+   ],
+   "jurisdiction": "IL",
+   "party": "third_party",
+   "product_line": "AppsFlyer's measurement SDK: attribution, analytics and fraud protection for app developers",
+   "categories": [
+    "analytics"
+   ],
+   "data_collected": [
+    "the Android advertising ID, by default",
+    "installs, app launches and the in-app events the developer chooses, such as purchases",
+    "taps on and views of the developer's ads",
+    "IP address, mapped to region or city",
+    "device details: model, operating system, CPU and battery, network, motion sensors and screen orientation",
+    "a user ID the developer sets, and in some cases a hashed email or phone number"
+   ],
+   "monetization_model": "AppsFlyer sells attribution, analytics and fraud-protection services to app developers. It says it processes app users' data only for the developer, doesn't sell it and isn't an ad network or data broker; it uses de-identified aggregates of that data for market research, benchmarks and marketing its own services (its documentation).",
+   "data_flows": [
+    {
+     "id": "flow-appsflyer-events",
+     "data": "app_activity",
+     "recipient": "co-appsflyer",
+     "bucket": "stays_here",
+     "purpose": "Installs, app launches, your taps on the developer's ads and the in-app events it chooses, such as purchases, so the developer can measure its marketing and check for fraud",
+     "status": "self_disclosed",
+     "wording": "According to AppsFlyer's documentation (read 2026-10-08) and its help centre (updated 2026-10-01).",
+     "sources": [
+      {
+       "url": "https://support.appsflyer.com/hc/en-us/articles/4417197430289-Fill-out-Google-safety-section-form",
+       "type": "company_site",
+       "title": "AppsFlyer help centre: Fill out Google safety section form",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "verify_url": "https://support.appsflyer.com/api/v2/help_center/en-us/articles/4417197430289.json",
+       "quote": "AppsFlyer by default measures app launches"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "clicks on customers’ ads, views (impressions) of customers’ ads, app download and install information"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "interactions, events and actions customers choose to measure and analyze within their application"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "add to cart, in-app purchases made"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "customers are able to measure their marketing efforts, analyze their app usage"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "leverage fraud protection technologies"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "AppsFlyer does not sell End User personal data to any third party."
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "act as an ad network or data broker"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "aggregation of End User data for market research and analysis, benchmarking"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "improvement and marketing of the Services"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Aggregated Data is de-identified"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "does not use any of the End User personal data for its own purpose"
+      },
+      {
+       "url": "https://support.appsflyer.com/hc/en-us/articles/4417197430289-Fill-out-Google-safety-section-form",
+       "type": "company_site",
+       "title": "AppsFlyer help centre: Fill out Google safety section form",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "verify_url": "https://support.appsflyer.com/api/v2/help_center/en-us/articles/4417197430289.json",
+       "quote": "AppsFlyer acts solely as a service provider on your behalf and per your instructions"
+      }
+     ]
+    },
+    {
+     "id": "flow-appsflyer-ids",
+     "data": "device_identifiers",
+     "recipient": "co-appsflyer",
+     "bucket": "stays_here",
+     "purpose": "Your Android advertising ID, collected by default to measure ads, and a user ID if the developer sets one; in some cases a hashed email or phone number",
+     "status": "self_disclosed",
+     "wording": "According to AppsFlyer's documentation (read 2026-10-08) and its help centre (updated 2026-10-01).",
+     "sources": [
+      {
+       "url": "https://support.appsflyer.com/hc/en-us/articles/4417197430289-Fill-out-Google-safety-section-form",
+       "type": "company_site",
+       "title": "AppsFlyer help centre: Fill out Google safety section form",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "verify_url": "https://support.appsflyer.com/api/v2/help_center/en-us/articles/4417197430289.json",
+       "quote": "The AppsFlyer Android SDK, by default collect the Google Advertiser Identifier (GAID)."
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "access a device’s advertising ID (e.g. IDFA, AAID) for measurement purposes"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Customers may also set their own customer issued id (CUID)"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "set emails and phone numbers in cryptographic hashed form"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "device type and model, browser information, operating system information, CPU and battery information"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "network information (wifi and carrier), device motion parameters and screen orientation"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "does not use any of the End User personal data for its own purpose"
+      },
+      {
+       "url": "https://support.appsflyer.com/hc/en-us/articles/4417197430289-Fill-out-Google-safety-section-form",
+       "type": "company_site",
+       "title": "AppsFlyer help centre: Fill out Google safety section form",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "verify_url": "https://support.appsflyer.com/api/v2/help_center/en-us/articles/4417197430289.json",
+       "quote": "AppsFlyer acts solely as a service provider on your behalf and per your instructions"
+      }
+     ]
+    },
+    {
+     "id": "flow-appsflyer-location",
+     "data": "approximate_location",
+     "recipient": "co-appsflyer",
+     "bucket": "stays_here",
+     "purpose": "Your IP address, mapped to your region or city. AppsFlyer's guidance gives analytics and fraud prevention as its purposes; it doesn't collect precise GPS location",
+     "status": "self_disclosed",
+     "wording": "According to AppsFlyer's documentation (read 2026-10-08) and its help centre (updated 2026-10-01).",
+     "sources": [
+      {
+       "url": "https://support.appsflyer.com/hc/en-us/articles/4417197430289-Fill-out-Google-safety-section-form",
+       "type": "company_site",
+       "title": "AppsFlyer help centre: Fill out Google safety section form",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "verify_url": "https://support.appsflyer.com/api/v2/help_center/en-us/articles/4417197430289.json",
+       "quote": "Approximate Location: Yes, the IP address is received and mapped to a region/city level."
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "IP address (which may be resolved to IP based regional coarse geolocation)"
+      },
+      {
+       "url": "https://support.appsflyer.com/hc/en-us/articles/4417197430289-Fill-out-Google-safety-section-form",
+       "type": "company_site",
+       "title": "AppsFlyer help centre: Fill out Google safety section form",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "verify_url": "https://support.appsflyer.com/api/v2/help_center/en-us/articles/4417197430289.json",
+       "quote": "Analytics Yes"
+      },
+      {
+       "url": "https://support.appsflyer.com/hc/en-us/articles/4417197430289-Fill-out-Google-safety-section-form",
+       "type": "company_site",
+       "title": "AppsFlyer help centre: Fill out Google safety section form",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "verify_url": "https://support.appsflyer.com/api/v2/help_center/en-us/articles/4417197430289.json",
+       "quote": "Fraud, prevention, security, and compliance Yes"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "they do not enable the collection of precise GPS location data"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "does not use any of the End User personal data for its own purpose"
+      },
+      {
+       "url": "https://support.appsflyer.com/hc/en-us/articles/4417197430289-Fill-out-Google-safety-section-form",
+       "type": "company_site",
+       "title": "AppsFlyer help centre: Fill out Google safety section form",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "verify_url": "https://support.appsflyer.com/api/v2/help_center/en-us/articles/4417197430289.json",
+       "quote": "AppsFlyer acts solely as a service provider on your behalf and per your instructions"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "If the developer has connected ad networks or other partners, AppsFlyer passes them your advertising ID and the events the developer picks, for example through postbacks; AppsFlyer counts that as sharing. FinePrint can't see that setting.",
+     "status": "self_disclosed",
+     "wording": "According to AppsFlyer's documentation (read 2026-10-08) and its help centre (updated 2026-10-01).",
+     "sources": [
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "certain Processed Data is shared by the customer with such partners"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "no data is configured to be shared"
+      },
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Advertising ID’s, CUID’s (including emails) and related engagement information"
+      },
+      {
+       "url": "https://support.appsflyer.com/hc/en-us/articles/4417197430289-Fill-out-Google-safety-section-form",
+       "type": "company_site",
+       "title": "AppsFlyer help centre: Fill out Google safety section form",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "verify_url": "https://support.appsflyer.com/api/v2/help_center/en-us/articles/4417197430289.json",
+       "quote": "sharing data with third-party networks (for example, through postbacks … this would be deemed sharing"
+      }
+     ]
+    },
+    {
+     "text": "A complaint alleges that a man's use of the Grindr dating app was passed to TikTok, likely through AppsFlyer, without a legal basis or his consent, revealing his sexual orientation.",
+     "subject_company": "co-appsflyer",
+     "status": "alleged",
+     "status_kind": "filed",
+     "forum": "regulator",
+     "wording": "Alleged in a complaint filed by noyb with Austria's data protection authority, announced on 2025-12-17.",
+     "sources": [
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "Grindr was sent to TikTok, likely via the Israeli tracking company AppsFlyer"
+      },
+      {
+       "url": "https://noyb.eu/sites/default/files/2025-12/TikTok%20Grindr%20Complaint_EN_redacted.pdf",
+       "type": "lawsuit",
+       "title": "noyb's complaint against TikTok, Grindr and AppsFlyer to Austria's data protection authority (English, redacted)",
+       "accessed": "2026-10-08",
+       "status": "alleged",
+       "quote": "AppsFlyer then shared the complainant's activity data (directly or indirectly) with TikTok"
+      },
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "Neither AppsFlyer nor Grindr have a valid legal basis"
+      },
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "At no point in time … consent to the sharing of his data"
+      },
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "draw conclusions about his sexual orientation and sex life"
+      },
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "noyb has therefore filed two complaints with the Austrian data protection authority (DSB)"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

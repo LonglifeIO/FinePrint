@@ -1,0 +1,82 @@
+{
+ "companies": [
+  {
+   "id": "co-adjust",
+   "name": "Adjust GmbH",
+   "short_name": "Adjust",
+   "parent": "co-applovin",
+   "jurisdiction": "DE",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.sec.gov/Archives/edgar/data/1751008/000175100825000018/exhibit2112024123110k.htm",
+     "type": "filing",
+     "title": "AppLovin Corporation, subsidiaries (Exhibit 21.1 to the annual report for 2024, filed 2025-02-27)",
+     "as_of": "2025-02-27",
+     "status": "self_disclosed",
+     "verify_url": "https://web.archive.org/web/20251117044923id_/https://www.sec.gov/Archives/edgar/data/1751008/000175100825000018/exhibit2112024123110k.htm",
+     "quote": "Adjust GmbH Germany"
+    },
+    {
+     "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+     "type": "lawsuit",
+     "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+     "as_of": "2026-05-21",
+     "status": "alleged",
+     "quote": "de rechtspersoon naar het recht van Duitsland Adjust GmbH"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2026-05-21",
+     "title": "Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (Amsterdam District Court)",
+     "body": "Rechtbank Amsterdam (Amsterdam District Court)",
+     "type": "class_action",
+     "status": "alleged",
+     "status_kind": "filed",
+     "forum": "court",
+     "subject_company": "co-adjust",
+     "notes": "A collective action under the Dutch WAMCA for people in the Netherlands who used apps with AppLovin's or Adjust's SDKs since 2018, which the foundation puts at 8.5 million or more, about 1.5 million of them minors. It claims breaches of the GDPR and the Dutch Telecommunications Act, and seeks damages and an end to the practices. First court date: 2026-08-26.",
+     "sources": [
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "zoals uitgebracht op 21 mei 2026"
+      },
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "ten minste 8,5 miljoen volwassenen, waaronder circa 1,5 miljoen minderjarigen"
+      },
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "tegen een eerste roldatum van woensdag 26 augustus 2026"
+      },
+      {
+       "url": "https://www.rechtspraak.nl/binaries/_rts_1779352780276/content/assets/wamca/2026/wamca-stichting-the-privacy-collective-vs-applovin-corporation-en-adjust-gmbh.pdf",
+       "type": "lawsuit",
+       "title": "Central register for collective actions (Netherlands): extract of the summons, Stichting The Privacy Collective v. AppLovin Corporation and Adjust GmbH (in Dutch)",
+       "as_of": "2026-05-21",
+       "status": "alleged",
+       "quote": "op grote schaal worden gedeeld via de advertentieveilingsystemen van AppLovin c.s."
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
