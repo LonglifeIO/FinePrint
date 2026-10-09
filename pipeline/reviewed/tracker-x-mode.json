@@ -189,7 +189,7 @@
    ],
    "consequences": [
     {
-     "text": "In 2024 the US FTC barred X-Mode and its successor Outlogic from selling or sharing sensitive location data, such as visits to medical and reproductive health clinics, places of worship and domestic abuse shelters, and ordered them to delete the location data they had collected unless people consent or it is deidentified. The ban covers places in the US.",
+     "text": "In 2024 the US FTC barred X-Mode and its successor, Outlogic, from selling or sharing sensitive location data. That includes visits to medical and reproductive health clinics, places of worship and domestic abuse shelters. It also ordered them to delete the location data they had collected, unless people consent or it is deidentified. The ban covers places in the US.",
      "subject_company": "co-outlogic",
      "status": "adjudicated",
      "status_kind": "consent_order",
@@ -254,7 +254,7 @@
      ]
     },
     {
-     "text": "The FTC also charged that X-Mode didn't tell people their location would be sold to private government contractors for national security purposes, and that from 2018 to 2020 it collected and sold location data from Android users who had opted out of ad personalization. The order doesn't cover data collected outside the US for federal agencies' national security work.",
+     "text": "The FTC also charged that X-Mode didn't tell people their location would be sold to private government contractors for national security purposes. It also charged that from 2018 to 2020, X-Mode collected and sold location data from Android users who had opted out of ad personalization. The order doesn't cover data collected outside the US for federal agencies' national security work.",
      "subject_company": "co-outlogic",
      "status": "adjudicated",
      "status_kind": "consent_order",

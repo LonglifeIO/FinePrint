@@ -166,7 +166,7 @@
      ]
     },
     {
-     "text": "In 2025 a US federal jury found Google liable for invading the privacy of people who had turned off Web & App Activity, whose activity in other companies' apps still reached Google through its Firebase or Google Mobile Ads code. Judgment for about $425.7 million was entered in 2026; Google has appealed.",
+     "text": "In 2025 a US federal jury found Google liable for invading the privacy of people who had turned off Web & App Activity. Their activity in other companies' apps still reached Google, through its Firebase or Google Mobile Ads code. Judgment for about $425.7 million was entered in 2026. Google has appealed.",
      "subject_company": "co-google",
      "status": "adjudicated",
      "status_kind": "ruling",

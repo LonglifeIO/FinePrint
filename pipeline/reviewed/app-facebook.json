@@ -5,7 +5,7 @@
    "display_name": "Facebook",
    "developer": "Meta Platforms, Inc.",
    "developer_company": "co-meta",
-   "summary": "Facebook lets you share posts, photos and messages with friends and groups. To run it, Meta collects what you do in the app and information about your device. According to its privacy policy (23 Jul 2026), Meta also uses what advertisers and other partners tell it about your activity elsewhere \"to personalize ads\", and receives that information \"whether or not you're logged in or have an account\". Regulators in the US and Ireland have fined Meta over its handling of Facebook users' data.",
+   "summary": "Facebook lets you share posts, photos and messages with friends and groups. To run it, Meta collects what you do in the app and information about your device. According to its privacy policy (23 Jul 2026), Meta also uses what advertisers and other partners tell it about your activity elsewhere \"to personalize ads\". It receives that information \"whether or not you're logged in or have an account\". Regulators in the US and Ireland have fined Meta over its handling of Facebook users' data.",
    "store_tagline": {
     "text": "A little connection can go a long way",
     "source_url": "https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en_CA&gl=CA",
@@ -240,7 +240,7 @@
      ]
     },
     {
-     "text": "Ireland's Data Protection Commission fined Meta for Facebook security failures: €251 million in 2024 over a 2018 breach of about 29 million accounts, and €265 million in 2022 over Facebook data scraped and published online.",
+     "text": "Ireland's Data Protection Commission fined Meta for Facebook security failures. It fined Meta €251 million in 2024 over a 2018 breach of about 29 million accounts. It fined Meta €265 million in 2022 over Facebook data scraped and published online.",
      "status": "adjudicated",
      "status_kind": "ruling",
      "wording": "Fined by Ireland's Data Protection Commission (2022 and 2024)",

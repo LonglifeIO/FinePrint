@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "schema_revision": "1.6",
- "bundle_version": "2026.10.08",
- "generated_at": "2026-10-08T20:57:23-03:00",
+ "schema_revision": "1.7",
+ "bundle_version": "2026.10.09",
+ "generated_at": "2026-10-09T10:37:16-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -10,7 +10,7 @@
    "display_name": "Facebook",
    "developer": "Meta Platforms, Inc.",
    "developer_company": "co-meta",
-   "summary": "Facebook lets you share posts, photos and messages with friends and groups. To run it, Meta collects what you do in the app and information about your device. According to its privacy policy (23 Jul 2026), Meta also uses what advertisers and other partners tell it about your activity elsewhere \"to personalize ads\", and receives that information \"whether or not you're logged in or have an account\". Regulators in the US and Ireland have fined Meta over its handling of Facebook users' data.",
+   "summary": "Facebook lets you share posts, photos and messages with friends and groups. To run it, Meta collects what you do in the app and information about your device. According to its privacy policy (23 Jul 2026), Meta also uses what advertisers and other partners tell it about your activity elsewhere \"to personalize ads\". It receives that information \"whether or not you're logged in or have an account\". Regulators in the US and Ireland have fined Meta over its handling of Facebook users' data.",
    "store_tagline": {
     "text": "A little connection can go a long way",
     "source_url": "https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en_CA&gl=CA",
@@ -245,7 +245,7 @@
      ]
     },
     {
-     "text": "Ireland's Data Protection Commission fined Meta for Facebook security failures: €251 million in 2024 over a 2018 breach of about 29 million accounts, and €265 million in 2022 over Facebook data scraped and published online.",
+     "text": "Ireland's Data Protection Commission fined Meta for Facebook security failures. It fined Meta €251 million in 2024 over a 2018 breach of about 29 million accounts. It fined Meta €265 million in 2022 over Facebook data scraped and published online.",
      "status": "adjudicated",
      "status_kind": "ruling",
      "wording": "Fined by Ireland's Data Protection Commission (2022 and 2024)",
@@ -279,7 +279,7 @@
    "display_name": "Google Maps",
    "developer": "Google LLC",
    "developer_company": "co-google",
-   "summary": "Google Maps gives you directions and local search, and needs your location to do it. Google's Play Store label says Maps doesn't share your data with other companies; it lists approximate location, searches in the app and device IDs among data Google uses for \"Advertising or marketing\", and precise location for running and personalizing the app. Google has paid settlements to US states over its location tracking.",
+   "summary": "Google Maps gives you directions and local search, and needs your location to do it. Google's Play Store label says Maps doesn't share your data with other companies. It lists approximate location, searches in the app and device IDs among the data Google uses for \"Advertising or marketing\". It lists precise location for running and personalizing the app. Google has paid settlements to US states over its location tracking.",
    "risk_tags": [
     "ad_profiling"
    ],
@@ -703,7 +703,7 @@
      ]
     },
     {
-     "text": "The Texas AG and a federal class action allege that Allstate's Arity paid apps such as Life360 to embed its SDK, built a driving database on 45 million+ Americans, and sold the data to insurers, who used it to raise premiums. Life360 is not a defendant.",
+     "text": "The Texas AG and a federal class action allege that Allstate's Arity paid apps such as Life360 to embed its SDK. Both say Arity built a driving database on 45 million+ Americans and sold the data to insurers, who used it to raise premiums. Life360 is not a defendant.",
      "subject_company": "co-allstate",
      "concerns_app": "com.life360.android.safetymapd",
      "status": "alleged",
@@ -1147,7 +1147,7 @@
      ]
     },
     {
-     "text": "Canada's privacy commissioner and three provincial counterparts found in 2025 that TikTok's measures to keep children off the app were inadequate, and that it profiles users, including children, to target ads and content. TikTok agreed to make changes.",
+     "text": "In 2025 Canada's privacy commissioner and three provincial counterparts found TikTok's measures to keep children off the app inadequate. They also found it profiles users, including children, to target ads and content. TikTok agreed to make changes.",
      "status": "adjudicated",
      "status_kind": "regulator_finding",
      "wording": "Found by Canada's privacy commissioners (2025)",
@@ -1177,7 +1177,7 @@
      "closed_date": "2026-08-24",
      "wording": "Settled with the US Justice Department (2026), with no determination of liability",
      "procedural_note": {
-      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of it is due only once the 2019 Musical.ly order is lifted; on 2026-09-21, in that older case, the court refused for now to lift it. As of 2026-10-06 no renewed motion to lift the 2019 order had been reported.",
+      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of the settlement is due only once the 2019 Musical.ly order is lifted. On 2026-09-21, in that older case, the court refused for now to lift it. As of 2026-10-06 no renewed motion to lift the 2019 order had been reported.",
       "sources": [
        {
         "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
@@ -1410,7 +1410,7 @@
    ],
    "consequences": [
     {
-     "text": "Cuebiq's business has been run since 2023 by Cuebiq Group, LLC. After Cuebiq, Inc. defaulted on a loan, its lender foreclosed and Espresso Special Acquisition LLC, since renamed Cuebiq Group, bought the business at a private foreclosure sale, according to Cuebiq Group's own filing, as summarized by the court.",
+     "text": "Cuebiq's business has been run since 2023 by Cuebiq Group, LLC. According to Cuebiq Group's own filing, as the court summarized it, Cuebiq, Inc. defaulted on a loan and its lender foreclosed. The filing says Espresso Special Acquisition LLC, since renamed Cuebiq Group, then bought the business at a private foreclosure sale.",
      "status": "self_disclosed",
      "wording": "According to Cuebiq Group's own filing, as summarized by the court (US District Court for the Southern District of New York, 2025-08-21).",
      "sources": [
@@ -1580,7 +1580,7 @@
    ],
    "consequences": [
     {
-     "text": "The Texas AG and a federal class action allege that Allstate's Arity paid app makers to embed its SDK, built a driving database on 45 million+ Americans, and sold the data to insurers, who used it to raise premiums. Third-party app makers such as Life360 are not defendants.",
+     "text": "The Texas AG and a federal class action allege that Allstate's Arity paid app makers to embed its SDK. Both say Arity built a driving database on 45 million+ Americans and sold the data to insurers, who used it to raise premiums. Third-party app makers such as Life360 are not defendants.",
      "subject_company": "co-allstate",
      "concerns_app": "com.life360.android.safetymapd",
      "status": "alleged",
@@ -1783,7 +1783,7 @@
    ],
    "consequences": [
     {
-     "text": "A class action brought by parents alleges that Google's AdMob collected personal information from children under 13 in apps of Google Play's Designed for Families program, without their parents' consent, to target them with behavioural advertising. Google has agreed to pay $8.25 million to settle.",
+     "text": "A class action brought by parents alleges that Google's AdMob collected personal information from children under 13 without their parents' consent. It alleges this happened in apps of Google Play's Designed for Families program, to target the children with behavioural advertising. Google has agreed to pay $8.25 million to settle.",
      "subject_company": "co-google",
      "status": "alleged",
      "status_kind": "survived_motion_to_dismiss",
@@ -2132,7 +2132,7 @@
      ]
     },
     {
-     "text": "In 2025 a US federal jury found Google liable for invading the privacy of people who had turned off Web & App Activity, whose activity in other companies' apps still reached Google through its Firebase or Google Mobile Ads code. Judgment for about $425.7 million was entered in 2026; Google has appealed.",
+     "text": "In 2025 a US federal jury found Google liable for invading the privacy of people who had turned off Web & App Activity. Their activity in other companies' apps still reached Google, through its Firebase or Google Mobile Ads code. Judgment for about $425.7 million was entered in 2026. Google has appealed.",
      "subject_company": "co-google",
      "status": "adjudicated",
      "status_kind": "ruling",
@@ -2308,7 +2308,7 @@
    ],
    "consequences": [
     {
-     "text": "In 2026 a US federal court entered an order, agreed with the US FTC, that for 10 years bars Kochava and its data marketplace subsidiary from selling or sharing location data tied to sensitive places in the US, such as medical facilities, places of worship and shelters. The FTC had charged that Kochava sold such data; Kochava neither admitted nor denied it.",
+     "text": "In 2026 a US federal court entered an order that Kochava and the US FTC had agreed on. For 10 years, Kochava and its data marketplace subsidiary may not sell or share location data tied to sensitive places in the US. These include medical facilities, places of worship and shelters. The FTC had charged that Kochava sold such data. Kochava neither admitted nor denied it.",
      "subject_company": "co-kochava",
      "status": "adjudicated",
      "status_kind": "consent_order",
@@ -2453,7 +2453,7 @@
      ]
     },
     {
-     "text": "Kochava said in 2019 that data from apps on its free plan, Free App Analytics, was the backbone of its data marketplace, the Kochava Collective, while paying clients' data was kept apart; in 2020 it told free-plan apps to say they may sell identifiers and geolocation data to third parties. FinePrint can't see which plan an app uses.",
+     "text": "In 2019 Kochava said data from apps on its free plan, Free App Analytics, was the backbone of its data marketplace, the Kochava Collective. It said paying clients' data was kept apart. In 2020 it told free-plan apps to say they may sell identifiers and geolocation data to third parties. FinePrint can't see which plan an app uses.",
      "status": "self_disclosed",
      "historical": true,
      "wording": "According to Kochava's 2019 press release and 2020 notice to Free App Analytics customers; a 2025 settlement now limits SDK data to the app that collected it.",
@@ -2598,7 +2598,7 @@
      ]
     },
     {
-     "text": "In a 2024 Consumer Reports study of 709 volunteers' Facebook data, an average of 2,230 companies had sent Meta data about each person, through code in apps, website pixels and direct transfers; the data broker LiveRamp did so for about 96% of them. The volunteers were not a representative sample.",
+     "text": "A 2024 Consumer Reports study looked at the Facebook data of 709 volunteers. It found that on average, 2,230 companies had sent Meta data about each person, through code in apps, website pixels and direct transfers. The data broker LiveRamp did so for about 96% of them. The volunteers were not a representative sample.",
      "status": "reported",
      "wording": "Reported in a 2024 Consumer Reports study (one study)",
      "sources": [
@@ -2640,7 +2640,7 @@
      ]
     },
     {
-     "text": "In 2019 Meta, then Facebook, Inc., agreed to a $5 billion penalty to settle US Federal Trade Commission charges that it deceived Facebook users about their privacy controls, including by sharing friends' data with third-party apps.",
+     "text": "In 2019 Meta, then Facebook, Inc., agreed to a $5 billion penalty. It settled US Federal Trade Commission charges that it deceived Facebook users about their privacy controls. The charges included sharing friends' data with third-party apps.",
      "status": "adjudicated",
      "status_kind": "consent_order",
      "wording": "Settled with the US FTC (2019; order entered 2020)",
@@ -3026,7 +3026,7 @@
    ],
    "consequences": [
     {
-     "text": "In 2025 the US FTC barred Gravy Analytics, which now trades as Unacast, and its subsidiary Venntel from selling, disclosing or using sensitive location data, except in limited national security and law enforcement cases. The FTC charged that they sold location data, including visits to health-related places and places of worship, without verifying people's consent.",
+     "text": "In 2025 the US FTC barred Gravy Analytics and its subsidiary Venntel from selling, disclosing or using sensitive location data. There are limited exceptions for national security and law enforcement. Gravy Analytics now trades as Unacast. The FTC charged that they sold location data, including visits to health-related places and places of worship, without verifying people's consent.",
      "subject_company": "co-gravy-analytics",
      "status": "adjudicated",
      "status_kind": "consent_order",
@@ -3298,7 +3298,7 @@
    ],
    "consequences": [
     {
-     "text": "In 2024 the US FTC barred X-Mode and its successor Outlogic from selling or sharing sensitive location data, such as visits to medical and reproductive health clinics, places of worship and domestic abuse shelters, and ordered them to delete the location data they had collected unless people consent or it is deidentified. The ban covers places in the US.",
+     "text": "In 2024 the US FTC barred X-Mode and its successor, Outlogic, from selling or sharing sensitive location data. That includes visits to medical and reproductive health clinics, places of worship and domestic abuse shelters. It also ordered them to delete the location data they had collected, unless people consent or it is deidentified. The ban covers places in the US.",
      "subject_company": "co-outlogic",
      "status": "adjudicated",
      "status_kind": "consent_order",
@@ -3363,7 +3363,7 @@
      ]
     },
     {
-     "text": "The FTC also charged that X-Mode didn't tell people their location would be sold to private government contractors for national security purposes, and that from 2018 to 2020 it collected and sold location data from Android users who had opted out of ad personalization. The order doesn't cover data collected outside the US for federal agencies' national security work.",
+     "text": "The FTC also charged that X-Mode didn't tell people their location would be sold to private government contractors for national security purposes. It also charged that from 2018 to 2020, X-Mode collected and sold location data from Android users who had opted out of ad personalization. The order doesn't cover data collected outside the US for federal agencies' national security work.",
      "subject_company": "co-outlogic",
      "status": "adjudicated",
      "status_kind": "consent_order",
@@ -3817,7 +3817,7 @@
      "concerns_app": "com.zhiliaoapp.musically",
      "notes": "Brought by the Justice Department with the FTC. Settled; the Justice Department said there was no determination of liability.",
      "procedural_note": {
-      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of it is due only once the 2019 Musical.ly order is lifted; on 2026-09-21, in that older case, the court refused for now to lift it. As of 2026-10-06 no renewed motion to lift the 2019 order had been reported.",
+      "text": "The court dismissed the case with prejudice on 2026-08-24, after the settlement. $100 million of the settlement is due only once the 2019 Musical.ly order is lifted. On 2026-09-21, in that older case, the court refused for now to lift it. As of 2026-10-06 no renewed motion to lift the 2019 order had been reported.",
       "sources": [
        {
         "url": "https://storage.courtlistener.com/recap/gov.uscourts.cacd.935720/gov.uscourts.cacd.935720.89.0.pdf",
@@ -4605,7 +4605,7 @@
      "status_kind": "settlement_no_admission",
      "in_force": true,
      "subject_company": "co-kochava",
-     "notes": "Consolidated suits filed in 2022 and 2023, including Maattala's from Massachusetts. Injunctive relief only: a privacy block for sensitive locations, SDK data limited to the app that collected it, deletion of older SDK data kept for Kochava's own benefit, an opt-out list, and consent checks on data suppliers. Class members keep their right to seek damages.",
+     "notes": "Consolidated suits filed in 2022 and 2023, including Maattala's from Massachusetts. The settlement gives the class no money: it only restricts what Kochava does. It requires a privacy block for sensitive locations and limits SDK data to the app that collected it. Kochava must also delete older SDK data kept for its own benefit and keep an opt-out list. It must check that its data suppliers have consent. Class members keep their right to seek damages.",
      "sources": [
       {
        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",

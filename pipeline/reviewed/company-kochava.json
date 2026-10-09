@@ -118,7 +118,7 @@
      "status_kind": "settlement_no_admission",
      "in_force": true,
      "subject_company": "co-kochava",
-     "notes": "Consolidated suits filed in 2022 and 2023, including Maattala's from Massachusetts. Injunctive relief only: a privacy block for sensitive locations, SDK data limited to the app that collected it, deletion of older SDK data kept for Kochava's own benefit, an opt-out list, and consent checks on data suppliers. Class members keep their right to seek damages.",
+     "notes": "Consolidated suits filed in 2022 and 2023, including Maattala's from Massachusetts. The settlement gives the class no money: it only restricts what Kochava does. It requires a privacy block for sensitive locations and limits SDK data to the app that collected it. Kochava must also delete older SDK data kept for its own benefit and keep an opt-out list. It must check that its data suppliers have consent. Class members keep their right to seek damages.",
      "sources": [
       {
        "url": "https://storage.courtlistener.com/recap/gov.uscourts.idd.51626/gov.uscourts.idd.51626.55.0.pdf",

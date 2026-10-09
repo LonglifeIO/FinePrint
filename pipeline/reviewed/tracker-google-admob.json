@@ -127,7 +127,7 @@
    ],
    "consequences": [
     {
-     "text": "A class action brought by parents alleges that Google's AdMob collected personal information from children under 13 in apps of Google Play's Designed for Families program, without their parents' consent, to target them with behavioural advertising. Google has agreed to pay $8.25 million to settle.",
+     "text": "A class action brought by parents alleges that Google's AdMob collected personal information from children under 13 without their parents' consent. It alleges this happened in apps of Google Play's Designed for Families program, to target the children with behavioural advertising. Google has agreed to pay $8.25 million to settle.",
      "subject_company": "co-google",
      "status": "alleged",
      "status_kind": "survived_motion_to_dismiss",

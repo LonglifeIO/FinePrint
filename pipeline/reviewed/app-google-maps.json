@@ -5,7 +5,7 @@
    "display_name": "Google Maps",
    "developer": "Google LLC",
    "developer_company": "co-google",
-   "summary": "Google Maps gives you directions and local search, and needs your location to do it. Google's Play Store label says Maps doesn't share your data with other companies; it lists approximate location, searches in the app and device IDs among data Google uses for \"Advertising or marketing\", and precise location for running and personalizing the app. Google has paid settlements to US states over its location tracking.",
+   "summary": "Google Maps gives you directions and local search, and needs your location to do it. Google's Play Store label says Maps doesn't share your data with other companies. It lists approximate location, searches in the app and device IDs among the data Google uses for \"Advertising or marketing\". It lists precise location for running and personalizing the app. Google has paid settlements to US states over its location tracking.",
    "risk_tags": [
     "ad_profiling"
    ],

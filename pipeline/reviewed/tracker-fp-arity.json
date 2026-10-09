@@ -102,7 +102,7 @@
    ],
    "consequences": [
     {
-     "text": "The Texas AG and a federal class action allege that Allstate's Arity paid app makers to embed its SDK, built a driving database on 45 million+ Americans, and sold the data to insurers, who used it to raise premiums. Third-party app makers such as Life360 are not defendants.",
+     "text": "The Texas AG and a federal class action allege that Allstate's Arity paid app makers to embed its SDK. Both say Arity built a driving database on 45 million+ Americans and sold the data to insurers, who used it to raise premiums. Third-party app makers such as Life360 are not defendants.",
      "subject_company": "co-allstate",
      "concerns_app": "com.life360.android.safetymapd",
      "status": "alleged",

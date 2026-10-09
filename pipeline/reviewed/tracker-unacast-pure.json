@@ -213,7 +213,7 @@
    ],
    "consequences": [
     {
-     "text": "In 2025 the US FTC barred Gravy Analytics, which now trades as Unacast, and its subsidiary Venntel from selling, disclosing or using sensitive location data, except in limited national security and law enforcement cases. The FTC charged that they sold location data, including visits to health-related places and places of worship, without verifying people's consent.",
+     "text": "In 2025 the US FTC barred Gravy Analytics and its subsidiary Venntel from selling, disclosing or using sensitive location data. There are limited exceptions for national security and law enforcement. Gravy Analytics now trades as Unacast. The FTC charged that they sold location data, including visits to health-related places and places of worship, without verifying people's consent.",
      "subject_company": "co-gravy-analytics",
      "status": "adjudicated",
      "status_kind": "consent_order",

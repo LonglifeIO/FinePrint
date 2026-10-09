@@ -9,6 +9,7 @@
      "name": "Criminal Code, general production order",
      "citation": "R.S.C. 1985, c. C-46, s. 487.014",
      "text": "A judge or justice of the peace can order a person or company to produce documents or data in its possession or control, when there are reasonable grounds to believe they will be evidence of an offence.",
+     "short": "A judge in Canada can order a company to hand over data it holds that may be evidence of an offence.",
      "status": "self_disclosed",
      "last_reviewed": "2026-10-07",
      "sources": [
@@ -85,6 +86,7 @@
      "name": "Criminal Code, production order for transmission data",
      "citation": "R.S.C. 1985, c. C-46, s. 487.016",
      "text": "A judge or justice of the peace can order a person or company to produce transmission data in its possession or control: when, how long and between whom communications happened, but not what they said. It takes reasonable grounds to suspect the data will help investigate an offence.",
+     "short": "A Canadian judge can order a company to reveal when, how long and with whom you communicated, but not what you said.",
      "status": "self_disclosed",
      "last_reviewed": "2026-10-07",
      "sources": [
@@ -184,6 +186,7 @@
      "name": "National Intelligence Law, Articles 7 and 14",
      "citation": "National Intelligence Law of the People's Republic of China (2017, amended 2018), arts. 7 and 14",
      "text": "Requires all organizations and citizens to support, assist and cooperate with national intelligence work in accordance with law, and to keep confidential any secrets of that work they become aware of. Intelligence agencies can ask them for that support.",
+     "short": "Chinese law requires every organization and citizen to support state intelligence work and keep its secrets.",
      "status": "self_disclosed",
      "last_reviewed": "2026-10-07",
      "sources": [
@@ -266,6 +269,7 @@
      "name": "e-Evidence Regulation (European Production Orders)",
      "citation": "Regulation (EU) 2023/1543",
      "text": "An authority in one EU country can order an online service based in another to hand over user data in 10 days, or 8 hours in an emergency. Account details need a prosecutor's order; content, or who contacted whom and when, needs a judge and usually a crime carrying three years or more in prison.",
+     "short": "An EU authority can order a company in another EU country to hand over data, sometimes within hours.",
      "status": "self_disclosed",
      "last_reviewed": "2026-10-07",
      "applies_to": [
@@ -486,6 +490,7 @@
      "name": "Criminal Procedure Ordinance (Arrest and Search), section 43",
      "citation": "5729-1969, s. 43",
      "text": "Lets a judge summon any person thought to hold an object, including a document or computer material, to produce it when the judge finds that necessary or desirable for an investigation or trial.",
+     "short": "An Israeli judge can order anyone holding a document or computer material to produce it for an investigation or trial.",
      "status": "self_disclosed",
      "last_reviewed": "2026-10-07",
      "sources": [
@@ -548,6 +553,7 @@
      "name": "Federal Law No. 149-FZ on Information, Article 10.1",
      "citation": "Federal Law of 27 July 2006 No. 149-FZ, art. 10.1, parts 1, 3, 3.1 and 4.1 (consolidated through No. 210-FZ of 26 June 2026)",
      "text": "Requires internet services that handle users' messages to store, in Russia, data about those communications and users for three years and the messages for up to six months; to give them to the authorities in cases set by federal law; and to give the security service what it needs to decrypt them.",
+     "short": "Russia requires messaging services to store user data in Russia, hand it to the authorities when federal law says so, and help decrypt it.",
      "status": "self_disclosed",
      "last_reviewed": "2026-10-07",
      "sources": [
@@ -656,6 +662,7 @@
      "name": "CLOUD Act",
      "citation": "18 U.S.C. § 2713",
      "text": "Requires providers of communication and cloud services to disclose data in their possession, custody or control under US legal process, whether it is stored in the United States or elsewhere.",
+     "short": "US legal process can make a provider hand over data it holds, even data stored outside the United States.",
      "status": "self_disclosed",
      "last_reviewed": "2026-10-07",
      "sources": [
@@ -708,6 +715,7 @@
      "name": "FISA Section 702",
      "citation": "50 U.S.C. § 1881a",
      "text": "Section 702 let the government direct providers to hand over communications of foreign targets abroad. It was repealed on 2026-06-12; directives issued before then stay in force until they expire, and the FISA court can order a provider to comply. The last certification reportedly runs into 2027.",
+     "short": "Section 702 was repealed on 2026-06-12, but directives already issued to providers stay in force until they expire.",
      "status": "self_disclosed",
      "last_reviewed": "2026-10-07",
      "status_note": {

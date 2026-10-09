@@ -110,7 +110,7 @@
    ],
    "consequences": [
     {
-     "text": "In 2026 a US federal court entered an order, agreed with the US FTC, that for 10 years bars Kochava and its data marketplace subsidiary from selling or sharing location data tied to sensitive places in the US, such as medical facilities, places of worship and shelters. The FTC had charged that Kochava sold such data; Kochava neither admitted nor denied it.",
+     "text": "In 2026 a US federal court entered an order that Kochava and the US FTC had agreed on. For 10 years, Kochava and its data marketplace subsidiary may not sell or share location data tied to sensitive places in the US. These include medical facilities, places of worship and shelters. The FTC had charged that Kochava sold such data. Kochava neither admitted nor denied it.",
      "subject_company": "co-kochava",
      "status": "adjudicated",
      "status_kind": "consent_order",
@@ -255,7 +255,7 @@
      ]
     },
     {
-     "text": "Kochava said in 2019 that data from apps on its free plan, Free App Analytics, was the backbone of its data marketplace, the Kochava Collective, while paying clients' data was kept apart; in 2020 it told free-plan apps to say they may sell identifiers and geolocation data to third parties. FinePrint can't see which plan an app uses.",
+     "text": "In 2019 Kochava said data from apps on its free plan, Free App Analytics, was the backbone of its data marketplace, the Kochava Collective. It said paying clients' data was kept apart. In 2020 it told free-plan apps to say they may sell identifiers and geolocation data to third parties. FinePrint can't see which plan an app uses.",
      "status": "self_disclosed",
      "historical": true,
      "wording": "According to Kochava's 2019 press release and 2020 notice to Free App Analytics customers; a 2025 settlement now limits SDK data to the app that collected it.",
