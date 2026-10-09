@@ -108,7 +108,7 @@
      "status_kind": "survived_motion_to_dismiss",
      "forum": "court",
      "subject_company": "co-inmobi",
-     "notes": "Removed to federal court on 2025-11-19. Claims under the California Invasion of Privacy Act's pen register provision, intrusion upon seclusion and the California Constitution, over data InMobi's SDK collected from a dating app. The court denied InMobi's motion to dismiss on 2026-04-29; InMobi answered on 2026-05-13, denying the allegations except as admitted.",
+     "notes": "Removed to federal court on 2025-11-19. Claims under the California Invasion of Privacy Act's pen register provision, intrusion upon seclusion and the California Constitution, over data InMobi's SDK collected from a dating app. The court denied InMobi's motion to dismiss on 2026-04-29; InMobi answered on 2026-05-13, denying the allegations except as admitted. Docket entries 48 (\"Notice (Other)\") and 49 (\"Order … Set Deadlines\") of 2026-09-11 have no public text as of 2026-10-09, read through CourtListener; neither document is on RECAP.",
      "sources": [
       {
        "url": "https://www.courtlistener.com/docket/71937168/caldwell-v-inmobi-technology-services-private-limited/",
@@ -150,6 +150,24 @@
        "as_of": "2026-05-13",
        "status": "alleged",
        "quote": "Except as expressly admitted herein, Defendant denies the allegations set forth in the FAC."
+      },
+      {
+       "url": "https://www.courtlistener.com/docket/71937168/caldwell-v-inmobi-technology-services-private-limited/",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), docket entries (CourtListener)",
+       "accessed": "2026-10-09",
+       "status": "alleged",
+       "verify_url": "https://www.courtlistener.com/api/rest/v4/search/?type=rd&q=docket_id%3A71937168&order_by=entry_date_filed%20desc",
+       "quote": "\"entry_date_filed\":\"2026-09-11\",\"entry_number\":48,\"filepath_local\":null,\"id\":493297077,\"is_available\":false … \"short_description\":\"Notice (Other)\""
+      },
+      {
+       "url": "https://www.courtlistener.com/docket/71937168/caldwell-v-inmobi-technology-services-private-limited/",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), docket entries (CourtListener)",
+       "accessed": "2026-10-09",
+       "status": "alleged",
+       "verify_url": "https://www.courtlistener.com/api/rest/v4/search/?type=rd&q=docket_id%3A71937168&order_by=entry_date_filed%20desc",
+       "quote": "\"entry_date_filed\":\"2026-09-11\",\"entry_number\":49,\"filepath_local\":null,\"id\":493322652,\"is_available\":false … \"short_description\":\"Order AND ~Util - Set Deadlines\""
       }
      ]
     }
