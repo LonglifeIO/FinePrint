@@ -261,6 +261,210 @@
    "last_reviewed": "2026-10-04"
   },
   {
+   "id": "DE",
+   "name": "Germany",
+   "laws": [
+    {
+     "id": "law-de-stpo-95",
+     "name": "Code of Criminal Procedure, section 95 (duty to hand over)",
+     "citation": "Strafprozeßordnung (StPO), § 95",
+     "text": "Requires anyone holding an object that may matter as evidence to produce it and hand it over on demand. Refusing can bring fines and coercive detention, except for people entitled to refuse to testify.",
+     "short": "In Germany, anyone holding something that may be evidence must hand it over on demand, or face fines and detention.",
+     "status": "self_disclosed",
+     "last_reviewed": "2026-10-09",
+     "sources": [
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__95.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 95(1) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "ist verpflichtet, ihn auf Erfordern vorzulegen und auszuliefern"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__94.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 94(1) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "Gegenstände, die als Beweismittel für die Untersuchung von Bedeutung sein können"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__95.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 95(2) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "können gegen ihn die in § 70 bestimmten Ordnungs- und Zwangsmittel festgesetzt werden"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__95.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 95(2) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "Das gilt nicht bei Personen, die zur Verweigerung des Zeugnisses berechtigt sind."
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/BJNR006290950.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), full text: citation line (gesetze-im-internet.de)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "die zuletzt durch Artikel 15 Absatz 16 des Gesetzes vom 3. Juli 2026"
+      }
+     ],
+     "scope": {
+      "text": "It binds anyone who holds such an object (§ 95(1)).",
+      "sources": [
+       {
+        "url": "https://www.gesetze-im-internet.de/stpo/__95.html",
+        "type": "statute",
+        "title": "Strafprozeßordnung (StPO), § 95(1) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+        "as_of": "2026-07-03",
+        "status": "self_disclosed",
+        "quote": "Wer einen Gegenstand der vorbezeichneten Art in seinem Gewahrsam hat"
+       }
+      ]
+     },
+     "status_note": {
+      "text": "A court can put off telling the accused for up to six months, extendable by three months at a time, and can order whoever handed the object over not to disclose the order to the accused or anyone else meanwhile (§ 95a).",
+      "sources": [
+       {
+        "url": "https://www.gesetze-im-internet.de/stpo/__95a.html",
+        "type": "statute",
+        "title": "Strafprozeßordnung (StPO), § 95a(2) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+        "as_of": "2026-07-03",
+        "status": "self_disclosed",
+        "quote": "Die Zurückstellung ist auf höchstens sechs Monate zu befristen."
+       },
+       {
+        "url": "https://www.gesetze-im-internet.de/stpo/__95a.html",
+        "type": "statute",
+        "title": "Strafprozeßordnung (StPO), § 95a(2) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+        "as_of": "2026-07-03",
+        "status": "self_disclosed",
+        "quote": "Eine Verlängerung der Anordnung durch das Gericht um jeweils nicht mehr als drei Monate"
+       },
+       {
+        "url": "https://www.gesetze-im-internet.de/stpo/__95a.html",
+        "type": "statute",
+        "title": "Strafprozeßordnung (StPO), § 95a(6) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+        "as_of": "2026-07-03",
+        "status": "self_disclosed",
+        "quote": "gegenüber dem Beschuldigten und Dritten … Herausgabeanordnung nach § 95 nicht offenbaren darf"
+       }
+      ]
+     }
+    },
+    {
+     "id": "law-de-stpo-100k",
+     "name": "Code of Criminal Procedure, section 100k (usage data from digital services)",
+     "citation": "Strafprozeßordnung (StPO), § 100k, with §§ 101a(1a), 100a(4) and 100e(1)",
+     "text": "For serious crimes, and some crimes committed online, a court, or a prosecutor in urgent cases, can order a provider of digital services to hand over users' usage data, location data included. The provider must give the information without delay.",
+     "short": "A German court can order a digital service to hand over data on how you use it, including your location, in serious cases.",
+     "status": "self_disclosed",
+     "last_reviewed": "2026-10-09",
+     "sources": [
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__100k.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 100k(1) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "eine Straftat von auch im Einzelfall erheblicher Bedeutung"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__100k.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 100k(1) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "Nutzungsdaten (§ 2 Absatz 2 Nummer 3 des Telekommunikation-Digitale-Dienste-Datenschutz-Gesetzes) erhoben werden"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__100k.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 100k(1) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "die Erhebung von Standortdaten nur für künftig anfallende Nutzungsdaten oder in Echtzeit zulässig"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__100k.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 100k(2) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "mittels Telemedien eine der folgenden Straftaten begangen hat"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__101a.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 101a(1a) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "nach § 100k gilt § 100a Absatz 3 und 4"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__101a.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 101a(1a) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "zudem § 100e Absatz 1 und 3 bis 5 entsprechend"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__100e.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 100e(1) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "dürfen nur auf Antrag der Staatsanwaltschaft durch das Gericht angeordnet werden"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__100e.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 100e(1) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "Bei Gefahr im Verzug kann die Anordnung auch durch die Staatsanwaltschaft getroffen werden."
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/__100a.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), § 100a(4) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "die erforderlichen Auskünfte unverzüglich zu erteilen"
+      },
+      {
+       "url": "https://www.gesetze-im-internet.de/stpo/BJNR006290950.html",
+       "type": "statute",
+       "title": "Strafprozeßordnung (StPO), full text: citation line (gesetze-im-internet.de)",
+       "as_of": "2026-07-03",
+       "status": "self_disclosed",
+       "quote": "die zuletzt durch Artikel 15 Absatz 16 des Gesetzes vom 3. Juli 2026"
+      }
+     ],
+     "scope": {
+      "text": "It binds anyone who commercially provides digital services, their own or others', or access to them (§ 100k(1)). FinePrint doesn't assess per company whether a provider qualifies.",
+      "sources": [
+       {
+        "url": "https://www.gesetze-im-internet.de/stpo/__100k.html",
+        "type": "statute",
+        "title": "Strafprozeßordnung (StPO), § 100k(1) (gesetze-im-internet.de, last amended by Art. 15 Abs. 16 of the Act of 2026-07-03, BGBl. 2026 I Nr. 199)",
+        "as_of": "2026-07-03",
+        "status": "self_disclosed",
+        "quote": "geschäftsmäßig eigene oder fremde digitale Dienste zur Nutzung bereithält … den Zugang zur Nutzung vermittelt"
+       }
+      ]
+     }
+    }
+   ],
+   "last_reviewed": "2026-10-09"
+  },
+  {
    "id": "EU",
    "name": "European Union",
    "laws": [
@@ -545,6 +749,386 @@
    "last_reviewed": "2026-10-04"
   },
   {
+   "id": "IN",
+   "name": "India",
+   "laws": [
+    {
+     "id": "law-in-bnss-94",
+     "name": "Bharatiya Nagarik Suraksha Sanhita, section 94 (summons or order to produce)",
+     "citation": "Bharatiya Nagarik Suraksha Sanhita, 2023 (46 of 2023), s. 94",
+     "text": "A court, or the officer in charge of a police station, can require anyone believed to hold a document, an electronic communication likely to contain digital evidence, or another thing, to produce it when that's necessary or desirable for an investigation, inquiry or trial.",
+     "short": "An Indian court or a police station's officer in charge can order anyone holding documents or digital evidence to produce them.",
+     "status": "self_disclosed",
+     "last_reviewed": "2026-10-09",
+     "sources": [
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "type": "statute",
+       "title": "Bharatiya Nagarik Suraksha Sanhita, 2023 (46 of 2023), s. 94 (India Code; in force 2024-07-01 by S.O. 848(E))",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260310122213id_/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_url": "https://web.archive.org/web/20260310122213/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_date": "2026-03-10",
+       "quote": "Whenever any Court or any officer in charge of a police station considers that"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "type": "statute",
+       "title": "Bharatiya Nagarik Suraksha Sanhita, 2023 (46 of 2023), s. 94 (India Code; in force 2024-07-01 by S.O. 848(E))",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260310122213id_/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_url": "https://web.archive.org/web/20260310122213/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_date": "2026-03-10",
+       "quote": "electronic communication, including communication devices, which is likely to contain digital evidence"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "type": "statute",
+       "title": "Bharatiya Nagarik Suraksha Sanhita, 2023 (46 of 2023), s. 94 (India Code; in force 2024-07-01 by S.O. 848(E))",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260310122213id_/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_url": "https://web.archive.org/web/20260310122213/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_date": "2026-03-10",
+       "quote": "necessary or desirable for the purposes of any investigation, inquiry, trial"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "type": "statute",
+       "title": "Bharatiya Nagarik Suraksha Sanhita, 2023 (46 of 2023), s. 94 (India Code; in force 2024-07-01 by S.O. 848(E))",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260310122213id_/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_url": "https://web.archive.org/web/20260310122213/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_date": "2026-03-10",
+       "quote": "such Court may issue a summons or such officer may, by a written order"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "type": "statute",
+       "title": "Bharatiya Nagarik Suraksha Sanhita, 2023 (46 of 2023), s. 94 (India Code; in force 2024-07-01 by S.O. 848(E))",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260310122213id_/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_url": "https://web.archive.org/web/20260310122213/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+       "wayback_date": "2026-03-10",
+       "quote": "1st July, 2024, [except the provisions of the entry relation to Section 106(2)"
+      },
+      {
+       "url": "https://www.mha.gov.in/sites/default/files/BharatiyaNagarikSurakshaSanhita_24022024.pdf",
+       "type": "statute",
+       "title": "Ministry of Home Affairs notification S.O. 848(E), 2024-02-23 (Gazette of India, Extraordinary, Part II, s. 3(ii)): BNSS in force from 2024-07-01",
+       "as_of": "2024-02-23",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20250503155053id_/https://www.mha.gov.in/sites/default/files/BharatiyaNagarikSurakshaSanhita_24022024.pdf",
+       "wayback_url": "https://web.archive.org/web/20250503155053/https://www.mha.gov.in/sites/default/files/BharatiyaNagarikSurakshaSanhita_24022024.pdf",
+       "wayback_date": "2025-05-03",
+       "quote": "appoints the 1st day of July, 2024 as the date"
+      }
+     ],
+     "scope": {
+      "text": "It binds the person in whose possession or power the document or thing is believed to be (s. 94(1)).",
+      "sources": [
+       {
+        "url": "https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+        "type": "statute",
+        "title": "Bharatiya Nagarik Suraksha Sanhita, 2023 (46 of 2023), s. 94 (India Code; in force 2024-07-01 by S.O. 848(E))",
+        "accessed": "2026-10-09",
+        "status": "self_disclosed",
+        "verify_url": "https://web.archive.org/web/20260310122213id_/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+        "wayback_url": "https://web.archive.org/web/20260310122213/https://www.indiacode.nic.in/bitstream/123456789/21544/1/the_bharatiya_nagarik_suraksha_sanhita,_2023.pdf",
+        "wayback_date": "2026-03-10",
+        "quote": "in whose possession or power such document or thing is believed to be"
+       }
+      ]
+     }
+    },
+    {
+     "id": "law-in-it-act-69",
+     "name": "Information Technology Act, section 69 (interception, monitoring and decryption)",
+     "citation": "Information Technology Act, 2000 (21 of 2000), s. 69",
+     "text": "The central or a state government can order an agency to intercept, monitor or decrypt any information in a computer, for national security, public order or investigating any offence. Subscribers, intermediaries and whoever runs the computer must help, including by handing over stored information.",
+     "short": "India's central and state governments can order data on any computer intercepted, monitored or decrypted, and whoever runs the computer must help.",
+     "status": "self_disclosed",
+     "last_reviewed": "2026-10-09",
+     "sources": [
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "type": "statute",
+       "title": "Information Technology Act, 2000 (21 of 2000), s. 69 (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_date": "2026-06-16",
+       "quote": "direct any agency of the appropriate Government to intercept, monitor or decrypt"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "type": "statute",
+       "title": "Information Technology Act, 2000 (21 of 2000), s. 69 (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_date": "2026-06-16",
+       "quote": "any information generated, transmitted, received or stored in any computer resource"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "type": "statute",
+       "title": "Information Technology Act, 2000 (21 of 2000), s. 69 (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_date": "2026-06-16",
+       "quote": "in the interest of the sovereignty or integrity of India, defence of India"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "type": "statute",
+       "title": "Information Technology Act, 2000 (21 of 2000), s. 69 (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_date": "2026-06-16",
+       "quote": "public order or for preventing incitement"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "type": "statute",
+       "title": "Information Technology Act, 2000 (21 of 2000), s. 69 (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_date": "2026-06-16",
+       "quote": "for investigation of any offence"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "type": "statute",
+       "title": "Information Technology Act, 2000 (21 of 2000), s. 69(3) (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_date": "2026-06-16",
+       "quote": "extend all facilities and technical assistance"
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "type": "statute",
+       "title": "Information Technology Act, 2000 (21 of 2000), s. 69(3) (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_date": "2026-06-16",
+       "quote": "(c) provide information stored in computer resource."
+      },
+      {
+       "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "type": "statute",
+       "title": "Information Technology Act, 2000 (21 of 2000), s. 69 (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+       "wayback_date": "2026-06-16",
+       "quote": "Subs. by s. 34, ibid., for section 69 (w.e.f. 27-10-2009)."
+      }
+     ],
+     "scope": {
+      "text": "It binds subscribers, intermediaries and anyone in charge of a computer resource (s. 69(3)). FinePrint doesn't assess per company whether a provider qualifies.",
+      "sources": [
+       {
+        "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+        "type": "statute",
+        "title": "Information Technology Act, 2000 (21 of 2000), s. 69(3) (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+        "accessed": "2026-10-09",
+        "status": "self_disclosed",
+        "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+        "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+        "wayback_date": "2026-06-16",
+        "quote": "The subscriber or intermediary or any person in-charge of the computer resource shall"
+       }
+      ]
+     },
+     "status_note": {
+      "text": "Refusing to help can bring up to seven years in prison and a fine (s. 69(4)).",
+      "sources": [
+       {
+        "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+        "type": "statute",
+        "title": "Information Technology Act, 2000 (21 of 2000), s. 69(4) (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+        "accessed": "2026-10-09",
+        "status": "self_disclosed",
+        "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+        "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+        "wayback_date": "2026-06-16",
+        "quote": "who fails to assist the agency referred to in sub-section (3) shall be punished"
+       },
+       {
+        "url": "https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+        "type": "statute",
+        "title": "Information Technology Act, 2000 (21 of 2000), s. 69(4) (India Code; s. 69 substituted by Act 10 of 2009, s. 34, in force 2009-10-27)",
+        "accessed": "2026-10-09",
+        "status": "self_disclosed",
+        "verify_url": "https://web.archive.org/web/20260616153542id_/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+        "wayback_url": "https://web.archive.org/web/20260616153542/https://www.indiacode.nic.in/bitstream/123456789/13116/1/it_act_2000_updated.pdf",
+        "wayback_date": "2026-06-16",
+        "quote": "imprisonment for a term which may extend to seven years"
+       }
+      ]
+     }
+    }
+   ],
+   "last_reviewed": "2026-10-09"
+  },
+  {
+   "id": "NO",
+   "name": "Norway",
+   "laws": [
+    {
+     "id": "law-no-strpl-210",
+     "name": "Criminal Procedure Act, section 210 (production order)",
+     "citation": "LOV-1981-05-22-25 (straffeprosessloven), § 210",
+     "text": "A court can order whoever holds something likely to matter as evidence, electronically stored data included, to hand it over if they would have to testify in the case. If waiting would harm the investigation, the prosecution can order it first, for a court to approve as soon as possible.",
+     "short": "A Norwegian court can order anyone holding evidence, data included, to hand it over; prosecutors can order it first in urgent cases.",
+     "status": "self_disclosed",
+     "last_reviewed": "2026-10-09",
+     "sources": [
+      {
+       "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "type": "statute",
+       "title": "Straffeprosessloven (LOV-1981-05-22-25), § 210 (Lovdata, consolidated to LOV-2026-06-19-45 in force 2026-07-01; § 210 last amended by lov 17 juni 2016 nr. 54, in force 2016-06-17)",
+       "as_of": "2026-07-01",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20261004064637id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_url": "https://web.archive.org/web/20261004064637/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_date": "2026-10-04",
+       "quote": "Ting som antas å ha betydning som bevis"
+      },
+      {
+       "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "type": "statute",
+       "title": "Straffeprosessloven (LOV-1981-05-22-25), § 210 (Lovdata, consolidated to LOV-2026-06-19-45 in force 2026-07-01; § 210 last amended by lov 17 juni 2016 nr. 54, in force 2016-06-17)",
+       "as_of": "2026-07-01",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20261004064637id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_url": "https://web.archive.org/web/20261004064637/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_date": "2026-10-04",
+       "quote": "kan retten pålegge besitteren å utlevere såfremt han plikter å vitne i saken"
+      },
+      {
+       "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "type": "statute",
+       "title": "Straffeprosessloven (LOV-1981-05-22-25), § 210 (Lovdata, consolidated to LOV-2026-06-19-45 in force 2026-07-01; § 210 last amended by lov 17 juni 2016 nr. 54, in force 2016-06-17)",
+       "as_of": "2026-07-01",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20261004064637id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_url": "https://web.archive.org/web/20261004064637/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_date": "2026-10-04",
+       "quote": "utlevering av elektronisk lagrede data"
+      },
+      {
+       "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "type": "statute",
+       "title": "Straffeprosessloven (LOV-1981-05-22-25), § 210 (Lovdata, consolidated to LOV-2026-06-19-45 in force 2026-07-01; § 210 last amended by lov 17 juni 2016 nr. 54, in force 2016-06-17)",
+       "as_of": "2026-07-01",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20261004064637id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_url": "https://web.archive.org/web/20261004064637/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_date": "2026-10-04",
+       "quote": "kan ordre fra påtalemyndigheten tre istedenfor beslutning av retten"
+      },
+      {
+       "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "type": "statute",
+       "title": "Straffeprosessloven (LOV-1981-05-22-25), § 210 (Lovdata, consolidated to LOV-2026-06-19-45 in force 2026-07-01; § 210 last amended by lov 17 juni 2016 nr. 54, in force 2016-06-17)",
+       "as_of": "2026-07-01",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20261004064637id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_url": "https://web.archive.org/web/20261004064637/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_date": "2026-10-04",
+       "quote": "Påtalemyndighetens beslutning skal snarest mulig forelegges retten for godkjennelse."
+      },
+      {
+       "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "type": "statute",
+       "title": "Straffeprosessloven (LOV-1981-05-22-25), § 210 (Lovdata, consolidated to LOV-2026-06-19-45 in force 2026-07-01; § 210 last amended by lov 17 juni 2016 nr. 54, in force 2016-06-17)",
+       "as_of": "2026-07-01",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20261004064637id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_url": "https://web.archive.org/web/20261004064637/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+       "wayback_date": "2026-10-04",
+       "quote": "17 juni 2016 nr. 54 (ikr. 17 juni 2016"
+      },
+      {
+       "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/",
+       "type": "statute",
+       "title": "Straffeprosessloven (LOV-1981-05-22-25), Lovdata's record of the act: last amendment",
+       "as_of": "2026-07-01",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260829055658id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/",
+       "wayback_url": "https://web.archive.org/web/20260829055658/https://lovdata.no/dokument/NL/lov/1981-05-22-25/",
+       "wayback_date": "2026-08-29",
+       "quote": "Sist endret LOV-2026-06-19-45 fra 01.07.2026"
+      }
+     ],
+     "scope": {
+      "text": "It binds whoever holds the thing, as long as they would have to testify in the case (§ 210).",
+      "sources": [
+       {
+        "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+        "type": "statute",
+        "title": "Straffeprosessloven (LOV-1981-05-22-25), § 210 (Lovdata, consolidated to LOV-2026-06-19-45 in force 2026-07-01; § 210 last amended by lov 17 juni 2016 nr. 54, in force 2016-06-17)",
+        "as_of": "2026-07-01",
+        "status": "self_disclosed",
+        "verify_url": "https://web.archive.org/web/20261004064637id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+        "wayback_url": "https://web.archive.org/web/20261004064637/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+        "wayback_date": "2026-10-04",
+        "quote": "kan retten pålegge besitteren å utlevere såfremt han plikter å vitne i saken"
+       }
+      ]
+     },
+     "status_note": {
+      "text": "The prosecution can put off telling the suspect, or others the order affects, for up to 8 weeks, and a court can extend that (§ 210 a).",
+      "sources": [
+       {
+        "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+        "type": "statute",
+        "title": "Straffeprosessloven (LOV-1981-05-22-25), § 210 a (Lovdata, consolidated to LOV-2026-06-19-45 in force 2026-07-01; added by lov 3 des 1999 nr. 82, last amended by lov 17 juni 2016 nr. 54)",
+        "as_of": "2026-07-01",
+        "status": "self_disclosed",
+        "verify_url": "https://web.archive.org/web/20261004064637id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+        "wayback_url": "https://web.archive.org/web/20261004064637/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+        "wayback_date": "2026-10-04",
+        "quote": "kan utsettes for inntil 8 uker"
+       },
+       {
+        "url": "https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+        "type": "statute",
+        "title": "Straffeprosessloven (LOV-1981-05-22-25), § 210 a (Lovdata, consolidated to LOV-2026-06-19-45 in force 2026-07-01; added by lov 3 des 1999 nr. 82, last amended by lov 17 juni 2016 nr. 54)",
+        "as_of": "2026-07-01",
+        "status": "self_disclosed",
+        "verify_url": "https://web.archive.org/web/20261004064637id_/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+        "wayback_url": "https://web.archive.org/web/20261004064637/https://lovdata.no/dokument/NL/lov/1981-05-22-25/KAPITTEL_4-6",
+        "wayback_date": "2026-10-04",
+        "quote": "kan retten ved kjennelse på samme vilkår beslutte at underretning kan utsettes ytterligere"
+       }
+      ]
+     }
+    }
+   ],
+   "last_reviewed": "2026-10-09"
+  },
+  {
    "id": "RU",
    "name": "Russia",
    "laws": [
@@ -652,6 +1236,139 @@
     }
    ],
    "last_reviewed": "2026-10-04"
+  },
+  {
+   "id": "SG",
+   "name": "Singapore",
+   "laws": [
+    {
+     "id": "law-sg-cpc-20",
+     "name": "Criminal Procedure Code 2010, section 20 (order to produce documents or data)",
+     "citation": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20(1) and (1A)",
+     "text": "A police officer of sergeant rank or above can issue a written order requiring anyone believed to hold a document, thing or data, or able to reach it from a computer, to produce it or a copy, or give access, when the officer considers it necessary or desirable for an investigation or trial.",
+     "short": "A Singapore police officer can order anyone holding documents or data, or able to reach them from a computer, to produce them.",
+     "status": "self_disclosed",
+     "last_reviewed": "2026-10-09",
+     "sources": [
+      {
+       "url": "https://sso.agc.gov.sg/Act/CPC2010",
+       "type": "statute",
+       "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+       "as_of": "2026-01-30",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_date": "2026-06-26",
+       "quote": "a police officer of or above the rank of sergeant, or an authorised person"
+      },
+      {
+       "url": "https://sso.agc.gov.sg/Act/CPC2010",
+       "type": "statute",
+       "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+       "as_of": "2026-01-30",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_date": "2026-06-26",
+       "quote": "necessary or desirable for any investigation, inquiry, trial or other proceeding"
+      },
+      {
+       "url": "https://sso.agc.gov.sg/Act/CPC2010",
+       "type": "statute",
+       "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+       "as_of": "2026-01-30",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_date": "2026-06-26",
+       "quote": "issue a written order to require a person in whose possession or power"
+      },
+      {
+       "url": "https://sso.agc.gov.sg/Act/CPC2010",
+       "type": "statute",
+       "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+       "as_of": "2026-01-30",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_date": "2026-06-26",
+       "quote": "to produce a copy of the document or thing"
+      },
+      {
+       "url": "https://sso.agc.gov.sg/Act/CPC2010",
+       "type": "statute",
+       "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+       "as_of": "2026-01-30",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_date": "2026-06-26",
+       "quote": "considers that any data"
+      },
+      {
+       "url": "https://sso.agc.gov.sg/Act/CPC2010",
+       "type": "statute",
+       "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+       "as_of": "2026-01-30",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_date": "2026-06-26",
+       "quote": "to authenticate the data; and (ii) to produce the data"
+      },
+      {
+       "url": "https://sso.agc.gov.sg/Act/CPC2010",
+       "type": "statute",
+       "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+       "as_of": "2026-01-30",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_date": "2026-06-26",
+       "quote": "[19/2018; 10/2021]"
+      },
+      {
+       "url": "https://sso.agc.gov.sg/Act/CPC2010",
+       "type": "statute",
+       "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+       "as_of": "2026-01-30",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+       "wayback_date": "2026-06-26",
+       "quote": "Informal Consolidation – version in force from 30/1/2026"
+      }
+     ],
+     "scope": {
+      "text": "It binds anyone believed to hold the document, thing or data, or to have power to access it from a computer (s. 20(1), (1A)).",
+      "sources": [
+       {
+        "url": "https://sso.agc.gov.sg/Act/CPC2010",
+        "type": "statute",
+        "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+        "as_of": "2026-01-30",
+        "status": "self_disclosed",
+        "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+        "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+        "wayback_date": "2026-06-26",
+        "quote": "a person in whose possession or power the data is believed to be"
+       },
+       {
+        "url": "https://sso.agc.gov.sg/Act/CPC2010",
+        "type": "statute",
+        "title": "Criminal Procedure Code 2010 (2020 Rev. Ed.), s. 20 (Singapore Statutes Online, informal consolidation in force from 2026-01-30; s. 20(1) and (1A) as amended by Acts 19 of 2018 and 10 of 2021)",
+        "as_of": "2026-01-30",
+        "status": "self_disclosed",
+        "verify_url": "https://web.archive.org/web/20260626170127id_/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+        "wayback_url": "https://web.archive.org/web/20260626170127/https://sso.agc.gov.sg/Act/CPC2010?ViewType=Pdf",
+        "wayback_date": "2026-06-26",
+        "quote": "believed to have power to access the data from that computer"
+       }
+      ]
+     }
+    }
+   ],
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "US",
