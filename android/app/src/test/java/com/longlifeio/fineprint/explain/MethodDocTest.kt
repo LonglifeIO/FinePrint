@@ -2,6 +2,7 @@ package com.longlifeio.fineprint.explain
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import com.longlifeio.fineprint.ui.CHANGES_OF_OWNERSHIP
 import com.longlifeio.fineprint.ui.CURRENT_STATUS
 import com.longlifeio.fineprint.ui.WHO_IT_BINDS
 import java.io.File
@@ -24,7 +25,7 @@ class MethodDocTest {
             BUCKET_TEXT.values.flatMap { listOf(it.title, it.subtitle) } +
             BADGES.values.flatMap { listOf(it.label, it.definition) } +
             DIRECTIONS.values.flatMap { listOf(it.label, it.definition) } +
-            GOVERNMENT_LINES.values.flatMap { listOf(it.label, it.definition) } + listOf(UNPLACED, NONE_PLACED, NO_LAWS_REVIEWED, WHO_IT_BINDS, CURRENT_STATUS) +
+            GOVERNMENT_LINES.values.flatMap { listOf(it.label, it.definition) } + listOf(UNPLACED, NONE_PLACED, NO_LAWS_REVIEWED, WHO_IT_BINDS, CURRENT_STATUS, CHANGES_OF_OWNERSHIP) +
             DEFAULTS.values.flatMap { listOf(it.label, it.definition) } + listOf(regionCaveat("TikTok", "United States")) +
             listOf(SYSTEM.label, SYSTEM.definition, OTHER_PREINSTALLED, OTHER_PREINSTALLED_NOTE, groupHeader("Google", 14)) +
             listOf(fromPolicy("Google"), fromPolicyForAll("Google"), noRecordFrom("Google")) +

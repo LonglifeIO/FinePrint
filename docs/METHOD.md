@@ -199,7 +199,7 @@ The System filter lists only those apps, grouped by maker, such as Google · 14 
 - A person checks every claim against its source, sets its status and wording, and approves it. Nothing reaches the bundle without that check.
 - Every source carries the exact words that support the claim, and a date.
 - The status follows the evidence: an app's own policy is Their words, journalism is Reported, and a lawsuit stays Alleged until a court or regulator decides it.
-- A company's record can list its changes of ownership, such as an acquisition or a merger, each with its date and sources.
+- A company's record can list its changes of ownership, such as an acquisition or a merger, each with its date and sources. Under Jurisdictions, the company's Sources show them as Changes of ownership, oldest first, each as date, owner before and owner after, such as 2026 · Digital Turbine, Inc. (DT) → Affle MEA FZ-LLC, a step-down subsidiary of Affle 3i Limited.
 - When something in a record is uncertain, such as who owns a tracker's code, the record says why, with sources.
 
 FinePrint re-reads the pages it quotes, and privacy regulators' feeds of findings and rulings, on a schedule. When a quote is no longer on its page, the words around it change, a page moves, or a regulator publishes something about a company FinePrint has a record of, a person is told. Nothing in the app changes until a person has checked it and the bundle is rebuilt. Sources whose sites refuse automated checks are listed in every digest and checked by hand before each release.

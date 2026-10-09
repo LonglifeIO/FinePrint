@@ -4,6 +4,7 @@ import com.longlifeio.fineprint.bundle.Bundle
 import com.longlifeio.fineprint.bundle.Consequence
 import com.longlifeio.fineprint.bundle.DataFlow
 import com.longlifeio.fineprint.bundle.Law
+import com.longlifeio.fineprint.bundle.OwnerChange
 import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.Source
 import java.util.Locale
@@ -27,8 +28,11 @@ data class GovernmentLine(
     val short: String? = null,
 )
 
-/** A company that gets the data, as a country's block shows it: headquartered there, or registered there. */
-data class CompanyPlace(val name: String, val headquarteredHere: Boolean, val sources: List<Source>) {
+/**
+ * A company that gets the data, as a country's block shows it: headquartered there, or registered there; with its
+ * changes of ownership, which its sheet shows as a dated chain.
+ */
+data class CompanyPlace(val name: String, val headquarteredHere: Boolean, val sources: List<Source>, val history: List<OwnerChange> = emptyList()) {
     /** Two separate claims, each from the company's record; where its servers are is never claimed. */
     val text: String get() = if (headquarteredHere) "$name: headquartered here and subject to its law" else "$name: subject to its law"
 }
@@ -60,7 +64,7 @@ internal fun governments(companyIds: Collection<String>, unplaced: Boolean, reco
         CountryBlock(
             code = code,
             name = name(code),
-            companies = here.map { CompanyPlace(it.name, it.headquarters == code, it.jurisdictionSources) },
+            companies = here.map { CompanyPlace(it.name, it.headquarters == code, it.jurisdictionSources, it.ownerHistory) },
             lines = laws.map {
                 GovernmentLine(CAN_COMPEL, code, "${it.name} (${it.citation})", it.text, it.status, null, it.sources, it.statusNote, it.lastReviewed, it.stale, it.scope, it.short)
             } +

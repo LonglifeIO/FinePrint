@@ -85,7 +85,7 @@ fun LazyListScope.jurisdictionsItems(g: Governments, open: Boolean, onToggle: ()
 private fun CompanyPlaceRow(place: CompanyPlace, onSources: (SheetContent) -> Unit) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
         Text(place.text + LocalFootnotes.current.marks(place.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks(place.text))
-        SourcesRow(place.name, place.sources, null, onSources)
+        SourcesRow(place.name, place.sources, null, onSources, history = place.history)
     }
 }
 

@@ -139,6 +139,9 @@ private fun JSONObject.toCompany() = Company(
     packagePrefixes = strings("package_prefixes"),
     defaultFlows = objects("default_flows").map { it.toDataFlow() },
     defaultNotes = objects("default_notes").map { it.toSummaryNote() },
+    ownerHistory = objects("owner_history").map {
+        OwnerChange(it.getString("date"), it.getString("event"), it.getString("from"), it.getString("to"), it.objects("sources").map { s -> s.toSource() })
+    },
     events = objects("regulatory_history").map {
         LegalEvent(
             date = it.getString("date"),

@@ -192,7 +192,12 @@ data class Company(
     val defaultFlows: List<DataFlow> = emptyList(),
     val defaultNotes: List<SummaryNote> = emptyList(),
     val events: List<LegalEvent> = emptyList(),
+    /** Its acquisitions and changes of control, oldest first (owner_history). */
+    val ownerHistory: List<OwnerChange> = emptyList(),
 )
+
+/** One change of control: when, what happened, who owned it (or the business) before and after, and its sources. */
+data class OwnerChange(val date: String, val event: String, val from: String, val to: String, val sources: List<Source>)
 
 data class PermissionText(val id: String, val plain: String, val whyItMatters: String, val feeds: List<String>)
 

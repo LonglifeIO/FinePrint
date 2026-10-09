@@ -40,13 +40,15 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
+import com.longlifeio.fineprint.bundle.OwnerChange
 import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.Source
 import com.longlifeio.fineprint.explain.spoken
 
 /**
  * What the Sources sheet shows for one line: its sources; for a law, who it binds ([scope], under
- * "Who it binds"); and, for a legal claim or a law, the procedural note's under [noteHeading].
+ * "Who it binds"); for a company, its changes of ownership ([history], a dated chain, oldest first); and, for a
+ * legal claim or a law, the procedural note's under [noteHeading].
  * [details] (On the record) come first: who it was against, the record's own words for it, notes.
  */
 data class SheetContent(
@@ -56,7 +58,14 @@ data class SheetContent(
     val details: List<String> = emptyList(),
     val noteHeading: String = WHERE_THE_CASE_STANDS,
     val scope: ProceduralNote? = null,
+    val history: List<OwnerChange> = emptyList(),
 )
+
+/** A company's acquisitions and changes of control, in its sheet. */
+const val CHANGES_OF_OWNERSHIP = "Changes of ownership"
+
+/** "2026 · Digital Turbine, Inc. (DT) → Affle MEA FZ-LLC, …": one link of the chain. */
+fun ownerLink(change: OwnerChange): String = "${change.date} · ${change.from} → ${change.to}"
 
 /** The note's heading for a lawsuit or ruling, and for a law (a renewal, a repeal). */
 const val WHERE_THE_CASE_STANDS = "Where the case stands"
@@ -90,15 +99,16 @@ fun SourcesRow(
     onOpen: (SheetContent) -> Unit,
     noteHeading: String = WHERE_THE_CASE_STANDS,
     scope: ProceduralNote? = null,
+    history: List<OwnerChange> = emptyList(),
 ) {
-    val count = sources.size + (scope?.sources?.size ?: 0) + (note?.sources?.size ?: 0)
+    val count = sources.size + (scope?.sources?.size ?: 0) + (note?.sources?.size ?: 0) + history.sumOf { it.sources.size }
     if (count == 0) return
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = TOUCH)
-            .clickable(onClickLabel = "Show sources", role = Role.Button) { onOpen(SheetContent(heading, sources, note, noteHeading = noteHeading, scope = scope)) },
+            .clickable(onClickLabel = "Show sources", role = Role.Button) { onOpen(SheetContent(heading, sources, note, noteHeading = noteHeading, scope = scope, history = history)) },
     ) {
         Text(
             "Sources ($count)",
@@ -114,7 +124,7 @@ fun SourcesRow(
 @Composable
 fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
     val uriHandler = LocalUriHandler.current
-    val all = content.sources + content.scope?.sources.orEmpty() + content.note?.sources.orEmpty()
+    val all = content.sources + content.scope?.sources.orEmpty() + content.note?.sources.orEmpty() + content.history.flatMap { it.sources }
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         // TalkBack announces the sheet by this name as it opens, in place of Material's "Bottom Sheet".
@@ -140,8 +150,28 @@ fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
             }
             itemsIndexed(content.sources) { i, s -> SourceCard(s, primary = i == 0, all) { uriHandler.openUri(s.url) } }
             content.scope?.let { notePart(WHO_IT_BINDS, it, all) { s -> uriHandler.openUri(s.url) } }
+            if (content.history.isNotEmpty()) historyPart(content.history, all) { s -> uriHandler.openUri(s.url) }
             content.note?.let { notePart(content.noteHeading, it, all) { s -> uriHandler.openUri(s.url) } }
         }
+    }
+}
+
+/** Changes of ownership, oldest first: each change's date, who before and who after, what happened, then its own sources. */
+private fun LazyListScope.historyPart(history: List<OwnerChange>, all: List<Source>, open: (Source) -> Unit) {
+    item {
+        Column(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
+            HorizontalDivider()
+            Text(CHANGES_OF_OWNERSHIP, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(top = 12.dp).semantics { heading() })
+        }
+    }
+    for ((i, change) in history.withIndex()) {
+        item(key = "owner:$i") {
+            Column(Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp)) {
+                Text(ownerLink(change), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks(ownerLink(change)))
+                Text(change.event.replaceFirstChar { it.uppercase() }.let { if (it.endsWith(".")) it else "$it." }, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+        itemsIndexed(change.sources) { _, s -> SourceCard(s, primary = false, all) { open(s) } }
     }
 }
 
