@@ -1,0 +1,53 @@
+# On a pull request that changes pipeline/reviewed/ (a KB pull request): the bundle those records build, and the JVM
+# suite against it. Such a pull request changes records only, so CI's own run reads main's committed bundle and passes;
+# the tests that pin the real bundle (LawShortTest, UnionLawsTest, LawReachTest, TrackerLinesTest, MigrationTest's
+# Reviewed fingerprints) would fail only after the merge, when main rebuilds. Here they fail on the pull request.
+#
+# Offline: build.py runs without its URL check and fetches nothing else. Tracker names and signatures come from the
+# committed bundle/trackers.json, which fetch_trackers.py builds from the saved εxodus list (--from-file) on the Mac;
+# nothing here runs fetch_trackers.py. The bundle is written to a temporary folder, then copied over bundle/ in this
+# runner's checkout only, where the Gradle build and the tests read it. Nothing is committed or pushed: this job can
+# only read the repository. Actions and the runner are pinned as in ci.yml.
+name: Rebuilt bundle
+
+on:
+  pull_request:
+    paths:
+      - "pipeline/reviewed/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  jvm:
+    name: JVM tests against the bundle this pull request builds
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Install requests and jsonschema (the pipeline's only dependencies)
+        run: python -m pip install --disable-pip-version-check requests==2.32.5 jsonschema==4.25.1
+      - name: Rebuild the bundle from this pull request's records, offline, into a temporary folder
+        run: python pipeline/build.py --skip-url-check --out "$RUNNER_TEMP/rebuilt/bundle.json"
+      # What main's rebuild would change, then the files the tests read: this checkout only.
+      - name: Use the rebuilt bundle in this checkout
+        run: |
+          cp "$RUNNER_TEMP/rebuilt/bundle.json" "$RUNNER_TEMP/rebuilt/jurisdictions.json" bundle/
+          git diff --stat -- bundle/
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Install the Android 17 (API 37) platform
+        run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-37.0"'
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      - name: JVM unit tests against the rebuilt bundle
+        working-directory: android
+        run: ./gradlew testDebugUnitTest --stacktrace
