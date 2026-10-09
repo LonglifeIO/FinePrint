@@ -1,0 +1,455 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-106",
+   "aka": [
+    "InMobi SDK"
+   ],
+   "owner": "InMobi Technology Services Private Limited",
+   "owner_company": "co-inmobi",
+   "owner_chain": [
+    "InMobi Technology Services Private Limited"
+   ],
+   "jurisdiction": "IN",
+   "party": "third_party",
+   "product_line": "InMobi's ad SDK for app developers, which requests ads from InMobi's ad platform",
+   "categories": [
+    "advertising",
+    "location",
+    "profiling"
+   ],
+   "data_collected": [
+    "the Google advertising ID",
+    "IP address and device details",
+    "precise location, when the app has location permission, unless the developer opts out",
+    "Wi-Fi network information, if the app adds Wi-Fi permissions (InMobi says this improves targeting)",
+    "age and gender, if the developer passes them on"
+   ],
+   "monetization_model": "InMobi runs an ad platform that auctions ad space in apps to advertisers, using what its SDK sends with each ad request; it offers advertisers audience segments, its own and other vendors' (InMobi's answer in Caldwell, 2026).",
+   "data_flows": [
+    {
+     "id": "flow-inmobi-ids",
+     "data": "device_identifiers",
+     "recipient": "co-inmobi",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your advertising ID, IP address and device details, sent with each ad request, for targeted ads",
+     "status": "self_disclosed",
+     "wording": "According to InMobi's Android SDK documentation (updated 2026-10-01) and its answer in a US court (2026-05-13).",
+     "sources": [
+      {
+       "url": "https://support.inmobi.com/monetize/android-guidelines/overview-android-guidelines",
+       "type": "company_site",
+       "title": "InMobi documentation: Android SDK integration overview",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "to enable better ad targeting via the Google Play Advertising ID"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "when the app receives an ad request, the InMobi SDK may transmit information from the app user’s device to InMobi servers, which may include geolocation information, mobile advertising IDs, IP address and other device level information"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "may collect mobile advertising IDs and IP addresses upon an ad request, and that that information may be used for targeted advertising"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "depending on the app publisher’s configuration of the SDK and the permissions granted by the app user"
+      },
+      {
+       "url": "https://support.inmobi.com/monetize/android-guidelines/overview-android-guidelines",
+       "type": "company_site",
+       "title": "InMobi documentation: Android SDK integration overview",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "For further improved targeting, you can add the ACCESS_WIFI_STATE and CHANGE_WIFI_STATE permissions"
+      },
+      {
+       "url": "https://support.inmobi.com/monetize/android-guidelines/overview-android-guidelines",
+       "type": "company_site",
+       "title": "InMobi documentation: Android SDK integration overview",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "Pass demographic signals to allow better ad targeting"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "operates an advertising platform that connects advertisers with available ad space on mobile applications"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "automated auction system that allows advertisers to buy digital ad impressions"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "InMobi supports advertisers’ audience segments and offers its own audience segments for advertisers"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "it receives standardized segments from third-party vendors and makes them available on the advertising platform it operates"
+      }
+     ]
+    },
+    {
+     "id": "flow-inmobi-location",
+     "data": "precise_location",
+     "recipient": "co-inmobi",
+     "bucket": "goes_elsewhere",
+     "default": "opt_in",
+     "purpose": "Your location, once you let the app use it: InMobi's SDK forwards it unless the developer opts out, for targeted ads and to place you in ad segments",
+     "status": "self_disclosed",
+     "wording": "According to InMobi's Android SDK documentation (updated 2026-10-01) and its answer in a US court (2026-05-13).",
+     "sources": [
+      {
+       "url": "https://support.inmobi.com/monetize/android-guidelines/overview-android-guidelines",
+       "type": "company_site",
+       "title": "InMobi documentation: Android SDK integration overview",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "The InMobi SDK automatically forwards location signals when available."
+      },
+      {
+       "url": "https://support.inmobi.com/monetize/android-guidelines/overview-android-guidelines",
+       "type": "company_site",
+       "title": "InMobi documentation: Android SDK integration overview",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "If you prefer not to share this data, select … in the InMobi Dashboard"
+      },
+      {
+       "url": "https://support.inmobi.com/monetize/android-guidelines/overview-android-guidelines",
+       "type": "company_site",
+       "title": "InMobi documentation: Android SDK integration overview",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "should the user consent to collecting their location"
+      },
+      {
+       "url": "https://support.inmobi.com/monetize/android-guidelines/overview-android-guidelines",
+       "type": "company_site",
+       "title": "InMobi documentation: Android SDK integration overview",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "It is highly recommended that you include ACCESS_FINE_LOCATION to enable better ad targeting."
+      },
+      {
+       "url": "https://support.inmobi.com/monetize/android-guidelines/overview-android-guidelines",
+       "type": "company_site",
+       "title": "InMobi documentation: Android SDK integration overview",
+       "as_of": "2026-10-01",
+       "status": "self_disclosed",
+       "quote": "location-enriched impressions typically yield higher revenue"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "when a user enables location access within an app containing its SDK, the app transmits the user’s location"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "geolocation information that may be used to infer segments for the purposes of targeted advertising"
+      }
+     ]
+    },
+    {
+     "id": "flow-inmobi-bidders-ids",
+     "data": "device_identifiers",
+     "recipient_label": "Advertisers and other third parties",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your advertising ID, IP address, cookie IDs or hashed email address; advertisers can use bid requests to update profiles of you and assign you to segments",
+     "status": "self_disclosed",
+     "conditional": "depending on how the app's developer set up InMobi's SDK",
+     "wording": "According to InMobi's answer in a US court (2026-05-13).",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "sends bid requests to potential advertisers that may include data received from a device as determined by the app publisher’s configuration of the SDK and the user’s permissions"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "digital advertisers can utilize this information to update anonymous profiles and assign segments for purposes of targeted advertising"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "the integrated SDK transmits mobile advertising IDs, IP addresses, cookie IDs, or hashed email addresses to third parties"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "depending on the app publisher’s configuration of the SDK and the permissions granted by the app user"
+      }
+     ]
+    },
+    {
+     "id": "flow-inmobi-bidders-location",
+     "data": "precise_location",
+     "recipient_label": "Advertisers bidding to show you an ad",
+     "bucket": "goes_elsewhere",
+     "default": "opt_in",
+     "purpose": "Your location, once you let the app use it, in the bid requests InMobi sends to advertisers",
+     "status": "self_disclosed",
+     "conditional": "depending on how the app's developer set up InMobi's SDK",
+     "wording": "According to InMobi's answer in a US court (2026-05-13).",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "each bid request sent by InMobi’s SDK may contain fresh device and location information"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "depending on the app publisher’s configuration of InMobi’s SDK and the user’s permissions"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "sends bid requests to potential advertisers that may include data received from a device"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "In 2016 the US FTC charged that InMobi's SDK, until December 2015, tracked people's locations through nearby Wi-Fi networks even when they had denied apps location access, and collected children's data from child-directed apps without parental consent. Under a court order InMobi had to pay $950,000 of a $4 million penalty and is barred from collecting or inferring location without consent.",
+     "subject_company": "co-inmobi",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "wording": "Settled with the US FTC: a court order entered 2016-06-27. InMobi neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.1.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), complaint filed for the US FTC",
+       "as_of": "2016-06-22",
+       "status": "alleged",
+       "quote": "Even if the consumer had restricted an application’s access to the location API, until December 2015, Defendant still tracked the consumer’s location"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.1.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), complaint filed for the US FTC",
+       "as_of": "2016-06-22",
+       "status": "alleged",
+       "quote": "by collecting information about the WiFi networks that the consumer’s device connected to or that were in-range of the consumer’s device"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.1.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), complaint filed for the US FTC",
+       "as_of": "2016-06-22",
+       "status": "alleged",
+       "quote": "Defendant did not obtain verifiable consent from parents prior to collecting and using children’s personal information."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.1.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), complaint filed for the US FTC",
+       "as_of": "2016-06-22",
+       "status": "alleged",
+       "quote": "Defendant knowingly collected and used personal information from thousands of child-directed applications in violation of the COPPA Rule."
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "Judgment in the amount of four million dollars ($4,000,000) is entered"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "three hundred thousand dollars ($300,000) … six hundred fifty thousand dollars ($650,000) … the remainder of the judgment is suspended"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "permanently restrained and enjoined from collecting or inferring location information without first confirming"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "the consumer has provided affirmative express consent for the collection of location information"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "Defendant neither admits nor denies any of the allegations in the Complaint"
+      }
+     ]
+    },
+    {
+     "text": "A class action alleges that InMobi's SDK, in a dating app, sent a user's precise location, advertising ID, IP address and device details to InMobi without his consent, and that the data was linked to his real-world identity through an identity-resolution service and added to advertising profiles. The court refused to dismiss the case in April 2026; InMobi denies the allegations.",
+     "subject_company": "co-inmobi",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "forum": "court",
+     "wording": "Alleged in a class action by a dating-app user, in a US federal court since 2025-11-19; the court denied InMobi's motion to dismiss on 2026-04-29.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.33.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Pte Ltd. (N.D. Cal. No. 25-cv-09977), order denying InMobi's motion to dismiss",
+       "as_of": "2026-04-29",
+       "status": "alleged",
+       "quote": "based on the alleged surreptitious collection data from a dating app he used"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.33.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Pte Ltd. (N.D. Cal. No. 25-cv-09977), order denying InMobi's motion to dismiss",
+       "as_of": "2026-04-29",
+       "status": "alleged",
+       "quote": "precise location, mobile advertising ID, IP address, and device fingerprinting data"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.33.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Pte Ltd. (N.D. Cal. No. 25-cv-09977), order denying InMobi's motion to dismiss",
+       "as_of": "2026-04-29",
+       "status": "alleged",
+       "quote": "without his “knowledge or consent,”"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.33.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Pte Ltd. (N.D. Cal. No. 25-cv-09977), order denying InMobi's motion to dismiss",
+       "as_of": "2026-04-29",
+       "status": "alleged",
+       "quote": "were routed through an identity resolution service, linked to his real-world identity, and appended to persistent advertising profiles"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.33.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Pte Ltd. (N.D. Cal. No. 25-cv-09977), order denying InMobi's motion to dismiss",
+       "as_of": "2026-04-29",
+       "status": "alleged",
+       "quote": "the Court DENIES InMobi’s motion to dismiss"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "alleged",
+       "quote": "Except as expressly admitted herein, Defendant denies the allegations set forth in the FAC."
+      },
+      {
+       "url": "https://www.courtlistener.com/docket/71937168/caldwell-v-inmobi-technology-services-private-limited/",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), docket (CourtListener)",
+       "accessed": "2026-10-08",
+       "status": "alleged",
+       "verify_url": "https://www.courtlistener.com/api/rest/v4/search/?type=r&q=docket_id%3A71937168",
+       "quote": "\"caseName\":\"Caldwell v. InMobi Technology Services Private Limited\" … \"cause\":\"28:1332 Diversity-Petition for Removal\" … \"dateFiled\":\"2025-11-19\""
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "confidence_note": {
+    "text": "This record rests on InMobi's Android SDK guide (updated 2026-10-01) and its answer in Caldwell v. InMobi (2026-05-13), not its privacy policy, which loads only with JavaScript. The answer hedges most admissions with \"depending on the app publisher’s configuration of the SDK and the permissions granted by the app user\". GLEIF's record reports a consolidating parent without an LEI, so it doesn't say who owns InMobi Technology Services Private Limited.",
+    "sources": [
+     {
+      "url": "https://support.inmobi.com/monetize/android-guidelines/overview-android-guidelines",
+      "type": "company_site",
+      "title": "InMobi documentation: Android SDK integration overview",
+      "as_of": "2026-10-01",
+      "status": "self_disclosed",
+      "quote": "The InMobi SDK automatically forwards location signals when available."
+     },
+     {
+      "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+      "type": "lawsuit",
+      "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+      "as_of": "2026-05-13",
+      "status": "self_disclosed",
+      "quote": "depending on the app publisher’s configuration of the SDK and the permissions granted by the app user"
+     },
+     {
+      "url": "https://api.gleif.org/api/v1/lei-records/3358001LR4DAY255C289/direct-parent-reporting-exception",
+      "type": "company_registry",
+      "title": "GLEIF, Legal Entity Identifier record 3358001LR4DAY255C289: direct parent reporting exception",
+      "accessed": "2026-10-09",
+      "status": "self_disclosed",
+      "quote": "\"category\":\"DIRECT_ACCOUNTING_CONSOLIDATION_PARENT\",\"reason\":\"NO_LEI\""
+     }
+    ]
+   },
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}

@@ -1,0 +1,160 @@
+{
+ "companies": [
+  {
+   "id": "co-inmobi",
+   "name": "InMobi Technology Services Private Limited",
+   "short_name": "InMobi",
+   "jurisdiction": "IN",
+   "headquarters": "IN",
+   "jurisdiction_sources": [
+    {
+     "url": "https://api.gleif.org/api/v1/lei-records/3358001LR4DAY255C289",
+     "type": "company_registry",
+     "title": "GLEIF, Legal Entity Identifier record 3358001LR4DAY255C289: InMobi Technology Services Private Limited, registered in India (U72900HR2011PTC129638)",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "\"name\":\"INMOBI TECHNOLOGY SERVICES PRIVATE LIMITED\" … \"headquartersAddress\":{\"language\":\"en\" … \"city\":\"GURGAON\",\"region\":\"IN-HR\",\"country\":\"IN\" … \"registeredAs\":\"U72900HR2011PTC129638\",\"jurisdiction\":\"IN\""
+    },
+    {
+     "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+     "type": "lawsuit",
+     "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+     "as_of": "2026-05-13",
+     "status": "self_disclosed",
+     "quote": "InMobi Pte., Ltd. was a limited company organized and existing under the laws of Singapore that had its principal place of business in Singapore. Its business has been transferred into InMobi Technology Services Private Limited."
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "regulatory_history": [
+    {
+     "date": "2016-06-27",
+     "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474): stipulated order",
+     "body": "US District Court for the Northern District of California, in a case brought by the United States for the US Federal Trade Commission",
+     "type": "order",
+     "amount": "$4 million ($950,000 payable, the rest suspended)",
+     "status": "adjudicated",
+     "status_kind": "consent_order",
+     "in_force": true,
+     "subject_company": "co-inmobi",
+     "notes": "Complaint filed 2016-06-22 against InMobi Pte Ltd., whose business has since been transferred into InMobi Technology Services Private Limited. The order permanently bars collecting or inferring location without consent and requires a privacy program, with assessments every two years for 20 years. InMobi neither admitted nor denied the charges.",
+     "sources": [
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.1.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), complaint filed for the US FTC",
+       "as_of": "2016-06-22",
+       "status": "alleged",
+       "quote": "acting upon notification and authorization to the Attorney General by the Federal Trade Commission"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "Judgment in the amount of four million dollars ($4,000,000) is entered"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "three hundred thousand dollars ($300,000) … six hundred fifty thousand dollars ($650,000) … the remainder of the judgment is suspended"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "permanently restrained and enjoined from collecting or inferring location information without first confirming"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "each two (2) year period thereafter for twenty (20) years after service of the order for biennial Assessments"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.300087.8.0.pdf",
+       "type": "regulator",
+       "title": "United States v. InMobi Pte Ltd. (N.D. Cal. No. 3:16-cv-03474), stipulated order for permanent injunction and civil penalty judgment",
+       "as_of": "2016-06-27",
+       "status": "adjudicated",
+       "quote": "Defendant neither admits nor denies any of the allegations in the Complaint"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "self_disclosed",
+       "quote": "Its business has been transferred into InMobi Technology Services Private Limited."
+      }
+     ]
+    },
+    {
+     "date": "2025-11-19",
+     "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977)",
+     "body": "US District Court for the Northern District of California",
+     "type": "class_action",
+     "status": "alleged",
+     "status_kind": "survived_motion_to_dismiss",
+     "forum": "court",
+     "subject_company": "co-inmobi",
+     "notes": "Removed to federal court on 2025-11-19. Claims under the California Invasion of Privacy Act's pen register provision, intrusion upon seclusion and the California Constitution, over data InMobi's SDK collected from a dating app. The court denied InMobi's motion to dismiss on 2026-04-29; InMobi answered on 2026-05-13, denying the allegations except as admitted.",
+     "sources": [
+      {
+       "url": "https://www.courtlistener.com/docket/71937168/caldwell-v-inmobi-technology-services-private-limited/",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), docket (CourtListener)",
+       "accessed": "2026-10-08",
+       "status": "alleged",
+       "verify_url": "https://www.courtlistener.com/api/rest/v4/search/?type=r&q=docket_id%3A71937168",
+       "quote": "\"caseName\":\"Caldwell v. InMobi Technology Services Private Limited\" … \"cause\":\"28:1332 Diversity-Petition for Removal\" … \"dateFiled\":\"2025-11-19\""
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.33.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Pte Ltd. (N.D. Cal. No. 25-cv-09977), order denying InMobi's motion to dismiss",
+       "as_of": "2026-04-29",
+       "status": "alleged",
+       "quote": "Caldwell asserts claims for violation of the California Invasion of Privacy Act’s pen register provision"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.33.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Pte Ltd. (N.D. Cal. No. 25-cv-09977), order denying InMobi's motion to dismiss",
+       "as_of": "2026-04-29",
+       "status": "alleged",
+       "quote": "intrusion upon seclusion under California common law, and invasion of privacy under the California Constitution"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.33.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Pte Ltd. (N.D. Cal. No. 25-cv-09977), order denying InMobi's motion to dismiss",
+       "as_of": "2026-04-29",
+       "status": "alleged",
+       "quote": "the Court DENIES InMobi’s motion to dismiss"
+      },
+      {
+       "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.459993/gov.uscourts.cand.459993.39.0.pdf",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), InMobi's answer to the first amended complaint",
+       "as_of": "2026-05-13",
+       "status": "alleged",
+       "quote": "Except as expressly admitted herein, Defendant denies the allegations set forth in the FAC."
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}
