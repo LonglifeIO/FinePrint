@@ -22,7 +22,7 @@ data class Explanation(
     val summaryNotes: List<SummaryNote>,
     /** "curated" (a reviewed record exists) or "auto" (inferred from tracker code only). */
     val coverage: String,
-    /** Its tier is null for "No record yet", with what the scan found as the line. */
+    /** Its tier is null for "Not checked yet", with what the scan found as the line. */
     val tier: TierResult,
     val privacyControls: String?,
     /** Plain labels: data kinds from the flows, then what granted permissions give the app. */
@@ -83,7 +83,7 @@ data class FlowLine(
     val conditional: String? = null,
     /** An alleged line's stage: it raises a tier only once a judge let its case go ahead or a regulator opened a formal proceeding. */
     val statusKind: String? = null,
-    /** One of the lines that set the tier (TierResult.reasons): marked "Flagged for this" or "Caution for this", and read first. */
+    /** One of the lines that set the tier (TierResult.reasons): read first, under "Why it's Flagged" or "Why it's Caution". */
     val setsTier: Boolean = false,
 )
 
@@ -280,7 +280,7 @@ internal fun deriveFlows(trackerName: String, categories: List<String>, party: S
 }
 
 private fun autoSummary(trackerNames: List<String>): String = when (trackerNames.size) {
-    0 -> "FinePrint found no tracker code in this app. That doesn't show what the app itself does with your data, and there is no reviewed record for it yet."
+    0 -> "FinePrint found no tracker code in this app. That doesn't show what the app itself does with your data, and FinePrint hasn't checked it yet."
     else -> "FinePrint found code from ${trackerNames.size} tracker SDK${if (trackerNames.size == 1) "" else "s"} in this app: " +
-        trackerNames.joinToString() + ". There is no reviewed record for this app yet, so what they collect is inferred from each tracker's category."
+        trackerNames.joinToString() + ". FinePrint hasn't checked this app yet, so what they collect is inferred from each tracker's kind."
 }

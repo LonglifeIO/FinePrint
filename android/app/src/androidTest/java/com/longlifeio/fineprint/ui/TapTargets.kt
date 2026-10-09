@@ -6,8 +6,11 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.unit.dp
@@ -30,6 +33,13 @@ fun ComposeTestRule.smallTargetsWhileScrolling(tag: String): List<String> {
         waitForIdle()
     }
     return small.toList()
+}
+
+/** Opens a law's full text: the Show it in full row just under its [short] line, which is on screen. */
+fun ComposeTestRule.openLawInFull(short: String) {
+    val top = onNodeWithText(short).fetchSemanticsNode().boundsInRoot.top
+    val row = onAllNodes(hasText("Show it in full") and hasClickAction()).fetchSemanticsNodes().filter { it.boundsInRoot.top > top }.minBy { it.boundsInRoot.top }
+    onNode(SemanticsMatcher("the row under it") { it.id == row.id }).performClick()
 }
 
 private val interactive = hasClickAction() or SemanticsMatcher.keyIsDefined(SemanticsActions.OnLongClick)

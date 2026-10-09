@@ -87,7 +87,7 @@ class HomeTest {
 
         // Flagged starts open, and Life360, marked reviewed, shows "Flagged ✓".
         compose.onNodeWithText("Tier: Flagged, Reviewed", useUnmergedTree = true).assertExists()
-        // No record yet starts closed: scrolled to the end, its app isn't there.
+        // Not checked yet starts closed: scrolled to the end, its app isn't there.
         compose.onNodeWithTag("list").performScrollToNode(hasText(NO_RECORD_DEFINITION))
         assertEquals("Collapsed", stateOf(NO_RECORD_DEFINITION))
         compose.onAllNodesWithText("Unread Example").assertCountEquals(0)

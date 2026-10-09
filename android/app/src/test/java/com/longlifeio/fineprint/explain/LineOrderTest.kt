@@ -54,7 +54,7 @@ class LineOrderTest {
         // Computed by the code before this change, on this same fixture and date.
         assertEquals(Tier.FLAGGED, e.tier.tier)
         assertEquals("F1", e.tier.rule)
-        assertEquals("Location data goes elsewhere — Example Lines' own policy", e.tier.reason)
+        assertEquals("Example Lines says your location goes to other companies", e.tier.reason)
         assertEquals(1220419973, fingerprint(lines, scan(), bundle).hashCode())
     }
 

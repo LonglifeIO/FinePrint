@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -45,7 +44,6 @@ import com.longlifeio.fineprint.explain.NO_RECORD
 import com.longlifeio.fineprint.explain.REVIEWED
 import com.longlifeio.fineprint.explain.STAYS_HERE
 import com.longlifeio.fineprint.explain.Tier
-import com.longlifeio.fineprint.explain.reasonMarker
 
 /** The brief's tier glyphs: a filled diamond, a half-filled circle, a check in a circle, a dashed circle. */
 fun tierGlyph(tier: Tier?): Int = when (tier) {
@@ -61,7 +59,7 @@ fun bucketGlyph(bucket: String): Int = when (bucket) {
     else -> R.drawable.ic_used_for_more
 }
 
-/** A tier's colour is its bucket's, by the formula that links them; No record yet is grey. */
+/** A tier's colour is its bucket's, by the formula that links them; Not checked yet is grey. */
 fun Palette.tone(tier: Tier?): Tone = when (tier) {
     Tier.FLAGGED -> elsewhere
     Tier.CAUTION -> more
@@ -78,7 +76,7 @@ fun Palette.tone(bucket: String): Tone = when (bucket) {
 /**
  * The one place tier and bucket colours appear: icon, word and, where there is one, a count, on the
  * tone's fill. The fills hold 3:1 against the page and the cards, so they need no border; [dashed]
- * draws "No record yet"'s edge. [reviewed] adds a check after the word ("Flagged ✓"). [spoken] is what
+ * draws "Not checked yet"'s edge. [reviewed] adds a check after the word ("Flagged ✓"). [spoken] is what
  * TalkBack reads instead.
  */
 @Composable
@@ -133,17 +131,6 @@ fun TierChip(tier: Tier?, modifier: Modifier = Modifier, count: Int? = null, nou
     IndicatorChip(tierGlyph(tier), word, LocalPalette.current.tone(tier), spoken, modifier, count, reviewed, dashed = tier == null)
 }
 
-/**
- * "Flagged for this" or "Caution for this", on a line or legal item that set the tier: the tier's own glyph and tone,
- * so no new colour. Nothing for Expected or No record yet, which no line sets.
- */
-@Composable
-fun ReasonMarker(tier: Tier?, modifier: Modifier = Modifier) {
-    if (tier != Tier.FLAGGED && tier != Tier.CAUTION) return
-    val word = reasonMarker(tier)
-    IndicatorChip(tierGlyph(tier), word, LocalPalette.current.tone(tier), word, modifier.testTag("reason"))
-}
-
 /** A bucket as an indicator chip with its count: "Goes elsewhere 5". */
 @Composable
 fun BucketChip(bucket: String, count: Int, noun: String, modifier: Modifier = Modifier) {
@@ -175,7 +162,7 @@ fun SegmentedBar(limited: Int, total: Int, modifier: Modifier = Modifier) {
     }
 }
 
-/** A dashed rounded outline, for "No record yet" and the ad tile. */
+/** A dashed rounded outline, for "Not checked yet" and the ad tile. */
 fun Modifier.dashedOutline(color: Color, radius: Dp, width: Dp = 1.5.dp) = drawBehind {
     val stroke = width.toPx()
     drawRoundRect(

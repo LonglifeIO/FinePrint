@@ -3,6 +3,7 @@ package com.longlifeio.fineprint.ui
 import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -28,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.text
@@ -38,8 +40,11 @@ import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.bundle.Source
 import com.longlifeio.fineprint.bundle.StoreTagline
 import com.longlifeio.fineprint.egress.InstalledApp
+import com.longlifeio.fineprint.explain.ALSO
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.Explanation
+import com.longlifeio.fineprint.explain.FINE_PRINT_FIRST
+import com.longlifeio.fineprint.explain.FINE_PRINT_HEADING
 import com.longlifeio.fineprint.explain.FinePrintLine
 import com.longlifeio.fineprint.explain.FoldedLines
 import com.longlifeio.fineprint.explain.NO_RECORD
@@ -52,6 +57,7 @@ import com.longlifeio.fineprint.explain.WhatYouCanDo
 import com.longlifeio.fineprint.explain.asksForReview
 import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.coverageLine
+import com.longlifeio.fineprint.explain.whyItIs
 import com.longlifeio.fineprint.explain.whyLine
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
@@ -77,12 +83,12 @@ internal fun DetailHeader(
             if (app.isSystem) SystemLabel(interactive = true)
             if (e.stale) StaleMarker()
         }
-        // Why it has its tier: what set it, said as a fact; the lines or legal items that set it carry its marker below.
+        // Why it has its tier: what set it, said as a fact; the lines or legal items that set it come first below, under "Why it's …".
         Text(whyLine(e) ?: e.tier.reason, style = MaterialTheme.typography.bodyLarge, color = p.ink, modifier = Modifier.testTag("why"))
-        // How far FinePrint has looked: checked by a reviewer, their words only, or no record yet.
+        // How far FinePrint has looked: checked, their words only, or not checked yet.
         Text(coverageLine(e), style = MaterialTheme.typography.bodySmall, color = p.muted, modifier = Modifier.testTag("coverage"))
         if (e.asksForReview) AskForReview(onAskForReview, reviewUnavailable)
-        if (e.tier.capped) Note("Without a reviewed record, an app is rated Caution at most, never Flagged.")
+        if (e.tier.capped) Note("Until FinePrint has checked an app, it's rated Caution at most, never Flagged.")
         if (review.status == ReviewStatus.CHANGED) Text("$CHANGED: ${review.note}.", style = MaterialTheme.typography.bodyMedium, color = p.ink)
         check.summary?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = p.muted) }
         Column {
@@ -111,15 +117,15 @@ internal fun listingName(url: String): String {
 internal fun StoreTagline.asSource() = Source(sourceUrl, listingName(sourceUrl), "store_listing", "self_disclosed", null, asOf, text)
 
 /**
- * The hero (docs/METHOD.md, An app's page): the app's own short description, verbatim and attributed,
- * then The fine print, at most four of FinePrint's lines in reading order (those that set the tier first, with its
- * marker), each marked with an asterisk, in
- * small type, and last what it collects to run the app, folded into one line that opens to those lines.
+ * The hero (docs/METHOD.md, An app's page): the app's own short description, verbatim and attributed, then The fine
+ * print · what FinePrint found: FinePrint's lines in reading order, each marked with an asterisk, in small type, those
+ * that set the [tier] first under "Why it's Flagged" (or Caution) and the rest under "Also"; the first four, then See all.
+ * Last, what it collects to run the app, folded into one line that opens to those lines.
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folded: FoldedLines?, tier: Tier?, onSources: (SheetContent) -> Unit) {
     val p = LocalPalette.current
+    var all by rememberSaveable { mutableStateOf(false) }
     Column(
         Modifier.padding(horizontal = Space.screen, vertical = Space.s).fillMaxWidth().cardFill(p, Corner.hero, Corner.hero).padding(Space.hero),
         verticalArrangement = Arrangement.spacedBy(Space.s),
@@ -131,28 +137,45 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folde
         Text(THEIR_WORDS.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
         if (lines.isNotEmpty() || folded != null) {
             HorizontalDivider(Modifier.padding(vertical = Space.s), color = p.divider)
-            Eyebrow(THE_FINE_PRINT.title)
-            Text(THE_FINE_PRINT.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
-            lines.forEach { line ->
-                Row(horizontalArrangement = Arrangement.spacedBy(Space.s), modifier = Modifier.padding(top = Space.xs).semantics(mergeDescendants = true) { }) {
-                    Text("*", style = MaterialTheme.typography.titleMedium, color = p.ink, modifier = Modifier.clearAndSetSemantics { })
-                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        Text(line.text, style = MaterialTheme.typography.bodySmall, color = p.ink, modifier = Modifier.speaks(line.text))
-                        line.conditional?.let { Text(conditionLine(it), style = MaterialTheme.typography.labelSmall, color = p.ink) }
-                        val s = line.sources.firstOrNull()
-                        // The tier's marker leads the status words on a line that set the tier, on the same row.
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.s), verticalArrangement = Arrangement.spacedBy(Space.xs), itemVerticalAlignment = Alignment.CenterVertically) {
-                            if (line.setsTier) ReasonMarker(tier)
-                            Text(statusWord(line.status, line.forum) + (s?.let { " · ${it.title}, ${sourceDate(it)}" } ?: ""), style = MaterialTheme.typography.labelSmall, color = p.muted)
-                        }
-                    }
+            Eyebrow(FINE_PRINT_HEADING)
+            val shown = if (all) lines else lines.take(FINE_PRINT_FIRST)
+            val why = tier?.takeIf { lines.any { it.setsTier } }
+            shown.forEachIndexed { i, line ->
+                if (why != null && i == 0 && line.setsTier) FinePrintHeading(whyItIs(why))
+                if (why != null && !line.setsTier && shown.getOrNull(i - 1)?.setsTier != false) FinePrintHeading(ALSO)
+                FinePrintRow(line)
+            }
+            if (lines.size > FINE_PRINT_FIRST) {
+                Box(Modifier.testTag("fine-print-all")) {
+                    LinkRow(if (all) "Show the first $FINE_PRINT_FIRST" else "See all ${lines.size}", if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more, inset = 0.dp) { all = !all }
                 }
             }
             folded?.let { FoldedRow(it) }
         }
         val sources = (listOf(tagline.asSource()) + lines.flatMap { it.sources } + folded?.lines.orEmpty().flatMap { it.sources })
             .distinctBy { it.url + "|" + it.title }
-        SourcesRow("${THEIR_WORDS.title} and ${THE_FINE_PRINT.title.lowercase()}", sources, null, onSources)
+        SourcesRow("${THEIR_WORDS.title} and ${THE_FINE_PRINT.lowercase()}", sources, null, onSources)
+    }
+}
+
+/** "Why it's Flagged" or "Also" over the fine print's lines: small, in ink, a heading for TalkBack. */
+@Composable
+private fun FinePrintHeading(text: String) {
+    Text(text, style = MaterialTheme.typography.labelLarge, color = LocalPalette.current.ink, modifier = Modifier.padding(top = Space.s).semantics { heading() })
+}
+
+/** "* Precise location → Select business partners: …", its status in words and its first source, in small type. */
+@Composable
+private fun FinePrintRow(line: FinePrintLine) {
+    val p = LocalPalette.current
+    Row(horizontalArrangement = Arrangement.spacedBy(Space.s), modifier = Modifier.padding(top = Space.xs).semantics(mergeDescendants = true) { }) {
+        Text("*", style = MaterialTheme.typography.titleMedium, color = p.ink, modifier = Modifier.clearAndSetSemantics { })
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(line.text, style = MaterialTheme.typography.bodySmall, color = p.ink, modifier = Modifier.speaks(line.text))
+            line.conditional?.let { Text(conditionLine(it), style = MaterialTheme.typography.labelSmall, color = p.ink) }
+            val s = line.sources.firstOrNull()
+            Text(statusWord(line.status, line.forum) + (s?.let { " · ${it.title}, ${sourceDate(it)}" } ?: ""), style = MaterialTheme.typography.labelSmall, color = p.muted)
+        }
     }
 }
 

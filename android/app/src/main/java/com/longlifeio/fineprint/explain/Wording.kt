@@ -8,9 +8,9 @@ package com.longlifeio.fineprint.explain
 /** A section's heading and its one-line definition, shown under the heading. */
 data class SectionText(val title: String, val subtitle: String)
 
-val SUMMARY_CURATED = SectionText("Summary", "In plain words, from FinePrint's reviewed record of this app.")
-val SUMMARY_INHERITED = SectionText("Summary", "No reviewed record of this app yet: from its maker's privacy policy, which covers it, and the tracker code found in it.")
-val SUMMARY_AUTO = SectionText("Summary", "No reviewed record yet: inferred from the tracker code found in this app.")
+val SUMMARY_CURATED = SectionText("Summary", "In plain words, from what FinePrint has checked about this app.")
+val SUMMARY_INHERITED = SectionText("Summary", "FinePrint hasn't checked this app. This comes from its maker's privacy policy, which covers it, and the tracker code inside it.")
+val SUMMARY_AUTO = SectionText("Summary", "FinePrint hasn't checked this app. This is inferred from the tracker code inside it.")
 val COLLECTS = SectionText("What it collects", "Data this app takes from your phone, in plain terms.")
 val WHERE_IT_GOES = SectionText("Where it goes", "Who gets that data, and whether it's used beyond running the app.")
 val APPLIES = SectionText("This applies to you because", "Permissions you've actually granted that feed the above.")
@@ -18,12 +18,12 @@ val ON_THE_RECORD = SectionText("On the record", "What regulators and courts hav
 val JURISDICTIONS = SectionText("Jurisdictions", "Where the companies that get this data are based, and the laws there that let a government demand it.")
 const val UNPLACED = "Some recipients aren't named or have no record, so FinePrint can't say where they're based."
 const val NONE_PLACED = "FinePrint can't say where the companies that get this data are based."
-const val NO_LAWS_REVIEWED = "FinePrint hasn't reviewed this country's laws yet."
+const val NO_LAWS_REVIEWED = "FinePrint hasn't checked this country's laws yet."
 
 /** Lines in the order a reader needs them (docs/METHOD.md, Where data goes). */
 const val ALSO_COLLECTED = "Also collected to run the app"
 const val PURPOSE_NOT_RECORDED = "What it's used for isn't recorded"
-val NOT_RECORDED = SectionText("Purpose not recorded", "Tracker code FinePrint has no record of and no category for, so it can't say where its data goes.")
+val NOT_RECORDED = SectionText("Purpose not recorded", "Tracker code FinePrint hasn't checked yet, so it can't say where its data goes.")
 
 /** The three kinds of government line (docs/METHOD.md, Governments). */
 val GOVERNMENT_LINES = mapOf(
@@ -35,10 +35,10 @@ val RECENT_CHANGES = SectionText("Recent changes", "The latest change to FinePri
 val HISTORY = SectionText("History", "Every change to FinePrint's record of this app, newest first.")
 val ONGOING = SectionText("Ongoing", "Orders still in force, cases still pending, and decisions under appeal.")
 val PAST = SectionText("Past", "Matters that have ended. One that ended more than three years ago never changes a tier.")
-val ALSO_REPORTED = SectionText("Also reported", "Reported by journalists, researchers or breach trackers; no court or regulator has ruled on it.")
+val ALSO_REPORTED = SectionText("Also reported", "Journalists, researchers or breach trackers found it. No court or regulator has ruled on it.")
 val WHAT_YOU_CAN_DO = SectionText(
     "What you can do",
-    "Settings that limit the flows above. FinePrint can't change anything; it shows what Android reports and lets you record what you've changed inside the app.",
+    "Settings that limit where your data goes. FinePrint can't change them. It shows what Android reports, and you can tick what you've changed inside the app.",
 )
 
 /** The checklist's subtexts: always the same for each kind of item. */
@@ -46,12 +46,14 @@ const val CHECK_ANDROID_OFF = "Checked automatically — Android shows this is o
 const val CHECK_ANDROID_ON = "Checked automatically — Android shows this is still on"
 const val CHECK_IN_APP = "Check this yourself — FinePrint can't see settings inside other apps."
 const val CHECK_ANDROID_UNSEEN = "Check this yourself — FinePrint can't see this Android setting."
-val DEVICE_ACCESS = SectionText("Device access", "Extra powers this app has registered, beyond ordinary permissions.")
+val DEVICE_ACCESS = SectionText("Device access", "Extra powers this app has, beyond its permissions.")
 val EVIDENCE = SectionText("Evidence", "The trackers and permissions behind the sections above.")
 val SOURCES = SectionText("Sources", "Every number on this page is one of these, in order.")
 /** The top of an app's page, when its store description is on record. */
 val THEIR_WORDS = SectionText("Their words", "The app's own short description on its Google Play listing, word for word.")
-val THE_FINE_PRINT = SectionText("The fine print", "At most four of FinePrint's own lines, chosen the same way for every app.")
+/** The hero's second part, FinePrint's own claims: the first four, then See all. */
+const val THE_FINE_PRINT = "The fine print"
+const val FINE_PRINT_HEADING = "$THE_FINE_PRINT · what FinePrint found"
 /** The home's bar: the product's name, shown on no other screen. */
 const val HOME_WORDMARK = "FinePrint"
 
@@ -78,19 +80,20 @@ const val AUTO = "auto"
 const val HISTORICAL = "historical"
 
 val BADGES = mapOf(
-    "self_disclosed" to BadgeText("Self-disclosed", "The company says so itself, in its privacy policy, labels or filings, or a law says so in its own text."),
-    "reported" to BadgeText("Reported", "Reported by journalists or researchers; no court or regulator has ruled on it."),
-    "alleged" to BadgeText("Alleged", "Claimed in a lawsuit or complaint; not proven in court, or, before a regulator, not yet decided."),
-    "adjudicated" to BadgeText("Adjudicated", "Decided by a court or regulator, or settled."),
-    AUTO to BadgeText("Auto", "Inferred by FinePrint from tracker code in the app; no person has reviewed it."),
+    "self_disclosed" to BadgeText("Their words", "The company says so itself, in its privacy policy, store labels or filings. For a law, the words of the law itself."),
+    "reported" to BadgeText("Reported", "Journalists or researchers found it. No court or regulator has ruled on it."),
+    // Its badge adds where it stands: "Alleged (not proven in court)", or "(not yet decided)" before a regulator.
+    "alleged" to BadgeText("Alleged", "Claimed in a lawsuit or complaint. Not proven in court; before a regulator, not yet decided."),
+    "adjudicated" to BadgeText("Decided", "Decided by a court or regulator, or settled."),
+    AUTO to BadgeText("Auto", "Inferred by FinePrint from tracker code in the app; no person has checked it."),
     HISTORICAL to BadgeText("Historical", "Describes a past practice, not a current one."),
 )
 
 /** How a change to the record moves things for you; build.py works it out from the record's structure. */
 val DIRECTIONS = mapOf(
-    "improved" to BadgeText("Improved", "The record shows less data collected or shared, a new way to limit it, or a legal matter or evidence that lowered the tier."),
-    "worsened" to BadgeText("Worsened", "The record shows more data collected or shared, a way to limit it removed, or a legal matter or evidence that raised the tier."),
-    "neutral" to BadgeText("Neutral", "The wording changed, or a legal matter or evidence changed without moving the tier; what's collected and shared didn't."),
+    "improved" to BadgeText("Improved", "Less data is collected or shared, a new way to limit it was added, or a legal matter or evidence lowered the tier."),
+    "worsened" to BadgeText("Worsened", "More data is collected or shared, a way to limit it was removed, or a legal matter or evidence raised the tier."),
+    "neutral" to BadgeText("Neutral", "Only the words changed, or a legal matter or the evidence changed without moving the tier. What's collected and shared is the same."),
 )
 
 /** "Tier: Caution → Flagged", when the change records both. */
@@ -107,9 +110,13 @@ val DEFAULTS = mapOf(
 
 const val REGION_CAVEAT_END = "Where you live, a different policy may apply."
 
-/** "This record follows TikTok's privacy policy for one region: United States. Where you live, …" */
+/** "This page follows TikTok's privacy policy for the United States. Where you live, …" */
 fun regionCaveat(appName: String, region: String): String =
-    "This record follows ${possessive(appName)} privacy policy for one region: $region. $REGION_CAVEAT_END"
+    "This page follows ${possessive(appName)} privacy policy for ${withArticle(region)}. $REGION_CAVEAT_END"
+
+/** "the United States", "the European Union", but "Canada". */
+private fun withArticle(place: String): String =
+    if (place.startsWith("United ") || place.endsWith(" Union") || place in setOf("Netherlands", "Philippines", "Czech Republic")) "the $place" else place
 
 /** For alleged lines whose own wording doesn't already say it: a matter before a court... */
 const val NOT_PROVEN = "not proven in court"
@@ -126,8 +133,9 @@ fun conditionLine(condition: String): String = "${condition.replaceFirstChar { i
 /** What an alleged line adds about where it stands: "not proven in court", or "not yet decided" before a regulator. */
 fun undecided(forum: String?): String = if (forum == "regulator") NOT_YET_DECIDED else NOT_PROVEN
 
-const val NO_RECORD = "No record yet"
-/** "No record yet · from Google's policy": a preinstalled app showing its maker's policy lines. */
+/** An app without a record: FinePrint hasn't checked it. */
+const val NO_RECORD = "Not checked yet"
+/** "Not checked yet · from Google's policy": a preinstalled app showing its maker's policy lines. */
 fun noRecordFrom(maker: String): String = "$NO_RECORD · from ${possessive(maker)} policy"
 val SYSTEM = BadgeText("System", "It came with your phone: Android lists it as a system app.")
 const val OTHER_PREINSTALLED = "Other preinstalled apps"
@@ -136,18 +144,18 @@ const val OTHER_PREINSTALLED_NOTE = "FinePrint can't tell from their package nam
 fun groupHeader(name: String, count: Int): String = "$name · $count ${if (count == 1) "app" else "apps"}"
 /** "From Google's privacy policy, which covers these apps.": the group's inherited lines, shown once. */
 fun fromPolicyForAll(company: String): String = "From ${possessive(company)} privacy policy, which covers these apps."
-/** Your own mark, kept on this phone. FinePrint's record review is a different thing ("No record yet"). */
+/** Your own mark, kept on this phone. FinePrint's own work is "checked", never "reviewed": the two never share a word. */
 const val REVIEWED = "Reviewed"
 const val REVIEWED_DEFINITION = "You've marked this app reviewed. The mark stays on this phone and never changes the tier."
 const val CHANGED = "Changed since you reviewed"
-const val CHANGED_DEFINITION = "Since you marked it reviewed, something has changed in what FinePrint's record says the app does with your data, in what's on the record about it, in the permissions you've granted, or in the app's tracker code or device access."
-const val LIMITED_DEFINITION = "A flow counts as limited when a setting you've changed applies to it: an Android permission turned off, or an in-app setting ticked. Limited doesn't mean stopped."
-const val STALE_DEFINITION = "Last reviewed more than 180 days ago; it may be out of date."
+const val CHANGED_DEFINITION = "Something about this app has changed since you marked it reviewed. The note beside the mark says what."
+const val LIMITED_DEFINITION = "Limited means a setting you've changed applies to it: an Android permission turned off, or an in-app setting ticked. Limited doesn't mean stopped."
+const val STALE_DEFINITION = "Last checked more than 180 days ago; it may be out of date."
 
-/** Under a reviewed record, and under each law line: when it was last reviewed, and whether that was too long ago. */
-fun recordLastReviewed(date: String) = "Record last reviewed $date."
-const val STALE_NOTE = "This record is more than 180 days old and may be out of date."
-const val NO_RECORD_DEFINITION = "FinePrint hasn't reviewed this app. What it shows is inferred from the tracker code in the app: it can be rated Caution, but never Flagged or Expected."
+/** Under an app FinePrint has checked, and under each law ([what]: "this app", "this law"): when, and whether that was too long ago. */
+fun lastChecked(what: String, date: String) = "FinePrint last checked $what on $date."
+fun staleNote(what: String) = "FinePrint last checked $what more than 180 days ago. It may be out of date."
+const val NO_RECORD_DEFINITION = "FinePrint hasn't checked this app. What it shows comes from the trackers built into it. It can be Caution, never Flagged or Expected."
 
 /** Plain names for data kinds: flow headings and "What it collects". */
 val DATA_LABELS = mapOf(

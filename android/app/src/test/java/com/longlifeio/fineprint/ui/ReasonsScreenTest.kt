@@ -5,7 +5,6 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
@@ -17,6 +16,7 @@ import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,7 +26,7 @@ import org.robolectric.annotation.GraphicsMode
 import java.io.File
 import java.time.LocalDate
 
-/** Why an app has its tier, on its page (docs/METHOD.md, An app's page): the Why line, the markers, the places' glosses. */
+/** Why an app has its tier, on its page (docs/METHOD.md, An app's page): the Why line, the heading over what set it, the places' glosses. */
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [36], qualifiers = "w411dp-h914dp-420dpi")
@@ -49,36 +49,42 @@ class ReasonsScreenTest {
         }
     }
 
-    private val markers get() = compose.onAllNodesWithTag("reason", useUnmergedTree = true).fetchSemanticsNodes().size
+    private fun count(text: String) = compose.onAllNodes(hasText(text), useUnmergedTree = true).fetchSemanticsNodes().size
+    private fun top(text: String) = compose.onNode(hasText(text), useUnmergedTree = true).fetchSemanticsNode().boundsInRoot.top
 
-    /** Tall enough that the whole page is laid out: every marker on it is counted. */
+    /** Tall enough that the whole page is laid out: every heading on it is counted. */
     @Test @Config(qualifiers = "w411dp-h3000dp-420dpi")
-    fun theLinesThatSetItCarryItsMarkerInTheFinePrintAndWhereItGoes() {
+    fun theLinesThatSetItComeFirstUnderOneHeadingInTheFinePrintAndWhereItGoes() {
         detail("com.example.flows")
-        compose.onNodeWithTag("why").assert(hasText("Why: Location data goes elsewhere — Example Flows' own policy, and 1 more marked below"))
-        assertEquals("two in the fine print, the same two in Where it goes", 4, markers)
+        compose.onNodeWithTag("why").assert(hasText("Why: Example Flows says your location goes to other companies. 1 more reason below."))
+        assertEquals("one in the fine print, one in Goes elsewhere", 2, count("Why it's Flagged"))
+        assertEquals("over the rest of each; Used for more has nothing that set it, so no heading", 2, count("Also"))
+        compose.onAllNodes(hasText("for this", substring = true), useUnmergedTree = true).assertCountEquals(0) // no marker on a line
         compose.onAllNodes(hasText("to other companies"), useUnmergedTree = true).assertCountEquals(1) // Goes elsewhere's gloss
         compose.onAllNodes(hasText("beyond running the app"), useUnmergedTree = true).assertCountEquals(1)
     }
 
     @Test
-    fun aRulingsItemOnTheRecordCarriesTheMarkerAndSoDoesTheClosedCard() {
+    fun aRulingThatSetsTheTierComesFirstOnTheRecordUnderItsHeading() {
         detail("com.example.ruled")
         compose.onNodeWithTag("why").assert(hasText("Why: A court or regulator has ruled on this app's data"))
         val page = compose.onNodeWithTag("detail")
         page.performScrollToNode(hasText("On the record", substring = true) and hasClickAction())
-        assertEquals("on the card's top, closed", 1, markers)
+        assertEquals("nothing on the closed card", 0, count("Why it's Flagged"))
         compose.onNode(hasText("On the record", substring = true) and hasClickAction()).performClick()
-        page.performScrollToNode(hasText("The decision", substring = true)) // its row: date, first source, outcome
-        assertEquals("on the card's top and on the item", 2, markers)
+        val row = hasText("2026-03-01 · The decision", substring = true) // its row: date, first source, outcome (the Sources card lists the title too)
+        page.performScrollToNode(row)
+        assertEquals(1, count("Why it's Flagged"))
+        assertTrue(top("Why it's Flagged") < compose.onNode(row).fetchSemanticsNode().boundsInRoot.top)
+        assertEquals("its only item, so no Ongoing or Past group", 0, count("Ongoing") + count("Past"))
     }
 
     @Test
-    fun aComplaintMerelyFiledLeadsNothingAndIsMarkedNowhere() {
+    fun aComplaintMerelyFiledLeadsNothing() {
         detail("com.example.complaint")
         compose.onNodeWithTag("why").assert(hasText("Why: Nothing found beyond running the app"))
         compose.onNodeWithTag("detail").performScrollToNode(hasText("On the record", substring = true) and hasClickAction())
         compose.onNode(hasText("On the record", substring = true) and hasClickAction()).performClick()
-        compose.onAllNodesWithTag("reason", useUnmergedTree = true).assertCountEquals(0)
+        assertEquals(0, count("Why it's Flagged") + count("Why it's Caution") + count("Also"))
     }
 }

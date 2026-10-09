@@ -152,7 +152,7 @@ class PreviewTest {
     fun theReviewRequestShowsItsDisclosureButCantOpenGitHub() {
         compose.onNodeWithTag("list").performScrollToNode(hasText("Don du Sang")) // no record
         compose.onNodeWithText("Don du Sang").performSemanticsAction(SemanticsActions.OnClick)
-        compose.onNodeWithText("Ask FinePrint to review this app").performClick()
+        compose.onNodeWithText("Ask FinePrint to check this app").performClick()
         compose.onNodeWithText("This opens GitHub", substring = true).assertIsDisplayed()
         compose.onNodeWithText("Open GitHub").assertIsNotEnabled().performClick()
         compose.onNode(hasText(REVIEW_UNAVAILABLE!!) and hasAnyAncestor(isDialog())).assertIsDisplayed()

@@ -25,14 +25,14 @@ class CoverageTest {
     fun eachStateHasItsLabelAndItsLine() {
         assertEquals(listOf(Coverage.CHECKED, Coverage.THEIR_WORDS_ONLY, Coverage.NO_RECORD), apps.map { e(it.packageName).coverageState })
         assertEquals(
-            listOf("Checked by FinePrint · 2026-10-08", "Their words only", "No record yet"),
+            listOf("Checked by FinePrint · 2026-10-08", "Their words only", "Not checked yet"),
             apps.map { coverageLabel(e(it.packageName)) },
         )
         assertEquals(
             listOf(
                 "Checked by FinePrint on 2026-10-08",
-                "Their words only — a reviewer hasn't looked at this app yet",
-                "No record yet — these lines come from the trackers found in its code.",
+                "Their words only — FinePrint hasn't checked for rulings or reports yet.",
+                "Not checked yet — these lines come from the trackers found in its code.",
             ),
             apps.map { coverageLine(e(it.packageName)) },
         )
@@ -41,18 +41,18 @@ class CoverageTest {
     @Test
     fun aPreinstalledAppsLineNamesItsMakersPolicy() {
         val inherited = e("org.example.none").copy(maker = Maker("co-google", "Google", inherited = true, lines = emptyList(), notes = emptyList()))
-        assertEquals("No record yet · from Google's policy", coverageLabel(inherited))
-        assertEquals("No record yet — these lines come from Google's policy and the trackers found in its code.", coverageLine(inherited))
+        assertEquals("Not checked yet · from Google's policy", coverageLabel(inherited))
+        assertEquals("Not checked yet — these lines come from Google's policy and the trackers found in its code.", coverageLine(inherited))
     }
 
     @Test
     fun atAGlanceCountsThemAndTheFiltersPickThemOut() {
-        assertEquals("Records: 1 checked, 1 their words only, 1 no record yet.", recordsLine(apps, explanations))
+        assertEquals("Records: 1 checked, 1 their words only, 1 not checked yet.", recordsLine(apps, explanations))
         fun only(f: ListFilter) = listOrder(apps, explanations, emptyMap(), "", setOf(f)).map { it.packageName }
         assertEquals(listOf("com.example.conditional"), only(ListFilter.CHECKED))
         assertEquals(listOf("com.example.regulator"), only(ListFilter.THEIR_WORDS))
         assertEquals(listOf("org.example.none"), only(ListFilter.NO_RECORD))
-        assertEquals(listOf("Checked", "Their words only", "No record yet"), listOf(ListFilter.CHECKED, ListFilter.THEIR_WORDS, ListFilter.NO_RECORD).map { it.label })
+        assertEquals(listOf("Checked", "Their words only", "Not checked yet"), listOf(ListFilter.CHECKED, ListFilter.THEIR_WORDS, ListFilter.NO_RECORD).map { it.label })
     }
 
     @Test

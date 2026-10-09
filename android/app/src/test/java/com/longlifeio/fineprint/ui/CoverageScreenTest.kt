@@ -53,7 +53,7 @@ class CoverageScreenTest {
                 bundleLine = "bundle: ${bundle.version}", onAbout = {}, onHowToRead = {}, openSections = OpenSections({ _, _ -> true }, { _, _ -> }),
             )
         }
-        compose.onNodeWithText("Records: 1 checked, 1 their words only, 1 no record yet.").assertExists()
+        compose.onNodeWithText("Records: 1 checked, 1 their words only, 1 not checked yet.").assertExists()
         compose.onNodeWithTag("list").performScrollToNode(hasText("Checked by FinePrint · 2026-10-08"))
         compose.onNodeWithTag("list").performScrollToNode(hasText("Their words only"))
         // The filters live in the search view, which Filters opens.
@@ -73,6 +73,6 @@ class CoverageScreenTest {
                 onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
             )
         }
-        compose.onNodeWithTag("coverage").assert(hasText("Their words only — a reviewer hasn't looked at this app yet"))
+        compose.onNodeWithTag("coverage").assert(hasText("Their words only — FinePrint hasn't checked for rulings or reports yet."))
     }
 }

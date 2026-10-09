@@ -2,6 +2,7 @@ package com.longlifeio.fineprint.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -19,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.heading
@@ -27,6 +29,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.bundle.SummaryNote
@@ -44,8 +47,8 @@ import com.longlifeio.fineprint.explain.SUMMARY_AUTO
 import com.longlifeio.fineprint.explain.SUMMARY_CURATED
 import com.longlifeio.fineprint.explain.NOT_RECORDED
 import com.longlifeio.fineprint.explain.SUMMARY_INHERITED
+import com.longlifeio.fineprint.explain.ALSO
 import com.longlifeio.fineprint.explain.SectionText
-import com.longlifeio.fineprint.explain.Tier
 import com.longlifeio.fineprint.explain.WHAT_YOU_CAN_DO
 import com.longlifeio.fineprint.explain.WHERE_IT_GOES
 import com.longlifeio.fineprint.explain.WhatYouCanDo
@@ -56,6 +59,7 @@ import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.reachHeadline
 import com.longlifeio.fineprint.explain.summaryHeadline
 import com.longlifeio.fineprint.explain.whereHeadline
+import com.longlifeio.fineprint.explain.whyItIs
 
 /**
  * The detail screen's sections up to Device access, each a card, always in this order; empty ones are
@@ -82,7 +86,7 @@ fun LazyListScope.detailSections(
     cardTop("collects", COLLECTS, collectsHeadline(e))
     cardItem {
         if (e.collects.isEmpty()) {
-            Note("Nothing found: no reviewed record, no tracker code and no data permissions granted.")
+            Note("Nothing found: FinePrint hasn't checked this app, it has no tracker code, and you've granted it no data permissions.")
         } else {
             FlowRow(Modifier.padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 e.collects.forEach { DataChip(it) }
@@ -98,10 +102,19 @@ fun LazyListScope.detailSections(
             cardItem(key = "bucket:$bucket") { BucketHeader(bucket, lines.size) }
             // The first four, then See all N; the chip above keeps the full count.
             val all = buckets.isOpen(bucket) || lines.size <= BUCKET_FIRST
-            cardItems(if (all) lines else lines.take(BUCKET_FIRST)) { FlowLineRow(it, onSources, e.tier.tier) }
+            val shown = if (all) lines else lines.take(BUCKET_FIRST)
+            // The lines that set the tier come first, under Why it's Flagged (or Caution); the rest of the place under Also.
+            val why = e.tier.tier?.takeIf { lines.any { it.setsTier } }
+            shown.forEachIndexed { i, line ->
+                if (why != null && i == 0 && line.setsTier) cardItem(key = "why:$bucket") { SubHeader(whyItIs(why), why.definition) }
+                if (why != null && !line.setsTier && shown.getOrNull(i - 1)?.setsTier != false) cardItem(key = "also:$bucket") { SubHeader(ALSO) }
+                cardItem { FlowLineRow(line, onSources) }
+            }
             if (lines.size > BUCKET_FIRST) {
                 cardItem(key = "more:$bucket") {
-                    LinkRow(if (all) "Show the first $BUCKET_FIRST" else "See all ${lines.size}", if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more) { buckets.toggle(bucket) }
+                    Box(Modifier.testTag("more:$bucket")) {
+                        LinkRow(if (all) "Show the first $BUCKET_FIRST" else "See all ${lines.size}", if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more) { buckets.toggle(bucket) }
+                    }
                 }
             }
         }
@@ -123,7 +136,7 @@ fun LazyListScope.detailSections(
                 Text(line.whyItMatters, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
-        cardItem { LinkRow("Open app settings to change these", R.drawable.ic_open_in_new, onOpenSettings) }
+        cardItem { LinkRow("Open app settings to change these", R.drawable.ic_open_in_new, onClick = onOpenSettings) }
         settingsUnavailable?.let { cardItem { Note(it) } }
         cardEnd("applies")
     }
@@ -150,10 +163,14 @@ fun LazyListScope.detailSections(
 
 /** A heading inside a card, with its definition (Recent changes, Jurisdictions, Ongoing, …). */
 @Composable
-internal fun SubHeader(text: SectionText) {
+internal fun SubHeader(text: SectionText) = SubHeader(text.title, text.subtitle)
+
+/** A heading inside a card, with a definition under it when there is one ("Why it's Flagged", "Also"). */
+@Composable
+internal fun SubHeader(title: String, subtitle: String? = null) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 2.dp)) {
-        Text(text.title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
-        Text(text.subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.semantics { heading() })
+        subtitle?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
 }
 
@@ -190,20 +207,16 @@ internal fun SummaryNoteRow(note: SummaryNote, onSources: (SheetContent) -> Unit
     }
 }
 
-/**
- * Data → recipient and purpose with its footnote, then status (after the tier's marker, on a line that set the tier
- * [tier]), attribution and its Sources row.
- */
+/** Data → recipient and purpose with its footnote, then its status, attribution and Sources row. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit, tier: Tier? = null) {
+internal fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit) {
     val label = DATA_LABELS[line.data] ?: line.data
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 8.dp)) {
         Text(label, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
         Text("→ ${line.recipient}: ${line.purpose}" + LocalFootnotes.current.marks(line.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks("→ ${line.recipient}: ${line.purpose}"))
         line.conditional?.let { Text(conditionLine(it), style = MaterialTheme.typography.bodySmall) }
         FlowRow(Modifier.padding(top = 4.dp), itemVerticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (line.setsTier) ReasonMarker(tier)
             StatusBadge(line.status, line.historical, line.forum)
             DEFAULTS[line.default]?.let { d ->
                 WithDefinition(d.label, d.definition) {
@@ -226,15 +239,15 @@ private fun DataChip(label: String) {
     }
 }
 
-/** A text link with an icon, 48dp tall. */
+/** A text link with an icon, 48dp tall; [inset] is its side padding (none in the hero, whose card pads it). */
 @Composable
-fun LinkRow(text: String, icon: Int, onClick: (() -> Unit)?) {
+fun LinkRow(text: String, icon: Int, inset: Dp = 16.dp, onClick: (() -> Unit)?) {
     val colour = if (onClick != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         // Null: shown, but it opens nothing (a note under it says why).
-        modifier = Modifier.fillMaxWidth().heightIn(min = TOUCH).clickable(enabled = onClick != null) { onClick?.invoke() }.padding(horizontal = 16.dp),
+        modifier = Modifier.fillMaxWidth().heightIn(min = TOUCH).clickable(enabled = onClick != null) { onClick?.invoke() }.padding(horizontal = inset),
     ) {
         Text(text, style = MaterialTheme.typography.labelLarge, color = colour, modifier = Modifier.weight(1f))
         Icon(painterResource(icon), contentDescription = null, tint = colour, modifier = Modifier.size(20.dp))

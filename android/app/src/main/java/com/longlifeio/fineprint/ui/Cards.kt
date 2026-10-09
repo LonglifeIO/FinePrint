@@ -49,7 +49,6 @@ import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.explain.Footnotes
 import com.longlifeio.fineprint.explain.SOURCES
 import com.longlifeio.fineprint.explain.SectionText
-import com.longlifeio.fineprint.explain.Tier
 import com.longlifeio.fineprint.explain.spoken
 
 /*
@@ -85,12 +84,12 @@ fun Modifier.cardFill(p: Palette, top: Dp = Corner.card, bottom: Dp = Corner.car
 /** A card that opens and closes from its top (On the record, Evidence). */
 data class CardToggle(val open: Boolean, val what: String, val onToggle: () -> Unit)
 
-/** A card's top: its name, its headline and its definition; [marker], the tier's, when something in it set the tier. */
-fun LazyListScope.cardTop(key: String, text: SectionText, headline: String, toggle: CardToggle? = null, marker: Tier? = null) =
-    item(key = "section:$key") { CardTop(text, headline, toggle, marker) }
+/** A card's top: its name, its headline and its definition. */
+fun LazyListScope.cardTop(key: String, text: SectionText, headline: String, toggle: CardToggle? = null) =
+    item(key = "section:$key") { CardTop(text, headline, toggle) }
 
 @Composable
-private fun CardTop(text: SectionText, headline: String, toggle: CardToggle?, marker: Tier?) {
+private fun CardTop(text: SectionText, headline: String, toggle: CardToggle?) {
     val p = LocalPalette.current
     val action = toggle?.let { t ->
         Modifier
@@ -103,7 +102,6 @@ private fun CardTop(text: SectionText, headline: String, toggle: CardToggle?, ma
                 Eyebrow(text.title)
                 Text(headline, style = CardHeadline, color = p.ink)
                 Text(text.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
-                ReasonMarker(marker, Modifier.padding(top = Space.xs))
             }
             if (toggle != null) {
                 Icon(

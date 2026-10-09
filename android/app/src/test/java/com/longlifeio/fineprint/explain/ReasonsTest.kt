@@ -12,8 +12,8 @@ import java.time.LocalDate
 
 /**
  * Why an app has its tier (docs/METHOD.md, An app's page), on the reasons fixture: a ruling, a case a court let go
- * ahead, a complaint merely filed, a tier only alleged lines reach, and an app two of its own lines set. A reason is
- * always a fact; what a claimant alleges never leads.
+ * ahead, a lawsuit and a complaint merely filed, a tier only alleged lines reach, and an app two of its own lines set.
+ * A reason is always a fact; what a claimant alleges never leads.
  */
 class ReasonsTest {
 
@@ -42,6 +42,17 @@ class ReasonsTest {
     }
 
     @Test
+    fun aClaimOnlyFiledStaysOutOfTheFinePrint() {
+        val e = e("com.example.filed")
+        // Its own ads set Caution; the lawsuit, only filed, sets nothing and isn't in the fine print.
+        assertEquals("C1", e.tier.rule)
+        assertEquals(listOf("What you do in the app → Example Inc.: The company's own ads"), finePrint(e).map { it.text })
+        // It stays under Where it goes and On the record.
+        assertTrue(e.flows.getValue(GOES_ELSEWHERE).any { it.status == "alleged" && it.statusKind == "filed" })
+        assertEquals("filed", e.onTheRecord.actions.single().statusKind)
+    }
+
+    @Test
     fun aComplaintMerelyFiledSetsNoTierAndLeadsNothing() {
         val e = e("com.example.complaint")
         assertEquals(Tier.EXPECTED, e.tier.tier)
@@ -59,10 +70,10 @@ class ReasonsTest {
     }
 
     @Test
-    fun theLinesThatSetTheTierAreMarkedAndReadFirst() {
+    fun theLinesThatSetTheTierAreReadFirst() {
         val e = e("com.example.flows")
         assertEquals("F1", e.tier.rule)
-        assertEquals("Why: Location data goes elsewhere — Example Flows' own policy, and 1 more marked below", whyLine(e))
+        assertEquals("Why: Example Flows says your location goes to other companies. 1 more reason below.", whyLine(e))
         // Location and contacts set it (Flagged's sensitive kinds); advertising IDs don't, and come after them.
         assertEquals(
             listOf(
@@ -89,6 +100,6 @@ class ReasonsTest {
             listOf("Stays here · to run the app", "Used for more · beyond running the app", "Goes elsewhere · to other companies"),
             BUCKETS.map { "${BUCKET_TEXT.getValue(it).title} · ${BUCKET_GLOSS.getValue(it)}" },
         )
-        assertEquals(listOf("Flagged for this", "Caution for this"), listOf(Tier.FLAGGED, Tier.CAUTION).map(::reasonMarker))
+        assertEquals(listOf("Why it's Flagged", "Why it's Caution"), listOf(Tier.FLAGGED, Tier.CAUTION).map(::whyItIs))
     }
 }

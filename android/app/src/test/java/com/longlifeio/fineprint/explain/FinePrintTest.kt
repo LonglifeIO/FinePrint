@@ -36,20 +36,22 @@ class FinePrintTest {
     private val admob = explanation("org.example.admob", scan(Triple("exodus-312", "Google AdMob", "Advertisement")))
 
     @Test
-    fun theFinePrintIsTheReadingOrderUpToFourLinesWithRunningTheAppFoldedAfter() {
+    fun theFinePrintIsTheReadingOrderWithRunningTheAppFoldedAfter() {
         for (e in listOf(life360, facebook, unknown)) {
             val lines = finePrint(e)
-            assertTrue(lines.size in 1..FINE_PRINT_MAX)
+            assertTrue(lines.isNotEmpty())
             assertEquals(lines.size, lines.distinct().size) // nothing repeated
-            val order = readingOrder(e)
-            assertEquals(order.filter { it.group() != LineGroup.RUNS_THE_APP }.take(FINE_PRINT_MAX).map { it.claim() }, lines.map { it.text })
+            // A claim only filed in a lawsuit or complaint stays out; the page shows the first four, then See all.
+            val order = readingOrder(e).filter { it.status != "alleged" || it.statusKind in LET_PROCEED }
+            assertEquals(order.filter { it.group() != LineGroup.RUNS_THE_APP }.map { it.claim() }, lines.map { it.text })
             assertEquals(order.filter { it.group() == LineGroup.RUNS_THE_APP }.map { it.claim() }, alsoCollected(e)?.lines.orEmpty().map { it.text })
         }
         // Life360: what goes to other companies comes first, sensitive data first, its own account before reports.
         val first = life360.flows.getValue(GOES_ELSEWHERE).first()
         assertEquals(first.claim(), finePrint(life360).first().text)
         assertTrue(first.data in SENSITIVE_DATA && !first.historical && first.status == "self_disclosed")
-        assertTrue(finePrint(life360).all { line -> life360.flows.getValue(GOES_ELSEWHERE).any { it.claim() == line.text } })
+        assertTrue(finePrint(life360).size > FINE_PRINT_FIRST)
+        assertTrue(finePrint(life360).take(FINE_PRINT_FIRST).all { line -> life360.flows.getValue(GOES_ELSEWHERE).any { it.claim() == line.text } })
         // Facebook: nothing goes to other companies, so its fine print is Meta's own uses; the ruling stays under the tier and On the record.
         assertEquals("F2", facebook.tier.rule)
         assertTrue(finePrint(facebook).all { line -> facebook.flows.getValue(USED_FOR_MORE).any { it.claim() == line.text } })

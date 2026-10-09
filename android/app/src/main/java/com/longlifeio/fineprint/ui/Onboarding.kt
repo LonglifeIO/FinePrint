@@ -139,7 +139,7 @@ private fun WhatItDoes() {
         }
     }
     Title("See where your apps' data can go")
-    Body(INTRO_WHAT_IT_READS ?: "FinePrint reads the code of the apps on this phone, checks it against its own reviewed records, and shows where each app's data can go, with a source for every line.")
+    Body(INTRO_WHAT_IT_READS ?: "FinePrint reads the code of the apps on this phone and compares it with what it has checked. It shows where each app's data can go, and the source of each claim.")
     Body(INTRO_ITS_RECORDS ?: "It all happens on this phone. FinePrint downloads its records whole and never tells anyone which apps you have.")
 }
 
@@ -154,7 +154,7 @@ private fun ThreePlaces() {
             Text(text.subtitle, style = MaterialTheme.typography.bodyMedium, color = LocalPalette.current.ink)
         }
     }
-    Body("Every line also says where it comes from: the company's own words, reporting, a lawsuit (not proven in court), a ruling, or tracker code found in the app.")
+    Body("Each claim says where it comes from. That's the company itself, reporters, a lawsuit (not proven in court), a ruling, or tracker code in the app.")
 }
 
 /** Page 3: what FinePrint is and isn't, and why it asks Android for your app list. */

@@ -86,7 +86,7 @@ import kotlinx.coroutines.withContext
 fun AtAGlance(
     g: Glance, latest: Pair<InstalledApp, Change>?, bundleLine: String, onOpen: (InstalledApp) -> Unit, modifier: Modifier = Modifier,
     notice: String? = null,
-    /** "Records: 4 checked, 0 their words only, 6 no record yet." */
+    /** "Records: 4 checked, 0 their words only, 6 not checked yet." */
     records: String? = null,
 ) {
     val p = LocalPalette.current
@@ -97,7 +97,7 @@ fun AtAGlance(
         Eyebrow("At a glance")
         notice?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = p.ink) }
         Text(glanceHeadline(g), style = CardHeadline, color = p.ink)
-        Text("Apps with lines in each place", style = MaterialTheme.typography.bodySmall, color = p.muted)
+        Text("Apps by where their data goes", style = MaterialTheme.typography.bodySmall, color = p.muted)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.s), verticalArrangement = Arrangement.spacedBy(Space.s)) {
             BUCKETS.forEach { BucketChip(it, g.perBucket[it] ?: 0, noun = if (g.perBucket[it] == 1) "app" else "apps") }
         }
@@ -137,7 +137,7 @@ private fun WhatChanged(app: InstalledApp, change: Change, onOpen: (InstalledApp
 
 /**
  * Which tier sections are open, kept on this phone across launches. Before you've opened or closed
- * one, Flagged and Caution are open and Expected and No record yet are closed.
+ * one, Flagged and Caution are open and Expected and Not checked yet are closed.
  */
 class OpenSections(private val read: (String, Boolean) -> Boolean, private val write: (String, Boolean) -> Unit) {
     private val open = mutableStateMapOf<String, Boolean>().apply { TIER_SECTIONS.forEach { put(key(it), read(key(it), openByDefault(it))) } }

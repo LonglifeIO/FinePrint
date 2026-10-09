@@ -23,9 +23,11 @@ import com.longlifeio.fineprint.explain.SOURCES
 import com.longlifeio.fineprint.explain.SUMMARY_AUTO
 import com.longlifeio.fineprint.explain.SUMMARY_CURATED
 import com.longlifeio.fineprint.explain.THEIR_WORDS
-import com.longlifeio.fineprint.explain.THE_FINE_PRINT
+import androidx.compose.ui.test.hasAnyAncestor
+import androidx.compose.ui.test.hasTestTag
 import com.longlifeio.fineprint.explain.explain
-import com.longlifeio.fineprint.explain.FINE_PRINT_MAX
+import com.longlifeio.fineprint.explain.FINE_PRINT_FIRST
+import com.longlifeio.fineprint.explain.FINE_PRINT_HEADING
 import com.longlifeio.fineprint.explain.finePrint
 import com.longlifeio.fineprint.explain.spoken
 import com.longlifeio.fineprint.explain.whatYouCanDo
@@ -85,12 +87,16 @@ class DetailTest {
         compose.onNodeWithText(THEIR_WORDS.title).assertExists()
         compose.onNodeWithText("“${tagline.text}”").assertExists() // read without the asterisk that points at the fine print
         compose.onNodeWithText("— Google Play listing (Canada), read 2026-10-07").assertExists()
-        compose.onNodeWithText(THE_FINE_PRINT.title).assertExists()
-        // At most four fine-print lines, each one stop for TalkBack; their asterisks are drawn, not read.
+        compose.onNodeWithText(FINE_PRINT_HEADING).assertExists()
+        // The first four fine-print lines, each one stop for TalkBack; their asterisks are drawn, not read. See all opens the rest.
         val lines = finePrint(e)
-        assertTrue(lines.size in 1..FINE_PRINT_MAX)
+        assertTrue(lines.size > FINE_PRINT_FIRST)
         compose.onAllNodesWithText("*").assertCountEquals(0)
-        lines.forEach { compose.onNodeWithText(spoken(it.text)).assertExists() } // as TalkBack reads it: "→" said as "to"
+        lines.take(FINE_PRINT_FIRST).forEach { compose.onNodeWithText(spoken(it.text)).assertExists() } // as TalkBack reads it: "→" said as "to"
+        val all = hasTestTag("fine-print-all")
+        compose.onNodeWithTag("detail").performScrollToNode(all)
+        compose.onNode(all).performClick()
+        lines.forEach { compose.onNodeWithText(spoken(it.text)).assertExists() }
         // The Summary card still follows: the hero doesn't replace a section.
         compose.onNodeWithTag("detail").performScrollToNode(hasText(SUMMARY_CURATED.subtitle))
         assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
@@ -122,9 +128,12 @@ class DetailTest {
         // The chip keeps the full count while four lines show.
         detail.performScrollToNode(hasText("Goes elsewhere: $count lines", substring = true))
         compose.onNodeWithText("Goes elsewhere: $count lines", useUnmergedTree = true).assertExists()
-        detail.performScrollToNode(hasText("See all $count"))
-        compose.onNodeWithText("See all $count").performClick()
-        detail.performScrollToNode(hasText("Show the first $BUCKET_FIRST"))
+        // The place's own See all: the fine print has one too, which can read the same.
+        val more = hasTestTag("more:$GOES_ELSEWHERE")
+        detail.performScrollToNode(more)
+        compose.onNode(more).performClick()
+        detail.performScrollToNode(more)
+        compose.onNode(hasText("Show the first $BUCKET_FIRST") and hasAnyAncestor(more), useUnmergedTree = true).assertExists()
         assertTrue(prefs.getBoolean("all:$GOES_ELSEWHERE", false))
         assertTrue(OpenBuckets.of(prefs).isOpen(GOES_ELSEWHERE)) // the next launch shows them all too
         InstrumentationRegistry.getInstrumentation().targetContext.deleteSharedPreferences("detail-test") // leaves nothing in the app's data

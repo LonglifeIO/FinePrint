@@ -5,14 +5,15 @@ import java.time.LocalDate
 
 /** How much an app deserves attention. The rules are published in docs/METHOD.md. */
 enum class Tier(val label: String, val definition: String) {
-    FLAGGED("Flagged", "Sensitive data goes to other companies by the app's own account or a ruling, or a court has ruled on, or let proceed, a case over this app's data."),
-    CAUTION("Caution", "Data is used beyond running the app or goes to other companies, a regulator has opened a formal proceeding over this app's data, or the app can reach deep into the phone."),
-    EXPECTED("Expected", "FinePrint's reviewed record finds nothing beyond what running the app needs."),
+    // The short lines (the home's section headers, the tier chip); How to read gives each in full, as a list.
+    FLAGGED("Flagged", "Sensitive data goes to other companies, or a court has acted on a case about this app's data."),
+    CAUTION("Caution", "Data use, sharing or device reach goes beyond running the app, or a regulator has opened a proceeding."),
+    EXPECTED("Expected", "FinePrint checked this app and found nothing beyond what it needs to work."),
 }
 
 /**
  * An app's tier, the one line that explains it, and the rule that set it (F1-F3, C1-C4, E). A null
- * [tier] is "No record yet": an app without a reviewed record that isn't Caution; its line is what
+ * [tier] is "Not checked yet": an app without a record that isn't Caution; its line is what
  * the scan found (rule N).
  */
 data class TierResult(val tier: Tier?, val reason: String, val rule: String, val capped: Boolean = false) {
@@ -90,22 +91,22 @@ private val DEEP_REACH = mapOf(
     "vpn_service" to "Can run a VPN",
 )
 
-/** Singular nouns, so a reason reads "Location data goes elsewhere". */
+/** Singular nouns, so a reason reads "Life360 says your location goes to other companies". */
 private val REASON_DATA = mapOf(
-    "precise_location" to "Location data",
-    "approximate_location" to "Location data",
-    "movement_and_driving" to "Driving data",
-    "physical_activity" to "Activity data",
-    "contacts" to "Your contact list",
-    "account_identity" to "Account data",
-    "device_identifiers" to "Your advertising ID",
-    "app_activity" to "In-app activity",
-    "crash_diagnostics" to "Crash data",
-    "sensitive_personal_data" to "Sensitive personal data",
-    "health" to "Health data",
-    "financial" to "Financial data",
-    "biometric" to "Biometric data",
-    "childrens_data" to "Children's data",
+    "precise_location" to "your location",
+    "approximate_location" to "your location",
+    "movement_and_driving" to "your driving data",
+    "physical_activity" to "your activity data",
+    "contacts" to "your contact list",
+    "account_identity" to "your account data",
+    "device_identifiers" to "your advertising ID",
+    "app_activity" to "what you do in the app",
+    "crash_diagnostics" to "crash data",
+    "sensitive_personal_data" to "sensitive personal data",
+    "health" to "your health data",
+    "financial" to "your financial data",
+    "biometric" to "your biometric data",
+    "childrens_data" to "children's data",
 )
 
 /**
@@ -128,8 +129,8 @@ private fun canRaise(line: FlowLine) =
 
 /**
  * The tier formula (docs/METHOD.md, "Tiers"), checked strongest first so the reason names what set
- * the tier. [curated] is false for apps without a reviewed record: those are never Flagged or
- * Expected, so they get Caution at most, or "No record yet" with [scanFacts] as their line.
+ * the tier. [curated] is false for apps without a record: those are never Flagged or
+ * Expected, so they get Caution at most, or "Not checked yet" with [scanFacts] as their line.
  */
 fun tier(
     curated: Boolean,
@@ -193,7 +194,7 @@ fun tier(
     // C4: access that reaches into the rest of the phone.
     reach.firstNotNullOfOrNull { DEEP_REACH[it] }?.let { return TierResult(Tier.CAUTION, it, "C4") }
 
-    // Expected needs a reviewed record: without one, FinePrint says only what its scan found.
+    // Expected needs a record FinePrint has checked: without one, FinePrint says only what its scan found.
     if (!curated) return TierResult(null, scanFacts, "N")
     return TierResult(Tier.EXPECTED, "Nothing found beyond running the app", "E")
 }
@@ -201,16 +202,30 @@ fun tier(
 /** "Life360's", but "Google Maps'". */
 internal fun possessive(name: String): String = if (name.endsWith("s")) "$name'" else "$name's"
 
-/** "Location data goes elsewhere — Life360's own policy". */
+/**
+ * "Life360 says your location goes to other companies": who says so, then what happens to the data. The app or a
+ * tracker's company says; a court or regulator found; reporters found (named when there are two outlets, else counted,
+ * with the Sources sheet listing them); or tracker code in the app can send it.
+ */
 private fun reason(line: FlowLine, appName: String): String {
-    val what = REASON_DATA[line.data] ?: "Data"
-    val verb = if (line.bucket == USED_FOR_MORE) "is used for more" else "goes elsewhere"
-    val basis = when (line.status) {
-        "self_disclosed" -> if (line.via == null) "${possessive(appName)} own policy" else "${possessive(line.via)} own disclosure"
-        "adjudicated" -> "a court or regulator's decision"
-        "reported" -> "reported by two or more sources"
-        "alleged" -> "alleged, ${undecided(line.forum)}"
-        else -> "${line.via ?: line.recipient} code in this app"
+    val data = REASON_DATA[line.data] ?: "your data"
+    val more = line.bucket == USED_FOR_MORE
+    fun found(who: String) = if (more) "$who found $appName uses $data for more than running the app" else "$who found $data goes to other companies"
+    return when (line.status) {
+        "self_disclosed" -> (line.via ?: appName).let { who -> if (more) "$who says it uses $data for more than running the app" else "$who says $data goes to other companies" }
+        "adjudicated" -> found("A court or regulator")
+        "reported" -> found(reporters(line.sources))
+        // Never the reason given (tier() leaves alleged lines out); said as a claim if it ever were.
+        "alleged" -> "It's alleged that $data ${if (more) "is used for more than running the app" else "goes to other companies"} (${undecided(line.forum)})"
+        else -> "${line.via ?: line.recipient} code in this app " + if (more) "can use $data for more than running the app" else "can send $data to other companies"
     }
-    return "$what $verb — $basis"
 }
+
+/** "The Markup and Reuters" when two outlets reported it independently; otherwise "3 independent reports". */
+internal fun reporters(sources: List<Source>): String {
+    val outlets = sources.filter { it.derivesFrom == null }.map { outlet(it.title) }.distinct()
+    return if (outlets.size == 2) outlets.joinToString(" and ") else "${independentSources(sources)} independent reports"
+}
+
+/** An outlet's name from its source's title: "The Markup (follow-up)" and "Consumer Reports, “Who Shares …”" give "The Markup" and "Consumer Reports". */
+private fun outlet(title: String): String = title.substringBefore(" (").substringBefore(", ").substringBefore(": ").trim()

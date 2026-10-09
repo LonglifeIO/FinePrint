@@ -35,7 +35,7 @@ class OnTheRecordTest {
         assertTrue(actions.none { it.namesThisApp }) // so the page says no action names this app
         assertEquals("Action against Google", actions.last().subject)
         // Shown, but none names Maps, so the tier stays Caution, set by Google's own label.
-        assertEquals(TierResult(Tier.CAUTION, "Location data is used for more — Google Maps' own policy", "C1"), maps.tier)
+        assertEquals(TierResult(Tier.CAUTION, "Google Maps says it uses your location for more than running the app", "C1"), maps.tier)
     }
 
     @Test

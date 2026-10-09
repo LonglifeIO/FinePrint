@@ -75,8 +75,8 @@ class GlanceTest {
         )
         assertEquals("FinePrint doesn't yet list, for your app, data that can go to other companies for more than running the app.", glanceHeadline(g(1, 0)))
         assertEquals("No apps to show yet.", glanceHeadline(g(0, 0)))
-        assertEquals("4 of 19 flows limited by your settings", limitedLine(g(9, 5, 4, 19)))
-        assertEquals("0 of 1 flow limited by your settings", limitedLine(g(1, 1, 0, 1)))
+        assertEquals("4 of 19 data flows limited by your settings", limitedLine(g(9, 5, 4, 19)))
+        assertEquals("0 of 1 data flow limited by your settings", limitedLine(g(1, 1, 0, 1)))
     }
 
     @Test

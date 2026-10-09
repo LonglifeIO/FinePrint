@@ -30,8 +30,8 @@ import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.explain.EVIDENCE
 import com.longlifeio.fineprint.explain.ON_THE_RECORD
-import com.longlifeio.fineprint.explain.STALE_NOTE
-import com.longlifeio.fineprint.explain.recordLastReviewed
+import com.longlifeio.fineprint.explain.lastChecked
+import com.longlifeio.fineprint.explain.staleNote
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
@@ -235,6 +235,10 @@ class TapTargetTest {
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText("Tap to show the laws"))
         compose.onNodeWithText("Tap to show the laws").performClick()
+        // FISA 702's full text opens under its short line.
+        val fisa = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-fisa-702" }
+        detail.performScrollToNode(hasText(fisa.short!!))
+        compose.openLawInFull(fisa.short!!)
         detail.performScrollToNode(hasText("It was repealed on 2026-06-12; directives issued before then stay in force until they expire", substring = true))
         detail.performScrollToNode(hasText("Sources (13)")) // the line's own Sources row, below its text
         compose.onNodeWithText("Sources (13)").performClick()
@@ -262,8 +266,8 @@ class TapTargetTest {
         compose.onNodeWithText("Tap to show the laws").performClick()
         detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)", substring = true)) // its title ends in a footnote number
         val reviewed = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-cloud-act" }.lastReviewed!!
-        assertTrue(compose.onAllNodes(hasText(recordLastReviewed(reviewed))).fetchSemanticsNodes().isNotEmpty())
-        assertTrue(compose.onAllNodes(hasText(STALE_NOTE)).fetchSemanticsNodes().isNotEmpty())
+        assertTrue(compose.onAllNodes(hasText(lastChecked("this law", reviewed))).fetchSemanticsNodes().isNotEmpty())
+        assertTrue(compose.onAllNodes(hasText(staleNote("this law"))).fetchSemanticsNodes().isNotEmpty())
         // Life360's own record isn't stale, so a Stale marker here is a law's.
         assertTrue(compose.onAllNodes(hasContentDescription("Stale. ", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty())
     }

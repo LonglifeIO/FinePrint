@@ -25,6 +25,8 @@ data class Law(
     val stale: Boolean = false,
     /** Who it binds, with its own sources. */
     val scope: ProceduralNote? = null,
+    /** The law in one plain sentence (schema 1.7), shown first; [text] opens under it. */
+    val short: String? = null,
 )
 
 fun parseJurisdictions(json: String): Map<String, Jurisdiction> {
@@ -39,7 +41,7 @@ fun parseJurisdictions(json: String): Map<String, Jurisdiction> {
                     it.getString("id"), it.getString("name"), it.getString("citation"), it.getString("text"), it.getString("status"),
                     it.optJSONObject("status_note")?.toProceduralNote(), it.objects("sources").map { s -> s.toSource() },
                     it.optJSONArray("applies_to")?.let { a -> List(a.length()) { i -> a.getString(i) } },
-                    it.text("last_reviewed"), it.optBoolean("stale"), it.optJSONObject("scope")?.toProceduralNote(),
+                    it.text("last_reviewed"), it.optBoolean("stale"), it.optJSONObject("scope")?.toProceduralNote(), short = it.text("short"),
                 )
             },
             lastReviewed = j.getString("last_reviewed"),

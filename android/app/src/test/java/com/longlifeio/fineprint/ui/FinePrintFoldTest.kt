@@ -100,7 +100,7 @@ class FinePrintFoldTest {
         val folded = alsoCollected(e)!!.lines
         compose.onAllNodes(hasTestTag("also-collected-line")).assertCountEquals(folded.size)
         folded.forEach { compose.onNode(hasText(spoken(it.text)) and hasAnyAncestor(hasTestTag("also-collected-line")), useUnmergedTree = true).assertExists() }
-        compose.onAllNodes(hasText("Self-disclosed") and hasAnyAncestor(hasTestTag("also-collected-line")), useUnmergedTree = true).assertCountEquals(folded.size)
+        compose.onAllNodes(hasText("Their words") and hasAnyAncestor(hasTestTag("also-collected-line")), useUnmergedTree = true).assertCountEquals(folded.size)
     }
 
     @Test

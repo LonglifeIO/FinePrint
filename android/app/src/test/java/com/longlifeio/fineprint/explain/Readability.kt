@@ -72,7 +72,8 @@ fun grade(sentence: String): Double {
 fun qualifiers(sentence: String): Int = Regex("""\bor\b""", RegexOption.IGNORE_CASE).findAll(sentence).count() + sentence.count { it == ',' }
 
 private val JARGON = listOf(
-    "flow" to Regex("""\bflows?\b""", RegexOption.IGNORE_CASE),
+    // "Data flows" is plain enough (docs/METHOD.md, Voice); a flow on its own is the ledger's word.
+    "flow" to Regex("""(?<!\bdata )\bflows?\b""", RegexOption.IGNORE_CASE),
     "bucket" to Regex("""\bbuckets?\b""", RegexOption.IGNORE_CASE),
     // The data file. "On the record" and "the public record" are the legal sense, and stay.
     "record" to Regex("""(?<!\bon the )(?<!\bpublic )\brecords?\b""", RegexOption.IGNORE_CASE),

@@ -37,8 +37,8 @@ import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.egress.TrackerSignatures
 import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.STALE_DEFINITION
-import com.longlifeio.fineprint.explain.STALE_NOTE
-import com.longlifeio.fineprint.explain.recordLastReviewed
+import com.longlifeio.fineprint.explain.lastChecked
+import com.longlifeio.fineprint.explain.staleNote
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.REVIEWED
 import com.longlifeio.fineprint.explain.WhatYouCanDo
@@ -114,7 +114,7 @@ fun AppDetailScreen(
                     onTheRecordSection(
                         explanation.onTheRecord, explanation.changes, recordOpen, onToggle = { recordOpen = !recordOpen; recordAll = false },
                         showAll = recordAll, onShowAll = { recordAll = true }, onDetails = { sheet = it },
-                        tier = explanation.tier.tier, reasons = explanation.tier.events.mapNotNull { it.line }.toSet(),
+                        tier = explanation.tier.tier, reasons = explanation.tier.events.mapNotNull { it.line },
                     )
                     evidenceSection(evidenceOpen, { evidenceOpen = !evidenceOpen }, app, result, signatures, explanation.exodusNote)
                     sourcesCard(notes)
@@ -122,11 +122,11 @@ fun AppDetailScreen(
                         Column(Modifier.padding(top = Space.l, bottom = Space.xl)) {
                             ReviewControls(review, onMarkReviewed, onClearMark)
                             HorizontalDivider(Modifier.padding(vertical = 8.dp), color = p.divider)
-                            Note(explanation.lastReviewed?.let(::recordLastReviewed) ?: "No reviewed record for this app yet.")
+                            Note(explanation.lastReviewed?.let { lastChecked("this app", it) } ?: "FinePrint hasn't checked this app yet.")
                             bundleVersion?.let { Note("Knowledge bundle $it.") }
-                            if (explanation.stale) Note(STALE_NOTE)
+                            if (explanation.stale) Note(staleNote("this app"))
                             if (result?.trackers?.isNotEmpty() == true) Note("Tracker names and signatures: εxodus Privacy, ODbL 1.0 (details under Evidence).")
-                            LinkRow("How to read this", R.drawable.ic_chevron_right, onHowToRead)
+                            LinkRow("How to read this", R.drawable.ic_chevron_right, onClick = onHowToRead)
                             LinkRow("Report an error", R.drawable.ic_open_in_new) { uriHandler.openUri(REPORT_ERROR_URL) }
                         }
                     }
@@ -166,7 +166,7 @@ private fun ReviewControls(review: ReviewView, onMarkReviewed: (() -> Unit)?, on
     }
 }
 
-/** "Stale": the record was last reviewed more than 180 days ago. */
+/** "Stale": FinePrint last checked it more than 180 days ago. */
 @Composable
 fun StaleMarker() {
     val c = MaterialTheme.colorScheme

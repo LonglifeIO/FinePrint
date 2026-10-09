@@ -19,7 +19,7 @@ class MethodDocTest {
 
     @Test
     fun everyDefinitionTheScreensShowIsInTheMethod() {
-        val sections = listOf(SUMMARY_CURATED, SUMMARY_AUTO, SUMMARY_INHERITED, COLLECTS, WHERE_IT_GOES, APPLIES, WHAT_YOU_CAN_DO, ON_THE_RECORD, ONGOING, PAST, ALSO_REPORTED, DEVICE_ACCESS, EVIDENCE, RECENT_CHANGES, HISTORY, JURISDICTIONS, SOURCES, THEIR_WORDS, THE_FINE_PRINT)
+        val sections = listOf(SUMMARY_CURATED, SUMMARY_AUTO, SUMMARY_INHERITED, COLLECTS, WHERE_IT_GOES, APPLIES, WHAT_YOU_CAN_DO, ON_THE_RECORD, ONGOING, PAST, ALSO_REPORTED, DEVICE_ACCESS, EVIDENCE, RECENT_CHANGES, HISTORY, JURISDICTIONS, SOURCES, THEIR_WORDS)
         val shown = sections.flatMap { listOf(it.title, it.subtitle) } +
             BUCKET_TEXT.values.flatMap { listOf(it.title, it.subtitle) } +
             BADGES.values.flatMap { listOf(it.label, it.definition) } +
@@ -33,7 +33,7 @@ class MethodDocTest {
             listOf(NOT_RECORDED.title, NOT_RECORDED.subtitle, ALSO_COLLECTED, PURPOSE_NOT_RECORDED, CANT_SEE_SETTING) +
             listOf(CHECKED_BY, THEIR_WORDS_ONLY_LINE, NO_RECORD_LINE, ListFilter.CHECKED.label, ListFilter.THEIR_WORDS.label) +
             listOf(ASK_FOR_REVIEW, REVIEW_DISCLOSURE, OPEN_GITHUB) +
-            listOf("$WHY:", reasonMarker(Tier.FLAGGED), reasonMarker(Tier.CAUTION)) + BUCKETS.map { "${BUCKET_TEXT.getValue(it).title} · ${BUCKET_GLOSS.getValue(it)}" } +
+            listOf("$WHY:", whyItIs(Tier.FLAGGED), whyItIs(Tier.CAUTION), ALSO, FINE_PRINT_HEADING, lastChecked("this law", "2026-10-07"), "Show it in full") + BUCKETS.map { "${BUCKET_TEXT.getValue(it).title} · ${BUCKET_GLOSS.getValue(it)}" } +
             listOf(CHECK_ANDROID_OFF, CHECK_ANDROID_ON, CHECK_IN_APP, CHECK_ANDROID_UNSEEN)
         assertEquals(emptyList<String>(), shown.filterNot { it in published })
     }
@@ -45,7 +45,7 @@ class MethodDocTest {
         val headings = blocks.filter { it.kind == MethodBlock.Kind.HEADING }.map { it.text }
         assertEquals(
             listOf("What FinePrint is, and isn't", "An app's page, section by section", "The home", "Where data goes", "Status badges", "Tiers",
-                "What you can do", "Your Reviewed marks", "Apps that came with your phone", "How records are made", "Changes to a record", "Governments", "Reporting an error", "Before each release", "Licences"),
+                "What you can do", "Your Reviewed marks", "Apps that came with your phone", "How records are made", "Changes to a record", "Governments", "Reporting an error", "Voice", "Before each release", "Licences"),
             headings,
         )
         // Nothing is lost: every word of the file appears in some block.

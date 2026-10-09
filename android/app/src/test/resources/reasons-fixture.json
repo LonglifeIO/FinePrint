@@ -40,6 +40,26 @@
    ]
   },
   {
+   "package_id": "com.example.filed",
+   "display_name": "Example Filed",
+   "developer_company": "co-example",
+   "summary": "Synthetic test record: a lawsuit about this app's data has only been filed.",
+   "trackers": [], "coverage": "curated", "checked_on": "2026-10-08", "last_reviewed": "2026-10-08",
+   "store_tagline": {"text": "Find your way", "source_url": "https://play.google.com/store/apps/details?id=com.example.filed", "as_of": "2026-10-08"},
+   "data_flows": [
+    {"id": "flow-sold", "data": "precise_location", "recipient_label": "Data brokers", "purpose": "Alleged resale", "bucket": "goes_elsewhere",
+     "status": "alleged", "status_kind": "filed", "forum": "court", "wording": "Alleged in a class action filed in 2026",
+     "sources": [{"url": "https://example.org/filed/opinion", "type": "lawsuit", "title": "Complaint", "as_of": "2026-03-03", "status": "alleged", "quote": "the plaintiffs allege"}]},
+    {"id": "flow-own", "data": "app_activity", "recipient": "co-example", "purpose": "The company's own ads", "bucket": "used_for_more", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/filed/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "our own ads"}]}
+   ],
+   "consequences": [
+    {"text": "A class action alleges the app sold where you go to data brokers.", "status": "alleged", "status_kind": "filed", "forum": "court",
+     "wording": "Alleged in a class action filed in 2026",
+     "sources": [{"url": "https://example.org/filed/opinion", "type": "lawsuit", "title": "Complaint", "as_of": "2026-03-03", "status": "alleged", "quote": "the plaintiffs allege"}]}
+   ]
+  },
+  {
    "package_id": "com.example.complaint",
    "display_name": "Example Complaint",
    "developer_company": "co-example",

@@ -31,16 +31,16 @@ class TierTest {
     @Test
     fun f1SensitiveDataGoesElsewhereByTheAppsOwnAccountOrARuling() {
         assertEquals(
-            TierResult(Tier.FLAGGED, "Location data goes elsewhere — App's own policy", "F1"),
+            TierResult(Tier.FLAGGED, "App says your location goes to other companies", "F1"),
             rate(flows = listOf(flow("precise_location", GOES_ELSEWHERE, "self_disclosed"))),
         )
         assertEquals(
-            TierResult(Tier.FLAGGED, "Your contact list goes elsewhere — a court or regulator's decision", "F1"),
+            TierResult(Tier.FLAGGED, "A court or regulator found your contact list goes to other companies", "F1"),
             rate(flows = listOf(flow("contacts", GOES_ELSEWHERE, "adjudicated"))),
         )
         // A tracker's own disclosure names the tracker, not the app.
         assertEquals(
-            "Driving data goes elsewhere — Arity's own disclosure",
+            "Arity says your driving data goes to other companies",
             rate(flows = listOf(flow("movement_and_driving", GOES_ELSEWHERE, "self_disclosed", via = "Arity"))).reason,
         )
     }
@@ -80,12 +80,12 @@ class TierTest {
     fun theReasonNamesACurrentFlowTheMakerDisclosesBeforeARuling() {
         val ruling = TierEvent("adjudicated", "ruling", true, listOf(src("adjudicated")), "Irish DPC fine", "2025-05-02")
         val disclosed = flow("precise_location", GOES_ELSEWHERE, "self_disclosed")
-        assertEquals(TierResult(Tier.FLAGGED, "Location data goes elsewhere — App's own policy", "F1"), rate(flows = listOf(disclosed), events = listOf(ruling)))
-        assertEquals("Location data goes elsewhere — App's own policy", rate(flows = listOf(flow("contacts", GOES_ELSEWHERE, "adjudicated"), disclosed)).reason)
+        assertEquals(TierResult(Tier.FLAGGED, "App says your location goes to other companies", "F1"), rate(flows = listOf(disclosed), events = listOf(ruling)))
+        assertEquals("App says your location goes to other companies", rate(flows = listOf(flow("contacts", GOES_ELSEWHERE, "adjudicated"), disclosed)).reason)
         // A past practice comes after a current one.
         val past = disclosed.copy(historical = true)
-        assertEquals("Your contact list goes elsewhere — a court or regulator's decision", rate(flows = listOf(past, flow("contacts", GOES_ELSEWHERE, "adjudicated"))).reason)
-        assertEquals("Your advertising ID is used for more — App's own policy",
+        assertEquals("A court or regulator found your contact list goes to other companies", rate(flows = listOf(past, flow("contacts", GOES_ELSEWHERE, "adjudicated"))).reason)
+        assertEquals("App says it uses your advertising ID for more than running the app",
             rate(flows = listOf(flow("app_activity", USED_FOR_MORE, "adjudicated"), flow("device_identifiers", USED_FOR_MORE, "self_disclosed"))).reason)
     }
 
@@ -106,11 +106,24 @@ class TierTest {
     @Test
     fun c1UsedForMoreByOwnAccountTwoReportsOrARuling() {
         assertEquals(
-            TierResult(Tier.CAUTION, "Your advertising ID is used for more — App's own policy", "C1"),
+            TierResult(Tier.CAUTION, "App says it uses your advertising ID for more than running the app", "C1"),
             rate(flows = listOf(flow("device_identifiers", USED_FOR_MORE, "self_disclosed"))),
         )
         assertEquals("C1", rate(flows = listOf(flow("app_activity", USED_FOR_MORE, "reported", twoReports))).rule)
         assertEquals("C1", rate(flows = listOf(flow("app_activity", USED_FOR_MORE, "adjudicated"))).rule)
+    }
+
+    /** W9: two outlets that reported it on their own are named; more are counted, and the Sources sheet lists them. */
+    @Test
+    fun reportsNameTheirTwoOutletsOrCountThem() {
+        fun report(title: String, id: String, derivesFrom: String? = null) =
+            Source("https://example.org/$id", title, "journalism", "reported", "2026-01-01", null, "q", id, derivesFrom)
+        val two = listOf(report("The Markup", "a"), report("Reuters (follow-up)", "b"))
+        assertEquals("The Markup and Reuters found your location goes to other companies", rate(flows = listOf(flow("precise_location", GOES_ELSEWHERE, "reported", two))).reason)
+        assertEquals("The Markup and Reuters found App uses your advertising ID for more than running the app", rate(flows = listOf(flow("device_identifiers", USED_FOR_MORE, "reported", two))).reason)
+        // A copy of one report doesn't count; a third outlet makes too many to name.
+        val three = two + report("Le Monde", "c") + report("The Markup", "d", derivesFrom = "a")
+        assertEquals("3 independent reports found your location goes to other companies", rate(flows = listOf(flow("precise_location", GOES_ELSEWHERE, "reported", three))).reason)
     }
 
     @Test
@@ -118,13 +131,13 @@ class TierTest {
         assertEquals("C2", rate(flows = listOf(flow("device_identifiers", GOES_ELSEWHERE, "self_disclosed"))).rule)
         // Sensitive data with weaker evidence than F1 needs is Caution, not Flagged.
         assertEquals(
-            TierResult(Tier.CAUTION, "Location data goes elsewhere — reported by two or more sources", "C2"),
+            TierResult(Tier.CAUTION, "2 independent reports found your location goes to other companies", "C2"),
             rate(flows = listOf(flow("precise_location", GOES_ELSEWHERE, "reported", twoReports))),
         )
         assertEquals("C2", rate(flows = listOf(flow("movement_and_driving", GOES_ELSEWHERE, "alleged").copy(statusKind = "survived_motion_to_dismiss"))).rule)
         // Lines inferred from tracker code count too, and name the tracker.
         assertEquals(
-            TierResult(Tier.CAUTION, "Your advertising ID goes elsewhere — Google AdMob code in this app", "C2"),
+            TierResult(Tier.CAUTION, "Google AdMob code in this app can send your advertising ID to other companies", "C2"),
             rate(curated = false, flows = listOf(flow("device_identifiers", GOES_ELSEWHERE, null, emptyList(), via = "Google AdMob"))),
         )
     }
@@ -169,7 +182,7 @@ class TierTest {
     fun expectedOtherwiseButOnlyWithAReviewedRecord() {
         val staysHere = listOf(flow("crash_diagnostics", STAYS_HERE, "self_disclosed"))
         assertEquals(TierResult(Tier.EXPECTED, "Nothing found beyond running the app", "E"), rate(flows = staysHere))
-        // Without a record the same findings are "No record yet", with what the scan found as the line.
+        // Without a record the same findings are "Not checked yet", with what the scan found as the line.
         val facts = "No third-party trackers found · 12 permissions"
         assertEquals(TierResult(null, facts, "N"), tier(false, "App", staysHere, emptyList(), emptyList(), scanFacts = facts))
         assertEquals(TierResult(null, facts, "N"), tier(false, "App", emptyList(), emptyList(), listOf("autostart"), scanFacts = facts))
@@ -190,7 +203,7 @@ class TierTest {
     fun withoutAReviewedRecordAnAppCanNeverBeFlagged() {
         val sensitive = listOf(flow("precise_location", GOES_ELSEWHERE, "self_disclosed", via = "Some SDK"))
         assertEquals(
-            TierResult(Tier.CAUTION, "Location data goes elsewhere — Some SDK's own disclosure", "F1", capped = true),
+            TierResult(Tier.CAUTION, "Some SDK says your location goes to other companies", "F1", capped = true),
             rate(curated = false, flows = sensitive),
         )
         assertEquals(TierResult(Tier.CAUTION, "A court or regulator has ruled on this app's data", "F2", capped = true), rate(curated = false, events = listOf(event("adjudicated", "ruling"))))
@@ -202,7 +215,7 @@ class TierTest {
             flows = listOf(flow("device_identifiers", GOES_ELSEWHERE, "self_disclosed"), flow("precise_location", GOES_ELSEWHERE, "self_disclosed")),
             events = listOf(event("alleged", "survived_motion_to_dismiss")),
         )
-        assertEquals(TierResult(Tier.FLAGGED, "Location data goes elsewhere — App's own policy", "F1"), both)
+        assertEquals(TierResult(Tier.FLAGGED, "App says your location goes to other companies", "F1"), both)
         assertEquals("C1", rate(flows = listOf(flow("device_identifiers", GOES_ELSEWHERE, "self_disclosed"), flow("app_activity", USED_FOR_MORE, "self_disclosed"))).rule)
     }
 
@@ -217,7 +230,7 @@ class TierTest {
         )
         val scan = TrackerScanResult(listOf(DetectedTracker("fp-arity", "Arity", listOf("Location"), "com.arity.coreengine.x")), 9, 1, 1, emptyList())
         val e = explain(life360, scan, bundle, emptyMap())
-        assertEquals(TierResult(Tier.FLAGGED, "Location data goes elsewhere — Life360's own policy", "F1"), e.tier)
+        assertEquals(TierResult(Tier.FLAGGED, "Life360 says your location goes to other companies", "F1"), e.tier)
         // The federal class action and the Texas case, newest first, each joined by the record's own words.
         val actions = e.onTheRecord.actions
         assertEquals(listOf("2025-04-10", "2025-01-13"), actions.map { it.date })

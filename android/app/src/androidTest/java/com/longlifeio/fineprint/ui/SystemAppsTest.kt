@@ -94,7 +94,7 @@ class SystemAppsTest {
                 )
             }
         }
-        compose.onNodeWithTag("coverage").assert(hasText("No record yet — these lines come from Google's policy and the trackers found in its code."))
+        compose.onNodeWithTag("coverage").assert(hasText("Not checked yet — these lines come from Google's policy and the trackers found in its code."))
         compose.onNodeWithText(ASK_FOR_REVIEW).assertExists() // no reviewer has checked it
         assertTrue(compose.onAllNodesWithText("From Google's privacy policy, which covers this app.").fetchSemanticsNodes().isNotEmpty())
         assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))

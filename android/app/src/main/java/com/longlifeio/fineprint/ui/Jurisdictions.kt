@@ -12,6 +12,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -30,9 +34,9 @@ import com.longlifeio.fineprint.explain.Governments
 import com.longlifeio.fineprint.explain.JURISDICTIONS
 import com.longlifeio.fineprint.explain.NONE_PLACED
 import com.longlifeio.fineprint.explain.NO_LAWS_REVIEWED
-import com.longlifeio.fineprint.explain.STALE_NOTE
 import com.longlifeio.fineprint.explain.UNPLACED
-import com.longlifeio.fineprint.explain.recordLastReviewed
+import com.longlifeio.fineprint.explain.lastChecked
+import com.longlifeio.fineprint.explain.staleNote
 
 /**
  * Jurisdictions, at the end of Where it goes: one line saying where the companies that get the data
@@ -85,7 +89,10 @@ private fun CompanyPlaceRow(place: CompanyPlace, onSources: (SheetContent) -> Un
     }
 }
 
-/** "Can compel · CLOUD Act (18 U.S.C. § 2713)", its status, what it lets the government do, its sources and, for a law, its review date. */
+/**
+ * "Can compel · CLOUD Act (18 U.S.C. § 2713)", its status, what it lets the government do (a law's short line first, its
+ * full text opening under it), its sources and, for a law, when FinePrint last checked it.
+ */
 @Composable
 private fun GovernmentLineRow(line: GovernmentLine, onSources: (SheetContent) -> Unit) {
     val kind = GOVERNMENT_LINES[line.kind]
@@ -108,7 +115,10 @@ private fun GovernmentLineBody(line: GovernmentLine, kind: BadgeText?, onSources
             StatusBadge(line.status, historical = false)
             if (line.stale) StaleMarker()
         }
-        line.text?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+        when {
+            line.short != null -> { Text(line.short, style = MaterialTheme.typography.bodyMedium); line.text?.let { InFull(it) } }
+            else -> line.text?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+        }
         line.scope?.let { Text(it.text, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         line.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         SourcesRow(
@@ -118,9 +128,25 @@ private fun GovernmentLineBody(line: GovernmentLine, kind: BadgeText?, onSources
     }
 }
 
-/** A law's review date and, once it's stale, the stale note: worded and drawn as under a record. Other lines have neither. */
+/** A law's own words under its short line: closed at first; a 48dp row opens them. */
+@Composable
+private fun InFull(text: String) {
+    var open by rememberSaveable(text) { mutableStateOf(false) }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth().heightIn(min = TOUCH)
+            .clickable(onClickLabel = if (open) "Show less" else "Show it in full") { open = !open }
+            .semantics { stateDescription = if (open) "Shown" else "Hidden" },
+    ) {
+        Text(if (open) "Show less" else "Show it in full", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.weight(1f))
+        Icon(painterResource(if (open) R.drawable.ic_expand_less else R.drawable.ic_expand_more), contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+    }
+    if (open) Text(text, style = MaterialTheme.typography.bodyMedium)
+}
+
+/** When FinePrint last checked a law and, once that's stale, the stale note: worded and drawn as under an app. Other lines have neither. */
 @Composable
 private fun ReviewNotes(line: GovernmentLine) {
-    line.lastReviewed?.let { Note(recordLastReviewed(it)) }
-    if (line.stale) Note(STALE_NOTE)
+    line.lastReviewed?.let { Note(lastChecked("this law", it)) }
+    if (line.stale) Note(staleNote("this law"))
 }

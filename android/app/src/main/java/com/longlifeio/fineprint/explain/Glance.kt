@@ -51,8 +51,8 @@ fun glanceHeadline(g: Glance): String {
 
 private const val FOR_MORE = "can go to other companies for more than running the app"
 
-/** "4 of 19 flows limited by your settings", under the segmented bar. */
-fun limitedLine(g: Glance): String = "${g.limited} of ${g.flows} ${if (g.flows == 1) "flow" else "flows"} limited by your settings"
+/** "4 of 19 data flows limited by your settings", under the segmented bar. */
+fun limitedLine(g: Glance): String = "${g.limited} of ${g.flows} data ${if (g.flows == 1) "flow" else "flows"} limited by your settings"
 
 /** The newest change to any of these apps' records, and whose it is; on the same day, the app first by name wins. */
 fun latestChange(apps: List<InstalledApp>, explanations: Map<String, Explanation>): Pair<InstalledApp, Change>? =

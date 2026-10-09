@@ -38,10 +38,10 @@ class PaletteContrastTest {
             need("$chip ink on surface", tone.content, p.surface, 4.5)
             if (faint != (tone.border != null)) add("$name $chip: ${if (faint) "a tint in this theme is under $FAINT_TINT:1, so every chip needs" else "no tint is faint, so no chip needs"} a border")
         }
-        // No record yet: grey, its dashed edge drawn in its ink.
-        need("No record yet ink on its fill", p.noRecord.content, p.noRecord.container, 4.5)
-        need("No record yet edge on surface", p.noRecord.content, p.surface, 3.0)
-        need("No record yet edge on card", p.noRecord.content, p.card, 3.0)
+        // Not checked yet: grey, its dashed edge drawn in its ink.
+        need("Not checked yet ink on its fill", p.noRecord.content, p.noRecord.container, 4.5)
+        need("Not checked yet edge on surface", p.noRecord.content, p.surface, 3.0)
+        need("Not checked yet edge on card", p.noRecord.content, p.card, 3.0)
     }
 
     private fun collapses(name: String, p: Palette): List<String> = buildList {

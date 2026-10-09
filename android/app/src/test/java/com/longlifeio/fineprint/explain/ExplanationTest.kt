@@ -85,7 +85,7 @@ class ExplanationTest {
         assertEquals(listOf("Emails leaked."), e.onTheRecord.alsoReported.map { it.details.first() })
         assertTrue(e.onTheRecord.actions.isEmpty())
         assertEquals(Tier.FLAGGED, e.tier.tier)
-        assertEquals("Location data goes elsewhere — Example Family's own policy", e.tier.reason)
+        assertEquals("Example Family says your location goes to other companies", e.tier.reason)
     }
 
     @Test
@@ -134,7 +134,7 @@ class ExplanationTest {
         assertNull(e.lastReviewed)
         assertNull(e.exodusNote)
         assertEquals(Tier.CAUTION, e.tier.tier)
-        assertEquals("Your advertising ID goes elsewhere — Google AdMob code in this app", e.tier.reason)
+        assertEquals("Google AdMob code in this app can send your advertising ID to other companies", e.tier.reason)
     }
 
     @Test
@@ -157,7 +157,7 @@ class ExplanationTest {
         // The record's ruling, once, about the company whose kits they are: it doesn't name this app, so it sets no tier.
         assertEquals(listOf("2025-05-05 · Regulator · ruled · about Kit"), e.onTheRecord.actions.map { it.line })
         // Credited to the company whose kits they are, not to one kit.
-        assertEquals("In-app activity goes elsewhere — Kit's own disclosure", e.tier.reason)
+        assertEquals("Kit says what you do in the app goes to other companies", e.tier.reason)
     }
 
     @Test
@@ -191,7 +191,7 @@ class ExplanationTest {
         // Government lines stay out of the buckets, What it collects, On the record and the tier.
         assertTrue(e.flows.values.flatten().none { it.recipient == "A US agency" })
         assertTrue(e.onTheRecord.alsoReported.isEmpty())
-        assertEquals("Location data goes elsewhere — Watched App's own policy", e.tier.reason)
+        assertEquals("Watched App says your location goes to other companies", e.tier.reason)
         assertEquals("Cayman Islands", countryName("KY"))
     }
 
@@ -206,8 +206,8 @@ class ExplanationTest {
         assertEquals(listOf("Kit's privacy policy applies to all its apps."), e.summaryNotes.map { it.text })
         assertTrue(e.summary.contains("its package name starts with com.kitco."))
         // Sensitive data going elsewhere would flag a reviewed app; without a record of its own it's Caution at most.
-        assertEquals(TierResult(Tier.CAUTION, "Location data goes elsewhere — Kit's own disclosure", "F1", capped = true), e.tier)
-        assertEquals("No record yet · from Kit's policy", noRecordFrom(e.maker!!.name))
+        assertEquals(TierResult(Tier.CAUTION, "Kit says your location goes to other companies", "F1", capped = true), e.tier)
+        assertEquals("Not checked yet · from Kit's policy", noRecordFrom(e.maker!!.name))
         // Its lines show before the scan has finished, too.
         assertEquals(Tier.CAUTION, explain(mail, null, bundle, emptyMap()).tier.tier)
     }
@@ -227,10 +227,10 @@ class ExplanationTest {
     fun aFlowOffByDefaultWithASettingDoesntSetTheTier() {
         val e = explain(app("com.example.optional"), scan(emptyList()), bundle, emptyMap())
         // The partner line is off unless you turn its setting on, so the opt-in ads line sets the tier, not Flagged.
-        assertEquals(TierResult(Tier.CAUTION, "In-app activity is used for more — Optional App's own policy", "C1"), e.tier)
+        assertEquals(TierResult(Tier.CAUTION, "Optional App says it uses what you do in the app for more than running the app", "C1"), e.tier)
         assertEquals(listOf("off" to true), e.flows.getValue(GOES_ELSEWHERE).map { it.default to it.controlled })
         assertEquals("opt_in", e.flows.getValue(USED_FOR_MORE).single().default)
-        assertEquals("This record follows Optional App's privacy policy for one region: United States. Where you live, a different policy may apply.", e.regionCaveat)
+        assertEquals("This page follows Optional App's privacy policy for the United States. Where you live, a different policy may apply.", e.regionCaveat)
         assertNull(explain(app("com.example.kit"), scan(emptyList()), bundle, emptyMap()).regionCaveat)
     }
 

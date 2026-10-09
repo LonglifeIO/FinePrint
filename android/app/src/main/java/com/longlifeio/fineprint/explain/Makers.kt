@@ -43,6 +43,6 @@ fun fromPolicy(company: String): String = "From ${possessive(company)} privacy p
 
 /** The summary of a preinstalled app that inherits its maker's lines. */
 internal fun inheritedSummary(app: InstalledApp, maker: Maker, prefix: String?, trackerNames: List<String>): String =
-    "FinePrint has no reviewed record of this app. It came with your phone and its package name starts with " +
+    "FinePrint hasn't checked this app. It came with your phone and its package name starts with " +
         "${prefix ?: app.packageName}, so the lines below come from ${possessive(maker.name)} privacy policy, which covers it." +
         if (trackerNames.isEmpty()) "" else " FinePrint also found code from ${trackerNames.size} tracker SDK${if (trackerNames.size == 1) "" else "s"} in it: ${trackerNames.joinToString()}."

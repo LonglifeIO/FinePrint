@@ -1,6 +1,8 @@
 package com.longlifeio.fineprint.ui
 
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -67,8 +69,15 @@ class LawLinesTest {
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText("Tap to show the laws"))
         compose.onNodeWithText("Tap to show the laws").performClick()
-        // FISA 702's scope, under its line.
-        val scope = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-fisa-702" }.scope!!
+        // FISA 702: its short line first, its full text closed under it until Show it in full opens it.
+        val fisa = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-fisa-702" }
+        detail.performScrollToNode(hasText(fisa.short!!))
+        compose.onAllNodesWithText(fisa.text).assertCountEquals(0)
+        compose.openLawInFull(fisa.short!!)
+        detail.performScrollToNode(hasText(fisa.text))
+        compose.onNodeWithText(fisa.text).assertExists()
+        // Its scope, under its line.
+        val scope = fisa.scope!!
         detail.performScrollToNode(hasText(scope.text))
         // Its Sources sheet: the line's 6, the scope's 1 and the Current status note's 6.
         detail.performScrollToNode(hasText("Sources (13)"))

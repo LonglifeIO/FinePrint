@@ -23,6 +23,8 @@ data class GovernmentLine(
     val stale: Boolean = false,
     /** For a law: who it binds, with sources. */
     val scope: ProceduralNote? = null,
+    /** For a law: its one plain sentence, shown first, with [text] opening under it. */
+    val short: String? = null,
 )
 
 /** A company that gets the data, as a country's block shows it: headquartered there, or registered there. */
@@ -60,7 +62,7 @@ internal fun governments(companyIds: Collection<String>, unplaced: Boolean, reco
             name = name(code),
             companies = here.map { CompanyPlace(it.name, it.headquarters == code, it.jurisdictionSources) },
             lines = laws.map {
-                GovernmentLine(CAN_COMPEL, code, "${it.name} (${it.citation})", it.text, it.status, null, it.sources, it.statusNote, it.lastReviewed, it.stale, it.scope)
+                GovernmentLine(CAN_COMPEL, code, "${it.name} (${it.citation})", it.text, it.status, null, it.sources, it.statusNote, it.lastReviewed, it.stale, it.scope, it.short)
             } +
                 recorded.filter { it.country == code },
             lawsReviewed = place != null || here.isEmpty(),

@@ -50,6 +50,7 @@ class ReadabilityTest {
     @Test
     fun jargonIsTheFileAndTheLedgerNotTheLegalSense() {
         assertEquals(listOf("flow", "line"), jargon("4 of 19 flows limited, one line each"))
+        assertEquals(emptyList<String>(), jargon("4 of 28 data flows limited by your settings"))
         assertEquals(listOf("record"), jargon("FinePrint's record of this app"))
         assertEquals(emptyList<String>(), jargon("What regulators and courts have said: On the record. FinePrint relays the public record."))
         assertEquals(listOf("line", "status word"), jargon("An alleged line about it"))
