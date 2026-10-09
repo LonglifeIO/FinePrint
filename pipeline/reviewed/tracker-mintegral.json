@@ -1,0 +1,120 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-200",
+   "aka": [
+    "Mintegral SDK"
+   ],
+   "owner": "Mobvista Inc.",
+   "owner_chain": [
+    "Mintegral",
+    "Mobvista Inc."
+   ],
+   "party": "third_party",
+   "product_line": "Mintegral's ad SDK for app developers; Mintegral is Mobvista's programmatic ad platform",
+   "categories": [
+    "advertising",
+    "analytics"
+   ],
+   "data_flows": [],
+   "consequences": [
+    {
+     "text": "In 2020 the security firm Snyk reported that Mintegral's iOS SDK, from version 5.5.1, logged links people tapped and network activity in apps and claimed other networks' ad clicks, and that its Android SDK tracked downloads. Mintegral said the allegations were not true; Apple said it had no evidence the SDK harmed iOS users. Snyk said Mintegral later removed these parts.",
+     "status": "reported",
+     "historical": true,
+     "wording": "Reported by Snyk (2020), one research team's findings; Mintegral denied them.",
+     "sources": [
+      {
+       "url": "https://snyk.io/blog/sour-mint-malicious-sdk/",
+       "type": "research",
+       "title": "Snyk: SourMint malicious SDK research write-up",
+       "as_of": "2020-08-24",
+       "status": "reported",
+       "single_source": true,
+       "quote": "Mintegral iOS SDK versions 5.5.1 and above contain malicious functionality"
+      },
+      {
+       "url": "https://snyk.io/blog/sour-mint-malicious-sdk/",
+       "type": "research",
+       "title": "Snyk: SourMint malicious SDK research write-up",
+       "as_of": "2020-08-24",
+       "status": "reported",
+       "single_source": true,
+       "quote": "spying on user link clicking, and network activity within the affected apps"
+      },
+      {
+       "url": "https://snyk.io/blog/sour-mint-malicious-sdk/",
+       "type": "research",
+       "title": "Snyk: SourMint malicious SDK research write-up",
+       "as_of": "2020-08-24",
+       "status": "reported",
+       "single_source": true,
+       "quote": "pretending that click actually happened by their advertisement"
+      },
+      {
+       "url": "https://snyk.io/blog/sour-mint-malicious-sdk/",
+       "type": "research",
+       "title": "Snyk: SourMint malicious SDK research write-up",
+       "as_of": "2020-08-24",
+       "status": "reported",
+       "single_source": true,
+       "quote": "Downloads URL tracking in Android"
+      },
+      {
+       "url": "https://snyk.io/blog/sour-mint-malicious-sdk/",
+       "type": "research",
+       "title": "Snyk: SourMint malicious SDK research write-up",
+       "as_of": "2020-08-24",
+       "status": "reported",
+       "single_source": true,
+       "quote": "removing the malicious and hidden _CXX_CXX_OperationPKTask component"
+      },
+      {
+       "url": "https://snyk.io/blog/sour-mint-malicious-sdk/",
+       "type": "research",
+       "title": "Snyk: SourMint malicious SDK research write-up",
+       "as_of": "2020-08-24",
+       "status": "reported",
+       "single_source": true,
+       "quote": "Mintegral has removed the Google download tracking module from its Android SDK"
+      },
+      {
+       "url": "https://thehackernews.com/2020/08/ios-sdk-ad-fraud.html",
+       "type": "journalism",
+       "title": "The Hacker News: iOS SDK accused of spying on billions of users and committing ad fraud",
+       "as_of": "2020-08-25",
+       "status": "reported",
+       "quote": "assure our clients and partners that these allegations are not true"
+      },
+      {
+       "url": "https://www.tomsguide.com/news/iphone-apps-infected-malware",
+       "type": "journalism",
+       "title": "Tom's Guide: more than 1,200 iPhone apps infected with malware",
+       "as_of": "2020-08-25",
+       "status": "reported",
+       "quote": "Apple said it had no evidence that the Mintegral SDK was negatively affecting"
+      },
+      {
+       "url": "https://www.prnewswire.co.uk/news-releases/mintegral-s-ad-serving-strategy-amp-click-analysis-explained-844199248",
+       "type": "company_site",
+       "title": "Mintegral press release: Mintegral's ad serving strategy and click analysis explained",
+       "as_of": "2020-09-09",
+       "status": "self_disclosed",
+       "quote": "Mintegral will not collect them moving forward"
+      },
+      {
+       "url": "https://thehackernews.com/2020/08/ios-sdk-ad-fraud.html",
+       "type": "journalism",
+       "title": "The Hacker News: iOS SDK accused of spying on billions of users and committing ad fraud",
+       "as_of": "2020-08-25",
+       "status": "reported",
+       "quote": "a mobile programmatic advertising platform owned by Chinese mobile ad tech company Mobvista"
+      }
+     ]
+    }
+   ],
+   "confidence": "low",
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}
