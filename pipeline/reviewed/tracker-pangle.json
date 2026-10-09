@@ -1,0 +1,211 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-363",
+   "aka": [
+    "Pangle SDK",
+    "TikTok Pangle"
+   ],
+   "owner": "ByteDance Ltd.",
+   "owner_company": "co-bytedance",
+   "owner_chain": [
+    "TikTok Pte. Ltd.",
+    "ByteDance Ltd."
+   ],
+   "jurisdiction": "KY",
+   "party": "third_party",
+   "product_line": "Pangle, ByteDance's ad network for other companies' apps, now under TikTok's publisher terms",
+   "categories": [
+    "advertising"
+   ],
+   "data_collected": [
+    "resettable device identifiers",
+    "city-level location from the IP address",
+    "interactions with the ads Pangle shows",
+    "crash logs and diagnostics for the ads Pangle shows"
+   ],
+   "monetization_model": "Pangle sells ad space in other companies' apps to advertisers; its SDK collects device identifiers, IP-based location and ad interactions for ads, analytics and fraud prevention, and passes them on for advertising and fraud prevention (Pangle's Google Play disclosure).",
+   "data_flows": [
+    {
+     "id": "flow-pangle-ids",
+     "data": "device_identifiers",
+     "recipient": "co-bytedance",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your resettable device identifiers, for ads, analytics and fraud prevention, and passed on for advertising and fraud prevention",
+     "status": "self_disclosed",
+     "wording": "According to Pangle's Google Play disclosure for its Android SDK (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://pangleglobal.com/integration/app-privacy-details-gp",
+       "type": "company_site",
+       "title": "Pangle integration docs: app privacy details on Google Play (Android SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Pangle does not collect non-resettable hardware identifiers"
+      },
+      {
+       "url": "https://pangleglobal.com/integration/app-privacy-details-gp",
+       "type": "company_site",
+       "title": "Pangle integration docs: app privacy details on Google Play (Android SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Purpose of collection by Pangle Purpose of onward sharing by Pangle"
+      },
+      {
+       "url": "https://pangleglobal.com/integration/app-privacy-details-gp",
+       "type": "company_site",
+       "title": "Pangle integration docs: app privacy details on Google Play (Android SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Does Pangle collect or share any of the required user data types? Yes"
+      }
+     ]
+    },
+    {
+     "id": "flow-pangle-location",
+     "data": "approximate_location",
+     "recipient": "co-bytedance",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your city-level location, worked out from your IP address, for ads, analytics and fraud prevention, and passed on for advertising and fraud prevention",
+     "status": "self_disclosed",
+     "wording": "According to Pangle's Google Play disclosure for its Android SDK (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://pangleglobal.com/integration/app-privacy-details-gp",
+       "type": "company_site",
+       "title": "Pangle integration docs: app privacy details on Google Play (Android SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Pangle only uses IP addresses to infer the city-level location."
+      },
+      {
+       "url": "https://pangleglobal.com/integration/app-privacy-details-gp",
+       "type": "company_site",
+       "title": "Pangle integration docs: app privacy details on Google Play (Android SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Purpose of collection by Pangle Purpose of onward sharing by Pangle"
+      }
+     ]
+    },
+    {
+     "id": "flow-pangle-activity",
+     "data": "app_activity",
+     "recipient": "co-bytedance",
+     "bucket": "goes_elsewhere",
+     "purpose": "How you interact with the ads Pangle shows, for ads, analytics and fraud prevention, and passed on for advertising and fraud prevention",
+     "status": "self_disclosed",
+     "wording": "According to Pangle's Google Play disclosure for its Android SDK (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://pangleglobal.com/integration/app-privacy-details-gp",
+       "type": "company_site",
+       "title": "Pangle integration docs: app privacy details on Google Play (Android SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "App interactions Notes: only for ads Pangle serves"
+      },
+      {
+       "url": "https://pangleglobal.com/integration/app-privacy-details-gp",
+       "type": "company_site",
+       "title": "Pangle integration docs: app privacy details on Google Play (Android SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Purpose of collection by Pangle Purpose of onward sharing by Pangle"
+      },
+      {
+       "url": "https://www.pangleglobal.com/privacy",
+       "type": "privacy_policy",
+       "title": "Pangle Partner Data Privacy Policy",
+       "as_of": "2021-07-23",
+       "status": "self_disclosed",
+       "quote": "Pangle is a mobile advertising platform, including support systems and services operated by Bytedance"
+      },
+      {
+       "url": "https://pangleglobal.com/integration/app-privacy-details-gp",
+       "type": "company_site",
+       "title": "Pangle integration docs: app privacy details on Google Play (Android SDK)",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Crash logs Notes: only for ads Pangle serves"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Who controls this data depends on where you live: TikTok USDS Joint Venture LLC in the US, TikTok's UK and Irish companies in the UK, EEA and Switzerland, Bytedance Pte. Ltd in South Korea, and TikTok Pte. Ltd everywhere else, including Canada.",
+     "status": "self_disclosed",
+     "wording": "According to Pangle's table of data controllers (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://www.pangleglobal.com/terms/28179",
+       "type": "privacy_policy",
+       "title": "Pangle legal terms: data controller and privacy policy, by territory",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "This page is a binding component of the TikTok Pangle Publisher Agreement"
+      },
+      {
+       "url": "https://www.pangleglobal.com/terms/28179",
+       "type": "privacy_policy",
+       "title": "Pangle legal terms: data controller and privacy policy, by territory",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "data subjects in the United States TikTok USDS Joint Venture LLC"
+      },
+      {
+       "url": "https://www.pangleglobal.com/terms/28179",
+       "type": "privacy_policy",
+       "title": "Pangle legal terms: data controller and privacy policy, by territory",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "TikTok Information UK Limited … in their capacity as Joint Controllers"
+      },
+      {
+       "url": "https://www.pangleglobal.com/terms/28179",
+       "type": "privacy_policy",
+       "title": "Pangle legal terms: data controller and privacy policy, by territory",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "data subjects in the Republic of Korea Bytedance Pte. Ltd"
+      },
+      {
+       "url": "https://www.pangleglobal.com/terms/28179",
+       "type": "privacy_policy",
+       "title": "Pangle legal terms: data controller and privacy policy, by territory",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "For all other cases TikTok Pte. Ltd"
+      }
+     ]
+    },
+    {
+     "text": "FinePrint finds Pangle by code whose names start with com.bytedance, com.pgl or com.pangle.global. Other ByteDance code can start with com.bytedance too, such as TikTok's older developer kit, so finding it doesn't by itself show the app shows Pangle ads.",
+     "status": "self_disclosed",
+     "wording": "According to TikTok for Developers' Android quickstart (read 2026-10-08).",
+     "sources": [
+      {
+       "url": "https://developers.tiktok.com/doc/getting-started-android-quickstart",
+       "type": "company_site",
+       "title": "TikTok for Developers: Android quickstart for TikTok's older developer kit",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "implementation 'com.bytedance.ies.ugc.aweme:opensdk-oversea-external:0.2.1.2'"
+      },
+      {
+       "url": "https://developers.tiktok.com/doc/getting-started-android-quickstart",
+       "type": "company_site",
+       "title": "TikTok for Developers: Android quickstart for TikTok's older developer kit",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "initialize TikTokOpenApiFactory"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
