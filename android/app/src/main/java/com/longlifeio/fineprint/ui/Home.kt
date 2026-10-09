@@ -39,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -273,9 +274,12 @@ private fun SystemTag() {
 private const val ICON_PX = 96
 private val iconCache = LruCache<String, ImageBitmap>(150)
 
-/** The app's own icon from this phone (never bundled), loaded off the main thread and cached; its initial until then, or if it has none. */
+/**
+ * The app's own icon from this phone (never bundled), loaded off the main thread and cached; its initial until then, or
+ * if it has none, on a [tile] (the raised tone unless said).
+ */
 @Composable
-internal fun AppIcon(packageName: String, size: Dp = 40.dp, label: String = "") {
+internal fun AppIcon(packageName: String, size: Dp = 40.dp, label: String = "", tile: Color = Color.Unspecified) {
     val pm = LocalContext.current.packageManager
     val icon by produceState(iconCache.get(packageName), packageName) {
         if (value == null) {
@@ -287,7 +291,7 @@ internal fun AppIcon(packageName: String, size: Dp = 40.dp, label: String = "") 
     val bitmap = icon
     if (bitmap == null) {
         val p = LocalPalette.current
-        Box(Modifier.size(size).clip(RoundedCornerShape(size / 4)).background(p.raised).clearAndSetSemantics { }, contentAlignment = Alignment.Center) {
+        Box(Modifier.size(size).clip(RoundedCornerShape(size / 4)).background(tile.takeOrElse { p.raised }).clearAndSetSemantics { }, contentAlignment = Alignment.Center) {
             Text(label.take(1).uppercase(), style = MaterialTheme.typography.titleMedium, color = p.ink)
         }
     } else {

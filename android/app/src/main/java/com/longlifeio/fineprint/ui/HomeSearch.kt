@@ -182,7 +182,7 @@ private fun SearchResult(app: InstalledApp, e: Explanation?, review: ReviewView?
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(Space.l),
     ) {
-        AppIcon(app.packageName, label = app.label)
+        AppIcon(app.packageName, label = app.label, tile = p.card) // the search view's own tone is the raised one
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(Space.xs)) {
             Text(app.label, style = MaterialTheme.typography.titleMedium, color = p.ink, maxLines = 1, overflow = TextOverflow.Ellipsis)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.s), verticalArrangement = Arrangement.spacedBy(Space.xs), itemVerticalAlignment = Alignment.CenterVertically) {

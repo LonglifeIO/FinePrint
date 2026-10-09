@@ -161,6 +161,7 @@ internal fun SubHeader(text: SectionText) {
  * The bucket's indicator chip with its number of lines and its plain gloss ("Goes elsewhere 5 · to other companies"),
  * then its definition: the chip is the only colour in the card.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun BucketHeader(bucket: String, count: Int) {
     val gloss = BUCKET_GLOSS.getValue(bucket)
@@ -168,7 +169,8 @@ private fun BucketHeader(bucket: String, count: Int) {
         Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp).semantics(mergeDescendants = true) { heading() },
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        // The gloss moves under the chip as a whole when the row is too narrow for both.
+        FlowRow(itemVerticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             BucketChip(bucket, count, noun = if (count == 1) "line" else "lines")
             // TalkBack reads the gloss without the dot.
             Text("· $gloss", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.clearAndSetSemantics { text = AnnotatedString(gloss) })

@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.testTag
 import com.github.takahirom.roborazzi.captureRoboImage
 import com.longlifeio.fineprint.explain.ASK_FOR_REVIEW
 import com.longlifeio.fineprint.explain.BUCKETS
+import com.longlifeio.fineprint.explain.FILTERS
 import com.longlifeio.fineprint.explain.STAYS_HERE
 import com.longlifeio.fineprint.explain.Tier
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -22,6 +23,14 @@ import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.test.performSemanticsAction
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.isDialog
+import androidx.compose.ui.test.hasAnyAncestor
+import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.isRoot
@@ -47,7 +56,7 @@ import java.io.File
 
 /**
  * The design review in pictures (G5 stop C): the home, Life360's page, its Sources sheet, How to read,
- * the introduction and franceinfo's review request, light and dark, drawn by Robolectric at the emulator's size (411 × 914dp,
+ * the introduction, franceinfo's review request, the home's search and Where it goes, light and dark, drawn by Robolectric at the emulator's size (411 × 914dp,
  * 420dpi) and saved to build/outputs/roborazzi. The README's screenshots are copied from here
  * (readmeScreenshots), never captured by hand. The data is real: the bundle, and the test emulator's
  * apps and scans (scan-fixture.json); the bundle line leaves out its age so the images don't change by day.
@@ -131,6 +140,22 @@ class ScreenshotTest {
         buckets = OpenBuckets({ _, default -> default }, { _, _ -> }), onAskForReview = {},
     )
 
+    /** The home's search view, "Meta" typed: the apps it makes, and those whose lines name it. */
+    private fun searchMeta() {
+        compose.onNodeWithTag("search").performClick()
+        compose.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextInput("Meta")
+    }
+
+    /** Where it goes, at Goes elsewhere: the place's gloss, and the lines that set the tier with its marker. */
+    private fun toGoesElsewhere() {
+        val page = compose.onNodeWithTag("detail")
+        val header = hasText("Goes elsewhere:", substring = true)
+        page.performScrollToNode(header)
+        // Then on up to just under the bar, so the place's lines show under its header.
+        val top = compose.onNode(header).fetchSemanticsNode().boundsInRoot.top
+        page.performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, top - with(compose.density) { 96.dp.toPx() }) }
+    }
+
     private fun openReviewRequest() {
         compose.onNodeWithTag("detail").performScrollToNode(hasText(ASK_FOR_REVIEW))
         compose.onNodeWithText(ASK_FOR_REVIEW).performClick()
@@ -143,6 +168,14 @@ class ScreenshotTest {
     // The hero's Sources row: the listing and the fine print's own sources.
     @Test fun sourcesLight() = shoot("sources", dark = false, { Life360() }) { openHeroSources() }
     @Test fun sourcesDark() = shoot("sources", dark = true, { Life360() }) { openHeroSources() }
+    @Test fun searchLight() = shoot("search", dark = false, { Home() }) { searchMeta() }
+    @Test fun searchDark() = shoot("search", dark = true, { Home() }) { searchMeta() }
+    @Test fun searchSmall() = shoot("search", dark = false, { Home() }, device = Device.SMALL) { searchMeta() }
+    @Test fun searchTablet() = shoot("search", dark = false, { Home() }, device = Device.TABLET) { searchMeta() }
+    @Test fun filtersLight() = shoot("filters", dark = false, { Home() }) { compose.onNodeWithContentDescription(FILTERS).performClick() }
+    @Test fun whereItGoesLight() = shoot("where-it-goes", dark = false, { Life360() }) { toGoesElsewhere() }
+    @Test fun whereItGoesSmall() = shoot("where-it-goes", dark = false, { Life360() }, device = Device.SMALL) { toGoesElsewhere() }
+    @Test fun whereItGoesTablet() = shoot("where-it-goes", dark = false, { Life360() }, device = Device.TABLET) { toGoesElsewhere() }
     @Test fun askForReviewLight() = shoot("ask-for-review", dark = false, { Franceinfo() }) { openReviewRequest() }
     @Test fun askForReviewDark() = shoot("ask-for-review", dark = true, { Franceinfo() }) { openReviewRequest() }
     @Test fun askForReviewLargest() = shoot("ask-for-review", dark = false, { Franceinfo() }, scale = 2f) { openReviewRequest() }
