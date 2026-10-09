@@ -68,6 +68,19 @@ jobs:
       - name: JVM unit tests
         working-directory: android
         run: ./gradlew testDebugUnitTest --stacktrace
+      # docs/METHOD.md, Voice: the readability reports the JVM tests wrote (ReadabilityReport), over the app's strings and
+      # the bundle's text people read. Printed in full here, with each report's count as a warning: never a gate.
+      - name: Readability report (a warning, never a gate)
+        if: always()
+        continue-on-error: true
+        working-directory: android
+        run: |
+          for r in app bundle; do
+            f="app/build/reports/readability/$r.txt"
+            [ -f "$f" ] || continue
+            cat "$f"
+            echo "::warning title=Readability ($r)::$(sed -n 2p "$f")"
+          done
       # Debug builds may carry Compose's preview tooling; the release runtime classpath must not (CLAUDE.md). Nor may
       # the release build hold any of the preview flavour: its classes, assets or manifest.
       - name: No Compose tooling or preview code in the release build
