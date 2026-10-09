@@ -2,7 +2,7 @@
  "schema_version": 1,
  "schema_revision": "1.7",
  "bundle_version": "2026.10.09",
- "generated_at": "2026-10-09T12:25:20-03:00",
+ "generated_at": "2026-10-09T13:47:25-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -3019,12 +3019,15 @@
        "quote": "IP Address … used for device identification, attribution, and to understand general location"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "Depending on its contract with the app's developer, Branch may also use this data to support its other products, develop new ones and market products or services, and may de-identify or aggregate it and then use it for any purpose. FinePrint can't see that contract.",
+     "id": "flow-branch-own-use",
+     "data": "app_activity",
+     "recipient": "co-branch",
+     "bucket": "used_for_more",
+     "purpose": "The data Branch collects in this app, for Branch's other products, new products and marketing, and de-identified or aggregated data for any purpose",
      "status": "self_disclosed",
+     "conditional": "where Branch's agreements with the app's developer authorize it",
      "wording": "According to Branch's privacy policy, last updated 2025-09-15.",
      "sources": [
       {
@@ -3070,8 +3073,9 @@
      ]
     }
    ],
+   "consequences": [],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-57",
@@ -3082,6 +3086,27 @@
    "owner_company": "co-cuebiq",
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "location_data",
+    "sources": [
+     {
+      "url": "https://cuebiq.com/privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Cuebiq Group, LLC Privacy Policy",
+      "as_of": "2026-08-21",
+      "status": "self_disclosed",
+      "quote": "from an “SDK” (software development kit) that it provides to mobile application partners"
+     },
+     {
+      "url": "https://cuebiq.com/privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Cuebiq Group, LLC Privacy Policy",
+      "as_of": "2026-08-21",
+      "status": "self_disclosed",
+      "quote": "lat/long (latitudinal and longitudinal) data, i.e., GPS-level data"
+     }
+    ]
+   },
    "product_line": "Cuebiq's location SDK for app partners; since a 2023 foreclosure sale the business is run by Cuebiq Group, LLC",
    "categories": [
     "location",
@@ -3251,7 +3276,7 @@
     }
    ],
    "confidence": "medium",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "fp-arity",
@@ -3445,6 +3470,19 @@
    ],
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "ads",
+    "sources": [
+     {
+      "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+      "type": "company_site",
+      "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+      "as_of": "2026-10-07",
+      "status": "self_disclosed",
+      "quote": "for advertising, analytics, and fraud prevention"
+     }
+    ]
+   },
    "product_line": "Google Mobile Ads SDK (AdMob)",
    "categories": [
     "advertising",
@@ -3614,7 +3652,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-27",
@@ -3630,6 +3668,19 @@
    ],
    "jurisdiction": "US",
    "party": "first_party",
+   "purpose": {
+    "kind": "crash_reporting",
+    "sources": [
+     {
+      "url": "https://firebase.google.com/support/privacy",
+      "type": "company_site",
+      "title": "Firebase: Privacy and Security in Firebase",
+      "as_of": "2026-09-15",
+      "status": "self_disclosed",
+      "quote": "help Firebase customers debug crashes"
+     }
+    ]
+   },
    "product_line": "Firebase Crashlytics, the crash reporter Google runs for app developers",
    "categories": [
     "crash_reporting"
@@ -3739,7 +3790,7 @@
    ],
    "consequences": [],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-49",
@@ -3755,6 +3806,19 @@
    ],
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "analytics",
+    "sources": [
+     {
+      "url": "https://firebase.google.com/docs/analytics",
+      "type": "company_site",
+      "title": "Firebase documentation: Google Analytics",
+      "as_of": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "an app measurement solution … that provides insight on app usage and user engagement"
+     }
+    ]
+   },
    "product_line": "Google Analytics for Firebase (the Firebase SDK for Google Analytics)",
    "categories": [
     "analytics"
@@ -3840,13 +3904,16 @@
        "quote": "Derives coarse location data from the masked IP addresses of the device"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has turned on data sharing or linked an ads account, Google may use this data for its own products and personalized ads. FinePrint can't see that setting. This code also ships inside Google's ads SDK, so finding it doesn't show the developer uses Analytics.",
+     "id": "flow-firebase-analytics-google-use",
+     "data": "app_activity",
+     "recipient": "co-google",
+     "bucket": "used_for_more",
+     "purpose": "Your activity in the app, for Google's own products and personalized ads; Google says it is an independent controller of that data",
      "status": "self_disclosed",
-     "wording": "According to Google's Analytics Help (read 2026-10-08), Firebase documentation (updated 2026-10-08) and the package lists in Google's Maven repository (read 2026-10-08).",
+     "conditional": "if the developer turns on Google Analytics data sharing settings or links an ads account",
+     "wording": "According to Google's Analytics Help (read 2026-10-08) and Firebase documentation (updated 2026-10-08).",
      "sources": [
       {
        "url": "https://support.google.com/analytics/answer/1011397?hl=en",
@@ -3871,7 +3938,16 @@
        "as_of": "2026-10-08",
        "status": "self_disclosed",
        "quote": "your Analytics data may be eligible for use in personalized advertising"
-      },
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "This code also ships inside Google's ads SDK, so finding it doesn't show the developer uses Analytics.",
+     "status": "self_disclosed",
+     "wording": "According to the package lists in Google's Maven repository (read 2026-10-08).",
+     "sources": [
       {
        "url": "https://dl.google.com/android/maven2/com/google/firebase/firebase-analytics/24.0.0/firebase-analytics-24.0.0.pom",
        "type": "company_site",
@@ -3971,7 +4047,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-328",
@@ -4882,6 +4958,19 @@
    "owner_company": "co-kochava",
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "attribution",
+    "sources": [
+     {
+      "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+      "type": "company_site",
+      "title": "Kochava support: SDK Data Privacy and Safety",
+      "as_of": "2025-05-20",
+      "status": "self_disclosed",
+      "quote": "primarily used for attribution and install deduplication … Google Advertising ID … Google App Set ID"
+     }
+    ]
+   },
    "product_line": "Kochava's measurement SDK for app developers (attribution and analytics), including its free plan, Free App Analytics; the Kochava Collective data marketplace is a separate line of business",
    "categories": [
     "analytics",
@@ -5176,7 +5265,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "fp-meta",
@@ -5714,12 +5803,16 @@
        "quote": "We use the SDK Information on behalf of our Clients"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer turns on location sharing and you let the app use your location, OneSignal's SDK sends your phone's GPS coordinates to OneSignal, which its privacy policy says may be collected whether or not you're using the app. Its 2022 documentation listed location among data collected automatically once you grant permission. FinePrint can't see that setting or the SDK version.",
+     "id": "flow-onesignal-gps",
+     "data": "precise_location",
+     "recipient": "co-onesignal",
+     "bucket": "stays_here",
+     "default": "opt_in",
+     "purpose": "Your phone's GPS coordinates, used on the developer's behalf; OneSignal's policy says they may be collected whether or not you're using the app",
      "status": "self_disclosed",
+     "conditional": "if the developer enables the app to share location with OneSignal (older SDKs collected it automatically once you allowed location)",
      "wording": "According to OneSignal's SDK documentation (read 2026-10-08 and as updated 2022-12-20) and its privacy policy (last updated 2024-04-12).",
      "sources": [
       {
@@ -5780,10 +5873,19 @@
        "status": "self_disclosed",
        "verify_url": "https://web.archive.org/web/20221225224336id_/https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
        "quote": "GPS coordinates of the device"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "We use the SDK Information on behalf of our Clients"
       }
      ]
     }
    ],
+   "consequences": [],
    "confidence": "medium",
    "confidence_note": {
     "text": "OneSignal's Google Play guidance (read 2026-10-08) tells developers it doesn't collect approximate location or device IDs by default. Its privacy policy (last updated 2024-04-12) lists location inferred from IP address and mobile device identifiers among what its mobile SDKs collect, and its SDK data page lists country, IP address and push tokens. This record follows the policy and the SDK data page.",
@@ -6066,6 +6168,27 @@
    "owner_company": "co-placer",
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "location_data",
+    "sources": [
+     {
+      "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Placer.ai Privacy Policy (Consumers)",
+      "as_of": "2026-04-15",
+      "status": "self_disclosed",
+      "quote": "Placer’s technology is deployed in many mobile apps"
+     },
+     {
+      "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Placer.ai Privacy Policy (Consumers)",
+      "as_of": "2026-04-15",
+      "status": "self_disclosed",
+      "quote": "Placer’s technology collects data, such as geolocation data"
+     }
+    ]
+   },
    "product_line": "Placer's SDK in other companies' apps; Placer Labs runs the Placer.ai foot-traffic analytics platform, formerly at placer.io",
    "categories": [
     "location",
@@ -6193,7 +6316,7 @@
     }
    ],
    "confidence": "medium",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-313",
@@ -6210,6 +6333,20 @@
    ],
    "jurisdiction": "NO",
    "party": "third_party",
+   "purpose": {
+    "kind": "location_data",
+    "sources": [
+     {
+      "url": "https://github.com/unacast/pure-sdk",
+      "type": "company_site",
+      "title": "Unacast Pure SDK documentation (GitHub; last changed 2019-09-05)",
+      "as_of": "2019-09-05",
+      "accessed": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "Location data is gathered and sent to the cloud for analysis"
+     }
+    ]
+   },
    "product_line": "Unacast Pure SDK; Gravy Analytics, Inc. now does business as Unacast",
    "categories": [
     "location",
@@ -6489,7 +6626,7 @@
     }
    ],
    "confidence": "medium",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-121",
@@ -7053,6 +7190,19 @@
    ],
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "location_data",
+    "sources": [
+     {
+      "url": "https://outlogic.io/privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Outlogic Privacy Notice (last updated January 2026)",
+      "accessed": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "latitude-longitude coordinates compiled through GPS features of our SDK"
+     }
+    ]
+   },
    "product_line": "X-Mode location SDK; in 2021 X-Mode moved its business to Outlogic, a wholly owned subsidiary of Digital Envoy, whose majority owner is Landmark Media Enterprises",
    "categories": [
     "location",
@@ -7369,7 +7519,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ],
  "companies": [
@@ -9003,7 +9153,7 @@
      "status_kind": "survived_motion_to_dismiss",
      "forum": "court",
      "subject_company": "co-inmobi",
-     "notes": "Removed to federal court on 2025-11-19. Claims under the California Invasion of Privacy Act's pen register provision, intrusion upon seclusion and the California Constitution, over data InMobi's SDK collected from a dating app. The court denied InMobi's motion to dismiss on 2026-04-29; InMobi answered on 2026-05-13, denying the allegations except as admitted.",
+     "notes": "Removed to federal court on 2025-11-19. Claims under the California Invasion of Privacy Act's pen register provision, intrusion upon seclusion and the California Constitution, over data InMobi's SDK collected from a dating app. The court denied InMobi's motion to dismiss on 2026-04-29; InMobi answered on 2026-05-13, denying the allegations except as admitted. Docket entries 48 (\"Notice (Other)\") and 49 (\"Order … Set Deadlines\") of 2026-09-11 have no public text as of 2026-10-09, read through CourtListener; neither document is on RECAP.",
      "sources": [
       {
        "url": "https://www.courtlistener.com/docket/71937168/caldwell-v-inmobi-technology-services-private-limited/",
@@ -9045,6 +9195,24 @@
        "as_of": "2026-05-13",
        "status": "alleged",
        "quote": "Except as expressly admitted herein, Defendant denies the allegations set forth in the FAC."
+      },
+      {
+       "url": "https://www.courtlistener.com/docket/71937168/caldwell-v-inmobi-technology-services-private-limited/",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), docket entries (CourtListener)",
+       "accessed": "2026-10-09",
+       "status": "alleged",
+       "verify_url": "https://www.courtlistener.com/api/rest/v4/search/?type=rd&q=docket_id%3A71937168&order_by=entry_date_filed%20desc",
+       "quote": "\"entry_date_filed\":\"2026-09-11\",\"entry_number\":48,\"filepath_local\":null,\"id\":493297077,\"is_available\":false … \"short_description\":\"Notice (Other)\""
+      },
+      {
+       "url": "https://www.courtlistener.com/docket/71937168/caldwell-v-inmobi-technology-services-private-limited/",
+       "type": "lawsuit",
+       "title": "Caldwell v. InMobi Technology Services Private Limited (N.D. Cal. No. 25-cv-09977), docket entries (CourtListener)",
+       "accessed": "2026-10-09",
+       "status": "alleged",
+       "verify_url": "https://www.courtlistener.com/api/rest/v4/search/?type=rd&q=docket_id%3A71937168&order_by=entry_date_filed%20desc",
+       "quote": "\"entry_date_filed\":\"2026-09-11\",\"entry_number\":49,\"filepath_local\":null,\"id\":493322652,\"is_available\":false … \"short_description\":\"Order AND ~Util - Set Deadlines\""
       }
      ]
     }

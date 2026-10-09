@@ -17,7 +17,7 @@ class LawShortTest {
     @Test
     fun everyLawHasOneShortSentenceThatIsntItsText() {
         val laws = bundle.jurisdictions.values.flatMap { it.laws }
-        assertEquals(8, laws.size)
+        assertEquals(14, laws.size)
         for (law in laws) {
             val short = law.short ?: error("${law.id} has no short line")
             assertTrue(law.id, short.split(" ").size <= 25 && short.endsWith(".") && short != law.text)

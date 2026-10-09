@@ -103,17 +103,17 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   its tier ("Why: Life360 says your location goes to other companies"), with what set it listed
   first under "Why it's Flagged"; a search bar on the home; and an edge on every card in dark mode.
 - Tracker records for 24 common SDKs (covering 29 tracker ids) and 24 company records, with tracker
-  batches 1 and 2 merged: bundle 2026.10.09 holds them with the 4 app records and 6 jurisdictions.
+  batches 1 and 2 merged: bundle 2026.10.09 holds them with the 4 app records and 10 jurisdictions.
   A tracker's legal and reported lines show under On the record on every app that carries it,
   marked about its company, and count toward a tier only when they name the app; practices reported
   in the past go under Past. A company's changes of ownership show as a dated chain on its Sources
   sheet (Affle's purchase of AdColony first). FinePrint's own signatures sit beside εxodus's:
   Arity's, and Vungle's SDK 7.
-- The laws table, checked entry by entry: eight laws in force (the US, Canada, China, the EU,
-  Israel and Russia), each with who it binds, whether the company may tell you it handed data
-  over, when FinePrint last checked it and a Stale marker; an EU regulation is keyed to the member
-  states it binds. Laws that bind only licensed telecoms, or that permit disclosure rather than
-  compel it, are parked as drafts.
+- The laws table, checked entry by entry: fourteen laws in force in ten places (the US, Canada,
+  China, the EU, Israel, Russia, Norway, Germany, Singapore and India), each with who it binds,
+  whether the company may tell you it handed data over, when FinePrint last checked it and a Stale
+  marker; an EU regulation is keyed to the member states it binds. Laws that bind only licensed
+  telecoms, or that permit disclosure rather than compel it, are parked as drafts.
 - The watcher (`pipeline/watch.py`): it re-reads every quoted page weekly and two regulators' feeds
   daily, and queues what changed for a person to check; it never edits a record. Pages only a
   person can capture (their text needs JavaScript) are marked `manual`: no script fetches them,
@@ -157,11 +157,11 @@ Schema items queued: `settings_url` on controls; `controls[].path.steps[]`, `hel
 Queued: laws to check (not started):
 - Ireland's domestic powers over companies based there: its e-Evidence implementing act and the
   warrant or production powers Gardaí use.
-- Germany's, for Adjust GmbH: the EU's law applies there, but Germany's own powers over companies
-  based there aren't checked, as with Ireland.
-- India's, where InMobi and Affle are registered: India already shows under Jurisdictions.
-- Singapore's, for Pangle, whose recipients run through TikTok Pte. Ltd.: it shows under
-  Jurisdictions once a company record for it exists.
+- Norway: Criminal Procedure Act § 210 b (orders for evidence that will come into someone's
+  possession) and § 215 a (data preservation orders).
+- Germany: StPO § 100j (subscriber data) and TDDDG §§ 22–24.
+- Singapore: Criminal Procedure Code ss. 39–40 (access to computers and decryption information).
+- India: Digital Personal Data Protection Act s. 36.
 - US national law beyond the CLOUD Act and FISA: the Stored Communications Act, 18 U.S.C. § 2703
   (the everyday warrant, order and subpoena route for app data); national security letters,
   § 2709; FISA Title I, 50 U.S.C. § 1805(c)(2)(B).

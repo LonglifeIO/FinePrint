@@ -51,15 +51,17 @@ class UnionLawsTest {
         assertTrue(blocks.none { it.code == "EU" })
     }
 
-    /** The shipped e-Evidence Regulation binds every member state but Denmark; Ireland has no entry of its own. */
+    /** The shipped e-Evidence Regulation binds every member state but Denmark; Ireland has no entry of its own, Germany has. */
     @Test
     fun eEvidenceBindsTheMemberStatesThatTakePart() {
         val real = parseBundle(File("../../bundle/bundle.json").readText(), File("../../bundle/jurisdictions.json").readText())
         val members = "AT BE BG CY CZ DE DK EE ES FI FR GR HR HU IE IT LT LU LV MT NL PL PT RO SE SI SK".split(" ")
         assertEquals(members - "DK", real.jurisdictions.getValue("EU").laws.single { it.id == "law-eu-e-evidence" }.appliesTo)
-        for (code in listOf("IE", "DE")) assertEquals(listOf("law-eu-e-evidence"), lawsBinding(code, real).map { it.id })
+        assertEquals(listOf("law-eu-e-evidence"), lawsBinding("IE", real).map { it.id })
+        // Germany's own laws come first, then the union's.
+        assertEquals(listOf("law-de-stpo-95", "law-de-stpo-100k", "law-eu-e-evidence"), lawsBinding("DE", real).map { it.id })
         assertTrue(lawsBinding("DK", real).isEmpty())
-        // So Ireland, like Germany, shows the note that its own laws aren't reviewed.
-        assertTrue("IE" !in real.jurisdictions && "DE" !in real.jurisdictions)
+        // So Ireland shows the note that its own laws aren't reviewed, and Germany doesn't.
+        assertTrue("IE" !in real.jurisdictions && "DE" in real.jurisdictions)
     }
 }
