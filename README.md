@@ -125,7 +125,7 @@ A real-device check and the Tailscale path are deferred by choice. See `CLAUDE.m
 Next, in order:
 
 1. Follow-ups to the tracker batches: Mintegral's and InMobi's privacy policies, saved by hand
-   (`manual`), and a dated note on the Caldwell v. InMobi docket event.
+   (`manual`).
 2. G6: guided paths and Guide mode.
 3. A test on a phone.
 
