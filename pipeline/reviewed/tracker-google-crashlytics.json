@@ -14,6 +14,19 @@
    ],
    "jurisdiction": "US",
    "party": "first_party",
+   "purpose": {
+    "kind": "crash_reporting",
+    "sources": [
+     {
+      "url": "https://firebase.google.com/support/privacy",
+      "type": "company_site",
+      "title": "Firebase: Privacy and Security in Firebase",
+      "as_of": "2026-09-15",
+      "status": "self_disclosed",
+      "quote": "help Firebase customers debug crashes"
+     }
+    ]
+   },
    "product_line": "Firebase Crashlytics, the crash reporter Google runs for app developers",
    "categories": [
     "crash_reporting"
@@ -123,7 +136,7 @@
    ],
    "consequences": [],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

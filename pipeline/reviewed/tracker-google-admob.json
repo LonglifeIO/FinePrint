@@ -14,6 +14,19 @@
    ],
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "ads",
+    "sources": [
+     {
+      "url": "https://developers.google.com/admob/android/privacy/play-data-disclosure",
+      "type": "company_site",
+      "title": "Google AdMob documentation: Google Mobile Ads SDK data disclosure",
+      "as_of": "2026-10-07",
+      "status": "self_disclosed",
+      "quote": "for advertising, analytics, and fraud prevention"
+     }
+    ]
+   },
    "product_line": "Google Mobile Ads SDK (AdMob)",
    "categories": [
     "advertising",
@@ -183,7 +196,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }
