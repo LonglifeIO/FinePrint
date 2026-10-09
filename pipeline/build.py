@@ -215,11 +215,30 @@ def government_problems(line: dict) -> list[str]:
     return errors
 
 
+SHORT_WORDS = 25  # a law's short line: one sentence, read before its full text
+
+
+def short_problems(law: dict) -> list[str]:
+    """A law's short line is one plain sentence of at most SHORT_WORDS words, ending in a full stop, and never its text again."""
+    short = law.get("short")
+    if short is None:
+        return []
+    errors = []
+    if len(short.split()) > SHORT_WORDS:
+        errors.append(f"{law['id']}: its short line runs to {len(short.split())} words; at most {SHORT_WORDS}")
+    if not short.endswith(".") or re.search(r"[.!?][\"”’)]*\s+[A-Z0-9]", short[:-1]):
+        errors.append(f"{law['id']}: its short line is one sentence, ending in a full stop")
+    if short.strip() == law["text"].strip():
+        errors.append(f"{law['id']}: its short line repeats its text; it says it shorter, or it's left out")
+    return errors
+
+
 def law_problems(places: dict) -> list[str]:
     """Each law has one id, cites its own text first, quotes every source, and, in a union's entry, names the countries it binds."""
     laws = [law for j in places[JURISDICTIONS] for law in j["laws"]]
     ids = [law["id"] for law in laws]
     errors = [f"law id {i!r} used twice" for i in sorted({i for i in ids if ids.count(i) > 1})]
+    errors += [e for law in laws for e in short_problems(law)]
     errors += [f"{law['id']}: its first source is the law's own text (type statute)" for law in laws if law["sources"][0]["type"] != "statute"]
     errors += [f"{law['id']}: a law in the {j['id']} entry says which countries it binds (applies_to)"
                for j in places[JURISDICTIONS] if j["id"] in UNIONS for law in j["laws"] if not law.get("applies_to")]
@@ -522,7 +541,7 @@ def build(reviewed: list[Path], now: dt.datetime) -> dict:
     mark_stale(merged["apps"], now.date())
     return {
         "schema_version": 1,
-        "schema_revision": "1.6",
+        "schema_revision": "1.7",
         "bundle_version": now.strftime("%Y.%m.%d"),
         "generated_at": now.isoformat(timespec="seconds"),
         "licence": LICENCE,

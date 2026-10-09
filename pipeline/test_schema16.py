@@ -40,7 +40,7 @@ def app(**extra) -> dict:
 
 
 def bundle(**sections) -> dict:
-    base = {"schema_version": 1, "schema_revision": "1.6", "bundle_version": "2026.10.08",
+    base = {"schema_version": 1, "schema_revision": "1.7", "bundle_version": "2026.10.08",
             "generated_at": "2026-10-08T12:00:00-03:00", "apps": [], "trackers": [], "companies": [],
             "permissions": [], "device_reach": []}
     return dict(base, **sections)

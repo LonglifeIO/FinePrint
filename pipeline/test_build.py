@@ -25,7 +25,7 @@ VALIDATOR = build.jsonschema.Draft202012Validator(
 
 
 def doc(**sections) -> dict:
-    base = {"schema_version": 1, "schema_revision": "1.6", "bundle_version": "2026.10.04",
+    base = {"schema_version": 1, "schema_revision": "1.7", "bundle_version": "2026.10.04",
             "generated_at": "2026-10-04T12:00:00-03:00", "apps": [], "trackers": [], "companies": [],
             "permissions": [], "device_reach": []}
     return dict(base, **sections)
@@ -398,6 +398,25 @@ class GovernmentTest(unittest.TestCase):
         self.assertEqual(build.schema_problems(schema, keyed, "jurisdictions_file"), [])
         self.assertTrue(build.schema_problems(schema, dict(places, jurisdictions=[dict(eu, laws=[dict(law, applies_to=["DEU"])])]),
                                               "jurisdictions_file"))
+
+    def test_a_short_line_is_one_sentence_of_at_most_25_words(self):
+        law = {"id": "law-us-x", "name": "X Act", "citation": "1 U.S.C. § 1", "status": "self_disclosed", "sources": [STATUTE],
+               "text": "A court can order a provider to hand over data it holds, wherever it is stored.",
+               "last_reviewed": "2026-10-07", "scope": {"text": "It binds providers.", "sources": [STATUTE]}}
+
+        def places(**extra) -> dict:
+            return {"schema_version": 1, "generated_at": "2026-10-07T00:00:00-03:00",
+                    "jurisdictions": [{"id": "US", "name": "United States", "laws": [dict(law, **extra)], "last_reviewed": "2026-10-07"}]}
+        schema = json.loads(build.SCHEMA.read_text(encoding="utf-8"))
+        ok = places(short="A US court can make a provider hand over data it holds.")
+        self.assertEqual(build.law_problems(ok) + build.schema_problems(schema, ok, "jurisdictions_file"), [])
+        self.assertEqual(build.law_problems(places()), [])  # optional: a law without one shows its text alone
+        self.assertEqual(build.law_problems(places(short=" ".join(["word"] * 26) + ".")), ["law-us-x: its short line runs to 26 words; at most 25"])
+        one = "law-us-x: its short line is one sentence, ending in a full stop"
+        self.assertEqual(build.law_problems(places(short="A court can order it. Providers comply.")), [one])
+        self.assertEqual(build.law_problems(places(short="A court can order it")), [one])
+        self.assertEqual(build.law_problems(places(short=law["text"])), ["law-us-x: its short line repeats its text; it says it shorter, or it's left out"])
+        self.assertTrue(build.schema_problems(schema, places(short=""), "jurisdictions_file"))
         self.assertEqual(build.jurisdictions_path(Path("/tmp/bundle-preview.json")), Path("/tmp/jurisdictions-preview.json"))
 
 
