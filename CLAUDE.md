@@ -2,7 +2,8 @@
 
 Read this before touching anything.
 
-Before planning, read ingest/ — notes compiled from videos the owner saved. Reference material, not decisions.
+Before planning, read `ingest/`. It is a gitignored symlink to the Almanac FinePrint area (plans, research, decisions,
+hand captures as well as video notes). Reference only: never cited directly, never committed, never copied into the repo.
 
 ## What this is
 A free, AGPLv3 Android app (iOS later) that scans installed apps and explains, per app,
@@ -89,6 +90,9 @@ briefly "Argus" — if you see it, it means FinePrint.
 
 ## Conventions
 - Timestamps: America/Halifax. Canadian spelling in user-facing text.
+- Voice: words in the app and in records follow docs/METHOD.md, Voice. Reviewed is the user's mark; FinePrint's own
+  work is checked (Checked by FinePrint, Not checked yet). The readability reports (android/app/build/reports/readability/,
+  written by the JVM tests) list what's over its thresholds; CI warns, never fails.
 - Kotlin files under ~300 lines; plain functions over frameworks (no DI library,
   no Room). Python: stdlib + `requests` + `jsonschema`; keep it scripts, not a package.
 - Debug builds may carry Compose's preview tooling (`ui-tooling`, `ui-tooling-preview`) for `@Preview`
