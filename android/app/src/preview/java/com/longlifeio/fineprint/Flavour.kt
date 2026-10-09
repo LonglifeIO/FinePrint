@@ -31,6 +31,12 @@ fun Activity.settingsOpener(packageName: String): (() -> Unit)? = null
 
 val SETTINGS_UNAVAILABLE: String? = "Not available in the preview"
 
+/** The disclosure still shows; Open GitHub is off, with [REVIEW_UNAVAILABLE]. */
+@Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
+fun Activity.reviewOpener(url: String): (() -> Unit)? = null
+
+val REVIEW_UNAVAILABLE: String? = "Not available in the preview"
+
 /** The sample apps show their initials, never this phone's icons. */
 @Suppress("UNUSED_PARAMETER")
 fun appIcon(pm: PackageManager, packageName: String): Drawable? = null

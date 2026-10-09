@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.longlifeio.fineprint.explain.explain
+import com.longlifeio.fineprint.explain.reviewRequestUrl
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
@@ -120,6 +121,8 @@ class MainActivity : ComponentActivity() {
                             onOpenSettings = settingsOpener(open.packageName),
                             settingsUnavailable = SETTINGS_UNAVAILABLE,
                             installLine = session.installLine(open),
+                            onAskForReview = reviewOpener(reviewRequestUrl(explanation.appName, open.packageName)),
+                            reviewUnavailable = REVIEW_UNAVAILABLE,
                             onHowToRead = { showHowTo = true },
                             onMarkReviewed = now?.let { fp -> { reviewStore.markReviewed(open.packageName, fp, OffsetDateTime.now().toString()) } },
                             onClearMark = { reviewStore.clearMark(open.packageName) },

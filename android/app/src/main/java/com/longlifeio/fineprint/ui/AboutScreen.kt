@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.BuildConfig
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.bundle.BundleState
+import com.longlifeio.fineprint.explain.ABOUT_REVIEW_REQUESTS
 import java.time.Duration
 import java.time.OffsetDateTime
 
@@ -61,6 +62,7 @@ fun AboutScreen(state: BundleState, status: String, origin: String, onBack: () -
                     }
                 }
             }
+            item { Note(ABOUT_REVIEW_REQUESTS) }
             item { SectionTitle("Tracker data") }
             item {
                 Note(

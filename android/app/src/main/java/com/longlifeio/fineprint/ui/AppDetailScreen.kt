@@ -74,6 +74,9 @@ fun AppDetailScreen(
     settingsUnavailable: String? = null,
     /** Said in place of the app's version and APK count, when they aren't known (a sample app never scanned). */
     installLine: String? = null,
+    /** Opens GitHub's review-request form in the browser, after the disclosure; null where it can't, with [reviewUnavailable]. */
+    onAskForReview: (() -> Unit)? = null,
+    reviewUnavailable: String? = null,
 ) {
     var evidenceOpen by rememberSaveable { mutableStateOf(false) }
     var recordOpen by rememberSaveable { mutableStateOf(false) }
@@ -100,7 +103,7 @@ fun AppDetailScreen(
                 },
             ) { padding ->
                 CentredList(padding, Modifier.testTag("detail")) {
-                    item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings, settingsUnavailable, installLine) }
+                    item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings, settingsUnavailable, installLine, onAskForReview, reviewUnavailable) }
                     // Their words: only when the record has the store's own description.
                     explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation), alsoCollected(explanation)) { sheet = it } } }
                     detailSections(

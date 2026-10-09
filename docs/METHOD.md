@@ -20,6 +20,8 @@ Under its name and tier, each page says how far FinePrint has looked at the app,
 - Their words only — a reviewer hasn't looked at this app yet: FinePrint has a record of what the app and its company say, but no one has looked for those matters yet.
 - No record yet — these lines come from the trackers found in its code. An app that came with your phone may add its maker's policy: No record yet — these lines come from Google's policy and the trackers found in its code.
 
+On a page that reads Their words only or No record yet, a button, Ask FinePrint to review this app, asks for a reviewer. Before anything opens, it says: This opens GitHub in your browser with the app's name and package in the address. FinePrint itself sends nothing. Nothing is posted until you submit it there, and the post is public under your GitHub account. Open GitHub then hands the address to your browser; Cancel closes it. A request never changes a tier. The address fills GitHub's review-request form by its field names: checked against GitHub's documentation on 2026-10-08, a form's text fields fill from URL parameters named by their ids, while a labels parameter would show a 404 to anyone who can't label issues, so the form applies its review-request label itself.
+
 The home shows the same on each app in small text, such as Checked by FinePrint · 2026-10-04; its filters include Checked, Their words only and No record yet; and At a glance counts them, such as Records: 4 checked, 0 their words only, 6 no record yet.
 
 When FinePrint has an app's store description on record, its page opens with it, above the sections:

@@ -4,7 +4,9 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.hasAnyAncestor
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isDialog
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
@@ -18,6 +20,7 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import com.longlifeio.fineprint.FinePrintApp
 import com.longlifeio.fineprint.GLANCE_NOTICE
 import com.longlifeio.fineprint.MainActivity
+import com.longlifeio.fineprint.REVIEW_UNAVAILABLE
 import com.longlifeio.fineprint.SETTINGS_UNAVAILABLE
 import com.longlifeio.fineprint.bundle.parseBundle
 import com.longlifeio.fineprint.design.parseFixture
@@ -120,6 +123,17 @@ class PreviewTest {
         compose.onNodeWithText("Not scanned in this preview").assertIsDisplayed()
         assertEquals(0, compose.onAllNodesWithText("Version", substring = true).fetchSemanticsNodes().size)
         assertEquals(0, compose.onAllNodesWithText("APKs", substring = true).fetchSemanticsNodes().size)
+    }
+
+    @Test
+    fun theReviewRequestShowsItsDisclosureButCantOpenGitHub() {
+        compose.onNodeWithTag("list").performScrollToNode(hasText("Don du Sang")) // no record
+        compose.onNodeWithText("Don du Sang").performClick()
+        compose.onNodeWithText("Ask FinePrint to review this app").performClick()
+        compose.onNodeWithText("This opens GitHub", substring = true).assertIsDisplayed()
+        compose.onNodeWithText("Open GitHub").assertIsNotEnabled().performClick()
+        compose.onNode(hasText(REVIEW_UNAVAILABLE!!) and hasAnyAncestor(isDialog())).assertIsDisplayed()
+        assertNull("nothing opened", shadowOf(compose.activity).nextStartedActivity)
     }
 
     @Test

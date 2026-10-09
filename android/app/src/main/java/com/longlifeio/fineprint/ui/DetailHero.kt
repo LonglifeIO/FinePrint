@@ -51,6 +51,7 @@ import com.longlifeio.fineprint.explain.REVIEWED_DEFINITION
 import com.longlifeio.fineprint.explain.THEIR_WORDS
 import com.longlifeio.fineprint.explain.THE_FINE_PRINT
 import com.longlifeio.fineprint.explain.WhatYouCanDo
+import com.longlifeio.fineprint.explain.asksForReview
 import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.coverageLine
 import com.longlifeio.fineprint.review.ReviewStatus
@@ -59,7 +60,10 @@ import com.longlifeio.fineprint.review.ReviewView
 /** The app, its tier as an indicator chip ("Flagged ✓" once reviewed) and the line that set it: the answer before the detail. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo, review: ReviewView, onOpenSettings: (() -> Unit)?, settingsUnavailable: String?, installLine: String?) {
+internal fun DetailHeader(
+    app: InstalledApp, e: Explanation, check: WhatYouCanDo, review: ReviewView, onOpenSettings: (() -> Unit)?, settingsUnavailable: String?,
+    installLine: String?, onAskForReview: (() -> Unit)?, reviewUnavailable: String?,
+) {
     val p = LocalPalette.current
     val reviewed = review.status == ReviewStatus.REVIEWED
     Column(Modifier.padding(horizontal = Space.screen, vertical = Space.s), verticalArrangement = Arrangement.spacedBy(Space.s)) {
@@ -77,6 +81,7 @@ internal fun DetailHeader(app: InstalledApp, e: Explanation, check: WhatYouCanDo
         Text(e.tier.reason, style = MaterialTheme.typography.bodyLarge, color = p.ink)
         // How far FinePrint has looked: checked by a reviewer, their words only, or no record yet.
         Text(coverageLine(e), style = MaterialTheme.typography.bodySmall, color = p.muted, modifier = Modifier.testTag("coverage"))
+        if (e.asksForReview) AskForReview(onAskForReview, reviewUnavailable)
         if (e.tier.capped) Note("Without a reviewed record, an app is rated Caution at most, never Flagged.")
         if (review.status == ReviewStatus.CHANGED) Text("$CHANGED: ${review.note}.", style = MaterialTheme.typography.bodyMedium, color = p.ink)
         check.summary?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = p.muted) }

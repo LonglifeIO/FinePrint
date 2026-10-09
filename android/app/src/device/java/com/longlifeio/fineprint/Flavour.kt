@@ -45,6 +45,12 @@ fun Activity.settingsOpener(packageName: String): (() -> Unit)? = { openAppSetti
 /** Why an app's settings can't be opened, when they can't; never here. */
 val SETTINGS_UNAVAILABLE: String? = null
 
+/** Opens GitHub's review-request form in the browser (an ACTION_VIEW intent); the app itself sends nothing. */
+fun Activity.reviewOpener(url: String): (() -> Unit)? = { openInBrowser(url) }
+
+/** Why the review request can't open GitHub, when it can't; never here. */
+val REVIEW_UNAVAILABLE: String? = null
+
 /** "bundle: 2026.10.04, 0 days old", on At a glance and in About. */
 fun BundleSession.status(state: BundleState): String = bundleStatus(state)
 
@@ -56,6 +62,14 @@ val BundleSession.update: (() -> Unit)? get() = ::refreshNow
 
 /** An app's own icon, from this phone. */
 fun appIcon(pm: PackageManager, packageName: String): Drawable? = pm.getApplicationIcon(packageName)
+
+private fun Activity.openInBrowser(url: String) {
+    try {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+    } catch (e: ActivityNotFoundException) {
+        Toast.makeText(this, "There's no browser on this phone to open GitHub.", Toast.LENGTH_LONG).show()
+    }
+}
 
 private fun Activity.openAppSettings(packageName: String) {
     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null))

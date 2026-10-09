@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import com.github.takahirom.roborazzi.captureRoboImage
+import com.longlifeio.fineprint.explain.ASK_FOR_REVIEW
 import com.longlifeio.fineprint.explain.BUCKETS
 import com.longlifeio.fineprint.explain.STAYS_HERE
 import com.longlifeio.fineprint.explain.Tier
@@ -21,6 +22,7 @@ import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.printToString
@@ -44,8 +46,8 @@ import org.robolectric.annotation.GraphicsMode
 import java.io.File
 
 /**
- * The design review in pictures (G5 stop C): the home, Life360's page, its Sources sheet, How to read
- * and the introduction, light and dark, drawn by Robolectric at the emulator's size (411 × 914dp,
+ * The design review in pictures (G5 stop C): the home, Life360's page, its Sources sheet, How to read,
+ * the introduction and franceinfo's review request, light and dark, drawn by Robolectric at the emulator's size (411 × 914dp,
  * 420dpi) and saved to build/outputs/roborazzi. The README's screenshots are copied from here
  * (readmeScreenshots), never captured by hand. The data is real: the bundle, and the test emulator's
  * apps and scans (scan-fixture.json); the bundle line leaves out its age so the images don't change by day.
@@ -70,6 +72,7 @@ class ScreenshotTest {
     /** As on the emulator: Facebook marked reviewed, so its row reads "Flagged ✓". */
     private val reviews = mapOf("com.facebook.katana" to ReviewView(ReviewStatus.REVIEWED, "2026-10-07"))
     private val life360 = apps.single { it.packageName == "com.life360.android.safetymapd" }
+    private val franceinfo = apps.single { it.packageName == "fr.francetv.apps.info" }
 
     /**
      * Saves the screen as <name>-light|dark[-150|-200][-w360|-w800].png, and what TalkBack would read as
@@ -119,6 +122,20 @@ class ScreenshotTest {
         buckets = OpenBuckets({ _, default -> default }, { _, _ -> }),
     )
 
+    /** franceinfo has no record, so its page asks for a reviewer: the disclosure, open. */
+    @Composable
+    private fun Franceinfo() = AppDetailScreen(
+        app = franceinfo, explanation = explanations.getValue(franceinfo.packageName), check = checks.getValue(franceinfo.packageName),
+        review = ReviewView(ReviewStatus.NOT_REVIEWED), result = scans[franceinfo.scanKey], signatures = null, bundleVersion = bundle.version,
+        onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+        buckets = OpenBuckets({ _, default -> default }, { _, _ -> }), onAskForReview = {},
+    )
+
+    private fun openReviewRequest() {
+        compose.onNodeWithTag("detail").performScrollToNode(hasText(ASK_FOR_REVIEW))
+        compose.onNodeWithText(ASK_FOR_REVIEW).performClick()
+    }
+
     @Test fun homeLight() = shoot("home", dark = false, { Home() })
     @Test fun homeDark() = shoot("home", dark = true, { Home() })
     @Test fun detailLight() = shoot("detail", dark = false, { Life360() })
@@ -126,6 +143,10 @@ class ScreenshotTest {
     // The hero's Sources row: the listing and the fine print's own sources.
     @Test fun sourcesLight() = shoot("sources", dark = false, { Life360() }) { openHeroSources() }
     @Test fun sourcesDark() = shoot("sources", dark = true, { Life360() }) { openHeroSources() }
+    @Test fun askForReviewLight() = shoot("ask-for-review", dark = false, { Franceinfo() }) { openReviewRequest() }
+    @Test fun askForReviewDark() = shoot("ask-for-review", dark = true, { Franceinfo() }) { openReviewRequest() }
+    @Test fun askForReviewLargest() = shoot("ask-for-review", dark = false, { Franceinfo() }, scale = 2f) { openReviewRequest() }
+    @Test fun askForReviewSmall() = shoot("ask-for-review", dark = false, { Franceinfo() }, device = Device.SMALL) { openReviewRequest() }
     @Test fun howToReadLight() = shoot("how-to-read", dark = false, { FinePrintTheme { HowToReadScreen(onBack = {}) } })
     @Test fun howToReadDark() = shoot("how-to-read", dark = true, { FinePrintTheme { HowToReadScreen(onBack = {}) } })
     // The introduction's three pages, as intro-1, intro-2 and intro-3.

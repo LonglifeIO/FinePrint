@@ -236,6 +236,7 @@ class TapTargetTest {
         detail.performScrollToNode(hasText("Tap to show the laws"))
         compose.onNodeWithText("Tap to show the laws").performClick()
         detail.performScrollToNode(hasText("It was repealed on 2026-06-12; directives issued before then stay in force until they expire", substring = true))
+        detail.performScrollToNode(hasText("Sources (13)")) // the line's own Sources row, below its text
         compose.onNodeWithText("Sources (13)").performClick()
         compose.onNodeWithTag("sources").performScrollToNode(hasText("Current status"))
         compose.onNodeWithText("Current status").assertExists()

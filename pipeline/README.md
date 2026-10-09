@@ -29,6 +29,16 @@ Build order (each is a separate script, each is idempotent):
 
 Serve for dev: `python3 -m http.server <port> --directory ../bundle` (see `android/README.md`).
 
+## Review requests
+
+Issues labelled `review-request` come from the app's "Ask FinePrint to review this app" (on pages that read Their
+words only or No record yet), through `.github/ISSUE_TEMPLATE/review-request.yml`. Triage:
+
+- Dedupe by package: keep the first issue for a package, add a +1 reaction to it for each duplicate, and close the
+  duplicates with a link to it.
+- A request never changes a tier. It queues the app for a reviewer, who drafts or checks its record through the usual
+  review gate.
+
 ## The watcher
 
 `watch.py` notices change at the pages the reviewed records quote and at regulators' feeds, and puts it in

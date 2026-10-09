@@ -1,6 +1,7 @@
 package com.longlifeio.fineprint.ui
 
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
@@ -15,6 +16,7 @@ import com.longlifeio.fineprint.bundle.parseBundle
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
+import com.longlifeio.fineprint.explain.ASK_FOR_REVIEW
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
@@ -89,7 +91,8 @@ class SystemAppsTest {
                 )
             }
         }
-        compose.onNodeWithText("No record yet · from Google's policy").assertExists()
+        compose.onNodeWithTag("coverage").assert(hasText("No record yet — these lines come from Google's policy and the trackers found in its code."))
+        compose.onNodeWithText(ASK_FOR_REVIEW).assertExists() // no reviewer has checked it
         assertTrue(compose.onAllNodesWithText("From Google's privacy policy, which covers this app.").fetchSemanticsNodes().isNotEmpty())
         assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))
     }

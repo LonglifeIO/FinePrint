@@ -1,0 +1,39 @@
+# Opened from the app's "Ask FinePrint to review this app" (docs/METHOD.md, An app's page): its text fields are
+# prefilled from the URL, by their ids. The label comes from here, not the URL: a labels parameter gives anyone
+# who can't label issues a 404. Triage: pipeline/README.md.
+name: Review request
+description: Ask FinePrint to review an app it has no record of, or whose record no one has checked yet.
+title: "Review request: "
+labels: ["review-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A reviewer looks at the app's own words and its public record, then writes or checks its record. A request never changes an app's tier.
+  - type: input
+    id: app_name
+    attributes:
+      label: App name
+    validations:
+      required: true
+  - type: input
+    id: package
+    attributes:
+      label: Package
+      description: The app's Android package name, such as com.example.app.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why (optional)
+      description: Anything that would help a reviewer, such as what made you ask.
+    validations:
+      required: false
+  - type: checkboxes
+    id: public
+    attributes:
+      label: This issue is public
+      options:
+        - label: I understand this is public.
+          required: true

@@ -11,6 +11,7 @@
    "summary": "Synthetic test record: one line of each kind, for the order of FinePrint's lines.",
    "trackers": [],
    "coverage": "curated",
+   "checked_on": "2026-10-08",
    "last_reviewed": "2026-10-08",
    "store_tagline": {"text": "Your day, mapped", "source_url": "https://play.google.com/store/apps/details?id=com.example.lines", "as_of": "2026-10-08"},
    "data_flows": [
