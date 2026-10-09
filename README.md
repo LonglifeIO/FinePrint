@@ -19,10 +19,10 @@ supported by exactly one hardcoded ad that knows nothing about you.
 
 <p>
   <img src="docs/screenshots/home-light.png" width="300" alt="The home: At a glance, where your apps' data can go, then the Flagged apps">
-  <img src="docs/screenshots/detail-light.png" width="300" alt="Life360's page: its tier, its own Play description, and the fine print, each line with its source">
+  <img src="docs/screenshots/detail-light.png" width="300" alt="Life360's page: its tier and why, its own Play description, and the fine print, what set the tier first, each line with its source">
 </p>
 
-Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, from knowledge bundle 2026.10.08
+Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, from knowledge bundle 2026.10.09
 and the scan fixture: the test emulator's apps, plus Google Maps, which has a record but isn't installed there.
 In dark mode: [the home](docs/screenshots/home-dark.png) and [Life360](docs/screenshots/detail-dark.png).
 
@@ -67,7 +67,7 @@ and commit with the GitHub noreply address (`git config user.email <id>+<user>@u
 
 ## Status
 
-G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema is at v1.5:
+G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema is at v1.7:
 
 - G1, the scanner: installed apps, their permissions and the tracker SDKs in their code (Arity in
   Life360).
@@ -92,6 +92,14 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
 - Schema v1.4 and v1.5: `store_tagline` on app records (Life360, Facebook and TikTok, quote-checked
   against the saved listing); every flow has an id; and a record's changes, like Reviewed marks,
   count rulings, lawsuits and a flow's evidence, never wording.
+- Schema v1.6 and v1.7: when FinePrint checked an app (Checked by FinePrint, or Their words only);
+  whether a claim is before a court or a regulator, and a regulator's formal proceeding; flows that
+  hang on a setting FinePrint can't see (shown, never scored); a tracker's sourced purpose; and a
+  short line for each law, shown first, with the law's full text opening under it.
+- The reading pass: plain words throughout, with a Voice section in `docs/METHOD.md` and a
+  readability report on every build (CI warns, never fails); under each app's name, the reason for
+  its tier ("Why: Life360 says your location goes to other companies"), with what set it listed
+  first under "Why it's Flagged"; a search bar on the home; and an edge on every card in dark mode.
 - The laws table, reviewed entry by entry: eight laws in force (the US, Canada, China, the EU,
   Israel and Russia), each with who it binds, whether the company may tell you it handed data
   over, its own review date and a Stale marker; an EU regulation is keyed to the member states it
