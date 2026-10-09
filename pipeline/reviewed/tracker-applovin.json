@@ -270,12 +270,15 @@
        "quote": "Country, time zone, and locale settings"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the app's publisher provides them, AppLovin also receives your email address, phone number or the publisher's user ID for you. FinePrint can't see that setting.",
+     "id": "flow-applovin-publisher-ids",
+     "data": "account_identity",
+     "recipient": "co-applovin",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your email address, phone number or the publisher's user ID for you, among the data AppLovin may use to show you ads based on your likely interests",
      "status": "self_disclosed",
+     "conditional": "if the app's publisher provides them",
      "wording": "According to AppLovin's privacy policy, effective 2026-08-06.",
      "sources": [
       {
@@ -285,9 +288,27 @@
        "as_of": "2026-08-06",
        "status": "self_disclosed",
        "quote": "Email addresses, phone numbers, and Publisher User IDs (if provided by publisher)"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "We may use the above categories of personal data to present you with advertising"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "an application which contains the AppLovin SDK"
       }
      ]
-    },
+    }
+   ],
+   "consequences": [
     {
      "text": "San Diego County alleges that AppLovin collected data from children even when their parents had opted out, and let inappropriate ads appear in children's games despite parental controls.",
      "subject_company": "co-applovin",
@@ -390,7 +411,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

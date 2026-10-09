@@ -138,14 +138,25 @@
        "quote": "Amplitude is processing Customer End User Data on behalf of that customer"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has turned on location listening, Amplitude adds your precise coordinates from Android's location services to each event; versions before 2.40.3 did this by default. FinePrint can't see that setting or the version.",
+     "id": "flow-amplitude-gps",
+     "data": "precise_location",
+     "recipient": "co-amplitude",
+     "bucket": "stays_here",
+     "purpose": "Your precise coordinates, longitude and latitude, from Android's location services, added to each event the app logs",
      "status": "self_disclosed",
+     "conditional": "if the developer turns location tracking on; before version 2.40.3 the SDK had it on by default",
      "wording": "According to Amplitude's Android SDK documentation (read 2026-10-08).",
      "sources": [
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Call enableLocationListening() to track location data."
+      },
       {
        "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
        "type": "company_site",
@@ -161,12 +172,21 @@
        "accessed": "2026-10-08",
        "status": "self_disclosed",
        "quote": "Amplitude uses Android location services (if available) to add specific coordinates (longitude and latitude)"
+      },
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "add specific coordinates (longitude and latitude) to logged events"
       }
      ]
     }
    ],
+   "consequences": [],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

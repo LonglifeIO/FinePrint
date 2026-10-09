@@ -290,14 +290,25 @@
        "quote": "AppsFlyer acts solely as a service provider on your behalf and per your instructions"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has connected ad networks or other partners, AppsFlyer passes them your advertising ID and the events the developer picks, for example through postbacks; AppsFlyer counts that as sharing. FinePrint can't see that setting.",
+     "id": "flow-appsflyer-partners",
+     "data": "device_identifiers",
+     "recipient_label": "Partners the developer works with, such as third-party networks",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your advertising ID, the developer's user ID for you (it can be your email) and what you did in the app, passed to partners the developer picks; AppsFlyer says that counts as sharing",
      "status": "self_disclosed",
+     "conditional": "if the developer configures AppsFlyer to work with its partners",
      "wording": "According to AppsFlyer's documentation (read 2026-10-08) and its help centre (updated 2026-10-01).",
      "sources": [
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Upon a customer configuring the service to work with their partners"
+      },
       {
        "url": "https://www.appsflyer.com/legal/processing-customer-data/",
        "type": "privacy_policy",
@@ -332,7 +343,9 @@
        "quote": "sharing data with third-party networks (for example, through postbacks … this would be deemed sharing"
       }
      ]
-    },
+    }
+   ],
+   "consequences": [
     {
      "text": "A complaint alleges that a man's use of the Grindr dating app was passed to TikTok, likely through AppsFlyer, without a legal basis or his consent, revealing his sexual orientation.",
      "subject_company": "co-appsflyer",
@@ -393,7 +406,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

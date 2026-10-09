@@ -221,13 +221,16 @@
        "quote": "unless directed by a customer"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has connected ad networks or other partners, Adjust shares data with them; the developer can turn that off for a user. FinePrint can't see that setting.",
+     "id": "flow-adjust-partners",
+     "data": "app_activity",
+     "recipient_label": "Partners the developer has set up in Adjust",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your installs, sessions and in-app events, which Adjust shares with every partner the developer has set up; the developer can turn this off for you",
      "status": "self_disclosed",
-     "wording": "According to Adjust's help centre and developer documentation (read 2026-10-08).",
+     "conditional": "if the developer has configured partners in its Adjust app settings",
+     "wording": "According to Adjust's developer documentation (read 2026-10-08).",
      "sources": [
       {
        "url": "https://dev.adjust.com/en/sdk/android/features/privacy",
@@ -235,21 +238,30 @@
        "title": "Adjust Developer Hub: Android SDK privacy features",
        "accessed": "2026-10-08",
        "status": "self_disclosed",
-       "quote": "Adjust stops sharing the user’s data with third parties"
+       "quote": "Adjust shares all metrics with any partners you’ve configured in your app settings"
       },
       {
-       "url": "https://help.adjust.com/en/article/google-play-data-safety",
+       "url": "https://dev.adjust.com/en/sdk/android/features/privacy",
        "type": "company_site",
-       "title": "Adjust Help Center: Google Play Data Safety",
+       "title": "Adjust Developer Hub: Android SDK privacy features",
        "accessed": "2026-10-08",
        "status": "self_disclosed",
-       "quote": "Adjust can share the data with … other entities … if you configure the integration"
+       "quote": "ad_revenue all update att_update event install … session subscription uninstall"
+      },
+      {
+       "url": "https://dev.adjust.com/en/sdk/android/features/privacy",
+       "type": "company_site",
+       "title": "Adjust Developer Hub: Android SDK privacy features",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Adjust stops sharing the user’s data with third parties"
       }
      ]
     }
    ],
+   "consequences": [],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }
