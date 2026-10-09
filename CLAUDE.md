@@ -130,7 +130,9 @@ briefly "Argus" — if you see it, it means FinePrint.
 
 ## Do not
 - Add network calls to the app beyond the bundle fetch.
-- Send package names, permission grants, or detections off-device for any reason.
+- Send package names, permission grants, or detections off-device for any reason. The one deliberate exception is
+  the review-request button: on the user's tap, after the disclosure, the app hands the browser a GitHub address
+  containing the app's name and package; the app itself sends nothing.
 - Vendor TrackerControl/NetGuard code before the observed-traffic gate.
 - Commit anything from `pipeline/raw/`, `pipeline/drafts/`, the watcher's ignored folders or `ingest/`
   (third-party pages and transcripts, and personal material).
