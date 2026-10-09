@@ -82,6 +82,7 @@ class OnTheRecordTest {
     fun outcomesInPlainWords() {
         assertEquals("settled, no admission", outcome("settlement_no_admission", false))
         assertEquals("dismissed, under appeal", outcome("dismissed", true))
+        assertEquals("formal proceeding opened", outcome("proceeding_opened", false))
         assertEquals("under appeal", outcome(null, true))
         assertEquals("consent order, in force", outcome("consent_order", false, inForce = true))
         assertEquals(null, outcome(null, false)) // a report: its badge says Reported
@@ -90,6 +91,7 @@ class OnTheRecordTest {
     @Test
     fun whatMakesAMatterOngoing() {
         assertTrue(ongoing("alleged", "filed", inForce = false, appealPending = false, closedDate = null)) // pending
+        assertTrue(ongoing("alleged", "proceeding_opened", inForce = false, appealPending = false, closedDate = null))
         assertTrue(!ongoing("alleged", "dismissed", inForce = false, appealPending = false, closedDate = null))
         assertTrue(ongoing("alleged", "dismissed", inForce = false, appealPending = true, closedDate = null))
         assertTrue(!ongoing("adjudicated", "settlement", inForce = false, appealPending = false, closedDate = null))

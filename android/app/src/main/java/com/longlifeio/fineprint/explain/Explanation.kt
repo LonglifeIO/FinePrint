@@ -81,6 +81,8 @@ data class FlowLine(
     val forum: String = "court",
     /** A setting FinePrint can't see that the line depends on: shown with it, never scored. */
     val conditional: String? = null,
+    /** An alleged line's stage: it raises a tier only once a judge let its case go ahead or a regulator opened a formal proceeding. */
+    val statusKind: String? = null,
 )
 
 data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
@@ -138,7 +140,7 @@ fun explain(
             appName = appName,
             flows = scored,
             events = onRecord.actions.filter { it.namesThisApp }
-                .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }, line = it, forum = it.forum) },
+                .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }, line = it) },
             reach = app.deviceReach,
             scanFacts = scanFacts(app, scan),
             today = today,
@@ -201,7 +203,7 @@ internal fun scanFacts(app: InstalledApp, scan: TrackerScanResult?): String {
 
 internal fun DataFlow.toLine(shown: String, via: String?) = FlowLine(
     data, bucket, shown, purpose, status, attribution(status, wording, forum), historical, sources, proceduralNote, via, id,
-    company = recipient, default = default, forum = forum, conditional = conditional,
+    company = recipient, default = default, forum = forum, conditional = conditional, statusKind = statusKind,
 )
 
 /** Alleged lines always say "not proven in court", or "not yet decided" before a regulator, whatever the record's own wording. */

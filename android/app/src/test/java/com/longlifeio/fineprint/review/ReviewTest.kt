@@ -152,6 +152,9 @@ class ReviewTest {
     fun aFlowsEvidenceIsAChange() {
         val wording = "\"wording\": \"According to its privacy policy dated 2026-01-01.\""
         assertEquals(listOf("FinePrint's record was updated"), changedBy(bundleWith("\"status\": \"self_disclosed\", $wording", "\"status\": \"reported\", $wording")))
+        // An alleged line whose case is back to only filed no longer counts toward the tier (docs/METHOD.md, Tiers).
+        val letProceed = "\"status\": \"alleged\", \"status_kind\": \"survived_motion_to_dismiss\""
+        assertEquals(listOf("FinePrint's record was updated"), between(bundle, edited(letProceed to letProceed.replace("survived_motion_to_dismiss", "filed"))))
     }
 
     @Test

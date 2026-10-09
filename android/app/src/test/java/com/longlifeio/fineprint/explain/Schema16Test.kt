@@ -16,7 +16,7 @@ import java.time.LocalDate
 
 /**
  * Schema 1.6 in the app (docs/METHOD.md): a conditional line is shown but never scored, an alleged matter before a
- * regulator is "not yet decided", and a tracker record's own purpose comes before its εxodus category.
+ * regulator is "not yet decided" and counts only once the regulator opens a formal proceeding, and a tracker record's own purpose comes before its εxodus category.
  */
 class Schema16Test {
 
@@ -61,9 +61,15 @@ class Schema16Test {
         assertEquals("Alleged (not yet decided)", statusWord("alleged", "regulator"))
         assertEquals("Alleged (not proven in court)", statusWord("alleged", "court"))
         assertEquals("Alleged (not proven in court)", statusWord("alleged"))
-        // The tier formula is the same (C3: filed); its reason says what the matter is.
-        assertEquals("C3", e.tier.rule)
-        assertEquals("A complaint to a regulator about this app's data has been filed (not yet decided)", e.tier.reason)
+        // Merely filed, it sets no tier (docs/METHOD.md, Tiers: filing alone never raises one); once the regulator opens a
+        // formal proceeding, C3 names it, not yet decided, and its line says where it stands.
+        assertEquals("E", e.tier.rule)
+        val opened = parseBundle(File("src/test/resources/schema16-fixture.json").readText()
+            .replace("\"status_kind\": \"filed\", \"forum\": \"regulator\"", "\"status_kind\": \"proceeding_opened\", \"forum\": \"regulator\""))
+        val proceeding = explain(app("com.example.regulator"), scan(), opened, emptyMap(), today)
+        assertEquals("C3", proceeding.tier.rule)
+        assertEquals("A regulator has opened a formal proceeding over this app's data (not yet decided)", proceeding.tier.reason)
+        assertTrue(proceeding.onTheRecord.actions.single().line, "formal proceeding opened" in proceeding.onTheRecord.actions.single().line)
     }
 
     @Test

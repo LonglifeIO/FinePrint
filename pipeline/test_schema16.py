@@ -82,6 +82,26 @@ class SchemaTest(unittest.TestCase):
                 self.assertTrue(schema_errors(doc))
 
 
+    def test_a_stage_belongs_to_its_forum(self):
+        # A regulator opens a formal proceeding; a court lets a case go ahead.
+        good = [
+            bundle(companies=[company(regulatory_history=[event(status_kind="proceeding_opened", forum="regulator")])]),
+            bundle(apps=[app(data_flows=[flow(status="alleged", status_kind="proceeding_opened", forum="regulator", sources=[LAWSUIT])])]),
+            bundle(companies=[company(regulatory_history=[event(status_kind="survived_motion_to_dismiss")])]),
+        ]
+        for doc in good:
+            with self.subTest(doc=json.dumps(doc)[-160:]):
+                self.assertEqual([], schema_errors(doc))
+        bad = [
+            bundle(companies=[company(regulatory_history=[event(status_kind="proceeding_opened")])]),  # no forum is a court
+            bundle(companies=[company(regulatory_history=[event(status_kind="proceeding_opened", forum="court")])]),
+            bundle(companies=[company(regulatory_history=[event(status_kind="survived_motion_to_dismiss", forum="regulator")])]),
+        ]
+        for doc in bad:
+            with self.subTest(doc=json.dumps(doc)[-160:]):
+                self.assertTrue(schema_errors(doc))
+
+
 class CrossCheckTest(unittest.TestCase):
     def test_forum_is_for_legal_lines(self):
         doc = bundle(apps=[app(data_flows=[flow(forum="court")])])
@@ -104,6 +124,15 @@ class DiffTest(unittest.TestCase):
         new = copy.deepcopy(old)
         new["data_flows"].append(flow(id="flow-b", data="device_identifiers", conditional="if the developer turns on data sharing"))
         self.assertEqual([], build.structural_diff(old, new))
+
+    def test_an_alleged_line_counts_from_past_filing(self):
+        filed = flow(status="alleged", status_kind="filed", sources=[LAWSUIT])
+        self.assertEqual("alleged, filed", build.evidence(filed))
+        self.assertEqual("alleged, filed", build.evidence({k: v for k, v in filed.items() if k != "status_kind"}))
+        self.assertEqual("alleged", build.evidence(dict(filed, status_kind="survived_motion_to_dismiss")))
+        self.assertEqual("alleged", build.evidence(dict(filed, status_kind="proceeding_opened", forum="regulator")))
+        let_proceed = app(data_flows=[dict(filed, status_kind="survived_motion_to_dismiss")])
+        self.assertEqual(["flow status: app_activity to Partners (alleged, filed to alleged)"], build.structural_diff(app(data_flows=[filed]), let_proceed))
 
     def test_forum_is_not_structure(self):
         old = app(consequences=[{"text": "t", "status": "alleged", "sources": [LAWSUIT]}])

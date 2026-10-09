@@ -5,6 +5,7 @@ import com.longlifeio.fineprint.bundle.Company
 import com.longlifeio.fineprint.bundle.Consequence
 import com.longlifeio.fineprint.bundle.DataFlow
 import com.longlifeio.fineprint.bundle.TrackerRecord
+import com.longlifeio.fineprint.explain.LET_PROCEED
 import com.longlifeio.fineprint.explain.independentSources
 import org.json.JSONArray
 import org.json.JSONObject
@@ -48,9 +49,15 @@ data class Shape(val flows: List<FlowShape>, val trackers: List<String>, val con
     }
 }
 
-/** What the tier rules read of a flow's evidence: its status, and whether a report has the second independent source it needs to raise a tier. */
-private fun DataFlow.evidence(): String =
-    if (status == "reported" && independentSources(sources) < 2) "reported, one source" else status ?: "auto"
+/**
+ * What the tier rules read of a flow's evidence: its status, whether a report has the second independent source it needs to
+ * raise a tier, and whether an alleged line's case has gone past filing.
+ */
+private fun DataFlow.evidence(): String = when {
+    status == "reported" && independentSources(sources) < 2 -> "reported, one source"
+    status == "alleged" && statusKind !in LET_PROCEED -> "alleged, ${statusKind ?: "filed"}"
+    else -> status ?: "auto"
+}
 
 private fun DataFlow.shape(prefix: String) = FlowShape(
     key = prefix + (id ?: "$data|${recipient ?: recipientLabel}"),

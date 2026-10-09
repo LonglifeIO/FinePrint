@@ -137,7 +137,7 @@ private fun consequenceLine(s: Said, pkg: String, bundle: Bundle?, developer: Co
 }
 
 
-/** In force, under appeal, or a lawsuit not yet dismissed or ended: what makes a matter ongoing. */
+/** In force, under appeal, or an alleged matter not yet dismissed or ended: what makes a matter ongoing. */
 internal fun ongoing(status: String, kind: String?, inForce: Boolean, appealPending: Boolean, closedDate: String?): Boolean =
     appealPending || inForce || (status == "alleged" && kind != "dismissed" && closedDate == null)
 
@@ -154,6 +154,7 @@ internal fun outcome(kind: String?, appealPending: Boolean, inForce: Boolean = f
         "consent_order" -> "consent order"
         "filed" -> "filed"
         "survived_motion_to_dismiss" -> "survived a motion to dismiss"
+        "proceeding_opened" -> "formal proceeding opened"
         "dismissed" -> "dismissed"
         else -> null
     }

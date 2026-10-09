@@ -106,6 +106,7 @@ private fun JSONObject.toDataFlow() = DataFlow(
     default = text("default") ?: "on",
     forum = text("forum") ?: "court",
     conditional = text("conditional"),
+    statusKind = text("status_kind"),
 )
 
 private fun JSONObject.toConsequence() = Consequence(

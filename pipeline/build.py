@@ -64,6 +64,8 @@ IMPROVING = ("flow removed", "moved toward stays here", "data kind removed", "tr
 BY_TIER = ("flow status", "event added", "event removed", "event status")
 TIERS = ("expected", "caution", "flagged")
 LEGAL = ("alleged", "adjudicated")
+# Past filing: a judge let the case go ahead, or a regulator opened a formal proceeding. Only then does an alleged line count.
+LET_PROCEED = ("survived_motion_to_dismiss", "proceeding_opened")
 
 
 def merge(paths: list[Path]) -> dict[str, list]:
@@ -264,9 +266,13 @@ def independent_sources(sources: list[dict]) -> int:
 
 
 def evidence(f: dict) -> str:
-    """What the tier rules read of a flow's evidence: its status, and whether a report has the second
-    independent source it needs to raise a tier."""
-    return f"{f['status']}, one source" if f["status"] == "reported" and independent_sources(f["sources"]) < 2 else f["status"]
+    """What the tier rules read of a flow's evidence: its status, whether a report has the second
+    independent source it needs to raise a tier, and whether an alleged line's case has gone past filing."""
+    if f["status"] == "reported" and independent_sources(f["sources"]) < 2:
+        return "reported, one source"
+    if f["status"] == "alleged" and f.get("status_kind") not in LET_PROCEED:
+        return f"alleged, {f.get('status_kind', 'filed')}"
+    return f["status"]
 
 
 def standing(item: dict) -> str:

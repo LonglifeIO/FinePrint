@@ -104,7 +104,7 @@ Tap Sources under a line to see every source behind it: its title, its type, its
 Every app gets a tier, worked out the same way for every app:
 
 - Flagged: Sensitive data goes to other companies by the app's own account or a ruling, or a court has ruled on, or let proceed, a case over this app's data.
-- Caution: Data is used beyond running the app or goes to other companies, a lawsuit over this app's data has been filed, or the app can reach deep into the phone.
+- Caution: Data is used beyond running the app or goes to other companies, a regulator has opened a formal proceeding over this app's data, or the app can reach deep into the phone.
 - Expected: FinePrint's reviewed record finds nothing beyond what running the app needs.
 
 An app is Flagged if any of these is true:
@@ -117,19 +117,20 @@ Otherwise, an app gets Caution if any of these is true:
 
 - Data is used for more, and the app's maker says so, two independent sources report it, or a court or regulator has decided it.
 - Any other data goes elsewhere. That includes sensitive data with less evidence than Flagged needs, and lines FinePrint inferred from tracker code.
-- A lawsuit over this app's data has been filed and hasn't yet survived a motion to dismiss.
+- A regulator has opened a formal proceeding over this app's data. It is not yet decided.
 - The app can act as an accessibility service, read your notifications, be a device administrator or run a VPN.
 
 Otherwise, an app with a reviewed record is Expected.
 
-Four limits apply to every app:
+Five limits apply to every app:
 
 - A claim reported by only one independent source never raises a tier. A re-report of the same story, or several reports that rest on one investigation, count as one source.
 - An app without a reviewed record is never Flagged or Expected. It gets Caution at most; otherwise it shows No record yet, with what the scan found, such as no third-party trackers found · 12 permissions.
 - A ruling, settlement or lawsuit counts only while it is ongoing (an order still in force, a case still pending, or a decision under appeal), or if it ended within the last three years; when the record doesn't say when it ended, its own date is used. Older ones stay under On the record, under Past, and never change a tier.
+- Filing alone never raises a tier: a lawsuit counts once a judge lets it go ahead, a complaint to a regulator once the regulator opens a formal proceeding, and an alleged line from the same point. Until then it is shown, but it doesn't count.
 - A line that is Off by default, when the app has a setting that controls it, doesn't count toward the tier. A line that is Only if you opt in still counts.
 
-A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. On the record also shows the developer's other actions; one that doesn't name this app is marked about the company, and it doesn't change the app's tier. For an app without a record of its own, it shows the actions on record against the companies behind its trackers, marked the same way. Under each tier, one line names the finding that set it; when a ruling or lawsuit sets it, that line names the ruling or lawsuit. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow.
+A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. On the record also shows the developer's other actions; one that doesn't name this app is marked about the company, and it doesn't change the app's tier. For an app without a record of its own, it shows the actions on record against the companies behind its trackers, marked the same way. Under each tier, one line names the finding that set it; when a ruling, a lawsuit or a regulator's proceeding sets it, that line names it. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow.
 
 No record yet: FinePrint hasn't reviewed this app. What it shows is inferred from the tracker code in the app: it can be rated Caution, but never Flagged or Expected.
 

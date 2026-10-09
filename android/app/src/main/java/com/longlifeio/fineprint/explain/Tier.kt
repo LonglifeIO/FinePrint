@@ -6,7 +6,7 @@ import java.time.LocalDate
 /** How much an app deserves attention. The rules are published in docs/METHOD.md. */
 enum class Tier(val label: String, val definition: String) {
     FLAGGED("Flagged", "Sensitive data goes to other companies by the app's own account or a ruling, or a court has ruled on, or let proceed, a case over this app's data."),
-    CAUTION("Caution", "Data is used beyond running the app or goes to other companies, a lawsuit over this app's data has been filed, or the app can reach deep into the phone."),
+    CAUTION("Caution", "Data is used beyond running the app or goes to other companies, a regulator has opened a formal proceeding over this app's data, or the app can reach deep into the phone."),
     EXPECTED("Expected", "FinePrint's reviewed record finds nothing beyond what running the app needs."),
 }
 
@@ -20,7 +20,7 @@ data class TierResult(val tier: Tier?, val reason: String, val rule: String, val
     var flow: FlowLine? = null
         internal set
 
-    /** The ruling or lawsuit that set it (F2, F3, C3), when one did. */
+    /** The ruling, lawsuit or regulator's proceeding that set it (F2, F3, C3), when one did. */
     var event: TierEvent? = null
         internal set
 }
@@ -44,9 +44,10 @@ data class TierEvent(
     val closed: String? = null,
     /** The On the record line it comes from. */
     val line: RecordLine? = null,
-    /** "court" or "regulator": a complaint to a regulator isn't called a lawsuit. */
-    val forum: String = "court",
 )
+
+/** The stages past filing: a judge let the case go ahead, or a regulator opened a formal proceeding. Filing alone never raises a tier. */
+val LET_PROCEED = setOf("survived_motion_to_dismiss", "proceeding_opened")
 
 /** Legal items older than this, once ended, are shown but never change a tier. */
 const val SCORED_YEARS = 3L
@@ -109,8 +110,9 @@ internal val NAMING_ORDER = listOf("self_disclosed", "adjudicated", "reported", 
 internal fun independentSources(sources: List<Source>): Int =
     if (sources.any { it.singleSource }) 1 else sources.count { it.derivesFrom == null }
 
-/** "reported" with a single independent source never raises a tier. */
-private fun canRaise(status: String?, sources: List<Source>) = status != "reported" || independentSources(sources) >= 2
+/** "reported" with a single independent source never raises a tier, nor does an alleged line whose case is only filed. */
+private fun canRaise(line: FlowLine) =
+    (line.status != "reported" || independentSources(line.sources) >= 2) && (line.status != "alleged" || line.statusKind in LET_PROCEED)
 
 /**
  * The tier formula (docs/METHOD.md, "Tiers"), checked strongest first so the reason names what set
@@ -127,7 +129,7 @@ fun tier(
     today: LocalDate = LocalDate.now(),
 ): TierResult {
     // A flow that's off by default, with a setting in the app that controls it, doesn't count.
-    val raising = flows.filter { canRaise(it.status, it.sources) && !(it.default == "off" && it.controlled) }
+    val raising = flows.filter { canRaise(it) && !(it.default == "off" && it.controlled) }
     val legal = events.filter { it.concernsThisApp && counts(it, today) }
     fun flagged(reason: String, rule: String) =
         if (curated) TierResult(Tier.FLAGGED, reason, rule) else TierResult(Tier.CAUTION, reason, rule, capped = true)
@@ -158,15 +160,15 @@ fun tier(
     raising.filter { it.bucket == GOES_ELSEWHERE }
         .minWithOrNull(NAMED_FIRST)
         ?.let { return TierResult(Tier.CAUTION, reason(it, appName), "C2").setBy(flow = it) }
-    // C3: a lawsuit, or a complaint to a regulator, over this app's data has been filed (alleged, not yet past a motion to dismiss).
-    legal.filter { it.status == "alleged" && (it.statusKind == null || it.statusKind == "filed") }.takeIf { it.isNotEmpty() }?.let { suits ->
-        val suit = named(suits) ?: suits.first()
-        val what = if (suit.forum == "regulator") "A complaint to a regulator about this app's data" else "A lawsuit over this app's data"
+    // C3: a regulator has opened a formal proceeding over this app's data (alleged, not yet decided). Filing alone, a
+    // lawsuit's or a complaint's, never counts: a lawsuit counts once a judge lets it go ahead (F3).
+    legal.filter { it.status == "alleged" && it.statusKind == "proceeding_opened" }.takeIf { it.isNotEmpty() }?.let { proceedings ->
+        val what = "A regulator has opened a formal proceeding over this app's data"
         return TierResult(
             Tier.CAUTION,
-            named(suits)?.let { "$what has been filed: ${it.label} (${undecided(it.forum)})" } ?: "$what has been filed (${undecided(suit.forum)})",
+            named(proceedings)?.let { "$what: ${it.label} ($NOT_YET_DECIDED)" } ?: "$what ($NOT_YET_DECIDED)",
             "C3",
-        ).setBy(event = suit)
+        ).setBy(event = named(proceedings) ?: proceedings.first())
     }
     // C4: access that reaches into the rest of the phone.
     reach.firstNotNullOfOrNull { DEEP_REACH[it] }?.let { return TierResult(Tier.CAUTION, it, "C4") }

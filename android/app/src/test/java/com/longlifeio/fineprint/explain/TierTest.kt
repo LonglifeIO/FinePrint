@@ -56,8 +56,8 @@ class TierTest {
         val older = TierEvent("adjudicated", "consent_order", true, listOf(src("adjudicated")), "FTC privacy order", "2012-08-10")
         val newer = TierEvent("adjudicated", "ruling", true, listOf(src("adjudicated")), "Irish DPC fine", "2024-12-17")
         assertEquals(TierResult(Tier.FLAGGED, "A 2024 ruling on this app's data: Irish DPC fine", "F2"), rate(events = listOf(older, newer)))
-        val suit = TierEvent("alleged", "filed", true, listOf(src("alleged")), "Texas v. Example", "2025-01-13")
-        assertEquals("A lawsuit over this app's data has been filed: Texas v. Example (not proven in court)", rate(events = listOf(suit)).reason)
+        val inquiry = TierEvent("alleged", "proceeding_opened", true, listOf(src("alleged")), "DPC inquiry into Example", "2025-01-13")
+        assertEquals("A regulator has opened a formal proceeding over this app's data: DPC inquiry into Example (not yet decided)", rate(events = listOf(inquiry)).reason)
     }
 
     @Test
@@ -71,8 +71,8 @@ class TierTest {
         assertEquals(Tier.FLAGGED, at(settled2019.copy(closed = "2024-01-15")).tier) // ended within three years
         assertEquals(Tier.FLAGGED, at(settled2019.copy(date = "2023-10-04", closed = null)).tier) // three years to the day
         assertEquals(Tier.EXPECTED, at(settled2019.copy(date = "2023-10-03", closed = null)).tier)
-        // A lawsuit filed long ago that is still pending counts.
-        assertEquals("C3", at(TierEvent("alleged", "filed", true, listOf(src("alleged")), "Old case", "2015-01-01", ongoing = true)).rule)
+        // A lawsuit let go ahead long ago that is still pending counts.
+        assertEquals("F3", at(TierEvent("alleged", "survived_motion_to_dismiss", true, listOf(src("alleged")), "Old case", "2015-01-01", ongoing = true)).rule)
         assertTrue(within("2023-10", 3, today)) // a month-only date covers the whole month
     }
 
@@ -121,7 +121,7 @@ class TierTest {
             TierResult(Tier.CAUTION, "Location data goes elsewhere — reported by two or more sources", "C2"),
             rate(flows = listOf(flow("precise_location", GOES_ELSEWHERE, "reported", twoReports))),
         )
-        assertEquals("C2", rate(flows = listOf(flow("movement_and_driving", GOES_ELSEWHERE, "alleged"))).rule)
+        assertEquals("C2", rate(flows = listOf(flow("movement_and_driving", GOES_ELSEWHERE, "alleged").copy(statusKind = "survived_motion_to_dismiss"))).rule)
         // Lines inferred from tracker code count too, and name the tracker.
         assertEquals(
             TierResult(Tier.CAUTION, "Your advertising ID goes elsewhere — Google AdMob code in this app", "C2"),
@@ -130,9 +130,33 @@ class TierTest {
     }
 
     @Test
-    fun c3AFiledLawsuit() {
-        assertEquals(TierResult(Tier.CAUTION, "A lawsuit over this app's data has been filed (not proven in court)", "C3"), rate(events = listOf(event("alleged", "filed"))))
+    fun c3ARegulatorsFormalProceeding() {
+        assertEquals(
+            TierResult(Tier.CAUTION, "A regulator has opened a formal proceeding over this app's data (not yet decided)", "C3"),
+            rate(events = listOf(event("alleged", "proceeding_opened"))),
+        )
+        assertEquals(Tier.EXPECTED, rate(events = listOf(event("alleged", "filed"))).tier) // a lawsuit or a complaint, merely filed
         assertEquals(Tier.EXPECTED, rate(events = listOf(event("alleged", "dismissed"))).tier)
+    }
+
+    /**
+     * Filing alone never sets a tier, for a lawsuit or a complaint to a regulator, nor does an alleged line that rests on one:
+     * a lawsuit counts once a judge lets it go ahead (F3), a regulator's matter once it opens a formal proceeding (C3), an
+     * alleged line from the same point (C2); and "not yet decided" reaches a tier's reason only from that proceeding.
+     */
+    @Test
+    fun filingAloneNeverSetsATier() {
+        val stages = listOf(
+            "court" to null, "court" to "filed", "court" to "survived_motion_to_dismiss", "court" to "dismissed",
+            "regulator" to null, "regulator" to "filed", "regulator" to "proceeding_opened", "regulator" to "dismissed",
+        )
+        for ((forum, kind) in stages) {
+            val asMatter = rate(events = listOf(event("alleged", kind)))
+            val asLine = rate(flows = listOf(flow("movement_and_driving", GOES_ELSEWHERE, "alleged").copy(forum = forum, statusKind = kind)))
+            assertEquals("$forum/$kind", mapOf("survived_motion_to_dismiss" to "F3", "proceeding_opened" to "C3")[kind] ?: "E", asMatter.rule)
+            assertEquals("$forum/$kind", if (kind in LET_PROCEED) "C2" else "E", asLine.rule)
+            for (r in listOf(asMatter, asLine)) assertEquals("$forum/$kind: ${r.reason}", kind == "proceeding_opened", "not yet decided" in r.reason)
+        }
     }
 
     @Test

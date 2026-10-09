@@ -44,6 +44,8 @@ data class DataFlow(
     val forum: String = "court",
     /** A setting FinePrint can't see that the flow depends on ("if the developer turns on data sharing"): shown, never scored. */
     val conditional: String? = null,
+    /** An alleged flow's stage (filed, survived_motion_to_dismiss, proceeding_opened, dismissed): it counts only once past filing. */
+    val statusKind: String? = null,
 )
 
 /** A government line's kind (can_compel, has_bought, has_used) and the government's country. */
@@ -56,7 +58,7 @@ data class Consequence(
     val historical: Boolean,
     val proceduralNote: ProceduralNote?,
     val sources: List<Source>,
-    /** filed, survived_motion_to_dismiss, dismissed (alleged); ruling, settlement, ... (adjudicated). */
+    /** filed, survived_motion_to_dismiss, proceeding_opened, dismissed (alleged); ruling, settlement, ... (adjudicated). */
     val statusKind: String? = null,
     /** Who the action is against, when that isn't the app's developer. */
     val subjectCompany: String? = null,
