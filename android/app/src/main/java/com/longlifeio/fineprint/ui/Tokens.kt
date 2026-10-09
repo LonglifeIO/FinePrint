@@ -78,6 +78,11 @@ data class Palette(
     val elsewhere: Tone,
     /** No record yet: grey, drawn with a dashed edge. */
     val noRecord: Tone,
+    /**
+     * A hairline round every card, in a theme where the card's fill alone barely parts from the page: all cards or none,
+     * as with the chips' borders (cardFill draws it). Dark mode only, the owner's call; null: none.
+     */
+    val cardEdge: Color? = null,
 )
 
 /** How much of its hue a chip's tint holds over the card (the owner chose 20% over 12%). */
@@ -128,12 +133,15 @@ val FieldNotesDark: Palette = run {
     val card = Color(0xFF1F1D1A)
     val surface = Color(0xFF141311)
     val (stays, more, elsewhere) = tonal(card, surface, TEAL to Color(0xFFB0DED9), OCHRE to Color(0xFFCC870D), INDIGO to Color(0xFF768ED0))
+    val divider = Color(0xFF3B3833)
     Palette(
         dark = true,
         surface = surface, ink = Color(0xFFE7E3DA), muted = Color(0xFFADA89D),
-        card = card, raised = Color(0xFF2E2B27), divider = Color(0xFF3B3833), outline = Color(0xFF8C877C), track = Color(0xFF4A4640),
+        card = card, raised = Color(0xFF2E2B27), divider = divider, outline = Color(0xFF8C877C), track = Color(0xFF4A4640),
         stays = stays, more = more, elsewhere = elsewhere,
         noRecord = Tone(Color(0xFF262626), Color(0xFFC9C9C9)),
+        // In the dark the card sits barely above the page, so each card gets the divider's tone as its edge.
+        cardEdge = divider,
     )
 }
 

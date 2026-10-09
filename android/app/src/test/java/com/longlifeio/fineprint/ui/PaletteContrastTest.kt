@@ -2,13 +2,16 @@ package com.longlifeio.fineprint.ui
 
 import androidx.compose.ui.graphics.Color
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.File
 
 /**
  * Both Field notes palettes against the brief's rules and the owner's: readable text, chips whose icon
  * and word read on their tint and around it, borders all or none in a theme (all wherever any tint
  * barely shows), colour on chips only, and chip inks that stay apart for a red-green colour-blind
- * reader. The build fails if any two semantic colours collapse.
+ * reader. The build fails if any two semantic colours collapse. Cards follow the borders' rule too: a
+ * hairline on every card in dark mode, where the fill barely parts from the page, and on none in light.
  */
 class PaletteContrastTest {
 
@@ -65,11 +68,30 @@ class PaletteContrastTest {
     @Test
     fun nothingOutsideTheChipsCarriesHue() {
         val hued = palettes.flatMap { (name, p) ->
-            listOf("surface" to p.surface, "ink" to p.ink, "muted" to p.muted, "card" to p.card, "raised" to p.raised,
-                "divider" to p.divider, "outline" to p.outline, "track" to p.track)
+            (listOf("surface" to p.surface, "ink" to p.ink, "muted" to p.muted, "card" to p.card, "raised" to p.raised,
+                "divider" to p.divider, "outline" to p.outline, "track" to p.track) + listOfNotNull(p.cardEdge?.let { "card edge" to it }))
                 .filter { chroma(it.second) >= MAX_GREY_CHROMA }.map { "$name ${it.first}: chroma ${"%.1f".format(chroma(it.second))}" }
         }
         assertEquals(emptyList<String>(), hued)
+    }
+
+    /** Dark mode's cards blend into the page (the fill is about 1.1:1 against it), so each has a hairline at 1.5:1 or more. */
+    @Test
+    fun cardsHaveAHairlineInDarkModeOnly() {
+        assertEquals(null, FieldNotesLight.cardEdge)
+        val dark = FieldNotesDark
+        val edge = dark.cardEdge ?: error("dark mode's cards need their edge")
+        assertTrue(contrast(edge, dark.surface) >= 1.5)
+    }
+
+    /** All or none: every card's fill goes through cardFill, which draws the edge, so no card is left without it. */
+    @Test
+    fun everyCardIsDrawnThroughCardFill() {
+        val direct = Regex("""background\((?:p|palette|LocalPalette\.current)\.card\)""")
+        val found = File("src/main/java/com/longlifeio/fineprint/ui").listFiles().orEmpty().filter { it.extension == "kt" }.flatMap { f ->
+            f.readLines().withIndex().filter { (_, line) -> direct.containsMatchIn(line) && "// the one card fill" !in line }.map { "${f.name}:${it.index + 1}" }
+        }
+        assertEquals(emptyList<String>(), found)
     }
 
     /** The simulation itself: red and green, far apart in normal vision, become near twins without red-green vision. */

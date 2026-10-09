@@ -91,7 +91,7 @@ fun AtAGlance(
 ) {
     val p = LocalPalette.current
     Column(
-        modifier.fillMaxWidth().clip(RoundedCornerShape(Corner.hero)).background(p.card).padding(Space.hero),
+        modifier.fillMaxWidth().cardFill(p, Corner.hero, Corner.hero).padding(Space.hero),
         verticalArrangement = Arrangement.spacedBy(Space.m),
     ) {
         Eyebrow("At a glance")
@@ -199,11 +199,8 @@ private fun TierSectionHeader(tier: Tier?, count: Int, open: Boolean, onToggle: 
 }
 
 /** A row's share of its section's card: the first rounds the top, the last the bottom. */
-fun Modifier.cardSegment(index: Int, count: Int, color: Color): Modifier {
-    val top = if (index == 0) Corner.card else 0.dp
-    val bottom = if (index == count - 1) Corner.card else 0.dp
-    return padding(horizontal = Space.screen).clip(RoundedCornerShape(top, top, bottom, bottom)).background(color)
-}
+fun Modifier.cardSegment(index: Int, count: Int, p: Palette): Modifier =
+    padding(horizontal = Space.screen).cardFill(p, if (index == 0) Corner.card else 0.dp, if (index == count - 1) Corner.card else 0.dp)
 
 /**
  * An app in its section: icon, name, the one line that set its tier, what changed since you reviewed
@@ -213,7 +210,7 @@ fun Modifier.cardSegment(index: Int, count: Int, color: Color): Modifier {
 @Composable
 fun HomeRow(app: InstalledApp, e: Explanation?, review: ReviewView?, check: WhatYouCanDo?, index: Int, count: Int, onOpen: (InstalledApp) -> Unit) {
     val p = LocalPalette.current
-    Column(Modifier.fillMaxWidth().cardSegment(index, count, p.card).clickable(onClickLabel = "Open details") { onOpen(app) }) {
+    Column(Modifier.fillMaxWidth().cardSegment(index, count, p).clickable(onClickLabel = "Open details") { onOpen(app) }) {
         if (index > 0) HorizontalDivider(Modifier.padding(start = 72.dp, end = Space.l), color = p.divider)
         Row(
             Modifier.fillMaxWidth().heightIn(min = 72.dp).padding(horizontal = Space.l, vertical = Space.m),

@@ -30,6 +30,12 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.RoundRect
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -56,6 +62,26 @@ import com.longlifeio.fineprint.explain.spoken
 /** The page's footnote numbers, for any row that shows a sourced claim; none outside an app's page. */
 val LocalFootnotes = staticCompositionLocalOf { Footnotes.NONE }
 
+/**
+ * A card's fill, rounded at its [top] and [bottom] corners (0dp where the card goes on above or below, as a section's
+ * parts do), and the theme's hairline edge if it has one (Palette.cardEdge): drawn over what's inside, its sides on every
+ * part and its top and bottom only where they're rounded, so a card drawn in parts reads as one. Every card is drawn
+ * through here, so the edge is on all of them or none (PaletteContrastTest).
+ */
+fun Modifier.cardFill(p: Palette, top: Dp = Corner.card, bottom: Dp = Corner.card): Modifier {
+    val filled = clip(RoundedCornerShape(top, top, bottom, bottom)).background(p.card) // the one card fill
+    val edge = p.cardEdge ?: return filled
+    return filled.drawWithContent {
+        drawContent()
+        val half = 0.5.dp.toPx()
+        val (t, b) = top.toPx() to bottom.toPx()
+        // An open end's line sits just past the part, where the clip hides it.
+        val box = Rect(half, if (t > 0f) half else -3 * half, size.width - half, if (b > 0f) size.height - half else size.height + 3 * half)
+        val corner = { r: Float -> CornerRadius((r - half).coerceAtLeast(0f)) }
+        drawPath(Path().apply { addRoundRect(RoundRect(box, corner(t), corner(t), corner(b), corner(b))) }, edge, style = Stroke(2 * half))
+    }
+}
+
 /** A card that opens and closes from its top (On the record, Evidence). */
 data class CardToggle(val open: Boolean, val what: String, val onToggle: () -> Unit)
 
@@ -66,13 +92,12 @@ fun LazyListScope.cardTop(key: String, text: SectionText, headline: String, togg
 @Composable
 private fun CardTop(text: SectionText, headline: String, toggle: CardToggle?, marker: Tier?) {
     val p = LocalPalette.current
-    val shape = RoundedCornerShape(topStart = Corner.card, topEnd = Corner.card, bottomStart = if (toggle?.open == false) Corner.card else 0.dp, bottomEnd = if (toggle?.open == false) Corner.card else 0.dp)
     val action = toggle?.let { t ->
         Modifier
             .clickable(onClickLabel = if (t.open) "Hide ${t.what}" else "Show ${t.what}", onClick = t.onToggle)
             .semantics { stateDescription = if (t.open) "Shown" else "Hidden" }
     } ?: Modifier
-    Column(Modifier.padding(top = Space.l).padding(horizontal = Space.screen).fillMaxWidth().clip(shape).background(p.card).then(action)) {
+    Column(Modifier.padding(top = Space.l).padding(horizontal = Space.screen).fillMaxWidth().cardFill(p, bottom = if (toggle?.open == false) Corner.card else 0.dp).then(action)) {
         Row(Modifier.fillMaxWidth().heightIn(min = TOUCH).padding(start = Space.l, end = Space.l, top = Space.card, bottom = if (toggle?.open == false) Space.card else Space.s)) {
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(Space.xs)) {
                 Eyebrow(text.title)
@@ -93,7 +118,7 @@ private fun CardTop(text: SectionText, headline: String, toggle: CardToggle?, ma
 /** One part of a card: full width inside the card's fill. */
 @Composable
 fun CardBody(content: @Composable () -> Unit) {
-    Box(Modifier.padding(horizontal = Space.screen).fillMaxWidth().background(LocalPalette.current.card)) { content() }
+    Box(Modifier.padding(horizontal = Space.screen).fillMaxWidth().cardFill(LocalPalette.current, 0.dp, 0.dp)) { content() }
 }
 
 fun LazyListScope.cardItem(key: Any? = null, content: @Composable () -> Unit) = item(key = key) { CardBody(content) }
@@ -104,7 +129,7 @@ fun <T> LazyListScope.cardItems(list: List<T>, key: ((T) -> Any)? = null, conten
 /** The card's rounded end. */
 fun LazyListScope.cardEnd(key: String) = item(key = "end:$key") {
     Column {
-        Spacer(Modifier.padding(horizontal = Space.screen).fillMaxWidth().height(Space.l).clip(RoundedCornerShape(bottomStart = Corner.card, bottomEnd = Corner.card)).background(LocalPalette.current.card))
+        Spacer(Modifier.padding(horizontal = Space.screen).fillMaxWidth().height(Space.l).cardFill(LocalPalette.current, top = 0.dp))
     }
 }
 

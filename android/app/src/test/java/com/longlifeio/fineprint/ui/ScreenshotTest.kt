@@ -174,6 +174,7 @@ class ScreenshotTest {
     @Test fun searchTablet() = shoot("search", dark = false, { Home() }, device = Device.TABLET) { searchMeta() }
     @Test fun filtersLight() = shoot("filters", dark = false, { Home() }) { compose.onNodeWithContentDescription(FILTERS).performClick() }
     @Test fun whereItGoesLight() = shoot("where-it-goes", dark = false, { Life360() }) { toGoesElsewhere() }
+    @Test fun whereItGoesDark() = shoot("where-it-goes", dark = true, { Life360() }) { toGoesElsewhere() }
     @Test fun whereItGoesSmall() = shoot("where-it-goes", dark = false, { Life360() }, device = Device.SMALL) { toGoesElsewhere() }
     @Test fun whereItGoesTablet() = shoot("where-it-goes", dark = false, { Life360() }, device = Device.TABLET) { toGoesElsewhere() }
     @Test fun askForReviewLight() = shoot("ask-for-review", dark = false, { Franceinfo() }) { openReviewRequest() }
