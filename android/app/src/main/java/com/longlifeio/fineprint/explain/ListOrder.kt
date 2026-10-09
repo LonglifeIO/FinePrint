@@ -11,8 +11,9 @@ enum class ListFilter(val label: String) {
     FLAGGED("Flagged"),
     CAUTION("Caution"),
     EXPECTED("Expected"),
-    HAS_RECORD("Has record"),
-    NO_RECORD("No record yet"),
+    CHECKED("Checked"),
+    THEIR_WORDS(THEIR_WORDS_ONLY),
+    NO_RECORD(NO_RECORD_LABEL),
     REVIEWED(REVIEWED_LABEL),
     SYSTEM(SYSTEM_LABEL),
 }
@@ -26,8 +27,9 @@ fun systemGroups(ordered: List<InstalledApp>, explanations: Map<String, Explanat
         .map { (_, apps) -> SystemGroup(apps.firstNotNullOfOrNull { explanations[it.packageName]?.maker }, apps) }
         .sortedWith(compareBy({ it.maker == null }, { it.maker?.name?.lowercase() }))
 
-/** The wording constants; inside the enum, REVIEWED would mean the entry itself. */
+/** The wording constants; inside the enum, REVIEWED and NO_RECORD would mean the entries themselves. */
 private const val REVIEWED_LABEL = REVIEWED
+private const val NO_RECORD_LABEL = NO_RECORD
 private val SYSTEM_LABEL = SYSTEM.label
 
 /**
@@ -52,8 +54,9 @@ fun listOrder(
     }.toSet()
     val coverage = filters.mapNotNull {
         when (it) {
-            ListFilter.HAS_RECORD -> "curated"
-            ListFilter.NO_RECORD -> "auto"
+            ListFilter.CHECKED -> Coverage.CHECKED
+            ListFilter.THEIR_WORDS -> Coverage.THEIR_WORDS_ONLY
+            ListFilter.NO_RECORD -> Coverage.NO_RECORD
             else -> null
         }
     }.toSet()
@@ -62,7 +65,7 @@ fun listOrder(
         val e = explanations[app.packageName]
         (q.isEmpty() || app.label.contains(q, ignoreCase = true) || e?.appName?.contains(q, ignoreCase = true) == true) &&
             (tiers.isEmpty() || e?.tier?.tier in tiers) &&
-            (coverage.isEmpty() || (e?.coverage ?: "auto") in coverage) &&
+            (coverage.isEmpty() || (e?.coverageState ?: Coverage.NO_RECORD) in coverage) &&
             (ListFilter.REVIEWED !in filters || reviews[app.packageName] in setOf(ReviewStatus.REVIEWED, ReviewStatus.CHANGED)) &&
             (ListFilter.SYSTEM !in filters || app.isSystem)
     }.sortedWith(

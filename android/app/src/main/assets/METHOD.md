@@ -14,6 +14,14 @@ FinePrint shows, for each app on your phone, what data it collects, who gets it,
 
 Every app's page has the same sections, in the same order. A section with nothing to show is left out, except What it collects.
 
+Under its name and tier, each page says how far FinePrint has looked at the app, in words, never a colour:
+
+- Checked by FinePrint: On the date shown, a person looked for reported, alleged and adjudicated matters about the app and filled On the record. It never changes a tier.
+- Their words only — a reviewer hasn't looked at this app yet: FinePrint has a record of what the app and its company say, but no one has looked for those matters yet.
+- No record yet — these lines come from the trackers found in its code. An app that came with your phone may add its maker's policy: No record yet — these lines come from Google's policy and the trackers found in its code.
+
+The home shows the same on each app in small text, such as Checked by FinePrint · 2026-10-04; its filters include Checked, Their words only and No record yet; and At a glance counts them, such as Records: 4 checked, 0 their words only, 6 no record yet.
+
 When FinePrint has an app's store description on record, its page opens with it, above the sections:
 
 - Their words: The app's own short description on its Google Play listing, word for word.

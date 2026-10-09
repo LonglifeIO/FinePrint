@@ -60,15 +60,14 @@ import com.longlifeio.fineprint.explain.BUCKETS
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.Glance
-import com.longlifeio.fineprint.explain.NO_RECORD
 import com.longlifeio.fineprint.explain.NO_RECORD_DEFINITION
 import com.longlifeio.fineprint.explain.SYSTEM
 import com.longlifeio.fineprint.explain.TIER_SECTIONS
 import com.longlifeio.fineprint.explain.Tier
 import com.longlifeio.fineprint.explain.WhatYouCanDo
+import com.longlifeio.fineprint.explain.coverageLabel
 import com.longlifeio.fineprint.explain.glanceHeadline
 import com.longlifeio.fineprint.explain.limitedLine
-import com.longlifeio.fineprint.explain.noRecordFrom
 import com.longlifeio.fineprint.explain.openByDefault
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
@@ -83,7 +82,12 @@ import kotlinx.coroutines.withContext
 /** "At a glance": what FinePrint lists for your apps, apps per bucket, the flows you've limited, the newest change. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun AtAGlance(g: Glance, latest: Pair<InstalledApp, Change>?, bundleLine: String, onOpen: (InstalledApp) -> Unit, modifier: Modifier = Modifier, notice: String? = null) {
+fun AtAGlance(
+    g: Glance, latest: Pair<InstalledApp, Change>?, bundleLine: String, onOpen: (InstalledApp) -> Unit, modifier: Modifier = Modifier,
+    notice: String? = null,
+    /** "Records: 4 checked, 0 their words only, 6 no record yet." */
+    records: String? = null,
+) {
     val p = LocalPalette.current
     Column(
         modifier.fillMaxWidth().clip(RoundedCornerShape(Corner.hero)).background(p.card).padding(Space.hero),
@@ -101,7 +105,11 @@ fun AtAGlance(g: Glance, latest: Pair<InstalledApp, Change>?, bundleLine: String
             Text(limitedLine(g), style = MaterialTheme.typography.labelLarge, color = p.ink)
         }
         latest?.let { (app, change) -> WhatChanged(app, change, onOpen) }
-        Text(bundleLine, style = MaterialTheme.typography.labelSmall, color = p.muted)
+        // The card's footer, kept close together: how far FinePrint has looked at these apps, and the bundle it read.
+        Column(verticalArrangement = Arrangement.spacedBy(Space.xs)) {
+            records?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = p.muted) }
+            Text(bundleLine, style = MaterialTheme.typography.labelSmall, color = p.muted)
+        }
     }
 }
 
@@ -232,8 +240,9 @@ fun HomeRow(app: InstalledApp, e: Explanation?, review: ReviewView?, check: What
                     TierChip(e?.tier?.tier, reviewed = review?.status == ReviewStatus.REVIEWED)
                     val notes = listOfNotNull(
                         check?.summary,
-                        // A Caution app without a record; a preinstalled one says whose policy it shows.
-                        (e?.maker?.takeIf { it.inherited }?.let { noRecordFrom(it.name) } ?: NO_RECORD).takeIf { e?.coverage != "curated" && e?.tier?.tier != null },
+                        // How far FinePrint has looked (a preinstalled app says whose policy it shows); the No record yet
+                        // section's own header already says so for the apps in it.
+                        e?.let(::coverageLabel)?.takeIf { e.coverage == "curated" || e.tier.tier != null },
                         "Stale".takeIf { e?.stale == true },
                     )
                     // Each note wraps as a whole ("No record yet" never splits); the dot travels with the note after it.

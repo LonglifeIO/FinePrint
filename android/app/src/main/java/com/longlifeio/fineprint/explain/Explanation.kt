@@ -50,6 +50,8 @@ data class Explanation(
     val governmentFlows: List<FlowLine> = emptyList(),
     /** Trackers with no record and no category: one line, outside the three places (LineOrder.kt). */
     val unrecorded: List<FlowLine> = emptyList(),
+    /** When a reviewer checked the record (Coverage.kt); null for their words only, or no record. */
+    val checkedOn: String? = null,
 )
 
 data class FlowLine(
@@ -160,6 +162,7 @@ fun explain(
             f.government?.let { g -> f.toLine(f.recipientLabel ?: countryName(g.jurisdiction), via = null).copy(bucket = GOES_ELSEWHERE) }
         },
         unrecorded = unrecordedLines(detected, bundle, maker?.id, signatures),
+        checkedOn = record?.checkedOn,
         regionCaveat = record?.policyRegion?.let { regionCaveat(appName, bundle?.jurisdictions?.get(it)?.name ?: countryName(it)) },
         governments = governments(
             current.mapNotNull { it.company },

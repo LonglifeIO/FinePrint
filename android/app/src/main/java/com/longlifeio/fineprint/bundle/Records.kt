@@ -146,6 +146,8 @@ data class AppRecord(
     val policyRegion: String? = null,
     /** The app's own short description on its store listing, quoted verbatim ("Their words"). */
     val storeTagline: StoreTagline? = null,
+    /** When a reviewer last looked for reported, alleged and adjudicated matters and filled On the record; null: their words only. */
+    val checkedOn: String? = null,
 )
 
 /** A store listing's short description, verbatim, the listing it came from, and when FinePrint read it. */

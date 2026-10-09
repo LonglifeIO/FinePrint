@@ -54,6 +54,7 @@ import com.longlifeio.fineprint.explain.WhatYouCanDo
 import com.longlifeio.fineprint.explain.glance
 import com.longlifeio.fineprint.explain.latestChange
 import com.longlifeio.fineprint.explain.listOrder
+import com.longlifeio.fineprint.explain.recordsLine
 import com.longlifeio.fineprint.explain.systemGroups
 import com.longlifeio.fineprint.review.ReviewView
 
@@ -94,6 +95,7 @@ fun AppListScreen(
         listOrder(installed, explanations, reviews.mapValues { it.value.status }, query, filters)
     }
     val summary = remember(installed, explanations, checks) { glance(installed, explanations, checks) }
+    val records = remember(installed, explanations) { recordsLine(installed, explanations) }
     val latest = remember(installed, explanations) { latestChange(installed, explanations) }
     val p = LocalPalette.current
     Scaffold(
@@ -118,7 +120,7 @@ fun AppListScreen(
         }
         CentredList(padding, Modifier.testTag("list"), listState, extraBottom = Space.xxl) {
             if (progress.running) item(key = "progress") { ScanProgressLine(progress) }
-            item(key = "glance") { AtAGlance(summary, latest, bundleLine, onOpen, Modifier.padding(horizontal = Space.screen).testTag("glance"), notice) }
+            item(key = "glance") { AtAGlance(summary, latest, bundleLine, onOpen, Modifier.padding(horizontal = Space.screen).testTag("glance"), notice, records) }
             item(key = "search") { SearchAndFilters(query, { query = it }, filters, { filters = it }, includeSystem) }
             if (visible.isEmpty()) item(key = "none") { Note("No apps match.") }
             val row = @Composable { app: InstalledApp, index: Int, count: Int ->

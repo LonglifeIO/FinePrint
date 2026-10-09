@@ -71,6 +71,7 @@ private fun JSONObject.toAppRecord() = AppRecord(
     },
     policyRegion = text("policy_region"),
     storeTagline = optJSONObject("store_tagline")?.let { StoreTagline(it.getString("text"), it.getString("source_url"), it.getString("as_of")) },
+    checkedOn = text("checked_on"),
 )
 
 private fun JSONObject.toTrackerRecord() = TrackerRecord(

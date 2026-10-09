@@ -12,18 +12,18 @@ class ListOrderTest {
         hasCode = true, apkPaths = emptyList(), permissions = emptyList(),
     )
 
-    private fun explanation(tier: Tier?, coverage: String) = Explanation(
+    private fun explanation(tier: Tier?, coverage: String, checkedOn: String? = null) = Explanation(
         appName = "", summary = "", summaryNotes = emptyList(), coverage = coverage, tier = TierResult(tier, "r", "x"),
         privacyControls = null, collects = emptyList(), flows = emptyMap(), applies = emptyList(), onTheRecord = OnTheRecord(emptyList(), emptyList()),
-        reach = emptyList(), lastReviewed = null, stale = false, exodusNote = null,
+        reach = emptyList(), lastReviewed = null, stale = false, exodusNote = null, checkedOn = checkedOn,
     )
 
     private val apps = listOf(app("zebra"), app("Bravo"), app("alpha"), app("delta"), app("Echo"))
     private val explanations = mapOf(
-        "p.zebra" to explanation(Tier.FLAGGED, "curated"),
+        "p.zebra" to explanation(Tier.FLAGGED, "curated", checkedOn = "2026-10-04"),
         "p.Bravo" to explanation(Tier.CAUTION, "auto"),
         "p.alpha" to explanation(null, "auto"),
-        "p.delta" to explanation(Tier.EXPECTED, "curated"),
+        "p.delta" to explanation(Tier.EXPECTED, "curated", checkedOn = "2026-10-04"),
         "p.Echo" to explanation(Tier.CAUTION, "curated"),
     )
 
@@ -40,9 +40,11 @@ class ListOrderTest {
     fun tierChipsCombineWithOrAndCoverageChipsWithAnd() {
         assertEquals(listOf("zebra"), order(filters = arrayOf(ListFilter.FLAGGED)))
         assertEquals(listOf("zebra", "Bravo", "Echo"), order("", ListFilter.FLAGGED, ListFilter.CAUTION))
-        assertEquals(listOf("zebra", "Echo", "delta"), order("", ListFilter.HAS_RECORD))
+        assertEquals(listOf("zebra", "delta"), order("", ListFilter.CHECKED))
+        assertEquals(listOf("Echo"), order("", ListFilter.THEIR_WORDS)) // a record no reviewer has checked
         assertEquals(listOf("Bravo", "alpha"), order("", ListFilter.NO_RECORD))
-        assertEquals(listOf("Echo"), order("", ListFilter.CAUTION, ListFilter.HAS_RECORD))
+        assertEquals(listOf("zebra", "Echo", "delta"), order("", ListFilter.CHECKED, ListFilter.THEIR_WORDS))
+        assertEquals(listOf("Echo"), order("", ListFilter.CAUTION, ListFilter.THEIR_WORDS))
     }
 
     @Test
