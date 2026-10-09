@@ -112,13 +112,16 @@
        "quote": "Derives coarse location data from the masked IP addresses of the device"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has turned on data sharing or linked an ads account, Google may use this data for its own products and personalized ads. FinePrint can't see that setting. This code also ships inside Google's ads SDK, so finding it doesn't show the developer uses Analytics.",
+     "id": "flow-firebase-analytics-google-use",
+     "data": "app_activity",
+     "recipient": "co-google",
+     "bucket": "used_for_more",
+     "purpose": "Your activity in the app, for Google's own products and personalized ads; Google says it is an independent controller of that data",
      "status": "self_disclosed",
-     "wording": "According to Google's Analytics Help (read 2026-10-08), Firebase documentation (updated 2026-10-08) and the package lists in Google's Maven repository (read 2026-10-08).",
+     "conditional": "if the developer turns on Google Analytics data sharing settings or links an ads account",
+     "wording": "According to Google's Analytics Help (read 2026-10-08) and Firebase documentation (updated 2026-10-08).",
      "sources": [
       {
        "url": "https://support.google.com/analytics/answer/1011397?hl=en",
@@ -143,7 +146,16 @@
        "as_of": "2026-10-08",
        "status": "self_disclosed",
        "quote": "your Analytics data may be eligible for use in personalized advertising"
-      },
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "This code also ships inside Google's ads SDK, so finding it doesn't show the developer uses Analytics.",
+     "status": "self_disclosed",
+     "wording": "According to the package lists in Google's Maven repository (read 2026-10-08).",
+     "sources": [
       {
        "url": "https://dl.google.com/android/maven2/com/google/firebase/firebase-analytics/24.0.0/firebase-analytics-24.0.0.pom",
        "type": "company_site",

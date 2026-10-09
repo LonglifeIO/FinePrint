@@ -251,12 +251,16 @@
        "quote": "We use the SDK Information on behalf of our Clients"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer turns on location sharing and you let the app use your location, OneSignal's SDK sends your phone's GPS coordinates to OneSignal, which its privacy policy says may be collected whether or not you're using the app. Its 2022 documentation listed location among data collected automatically once you grant permission. FinePrint can't see that setting or the SDK version.",
+     "id": "flow-onesignal-gps",
+     "data": "precise_location",
+     "recipient": "co-onesignal",
+     "bucket": "stays_here",
+     "default": "opt_in",
+     "purpose": "Your phone's GPS coordinates, used on the developer's behalf; OneSignal's policy says they may be collected whether or not you're using the app",
      "status": "self_disclosed",
+     "conditional": "if the developer enables the app to share location with OneSignal (older SDKs collected it automatically once you allowed location)",
      "wording": "According to OneSignal's SDK documentation (read 2026-10-08 and as updated 2022-12-20) and its privacy policy (last updated 2024-04-12).",
      "sources": [
       {
@@ -317,10 +321,19 @@
        "status": "self_disclosed",
        "verify_url": "https://web.archive.org/web/20221225224336id_/https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
        "quote": "GPS coordinates of the device"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "We use the SDK Information on behalf of our Clients"
       }
      ]
     }
    ],
+   "consequences": [],
    "confidence": "medium",
    "confidence_note": {
     "text": "OneSignal's Google Play guidance (read 2026-10-08) tells developers it doesn't collect approximate location or device IDs by default. Its privacy policy (last updated 2024-04-12) lists location inferred from IP address and mobile device identifiers among what its mobile SDKs collect, and its SDK data page lists country, IP address and push tokens. This record follows the policy and the SDK data page.",

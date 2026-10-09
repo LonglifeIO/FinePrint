@@ -129,12 +129,15 @@
        "quote": "IP Address … used for device identification, attribution, and to understand general location"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "Depending on its contract with the app's developer, Branch may also use this data to support its other products, develop new ones and market products or services, and may de-identify or aggregate it and then use it for any purpose. FinePrint can't see that contract.",
+     "id": "flow-branch-own-use",
+     "data": "app_activity",
+     "recipient": "co-branch",
+     "bucket": "used_for_more",
+     "purpose": "The data Branch collects in this app, for Branch's other products, new products and marketing, and de-identified or aggregated data for any purpose",
      "status": "self_disclosed",
+     "conditional": "where Branch's agreements with the app's developer authorize it",
      "wording": "According to Branch's privacy policy, last updated 2025-09-15.",
      "sources": [
       {
@@ -180,8 +183,9 @@
      ]
     }
    ],
+   "consequences": [],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }
