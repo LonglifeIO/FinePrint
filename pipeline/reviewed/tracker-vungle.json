@@ -1,0 +1,310 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-169",
+   "aka": [
+    "Vungle SDK",
+    "Liftoff Monetize"
+   ],
+   "owner": "Liftoff Mobile, Inc.",
+   "owner_company": "co-liftoff",
+   "owner_chain": [
+    "Liftoff Mobile, Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "Vungle's ad SDK for app developers, now part of Liftoff Monetize",
+   "categories": [
+    "advertising",
+    "profiling"
+   ],
+   "data_collected": [
+    "the advertising ID, App Set ID and sometimes the Android ID",
+    "approximate location",
+    "how you interact with its ads",
+    "device details such as battery, network, storage and language, which it shares",
+    "crash logs from the SDK (SDK 6)"
+   ],
+   "monetization_model": "Liftoff is a mobile advertising company; through Liftoff Monetize, the network behind Vungle's SDK, it fills ad space in apps for advertisers and shares data with partners deciding whether to bid. It says it doesn't sell personal information in personally identifiable form.",
+   "data_flows": [
+    {
+     "id": "flow-vungle-ids",
+     "data": "device_identifiers",
+     "recipient": "co-liftoff",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your advertising ID, App Set ID and sometimes your Android ID, for targeted ads and attribution; Liftoff shares data with partners deciding whether to bid to show you ads",
+     "status": "self_disclosed",
+     "wording": "According to Vungle's SDK documentation (updated 2024-09-17 for SDK 6 and 2026-09-20 for the current SDK) and Liftoff's privacy policy (effective June 2026).",
+     "sources": [
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
+       "as_of": "2024-09-17",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
+       "quote": "Advertising ID, Android ID (when GPS is not available), App Set ID"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
+       "as_of": "2024-09-17",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
+       "quote": "App Set ID Yes Yes Device identifiers are collected for attribution and targeting purposes"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/360047780372-Advanced-Settings",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings (current SDK)",
+       "as_of": "2026-09-20",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/360047780372.json",
+       "quote": "Advertising ID, Android ID (when GPS is not available), App Set ID"
+      },
+      {
+       "url": "https://liftoff.ai/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Liftoff Privacy Policy (effective June 2026)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "quote": "share data about you with Partners … for advertising-related purposes"
+      },
+      {
+       "url": "https://liftoff.ai/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Liftoff Privacy Policy (effective June 2026)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "quote": "whether to bid on the opportunity to show you ads"
+      },
+      {
+       "url": "https://liftoff.ai/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Liftoff Privacy Policy (effective June 2026)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "quote": "Personalise, target and deliver advertising including to create an advertising profile of you"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/5035287250331-Google-Play-Data-Safety-Questionnaire-for-Liftoff-Monetize",
+       "type": "company_site",
+       "title": "Vungle documentation: Google Play Data Safety Questionnaire for Liftoff Monetize",
+       "as_of": "2025-07-23",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/5035287250331.json",
+       "quote": "update their Liftoff Monetize SDK"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
+       "as_of": "2024-09-17",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
+       "quote": "Liftoff offers features within the Vungle SDK using the COPPA API"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
+       "as_of": "2024-09-17",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
+       "quote": "{Battery information, network information, storage space information, locale information, audio information}"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
+       "as_of": "2024-09-17",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
+       "quote": "Crash logs Yes No Collect crash information from our SDK"
+      },
+      {
+       "url": "https://liftoff.ai/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Liftoff Privacy Policy (effective June 2026)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "quote": "a mobile advertising company that provides customers with an advertising and optimization platform"
+      },
+      {
+       "url": "https://liftoff.ai/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Liftoff Privacy Policy (effective June 2026)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "quote": "We do not sell your personal information in personally identifiable form to anyone."
+      }
+     ]
+    },
+    {
+     "id": "flow-vungle-activity",
+     "data": "app_activity",
+     "recipient": "co-liftoff",
+     "bucket": "goes_elsewhere",
+     "purpose": "How you interact with the ads Vungle shows, to measure ad performance, and shared with other companies",
+     "status": "self_disclosed",
+     "wording": "According to Vungle's SDK documentation (updated 2024-09-17 for SDK 6 and 2026-09-20 for the current SDK) and Liftoff's privacy policy (effective June 2026).",
+     "sources": [
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
+       "as_of": "2024-09-17",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
+       "quote": "Interactions with ad creative Yes Yes Used for measuring ad performance"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/360047780372-Advanced-Settings",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings (current SDK)",
+       "as_of": "2026-09-20",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/360047780372.json",
+       "quote": "Interactions with ad creative Yes Yes Used for measuring ad performance"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
+       "as_of": "2024-09-17",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
+       "quote": "Category Data Type Collected? Shared With Other 3rd Parties? Purpose"
+      }
+     ]
+    },
+    {
+     "id": "flow-vungle-location",
+     "data": "approximate_location",
+     "recipient": "co-liftoff",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your approximate location, for analytics, the app's functions and advertising, and shared with other companies; Liftoff says its SDK doesn't collect precise location",
+     "status": "self_disclosed",
+     "wording": "According to Liftoff's Google Play data safety answers for its SDK (updated 2025-07-23) and its privacy policy (effective June 2026).",
+     "sources": [
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/5035287250331-Google-Play-Data-Safety-Questionnaire-for-Liftoff-Monetize",
+       "type": "company_site",
+       "title": "Vungle documentation: Google Play Data Safety Questionnaire for Liftoff Monetize",
+       "as_of": "2025-07-23",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/5035287250331.json",
+       "quote": "Collected Shared Ephemeral Required Purpose"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/5035287250331-Google-Play-Data-Safety-Questionnaire-for-Liftoff-Monetize",
+       "type": "company_site",
+       "title": "Vungle documentation: Google Play Data Safety Questionnaire for Liftoff Monetize",
+       "as_of": "2025-07-23",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/5035287250331.json",
+       "quote": "user’s approximate location? Yes Yes No Yes Analytics, app functionality, advertising or marketing"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/5035287250331-Google-Play-Data-Safety-Questionnaire-for-Liftoff-Monetize",
+       "type": "company_site",
+       "title": "Vungle documentation: Google Play Data Safety Questionnaire for Liftoff Monetize",
+       "as_of": "2025-07-23",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/5035287250331.json",
+       "quote": "Does the SDK collect the user’s precise location? No"
+      },
+      {
+       "url": "https://liftoff.ai/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "Liftoff Privacy Policy (effective June 2026)",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "quote": "Location Data from which we can identify your approximate location."
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "FinePrint finds Vungle by the code names its SDK used up to version 6 (com.vungle.warren). Version 7, out since August 2023, uses com.vungle.ads, so FinePrint doesn't find an app that has only the newer SDK.",
+     "status": "self_disclosed",
+     "wording": "According to Vungle's SDK documentation (updated 2024-09-17, 2026-09-20 and 2026-09-30).",
+     "sources": [
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
+       "as_of": "2024-09-17",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
+       "quote": "-dontwarn com.vungle.warren.downloader.DownloadRequestMediator$Status"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/360047780372-Advanced-Settings",
+       "type": "company_site",
+       "title": "Vungle documentation: Advanced Settings (current SDK)",
+       "as_of": "2026-09-20",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/360047780372.json",
+       "quote": "-dontwarn com.vungle.ads.** -keep class com.vungle.ads.** {*;}"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/15722228922395-Download-Vungle-SDK-for-Android-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Download Vungle SDK for Android/Amazon",
+       "as_of": "2026-09-30",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/15722228922395.json",
+       "quote": "Vungle SDK for Android/Amazon v7.0.0 (August 24, 2023)"
+      },
+      {
+       "url": "https://support.vungle.com/hc/en-us/articles/15722228922395-Download-Vungle-SDK-for-Android-Amazon",
+       "type": "company_site",
+       "title": "Vungle documentation: Download Vungle SDK for Android/Amazon",
+       "as_of": "2026-09-30",
+       "status": "self_disclosed",
+       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/15722228922395.json",
+       "quote": "Instance-based APIs instead of static APIs (as in 6.x SDK)"
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "confidence_note": {
+    "text": "Vungle's Google Play tables disagree. Its SDK settings pages (for SDK 6, updated 2024-09-17, and for the current SDK, 2026-09-20) list device identifiers, diagnostics and ad interactions, all shared, but no location; its Liftoff Monetize questionnaire (updated 2025-07-23) lists approximate location, collected and shared, but not device identifiers. This record follows both.",
+    "sources": [
+     {
+      "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
+      "type": "company_site",
+      "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
+      "as_of": "2024-09-17",
+      "status": "self_disclosed",
+      "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
+      "quote": "Advertising ID, Android ID (when GPS is not available), App Set ID"
+     },
+     {
+      "url": "https://support.vungle.com/hc/en-us/articles/360047780372-Advanced-Settings",
+      "type": "company_site",
+      "title": "Vungle documentation: Advanced Settings (current SDK)",
+      "as_of": "2026-09-20",
+      "status": "self_disclosed",
+      "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/360047780372.json",
+      "quote": "Interactions with ad creative Yes Yes Used for measuring ad performance"
+     },
+     {
+      "url": "https://support.vungle.com/hc/en-us/articles/5035287250331-Google-Play-Data-Safety-Questionnaire-for-Liftoff-Monetize",
+      "type": "company_site",
+      "title": "Vungle documentation: Google Play Data Safety Questionnaire for Liftoff Monetize",
+      "as_of": "2025-07-23",
+      "status": "self_disclosed",
+      "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/5035287250331.json",
+      "quote": "user’s approximate location? Yes Yes No Yes Analytics, app functionality, advertising or marketing"
+     }
+    ]
+   },
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}

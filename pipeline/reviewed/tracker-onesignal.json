@@ -1,0 +1,389 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-193",
+   "aka": [
+    "OneSignal SDK"
+   ],
+   "owner": "OneSignal, Inc.",
+   "owner_company": "co-onesignal",
+   "owner_chain": [
+    "OneSignal, Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "OneSignal's SDK for push notifications, in-app messages, email and SMS that app developers send",
+   "categories": [
+    "analytics",
+    "other"
+   ],
+   "data_collected": [
+    "sessions, time in the app and notification taps",
+    "in-app purchases",
+    "a push token, device model and carrier",
+    "IP address (not collected in the EU and UK) and country",
+    "GPS coordinates, if the developer turns on location sharing and you allow it",
+    "email address, phone number and tags, if the developer adds them"
+   ],
+   "monetization_model": "OneSignal sells messaging (push, in-app, email and SMS) to app developers, with a free plan, and processes app users' data on their behalf; it says it doesn't sell personal information.",
+   "data_flows": [
+    {
+     "id": "flow-onesignal-activity",
+     "data": "app_activity",
+     "recipient": "co-onesignal",
+     "bucket": "stays_here",
+     "purpose": "Your sessions, time in the app, notification taps and in-app purchases, for the developer's messages and analytics; OneSignal says it may also predict your interests for the developer",
+     "status": "self_disclosed",
+     "wording": "According to OneSignal's SDK documentation (read 2026-10-08) and its privacy policy (last updated 2024-04-12).",
+     "sources": [
+      {
+       "url": "https://documentation.onesignal.com/docs/google-play-data-safety-requirements",
+       "type": "company_site",
+       "title": "OneSignal documentation: Google Play Data Safety requirements",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "By default, OneSignal collects … App interactions (e.g., session counts, durations, and notification clicks)"
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/google-play-data-safety-requirements",
+       "type": "company_site",
+       "title": "OneSignal documentation: Google Play Data Safety requirements",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Purchase history … Collected if your app has in-app purchases"
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Total Usage Duration The total seconds you have interacted with the app"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "We use the SDK Information on behalf of our Clients"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "data models that try to predict Client End Users’ potential future behavior and interests"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "email, SMS, mobile push notifications, web push notifications, and in-app messaging"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "OneSignal is primarily a data processor (or service provider)"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "We do not sell personal information."
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/handling-personal-data",
+       "type": "company_site",
+       "title": "OneSignal documentation: Handling personal data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "across all plans, including Free"
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "The user’s email address, if you want to use OneSignal to deliver emails."
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "The user’s phone number, if you want to use OneSignal to deliver SMS."
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Tags Any additional data about a user, stored as key-value pairs"
+      }
+     ]
+    },
+    {
+     "id": "flow-onesignal-device",
+     "data": "device_identifiers",
+     "recipient": "co-onesignal",
+     "bucket": "stays_here",
+     "purpose": "A push token (not your advertising ID, by default), your phone's model and carrier, and your IP address outside the EU and UK; OneSignal says it may use them to link your devices for the developer",
+     "status": "self_disclosed",
+     "wording": "According to OneSignal's SDK documentation (read 2026-10-08) and its privacy policy (last updated 2024-04-12).",
+     "sources": [
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "push tokens added to the device by FCM or APNs"
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Device Model The model name of the device or browser."
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "The name of the cellular carrier used by the device"
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "IP Address The IP address the device or browser is visiting from."
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/handling-personal-data",
+       "type": "company_site",
+       "title": "OneSignal documentation: Handling personal data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "OneSignal will automatically not collect IP Addresses from Users within the EU and UK."
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/google-play-data-safety-requirements",
+       "type": "company_site",
+       "title": "OneSignal documentation: Google Play Data Safety requirements",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Does not collect GAID by default"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "Mobile device or account identifiers"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "the SDK Information may be used to resolve identities across multiple devices"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "We use the SDK Information on behalf of our Clients"
+      }
+     ]
+    },
+    {
+     "id": "flow-onesignal-location",
+     "data": "approximate_location",
+     "recipient": "co-onesignal",
+     "bucket": "stays_here",
+     "purpose": "Your country, and a location worked out from your IP address, for the developer's messages",
+     "status": "self_disclosed",
+     "wording": "According to OneSignal's SDK documentation (read 2026-10-08) and its privacy policy (last updated 2024-04-12).",
+     "sources": [
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Country The most recent country of the device or browser"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "Geolocation data inferred from IP address"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "We use the SDK Information on behalf of our Clients"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "If the developer turns on location sharing and you let the app use your location, OneSignal's SDK sends your phone's GPS coordinates to OneSignal, which its privacy policy says may be collected whether or not you're using the app. Its 2022 documentation listed location among data collected automatically once you grant permission. FinePrint can't see that setting or the SDK version.",
+     "status": "self_disclosed",
+     "wording": "According to OneSignal's SDK documentation (read 2026-10-08 and as updated 2022-12-20) and its privacy policy (last updated 2024-04-12).",
+     "sources": [
+      {
+       "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "GPS coordinates of the device. Must be enabled and accepted by the user."
+      },
+      {
+       "url": "https://documentation.onesignal.com/docs/mobile-sdk-reference",
+       "type": "company_site",
+       "title": "OneSignal documentation: Mobile SDK reference",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Enable your app to share location with OneSignal"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "which may be collected whether or not an app is in use"
+      },
+      {
+       "url": "https://onesignal.com/privacy_policy",
+       "type": "privacy_policy",
+       "title": "OneSignal Privacy Policy",
+       "as_of": "2024-04-12",
+       "status": "self_disclosed",
+       "quote": "and the app chooses to send this data to OneSignal"
+      },
+      {
+       "url": "https://web.archive.org/web/20221225224336/https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data Collected by the OneSignal SDK (version updated 2022-12-20, Wayback Machine copy)",
+       "as_of": "2022-12-20",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20221225224336id_/https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "quote": "Data OneSignal Automatically Collects that can be disabled client side"
+      },
+      {
+       "url": "https://web.archive.org/web/20221225224336/https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data Collected by the OneSignal SDK (version updated 2022-12-20, Wayback Machine copy)",
+       "as_of": "2022-12-20",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20221225224336id_/https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "quote": "the OneSignal SDK collects if your app asks for and receives permission from users"
+      },
+      {
+       "url": "https://web.archive.org/web/20221225224336/https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "type": "company_site",
+       "title": "OneSignal documentation: Data Collected by the OneSignal SDK (version updated 2022-12-20, Wayback Machine copy)",
+       "as_of": "2022-12-20",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20221225224336id_/https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+       "quote": "GPS coordinates of the device"
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "confidence_note": {
+    "text": "OneSignal's Google Play guidance (read 2026-10-08) tells developers it doesn't collect approximate location or device IDs by default. Its privacy policy (last updated 2024-04-12) lists location inferred from IP address and mobile device identifiers among what its mobile SDKs collect, and its SDK data page lists country, IP address and push tokens. This record follows the policy and the SDK data page.",
+    "sources": [
+     {
+      "url": "https://documentation.onesignal.com/docs/google-play-data-safety-requirements",
+      "type": "company_site",
+      "title": "OneSignal documentation: Google Play Data Safety requirements",
+      "accessed": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "Approximate location ❌ Not collected"
+     },
+     {
+      "url": "https://documentation.onesignal.com/docs/google-play-data-safety-requirements",
+      "type": "company_site",
+      "title": "OneSignal documentation: Google Play Data Safety requirements",
+      "accessed": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "Device or other IDs ❌ Does not collect GAID by default"
+     },
+     {
+      "url": "https://onesignal.com/privacy_policy",
+      "type": "privacy_policy",
+      "title": "OneSignal Privacy Policy",
+      "as_of": "2024-04-12",
+      "status": "self_disclosed",
+      "quote": "Geolocation data inferred from IP address"
+     },
+     {
+      "url": "https://onesignal.com/privacy_policy",
+      "type": "privacy_policy",
+      "title": "OneSignal Privacy Policy",
+      "as_of": "2024-04-12",
+      "status": "self_disclosed",
+      "quote": "Mobile device or account identifiers"
+     },
+     {
+      "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+      "type": "company_site",
+      "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+      "accessed": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "Country The most recent country of the device or browser"
+     },
+     {
+      "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+      "type": "company_site",
+      "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+      "accessed": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "IP Address The IP address the device or browser is visiting from."
+     },
+     {
+      "url": "https://documentation.onesignal.com/docs/data-collected-by-the-onesignal-sdk",
+      "type": "company_site",
+      "title": "OneSignal documentation: Data collected by the OneSignal SDK",
+      "accessed": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "push tokens added to the device by FCM or APNs"
+     }
+    ]
+   },
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}

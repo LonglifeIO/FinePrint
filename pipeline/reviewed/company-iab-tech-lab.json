@@ -1,0 +1,41 @@
+{
+ "companies": [
+  {
+   "id": "co-iab-tech-lab",
+   "name": "IAB Technology Laboratory, Inc.",
+   "short_name": "IAB Tech Lab",
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://projects.propublica.org/nonprofits/api/v2/organizations/473384874.json",
+     "type": "company_registry",
+     "title": "IRS exempt organization record for IAB Technology Laboratory Inc (EIN 47-3384874), via ProPublica Nonprofit Explorer",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "\"name\":\"Iab Technology Laboratory Inc\""
+    },
+    {
+     "url": "https://projects.propublica.org/nonprofits/api/v2/organizations/473384874.json",
+     "type": "company_registry",
+     "title": "IRS exempt organization record for IAB Technology Laboratory Inc (EIN 47-3384874), via ProPublica Nonprofit Explorer",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "\"city\":\"New York\",\"state\":\"NY\""
+    },
+    {
+     "url": "https://projects.propublica.org/nonprofits/api/v2/organizations/473384874.json",
+     "type": "company_registry",
+     "title": "IRS exempt organization record for IAB Technology Laboratory Inc (EIN 47-3384874), via ProPublica Nonprofit Explorer",
+     "accessed": "2026-10-08",
+     "status": "self_disclosed",
+     "quote": "\"subsection_code\":6"
+    }
+   ],
+   "roles": [
+    "tracker_owner"
+   ],
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}

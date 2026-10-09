@@ -1,0 +1,26 @@
+{
+ "companies": [
+  {
+   "id": "co-onesignal",
+   "name": "OneSignal, Inc.",
+   "short_name": "OneSignal",
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://onesignal.com/privacy_policy",
+     "type": "privacy_policy",
+     "title": "OneSignal Privacy Policy",
+     "as_of": "2024-04-12",
+     "status": "self_disclosed",
+     "quote": "OneSignal, Inc. is a U.S. company … San Mateo, CA 94401"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}

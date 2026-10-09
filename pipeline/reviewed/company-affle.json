@@ -1,0 +1,76 @@
+{
+ "companies": [
+  {
+   "id": "co-affle",
+   "name": "Affle 3i Limited",
+   "short_name": "Affle",
+   "jurisdiction": "IN",
+   "headquarters": "IN",
+   "jurisdiction_sources": [
+    {
+     "url": "https://api.gleif.org/api/v1/lei-records/335800VOXUF6XMCWSD89",
+     "type": "company_registry",
+     "title": "GLEIF, Legal Entity Identifier record 335800VOXUF6XMCWSD89: Affle 3i Limited, registered in India (L65990DL1994PLC408172)",
+     "accessed": "2026-10-09",
+     "status": "self_disclosed",
+     "quote": "\"name\":\"AFFLE 3I LIMITED\" … \"city\":\"NEW DELHI\",\"region\":\"IN-DL\",\"country\":\"IN\" … \"city\":\"GURUGRAM\",\"region\":\"IN-HR\",\"country\":\"IN\" … \"registeredAs\":\"L65990DL1994PLC408172\",\"jurisdiction\":\"IN\""
+    },
+    {
+     "url": "https://affle.com/hubfs/affle-investor-relation/financial-details/other-announcements/2026/Acquisition_Annoucement_June2026.pdf",
+     "type": "filing",
+     "title": "Affle 3i Limited: disclosure to BSE and NSE under SEBI Regulation 30, acquisition of AdColony assets",
+     "as_of": "2026-06-13",
+     "status": "self_disclosed",
+     "quote": "A47 Lower Ground Floor, Hauz Khas, Off Amar Bhawan, New Delhi-110016"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "owner_history": [
+    {
+     "date": "2026",
+     "event": "bought the AdColony business (its SDK, platform, brand and domain) from Digital Turbine in an asset purchase announced 2026-06-15",
+     "from": "Digital Turbine, Inc. (DT)",
+     "to": "Affle MEA FZ-LLC, a step-down subsidiary of Affle 3i Limited",
+     "sources": [
+      {
+       "url": "https://affle.com/affle_news/affle-announces-strategic-acquisition-of-adcolony-technology-assets-and-trademark-from-dt",
+       "type": "company_site",
+       "title": "Affle: Affle Announces Strategic Acquisition of AdColony Technology Assets and Trademark from DT",
+       "as_of": "2026-06-15",
+       "status": "self_disclosed",
+       "quote": "entered into a definitive asset purchase agreement with DT (NASDAQ: APPS), formerly Digital Turbine"
+      },
+      {
+       "url": "https://affle.com/affle_news/affle-announces-strategic-acquisition-of-adcolony-technology-assets-and-trademark-from-dt",
+       "type": "company_site",
+       "title": "Affle: Affle Announces Strategic Acquisition of AdColony Technology Assets and Trademark from DT",
+       "as_of": "2026-06-15",
+       "status": "self_disclosed",
+       "quote": "acquire select strategic AdColony assets including the AdColony SDK for Android and iOS"
+      },
+      {
+       "url": "https://affle.com/hubfs/affle-investor-relation/financial-details/other-announcements/2026/Acquisition_Annoucement_June2026.pdf",
+       "type": "filing",
+       "title": "Affle 3i Limited: disclosure to BSE and NSE under SEBI Regulation 30, acquisition of AdColony assets",
+       "as_of": "2026-06-13",
+       "status": "self_disclosed",
+       "quote": "wholly owned step-down subsidiary Affle MEA FZ-LLC (“AMEA”) (subsidiary of Affle International Pte. Ltd.)"
+      },
+      {
+       "url": "https://adcolony.com/",
+       "type": "company_site",
+       "title": "AdColony website",
+       "accessed": "2026-10-09",
+       "status": "self_disclosed",
+       "quote": "AdColony is now part of Affle."
+      }
+     ]
+    }
+   ],
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}

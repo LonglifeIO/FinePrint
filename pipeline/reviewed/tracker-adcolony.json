@@ -1,0 +1,390 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-90",
+   "aka": [
+    "AdColony SDK"
+   ],
+   "owner": "Affle 3i Limited",
+   "owner_company": "co-affle",
+   "owner_chain": [
+    "Affle MEA FZ-LLC",
+    "Affle 3i Limited"
+   ],
+   "jurisdiction": "IN",
+   "party": "third_party",
+   "product_line": "AdColony's ad SDK for app developers; DT (formerly Digital Turbine) sold the SDK, platform and brand to Affle in 2026",
+   "categories": [
+    "advertising",
+    "location",
+    "profiling"
+   ],
+   "data_collected": [
+    "the Google advertising ID and IP address",
+    "device type and characteristics, and mobile carrier",
+    "the app showing the ad, and the ads you see, tap and act on",
+    "precise location, if the app has location permission and sends it",
+    "from partners: your age, gender and the other apps on your device"
+   ],
+   "monetization_model": "AdColony ran an advertising network and platform that targeted ads in apps with data collected across apps over time; its 2022 policy offered an opt-out from \"AdColony's sale of data to third parties\".",
+   "data_flows": [
+    {
+     "id": "flow-adcolony-ids",
+     "data": "device_identifiers",
+     "recipient": "co-affle",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your advertising ID, IP address and device details, collected across apps over time to show you ads that may interest you and to report to advertisers",
+     "status": "self_disclosed",
+     "wording": "According to AdColony's privacy policy (last updated 2022-03-24), published while Digital Turbine owned it.",
+     "sources": [
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "The pseudonymous identifiers include Google Advertising ID, Apple Identifier for Advertisers, and IP address."
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "the type of phone or other mobile device used"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "collect Pseudonymous Identifiers and other personal data over time and across multiple Publishers"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "to help us display advertisements that may be of interest to Users"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "provide reports to advertisers and others"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "may integrate this Information with that acquired from other Publishers and third-party data providers"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "provides an advertising network and technology platform"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "mobile device type and characteristics, and mobile service provider"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "third-party applications on the device or in use at the time"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "the Users age, gender or other demographic indicator"
+      }
+     ]
+    },
+    {
+     "id": "flow-adcolony-location",
+     "data": "precise_location",
+     "recipient": "co-affle",
+     "bucket": "goes_elsewhere",
+     "default": "opt_in",
+     "purpose": "Your precise location, if you let the app use it, matched to places such as a neighbourhood or coffee shop, for interest-based ads, ad targeting, analytics and market research",
+     "status": "self_disclosed",
+     "wording": "According to AdColony's privacy policy (last updated 2022-03-24), published while Digital Turbine owned it.",
+     "sources": [
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "a mobile application may allow you to grant permission to send us location data"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "collects and uses precise location data about a device from mobile applications"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "points of interest such as a “neighborhood”, “coffee shop” or “Sports arena”"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "for interest-based advertising, ad targeting, analytics and market research purposes"
+      }
+     ]
+    },
+    {
+     "id": "flow-adcolony-activity",
+     "data": "app_activity",
+     "recipient": "co-affle",
+     "bucket": "goes_elsewhere",
+     "purpose": "The app showing the ad, which ads you see and tap, and what you do after, for ad targeting and reports to advertisers",
+     "status": "self_disclosed",
+     "wording": "According to AdColony's privacy policy (last updated 2022-03-24), published while Digital Turbine owned it.",
+     "sources": [
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "the name of the Publishers on which the advertisement is served"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "a record if that ad was “clicked”"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "interactions and transactions within ads or apps"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "provide reports to advertisers and others"
+      }
+     ]
+    },
+    {
+     "id": "flow-adcolony-partners",
+     "data": "device_identifiers",
+     "recipient": "co-affle",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your advertising ID and other data, shared with ad networks, ad exchanges and agencies to target ads; the policy offered an opt-out from AdColony's sale of data to third parties",
+     "status": "self_disclosed",
+     "wording": "According to AdColony's privacy policy (last updated 2022-03-24), published while Digital Turbine owned it.",
+     "sources": [
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "We may share information with ad networks, advertising exchanges, ad agencies"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "for the business purpose of facilitating and targeting advertising campaigns"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "a request to opt-out from AdColony’s sale of data to third parties"
+      },
+      {
+       "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+       "type": "privacy_policy",
+       "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+       "as_of": "2022-03-24",
+       "status": "self_disclosed",
+       "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+       "quote": "transfers pseudonymous personal information from our Publishers to third-party partners"
+      }
+     ]
+    }
+   ],
+   "consequences": [],
+   "confidence": "low",
+   "confidence_note": {
+    "text": "These lines follow AdColony's privacy policy of 2022-03-24, which predates the sale to Affle; Affle's own AdColony policy reads \"Coming soon\". The SDK was dormant from June 2022 until versions 4.8.1 and 4.8.2 came out on 2026-08-07, so FinePrint can't see whether they changed what's collected; by FinePrint's reading of its code, 4.8.2 first contacts adc-launch.affle.ai. DT's 10-Q said the transfer to Affle wasn't complete on 2026-06-30, and FinePrint had seen no completion filing as of 2026-10-09.",
+    "sources": [
+     {
+      "url": "https://web.archive.org/web/20240614172209/https://www.adcolony.com/privacy-policy/",
+      "type": "privacy_policy",
+      "title": "AdColony Privacy Policy, last updated 2022-03-24 (Wayback Machine copy of 2024-06-14)",
+      "as_of": "2022-03-24",
+      "status": "self_disclosed",
+      "verify_url": "https://web.archive.org/web/20240614172209id_/https://www.adcolony.com/privacy-policy/",
+      "quote": "Last Updated: March 24, 2022"
+     },
+     {
+      "url": "https://adcolony.com/privacy-policy/",
+      "type": "company_site",
+      "title": "AdColony website, privacy policy page",
+      "accessed": "2026-10-09",
+      "status": "self_disclosed",
+      "quote": "Coming soon The Next Evolution of Mobile Advertising"
+     },
+     {
+      "url": "https://github.com/AdColony/AdColony-Android-SDK",
+      "type": "company_site",
+      "title": "AdColony Android SDK on GitHub: README",
+      "as_of": "2022-06-07",
+      "status": "self_disclosed",
+      "quote": "Modified: June 7th, 2022 SDK Version: 4.8.0"
+     },
+     {
+      "url": "https://repo1.maven.org/maven2/com/adcolony/sdk/",
+      "type": "company_site",
+      "title": "Maven Central: AdColony SDK (com.adcolony:sdk) versions and publication dates",
+      "accessed": "2026-10-09",
+      "status": "self_disclosed",
+      "quote": "4.8.0/ 2022-06-07 23:03 … 4.8.1/ 2026-08-07 13:45 … 4.8.2/ 2026-08-07 14:11"
+     },
+     {
+      "url": "https://ir.digitalturbine.com/sec-filings/all-sec-filings/content/0001628280-26-053446/apps-20260630.htm",
+      "type": "filing",
+      "title": "Digital Turbine, Inc. (DT): quarterly report on Form 10-Q for the quarter ended June 30, 2026",
+      "as_of": "2026-08-05",
+      "status": "self_disclosed",
+      "quote": "sell its dormant exchange, originally acquired in connection with the AdColony acquisition in 2021"
+     },
+     {
+      "url": "https://ir.digitalturbine.com/sec-filings/all-sec-filings/content/0001628280-26-053446/apps-20260630.htm",
+      "type": "filing",
+      "title": "Digital Turbine, Inc. (DT): quarterly report on Form 10-Q for the quarter ended June 30, 2026",
+      "as_of": "2026-08-05",
+      "status": "self_disclosed",
+      "quote": "the transfer of assets was not completed by June 30, 2026"
+     },
+     {
+      "url": "https://affle.com/hubfs/affle-investor-relation/financial-details/other-announcements/2026/Acquisition_Annoucement_June2026.pdf",
+      "type": "filing",
+      "title": "Affle 3i Limited: disclosure to BSE and NSE under SEBI Regulation 30, acquisition of AdColony assets",
+      "as_of": "2026-06-13",
+      "status": "self_disclosed",
+      "quote": "has entered into a definitive Asset Purchase Agreement to acquire AdColony Assets"
+     },
+     {
+      "url": "https://affle.com/hubfs/affle-investor-relation/financial-details/other-announcements/2026/Acquisition_Annoucement_June2026.pdf",
+      "type": "filing",
+      "title": "Affle 3i Limited: disclosure to BSE and NSE under SEBI Regulation 30, acquisition of AdColony assets",
+      "as_of": "2026-06-13",
+      "status": "self_disclosed",
+      "quote": "the AdColony SDK for iOS and Android devices, tech platform"
+     },
+     {
+      "url": "https://affle.com/hubfs/affle-investor-relation/financial-details/other-announcements/2026/Acquisition_Annoucement_June2026.pdf",
+      "type": "filing",
+      "title": "Affle 3i Limited: disclosure to BSE and NSE under SEBI Regulation 30, acquisition of AdColony assets",
+      "as_of": "2026-06-13",
+      "status": "self_disclosed",
+      "quote": "the brand name, domain and the goodwill exclusively related to Assets"
+     },
+     {
+      "url": "https://affle.com/hubfs/affle-investor-relation/financial-details/other-announcements/2026/Acquisition_Annoucement_June2026.pdf",
+      "type": "filing",
+      "title": "Affle 3i Limited: disclosure to BSE and NSE under SEBI Regulation 30, acquisition of AdColony assets",
+      "as_of": "2026-06-13",
+      "status": "self_disclosed",
+      "quote": "wholly owned step-down subsidiary Affle MEA FZ-LLC (“AMEA”) (subsidiary of Affle International Pte. Ltd.)"
+     },
+     {
+      "url": "https://affle.com/hubfs/affle-investor-relation/financial-details/other-announcements/2026/Acquisition_Annoucement_June2026.pdf",
+      "type": "filing",
+      "title": "Affle 3i Limited: disclosure to BSE and NSE under SEBI Regulation 30, acquisition of AdColony assets",
+      "as_of": "2026-06-13",
+      "status": "self_disclosed",
+      "quote": "AMEA has worldwide rights to use these Assets."
+     },
+     {
+      "url": "https://affle.com/affle_news/affle-announces-strategic-acquisition-of-adcolony-technology-assets-and-trademark-from-dt",
+      "type": "company_site",
+      "title": "Affle: Affle Announces Strategic Acquisition of AdColony Technology Assets and Trademark from DT",
+      "as_of": "2026-06-15",
+      "status": "self_disclosed",
+      "quote": "DT (NASDAQ: APPS), formerly Digital Turbine"
+     },
+     {
+      "url": "https://adcolony.com/",
+      "type": "company_site",
+      "title": "AdColony website",
+      "accessed": "2026-10-09",
+      "status": "self_disclosed",
+      "quote": "AdColony is now part of Affle."
+     }
+    ]
+   },
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}

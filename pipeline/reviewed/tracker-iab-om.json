@@ -1,0 +1,116 @@
+{
+ "trackers": [
+  {
+   "id": "exodus-328",
+   "aka": [
+    "OM SDK",
+    "Open Measurement SDK",
+    "OMID"
+   ],
+   "owner": "IAB Technology Laboratory, Inc.",
+   "owner_company": "co-iab-tech-lab",
+   "owner_chain": [
+    "IAB Technology Laboratory, Inc."
+   ],
+   "jurisdiction": "US",
+   "party": "third_party",
+   "product_line": "IAB Tech Lab's Open Measurement SDK, a library apps and ad SDKs build in so measurement companies can check ads were seen",
+   "categories": [
+    "advertising"
+   ],
+   "data_collected": [
+    "when an ad appears on screen, how much of it is in view and for how long",
+    "signals for checking invalid traffic and brand requirements"
+   ],
+   "monetization_model": "IAB Tech Lab publishes the SDK for apps and ad SDKs to build in, as an industry standard for measuring ads; measurement companies place tags in ads that collect its signals (IAB Tech Lab).",
+   "data_flows": [
+    {
+     "id": "flow-omsdk-measurement",
+     "data": "app_activity",
+     "recipient_label": "Ad measurement and verification companies whose tags come with the ad",
+     "bucket": "goes_elsewhere",
+     "purpose": "When each ad appears on screen, how much of it is in view and for how long, collected by the measurement companies whose tags come with the ad, to verify it was seen and check for fraud",
+     "status": "self_disclosed",
+     "wording": "According to IAB Tech Lab's description of the Open Measurement SDK, updated 2025-11-04.",
+     "sources": [
+      {
+       "url": "https://iabtechlab.com/standards/open-measurement-sdk/",
+       "type": "company_site",
+       "title": "IAB Tech Lab: Open Measurement (OM) SDK",
+       "as_of": "2025-11-04",
+       "status": "self_disclosed",
+       "quote": "offers common code and libraries for facilitating third-party access to measurement data"
+      },
+      {
+       "url": "https://iabtechlab.com/standards/open-measurement-sdk/",
+       "type": "company_site",
+       "title": "IAB Tech Lab: Open Measurement (OM) SDK",
+       "as_of": "2025-11-04",
+       "status": "self_disclosed",
+       "quote": "Sites and apps that integrate the OM SDK can send measurement signals"
+      },
+      {
+       "url": "https://iabtechlab.com/standards/open-measurement-sdk/",
+       "type": "company_site",
+       "title": "IAB Tech Lab: Open Measurement (OM) SDK",
+       "as_of": "2025-11-04",
+       "status": "self_disclosed",
+       "quote": "Measurement providers can place tags that collect these signals."
+      },
+      {
+       "url": "https://iabtechlab.com/standards/open-measurement-sdk/",
+       "type": "company_site",
+       "title": "IAB Tech Lab: Open Measurement (OM) SDK",
+       "as_of": "2025-11-04",
+       "status": "self_disclosed",
+       "quote": "confirms when ads appear on screen, percentage in view, and for how long"
+      },
+      {
+       "url": "https://iabtechlab.com/standards/open-measurement-sdk/",
+       "type": "company_site",
+       "title": "IAB Tech Lab: Open Measurement (OM) SDK",
+       "as_of": "2025-11-04",
+       "status": "self_disclosed",
+       "quote": "facilitates third party verification of invalid traffic and brand requirements"
+      },
+      {
+       "url": "https://iabtechlab.com/standards/open-measurement-sdk/",
+       "type": "company_site",
+       "title": "IAB Tech Lab: Open Measurement (OM) SDK",
+       "as_of": "2025-11-04",
+       "status": "self_disclosed",
+       "quote": "an industry-standard solution that brings transparency and trust to digital advertising measurement"
+      }
+     ]
+    }
+   ],
+   "consequences": [
+    {
+     "text": "Apps and ad SDKs build this library in, so finding it doesn't show which company's ads the app shows; the measurement companies that receive the signals come with each ad. FinePrint can't see which ones.",
+     "status": "self_disclosed",
+     "wording": "According to IAB Tech Lab's description of the Open Measurement SDK, updated 2025-11-04.",
+     "sources": [
+      {
+       "url": "https://iabtechlab.com/standards/open-measurement-sdk/",
+       "type": "company_site",
+       "title": "IAB Tech Lab: Open Measurement (OM) SDK",
+       "as_of": "2025-11-04",
+       "status": "self_disclosed",
+       "quote": "a guide for integration partners (app developers, ad SDK providers)"
+      },
+      {
+       "url": "https://iabtechlab.com/standards/open-measurement-sdk/",
+       "type": "company_site",
+       "title": "IAB Tech Lab: Open Measurement (OM) SDK",
+       "as_of": "2025-11-04",
+       "status": "self_disclosed",
+       "quote": "Measurement providers can place tags that collect these signals."
+      }
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "last_reviewed": "2026-10-08"
+  }
+ ]
+}
