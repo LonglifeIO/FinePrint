@@ -1,0 +1,26 @@
+{
+ "companies": [
+  {
+   "id": "co-tiktok-pte",
+   "name": "TikTok Pte. Ltd.",
+   "jurisdiction": "SG",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.tiktok.com/legal/page/row/privacy-policy/en",
+     "type": "privacy_policy",
+     "title": "TikTok Privacy Policy, other regions",
+     "as_of": "2025-07-08",
+     "status": "self_disclosed",
+     "verify_url": "https://web.archive.org/web/20260930143917/https://www.tiktok.com/legal/page/row/privacy-policy/en",
+     "wayback_url": "https://web.archive.org/web/20260930143917/https://www.tiktok.com/legal/page/row/privacy-policy/en",
+     "wayback_date": "2026-09-30",
+     "quote": "controlled by TikTok Pte. Ltd., with its registered address at … Singapore 048583"
+    }
+   ],
+   "roles": [
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}

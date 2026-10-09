@@ -184,12 +184,15 @@
        "quote": "in-app advertisement placements which will be sold to various demand sources"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has turned on Acquire Optimization, Unity Ads also collects how long you use the app, to measure how often players come back and serve ads. FinePrint can't see that setting.",
+     "id": "flow-unity-ads-usage-times",
+     "data": "app_activity",
+     "recipient": "co-unity",
+     "bucket": "goes_elsewhere",
+     "purpose": "How long you use the app, to measure how often players come back and to serve ads",
      "status": "self_disclosed",
+     "conditional": "if the developer has enabled Acquire Optimization in Unity's Monetization dashboard",
      "wording": "According to Unity's data safety disclosure for Unity Ads (read 2026-10-08).",
      "sources": [
       {
@@ -206,10 +209,12 @@
        "title": "Unity documentation: Google Play data safety section for Unity Ads",
        "accessed": "2026-10-08",
        "status": "self_disclosed",
-       "quote": "only collects data on app usage times when Acquire Optimization is enabled"
+       "quote": "only collects data on app usage times when Acquire Optimization is enabled … Monetization dashboard"
       }
      ]
-    },
+    }
+   ],
+   "consequences": [
     {
      "text": "In 2021 a US federal court approved Unity's settlement of a class action, with no finding of wrongdoing. For three years Unity had to keep a COPPA flag for developers, offer a contextual-ads-only setting and switch it on for apps in Google Play's Designed for Families program, delete advertising IDs it held from listed children's apps, and let users opt out of interest-based ads.",
      "subject_company": "co-unity",
@@ -279,7 +284,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

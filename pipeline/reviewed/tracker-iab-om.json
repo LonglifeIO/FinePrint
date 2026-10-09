@@ -110,7 +110,32 @@
     }
    ],
    "confidence": "medium",
-   "last_reviewed": "2026-10-08"
+   "confidence_note": {
+    "text": "Exodus's code detection rule for this SDK also lists com.prime31.util.IabHelperImpl and com.prime31.IAB., names from prime31's In App Billing plugin for Unity, where IAB means in-app billing. So an app with only that billing plugin shows these lines.",
+    "sources": [
+     {
+      "url": "https://reports.exodus-privacy.eu.org/en/trackers/328/",
+      "type": "research",
+      "title": "εxodus: tracker profile for IAB Open Measurement (Wayback Machine copy of 2026-05-21)",
+      "as_of": "2026-05-21",
+      "status": "reported",
+      "verify_url": "https://web.archive.org/web/20260521050656id_/https://reports.exodus-privacy.eu.org/en/trackers/328/",
+      "wayback_url": "https://web.archive.org/web/20260521050656/https://reports.exodus-privacy.eu.org/en/trackers/328/",
+      "wayback_date": "2026-05-21",
+      "quote": "Code detection rule: com.iab.omid.library | com.prime31.util.IabHelperImpl | com.prime31.IAB."
+     },
+     {
+      "url": "https://prime31.com/docs#androidIAB",
+      "type": "company_site",
+      "title": "prime31 documentation: In App Billing Plugin for Android",
+      "accessed": "2026-10-09",
+      "status": "self_disclosed",
+      "verify_url": "https://prime31.com/content/docs/android/inAppBilling.shtml",
+      "quote": "GoogleIAB methods: … Initializes the billing system"
+     }
+    ]
+   },
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

@@ -29,7 +29,7 @@
     {
      "id": "flow-pangle-ids",
      "data": "device_identifiers",
-     "recipient": "co-bytedance",
+     "recipient": "co-tiktok-pte",
      "bucket": "goes_elsewhere",
      "purpose": "Your resettable device identifiers, for ads, analytics and fraud prevention, and passed on for advertising and fraud prevention",
      "status": "self_disclosed",
@@ -64,7 +64,7 @@
     {
      "id": "flow-pangle-location",
      "data": "approximate_location",
-     "recipient": "co-bytedance",
+     "recipient": "co-tiktok-pte",
      "bucket": "goes_elsewhere",
      "purpose": "Your city-level location, worked out from your IP address, for ads, analytics and fraud prevention, and passed on for advertising and fraud prevention",
      "status": "self_disclosed",
@@ -91,7 +91,7 @@
     {
      "id": "flow-pangle-activity",
      "data": "app_activity",
-     "recipient": "co-bytedance",
+     "recipient": "co-tiktok-pte",
      "bucket": "goes_elsewhere",
      "purpose": "How you interact with the ads Pangle shows, for ads, analytics and fraud prevention, and passed on for advertising and fraud prevention",
      "status": "self_disclosed",
@@ -205,7 +205,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

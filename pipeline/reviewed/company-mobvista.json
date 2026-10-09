@@ -1,0 +1,42 @@
+{
+ "companies": [
+  {
+   "id": "co-mobvista",
+   "name": "Mobvista Inc.",
+   "short_name": "Mobvista/Mintegral",
+   "jurisdiction": "KY",
+   "headquarters": "SG",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801490.pdf",
+     "type": "filing",
+     "title": "Mobvista Inc. (HKEX: 1860): 2026 Interim Report",
+     "as_of": "2026-09-18",
+     "status": "self_disclosed",
+     "quote": "Mobvista Inc. (incorporated in the Cayman Islands with limited liability)"
+    },
+    {
+     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801490.pdf",
+     "type": "filing",
+     "title": "Mobvista Inc. (HKEX: 1860): 2026 Interim Report",
+     "as_of": "2026-09-18",
+     "status": "self_disclosed",
+     "quote": "HEADQUARTERS 1 Raffles Quay #09–06, North Tower Singapore 048583"
+    },
+    {
+     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801490.pdf",
+     "type": "filing",
+     "title": "Mobvista Inc. (HKEX: 1860): 2026 Interim Report",
+     "as_of": "2026-09-18",
+     "status": "self_disclosed",
+     "quote": "Mintegral, the Group’s programmatic advertising platform"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}
