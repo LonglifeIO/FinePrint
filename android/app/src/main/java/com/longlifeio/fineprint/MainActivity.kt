@@ -41,7 +41,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            FinePrintTheme {
+            // The flavour's frame: the preview's theme switch applies there; the app itself adds nothing (Flavour.kt).
+            ThemeFrame { FinePrintTheme {
                 val apps by session.apps.collectAsState()
                 val results by session.results.collectAsState()
                 val progress by session.progress.collectAsState()
@@ -133,7 +134,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 }
-            }
+            } }
         }
     }
 

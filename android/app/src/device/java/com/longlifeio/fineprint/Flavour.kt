@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.Settings
 import android.widget.Toast
+import androidx.compose.runtime.Composable
 import com.longlifeio.fineprint.bundle.BundleSession
 import com.longlifeio.fineprint.bundle.BundleState
 import com.longlifeio.fineprint.egress.InstalledApp
@@ -28,6 +29,13 @@ internal fun FinePrintApp.newScanner(): AppScanner = ScanSession(this) { bundle.
 
 /** A line under "At a glance"; none here, where the apps are your own. */
 val GLANCE_NOTICE: String? = null
+
+/** A control under that line; none here. */
+val GLANCE_SWITCH: (@Composable () -> Unit)? = null
+
+/** What the screens are drawn in: nothing is added here, so the theme follows the phone. */
+@Composable
+fun ThemeFrame(content: @Composable () -> Unit) = content()
 
 /** The introduction's line on what FinePrint reads, where a build says it differently; this one keeps its own. */
 val INTRO_WHAT_IT_READS: String? = null

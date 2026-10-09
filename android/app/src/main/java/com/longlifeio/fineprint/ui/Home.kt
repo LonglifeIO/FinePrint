@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
+import com.longlifeio.fineprint.GLANCE_SWITCH
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.appIcon
 import com.longlifeio.fineprint.bundle.Change
@@ -96,6 +97,7 @@ fun AtAGlance(
     ) {
         Eyebrow("At a glance")
         notice?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = p.ink) }
+        GLANCE_SWITCH?.invoke()
         Text(glanceHeadline(g), style = CardHeadline, color = p.ink)
         Text("Apps by where their data goes", style = MaterialTheme.typography.bodySmall, color = p.muted)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.s), verticalArrangement = Arrangement.spacedBy(Space.s)) {

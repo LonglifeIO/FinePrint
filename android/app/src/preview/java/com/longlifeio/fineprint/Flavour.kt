@@ -3,8 +3,11 @@ package com.longlifeio.fineprint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import androidx.compose.runtime.Composable
 import com.longlifeio.fineprint.preview.BuiltInBundle
 import com.longlifeio.fineprint.preview.FixtureScanner
+import com.longlifeio.fineprint.preview.PreviewTheme
+import com.longlifeio.fineprint.preview.ThemeSwitch
 
 /*
  * The preview flavour: a debug build to browse on any phone as the app evolves. Its apps are the scan fixture's
@@ -20,6 +23,13 @@ internal fun FinePrintApp.newBundleSource(): BundleSource = BuiltInBundle(this)
 internal fun FinePrintApp.newScanner(): AppScanner = FixtureScanner(this) { bundle.state.value.signatures }
 
 val GLANCE_NOTICE: String? = "Preview — sample apps, not your phone."
+
+/** Under the notice: the theme switch (System, Light, Dark). */
+val GLANCE_SWITCH: (@Composable () -> Unit)? = { ThemeSwitch() }
+
+/** The screens, in the switch's choice of theme. */
+@Composable
+fun ThemeFrame(content: @Composable () -> Unit) = PreviewTheme(content)
 
 val INTRO_WHAT_IT_READS: String? = "This preview shows sample apps. It reads nothing on this phone."
 
