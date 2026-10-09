@@ -8,7 +8,6 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.getUnclippedBoundsInRoot
 import androidx.compose.ui.test.hasAnyAncestor
-import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
@@ -26,7 +25,9 @@ import com.longlifeio.fineprint.bundle.parseBundle
 import com.longlifeio.fineprint.design.parseFixture
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.parseTrackerSignatures
+import com.longlifeio.fineprint.explain.FILTERS
 import com.longlifeio.fineprint.explain.HOME_WORDMARK
+import com.longlifeio.fineprint.explain.SEARCH_HINT
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import org.junit.Assert.assertEquals
@@ -42,11 +43,10 @@ import org.robolectric.annotation.GraphicsMode
 import java.io.File
 
 /**
- * The home's top, on the screenshot matrix's three sizes: a 64dp bar that never collapses, At a glance
- * straight under it at rest and after scrolling, search straight under the card, and on the small phone
- * the search field above the fold with the system bars counted. A "Your apps" headline over search
- * failed that last check on the emulator, so it went (the card is never shrunk to make room). TalkBack reads
- * the wordmark, then the menu, then At a glance.
+ * The home's top, on the screenshot matrix's three sizes: a 64dp wordmark bar that never collapses, the search bar
+ * docked straight under it, At a glance under that at rest, both bars put while the list scrolls, no chip row, and on
+ * the small phone the whole card above the fold with the system bars counted (the card is never shrunk to make room).
+ * TalkBack reads the wordmark, Filters, the menu, the search field, then At a glance.
  */
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -77,17 +77,20 @@ class HomeBarTest {
     private fun bounds(matcher: SemanticsMatcher): DpRect = compose.onNode(matcher).getUnclippedBoundsInRoot()
     private val bar get() = bounds(hasTestTag("bar"))
     private val glance get() = bounds(hasTestTag("glance"))
-    private val search get() = bounds(hasSetTextAction())
+    private val search get() = bounds(hasTestTag("search"))
 
     private fun theTop() {
         home()
         val atRest = bar
+        val field = search
         assertEquals("bar height", 64f, (atRest.bottom - atRest.top).value, 0.5f)
-        assertEquals("At a glance starts where the bar ends", atRest.bottom.value, glance.top.value, 0.5f)
-        assertEquals("search under the card", 16f, (search.top - glance.bottom).value, 0.5f)
+        assertEquals("search straight under the bar", atRest.bottom.value, field.top.value, 0.5f)
+        assertEquals("At a glance 8dp under the search bar", 8f, (glance.top - field.bottom).value, 0.5f)
+        compose.onAllNodes(hasTestTag("filters")).assertCountEquals(0)
         compose.onAllNodesWithText("Your apps").assertCountEquals(0)
         compose.onNodeWithTag("list").performScrollToIndex(6)
         assertEquals("the bar neither grows nor collapses while scrolling", atRest, bar)
+        assertEquals("the search bar stays docked", field, search)
     }
 
     @Test fun phone() = theTop()
@@ -98,9 +101,9 @@ class HomeBarTest {
         theTop()
         compose.onNodeWithTag("list").performScrollToIndex(0)
         // Robolectric draws no system bars. fineprint37 at 360 × 780 has a 43dp status bar over the app
-        // and a 24dp gesture bar under it (dumpsys window), so the field needs that much room here.
+        // and a 24dp gesture bar under it (dumpsys window), so the card needs that much room here.
         val fold = compose.onRoot().getUnclippedBoundsInRoot().bottom - 67.dp
-        assertTrue("the search field ends ${(search.bottom - fold).value}dp below the fold on 360 × 780", search.bottom <= fold)
+        assertTrue("At a glance ends ${(glance.bottom - fold).value}dp below the fold on 360 × 780", glance.bottom <= fold)
     }
 
     @Test fun atTwiceTheTextTheWordmarkStillFitsTheBar() {
@@ -126,6 +129,6 @@ class HomeBarTest {
             .assert(isHeading())
             .assert(SemanticsMatcher.keyNotDefined(SemanticsActions.OnClick))
         // The list under the bar also starts at the top of the screen; TalkBack still starts in the bar.
-        assertEquals(listOf(HOME_WORDMARK, "More options", "At a glance"), talkBackOrder(view, compose).take(3))
+        assertEquals(listOf(HOME_WORDMARK, FILTERS, "More options", SEARCH_HINT, "At a glance"), talkBackOrder(view, compose).take(5))
     }
 }

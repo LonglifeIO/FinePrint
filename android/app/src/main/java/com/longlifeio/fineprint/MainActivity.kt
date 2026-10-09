@@ -24,6 +24,7 @@ import com.longlifeio.fineprint.review.reviewView
 import com.longlifeio.fineprint.ui.AboutScreen
 import com.longlifeio.fineprint.ui.AppDetailScreen
 import com.longlifeio.fineprint.ui.AppListScreen
+import com.longlifeio.fineprint.ui.rememberHomeSearch
 import com.longlifeio.fineprint.ui.FinePrintTheme
 import com.longlifeio.fineprint.ui.HowToReadScreen
 import com.longlifeio.fineprint.ui.OnboardingScreen
@@ -52,6 +53,7 @@ class MainActivity : ComponentActivity() {
                 var showAbout by rememberSaveable { mutableStateOf(false) }
                 var showHowTo by rememberSaveable { mutableStateOf(false) }
                 val listState = rememberLazyListState() // hoisted so the list keeps its place
+                val search = rememberHomeSearch() // hoisted too: Back from a result's page returns to the results
                 var openPackage by rememberSaveable { mutableStateOf<String?>(null) }
                 val open = openPackage?.let { name -> apps?.find { it.packageName == name } }
                 // Every app's explanation (and so its tier) is worked out on the device, from the scan and the bundle.
@@ -98,6 +100,7 @@ class MainActivity : ComponentActivity() {
                         onIncludeSystemChange = session::setIncludeSystem,
                         onOpen = { openPackage = it.packageName },
                         listState = listState,
+                        search = search,
                         bundleLine = bundleSession.status(bundleState),
                         notice = GLANCE_NOTICE,
                         onAbout = { showAbout = true },

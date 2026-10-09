@@ -32,10 +32,26 @@ private const val REVIEWED_LABEL = REVIEWED
 private const val NO_RECORD_LABEL = NO_RECORD
 private val SYSTEM_LABEL = SYSTEM.label
 
+/** The home's search field (docs/METHOD.md, The home), and the button that opens the search with its filters first. */
+const val SEARCH_HINT = "Search apps and companies"
+const val FILTERS = "Filters"
+
+/** "3 apps", read out as the results change. */
+fun matchCount(n: Int): String = when (n) {
+    0 -> "No apps match"
+    1 -> "1 app"
+    else -> "$n apps"
+}
+
+/** What a search matches: the app's name and package, its maker, and the companies its lines name ("Google", "Meta"). */
+internal fun searchTerms(app: InstalledApp, e: Explanation?): List<String> =
+    listOfNotNull(app.label, app.packageName, e?.appName, e?.maker?.name) +
+        e?.let { (it.flows.values.flatten() + it.governmentFlows + it.unrecorded).flatMap { line -> listOfNotNull(line.recipient, line.via) } }.orEmpty()
+
 /**
  * Flagged, then Caution, then Expected, then apps with nothing to rate yet (no record and no
  * readable scan). Within a tier, apps you've marked Reviewed come after the rest; one that has
- * changed since counts as not reviewed, so it comes back up. Then by name. [query] matches the name.
+ * changed since counts as not reviewed, so it comes back up. Then by name. [query] matches [searchTerms].
  */
 fun listOrder(
     apps: List<InstalledApp>,
@@ -63,7 +79,7 @@ fun listOrder(
     val q = query.trim()
     return apps.filter { app ->
         val e = explanations[app.packageName]
-        (q.isEmpty() || app.label.contains(q, ignoreCase = true) || e?.appName?.contains(q, ignoreCase = true) == true) &&
+        (q.isEmpty() || searchTerms(app, e).any { it.contains(q, ignoreCase = true) }) &&
             (tiers.isEmpty() || e?.tier?.tier in tiers) &&
             (coverage.isEmpty() || (e?.coverageState ?: Coverage.NO_RECORD) in coverage) &&
             (ListFilter.REVIEWED !in filters || reviews[app.packageName] in setOf(ReviewStatus.REVIEWED, ReviewStatus.CHANGED)) &&

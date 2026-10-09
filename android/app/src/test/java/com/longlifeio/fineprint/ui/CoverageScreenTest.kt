@@ -6,18 +6,21 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollToNode
 import com.longlifeio.fineprint.bundle.parseBundle
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
+import com.longlifeio.fineprint.explain.FILTERS
+import com.longlifeio.fineprint.explain.ListFilter
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
-import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -51,10 +54,12 @@ class CoverageScreenTest {
             )
         }
         compose.onNodeWithText("Records: 1 checked, 1 their words only, 1 no record yet.").assertExists()
-        listOf("Checked", "Their words only", "No record yet").forEach { assertTrue(it, compose.onAllNodesWithText(it).fetchSemanticsNodes().isNotEmpty()) }
-        compose.onAllNodesWithText("Has record").assertCountEquals(0)
         compose.onNodeWithTag("list").performScrollToNode(hasText("Checked by FinePrint · 2026-10-08"))
         compose.onNodeWithTag("list").performScrollToNode(hasText("Their words only"))
+        // The filters live in the search view, which Filters opens.
+        compose.onNodeWithContentDescription(FILTERS).performClick()
+        listOf(ListFilter.CHECKED, ListFilter.THEIR_WORDS, ListFilter.NO_RECORD).forEach { compose.onNodeWithTag("filter:${it.name}").assert(hasText(it.label)) }
+        compose.onAllNodesWithText("Has record").assertCountEquals(0)
     }
 
     @Test

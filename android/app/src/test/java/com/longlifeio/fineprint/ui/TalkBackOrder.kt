@@ -3,6 +3,7 @@ package com.longlifeio.fineprint.ui
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.Context
 import android.view.View
+import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
@@ -41,4 +42,18 @@ fun talkBackOrder(view: View, compose: ComposeTestRule): List<String> {
         at = next[at]
     }
     return words
+}
+
+/**
+ * Each window's Compose view, oldest first: the screen's, then a dialog's, such as the home's search view. Read from
+ * Android's own list of window views, as Espresso does.
+ */
+fun composeViews(): List<View> {
+    val global = Class.forName("android.view.WindowManagerGlobal").getMethod("getInstance").invoke(null)
+    val field = global.javaClass.getDeclaredField("mViews").apply { isAccessible = true }
+    @Suppress("UNCHECKED_CAST")
+    val roots = field.get(global) as List<View>
+    fun find(v: View): List<View> = if (v.javaClass.simpleName == "AndroidComposeView") listOf(v)
+        else (v as? ViewGroup)?.let { g -> (0 until g.childCount).flatMap { find(g.getChildAt(it)) } }.orEmpty()
+    return roots.flatMap(::find)
 }

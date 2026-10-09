@@ -53,6 +53,10 @@ On the record and Evidence start collapsed. On the record gives each action one 
 
 It shows the latest three, then See all; tap a line for its details and sources. It includes actions against the company that makes the app; a line about the company rather than the app says so, for example about Google.
 
+## The home
+
+The home lists your apps under their tiers, under At a glance. Under the wordmark, a search bar finds apps by name, by package name, by who made them, or by a company their lines name, such as Google or Meta. The search runs on your phone, over what FinePrint already shows; nothing you type leaves it. Tapping the bar opens the search, with the results as you type and the filters under the field: the three tiers, how far FinePrint has looked, your Reviewed marks, and, with system apps shown, System. The filter button beside the wordmark opens the same search with the filters first.
+
 ## Where data goes
 
 Each line under Where it goes says what data goes to whom, and why. Lines fall into three groups, always in this order:

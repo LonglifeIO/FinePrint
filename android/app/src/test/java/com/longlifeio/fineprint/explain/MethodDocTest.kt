@@ -44,7 +44,7 @@ class MethodDocTest {
         assertEquals(MethodBlock(MethodBlock.Kind.TITLE, "How to read FinePrint"), blocks.first())
         val headings = blocks.filter { it.kind == MethodBlock.Kind.HEADING }.map { it.text }
         assertEquals(
-            listOf("What FinePrint is, and isn't", "An app's page, section by section", "Where data goes", "Status badges", "Tiers",
+            listOf("What FinePrint is, and isn't", "An app's page, section by section", "The home", "Where data goes", "Status badges", "Tiers",
                 "What you can do", "Your Reviewed marks", "Apps that came with your phone", "How records are made", "Changes to a record", "Governments", "Reporting an error", "Before each release", "Licences"),
             headings,
         )

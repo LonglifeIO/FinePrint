@@ -31,6 +31,19 @@ class ListOrderTest {
 
     private fun order(query: String = "", vararg filters: ListFilter) = listOrder(apps, explanations, reviews, query, filters.toSet()).map { it.label }
 
+    /** docs/METHOD.md, The home: the app's name and package, its maker, and the companies its lines name; in any case. */
+    @Test
+    fun aSearchMatchesThePackageTheMakerAndTheCompaniesAnAppsLinesName() {
+        val line = FlowLine("precise_location", GOES_ELSEWHERE, "Allstate/Arity", "Insurance pricing", "self_disclosed", null, false, emptyList(), null, via = "Arity")
+        val e = explanation(Tier.FLAGGED, "curated").copy(
+            maker = Maker("co-bytedance", "ByteDance", inherited = false, lines = emptyList(), notes = emptyList()),
+            flows = mapOf(GOES_ELSEWHERE to listOf(line)),
+        )
+        val video = app("Video").copy(packageName = "com.zhiliaoapp.musically")
+        fun found(q: String) = listOrder(listOf(video), mapOf(video.packageName to e), emptyMap(), q, emptySet()).size
+        assertEquals(listOf(1, 1, 1, 1, 1, 0), listOf("video", "zhiliaoapp", "ByteDance", "Allstate", "arity", "Meta").map(::found))
+    }
+
     @Test
     fun flaggedThenCautionThenExpectedThenNothingToRateThenByName() {
         assertEquals(listOf("zebra", "Bravo", "Echo", "delta", "alpha"), order())

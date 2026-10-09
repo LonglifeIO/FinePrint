@@ -3,6 +3,12 @@ package com.longlifeio.fineprint.preview
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.performTextReplacement
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasAnyAncestor
 import androidx.compose.ui.test.hasText
@@ -15,6 +21,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performSemanticsAction
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.performScrollToNode
 import com.github.takahirom.roborazzi.captureRoboImage
 import com.longlifeio.fineprint.FinePrintApp
@@ -106,7 +114,8 @@ class PreviewTest {
     @Test
     fun noAppsSettingsOpenAndTheLineSaysWhy() {
         compose.onNodeWithTag("list").performScrollToNode(hasText("Life360"))
-        compose.onNodeWithText("Life360").performClick()
+        // The row's own click, as TalkBack does it: scrolled to the top, its middle can sit under the docked search bar.
+        compose.onNodeWithText("Life360").performSemanticsAction(SemanticsActions.OnClick)
         compose.onNodeWithText("Version 26.37.0", substring = true).assertIsDisplayed() // a scanned sample app keeps its version
         compose.onNodeWithText("Open app settings").assertIsNotEnabled().performClick()
         compose.onAllNodesWithText(SETTINGS_UNAVAILABLE!!).onFirst().assertIsDisplayed()
@@ -116,10 +125,24 @@ class PreviewTest {
         compose.onRoot().captureRoboImage("build/outputs/roborazzi/preview-detail.png")
     }
 
+    /** The search reads the sample apps; a result's page and Back return to the results, as on a phone. */
+    @Test
+    fun itSearchesTheSampleAppsAndBackReturnsToTheResults() {
+        compose.onNodeWithTag("search").performClick()
+        compose.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextInput("Google")
+        compose.onNodeWithTag("count").assert(hasText("7 apps")) // Google Maps, and six whose lines name Google
+        compose.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextReplacement("Life360")
+        compose.onNodeWithTag("count").assert(hasText("1 app"))
+        compose.onNode(hasText("Life360", substring = true) and hasClickAction() and hasAnyAncestor(hasTestTag("results"))).performClick()
+        compose.onNodeWithText("Version 26.37.0", substring = true).assertIsDisplayed()
+        compose.runOnUiThread { compose.activity.onBackPressedDispatcher.onBackPressed() }
+        compose.onNodeWithTag("count").assert(hasText("1 app"))
+    }
+
     @Test
     fun anAppThatWasNotScannedSaysSoInPlaceOfItsVersion() {
         compose.onNodeWithTag("list").performScrollToNode(hasText("Google Maps"))
-        compose.onNodeWithText("Google Maps").performClick()
+        compose.onNodeWithText("Google Maps").performSemanticsAction(SemanticsActions.OnClick)
         compose.onNodeWithText("Not scanned in this preview").assertIsDisplayed()
         assertEquals(0, compose.onAllNodesWithText("Version", substring = true).fetchSemanticsNodes().size)
         assertEquals(0, compose.onAllNodesWithText("APKs", substring = true).fetchSemanticsNodes().size)
@@ -128,7 +151,7 @@ class PreviewTest {
     @Test
     fun theReviewRequestShowsItsDisclosureButCantOpenGitHub() {
         compose.onNodeWithTag("list").performScrollToNode(hasText("Don du Sang")) // no record
-        compose.onNodeWithText("Don du Sang").performClick()
+        compose.onNodeWithText("Don du Sang").performSemanticsAction(SemanticsActions.OnClick)
         compose.onNodeWithText("Ask FinePrint to review this app").performClick()
         compose.onNodeWithText("This opens GitHub", substring = true).assertIsDisplayed()
         compose.onNodeWithText("Open GitHub").assertIsNotEnabled().performClick()

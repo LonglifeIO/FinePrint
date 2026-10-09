@@ -4,10 +4,10 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.hasText
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -17,6 +17,7 @@ import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.explain.ASK_FOR_REVIEW
+import com.longlifeio.fineprint.explain.FILTERS
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
@@ -70,13 +71,15 @@ class SystemAppsTest {
                 )
             }
         }
-        compose.onNodeWithTag("filter:SYSTEM").performScrollTo().performClick() // the last chip, off-screen to the right
+        // The filters live in the search view, which Filters opens; System is the last chip.
+        compose.onNodeWithContentDescription(FILTERS).performClick()
+        compose.onNodeWithTag("filter:SYSTEM").performClick()
         // Maps has its own record and Gmail inherits; both are Google's. Clock's package name doesn't say who made it.
         compose.onNodeWithText("Google · 2 apps").assertExists()
         compose.onNodeWithText("From Google's privacy policy, which covers these apps.").assertExists()
-        compose.onNodeWithTag("list").performScrollToNode(hasText("Other preinstalled apps · 1 app"))
+        compose.onNodeWithTag("results").performScrollToNode(hasText("Other preinstalled apps · 1 app"))
         compose.onNodeWithText("FinePrint can't tell from their package names who made these.").assertExists()
-        assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("list"))
+        assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("results"))
     }
 
     @Test
