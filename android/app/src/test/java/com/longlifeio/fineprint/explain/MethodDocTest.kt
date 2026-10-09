@@ -31,7 +31,7 @@ class MethodDocTest {
             listOf(fromPolicy("Google"), fromPolicyForAll("Google"), noRecordFrom("Google")) +
             Tier.entries.flatMap { listOf(it.label, it.definition) } +
             listOf(NO_RECORD, NO_RECORD_DEFINITION, STALE_DEFINITION, REVIEWED, REVIEWED_DEFINITION, CHANGED, CHANGED_DEFINITION, LIMITED_DEFINITION) +
-            listOf(NOT_RECORDED.title, NOT_RECORDED.subtitle, ALSO_COLLECTED, PURPOSE_NOT_RECORDED, CANT_SEE_SETTING) +
+            listOf(NOT_RECORDED.title, NOT_RECORDED.subtitle, ALSO_COLLECTED, PURPOSE_NOT_RECORDED, CANT_SEE_CONDITION) +
             listOf(CHECKED_BY, THEIR_WORDS_ONLY_LINE, NO_RECORD_LINE, ListFilter.CHECKED.label, ListFilter.THEIR_WORDS.label) +
             listOf(ASK_FOR_REVIEW, REVIEW_DISCLOSURE, OPEN_GITHUB) +
             listOf("$WHY:", whyItIs(Tier.FLAGGED), whyItIs(Tier.CAUTION), ALSO, lastChecked("this law", "2026-10-07"), "Show it in full") + BUCKETS.map { "${BUCKET_TEXT.getValue(it).title} · ${BUCKET_GLOSS.getValue(it)}" } +

@@ -123,11 +123,14 @@ const val NOT_PROVEN = "not proven in court"
 /** ...or before a regulator (forum "regulator"). */
 const val NOT_YET_DECIDED = "not yet decided"
 
-/** After a conditional line's condition: the setting is the developer's, and invisible from the phone. */
-const val CANT_SEE_SETTING = "FinePrint can't see that setting."
+/**
+ * After a conditional line's condition, which may be a setting or an agreement (Branch's contract with the developer):
+ * either way it's the developer's, and invisible from the phone.
+ */
+const val CANT_SEE_CONDITION = "FinePrint can't see whether that applies here."
 
-/** "If the developer turns on data sharing. FinePrint can't see that setting." */
-fun conditionLine(condition: String): String = "${condition.replaceFirstChar { it.uppercase() }}. $CANT_SEE_SETTING"
+/** "If the developer turns on data sharing. FinePrint can't see whether that applies here." */
+fun conditionLine(condition: String): String = "${condition.replaceFirstChar { it.uppercase() }}. $CANT_SEE_CONDITION"
 
 /** What an alleged line adds about where it stands: "not proven in court", or "not yet decided" before a regulator. */
 fun undecided(forum: String?): String = if (forum == "regulator") NOT_YET_DECIDED else NOT_PROVEN

@@ -52,7 +52,7 @@ class Schema16ScreenTest {
     @Test
     fun aConditionalLineSaysWhatItDependsOn() {
         detail("com.example.conditional")
-        compose.onNodeWithTag("detail").performScrollToNode(hasText("If the developer turns on data sharing. FinePrint can't see that setting."))
+        compose.onNodeWithTag("detail").performScrollToNode(hasText("If the developer turns on data sharing. FinePrint can't see whether that applies here."))
     }
 
     @Test

@@ -83,7 +83,7 @@ A checked claim's purpose is the one its record states, which also sets its grou
 
 - Purpose not recorded: Tracker code FinePrint hasn't checked yet, so it can't say where its data goes.
 
-Some lines depend on a setting FinePrint can't see, such as whether the app's developer has turned on data sharing. Such a line says so, followed by: FinePrint can't see that setting. It sits in its group by what the data is for, and it never counts toward a tier, the headline, the chips or the flows you've limited.
+Some lines depend on a setting FinePrint can't see, such as whether the app's developer has turned on data sharing. Such a line says so, followed by: FinePrint can't see whether that applies here. It sits in its group by what the data is for, and it never counts toward a tier, the headline, the chips or the flows you've limited.
 
 At a glance's headline counts the apps with at least one current claim that data can go to other companies for more than running the app. Its chips count an app in a place when its page has at least one current claim there. Lines count whether they come from FinePrint's record or are inferred from tracker code (Auto); lines about a past practice don't, and neither does a tracker whose purpose isn't recorded: it comes first in the order, but FinePrint can't say its data is used for more than running the app. Tracker code shows where data can go, not that it went, so the headline says FinePrint lists data that "can go" to other companies. An app with no line in a group isn't said to send nothing there.
 

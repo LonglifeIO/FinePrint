@@ -35,7 +35,7 @@ class Schema16Test {
     fun aConditionalLineIsShownWithItsConditionAndNeverScored() {
         val line = withCondition.flows.getValue(GOES_ELSEWHERE).single()
         assertEquals("if the developer turns on data sharing", line.conditional)
-        assertEquals("If the developer turns on data sharing. FinePrint can't see that setting.", conditionLine(line.conditional!!))
+        assertEquals("If the developer turns on data sharing. FinePrint can't see whether that applies here.", conditionLine(line.conditional!!))
         assertEquals(line.claim(), finePrint(withCondition).first().text) // in the reading order by its purpose
         // Scored as if it weren't there: the tier, Where it goes' headline, the home's chips and headline, the flows you
         // can limit, What it collects, and the Reviewed fingerprint.
