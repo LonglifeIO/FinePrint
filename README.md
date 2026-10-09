@@ -23,7 +23,8 @@ supported by exactly one hardcoded ad that knows nothing about you.
 </p>
 
 Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, from knowledge bundle 2026.10.09
-and the scan fixture: the test emulator's apps, plus Google Maps, which has a record but isn't installed there.
+(with tracker batches 1 and 2) and the scan fixture: the test emulator's apps, plus Google Maps, which has a
+record but isn't installed there.
 In dark mode: [the home](docs/screenshots/home-dark.png) and [Life360](docs/screenshots/detail-dark.png).
 
 ## Preview build
@@ -43,8 +44,8 @@ network calls: its manifest has no internet or package-query permission, and Ope
 
 ## Layout
 
-- `bundle/` — the knowledge base: `schema.json` (the contract), `bundle.json` (reviewed, sourced records) and `jurisdictions.json` (each country's laws for compelled access). CC BY 4.0.
-- `pipeline/` — Python scripts that fetch sources, draft records with an LLM, queue them for human review, and build the bundle. Runs on a Mac Mini.
+- `bundle/` — the knowledge base: `schema.json` (the contract), `bundle.json` (checked, sourced records) and `jurisdictions.json` (each country's laws for compelled access). CC BY 4.0.
+- `pipeline/` — Python scripts that fetch sources, draft records with an LLM, queue them for a person to check, and build the bundle. Runs on a Mac Mini.
 - `android/` — Kotlin / Jetpack Compose app. The scanning module is called `egress`. Two flavours: `device`, the
   app itself, and `preview` (above), whose code lives only in `src/preview`.
 - `prompts/` — Claude Code prompts for each build slice.
@@ -72,7 +73,7 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
 - G1, the scanner: installed apps, their permissions and the tracker SDKs in their code (Arity in
   Life360).
 - G2, the knowledge bundle: downloaded whole, and a data-first explanation per app, every claim
-  sourced. Reviewed records for Life360, Facebook, TikTok and Google Maps, with company records for
+  sourced. Checked records for Life360, Facebook, TikTok and Google Maps, with company records for
   the companies behind them.
 - G3, the UI pass: tiers by a published formula (`docs/METHOD.md`), the same sections with their
   definitions on every page, a Sources sheet, How to read this, Reviewed marks and the "What you
@@ -86,7 +87,7 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   the accessibility checks, and TalkBack was checked on the emulator.
 - Schema v1.3: one tracker record covers several Exodus ids (`covers[]`); a record's history, with
   the direction of each change (`changes[]`); ongoing and past legal actions, where only ongoing
-  or recent ones set a tier; government access, with a reviewed table of laws per country
+  or recent ones set a tier; government access, with a checked table of laws per country
   (`bundle/jurisdictions.json`) and where each company is based; a policy's region; flows that are
   off by default or opt-in; and apps that came with the phone showing their maker's policy lines.
 - Schema v1.4 and v1.5: `store_tagline` on app records (Life360, Facebook and TikTok, quote-checked
@@ -94,26 +95,37 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   count rulings, lawsuits and a flow's evidence, never wording.
 - Schema v1.6 and v1.7: when FinePrint checked an app (Checked by FinePrint, or Their words only);
   whether a claim is before a court or a regulator, and a regulator's formal proceeding; flows that
-  hang on a setting FinePrint can't see (shown, never scored); a tracker's sourced purpose; and a
-  short line for each law, shown first, with the law's full text opening under it.
+  hang on something FinePrint can't see, a setting or an agreement (shown, never scored); a
+  tracker's sourced purpose; and a short line for each law, shown first, with the law's full text
+  opening under it.
 - The reading pass: plain words throughout, with a Voice section in `docs/METHOD.md` and a
   readability report on every build (CI warns, never fails); under each app's name, the reason for
   its tier ("Why: Life360 says your location goes to other companies"), with what set it listed
   first under "Why it's Flagged"; a search bar on the home; and an edge on every card in dark mode.
-- The laws table, reviewed entry by entry: eight laws in force (the US, Canada, China, the EU,
+- Tracker records for 24 common SDKs (covering 29 tracker ids) and 24 company records, with tracker
+  batches 1 and 2 merged: bundle 2026.10.09 holds them with the 4 app records and 6 jurisdictions.
+  A tracker's legal and reported lines show under On the record on every app that carries it,
+  marked about its company, and count toward a tier only when they name the app; practices reported
+  in the past go under Past. A company's changes of ownership show as a dated chain on its Sources
+  sheet (Affle's purchase of AdColony first). FinePrint's own signatures sit beside εxodus's:
+  Arity's, and Vungle's SDK 7.
+- The laws table, checked entry by entry: eight laws in force (the US, Canada, China, the EU,
   Israel and Russia), each with who it binds, whether the company may tell you it handed data
-  over, its own review date and a Stale marker; an EU regulation is keyed to the member states it
-  binds. Laws that bind only licensed telecoms, or that permit disclosure rather than compel it,
-  are parked as drafts.
+  over, when FinePrint last checked it and a Stale marker; an EU regulation is keyed to the member
+  states it binds. Laws that bind only licensed telecoms, or that permit disclosure rather than
+  compel it, are parked as drafts.
 - The watcher (`pipeline/watch.py`): it re-reads every quoted page weekly and two regulators' feeds
-  daily, and queues what changed for a person to review; it never edits a record.
+  daily, and queues what changed for a person to check; it never edits a record. Pages only a
+  person can capture (their text needs JavaScript) are marked `manual`: no script fetches them,
+  their copies are saved by hand and quote-checked like any other, and every digest lists them for
+  checking before each release (`pipeline/README.md`).
 
 A real-device check and the Tailscale path are deferred by choice. See `CLAUDE.md` for the gates.
 
 Next, in order:
 
-1. Tracker records for common SDKs (`kb/trackers`). Company records there need `jurisdiction` and
-   `jurisdiction_sources` (schema v1.3), and every flow an id (v1.5), before they merge.
+1. Follow-ups to the tracker batches: Mintegral's and InMobi's privacy policies, saved by hand
+   (`manual`), and a dated note on the Caldwell v. InMobi docket event.
 2. G6: guided paths and Guide mode.
 3. A test on a phone.
 
@@ -142,9 +154,14 @@ Logged for G6 (not built yet):
 Schema items queued: `settings_url` on controls; `controls[].path.steps[]`, `help_url` and
 `verified_on`.
 
-Queued: laws to review (not started):
+Queued: laws to check (not started):
 - Ireland's domestic powers over companies based there: its e-Evidence implementing act and the
   warrant or production powers Gardaí use.
+- Germany's, for Adjust GmbH: the EU's law applies there, but Germany's own powers over companies
+  based there aren't checked, as with Ireland.
+- India's, where InMobi and Affle are registered: India already shows under Jurisdictions.
+- Singapore's, for Pangle, whose recipients run through TikTok Pte. Ltd.: it shows under
+  Jurisdictions once a company record for it exists.
 - US national law beyond the CLOUD Act and FISA: the Stored Communications Act, 18 U.S.C. § 2703
   (the everyday warrant, order and subpoena route for app data); national security letters,
   § 2709; FISA Title I, 50 U.S.C. § 1805(c)(2)(B).
