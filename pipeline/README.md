@@ -27,6 +27,12 @@ Build order (each is a separate script, each is idempotent):
    that each direction still follows from its diff. Tests: `python3 -m unittest test_build.py`. The evidence rules are in
    `../bundle/README.md`.
 
+A pull request that changes `reviewed/` also runs CI's Rebuilt bundle workflow (`.github/workflows/rebuilt-bundle.yml`):
+`build.py --skip-url-check` into a temporary folder, copied over `bundle/` in the runner's checkout only, then the app's
+JVM suite. The tests that pin the real bundle (LawShortTest, UnionLawsTest, LawReachTest, TrackerLinesTest and
+MigrationTest's fingerprints) fail there, on the pull request, rather than after the merge. A failure names a change
+main's rebuild will make; the rebuild commit updates the pin.
+
 Serve for dev: `python3 -m http.server <port> --directory ../bundle` (see `android/README.md`).
 
 ## Quote checks, and pages saved by hand

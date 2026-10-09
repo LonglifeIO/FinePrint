@@ -41,6 +41,8 @@ network calls: its manifest has no internet or package-query permission, and Ope
   when asked (or `adb install` it). It installs as FinePrint preview (`com.longlifeio.fineprint.preview`), with
   its own Reviewed marks.
 - It's debug-signed, so Play Protect warns that it comes from an unknown developer.
+- Its home has a theme switch under the Preview line: System follows the phone, and Light or Dark sets every
+  screen. The choice isn't saved, so the preview opens at System again once Android has closed it.
 
 ## Layout
 
@@ -107,8 +109,10 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   A tracker's legal and reported lines show under On the record on every app that carries it,
   marked about its company, and count toward a tier only when they name the app; practices reported
   in the past go under Past. A company's changes of ownership show as a dated chain on its Sources
-  sheet (Affle's purchase of AdColony first). FinePrint's own signatures sit beside εxodus's:
-  Arity's, and Vungle's SDK 7.
+  sheet (Affle's purchase of AdColony first). When a record says what its sources leave uncertain
+  (AdColony's, InMobi's, OneSignal's and Vungle's do), every Sources sheet for its lines ends with
+  that note, under About these sources; its confidence level is never shown. FinePrint's own
+  signatures sit beside εxodus's: Arity's, and Vungle's SDK 7.
 - The laws table, checked entry by entry: fourteen laws in force in ten places (the US, Canada,
   China, the EU, Israel, Russia, Norway, Germany, Singapore and India), each with who it binds,
   whether the company may tell you it handed data over, when FinePrint last checked it and a Stale
