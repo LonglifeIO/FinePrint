@@ -170,6 +170,8 @@ data class TrackerRecord(
     val lastReviewed: String,
     /** What the SDK is for, from its record (ads, analytics, crash_reporting, ...): the line order prefers it to εxodus' category. */
     val purpose: String? = null,
+    /** Why confidence in the record isn't high (confidence_note): its words and sources show under About these sources; the level never does. */
+    val confidenceNote: ProceduralNote? = null,
 )
 
 data class Company(
@@ -194,6 +196,8 @@ data class Company(
     val events: List<LegalEvent> = emptyList(),
     /** Its acquisitions and changes of control, oldest first (owner_history). */
     val ownerHistory: List<OwnerChange> = emptyList(),
+    /** Why confidence in the record isn't high (confidence_note), as on a tracker record. */
+    val confidenceNote: ProceduralNote? = null,
 )
 
 /** One change of control: when, what happened, who owned it (or the business) before and after, and its sources. */

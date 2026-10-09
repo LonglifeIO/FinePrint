@@ -47,8 +47,9 @@ import com.longlifeio.fineprint.explain.spoken
 
 /**
  * What the Sources sheet shows for one line: its sources; for a law, who it binds ([scope], under
- * "Who it binds"); for a company, its changes of ownership ([history], a dated chain, oldest first); and, for a
- * legal claim or a law, the procedural note's under [noteHeading].
+ * "Who it binds"); for a company, its changes of ownership ([history], a dated chain, oldest first); for a
+ * legal claim or a law, the procedural note's under [noteHeading]; and last, when the line's record has one,
+ * the record's confidence note ([about], under "About these sources"), never its level.
  * [details] (On the record) come first: who it was against, the record's own words for it, notes.
  */
 data class SheetContent(
@@ -59,10 +60,14 @@ data class SheetContent(
     val noteHeading: String = WHERE_THE_CASE_STANDS,
     val scope: ProceduralNote? = null,
     val history: List<OwnerChange> = emptyList(),
+    val about: ProceduralNote? = null,
 )
 
 /** A company's acquisitions and changes of control, in its sheet. */
 const val CHANGES_OF_OWNERSHIP = "Changes of ownership"
+
+/** What a record's sources leave uncertain, in its own words: the last part of the sheet of each of its lines. */
+const val ABOUT_THESE_SOURCES = "About these sources"
 
 /** "2026 · Digital Turbine, Inc. (DT) → Affle MEA FZ-LLC, …": one link of the chain. */
 fun ownerLink(change: OwnerChange): String = "${change.date} · ${change.from} → ${change.to}"
@@ -90,7 +95,10 @@ private val SOURCE_TYPES = mapOf(
 /** The source's own date, or when FinePrint read an undated page. */
 fun sourceDate(source: Source): String = source.asOf ?: source.accessed?.let { "accessed $it" } ?: "undated"
 
-/** One 48dp row per claim, in place of a stack of small links. */
+/**
+ * One 48dp row per claim, in place of a stack of small links. Its count leaves out the sources of [about], which is
+ * about the whole record rather than this claim.
+ */
 @Composable
 fun SourcesRow(
     heading: String,
@@ -100,6 +108,7 @@ fun SourcesRow(
     noteHeading: String = WHERE_THE_CASE_STANDS,
     scope: ProceduralNote? = null,
     history: List<OwnerChange> = emptyList(),
+    about: ProceduralNote? = null,
 ) {
     val count = sources.size + (scope?.sources?.size ?: 0) + (note?.sources?.size ?: 0) + history.sumOf { it.sources.size }
     if (count == 0) return
@@ -108,7 +117,9 @@ fun SourcesRow(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = TOUCH)
-            .clickable(onClickLabel = "Show sources", role = Role.Button) { onOpen(SheetContent(heading, sources, note, noteHeading = noteHeading, scope = scope, history = history)) },
+            .clickable(onClickLabel = "Show sources", role = Role.Button) {
+                onOpen(SheetContent(heading, sources, note, noteHeading = noteHeading, scope = scope, history = history, about = about))
+            },
     ) {
         Text(
             "Sources ($count)",
@@ -124,7 +135,8 @@ fun SourcesRow(
 @Composable
 fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
     val uriHandler = LocalUriHandler.current
-    val all = content.sources + content.scope?.sources.orEmpty() + content.note?.sources.orEmpty() + content.history.flatMap { it.sources }
+    val all = content.sources + content.scope?.sources.orEmpty() + content.note?.sources.orEmpty() + content.history.flatMap { it.sources } +
+        content.about?.sources.orEmpty()
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         // TalkBack announces the sheet by this name as it opens, in place of Material's "Bottom Sheet".
@@ -152,6 +164,7 @@ fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
             content.scope?.let { notePart(WHO_IT_BINDS, it, all) { s -> uriHandler.openUri(s.url) } }
             if (content.history.isNotEmpty()) historyPart(content.history, all) { s -> uriHandler.openUri(s.url) }
             content.note?.let { notePart(content.noteHeading, it, all) { s -> uriHandler.openUri(s.url) } }
+            content.about?.let { notePart(ABOUT_THESE_SOURCES, it, all) { s -> uriHandler.openUri(s.url) } }
         }
     }
 }
@@ -175,7 +188,7 @@ private fun LazyListScope.historyPart(history: List<OwnerChange>, all: List<Sour
     }
 }
 
-/** A titled part of the sheet (who a law binds, or where a matter stands): its text, then its own sources. */
+/** A titled part of the sheet (who a law binds, where a matter stands, about these sources): its text, then its own sources. */
 private fun LazyListScope.notePart(title: String, note: ProceduralNote, all: List<Source>, open: (Source) -> Unit) {
     item {
         Column(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {

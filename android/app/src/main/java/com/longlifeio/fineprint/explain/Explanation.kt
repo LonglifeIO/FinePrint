@@ -85,6 +85,8 @@ data class FlowLine(
     val statusKind: String? = null,
     /** One of the lines that set the tier (TierResult.reasons): read first, under "Why it's Flagged" or "Why it's Caution". */
     val setsTier: Boolean = false,
+    /** The confidence note of the tracker or company record the line comes from: last on its Sources sheet, under About these sources. */
+    val about: ProceduralNote? = null,
 )
 
 data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
@@ -122,9 +124,11 @@ fun explain(
     val fromTrackers = trackerRecords.flatMap { t -> t.consequences.filter { it.government == null }.map { Said(it, t) } }
     val own = record?.consequences.orEmpty().filter { it.government == null }.map { Said(it) }
     val onRecord = onTheRecord(record, own + fromTrackers, bundle, app.packageName)
-    // Government lines show with their country's laws, never in the buckets or the tier.
-    val recorded = (record?.dataFlows.orEmpty() + trackerRecords.flatMap { it.dataFlows }).mapNotNull { it.governmentLine() } +
-        (record?.consequences.orEmpty() + trackerRecords.flatMap { it.consequences }).mapNotNull { it.governmentLine() }
+    // Government lines show with their country's laws, never in the buckets or the tier; a tracker's carry its record's note.
+    val flowsBy = record?.dataFlows.orEmpty().map { it to null } + trackerRecords.flatMap { t -> t.dataFlows.map { it to t.confidenceNote } }
+    val saidBy = record?.consequences.orEmpty().map { it to null } + trackerRecords.flatMap { t -> t.consequences.map { it to t.confidenceNote } }
+    val recorded = flowsBy.mapNotNull { (f, note) -> f.governmentLine()?.copy(about = note) } +
+        saidBy.mapNotNull { (c, note) -> c.governmentLine()?.copy(about = note) }
     val current = scored.filterNot { it.historical }
     val rated = if (record == null && inherited == null && !readable) TierResult(null, scanFacts(app, scan), "N") else tier(
         curated = record != null,

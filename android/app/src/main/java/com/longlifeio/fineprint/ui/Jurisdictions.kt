@@ -85,7 +85,7 @@ fun LazyListScope.jurisdictionsItems(g: Governments, open: Boolean, onToggle: ()
 private fun CompanyPlaceRow(place: CompanyPlace, onSources: (SheetContent) -> Unit) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
         Text(place.text + LocalFootnotes.current.marks(place.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks(place.text))
-        SourcesRow(place.name, place.sources, null, onSources, history = place.history)
+        SourcesRow(place.name, place.sources, null, onSources, history = place.history, about = place.about)
     }
 }
 
@@ -123,7 +123,7 @@ private fun GovernmentLineBody(line: GovernmentLine, kind: BadgeText?, onSources
         line.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         SourcesRow(
             line.title, line.sources, line.note, onSources,
-            noteHeading = if (line.kind == CAN_COMPEL) CURRENT_STATUS else WHERE_THE_CASE_STANDS, scope = line.scope,
+            noteHeading = if (line.kind == CAN_COMPEL) CURRENT_STATUS else WHERE_THE_CASE_STANDS, scope = line.scope, about = line.about,
         )
     }
 }

@@ -84,7 +84,7 @@ private fun RecordLineRow(line: RecordLine, onDetails: (SheetContent) -> Unit) {
             .fillMaxWidth()
             .heightIn(min = TOUCH)
             .clickable(onClickLabel = "Show details and sources") {
-                onDetails(SheetContent(line.title, line.sources, line.proceduralNote, listOfNotNull(line.subject) + line.details))
+                onDetails(SheetContent(line.title, line.sources, line.proceduralNote, listOfNotNull(line.subject) + line.details, about = line.about))
             }
             .padding(horizontal = 16.dp, vertical = 2.dp),
     ) {

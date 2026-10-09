@@ -37,6 +37,8 @@ data class RecordLine(
     val forum: String = "court",
     /** A practice reported in the past (a historical report): shown under Past, with its badge saying so. */
     val historical: Boolean = false,
+    /** The confidence note of the record the line comes from: last on its sheet, under About these sources. */
+    val about: ProceduralNote? = null,
 )
 
 /**
@@ -116,6 +118,7 @@ private fun eventLine(company: Company, e: LegalEvent, told: List<Said>, pkg: St
         label = e.title,
         dated = e.closedDate ?: e.date,
         forum = e.forum,
+        about = company.confidenceNote ?: told.firstNotNullOfOrNull { it.by?.confidenceNote },
     )
 }
 
@@ -144,6 +147,7 @@ private fun consequenceLine(s: Said, pkg: String, bundle: Bundle?, developer: Co
         statusKind = c.statusKind,
         dated = c.closedDate ?: date,
         forum = c.forum,
+        about = s.by?.confidenceNote,
     )
 }
 

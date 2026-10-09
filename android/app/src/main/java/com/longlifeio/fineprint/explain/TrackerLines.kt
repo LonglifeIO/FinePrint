@@ -26,7 +26,7 @@ internal fun trackerLines(
             val via = if (record.covers.isEmpty()) found.first().name else ownerName(record, bundle)
             for (f in record.dataFlows.filter { it.government == null }) {
                 val bucket = if (owned) inOwnersApp(f) ?: continue else f.bucket
-                lines += f.toLine(chain, via).copy(bucket = bucket)
+                lines += f.toLine(chain, via).copy(bucket = bucket, about = record.confidenceNote)
             }
         } else {
             for (t in found) {

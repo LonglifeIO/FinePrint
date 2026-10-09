@@ -45,7 +45,7 @@ fun LazyListScope.systemGroupItems(groups: List<SystemGroup>, row: @Composable (
         }
         if (maker != null) {
             // The header already says whose policy these come from, for all the group's apps.
-            items(maker.notes) { SummaryNoteRow(it.copy(wording = null), onSources) }
+            items(maker.notes) { SummaryNoteRow(it.copy(wording = null), onSources, about = maker.about) }
             items(maker.lines) { FlowLineRow(it.copy(wording = null), onSources) }
         }
         itemsIndexed(group.apps, key = { _, app -> app.packageName }) { i, app -> row(app, i, group.apps.size) }

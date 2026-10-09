@@ -26,13 +26,21 @@ data class GovernmentLine(
     val scope: ProceduralNote? = null,
     /** For a law: its one plain sentence, shown first, with [text] opening under it. */
     val short: String? = null,
+    /** For a line from a tracker's record: that record's confidence note. */
+    val about: ProceduralNote? = null,
 )
 
 /**
  * A company that gets the data, as a country's block shows it: headquartered there, or registered there; with its
- * changes of ownership, which its sheet shows as a dated chain.
+ * changes of ownership, which its sheet shows as a dated chain, and its record's confidence note ([about]).
  */
-data class CompanyPlace(val name: String, val headquarteredHere: Boolean, val sources: List<Source>, val history: List<OwnerChange> = emptyList()) {
+data class CompanyPlace(
+    val name: String,
+    val headquarteredHere: Boolean,
+    val sources: List<Source>,
+    val history: List<OwnerChange> = emptyList(),
+    val about: ProceduralNote? = null,
+) {
     /** Two separate claims, each from the company's record; where its servers are is never claimed. */
     val text: String get() = if (headquarteredHere) "$name: headquartered here and subject to its law" else "$name: subject to its law"
 }
@@ -64,7 +72,7 @@ internal fun governments(companyIds: Collection<String>, unplaced: Boolean, reco
         CountryBlock(
             code = code,
             name = name(code),
-            companies = here.map { CompanyPlace(it.name, it.headquarters == code, it.jurisdictionSources, it.ownerHistory) },
+            companies = here.map { CompanyPlace(it.name, it.headquarters == code, it.jurisdictionSources, it.ownerHistory, it.confidenceNote) },
             lines = laws.map {
                 GovernmentLine(CAN_COMPEL, code, "${it.name} (${it.citation})", it.text, it.status, null, it.sources, it.statusNote, it.lastReviewed, it.stale, it.scope, it.short)
             } +

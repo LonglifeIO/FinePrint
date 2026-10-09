@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
+import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.SummaryNote
 import com.longlifeio.fineprint.explain.APPLIES
 import com.longlifeio.fineprint.explain.BUCKETS
@@ -79,7 +80,7 @@ fun LazyListScope.detailSections(
 ) {
     cardTop("summary", if (e.coverage == "curated") SUMMARY_CURATED else if (e.maker?.inherited == true) SUMMARY_INHERITED else SUMMARY_AUTO, summaryHeadline(e))
     cardItem { Paragraph(e.summary) }
-    cardItems(e.summaryNotes) { SummaryNoteRow(it, onSources) }
+    cardItems(e.summaryNotes) { SummaryNoteRow(it, onSources, about = e.maker?.takeIf { m -> m.inherited }?.about) }
     e.regionCaveat?.let { cardItem { Note(it) } }
     recentChange(e.changes, onSources)
     cardEnd("summary")
@@ -198,14 +199,17 @@ private fun BucketHeader(bucket: String, count: Int) {
     }
 }
 
-/** A sourced line under the summary, such as what the app's policy says it doesn't do; its footnote follows it. */
+/**
+ * A sourced line under the summary, such as what the app's policy says it doesn't do; its footnote follows it. [about]: the
+ * confidence note of the company record it was inherited from.
+ */
 @Composable
-internal fun SummaryNoteRow(note: SummaryNote, onSources: (SheetContent) -> Unit) {
+internal fun SummaryNoteRow(note: SummaryNote, onSources: (SheetContent) -> Unit, about: ProceduralNote? = null) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 4.dp)) {
         Text(note.text + LocalFootnotes.current.marks(note.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks(note.text))
         Row(Modifier.padding(top = 4.dp)) { StatusBadge(note.status, historical = false) }
         note.wording?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        SourcesRow(note.text, note.sources, null, onSources)
+        SourcesRow(note.text, note.sources, null, onSources, about = about)
     }
 }
 
@@ -230,7 +234,7 @@ internal fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit) {
         line.proceduralNote?.let {
             Text(it.text, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic, modifier = Modifier.padding(top = 4.dp))
         }
-        SourcesRow("$label → ${line.recipient}", line.sources, line.proceduralNote, onSources)
+        SourcesRow("$label → ${line.recipient}", line.sources, line.proceduralNote, onSources, about = line.about)
     }
 }
 

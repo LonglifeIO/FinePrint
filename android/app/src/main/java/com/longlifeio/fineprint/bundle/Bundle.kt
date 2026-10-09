@@ -87,6 +87,7 @@ private fun JSONObject.toTrackerRecord() = TrackerRecord(
     consequences = objects("consequences").map { it.toConsequence() },
     lastReviewed = getString("last_reviewed"),
     purpose = optJSONObject("purpose")?.text("kind"),
+    confidenceNote = optJSONObject("confidence_note")?.toProceduralNote(),
 )
 
 private fun JSONObject.toDataFlow() = DataFlow(
@@ -162,6 +163,7 @@ private fun JSONObject.toCompany() = Company(
             forum = it.text("forum") ?: "court",
         )
     },
+    confidenceNote = optJSONObject("confidence_note")?.toProceduralNote(),
 )
 
 private fun JSONObject.toSummaryNote() =
