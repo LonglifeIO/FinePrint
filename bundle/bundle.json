@@ -2,7 +2,7 @@
  "schema_version": 1,
  "schema_revision": "1.7",
  "bundle_version": "2026.10.09",
- "generated_at": "2026-10-09T12:21:14-03:00",
+ "generated_at": "2026-10-09T12:25:20-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -6773,7 +6773,11 @@
    "last_reviewed": "2026-10-08"
   },
   {
-   "id": "exodus-169",
+   "id": "fp-vungle",
+   "covers": [
+    "exodus-169",
+    "fp-vungle-ads"
+   ],
    "aka": [
     "Vungle SDK",
     "Liftoff Monetize"
@@ -6998,51 +7002,7 @@
      ]
     }
    ],
-   "consequences": [
-    {
-     "text": "FinePrint finds Vungle by the code names its SDK used up to version 6 (com.vungle.warren). Version 7, out since August 2023, uses com.vungle.ads, so FinePrint doesn't find an app that has only the newer SDK.",
-     "status": "self_disclosed",
-     "wording": "According to Vungle's SDK documentation (updated 2024-09-17, 2026-09-20 and 2026-09-30).",
-     "sources": [
-      {
-       "url": "https://support.vungle.com/hc/en-us/articles/18092176310043-Advanced-Settings-for-Vungle-SDK-v-6-on-Android-and-Amazon",
-       "type": "company_site",
-       "title": "Vungle documentation: Advanced Settings for Vungle SDK v.6 on Android and Amazon",
-       "as_of": "2024-09-17",
-       "status": "self_disclosed",
-       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/18092176310043.json",
-       "quote": "-dontwarn com.vungle.warren.downloader.DownloadRequestMediator$Status"
-      },
-      {
-       "url": "https://support.vungle.com/hc/en-us/articles/360047780372-Advanced-Settings",
-       "type": "company_site",
-       "title": "Vungle documentation: Advanced Settings (current SDK)",
-       "as_of": "2026-09-20",
-       "status": "self_disclosed",
-       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/360047780372.json",
-       "quote": "-dontwarn com.vungle.ads.** -keep class com.vungle.ads.** {*;}"
-      },
-      {
-       "url": "https://support.vungle.com/hc/en-us/articles/15722228922395-Download-Vungle-SDK-for-Android-Amazon",
-       "type": "company_site",
-       "title": "Vungle documentation: Download Vungle SDK for Android/Amazon",
-       "as_of": "2026-09-30",
-       "status": "self_disclosed",
-       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/15722228922395.json",
-       "quote": "Vungle SDK for Android/Amazon v7.0.0 (August 24, 2023)"
-      },
-      {
-       "url": "https://support.vungle.com/hc/en-us/articles/15722228922395-Download-Vungle-SDK-for-Android-Amazon",
-       "type": "company_site",
-       "title": "Vungle documentation: Download Vungle SDK for Android/Amazon",
-       "as_of": "2026-09-30",
-       "status": "self_disclosed",
-       "verify_url": "https://support.vungle.com/api/v2/help_center/en-us/articles/15722228922395.json",
-       "quote": "Instance-based APIs instead of static APIs (as in 6.x SDK)"
-      }
-     ]
-    }
-   ],
+   "consequences": [],
    "confidence": "medium",
    "confidence_note": {
     "text": "Vungle's Google Play tables disagree. Its SDK settings pages (for SDK 6, updated 2024-09-17, and for the current SDK, 2026-09-20) list device identifiers, diagnostics and ad interactions, all shared, but no location; its Liftoff Monetize questionnaire (updated 2025-07-23) lists approximate location, collected and shared, but not device identifiers. This record follows both.",

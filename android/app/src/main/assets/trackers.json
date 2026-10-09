@@ -3811,6 +3811,15 @@
     "Location"
    ],
    "website": "https://arity.com/"
+  },
+  {
+   "id": "fp-vungle-ads",
+   "name": "Vungle (SDK 7, Liftoff Monetize)",
+   "code_signature": "com.vungle.ads.",
+   "categories": [
+    "Advertisement"
+   ],
+   "website": "https://liftoff.ai/"
   }
  ]
 }

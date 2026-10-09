@@ -24,6 +24,23 @@ class SignatureMatcherTest {
 
     private fun ids(name: String) = actual(name).map { trackers[it].id }.toSet()
 
+    /**
+     * Vungle's two SDK generations, and the overlaps tracker batch 2 flagged. Every signature that matches counts and
+     * none takes precedence, so each of these classes reads as the tracker named, whatever code it really is.
+     */
+    @Test
+    fun vungleBothGenerationsAndTheOverlapsBatchTwoFlagged() {
+        assertEquals(setOf("exodus-169"), ids("com/vungle/warren/Vungle")) // SDK 6 and older
+        assertEquals(setOf("fp-vungle-ads"), ids("com/vungle/ads/VungleAds")) // SDK 7, since 2023-08-24
+        // Prime31's in-app billing plugin ("IAB") reads as IAB Open Measurement, as does the OM SDK bundled in an ad SDK.
+        assertEquals(setOf("exodus-328"), ids("com/prime31/util/IabHelperImpl"))
+        assertEquals(setOf("exodus-328"), ids("com/iab/omid/library/vungle/Omid"))
+        // Any ByteDance code reads as Pangle, such as TikTok's developer kit.
+        assertEquals(setOf("exodus-363"), ids("com/bytedance/sdk/open/tiktok/TikTokOpenApiFactory"))
+        // Current Amazon Publisher Services code reads as Amazon Advertisement, which has no record.
+        assertEquals(setOf("exodus-92"), ids("com/amazon/device/ads/DTBAdRequest"))
+    }
+
     @Test
     fun knownTrackers() {
         assertEquals(setOf("exodus-12"), ids("com/appsflyer/AppsFlyerLib"))

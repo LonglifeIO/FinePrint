@@ -18,6 +18,21 @@
     "The broader com.arity. is avoided on purpose: an unrelated developer (Arity Infoway) publishes apps under com.arity.arityhrmpro and com.arity.newshunt.",
     "Life360 support article 'Arity' (updated 2026-06-01), self-disclosed: \"Drive Detection, including Crash Alerts, Driving reports, and Drive history, is powered by Arity.\" https://support.life360.com/api/v2/help_center/en-us/articles/23053397958551.json"
    ]
+  },
+  {
+   "id": "fp-vungle-ads",
+   "name": "Vungle (SDK 7, Liftoff Monetize)",
+   "code_signature": "com.vungle.ads.",
+   "categories": [
+    "Advertisement"
+   ],
+   "website": "https://liftoff.ai/",
+   "added": "2026-10-09",
+   "evidence": [
+    "com.vungle:vungle-ads 7.7.9 on Maven Central (published 2026-09-30) defines 658 classes under com/vungle/ads and none under com/vungle/warren; com.vungle:publisher-sdk-android 6.12.1 (2023-01-10, the last SDK 6) defines its classes under com/vungle/warren. Checked by listing the AARs' classes on 2026-10-09; nothing was run.",
+    "Vungle's Advanced Settings for the current SDK (updated 2026-09-20), self-disclosed, gives the ProGuard rules \"-dontwarn com.vungle.ads.** -keep class com.vungle.ads.** {*;}\": https://support.vungle.com/api/v2/help_center/en-us/articles/360047780372.json",
+    "Vungle's download page (updated 2026-09-30): \"Vungle SDK for Android/Amazon v7.0.0 (August 24, 2023)\": https://support.vungle.com/api/v2/help_center/en-us/articles/15722228922395.json"
+   ]
   }
  ]
 }
