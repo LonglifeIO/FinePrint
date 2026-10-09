@@ -49,7 +49,7 @@ Each sourced line on the page ends in a small number. The numbers match the list
 On the record and Evidence start collapsed. On the record gives each action one line: when, who acted, what came of it, and its status. The ones that set the tier come first, under Why it's Flagged or Why it's Caution. The rest fall into two groups, each newest first, followed by what others have reported:
 
 - Ongoing: Orders still in force, cases still pending, and decisions under appeal.
-- Past: Matters that have ended. One that ended more than three years ago never changes a tier.
+- Past: Matters that have ended, and past practices others reported. One that ended more than three years ago never changes a tier.
 
 It shows the latest three, then See all; tap a line for its details and sources. It includes actions against the company that makes the app; a line about the company rather than the app says so, for example about Google.
 
@@ -143,7 +143,7 @@ Five limits apply to every app:
 - Filing alone never raises a tier. A lawsuit counts once a judge lets it go ahead. A complaint to a regulator counts once the regulator opens a formal proceeding. A claim from either counts from the same point. Until then it is shown, but it doesn't count.
 - A line that is Off by default, when the app has a setting that controls it, doesn't count toward the tier. A line that is Only if you opt in still counts.
 
-A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. On the record also shows the developer's other actions; one that doesn't name this app is marked about the company, and it doesn't change the app's tier. For an app without a record of its own, it shows the actions on record against the companies behind its trackers, marked the same way. Under each tier, one line names the finding that set it; when a ruling, a lawsuit or a regulator's proceeding sets it, that line names it. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow. A claim in a lawsuit or complaint is never the reason given. When only such claims count, the reason names the court's or regulator's step instead, such as A court has let a case go ahead over where this app's data goes (not proven in court).
+A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's or a tracker's record names this app. On the record also shows the developer's other actions, and what's on record about the trackers in the app's code; one that doesn't name this app is marked about its company, such as about InMobi, and it never changes the app's tier. A tracker's line that the app's own record already gives, from the same source, shows once. Under each tier, one line names the finding that set it; when a ruling, a lawsuit or a regulator's proceeding sets it, that line names it. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow. A claim in a lawsuit or complaint is never the reason given. When only such claims count, the reason names the court's or regulator's step instead, such as A court has let a case go ahead over where this app's data goes (not proven in court).
 
 Not checked yet: FinePrint hasn't checked this app. What it shows comes from the trackers built into it. It can be Caution, never Flagged or Expected.
 

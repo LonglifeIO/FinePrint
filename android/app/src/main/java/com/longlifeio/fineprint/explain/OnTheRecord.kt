@@ -35,13 +35,18 @@ data class RecordLine(
     val dated: String = date,
     /** "court" or "regulator": an alleged line says "not proven in court" or "not yet decided". */
     val forum: String = "court",
+    /** A practice reported in the past (a historical report): shown under Past, with its badge saying so. */
+    val historical: Boolean = false,
 )
 
-/** On the record, newest first: actions by regulators and courts, then what others have reported. */
-data class OnTheRecord(val actions: List<RecordLine>, val alsoReported: List<RecordLine>) {
-    val count: Int get() = actions.size + alsoReported.size
+/**
+ * On the record, newest first: actions by regulators and courts, then what others have reported; [pastReports], past
+ * practices others reported, sit under Past with the matters that have ended.
+ */
+data class OnTheRecord(val actions: List<RecordLine>, val alsoReported: List<RecordLine>, val pastReports: List<RecordLine> = emptyList()) {
+    val count: Int get() = actions.size + alsoReported.size + pastReports.size
     val ongoing: List<RecordLine> get() = actions.filter { it.ongoing }
-    val past: List<RecordLine> get() = actions.filterNot { it.ongoing }
+    val past: List<RecordLine> get() = (actions.filterNot { it.ongoing } + pastReports).sortedByDescending { it.date }
 }
 
 /** A legal or reported line from an app's record, or from the record of a tracker in it ([by]). */
@@ -53,11 +58,15 @@ data class Said(val consequence: Consequence, val by: TrackerRecord? = null)
  * action it shares a source with; one with none becomes a line of its own, dated by its first source.
  * A tracker's line names this app only when its record says so; otherwise it is about the tracker's owner.
  */
-internal fun onTheRecord(record: AppRecord?, said: List<Said>, bundle: Bundle?, pkg: String): OnTheRecord {
+internal fun onTheRecord(record: AppRecord?, all: List<Said>, bundle: Bundle?, pkg: String): OnTheRecord {
+    // A tracker's line that cites a source the app's own record already cites is that line again: the app's own stays.
+    val ownSources = all.filter { it.by == null }.flatMap { s -> s.consequence.sources.map { it.url } }.toSet()
+    val said = all.filter { s -> s.by == null || s.consequence.sources.none { it.url in ownSources } }
     val companies = bundle?.companies?.values.orEmpty()
     val developer = record?.developerCompany?.let { bundle?.companies?.get(it) }
     val legal = said.filter { it.consequence.status == "alleged" || it.consequence.status == "adjudicated" }
-    val reported = said.filter { it.consequence.status == "reported" && !it.consequence.historical }
+    // A report of a past practice is listed too, under Past: old SDK versions persist in apps.
+    val (pastReported, reported) = said.filter { it.consequence.status == "reported" }.partition { it.consequence.historical }
     fun told(e: LegalEvent, s: Said) = e.sources.any { src -> s.consequence.sources.any { it.url == src.url } }
 
     val naming = companies.flatMap { c -> c.events.filter { it.concernsApp == pkg && it.type != "breach" }.map { c to it } }
@@ -66,12 +75,14 @@ internal fun onTheRecord(record: AppRecord?, said: List<Said>, bundle: Bundle?, 
         legal.filter { s -> (naming + others).none { told(it.second, s) } }.map { consequenceLine(it, pkg, bundle, developer) }
 
     val breaches = developer?.events.orEmpty().filter { it.type == "breach" }
-    val alsoReported = reported.map { s ->
-        val event = breaches.firstOrNull { told(it, s) }
-        consequenceLine(s, pkg, bundle, developer, dated = event?.date, by = event?.body)
-    } + breaches.filter { e -> reported.none { told(e, it) } }.map { eventLine(developer!!, it, emptyList(), pkg, bundle, developer) }
+    fun reportLine(s: Said) = breaches.firstOrNull { told(it, s) }.let { event -> consequenceLine(s, pkg, bundle, developer, dated = event?.date, by = event?.body) }
+    val alsoReported = reported.map(::reportLine) +
+        breaches.filter { e -> (reported + pastReported).none { told(e, it) } }.map { eventLine(developer!!, it, emptyList(), pkg, bundle, developer) }
 
-    return OnTheRecord(actions.sortedByDescending { it.date }, alsoReported.sortedByDescending { it.date })
+    return OnTheRecord(
+        actions.sortedByDescending { it.date }, alsoReported.sortedByDescending { it.date },
+        pastReported.map { reportLine(it).copy(historical = true) }.sortedByDescending { it.date },
+    )
 }
 
 /**

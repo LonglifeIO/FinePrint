@@ -34,7 +34,7 @@ val GOVERNMENT_LINES = mapOf(
 val RECENT_CHANGES = SectionText("Recent changes", "The latest change to FinePrint's record of this app, and whether it's better or worse for you.")
 val HISTORY = SectionText("History", "Every change to FinePrint's record of this app, newest first.")
 val ONGOING = SectionText("Ongoing", "Orders still in force, cases still pending, and decisions under appeal.")
-val PAST = SectionText("Past", "Matters that have ended. One that ended more than three years ago never changes a tier.")
+val PAST = SectionText("Past", "Matters that have ended, and past practices others reported. One that ended more than three years ago never changes a tier.")
 val ALSO_REPORTED = SectionText("Also reported", "Journalists, researchers or breach trackers found it. No court or regulator has ruled on it.")
 val WHAT_YOU_CAN_DO = SectionText(
     "What you can do",

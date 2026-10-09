@@ -1,0 +1,51 @@
+{
+ "schema_version": 1,
+ "schema_revision": "1.7",
+ "bundle_version": "2026.10.09",
+ "generated_at": "2026-10-09T12:00:00-03:00",
+ "apps": [
+  {
+   "package_id": "com.example.quiet",
+   "display_name": "Example Quiet",
+   "developer_company": "co-example",
+   "summary": "Synthetic test record: an app whose own record finds nothing beyond running it, carrying a tracker with matters on record.",
+   "trackers": ["exodus-7"], "coverage": "curated", "checked_on": "2026-10-09", "last_reviewed": "2026-10-09",
+   "data_flows": [
+    {"id": "flow-run", "data": "app_activity", "recipient": "co-example", "purpose": "Running the app", "bucket": "stays_here", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/quiet/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "to run the app"}]}
+   ],
+   "consequences": []
+  },
+  {
+   "package_id": "com.example.named",
+   "display_name": "Example Named",
+   "developer_company": "co-example",
+   "summary": "Synthetic test record: the same, but the tracker's ruling names this app.",
+   "trackers": ["exodus-7"], "coverage": "curated", "checked_on": "2026-10-09", "last_reviewed": "2026-10-09",
+   "data_flows": [
+    {"id": "flow-run", "data": "app_activity", "recipient": "co-example", "purpose": "Running the app", "bucket": "stays_here", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/named/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "to run the app"}]}
+   ],
+   "consequences": []
+  }
+ ],
+ "trackers": [
+  {"id": "exodus-7", "owner": "Kit Co", "owner_company": "co-kit", "categories": ["analytics"], "last_reviewed": "2026-10-09", "data_flows": [],
+   "consequences": [
+    {"text": "A regulator's order bars Kit Co from selling location data; it is in force.", "status": "adjudicated", "status_kind": "consent_order", "in_force": true, "forum": "regulator",
+     "sources": [{"url": "https://example.org/kit/order", "type": "regulator", "title": "The order", "as_of": "2025-06-01", "status": "adjudicated", "quote": "is ordered"}]},
+    {"text": "A class action alleges Kit Co's SDK sent people's locations; a court let it go ahead.", "status": "alleged", "status_kind": "survived_motion_to_dismiss", "forum": "court",
+     "sources": [{"url": "https://example.org/kit/opinion", "type": "lawsuit", "title": "The opinion", "as_of": "2026-04-01", "status": "alleged", "quote": "the motion is denied"}]},
+    {"text": "A regulator fined Kit Co over Example Named's data.", "status": "adjudicated", "status_kind": "ruling", "concerns_app": "com.example.named", "forum": "regulator",
+     "sources": [{"url": "https://example.org/kit/named", "type": "regulator", "title": "The fine", "as_of": "2026-02-01", "status": "adjudicated", "quote": "fined"}]},
+    {"text": "In 2020 researchers reported that an old version of Kit Co's SDK logged the links people tapped.", "status": "reported", "historical": true,
+     "sources": [{"url": "https://example.org/kit/report", "type": "research", "title": "The report", "as_of": "2020-08-24", "status": "reported", "quote": "logged", "single_source": true}]}
+   ]}
+ ],
+ "companies": [
+  {"id": "co-example", "name": "Example Inc.", "roles": ["developer"], "jurisdiction": "CA", "last_reviewed": "2026-10-09"},
+  {"id": "co-kit", "name": "Kit Co", "roles": ["tracker_owner"], "jurisdiction": "US", "last_reviewed": "2026-10-09"}
+ ],
+ "permissions": [],
+ "device_reach": []
+}

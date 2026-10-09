@@ -75,7 +75,9 @@ class OnTheRecordTest {
     fun life360sPendingCasesAreOngoing() {
         val life360 = explainApp("com.life360.android.safetymapd", "Life360")
         assertEquals(listOf("2025-04-10", "2025-01-13"), life360.onTheRecord.ongoing.map { it.date })
-        assertTrue(life360.onTheRecord.past.isEmpty())
+        // Past holds only a practice reported in the past: The Markup's 2021 report.
+        assertEquals(listOf("2021-12-06 · The Markup"), life360.onTheRecord.past.map { it.line })
+        assertTrue(life360.onTheRecord.past.single().historical)
     }
 
     @Test

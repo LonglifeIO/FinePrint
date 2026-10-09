@@ -117,10 +117,9 @@ fun explain(
     val granted = app.permissions.filter { it.granted }
     val shownData = scored.map { it.data }.toSet()
     val readable = scan != null && scan.dexFiles > 0
-    // With a record, a tracker's legal lines join it only when they name this app; without one, all of them do.
-    val fromTrackers = trackerRecords.flatMap { t ->
-        t.consequences.filter { it.government == null && (record == null || it.concernsApp == app.packageName) }.map { Said(it, t) }
-    }
+    // A tracker's legal and reported lines show on every app carrying it, about the tracker's company; only one that names
+    // this app (concerns_app) counts toward its tier (OnTheRecord.kt marks the rest; tier() reads only lines naming the app).
+    val fromTrackers = trackerRecords.flatMap { t -> t.consequences.filter { it.government == null }.map { Said(it, t) } }
     val own = record?.consequences.orEmpty().filter { it.government == null }.map { Said(it) }
     val onRecord = onTheRecord(record, own + fromTrackers, bundle, app.packageName)
     // Government lines show with their country's laws, never in the buckets or the tier.
