@@ -1,0 +1,42 @@
+{
+ "companies": [
+  {
+   "id": "co-liftoff",
+   "name": "Liftoff Mobile, Inc.",
+   "short_name": "Liftoff",
+   "jurisdiction": "US",
+   "headquarters": "US",
+   "jurisdiction_sources": [
+    {
+     "url": "https://liftoff.ai/privacy-policy/",
+     "type": "privacy_policy",
+     "title": "Liftoff Privacy Policy (effective June 2026)",
+     "accessed": "2026-10-09",
+     "status": "self_disclosed",
+     "quote": "The company is registered in Delaware (registration number C3511707)"
+    },
+    {
+     "url": "https://liftoff.ai/privacy-policy/",
+     "type": "privacy_policy",
+     "title": "Liftoff Privacy Policy (effective June 2026)",
+     "accessed": "2026-10-09",
+     "status": "self_disclosed",
+     "quote": "555 Bryant Street, Suite #133, Palo Alto CA 94301"
+    },
+    {
+     "url": "https://liftoff.ai/privacy-policy/",
+     "type": "privacy_policy",
+     "title": "Liftoff Privacy Policy (effective June 2026)",
+     "accessed": "2026-10-09",
+     "status": "self_disclosed",
+     "quote": "Liftoff Mobile, Inc. and its subsidiaries LMI, Inc. and Vungle SEA Pte. Ltd."
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-09"
+  }
+ ]
+}
