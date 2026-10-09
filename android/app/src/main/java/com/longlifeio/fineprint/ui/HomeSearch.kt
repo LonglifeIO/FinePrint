@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.clearText
 import androidx.compose.foundation.text.input.rememberTextFieldState
@@ -145,7 +146,11 @@ internal fun SearchView(
             matchCount(results.size), style = MaterialTheme.typography.labelLarge, color = LocalPalette.current.muted,
             modifier = Modifier.padding(horizontal = Space.screen, vertical = Space.s).testTag("count").semantics { liveRegion = LiveRegionMode.Polite },
         )
-        LazyColumn(Modifier.fillMaxSize().testTag("results")) {
+        // A new set of results starts at its top: kept where it was, the list would hold its first row in place, and a
+        // group's header (System) would sit above the screen.
+        val list = rememberLazyListState()
+        LaunchedEffect(search.query, search.filters) { list.scrollToItem(0) }
+        LazyColumn(Modifier.fillMaxSize().testTag("results"), state = list) {
             val row = @Composable { app: InstalledApp, _: Int, _: Int -> SearchResult(app, explanations[app.packageName], reviews[app.packageName], onOpen) }
             if (includeSystem && ListFilter.SYSTEM in search.filters) systemGroupItems(systemGroups(results, explanations), row, onSources)
             else items(results, key = { it.packageName }) { app -> row(app, 0, 0) }
