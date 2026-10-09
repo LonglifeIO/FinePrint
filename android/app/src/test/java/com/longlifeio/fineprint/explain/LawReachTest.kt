@@ -26,8 +26,8 @@ class LawReachTest {
         val places = recipients.flatMap { listOfNotNull(it.jurisdiction, it.headquarters) }.distinct()
         val shown = places.flatMap { lawsBinding(it, bundle) }.map { it.id }.toSet()
         assertEquals(
-            "Canada's, China's, Russia's and Singapore's: no company that gets data is based there",
-            listOf("law-ca-criminal-code-487-014", "law-ca-criminal-code-487-016", "law-cn-national-intelligence", "law-ru-149-fz-10-1", "law-sg-cpc-20"),
+            "Canada's, China's and Russia's: no company that gets data is based there",
+            listOf("law-ca-criminal-code-487-014", "law-ca-criminal-code-487-016", "law-cn-national-intelligence", "law-ru-149-fz-10-1"),
             bundle.jurisdictions.values.flatMap { it.laws }.map { it.id }.filterNot { it in shown }.sorted(),
         )
     }

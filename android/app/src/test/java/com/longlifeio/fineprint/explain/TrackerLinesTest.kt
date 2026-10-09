@@ -86,7 +86,7 @@ class TrackerLinesTest {
             assertTrue(pkg, inMobiLines.none { it.namesThisApp } && e.tier.events.none { it.line in inMobiLines })
             // Mintegral's Snyk report, a past practice: under Past, about Mintegral's owner.
             val snyk = e.onTheRecord.past.single { it.historical && it.title.startsWith("In 2020 the security firm Snyk reported") }
-            assertTrue(pkg, snyk.line.endsWith("about Mobvista Inc."))
+            assertTrue(pkg, snyk.line.endsWith("about Mobvista/Mintegral"))
             // Arity's Texas line names Life360 alone. On Life360, its own record's lines say it and name the app, and the
             // tracker's copy, citing the same court papers, is left out; elsewhere the tracker's line is about Allstate.
             fun saying(start: String) = e.onTheRecord.actions.filter { line -> line.details.any { it.startsWith(start) } }

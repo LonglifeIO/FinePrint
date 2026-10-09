@@ -2,7 +2,7 @@
  "schema_version": 1,
  "schema_revision": "1.7",
  "bundle_version": "2026.10.09",
- "generated_at": "2026-10-09T13:47:25-03:00",
+ "generated_at": "2026-10-09T18:45:36-03:00",
  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint",
  "apps": [
   {
@@ -1905,13 +1905,16 @@
        "quote": "unless directed by a customer"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has connected ad networks or other partners, Adjust shares data with them; the developer can turn that off for a user. FinePrint can't see that setting.",
+     "id": "flow-adjust-partners",
+     "data": "app_activity",
+     "recipient_label": "Partners the developer has set up in Adjust",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your installs, sessions and in-app events, which Adjust shares with every partner the developer has set up; the developer can turn this off for you",
      "status": "self_disclosed",
-     "wording": "According to Adjust's help centre and developer documentation (read 2026-10-08).",
+     "conditional": "if the developer has configured partners in its Adjust app settings",
+     "wording": "According to Adjust's developer documentation (read 2026-10-08).",
      "sources": [
       {
        "url": "https://dev.adjust.com/en/sdk/android/features/privacy",
@@ -1919,21 +1922,30 @@
        "title": "Adjust Developer Hub: Android SDK privacy features",
        "accessed": "2026-10-08",
        "status": "self_disclosed",
-       "quote": "Adjust stops sharing the user’s data with third parties"
+       "quote": "Adjust shares all metrics with any partners you’ve configured in your app settings"
       },
       {
-       "url": "https://help.adjust.com/en/article/google-play-data-safety",
+       "url": "https://dev.adjust.com/en/sdk/android/features/privacy",
        "type": "company_site",
-       "title": "Adjust Help Center: Google Play Data Safety",
+       "title": "Adjust Developer Hub: Android SDK privacy features",
        "accessed": "2026-10-08",
        "status": "self_disclosed",
-       "quote": "Adjust can share the data with … other entities … if you configure the integration"
+       "quote": "ad_revenue all update att_update event install … session subscription uninstall"
+      },
+      {
+       "url": "https://dev.adjust.com/en/sdk/android/features/privacy",
+       "type": "company_site",
+       "title": "Adjust Developer Hub: Android SDK privacy features",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Adjust stops sharing the user’s data with third parties"
       }
      ]
     }
    ],
+   "consequences": [],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-125",
@@ -2073,14 +2085,25 @@
        "quote": "Amplitude is processing Customer End User Data on behalf of that customer"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has turned on location listening, Amplitude adds your precise coordinates from Android's location services to each event; versions before 2.40.3 did this by default. FinePrint can't see that setting or the version.",
+     "id": "flow-amplitude-gps",
+     "data": "precise_location",
+     "recipient": "co-amplitude",
+     "bucket": "stays_here",
+     "purpose": "Your precise coordinates, longitude and latitude, from Android's location services, added to each event the app logs",
      "status": "self_disclosed",
+     "conditional": "if the developer turns location tracking on; before version 2.40.3 the SDK had it on by default",
      "wording": "According to Amplitude's Android SDK documentation (read 2026-10-08).",
      "sources": [
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Call enableLocationListening() to track location data."
+      },
       {
        "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
        "type": "company_site",
@@ -2096,12 +2119,21 @@
        "accessed": "2026-10-08",
        "status": "self_disclosed",
        "quote": "Amplitude uses Android location services (if available) to add specific coordinates (longitude and latitude)"
+      },
+      {
+       "url": "https://amplitude.com/docs/sdks/analytics/android/android-sdk",
+       "type": "company_site",
+       "title": "Amplitude documentation: Android SDK",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "add specific coordinates (longitude and latitude) to logged events"
       }
      ]
     }
    ],
+   "consequences": [],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-72",
@@ -2373,12 +2405,15 @@
        "quote": "Country, time zone, and locale settings"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the app's publisher provides them, AppLovin also receives your email address, phone number or the publisher's user ID for you. FinePrint can't see that setting.",
+     "id": "flow-applovin-publisher-ids",
+     "data": "account_identity",
+     "recipient": "co-applovin",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your email address, phone number or the publisher's user ID for you, among the data AppLovin may use to show you ads based on your likely interests",
      "status": "self_disclosed",
+     "conditional": "if the app's publisher provides them",
      "wording": "According to AppLovin's privacy policy, effective 2026-08-06.",
      "sources": [
       {
@@ -2388,9 +2423,27 @@
        "as_of": "2026-08-06",
        "status": "self_disclosed",
        "quote": "Email addresses, phone numbers, and Publisher User IDs (if provided by publisher)"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "We may use the above categories of personal data to present you with advertising"
+      },
+      {
+       "url": "https://legal.applovin.com/privacy/",
+       "type": "privacy_policy",
+       "title": "AppLovin Privacy Policy",
+       "as_of": "2026-08-06",
+       "status": "self_disclosed",
+       "quote": "an application which contains the AppLovin SDK"
       }
      ]
-    },
+    }
+   ],
+   "consequences": [
     {
      "text": "San Diego County alleges that AppLovin collected data from children even when their parents had opted out, and let inappropriate ads appear in children's games despite parental controls.",
      "subject_company": "co-applovin",
@@ -2493,7 +2546,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-12",
@@ -2785,14 +2838,25 @@
        "quote": "AppsFlyer acts solely as a service provider on your behalf and per your instructions"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has connected ad networks or other partners, AppsFlyer passes them your advertising ID and the events the developer picks, for example through postbacks; AppsFlyer counts that as sharing. FinePrint can't see that setting.",
+     "id": "flow-appsflyer-partners",
+     "data": "device_identifiers",
+     "recipient_label": "Partners the developer works with, such as third-party networks",
+     "bucket": "goes_elsewhere",
+     "purpose": "Your advertising ID, the developer's user ID for you (it can be your email) and what you did in the app, passed to partners the developer picks; AppsFlyer says that counts as sharing",
      "status": "self_disclosed",
+     "conditional": "if the developer configures AppsFlyer to work with its partners",
      "wording": "According to AppsFlyer's documentation (read 2026-10-08) and its help centre (updated 2026-10-01).",
      "sources": [
+      {
+       "url": "https://www.appsflyer.com/legal/processing-customer-data/",
+       "type": "privacy_policy",
+       "title": "AppsFlyer Services: How we Process Customer Data",
+       "accessed": "2026-10-08",
+       "status": "self_disclosed",
+       "quote": "Upon a customer configuring the service to work with their partners"
+      },
       {
        "url": "https://www.appsflyer.com/legal/processing-customer-data/",
        "type": "privacy_policy",
@@ -2827,7 +2891,9 @@
        "quote": "sharing data with third-party networks (for example, through postbacks … this would be deemed sharing"
       }
      ]
-    },
+    }
+   ],
+   "consequences": [
     {
      "text": "A complaint alleges that a man's use of the Grindr dating app was passed to TikTok, likely through AppsFlyer, without a legal basis or his consent, revealing his sexual orientation.",
      "subject_company": "co-appsflyer",
@@ -2888,7 +2954,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-167",
@@ -4159,7 +4225,32 @@
     }
    ],
    "confidence": "medium",
-   "last_reviewed": "2026-10-08"
+   "confidence_note": {
+    "text": "Exodus's code detection rule for this SDK also lists com.prime31.util.IabHelperImpl and com.prime31.IAB., names from prime31's In App Billing plugin for Unity, where IAB means in-app billing. So an app with only that billing plugin shows these lines.",
+    "sources": [
+     {
+      "url": "https://reports.exodus-privacy.eu.org/en/trackers/328/",
+      "type": "research",
+      "title": "εxodus: tracker profile for IAB Open Measurement (Wayback Machine copy of 2026-05-21)",
+      "as_of": "2026-05-21",
+      "status": "reported",
+      "verify_url": "https://web.archive.org/web/20260521050656id_/https://reports.exodus-privacy.eu.org/en/trackers/328/",
+      "wayback_url": "https://web.archive.org/web/20260521050656/https://reports.exodus-privacy.eu.org/en/trackers/328/",
+      "wayback_date": "2026-05-21",
+      "quote": "Code detection rule: com.iab.omid.library | com.prime31.util.IabHelperImpl | com.prime31.IAB."
+     },
+     {
+      "url": "https://prime31.com/docs#androidIAB",
+      "type": "company_site",
+      "title": "prime31 documentation: In App Billing Plugin for Android",
+      "accessed": "2026-10-09",
+      "status": "self_disclosed",
+      "verify_url": "https://prime31.com/content/docs/android/inAppBilling.shtml",
+      "quote": "GoogleIAB methods: … Initializes the billing system"
+     }
+    ]
+   },
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-106",
@@ -5442,6 +5533,7 @@
     "Mintegral SDK"
    ],
    "owner": "Mobvista Inc.",
+   "owner_company": "co-mobvista",
    "owner_chain": [
     "Mintegral",
     "Mobvista Inc."
@@ -5979,7 +6071,7 @@
     {
      "id": "flow-pangle-ids",
      "data": "device_identifiers",
-     "recipient": "co-bytedance",
+     "recipient": "co-tiktok-pte",
      "bucket": "goes_elsewhere",
      "purpose": "Your resettable device identifiers, for ads, analytics and fraud prevention, and passed on for advertising and fraud prevention",
      "status": "self_disclosed",
@@ -6014,7 +6106,7 @@
     {
      "id": "flow-pangle-location",
      "data": "approximate_location",
-     "recipient": "co-bytedance",
+     "recipient": "co-tiktok-pte",
      "bucket": "goes_elsewhere",
      "purpose": "Your city-level location, worked out from your IP address, for ads, analytics and fraud prevention, and passed on for advertising and fraud prevention",
      "status": "self_disclosed",
@@ -6041,7 +6133,7 @@
     {
      "id": "flow-pangle-activity",
      "data": "app_activity",
-     "recipient": "co-bytedance",
+     "recipient": "co-tiktok-pte",
      "bucket": "goes_elsewhere",
      "purpose": "How you interact with the ads Pangle shows, for ads, analytics and fraud prevention, and passed on for advertising and fraud prevention",
      "status": "self_disclosed",
@@ -6155,7 +6247,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "exodus-285",
@@ -6812,12 +6904,15 @@
        "quote": "in-app advertisement placements which will be sold to various demand sources"
       }
      ]
-    }
-   ],
-   "consequences": [
+    },
     {
-     "text": "If the developer has turned on Acquire Optimization, Unity Ads also collects how long you use the app, to measure how often players come back and serve ads. FinePrint can't see that setting.",
+     "id": "flow-unity-ads-usage-times",
+     "data": "app_activity",
+     "recipient": "co-unity",
+     "bucket": "goes_elsewhere",
+     "purpose": "How long you use the app, to measure how often players come back and to serve ads",
      "status": "self_disclosed",
+     "conditional": "if the developer has enabled Acquire Optimization in Unity's Monetization dashboard",
      "wording": "According to Unity's data safety disclosure for Unity Ads (read 2026-10-08).",
      "sources": [
       {
@@ -6834,10 +6929,12 @@
        "title": "Unity documentation: Google Play data safety section for Unity Ads",
        "accessed": "2026-10-08",
        "status": "self_disclosed",
-       "quote": "only collects data on app usage times when Acquire Optimization is enabled"
+       "quote": "only collects data on app usage times when Acquire Optimization is enabled … Monetization dashboard"
       }
      ]
-    },
+    }
+   ],
+   "consequences": [
     {
      "text": "In 2021 a US federal court approved Unity's settlement of a class action, with no finding of wrongdoing. For three years Unity had to keep a COPPA flag for developers, offer a contextual-ads-only setting and switch it on for apps in Google Play's Designed for Families program, delete advertising IDs it held from listed children's apps, and let users opt out of interest-based ads.",
      "subject_company": "co-unity",
@@ -6907,7 +7004,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "fp-vungle",
@@ -10007,6 +10104,44 @@
    "last_reviewed": "2026-10-04"
   },
   {
+   "id": "co-mobvista",
+   "name": "Mobvista Inc.",
+   "short_name": "Mobvista/Mintegral",
+   "jurisdiction": "KY",
+   "headquarters": "SG",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801490.pdf",
+     "type": "filing",
+     "title": "Mobvista Inc. (HKEX: 1860): 2026 Interim Report",
+     "as_of": "2026-09-18",
+     "status": "self_disclosed",
+     "quote": "Mobvista Inc. (incorporated in the Cayman Islands with limited liability)"
+    },
+    {
+     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801490.pdf",
+     "type": "filing",
+     "title": "Mobvista Inc. (HKEX: 1860): 2026 Interim Report",
+     "as_of": "2026-09-18",
+     "status": "self_disclosed",
+     "quote": "HEADQUARTERS 1 Raffles Quay #09–06, North Tower Singapore 048583"
+    },
+    {
+     "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801490.pdf",
+     "type": "filing",
+     "title": "Mobvista Inc. (HKEX: 1860): 2026 Interim Report",
+     "as_of": "2026-09-18",
+     "status": "self_disclosed",
+     "quote": "Mintegral, the Group’s programmatic advertising platform"
+    }
+   ],
+   "roles": [
+    "tracker_owner",
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-09"
+  },
+  {
    "id": "co-onesignal",
    "name": "OneSignal, Inc.",
    "short_name": "OneSignal",
@@ -10189,6 +10324,28 @@
     "data_recipient"
    ],
    "last_reviewed": "2026-10-08"
+  },
+  {
+   "id": "co-tiktok-pte",
+   "name": "TikTok Pte. Ltd.",
+   "jurisdiction": "SG",
+   "jurisdiction_sources": [
+    {
+     "url": "https://www.tiktok.com/legal/page/row/privacy-policy/en",
+     "type": "privacy_policy",
+     "title": "TikTok Privacy Policy, other regions",
+     "as_of": "2025-07-08",
+     "status": "self_disclosed",
+     "verify_url": "https://web.archive.org/web/20260930143917/https://www.tiktok.com/legal/page/row/privacy-policy/en",
+     "wayback_url": "https://web.archive.org/web/20260930143917/https://www.tiktok.com/legal/page/row/privacy-policy/en",
+     "wayback_date": "2026-09-30",
+     "quote": "controlled by TikTok Pte. Ltd., with its registered address at … Singapore 048583"
+    }
+   ],
+   "roles": [
+    "data_recipient"
+   ],
+   "last_reviewed": "2026-10-09"
   },
   {
    "id": "co-unity",

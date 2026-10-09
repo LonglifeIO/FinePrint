@@ -104,7 +104,7 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   readability report on every build (CI warns, never fails); under each app's name, the reason for
   its tier ("Why: Life360 says your location goes to other companies"), with what set it listed
   first under "Why it's Flagged"; a search bar on the home; and an edge on every card in dark mode.
-- Tracker records for 24 common SDKs (covering 29 tracker ids) and 24 company records, with tracker
+- Tracker records for 24 common SDKs (covering 29 tracker ids) and 26 company records, with tracker
   batches 1 and 2 merged: bundle 2026.10.09 holds them with the 4 app records and 10 jurisdictions.
   A tracker's legal and reported lines show under On the record on every app that carries it,
   marked about its company, and count toward a tier only when they name the app; practices reported
