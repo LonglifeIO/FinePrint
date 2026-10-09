@@ -3,6 +3,7 @@ package com.longlifeio.fineprint.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +32,7 @@ import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.bundle.SummaryNote
 import com.longlifeio.fineprint.explain.APPLIES
 import com.longlifeio.fineprint.explain.BUCKETS
+import com.longlifeio.fineprint.explain.BUCKET_GLOSS
 import com.longlifeio.fineprint.explain.BUCKET_TEXT
 import com.longlifeio.fineprint.explain.COLLECTS
 import com.longlifeio.fineprint.explain.DATA_LABELS
@@ -40,6 +45,7 @@ import com.longlifeio.fineprint.explain.SUMMARY_CURATED
 import com.longlifeio.fineprint.explain.NOT_RECORDED
 import com.longlifeio.fineprint.explain.SUMMARY_INHERITED
 import com.longlifeio.fineprint.explain.SectionText
+import com.longlifeio.fineprint.explain.Tier
 import com.longlifeio.fineprint.explain.WHAT_YOU_CAN_DO
 import com.longlifeio.fineprint.explain.WHERE_IT_GOES
 import com.longlifeio.fineprint.explain.WhatYouCanDo
@@ -92,7 +98,7 @@ fun LazyListScope.detailSections(
             cardItem(key = "bucket:$bucket") { BucketHeader(bucket, lines.size) }
             // The first four, then See all N; the chip above keeps the full count.
             val all = buckets.isOpen(bucket) || lines.size <= BUCKET_FIRST
-            cardItems(if (all) lines else lines.take(BUCKET_FIRST)) { FlowLineRow(it, onSources) }
+            cardItems(if (all) lines else lines.take(BUCKET_FIRST)) { FlowLineRow(it, onSources, e.tier.tier) }
             if (lines.size > BUCKET_FIRST) {
                 cardItem(key = "more:$bucket") {
                     LinkRow(if (all) "Show the first $BUCKET_FIRST" else "See all ${lines.size}", if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more) { buckets.toggle(bucket) }
@@ -151,14 +157,22 @@ internal fun SubHeader(text: SectionText) {
     }
 }
 
-/** The bucket's indicator chip with its number of lines, then its definition: the only colour in the card. */
+/**
+ * The bucket's indicator chip with its number of lines and its plain gloss ("Goes elsewhere 5 · to other companies"),
+ * then its definition: the chip is the only colour in the card.
+ */
 @Composable
 private fun BucketHeader(bucket: String, count: Int) {
+    val gloss = BUCKET_GLOSS.getValue(bucket)
     Column(
         Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 4.dp).semantics(mergeDescendants = true) { heading() },
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        BucketChip(bucket, count, noun = if (count == 1) "line" else "lines")
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            BucketChip(bucket, count, noun = if (count == 1) "line" else "lines")
+            // TalkBack reads the gloss without the dot.
+            Text("· $gloss", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.clearAndSetSemantics { text = AnnotatedString(gloss) })
+        }
         Text(BUCKET_TEXT.getValue(bucket).subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
@@ -174,15 +188,20 @@ internal fun SummaryNoteRow(note: SummaryNote, onSources: (SheetContent) -> Unit
     }
 }
 
-/** Data → recipient and purpose with its footnote, then status, attribution and its Sources row. */
+/**
+ * Data → recipient and purpose with its footnote, then status (after the tier's marker, on a line that set the tier
+ * [tier]), attribution and its Sources row.
+ */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit) {
+internal fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit, tier: Tier? = null) {
     val label = DATA_LABELS[line.data] ?: line.data
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 8.dp)) {
         Text(label, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
         Text("→ ${line.recipient}: ${line.purpose}" + LocalFootnotes.current.marks(line.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks("→ ${line.recipient}: ${line.purpose}"))
         line.conditional?.let { Text(conditionLine(it), style = MaterialTheme.typography.bodySmall) }
-        Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(Modifier.padding(top = 4.dp), itemVerticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (line.setsTier) ReasonMarker(tier)
             StatusBadge(line.status, line.historical, line.forum)
             DEFAULTS[line.default]?.let { d ->
                 WithDefinition(d.label, d.definition) {

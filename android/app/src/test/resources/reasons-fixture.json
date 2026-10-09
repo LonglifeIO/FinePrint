@@ -1,0 +1,106 @@
+{
+ "schema_version": 1,
+ "schema_revision": "1.6",
+ "bundle_version": "2026.10.08",
+ "generated_at": "2026-10-08T12:00:00-03:00",
+ "apps": [
+  {
+   "package_id": "com.example.ruled",
+   "display_name": "Example Ruled",
+   "developer_company": "co-example",
+   "summary": "Synthetic test record: a regulator's ruling over this app's data sets its tier.",
+   "trackers": [], "coverage": "curated", "checked_on": "2026-10-08", "last_reviewed": "2026-10-08",
+   "data_flows": [
+    {"id": "flow-run", "data": "app_activity", "recipient": "co-example", "purpose": "Running the app", "bucket": "stays_here", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/ruled/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "to run the app"}]}
+   ],
+   "consequences": [
+    {"text": "A regulator fined the developer over how this app handled your data.", "status": "adjudicated", "status_kind": "ruling",
+     "sources": [{"url": "https://example.org/ruled/decision", "type": "regulator", "title": "The decision", "as_of": "2026-03-01", "status": "adjudicated", "quote": "the regulator fined"}]}
+   ]
+  },
+  {
+   "package_id": "com.example.proceeding",
+   "display_name": "Example Proceeding",
+   "developer_company": "co-example",
+   "summary": "Synthetic test record: a court let a case about this app's data go ahead.",
+   "trackers": [], "coverage": "curated", "checked_on": "2026-10-08", "last_reviewed": "2026-10-08",
+   "store_tagline": {"text": "Find your way", "source_url": "https://play.google.com/store/apps/details?id=com.example.proceeding", "as_of": "2026-10-08"},
+   "data_flows": [
+    {"id": "flow-sold", "data": "precise_location", "recipient_label": "Data brokers", "purpose": "Alleged resale", "bucket": "goes_elsewhere",
+     "status": "alleged", "status_kind": "survived_motion_to_dismiss", "forum": "court", "wording": "Alleged in a class action filed in 2025",
+     "sources": [{"url": "https://example.org/proceeding/opinion", "type": "lawsuit", "title": "Opinion", "as_of": "2026-03-03", "status": "alleged", "quote": "the motion is denied"}]},
+    {"id": "flow-own", "data": "app_activity", "recipient": "co-example", "purpose": "The company's own ads", "bucket": "used_for_more", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/proceeding/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "our own ads"}]}
+   ],
+   "consequences": [
+    {"text": "A class action alleges the app sold where you go to data brokers.", "status": "alleged", "status_kind": "survived_motion_to_dismiss", "forum": "court",
+     "wording": "Alleged in a class action filed in 2025",
+     "sources": [{"url": "https://example.org/proceeding/opinion", "type": "lawsuit", "title": "Opinion", "as_of": "2026-03-03", "status": "alleged", "quote": "the motion is denied"}]}
+   ]
+  },
+  {
+   "package_id": "com.example.complaint",
+   "display_name": "Example Complaint",
+   "developer_company": "co-example",
+   "summary": "Synthetic test record: its only legal event is a complaint to a regulator, merely filed.",
+   "trackers": [], "coverage": "curated", "checked_on": "2026-10-08", "last_reviewed": "2026-10-08",
+   "data_flows": [
+    {"id": "flow-run", "data": "app_activity", "recipient": "co-example", "purpose": "Running the app", "bucket": "stays_here", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/complaint/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "to run the app"}]}
+   ],
+   "consequences": [
+    {"text": "A complaint to a data protection authority alleges the app shares what you do in it.", "status": "alleged", "status_kind": "filed", "forum": "regulator",
+     "wording": "Alleged in a complaint filed with a data protection authority on 2026-05-04",
+     "sources": [{"url": "https://example.org/complaint/filing", "type": "regulator", "title": "The complaint", "as_of": "2026-05-04", "status": "alleged", "quote": "the complaint alleges"}]}
+   ]
+  },
+  {
+   "package_id": "com.example.alleged",
+   "display_name": "Example Alleged",
+   "developer_company": "co-example",
+   "summary": "Synthetic test record: its only line beyond running the app is alleged, in a case a court let go ahead.",
+   "trackers": [], "coverage": "curated", "checked_on": "2026-10-08", "last_reviewed": "2026-10-08",
+   "data_flows": [
+    {"id": "flow-sold", "data": "app_activity", "recipient_label": "Data brokers", "purpose": "Alleged resale", "bucket": "goes_elsewhere",
+     "status": "alleged", "status_kind": "survived_motion_to_dismiss", "forum": "court", "wording": "Alleged in a class action filed in 2025",
+     "sources": [{"url": "https://example.org/alleged/opinion", "type": "lawsuit", "title": "Opinion", "as_of": "2026-03-03", "status": "alleged", "quote": "the motion is denied"}]}
+   ],
+   "consequences": []
+  },
+  {
+   "package_id": "com.example.flows",
+   "display_name": "Example Flows",
+   "developer_company": "co-example",
+   "summary": "Synthetic test record: two of its own lines set its tier.",
+   "trackers": [], "coverage": "curated", "checked_on": "2026-10-08", "last_reviewed": "2026-10-08",
+   "store_tagline": {"text": "Plan your day", "source_url": "https://play.google.com/store/apps/details?id=com.example.flows", "as_of": "2026-10-08"},
+   "data_flows": [
+    {"id": "flow-ads", "data": "device_identifiers", "recipient_label": "Advertising partners", "purpose": "Ads in other apps", "bucket": "goes_elsewhere", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/flows/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "advertising partners"}]},
+    {"id": "flow-location", "data": "precise_location", "recipient_label": "Data brokers", "purpose": "Sold to data brokers", "bucket": "goes_elsewhere", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/flows/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "data brokers"}]},
+    {"id": "flow-contacts", "data": "contacts", "recipient_label": "Marketing partners", "purpose": "Marketing", "bucket": "goes_elsewhere", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/flows/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "marketing partners"}]},
+    {"id": "flow-own", "data": "app_activity", "recipient": "co-example", "purpose": "The company's own ads", "bucket": "used_for_more", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/flows/policy", "type": "privacy_policy", "title": "Policy", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "our own ads"}]}
+   ],
+   "consequences": []
+  }
+ ],
+ "trackers": [
+  {
+   "id": "exodus-5", "owner": "Kit Co", "owner_company": "co-kit", "categories": ["analytics"], "consequences": [], "last_reviewed": "2026-10-08",
+   "data_flows": [
+    {"id": "flow-kit-own", "data": "app_activity", "recipient": "co-kit", "purpose": "The kit maker's own products", "bucket": "used_for_more", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/kit/terms", "type": "company_site", "title": "Kit terms", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "our own products"}]}
+   ]
+  }
+ ],
+ "companies": [
+  {"id": "co-example", "name": "Example Inc.", "roles": ["developer"], "jurisdiction": "CA", "last_reviewed": "2026-10-08"},
+  {"id": "co-kit", "name": "Kit Co", "roles": ["tracker_owner"], "jurisdiction": "US", "last_reviewed": "2026-10-08"}
+ ],
+ "permissions": [],
+ "device_reach": []
+}

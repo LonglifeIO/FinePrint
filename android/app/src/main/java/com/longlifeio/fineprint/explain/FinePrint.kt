@@ -12,6 +12,8 @@ data class FinePrintLine(
     val forum: String = "court",
     /** A setting FinePrint can't see that the line depends on. */
     val conditional: String? = null,
+    /** One of the lines that set the tier: marked "Flagged for this" or "Caution for this". */
+    val setsTier: Boolean = false,
 )
 
 /** "Precise location → Select business partners: For their own monetization purposes". */
@@ -20,8 +22,8 @@ fun FlowLine.claim(): String = "${DATA_LABELS[data] ?: data} → $recipient: $pu
 const val FINE_PRINT_MAX = 4
 
 /**
- * The fine print (docs/METHOD.md, An app's page): FinePrint's lines in reading order (LineOrder.kt), at most
- * four, from the first two groups: data that goes to other companies for more than running the app
+ * The fine print (docs/METHOD.md, An app's page): FinePrint's lines in reading order (LineOrder.kt), the lines that
+ * set the tier first, at most four, from the first two groups: data that goes to other companies for more than running the app
  * (government lines and trackers whose purpose isn't recorded among them), then the app's own further uses.
  * What the app collects to run itself follows them as one folded line ([alsoCollected]).
  */
@@ -37,4 +39,4 @@ fun alsoCollected(e: Explanation): FoldedLines? {
     return if (lines.isEmpty()) null else FoldedLines(alsoCollectedText(lines), lines.map { it.finePrintLine() })
 }
 
-private fun FlowLine.finePrintLine() = FinePrintLine(claim(), status, sources, historical, forum, conditional)
+private fun FlowLine.finePrintLine() = FinePrintLine(claim(), status, sources, historical, forum, conditional, setsTier)

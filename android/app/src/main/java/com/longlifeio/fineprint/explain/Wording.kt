@@ -68,6 +68,9 @@ val BUCKET_TEXT = mapOf(
     GOES_ELSEWHERE to SectionText("Goes elsewhere", "Shared with, licensed to, or sold to other companies."),
 )
 
+/** A plain gloss after each place's name on an app's page: "Goes elsewhere · to other companies". */
+val BUCKET_GLOSS = mapOf(STAYS_HERE to "to run the app", USED_FOR_MORE to "beyond running the app", GOES_ELSEWHERE to "to other companies")
+
 /** A status badge's label and its one-line definition (the tooltip, and the legend in How to read this). */
 data class BadgeText(val label: String, val definition: String)
 

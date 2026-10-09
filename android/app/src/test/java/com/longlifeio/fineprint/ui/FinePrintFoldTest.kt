@@ -86,7 +86,9 @@ class FinePrintFoldTest {
             .assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Collapsed"))
         val height = fold.getUnclippedBoundsInRoot().let { it.bottom - it.top }
         assertTrue("the fold is $height tall", height >= TOUCH)
-        // TalkBack: the four lines in reading order, then the fold, one stop each.
+        // TalkBack: the four lines in reading order, then the fold, one stop each. It reads what's on screen, and TalkBack
+        // scrolls as it moves, so the page is first scrolled to the fold.
+        compose.onNodeWithTag("detail").performScrollToNode(hasTestTag("also-collected"))
         val order = talkBackOrder(view, compose)
         val stops = finePrint(e).map { line -> order.indexOfFirst { it.startsWith(spoken(line.text)) } } +
             order.indexOf("Also collected to run the app: usage and crash data")

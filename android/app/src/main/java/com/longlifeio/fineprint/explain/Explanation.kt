@@ -83,6 +83,8 @@ data class FlowLine(
     val conditional: String? = null,
     /** An alleged line's stage: it raises a tier only once a judge let its case go ahead or a regulator opened a formal proceeding. */
     val statusKind: String? = null,
+    /** One of the lines that set the tier (TierResult.reasons): marked "Flagged for this" or "Caution for this", and read first. */
+    val setsTier: Boolean = false,
 )
 
 data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
@@ -125,8 +127,23 @@ fun explain(
     val recorded = (record?.dataFlows.orEmpty() + trackerRecords.flatMap { it.dataFlows }).mapNotNull { it.governmentLine() } +
         (record?.consequences.orEmpty() + trackerRecords.flatMap { it.consequences }).mapNotNull { it.governmentLine() }
     val current = scored.filterNot { it.historical }
-    // The summary names the trackers in reading order: other companies' uses first, running the app last.
-    val trackerNames = detected.sortedBy { trackerGroup(it, bundle, maker?.id, signatures) }.map { it.name }
+    val rated = if (record == null && inherited == null && !readable) TierResult(null, scanFacts(app, scan), "N") else tier(
+        curated = record != null,
+        appName = appName,
+        flows = scored,
+        events = onRecord.actions.filter { it.namesThisApp }
+            .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }, line = it) },
+        reach = app.deviceReach,
+        scanFacts = scanFacts(app, scan),
+        today = today,
+    )
+    // The lines that set the tier are marked, and read first (LineOrder.kt).
+    val reasons = rated.reasons.toSet()
+    val display = shown.map { if (it in reasons) it.copy(setsTier = true) else it }
+    // The summary names the trackers in reading order: those whose lines set the tier, then other companies' uses,
+    // running the app last.
+    val setting = detected.filter { t -> trackerLines(listOf(t), bundle, maker?.id, signatures).any { it in reasons } }.toSet()
+    val trackerNames = detected.sortedWith(compareBy({ it !in setting }, { trackerGroup(it, bundle, maker?.id, signatures) })).map { it.name }
 
     return Explanation(
         appName = appName,
@@ -135,19 +152,10 @@ fun explain(
             ?: autoSummary(trackerNames),
         summaryNotes = record?.summaryNotes ?: inherited?.notes.orEmpty(),
         coverage = if (record != null) "curated" else "auto",
-        tier = if (record == null && inherited == null && !readable) TierResult(null, scanFacts(app, scan), "N") else tier(
-            curated = record != null,
-            appName = appName,
-            flows = scored,
-            events = onRecord.actions.filter { it.namesThisApp }
-                .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }, line = it) },
-            reach = app.deviceReach,
-            scanFacts = scanFacts(app, scan),
-            today = today,
-        ),
+        tier = rated,
         privacyControls = record?.privacyControls,
         collects = (scored.map { DATA_LABELS[it.data] ?: it.data } + granted.mapNotNull { permissionLabel(it.name) }).distinct(),
-        flows = BUCKETS.associateWith { b -> forDisplay(shown.filter { it.bucket == b }).sortedWith(LINE_ORDER) }.filterValues { it.isNotEmpty() },
+        flows = BUCKETS.associateWith { b -> forDisplay(display.filter { it.bucket == b }).sortedWith(LINE_ORDER) }.filterValues { it.isNotEmpty() },
         applies = granted.mapNotNull { p ->
             bundle?.permissions?.get(p.name)?.takeIf { text -> text.feeds.any { it in shownData } }
                 ?.let { AppliesLine(p.name, permissionLabel(p.name) ?: p.name.substringAfterLast('.'), it.plain, it.whyItMatters) }
@@ -184,7 +192,7 @@ internal fun forDisplay(lines: List<FlowLine>): List<FlowLine> {
     val (inferred, reviewed) = lines.partition { it.status == null }
     return reviewed + inferred.groupBy { it.data to it.purpose }.values.map { group ->
         if (group.size == 1) group.single()
-        else group.first().copy(recipient = group.joinToString { it.recipient }, wording = "Inferred from their code in this app", via = null)
+        else group.first().copy(recipient = group.joinToString { it.recipient }, wording = "Inferred from their code in this app", via = null, setsTier = group.any { it.setsTier })
     }
 }
 

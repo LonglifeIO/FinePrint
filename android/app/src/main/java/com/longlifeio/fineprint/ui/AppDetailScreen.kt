@@ -105,7 +105,7 @@ fun AppDetailScreen(
                 CentredList(padding, Modifier.testTag("detail")) {
                     item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings, settingsUnavailable, installLine, onAskForReview, reviewUnavailable) }
                     // Their words: only when the record has the store's own description.
-                    explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation), alsoCollected(explanation)) { sheet = it } } }
+                    explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation), alsoCollected(explanation), explanation.tier.tier) { sheet = it } } }
                     detailSections(
                         explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, settingsUnavailable = settingsUnavailable, onTick = onTick,
                         jurisdictionsOpen = jurisdictionsOpen, onToggleJurisdictions = { jurisdictionsOpen = !jurisdictionsOpen },
@@ -114,6 +114,7 @@ fun AppDetailScreen(
                     onTheRecordSection(
                         explanation.onTheRecord, explanation.changes, recordOpen, onToggle = { recordOpen = !recordOpen; recordAll = false },
                         showAll = recordAll, onShowAll = { recordAll = true }, onDetails = { sheet = it },
+                        tier = explanation.tier.tier, reasons = explanation.tier.events.mapNotNull { it.line }.toSet(),
                     )
                     evidenceSection(evidenceOpen, { evidenceOpen = !evidenceOpen }, app, result, signatures, explanation.exodusNote)
                     sourcesCard(notes)

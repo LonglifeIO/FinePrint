@@ -14,6 +14,8 @@ FinePrint shows, for each app on your phone, what data it collects, who gets it,
 
 Every app's page has the same sections, in the same order. A section with nothing to show is left out, except What it collects.
 
+Under its name, each page shows its tier and one line saying why, such as Why: Location data goes elsewhere — Life360's own policy. The reason is always a fact: what the app's maker or a tracker's company says, a report, a ruling, or a step a court or regulator has taken. What someone alleges in a lawsuit or complaint is never the reason given. Each line, or item on the record, that sets the tier carries the tier's marker in its colour, Flagged for this or Caution for this, and the fine print and the summary read those lines first. When several set it, the Why line names the first and counts the rest, such as and 3 more marked below.
+
 Under its name and tier, each page says how far FinePrint has looked at the app, in words, never a colour:
 
 - Checked by FinePrint: On the date shown, a person looked for reported, alleged and adjudicated matters about the app and filled On the record. It never changes a tier.
@@ -59,11 +61,13 @@ Each line under Where it goes says what data goes to whom, and why. Lines fall i
 - Used for more: The same company uses it for ads, profiling, or other products.
 - Goes elsewhere: Shared with, licensed to, or sold to other companies.
 
+On an app's page each group's name carries a plain gloss: Stays here · to run the app, Used for more · beyond running the app, and Goes elsewhere · to other companies.
+
 Each group has its own colour and icon, and its name is always written out, so colour is never the only clue. The tiers share the three colours, following the rules that set them: Flagged takes Goes elsewhere's, Caution takes Used for more's and Expected takes Stays here's; No record yet is grey, with a dashed edge.
 
 Lines about a tracker come from FinePrint's record of it when there is one, and are otherwise inferred from its code (Auto). One record can explain several trackers in εxodus's list that come from the same company, such as Meta's Facebook Ads, Facebook Analytics and Facebook Login. When the app's own maker also owns a tracker in it, that tracker's data doesn't go elsewhere: its lines go under Used for more where its record says how the maker uses the data, and are otherwise left to the app's own record.
 
-FinePrint's lines are always read in the same order, on every page:
+FinePrint's lines are always read in the same order, on every page. The lines that set the app's tier come first, with their marker, and a line that someone alleges in a lawsuit or complaint comes after every line that isn't alleged. Then:
 
 - First: data that goes to other companies for more than running the app, such as ads, profiling, resale and government access, with sensitive data first: the same kinds the tiers treat as sensitive.
 - Then: data the app's own company uses for more than running the app.
@@ -130,7 +134,7 @@ Five limits apply to every app:
 - Filing alone never raises a tier: a lawsuit counts once a judge lets it go ahead, a complaint to a regulator once the regulator opens a formal proceeding, and an alleged line from the same point. Until then it is shown, but it doesn't count.
 - A line that is Off by default, when the app has a setting that controls it, doesn't count toward the tier. A line that is Only if you opt in still counts.
 
-A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. On the record also shows the developer's other actions; one that doesn't name this app is marked about the company, and it doesn't change the app's tier. For an app without a record of its own, it shows the actions on record against the companies behind its trackers, marked the same way. Under each tier, one line names the finding that set it; when a ruling, a lawsuit or a regulator's proceeding sets it, that line names it. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow.
+A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's record names this app. On the record also shows the developer's other actions; one that doesn't name this app is marked about the company, and it doesn't change the app's tier. For an app without a record of its own, it shows the actions on record against the companies behind its trackers, marked the same way. Under each tier, one line names the finding that set it; when a ruling, a lawsuit or a regulator's proceeding sets it, that line names it. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow. A claim in a lawsuit or complaint is never the line named: when only such lines count, it names the step a court or regulator took that lets them count, such as A court has let a case go ahead over where this app's data goes (not proven in court).
 
 No record yet: FinePrint hasn't reviewed this app. What it shows is inferred from the tracker code in the app: it can be rated Caution, but never Flagged or Expected.
 

@@ -16,16 +16,28 @@ enum class Tier(val label: String, val definition: String) {
  * the scan found (rule N).
  */
 data class TierResult(val tier: Tier?, val reason: String, val rule: String, val capped: Boolean = false) {
-    /** The flow that set the tier (F1, C1, C2), when one did; for the fine print, not part of what the tier is. */
-    var flow: FlowLine? = null
+    /**
+     * The lines that set the tier (F1, C1, C2): each would set it alone. The reason names the first; the page marks them
+     * all and reads them first. Never an alleged line: what a claimant alleges never leads. Not part of what the tier is.
+     */
+    var reasons: List<FlowLine> = emptyList()
         internal set
 
-    /** The ruling, lawsuit or regulator's proceeding that set it (F2, F3, C3), when one did. */
-    var event: TierEvent? = null
+    /** The rulings, lawsuits or regulators' proceedings that set it (F2, F3, C3), the one the reason names first. */
+    var events: List<TierEvent> = emptyList()
         internal set
+
+    /** The line the reason names, when a line set the tier. */
+    val flow: FlowLine? get() = reasons.firstOrNull()
+
+    /** The legal item the reason names, when one set the tier. */
+    val event: TierEvent? get() = events.firstOrNull()
 }
 
-private fun TierResult.setBy(flow: FlowLine? = null, event: TierEvent? = null) = also { it.flow = flow; it.event = event }
+private fun TierResult.setBy(flows: List<FlowLine> = emptyList(), events: List<TierEvent> = emptyList()) = also { it.reasons = flows; it.events = events }
+
+/** [named] first, then the rest in their order. */
+private fun <T> namedFirst(named: T, all: List<T>): List<T> = listOf(named) + (all - named)
 
 /**
  * A legal or regulatory item, as the tier rules see it. [label] ("$5 billion FTC penalty") and [date]
@@ -137,29 +149,37 @@ fun tier(
     // F1: sensitive data goes elsewhere, by the app's own account or a ruling; checked first, so a
     // current flow the maker discloses is named before a ruling.
     raising.filter { it.bucket == GOES_ELSEWHERE && it.data in SENSITIVE_DATA && it.status in setOf("self_disclosed", "adjudicated") }
-        .minWithOrNull(NAMED_FIRST.thenBy { SENSITIVE_DATA.indexOf(it.data) })
-        ?.let { return flagged(reason(it, appName), "F1").setBy(flow = it) }
+        .sortedWith(NAMED_FIRST.thenBy { SENSITIVE_DATA.indexOf(it.data) }).takeIf { it.isNotEmpty() }
+        ?.let { return flagged(reason(it.first(), appName), "F1").setBy(flows = it) }
     // F2: a ruling, settlement or order concerning this app's data, named so a Flagged badge is never unexplained.
     legal.filter { it.status == "adjudicated" }.takeIf { it.isNotEmpty() }?.let { rulings ->
-        val ruling = named(rulings) ?: return flagged("A court or regulator has ruled on this app's data", "F2").setBy(event = rulings.first())
-        return flagged("A ${ruling.date?.take(4)?.let { "$it " }.orEmpty()}ruling on this app's data: ${ruling.label}", "F2").setBy(event = ruling)
+        val ruling = named(rulings) ?: return flagged("A court or regulator has ruled on this app's data", "F2").setBy(events = rulings)
+        return flagged("A ${ruling.date?.take(4)?.let { "$it " }.orEmpty()}ruling on this app's data: ${ruling.label}", "F2").setBy(events = namedFirst(ruling, rulings))
     }
-    // F3: a lawsuit over this app's data has survived a motion to dismiss.
+    // F3: a lawsuit over this app's data has survived a motion to dismiss. Said as the court's step, a fact; the claim
+    // itself stays in On the record.
     legal.filter { it.status == "alleged" && it.statusKind == "survived_motion_to_dismiss" }.takeIf { it.isNotEmpty() }?.let { suits ->
-        return flagged(
-            named(suits)?.let { "A lawsuit over this app's data survived a motion to dismiss: ${it.label} ($NOT_PROVEN)" }
-                ?: "A lawsuit over this app's data has survived a motion to dismiss ($NOT_PROVEN)",
-            "F3",
-        ).setBy(event = named(suits) ?: suits.first())
+        val what = "A court has let a case about this app's data go ahead"
+        val suit = named(suits) ?: suits.first()
+        return flagged(named(suits)?.let { "$what: ${it.label} ($NOT_PROVEN)" } ?: "$what ($NOT_PROVEN)", "F3").setBy(events = namedFirst(suit, suits))
     }
     // C1: used for more, by the app's own account, two independent reports, or a ruling.
     raising.filter { it.bucket == USED_FOR_MORE && it.status in setOf("self_disclosed", "reported", "adjudicated") }
-        .minWithOrNull(NAMED_FIRST)
-        ?.let { return TierResult(Tier.CAUTION, reason(it, appName), "C1").setBy(flow = it) }
-    // C2: anything else that goes elsewhere, including sensitive data with weaker evidence than F1 needs.
-    raising.filter { it.bucket == GOES_ELSEWHERE }
-        .minWithOrNull(NAMED_FIRST)
-        ?.let { return TierResult(Tier.CAUTION, reason(it, appName), "C2").setBy(flow = it) }
+        .sortedWith(NAMED_FIRST).takeIf { it.isNotEmpty() }
+        ?.let { return TierResult(Tier.CAUTION, reason(it.first(), appName), "C1").setBy(flows = it) }
+    // C2: anything else that goes elsewhere, including sensitive data with weaker evidence than F1 needs. A line a
+    // claimant alleges is never the reason given: when only such lines count, the reason is the court's or regulator's
+    // step that lets them count, and no line is marked.
+    raising.filter { it.bucket == GOES_ELSEWHERE }.takeIf { it.isNotEmpty() }?.let { elsewhere ->
+        val facts = elsewhere.filterNot { it.status == "alleged" }.sortedWith(NAMED_FIRST)
+        if (facts.isNotEmpty()) return TierResult(Tier.CAUTION, reason(facts.first(), appName), "C2").setBy(flows = facts)
+        val step = if (elsewhere.any { it.statusKind == "survived_motion_to_dismiss" }) {
+            "A court has let a case go ahead over where this app's data goes ($NOT_PROVEN)"
+        } else {
+            "A regulator has opened a formal proceeding over where this app's data goes ($NOT_YET_DECIDED)"
+        }
+        return TierResult(Tier.CAUTION, step, "C2")
+    }
     // C3: a regulator has opened a formal proceeding over this app's data (alleged, not yet decided). Filing alone, a
     // lawsuit's or a complaint's, never counts: a lawsuit counts once a judge lets it go ahead (F3).
     legal.filter { it.status == "alleged" && it.statusKind == "proceeding_opened" }.takeIf { it.isNotEmpty() }?.let { proceedings ->
@@ -168,7 +188,7 @@ fun tier(
             Tier.CAUTION,
             named(proceedings)?.let { "$what: ${it.label} ($NOT_YET_DECIDED)" } ?: "$what ($NOT_YET_DECIDED)",
             "C3",
-        ).setBy(event = named(proceedings) ?: proceedings.first())
+        ).setBy(events = namedFirst(named(proceedings) ?: proceedings.first(), proceedings))
     }
     // C4: access that reaches into the rest of the phone.
     reach.firstNotNullOfOrNull { DEEP_REACH[it] }?.let { return TierResult(Tier.CAUTION, it, "C4") }

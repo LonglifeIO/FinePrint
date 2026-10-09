@@ -5,7 +5,8 @@ import com.longlifeio.fineprint.egress.DetectedTracker
 import com.longlifeio.fineprint.egress.TrackerSignature
 
 /*
- * The order FinePrint's lines are read in (docs/METHOD.md, Where data goes): first data that goes to other
+ * The order FinePrint's lines are read in (docs/METHOD.md, Where data goes): first the lines that set the tier
+ * (docs/METHOD.md, An app's page), and never a line a claimant alleges before one that isn't; then data that goes to other
  * companies for more than running the app (ads, profiling, resale, government access), then what the app's own
  * company uses it for beyond running the app, then what it collects to run the app. A reviewed line's group
  * follows its place (Goes elsewhere, Used for more, Stays here), which its record sets from the stated purpose;
@@ -23,12 +24,13 @@ fun FlowLine.group(): LineGroup = when (bucket) {
 }
 
 /**
- * The reading order: group; then a current practice before a past one; sensitive data first (the tiers'
- * own list); the company's own account, then a ruling, a report, an allegation, a line inferred from code;
- * then the order the record gives (the sort is stable).
+ * The reading order: the lines that set the tier; every line that isn't alleged before any that is; then group; a
+ * current practice before a past one; sensitive data first (the tiers' own list); the company's own account, then a
+ * ruling, a report, an allegation, a line inferred from code; then the order the record gives (the sort is stable).
  */
 val LINE_ORDER: Comparator<FlowLine> = compareBy<FlowLine>(
-    { it.group() }, { it.historical }, { if (it.data in SENSITIVE_DATA) 0 else 1 }, { NAMING_ORDER.indexOf(it.status) },
+    { !it.setsTier }, { it.status == "alleged" }, { it.group() }, { it.historical }, { if (it.data in SENSITIVE_DATA) 0 else 1 },
+    { NAMING_ORDER.indexOf(it.status) },
 )
 
 /** Every line on an app's page in reading order: each place's lines, government lines and trackers with no recorded purpose. */

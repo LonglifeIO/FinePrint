@@ -33,6 +33,7 @@ class MethodDocTest {
             listOf(NOT_RECORDED.title, NOT_RECORDED.subtitle, ALSO_COLLECTED, PURPOSE_NOT_RECORDED, CANT_SEE_SETTING) +
             listOf(CHECKED_BY, THEIR_WORDS_ONLY_LINE, NO_RECORD_LINE, ListFilter.CHECKED.label, ListFilter.THEIR_WORDS.label) +
             listOf(ASK_FOR_REVIEW, REVIEW_DISCLOSURE, OPEN_GITHUB) +
+            listOf("$WHY:", reasonMarker(Tier.FLAGGED), reasonMarker(Tier.CAUTION)) + BUCKETS.map { "${BUCKET_TEXT.getValue(it).title} · ${BUCKET_GLOSS.getValue(it)}" } +
             listOf(CHECK_ANDROID_OFF, CHECK_ANDROID_ON, CHECK_IN_APP, CHECK_ANDROID_UNSEEN)
         assertEquals(emptyList<String>(), shown.filterNot { it in published })
     }

@@ -50,14 +50,16 @@ import com.longlifeio.fineprint.explain.NO_RECORD_DEFINITION
 import com.longlifeio.fineprint.explain.REVIEWED_DEFINITION
 import com.longlifeio.fineprint.explain.THEIR_WORDS
 import com.longlifeio.fineprint.explain.THE_FINE_PRINT
+import com.longlifeio.fineprint.explain.Tier
 import com.longlifeio.fineprint.explain.WhatYouCanDo
 import com.longlifeio.fineprint.explain.asksForReview
 import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.coverageLine
+import com.longlifeio.fineprint.explain.whyLine
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 
-/** The app, its tier as an indicator chip ("Flagged ✓" once reviewed) and the line that set it: the answer before the detail. */
+/** The app, its tier as an indicator chip ("Flagged ✓" once reviewed) and why ("Why: …"): the answer before the detail. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun DetailHeader(
@@ -78,7 +80,8 @@ internal fun DetailHeader(
             if (app.isSystem) SystemLabel(interactive = true)
             if (e.stale) StaleMarker()
         }
-        Text(e.tier.reason, style = MaterialTheme.typography.bodyLarge, color = p.ink)
+        // Why it has its tier: what set it, said as a fact; the lines or legal items that set it carry its marker below.
+        Text(whyLine(e) ?: e.tier.reason, style = MaterialTheme.typography.bodyLarge, color = p.ink, modifier = Modifier.testTag("why"))
         // How far FinePrint has looked: checked by a reviewer, their words only, or no record yet.
         Text(coverageLine(e), style = MaterialTheme.typography.bodySmall, color = p.muted, modifier = Modifier.testTag("coverage"))
         if (e.asksForReview) AskForReview(onAskForReview, reviewUnavailable)
@@ -112,11 +115,13 @@ internal fun StoreTagline.asSource() = Source(sourceUrl, listingName(sourceUrl),
 
 /**
  * The hero (docs/METHOD.md, An app's page): the app's own short description, verbatim and attributed,
- * then The fine print, at most four of FinePrint's lines in reading order, each marked with an asterisk, in
+ * then The fine print, at most four of FinePrint's lines in reading order (those that set the tier first, with its
+ * marker), each marked with an asterisk, in
  * small type, and last what it collects to run the app, folded into one line that opens to those lines.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folded: FoldedLines?, onSources: (SheetContent) -> Unit) {
+internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folded: FoldedLines?, tier: Tier?, onSources: (SheetContent) -> Unit) {
     val p = LocalPalette.current
     Column(
         Modifier.padding(horizontal = Space.screen, vertical = Space.s).fillMaxWidth().clip(RoundedCornerShape(Corner.hero)).background(p.card).padding(Space.hero),
@@ -138,7 +143,11 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folde
                         Text(line.text, style = MaterialTheme.typography.bodySmall, color = p.ink, modifier = Modifier.speaks(line.text))
                         line.conditional?.let { Text(conditionLine(it), style = MaterialTheme.typography.labelSmall, color = p.ink) }
                         val s = line.sources.firstOrNull()
-                        Text(statusWord(line.status, line.forum) + (s?.let { " · ${it.title}, ${sourceDate(it)}" } ?: ""), style = MaterialTheme.typography.labelSmall, color = p.muted)
+                        // The tier's marker leads the status words on a line that set the tier, on the same row.
+                        FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.s), verticalArrangement = Arrangement.spacedBy(Space.xs), itemVerticalAlignment = Alignment.CenterVertically) {
+                            if (line.setsTier) ReasonMarker(tier)
+                            Text(statusWord(line.status, line.forum) + (s?.let { " · ${it.title}, ${sourceDate(it)}" } ?: ""), style = MaterialTheme.typography.labelSmall, color = p.muted)
+                        }
                     }
                 }
             }

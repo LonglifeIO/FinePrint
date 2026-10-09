@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -44,6 +45,7 @@ import com.longlifeio.fineprint.explain.NO_RECORD
 import com.longlifeio.fineprint.explain.REVIEWED
 import com.longlifeio.fineprint.explain.STAYS_HERE
 import com.longlifeio.fineprint.explain.Tier
+import com.longlifeio.fineprint.explain.reasonMarker
 
 /** The brief's tier glyphs: a filled diamond, a half-filled circle, a check in a circle, a dashed circle. */
 fun tierGlyph(tier: Tier?): Int = when (tier) {
@@ -129,6 +131,17 @@ fun TierChip(tier: Tier?, modifier: Modifier = Modifier, count: Int? = null, nou
     val word = tier?.label ?: NO_RECORD
     val spoken = listOfNotNull("Tier: $word", count?.let { "$it $noun" }, REVIEWED.takeIf { reviewed }).joinToString(", ")
     IndicatorChip(tierGlyph(tier), word, LocalPalette.current.tone(tier), spoken, modifier, count, reviewed, dashed = tier == null)
+}
+
+/**
+ * "Flagged for this" or "Caution for this", on a line or legal item that set the tier: the tier's own glyph and tone,
+ * so no new colour. Nothing for Expected or No record yet, which no line sets.
+ */
+@Composable
+fun ReasonMarker(tier: Tier?, modifier: Modifier = Modifier) {
+    if (tier != Tier.FLAGGED && tier != Tier.CAUTION) return
+    val word = reasonMarker(tier)
+    IndicatorChip(tierGlyph(tier), word, LocalPalette.current.tone(tier), word, modifier.testTag("reason"))
 }
 
 /** A bucket as an indicator chip with its count: "Goes elsewhere 5". */
