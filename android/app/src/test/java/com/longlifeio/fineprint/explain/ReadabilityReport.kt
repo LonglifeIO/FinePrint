@@ -43,6 +43,24 @@ class ReadabilityTest {
     }
 
     @Test
+    fun aNameOfSeveralWordsGradesAsItsInitialsDo() {
+        assertEquals(
+            listOf("In", "2026", "the", "0", "and", "the", "0", "fined", "it"),
+            gradedWords("In 2026 the Federal Trade Commission and the Data Protection Commission fined it."),
+        )
+        assertEquals(listOf("It", "cites", "50", "0", "1881a"), gradedWords("It cites 50 U.S.C. § 1881a."))
+        assertEquals(listOf("Texas", "v", "Allstate"), gradedWords("Texas v. Allstate"))
+        assertEquals(listOf("The", "0", "fined", "it"), gradedWords("The Federal Trade Commission fined it."))
+        // Not names: a sentence's first word, and words apart by more than a space.
+        assertEquals(listOf("When", "FinePrint", "infers", "it"), gradedWords("When FinePrint infers it."))
+        assertEquals(listOf("Reported", "Journalists", "found", "it"), gradedWords("Reported: Journalists found it."))
+        assertEquals(listOf("Apps", "this", "app", "Permissions", "Location"), gradedWords("Apps > this app > Permissions > Location"))
+        assertEquals(grade("In 2026 the FTC fined the company that makes the app."), grade("In 2026 the Federal Trade Commission fined the company that makes the app."), 0.0)
+        // The length limit still counts every word.
+        assertEquals(13, measure(Sentence("In 2026 the Federal Trade Commission and the Data Protection Commission fined it.", "")).words)
+    }
+
+    @Test
     fun stackedQualifiersCountEachOrAndEachComma() {
         assertEquals(6, qualifiers("by its own account or a ruling, or a court has ruled on, or let proceed, a case"))
     }

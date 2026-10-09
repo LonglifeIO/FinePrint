@@ -53,6 +53,31 @@ fun sentences(text: String): List<String> {
 
 fun words(sentence: String): List<String> = WORD.findAll(sentence).map { it.value }.toList()
 
+/**
+ * The words the grade counts: a name of several capitalized words ("Federal Trade Commission", "U.S.C.") is one word of
+ * one syllable, as a number is, so a name spelled out grades as its initials do. A name's words are apart only by spaces
+ * or full stops ("Permissions > Location" is two), and a sentence's first word is capitalized anyway ("When FinePrint").
+ */
+fun gradedWords(sentence: String): List<String> {
+    val out = mutableListOf<String>()
+    var run = 0 // the name's words so far
+    var end = -1 // where the word before ended
+    for (m in WORD.findAll(sentence)) {
+        val joined = run > 0 && sentence.substring(end, m.range.first).all { it == ' ' || it == '.' }
+        run = when {
+            end < 0 || !m.value.first().isUpperCase() -> 0
+            joined -> run + 1
+            else -> 1
+        }
+        when {
+            run == 2 -> out[out.lastIndex] = "0"
+            run < 2 -> out += m.value
+        }
+        end = m.range.last + 1
+    }
+    return out
+}
+
 /** Vowel groups, less a silent final e; a number counts as one. */
 fun syllables(word: String): Int {
     val w = word.lowercase().filter { it in 'a'..'z' }
@@ -63,7 +88,7 @@ fun syllables(word: String): Int {
 
 /** Flesch–Kincaid grade for one sentence: rough, but it ranks a statute-like line above a plain one. */
 fun grade(sentence: String): Double {
-    val w = words(sentence)
+    val w = gradedWords(sentence)
     if (w.isEmpty()) return 0.0
     return maxOf(0.0, 0.39 * w.size + 11.8 * w.sumOf(::syllables) / w.size - 15.59)
 }
