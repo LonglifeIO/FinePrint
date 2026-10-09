@@ -36,6 +36,7 @@
      "type": "class_action",
      "status": "alleged",
      "status_kind": "dismissed",
+     "forum": "court",
      "closed_date": "2026-06-29",
      "subject_company": "co-amplitude",
      "notes": "Alleged that Amplitude's SDK secretly collected app users' activity, search terms and location data from apps that didn't disclose it. The court sent the named plaintiffs' claims to arbitration on 2025-09-02 and refused an interlocutory appeal on 2026-03-25; the plaintiffs dismissed their own claims with prejudice on 2026-06-29, which doesn't affect other class members' claims.",

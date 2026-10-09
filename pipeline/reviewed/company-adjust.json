@@ -37,6 +37,7 @@
      "type": "class_action",
      "status": "alleged",
      "status_kind": "filed",
+     "forum": "court",
      "subject_company": "co-adjust",
      "notes": "A collective action under the Dutch WAMCA for people in the Netherlands who used apps with AppLovin's or Adjust's SDKs since 2018, which the foundation puts at 8.5 million or more, about 1.5 million of them minors. It claims breaches of the GDPR and the Dutch Telecommunications Act, and seeks damages and an end to the practices. First court date: 2026-08-26.",
      "sources": [

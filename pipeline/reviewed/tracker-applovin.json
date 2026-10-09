@@ -293,6 +293,7 @@
      "subject_company": "co-applovin",
      "status": "alleged",
      "status_kind": "filed",
+     "forum": "court",
      "wording": "Alleged in a lawsuit filed by San Diego County on 2026-10-05.",
      "sources": [
       {
@@ -326,6 +327,7 @@
      "subject_company": "co-applovin",
      "status": "alleged",
      "status_kind": "filed",
+     "forum": "court",
      "wording": "Alleged in a collective action by Stichting The Privacy Collective in the Amsterdam District Court; the summons was issued on 2026-05-21.",
      "sources": [
       {
