@@ -25,7 +25,7 @@ VALIDATOR = build.jsonschema.Draft202012Validator(
 
 
 def doc(**sections) -> dict:
-    base = {"schema_version": 1, "schema_revision": "1.5", "bundle_version": "2026.10.04",
+    base = {"schema_version": 1, "schema_revision": "1.6", "bundle_version": "2026.10.04",
             "generated_at": "2026-10-04T12:00:00-03:00", "apps": [], "trackers": [], "companies": [],
             "permissions": [], "device_reach": []}
     return dict(base, **sections)

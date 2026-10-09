@@ -46,6 +46,7 @@ import com.longlifeio.fineprint.explain.WhatYouCanDo
 import com.longlifeio.fineprint.explain.appliesHeadline
 import com.longlifeio.fineprint.explain.canDoHeadline
 import com.longlifeio.fineprint.explain.collectsHeadline
+import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.reachHeadline
 import com.longlifeio.fineprint.explain.summaryHeadline
 import com.longlifeio.fineprint.explain.whereHeadline
@@ -180,8 +181,9 @@ internal fun FlowLineRow(line: FlowLine, onSources: (SheetContent) -> Unit) {
     Column(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 8.dp)) {
         Text(label, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
         Text("→ ${line.recipient}: ${line.purpose}" + LocalFootnotes.current.marks(line.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks("→ ${line.recipient}: ${line.purpose}"))
+        line.conditional?.let { Text(conditionLine(it), style = MaterialTheme.typography.bodySmall) }
         Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            StatusBadge(line.status, line.historical)
+            StatusBadge(line.status, line.historical, line.forum)
             DEFAULTS[line.default]?.let { d ->
                 WithDefinition(d.label, d.definition) {
                     Text(d.label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurface)

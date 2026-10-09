@@ -51,6 +51,7 @@ import com.longlifeio.fineprint.explain.REVIEWED_DEFINITION
 import com.longlifeio.fineprint.explain.THEIR_WORDS
 import com.longlifeio.fineprint.explain.THE_FINE_PRINT
 import com.longlifeio.fineprint.explain.WhatYouCanDo
+import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.noRecordFrom
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
@@ -131,8 +132,9 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folde
                     Text("*", style = MaterialTheme.typography.titleMedium, color = p.ink, modifier = Modifier.clearAndSetSemantics { })
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         Text(line.text, style = MaterialTheme.typography.bodySmall, color = p.ink, modifier = Modifier.speaks(line.text))
+                        line.conditional?.let { Text(conditionLine(it), style = MaterialTheme.typography.labelSmall, color = p.ink) }
                         val s = line.sources.firstOrNull()
-                        Text(statusWord(line.status) + (s?.let { " · ${it.title}, ${sourceDate(it)}" } ?: ""), style = MaterialTheme.typography.labelSmall, color = p.muted)
+                        Text(statusWord(line.status, line.forum) + (s?.let { " · ${it.title}, ${sourceDate(it)}" } ?: ""), style = MaterialTheme.typography.labelSmall, color = p.muted)
                     }
                 }
             }
@@ -163,8 +165,9 @@ private fun FoldedRow(folded: FoldedLines) {
     if (open) folded.lines.forEach { line ->
         Column(Modifier.padding(start = Space.l, top = Space.xs).testTag("also-collected-line").semantics(mergeDescendants = true) { }, verticalArrangement = Arrangement.spacedBy(Space.xs)) {
             Text(line.text, style = MaterialTheme.typography.bodySmall, color = p.ink, modifier = Modifier.speaks(line.text))
+            line.conditional?.let { Text(conditionLine(it), style = MaterialTheme.typography.labelSmall, color = p.ink) }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Space.s)) {
-                StatusBadge(line.status, line.historical)
+                StatusBadge(line.status, line.historical, line.forum)
                 line.sources.firstOrNull()?.let { Text("${it.title}, ${sourceDate(it)}", style = MaterialTheme.typography.labelSmall, color = p.muted) }
             }
         }

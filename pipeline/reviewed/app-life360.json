@@ -288,6 +288,7 @@
      "concerns_app": "com.life360.android.safetymapd",
      "status": "alleged",
      "status_kind": "survived_motion_to_dismiss",
+     "forum": "court",
      "wording": "Alleged by the Texas AG and in a federal class action; not proven in court. Part of the Texas case was dismissed on jurisdiction grounds and is under appeal.",
      "procedural_note": {
       "text": "On 2025-04-10 the Texas court dismissed The Allstate Corporation and Arity 875 LLC for lack of personal jurisdiction (MLex); that dismissal is on appeal and the case continues against the remaining Allstate entities.",
@@ -527,6 +528,7 @@
      ]
     }
    ],
+   "checked_on": "2026-10-04",
    "coverage": "curated",
    "last_reviewed": "2026-10-04",
    "risk_tag_notes": {

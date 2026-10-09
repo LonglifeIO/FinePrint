@@ -30,12 +30,25 @@ internal fun trackerLines(
             }
         } else {
             for (t in found) {
-                lines += deriveFlows(t.name, signatures[t.id]?.categories ?: t.categories, if (owned) "first_party" else record?.party)
+                lines += deriveFlows(t.name, categoriesOf(t, record, signatures), if (owned) "first_party" else record?.party)
             }
         }
     }
     return lines
 }
+
+/**
+ * What a tracker's lines are inferred from: its record's own sourced purpose when it has one, else εxodus'
+ * categories (docs/METHOD.md, Where data goes).
+ */
+internal fun categoriesOf(t: DetectedTracker, record: TrackerRecord?, signatures: Map<String, TrackerSignature>): List<String> =
+    record?.purpose?.let { listOf(PURPOSE_CATEGORY[it] ?: it) } ?: signatures[t.id]?.categories ?: t.categories
+
+/** A record's purpose as the category deriveFlows reads; "other" infers no line. */
+private val PURPOSE_CATEGORY = mapOf(
+    "ads" to "advertising", "analytics" to "analytics", "crash_reporting" to "crash_reporting", "attribution" to "attribution",
+    "location_data" to "location", "identity" to "identification", "other" to "other",
+)
 
 /** A tracker line's bucket inside an app its owner made: what the record says, or its own unless it goes elsewhere. */
 private fun inOwnersApp(f: DataFlow): String? = f.inOwnerApps ?: f.bucket.takeUnless { it == GOES_ELSEWHERE }

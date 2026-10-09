@@ -27,6 +27,7 @@
      "type": "class_action",
      "status": "alleged",
      "status_kind": "dismissed",
+     "forum": "court",
      "closed_date": "2023-08-18",
      "subject_company": "co-cuebiq",
      "notes": "Against Cuebiq, Inc., before Cuebiq Group, LLC took over its business. Alleged that Cuebiq sold app users' precise location data without their consent (not proven in court). The plaintiff dropped the case three weeks after filing it.",

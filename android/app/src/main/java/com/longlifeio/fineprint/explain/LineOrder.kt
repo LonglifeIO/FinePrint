@@ -9,8 +9,9 @@ import com.longlifeio.fineprint.egress.TrackerSignature
  * companies for more than running the app (ads, profiling, resale, government access), then what the app's own
  * company uses it for beyond running the app, then what it collects to run the app. A reviewed line's group
  * follows its place (Goes elsewhere, Used for more, Stays here), which its record sets from the stated purpose;
- * an inferred line's place comes from its tracker's εxodus category; a tracker whose purpose isn't recorded is
- * in the first group. Display only: the tier and the Reviewed mark read the lines, never their order.
+ * an inferred line's place comes from its tracker record's own purpose, else its εxodus category; a tracker
+ * whose purpose isn't recorded is in the first group. Display only: the tier and the Reviewed mark read the
+ * lines, never their order.
  */
 
 enum class LineGroup { OTHER_COMPANIES, OWN_USE, RUNS_THE_APP }
@@ -48,7 +49,7 @@ internal fun unrecordedLines(detected: List<DetectedTracker>, bundle: Bundle?, d
         val record = bundle?.trackers?.get(t.id)
         val owned = developer != null && record?.ownerCompany?.let { sameCompany(it, developer, bundle) } == true
         val recorded = record != null && record.dataFlows.any { it.government == null }
-        !owned && !recorded && deriveFlows(t.name, signatures[t.id]?.categories ?: t.categories, record?.party).isEmpty()
+        !owned && !recorded && record?.purpose == null && deriveFlows(t.name, categoriesOf(t, record, signatures), record?.party).isEmpty()
     }.map { it.name }.distinct()
     if (names.isEmpty()) return emptyList()
     val via = names.joinToString()

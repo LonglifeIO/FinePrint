@@ -80,6 +80,6 @@ private fun RecordLineRow(line: RecordLine, onDetails: (SheetContent) -> Unit) {
             .padding(horizontal = 16.dp, vertical = 2.dp),
     ) {
         Text(line.line + LocalFootnotes.current.marks(line.sources), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.speaks(line.line).weight(1f))
-        StatusBadge(line.status, historical = false)
+        StatusBadge(line.status, historical = false, forum = line.forum)
     }
 }

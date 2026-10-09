@@ -1,0 +1,61 @@
+{
+ "schema_version": 1,
+ "schema_revision": "1.6",
+ "bundle_version": "2026.10.08",
+ "generated_at": "2026-10-08T12:00:00-03:00",
+ "apps": [
+  {
+   "package_id": "com.example.conditional",
+   "display_name": "Example Conditional",
+   "developer_company": "co-cond",
+   "summary": "Synthetic test record: a flow that depends on a setting FinePrint can't see.",
+   "trackers": [],
+   "coverage": "curated",
+   "checked_on": "2026-10-08",
+   "last_reviewed": "2026-10-08",
+   "data_flows": [
+    {
+     "id": "flow-usage", "data": "app_activity", "recipient": "co-cond", "purpose": "Usage statistics for the developer",
+     "bucket": "stays_here", "status": "self_disclosed",
+     "sources": [{"url": "https://example.org/policy", "type": "privacy_policy", "title": "Policy, usage", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "to understand how the app is used"}]
+    },
+    {
+     "id": "flow-sharing", "data": "device_identifiers", "recipient_label": "Google", "purpose": "Google's own products and ads",
+     "bucket": "goes_elsewhere", "status": "self_disclosed", "conditional": "if the developer turns on data sharing",
+     "sources": [{"url": "https://example.org/sdk", "type": "company_site", "title": "SDK documentation", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "when data sharing is enabled"}]
+    }
+   ],
+   "consequences": []
+  },
+  {
+   "package_id": "com.example.regulator",
+   "display_name": "Example Regulator",
+   "developer_company": "co-reg",
+   "summary": "Synthetic test record: a complaint a regulator hasn't decided.",
+   "trackers": [],
+   "coverage": "curated",
+   "last_reviewed": "2026-10-08",
+   "data_flows": [],
+   "consequences": [
+    {
+     "text": "A complaint alleges the app passed what you do in it to another company.",
+     "status": "alleged", "status_kind": "filed", "forum": "regulator",
+     "wording": "Alleged in a complaint filed with a data protection authority on 2025-12-17",
+     "sources": [{"url": "https://example.org/complaint", "type": "regulator", "title": "The complaint", "as_of": "2025-12-17", "status": "alleged", "quote": "the complaint alleges"}]
+    }
+   ]
+  }
+ ],
+ "trackers": [
+  {
+   "id": "exodus-3", "owner": "Some Vendor", "categories": ["crash_reporting"], "consequences": [], "last_reviewed": "2026-10-08",
+   "purpose": {"kind": "crash_reporting", "sources": [{"url": "https://example.org/vendor", "type": "company_site", "title": "Vendor docs", "as_of": "2026-01-01", "status": "self_disclosed", "quote": "crash reports for developers"}]}
+  }
+ ],
+ "companies": [
+  {"id": "co-cond", "name": "Example Conditional Inc.", "roles": ["developer"], "jurisdiction": "US", "last_reviewed": "2026-10-08"},
+  {"id": "co-reg", "name": "Example Regulator Ltd.", "roles": ["developer"], "jurisdiction": "IL", "last_reviewed": "2026-10-08"}
+ ],
+ "permissions": [],
+ "device_reach": []
+}

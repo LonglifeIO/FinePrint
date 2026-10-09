@@ -21,7 +21,7 @@ fun collectsHeadline(e: Explanation): String =
     if (e.collects.isEmpty()) "Nothing found" else "${plural(e.collects.size, "kind", "kinds")} of data from this phone"
 
 fun whereHeadline(e: Explanation): String {
-    fun current(bucket: String) = e.flows[bucket].orEmpty().filterNot { it.historical }
+    fun current(bucket: String) = e.flows[bucket].orEmpty().filterNot { it.historical || it.conditional != null }
     val elsewhere = current(GOES_ELSEWHERE)
     val more = current(USED_FOR_MORE)
     return when {

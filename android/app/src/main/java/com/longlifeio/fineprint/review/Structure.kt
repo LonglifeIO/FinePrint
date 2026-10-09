@@ -13,9 +13,9 @@ import org.json.JSONObject
  * What a Reviewed mark compares (docs/METHOD.md, Your Reviewed marks): the fields of FinePrint's
  * records that feed the tier rules or the controls, the same ones pipeline/build.py's structural diff
  * compares to say whether a record got better or worse: flows (place, default, evidence), data kinds,
- * trackers, controls, and the legal items naming the app. Wording, purposes and the store description
- * aren't among them, so an edit to those never marks an app changed. ReviewTest keeps this port and
- * build.py in step.
+ * trackers, controls, and the legal items naming the app. Wording, purposes, forums, the store description
+ * and conditional flows (never scored) aren't among them, so an edit to those never marks an app changed.
+ * ReviewTest keeps this port and build.py in step.
  */
 
 /** One current flow: its identity (its id), whether a company is named, its bucket, whether it's on by default, and its evidence. */
@@ -63,8 +63,8 @@ private fun DataFlow.shape(prefix: String) = FlowShape(
 
 /** The app's record, the records of the trackers found in it and the companies' actions, as the structural diff sees them. */
 fun shape(pkg: String, record: AppRecord?, trackers: List<TrackerRecord>, companies: Collection<Company>): Shape = Shape(
-    flows = record?.dataFlows.orEmpty().filterNot { it.historical }.map { it.shape("") } +
-        trackers.flatMap { t -> t.dataFlows.filterNot { it.historical }.map { it.shape("${t.id}:") } },
+    flows = record?.dataFlows.orEmpty().filterNot { it.historical || it.conditional != null }.map { it.shape("") } +
+        trackers.flatMap { t -> t.dataFlows.filterNot { it.historical || it.conditional != null }.map { it.shape("${t.id}:") } },
     trackers = record?.trackers.orEmpty().distinct().sorted(),
     controls = record?.controls.orEmpty().map { it.id }.distinct().sorted(),
     legal = legalItems(pkg, record, trackers, companies),

@@ -77,7 +77,7 @@ const val HISTORICAL = "historical"
 val BADGES = mapOf(
     "self_disclosed" to BadgeText("Self-disclosed", "The company says so itself, in its privacy policy, labels or filings, or a law says so in its own text."),
     "reported" to BadgeText("Reported", "Reported by journalists or researchers; no court or regulator has ruled on it."),
-    "alleged" to BadgeText("Alleged", "Claimed in a lawsuit or complaint; not proven in court."),
+    "alleged" to BadgeText("Alleged", "Claimed in a lawsuit or complaint; not proven in court, or, before a regulator, not yet decided."),
     "adjudicated" to BadgeText("Adjudicated", "Decided by a court or regulator, or settled."),
     AUTO to BadgeText("Auto", "Inferred by FinePrint from tracker code in the app; no person has reviewed it."),
     HISTORICAL to BadgeText("Historical", "Describes a past practice, not a current one."),
@@ -108,8 +108,20 @@ const val REGION_CAVEAT_END = "Where you live, a different policy may apply."
 fun regionCaveat(appName: String, region: String): String =
     "This record follows ${possessive(appName)} privacy policy for one region: $region. $REGION_CAVEAT_END"
 
-/** For alleged lines whose own wording doesn't already say it. */
+/** For alleged lines whose own wording doesn't already say it: a matter before a court... */
 const val NOT_PROVEN = "not proven in court"
+
+/** ...or before a regulator (forum "regulator"). */
+const val NOT_YET_DECIDED = "not yet decided"
+
+/** After a conditional line's condition: the setting is the developer's, and invisible from the phone. */
+const val CANT_SEE_SETTING = "FinePrint can't see that setting."
+
+/** "If the developer turns on data sharing. FinePrint can't see that setting." */
+fun conditionLine(condition: String): String = "${condition.replaceFirstChar { it.uppercase() }}. $CANT_SEE_SETTING"
+
+/** What an alleged line adds about where it stands: "not proven in court", or "not yet decided" before a regulator. */
+fun undecided(forum: String?): String = if (forum == "regulator") NOT_YET_DECIDED else NOT_PROVEN
 
 const val NO_RECORD = "No record yet"
 /** "No record yet · from Google's policy": a preinstalled app showing its maker's policy lines. */

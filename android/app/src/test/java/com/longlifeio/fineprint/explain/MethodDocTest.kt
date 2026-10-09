@@ -30,7 +30,7 @@ class MethodDocTest {
             listOf(fromPolicy("Google"), fromPolicyForAll("Google"), noRecordFrom("Google")) +
             Tier.entries.flatMap { listOf(it.label, it.definition) } +
             listOf(NO_RECORD, NO_RECORD_DEFINITION, STALE_DEFINITION, REVIEWED, REVIEWED_DEFINITION, CHANGED, CHANGED_DEFINITION, LIMITED_DEFINITION) +
-            listOf(NOT_RECORDED.title, NOT_RECORDED.subtitle, ALSO_COLLECTED, PURPOSE_NOT_RECORDED) +
+            listOf(NOT_RECORDED.title, NOT_RECORDED.subtitle, ALSO_COLLECTED, PURPOSE_NOT_RECORDED, CANT_SEE_SETTING) +
             listOf(CHECK_ANDROID_OFF, CHECK_ANDROID_ON, CHECK_IN_APP, CHECK_ANDROID_UNSEEN)
         assertEquals(emptyList<String>(), shown.filterNot { it in published })
     }

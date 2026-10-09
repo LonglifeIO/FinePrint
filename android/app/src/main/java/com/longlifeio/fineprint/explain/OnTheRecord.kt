@@ -33,6 +33,8 @@ data class RecordLine(
     val label: String? = null,
     /** When it ended, else its date: what the three-year limit on tiers looks at. */
     val dated: String = date,
+    /** "court" or "regulator": an alleged line says "not proven in court" or "not yet decided". */
+    val forum: String = "court",
 )
 
 /** On the record, newest first: actions by regulators and courts, then what others have reported. */
@@ -93,8 +95,8 @@ private fun eventLine(company: Company, e: LegalEvent, told: List<Said>, pkg: St
         status = e.status,
         title = e.title,
         subject = "Action against ${againstName(against, developer)}" + if (names) " concerning this app's data" else "",
-        details = words.flatMap { listOfNotNull(it.text, attribution(it.status, it.wording)) }.distinct() +
-            listOfNotNull(e.notes) + listOfNotNull(NOT_PROVEN_LINE.takeIf { e.status == "alleged" && told.isEmpty() }),
+        details = words.flatMap { listOfNotNull(it.text, attribution(it.status, it.wording, it.forum)) }.distinct() +
+            listOfNotNull(e.notes) + listOfNotNull("Alleged: ${undecided(e.forum)}.".takeIf { e.status == "alleged" && told.isEmpty() }),
         proceduralNote = e.proceduralNote ?: words.firstNotNullOfOrNull { it.proceduralNote },
         sources = (e.sources + words.flatMap { it.sources }).distinctBy { it.url to it.quote },
         namesThisApp = names,
@@ -102,6 +104,7 @@ private fun eventLine(company: Company, e: LegalEvent, told: List<Said>, pkg: St
         statusKind = e.statusKind,
         label = e.title,
         dated = e.closedDate ?: e.date,
+        forum = e.forum,
     )
 }
 
@@ -122,17 +125,17 @@ private fun consequenceLine(s: Said, pkg: String, bundle: Bundle?, developer: Co
         status = c.status,
         title = c.text.substringBefore(". ").take(80),
         subject = against?.let { "Action against ${againstName(it, developer)}" + if (names) " concerning this app's data" else " over data collected through its SDK" },
-        details = listOfNotNull(c.text, attribution(c.status, c.wording)),
+        details = listOfNotNull(c.text, attribution(c.status, c.wording, c.forum)),
         proceduralNote = c.proceduralNote,
         sources = c.sources,
         namesThisApp = names,
         ongoing = ongoing(c.status, c.statusKind, c.inForce, c.appealPending, c.closedDate),
         statusKind = c.statusKind,
         dated = c.closedDate ?: date,
+        forum = c.forum,
     )
 }
 
-private const val NOT_PROVEN_LINE = "Alleged: not proven in court."
 
 /** In force, under appeal, or a lawsuit not yet dismissed or ended: what makes a matter ongoing. */
 internal fun ongoing(status: String, kind: String?, inForce: Boolean, appealPending: Boolean, closedDate: String?): Boolean =

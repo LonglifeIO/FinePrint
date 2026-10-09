@@ -40,6 +40,10 @@ data class DataFlow(
     val government: GovernmentRef? = null,
     /** "on" (it happens unless you act), "off" (only if you turn a setting on) or "opt_in" (only if you agree when asked). */
     val default: String = "on",
+    /** Where an alleged matter is to be decided: "court" (the default) or "regulator", for "not proven in court" or "not yet decided". */
+    val forum: String = "court",
+    /** A setting FinePrint can't see that the flow depends on ("if the developer turns on data sharing"): shown, never scored. */
+    val conditional: String? = null,
 )
 
 /** A government line's kind (can_compel, has_bought, has_used) and the government's country. */
@@ -64,6 +68,8 @@ data class Consequence(
     /** When the matter ended; null while it is ongoing, or when the record doesn't say. */
     val closedDate: String? = null,
     val government: GovernmentRef? = null,
+    /** Where an alleged matter is to be decided: "court" (the default) or "regulator", for "not proven in court" or "not yet decided". */
+    val forum: String = "court",
 )
 
 /** A company's regulatory or legal history entry; [date] may be year and month only ("2024-03"). */
@@ -84,6 +90,8 @@ data class LegalEvent(
     val appealPending: Boolean = false,
     val inForce: Boolean = false,
     val closedDate: String? = null,
+    /** Where an alleged matter is to be decided: "court" (the default) or "regulator", for "not proven in court" or "not yet decided". */
+    val forum: String = "court",
 )
 
 data class ExodusReport(val id: Int, val appVersion: String, val created: String, val trackerCount: Int)
@@ -156,6 +164,8 @@ data class TrackerRecord(
     val dataFlows: List<DataFlow>,
     val consequences: List<Consequence>,
     val lastReviewed: String,
+    /** What the SDK is for, from its record (ads, analytics, crash_reporting, ...): the line order prefers it to εxodus' category. */
+    val purpose: String? = null,
 )
 
 data class Company(

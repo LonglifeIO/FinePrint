@@ -15,7 +15,7 @@ data class Glance(
 )
 
 fun glance(apps: List<InstalledApp>, explanations: Map<String, Explanation>, checks: Map<String, WhatYouCanDo>): Glance {
-    fun hasLine(app: InstalledApp, bucket: String) = explanations[app.packageName]?.flows?.get(bucket).orEmpty().any { !it.historical }
+    fun hasLine(app: InstalledApp, bucket: String) = explanations[app.packageName]?.flows?.get(bucket).orEmpty().any { !it.historical && it.conditional == null }
     return Glance(
         apps = apps.size,
         perBucket = BUCKETS.associateWith { bucket -> apps.count { hasLine(it, bucket) } },
@@ -23,7 +23,7 @@ fun glance(apps: List<InstalledApp>, explanations: Map<String, Explanation>, che
         flows = apps.sumOf { checks[it.packageName]?.total ?: 0 },
         othersForMore = apps.count { app ->
             explanations[app.packageName]?.let(::readingOrder).orEmpty()
-                .any { it.group() == LineGroup.OTHER_COMPANIES && !it.historical && it.data != UNRECORDED_DATA }
+                .any { it.group() == LineGroup.OTHER_COMPANIES && !it.historical && it.conditional == null && it.data != UNRECORDED_DATA }
         },
     )
 }

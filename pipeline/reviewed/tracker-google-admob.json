@@ -131,6 +131,7 @@
      "subject_company": "co-google",
      "status": "alleged",
      "status_kind": "survived_motion_to_dismiss",
+     "forum": "court",
      "wording": "Alleged in a class action filed by parents on 2023-06-22 (not proven in court); the court let it go ahead in 2024, and Google agreed to settle.",
      "procedural_note": {
       "text": "Under the settlement, Google pays $8,250,000 into a fund for class members. The court granted preliminary approval on 2026-05-01 and set the final approval hearing for 2026-09-24.",

@@ -85,6 +85,7 @@ private fun JSONObject.toTrackerRecord() = TrackerRecord(
     dataFlows = objects("data_flows").map { it.toDataFlow() },
     consequences = objects("consequences").map { it.toConsequence() },
     lastReviewed = getString("last_reviewed"),
+    purpose = optJSONObject("purpose")?.text("kind"),
 )
 
 private fun JSONObject.toDataFlow() = DataFlow(
@@ -102,6 +103,8 @@ private fun JSONObject.toDataFlow() = DataFlow(
     inOwnerApps = text("in_owner_apps"),
     government = government(),
     default = text("default") ?: "on",
+    forum = text("forum") ?: "court",
+    conditional = text("conditional"),
 )
 
 private fun JSONObject.toConsequence() = Consequence(
@@ -118,6 +121,7 @@ private fun JSONObject.toConsequence() = Consequence(
     inForce = optBoolean("in_force"),
     closedDate = text("closed_date"),
     government = government(),
+    forum = text("forum") ?: "court",
 )
 
 private fun JSONObject.toCompany() = Company(
@@ -150,6 +154,7 @@ private fun JSONObject.toCompany() = Company(
             appealPending = it.optBoolean("appeal_pending"),
             inForce = it.optBoolean("in_force"),
             closedDate = it.text("closed_date"),
+            forum = it.text("forum") ?: "court",
         )
     },
 )

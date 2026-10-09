@@ -3,7 +3,16 @@ package com.longlifeio.fineprint.explain
 import com.longlifeio.fineprint.bundle.Source
 
 /** One line of "The fine print" under an app's own words: a claim, its status and its sources. */
-data class FinePrintLine(val text: String, val status: String?, val sources: List<Source>, val historical: Boolean = false)
+data class FinePrintLine(
+    val text: String,
+    val status: String?,
+    val sources: List<Source>,
+    val historical: Boolean = false,
+    /** "court" or "regulator", for an alleged line's badge. */
+    val forum: String = "court",
+    /** A setting FinePrint can't see that the line depends on. */
+    val conditional: String? = null,
+)
 
 /** "Precise location → Select business partners: For their own monetization purposes". */
 fun FlowLine.claim(): String = "${DATA_LABELS[data] ?: data} → $recipient: $purpose"
@@ -28,4 +37,4 @@ fun alsoCollected(e: Explanation): FoldedLines? {
     return if (lines.isEmpty()) null else FoldedLines(alsoCollectedText(lines), lines.map { it.finePrintLine() })
 }
 
-private fun FlowLine.finePrintLine() = FinePrintLine(claim(), status, sources, historical)
+private fun FlowLine.finePrintLine() = FinePrintLine(claim(), status, sources, historical, forum, conditional)

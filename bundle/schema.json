@@ -2,13 +2,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/longlifeio/fineprint/bundle/schema.json",
   "title": "FinePrint knowledge bundle (bundle.json)",
-  "description": "Contract between the pipeline (producer) and the app (consumer). Bump schema_version on any breaking change. v1.1 (additive): companies, data_flows, device_reach, status sub-types, source independence and archives, Exodus report pinning, stale flag, a required verbatim quote on every source (with as_of, or accessed for undated pages, and verify_url for pages that block scripts), sourced procedural notes on legal items, and risk-tag qualifiers. v1.2 (additive): company short names; health, financial, biometric and children's data kinds for the tier rules; flow ids and in-app controls for the 'What you can do' checklist (a limit can be marked inferred, with a note); sourced summary notes. v1.3: covers (one tracker explanation for several tracker ids) and in_owner_apps (how a tracker's flow reads inside its owner's own apps); in_force and closed_date on legal items, so only ongoing or recent ones count toward a tier; changes[] on app records, each with a direction build.py derives from the record's structure; government lines (recipient_kind government_body: can_compel, has_bought, has_used), a required jurisdiction on companies with its sources, and jurisdictions.json, the laws by which each country can compel data (its own file, defined under $defs/jurisdictions_file); policy_region on app records, and default (on, off, opt_in) on flows; companies[].default_flows and default_notes, which a preinstalled app with no record of its own inherits from the company its package name matches (package_prefixes). v1.4 (additive): store_tagline on app records, the store listing's short description quoted verbatim, which the detail screen shows as \"Their words\". v1.5: every flow has an id (data_flow.id is required); a change's diff also names a flow's evidence (flow status) and the legal items naming the app (event added, event removed, event status), whose direction follows tier_before and tier_after. Tracker names and signatures live in trackers.json (ODbL); this file references trackers by id only and never copies Exodus fields.",
+  "description": "Contract between the pipeline (producer) and the app (consumer). Bump schema_version on any breaking change. v1.1 (additive): companies, data_flows, device_reach, status sub-types, source independence and archives, Exodus report pinning, stale flag, a required verbatim quote on every source (with as_of, or accessed for undated pages, and verify_url for pages that block scripts), sourced procedural notes on legal items, and risk-tag qualifiers. v1.2 (additive): company short names; health, financial, biometric and children's data kinds for the tier rules; flow ids and in-app controls for the 'What you can do' checklist (a limit can be marked inferred, with a note); sourced summary notes. v1.3: covers (one tracker explanation for several tracker ids) and in_owner_apps (how a tracker's flow reads inside its owner's own apps); in_force and closed_date on legal items, so only ongoing or recent ones count toward a tier; changes[] on app records, each with a direction build.py derives from the record's structure; government lines (recipient_kind government_body: can_compel, has_bought, has_used), a required jurisdiction on companies with its sources, and jurisdictions.json, the laws by which each country can compel data (its own file, defined under $defs/jurisdictions_file); policy_region on app records, and default (on, off, opt_in) on flows; companies[].default_flows and default_notes, which a preinstalled app with no record of its own inherits from the company its package name matches (package_prefixes). v1.4 (additive): store_tagline on app records, the store listing's short description quoted verbatim, which the detail screen shows as \"Their words\". v1.5: every flow has an id (data_flow.id is required); a change's diff also names a flow's evidence (flow status) and the legal items naming the app (event added, event removed, event status), whose direction follows tier_before and tier_after. Tracker names and signatures live in trackers.json (ODbL); this file references trackers by id only and never copies Exodus fields. v1.6 (additive): checked_on on app records (Checked by FinePrint, or Their words only), forum on alleged lines (court or regulator), conditional flows (shown, never scored), a sourced purpose on tracker records, owner_history on company records, confidence_note on tracker and company records, and first_party covers a processor working for the app's developer.",
   "type": "object",
   "required": ["schema_version", "bundle_version", "generated_at", "trackers", "apps", "permissions"],
   "additionalProperties": false,
   "properties": {
     "schema_version": { "const": 1 },
-    "schema_revision": { "const": "1.5" },
+    "schema_revision": { "const": "1.6" },
     "bundle_version": { "type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[0-9]+)?$" },
     "generated_at": { "type": "string", "format": "date-time" },
     "licence": { "type": "string", "description": "CC BY 4.0 for this file." },
@@ -104,6 +104,23 @@
       }
     },
 
+    "forum": {
+      "enum": ["court", "regulator"],
+      "default": "court",
+      "description": "Where an alleged matter is to be decided. The app adds the parenthetical: '(not proven in court)' for court, the default, and '(not yet decided)' for a regulator. Records never carry it."
+    },
+
+    "confidence_note": {
+      "type": "object",
+      "required": ["text", "sources"],
+      "additionalProperties": false,
+      "description": "Why confidence in a record isn't high, in plain words, with its sources.",
+      "properties": {
+        "text": { "type": "string", "maxLength": 600 },
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } }
+      }
+    },
+
     "consequence": {
       "type": "object",
       "required": ["text", "status", "sources"],
@@ -115,6 +132,7 @@
         "status_kind": { "$ref": "#/$defs/status_kind" },
         "appeal_pending": { "type": "boolean" },
         "in_force": { "type": "boolean", "description": "An order or settlement whose terms still bind the company, e.g. a 20-year FTC order. Like appeal_pending, it makes the matter ongoing." },
+        "forum": { "$ref": "#/$defs/forum" },
         "closed_date": { "$ref": "#/$defs/date", "description": "When the matter ended: a final judgment, a settlement's final approval, an order's expiry. An ongoing matter has none. Ongoing matters, and those dated (closed_date, else date) within three years, count toward a tier." },
         "wording": { "type": "string", "description": "Attribution phrase the UI shows, e.g. 'alleged in a lawsuit filed by the Texas AG on 2025-01-13 (not proven in court)'." },
         "historical": { "type": "boolean", "description": "True when this describes a past practice, not a current one." },
@@ -154,6 +172,8 @@
         "status": { "$ref": "#/$defs/status" },
         "status_kind": { "$ref": "#/$defs/status_kind" },
         "appeal_pending": { "type": "boolean" },
+        "forum": { "$ref": "#/$defs/forum" },
+        "conditional": { "type": "string", "minLength": 3, "maxLength": 200, "description": "Plain words for a setting the flow depends on that FinePrint can't see, e.g. 'if the developer turns on data sharing'. The app shows it with the line and says FinePrint can't see that setting. A conditional flow sits in its group by purpose and is never scored: not in a tier, the headline or the chips." },
         "wording": { "type": "string" },
         "historical": { "type": "boolean" },
         "procedural_note": { "$ref": "#/$defs/procedural_note" },
@@ -186,6 +206,7 @@
         "status_kind": { "$ref": "#/$defs/status_kind" },
         "appeal_pending": { "type": "boolean" },
         "in_force": { "type": "boolean", "description": "An order or settlement whose terms still bind the company, e.g. a 20-year FTC order. Like appeal_pending, it makes the matter ongoing." },
+        "forum": { "$ref": "#/$defs/forum" },
         "closed_date": { "$ref": "#/$defs/date", "description": "When the matter ended: a final judgment, a settlement's final approval, an order's expiry. An ongoing matter has none. Ongoing matters, and those dated (closed_date, else date) within three years, count toward a tier." },
         "subject_company": { "$ref": "#/$defs/company_id" },
         "concerns_app": { "type": "string" },
@@ -224,6 +245,23 @@
           "type": "array", "items": { "$ref": "#/$defs/summary_note" },
           "description": "Sourced lines from the company's privacy policy shown under an inheriting app's summary, e.g. that the policy covers all its services."
         },
+        "owner_history": {
+          "type": "array",
+          "description": "Acquisitions and changes of control, oldest first, each dated and sourced. owner_chain stays plain names, because the app shows it as the recipient.",
+          "items": {
+            "type": "object",
+            "required": ["date", "event", "from", "to", "sources"],
+            "additionalProperties": false,
+            "properties": {
+              "date": { "description": "A date, a month, or a year when only the year is known (an acquisition dated '2021').", "anyOf": [ { "$ref": "#/$defs/partial_date" }, { "type": "string", "pattern": "^[0-9]{4}$" } ] },
+              "event": { "type": "string", "maxLength": 200, "description": "What happened, plainly, e.g. 'acquired', 'merged', 'sold in a foreclosure sale'." },
+              "from": { "type": "string", "description": "Who owned it, or the business, before." },
+              "to": { "type": "string", "description": "Who owned it, or the business, after." },
+              "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } }
+            }
+          }
+        },
+        "confidence_note": { "$ref": "#/$defs/confidence_note" },
         "regulatory_history": { "type": "array", "items": { "$ref": "#/$defs/legal_event" } },
         "last_reviewed": { "$ref": "#/$defs/date" }
       }
@@ -249,7 +287,17 @@
         "owner_company": { "$ref": "#/$defs/company_id" },
         "owner_chain": { "type": "array", "items": { "type": "string" }, "description": "Subsidiary → parent, e.g. ['Arity', 'Allstate Corporation']." },
         "jurisdiction": { "type": "string" },
-        "party": { "enum": ["first_party", "third_party"], "description": "first_party when the tracker owner also makes the apps it is usually found in." },
+        "party": { "enum": ["first_party", "third_party"], "description": "first_party when the tracker owner also makes the apps it is usually found in, or is a processor working for the app's developer (as Crashlytics is); third_party otherwise." },
+        "purpose": {
+          "type": "object",
+          "required": ["kind", "sources"],
+          "additionalProperties": false,
+          "description": "What the SDK is for, sourced like any claim (usually to the vendor's own documentation). The line order prefers it to the εxodus category.",
+          "properties": {
+            "kind": { "enum": ["ads", "analytics", "crash_reporting", "attribution", "location_data", "identity", "other"] },
+            "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } }
+          }
+        },
         "product_line": { "type": "string", "description": "Which product this record covers, e.g. 'Kochava attribution' vs 'Kochava Collective'." },
         "categories": {
           "type": "array",
@@ -261,6 +309,7 @@
         "data_flows": { "type": "array", "items": { "$ref": "#/$defs/data_flow" } },
         "consequences": { "type": "array", "items": { "$ref": "#/$defs/consequence" } },
         "confidence": { "enum": ["low", "medium", "high"] },
+        "confidence_note": { "$ref": "#/$defs/confidence_note" },
         "last_reviewed": { "$ref": "#/$defs/date" }
       }
     },
@@ -333,6 +382,7 @@
         "policy_region": { "$ref": "#/$defs/country", "description": "The region whose version of the app's privacy policy the record follows, when the app publishes one per region (TikTok: US). The app says so under the summary." },
         "privacy_policy_as_of": { "$ref": "#/$defs/date" },
         "privacy_controls": { "type": "string", "maxLength": 400, "description": "Where in the app the user can switch sharing off (text only)." },
+        "checked_on": { "$ref": "#/$defs/date", "description": "When a reviewer last looked for reported, alleged and adjudicated matters about the app and filled On the record: the app reads 'Checked by FinePrint'. A record without it is 'Their words only'. It never changes a tier." },
         "coverage": {
           "enum": ["curated", "auto"],
           "description": "curated = human-reviewed record; auto = generated from tracker records only, no app-specific claims."

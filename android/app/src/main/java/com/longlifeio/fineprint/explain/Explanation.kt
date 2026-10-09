@@ -59,7 +59,7 @@ data class FlowLine(
     val purpose: String,
     /** null for lines FinePrint inferred itself ("Auto"). */
     val status: String?,
-    /** The attribution phrase; alleged lines always say "not proven in court". */
+    /** The attribution phrase; alleged lines always say "not proven in court" (or "not yet decided", before a regulator). */
     val wording: String?,
     val historical: Boolean,
     /** Primary source first; empty for auto lines. */
@@ -75,6 +75,10 @@ data class FlowLine(
     val default: String = "on",
     /** True when one of the record's in-app settings limits this line. */
     val controlled: Boolean = false,
+    /** "court" or "regulator": what an alleged line says about where it stands. */
+    val forum: String = "court",
+    /** A setting FinePrint can't see that the line depends on: shown with it, never scored. */
+    val conditional: String? = null,
 )
 
 data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
@@ -101,8 +105,11 @@ fun explain(
     lines += trackerLines(detected, bundle, maker?.id, signatures)
     val trackerRecords = detected.mapNotNull { bundle?.trackers?.get(it.id) }.distinct()
     val shown = lines.distinct()
+    // A conditional line (a setting FinePrint can't see) is shown in its place, but never scored: no tier,
+    // headline, count or chip reads it.
+    val scored = shown.filter { it.conditional == null }
     val granted = app.permissions.filter { it.granted }
-    val shownData = shown.map { it.data }.toSet()
+    val shownData = scored.map { it.data }.toSet()
     val readable = scan != null && scan.dexFiles > 0
     // With a record, a tracker's legal lines join it only when they name this app; without one, all of them do.
     val fromTrackers = trackerRecords.flatMap { t ->
@@ -113,7 +120,7 @@ fun explain(
     // Government lines show with their country's laws, never in the buckets or the tier.
     val recorded = (record?.dataFlows.orEmpty() + trackerRecords.flatMap { it.dataFlows }).mapNotNull { it.governmentLine() } +
         (record?.consequences.orEmpty() + trackerRecords.flatMap { it.consequences }).mapNotNull { it.governmentLine() }
-    val current = shown.filterNot { it.historical }
+    val current = scored.filterNot { it.historical }
     // The summary names the trackers in reading order: other companies' uses first, running the app last.
     val trackerNames = detected.sortedBy { trackerGroup(it, bundle, maker?.id, signatures) }.map { it.name }
 
@@ -127,15 +134,15 @@ fun explain(
         tier = if (record == null && inherited == null && !readable) TierResult(null, scanFacts(app, scan), "N") else tier(
             curated = record != null,
             appName = appName,
-            flows = shown,
+            flows = scored,
             events = onRecord.actions.filter { it.namesThisApp }
-                .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }, line = it) },
+                .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }, line = it, forum = it.forum) },
             reach = app.deviceReach,
             scanFacts = scanFacts(app, scan),
             today = today,
         ),
         privacyControls = record?.privacyControls,
-        collects = (shown.map { DATA_LABELS[it.data] ?: it.data } + granted.mapNotNull { permissionLabel(it.name) }).distinct(),
+        collects = (scored.map { DATA_LABELS[it.data] ?: it.data } + granted.mapNotNull { permissionLabel(it.name) }).distinct(),
         flows = BUCKETS.associateWith { b -> forDisplay(shown.filter { it.bucket == b }).sortedWith(LINE_ORDER) }.filterValues { it.isNotEmpty() },
         applies = granted.mapNotNull { p ->
             bundle?.permissions?.get(p.name)?.takeIf { text -> text.feeds.any { it in shownData } }
@@ -189,15 +196,17 @@ internal fun scanFacts(app: InstalledApp, scan: TrackerScanResult?): String {
     }
 }
 
-internal fun DataFlow.toLine(shown: String, via: String?) =
-    FlowLine(data, bucket, shown, purpose, status, attribution(status, wording), historical, sources, proceduralNote, via, id, company = recipient, default = default)
+internal fun DataFlow.toLine(shown: String, via: String?) = FlowLine(
+    data, bucket, shown, purpose, status, attribution(status, wording, forum), historical, sources, proceduralNote, via, id,
+    company = recipient, default = default, forum = forum, conditional = conditional,
+)
 
-/** Alleged lines always say "not proven in court", whatever the record's own wording. */
-internal fun attribution(status: String?, wording: String?): String? = when {
+/** Alleged lines always say "not proven in court", or "not yet decided" before a regulator, whatever the record's own wording. */
+internal fun attribution(status: String?, wording: String?, forum: String? = null): String? = when {
     status != "alleged" -> wording
-    wording == null -> "Alleged ($NOT_PROVEN)"
-    NOT_PROVEN in wording -> wording
-    else -> "$wording ($NOT_PROVEN)"
+    wording == null -> "Alleged (${undecided(forum)})"
+    undecided(forum) in wording -> wording
+    else -> "$wording (${undecided(forum)})"
 }
 
 /** "Allstate/Arity" when the record gives a short name; otherwise "The Allstate Corporation and its unit Arity". */
@@ -249,6 +258,7 @@ internal fun deriveFlows(trackerName: String, categories: List<String>, party: S
                 line(elsewhere, "app_activity", "Advertising"),
             )
             "profiling" -> listOf(line(elsewhere, "app_activity", "Building a profile of you"))
+            "attribution" -> listOf(line(elsewhere, "device_identifiers", "Measuring ads"), line(elsewhere, "app_activity", "Measuring ads"))
             "identification" -> listOf(line(elsewhere, "device_identifiers", "Recognizing you across apps"))
             "location" -> listOf(line(elsewhere, "precise_location", "Location data"))
             else -> emptyList()

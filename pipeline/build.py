@@ -124,9 +124,16 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
             errors.append(f"source without a quote: {n['url']}")
         errors.extend(standing_problems(n))
         errors.extend(government_problems(n))
+        errors.extend(forum_problems(n))
+        if "owner_history" in n:
+            dates = [h["date"] for h in n["owner_history"]]
+            errors.extend(f"{n['id']}: owner_history isn't oldest first ({a} before {b})" for a, b in zip(dates, dates[1:]) if b < a)
 
     walk(bundle, visit)
+    built = bundle.get("generated_at", "")[:10]  # a partial bundle in a test may have none
     for app in bundle["apps"]:
+        if built and app.get("checked_on", "") > built:
+            errors.append(f"{app['package_id']}: checked_on {app['checked_on']} is after the build ({built})")
         errors += [f"{app['package_id']}: tracker {t!r} not in trackers.json" for t in app["trackers"] if t not in tracker_ids]
         errors += risk_tag_problems(app)
         errors += tagline_problems(app)
@@ -167,6 +174,14 @@ def inheritance_problems(companies: list[dict]) -> list[str]:
     prefixes = [(p, c["id"]) for c in companies for p in c.get("package_prefixes", [])]
     errors += [f"package prefix {p!r} ({a}) overlaps {q!r} ({b})" for p, a in prefixes for q, b in prefixes if a != b and p.startswith(q)]
     return errors
+
+
+def forum_problems(item: dict) -> list[str]:
+    """forum says where a matter is decided (the app writes "not proven in court" or "not yet decided"), so
+    only an alleged or adjudicated line carries it."""
+    if "forum" not in item or item.get("status") in LEGAL:
+        return []
+    return [f"{item.get('id') or item.get('title') or item.get('text', '')[:60]!r}: forum is for alleged or adjudicated lines"]
 
 
 def standing_problems(item: dict) -> list[str]:
@@ -305,10 +320,11 @@ def legal_diff(old: dict[str, str], new: dict[str, str]) -> list[str]:
 def structural_diff(old: dict, new: dict, old_legal: dict | None = None, new_legal: dict | None = None) -> list[str]:
     """What changed in an app record's structure, one '<kind>: <what>' line each: what feeds the tier
     rules or the controls (docs/METHOD.md, Your Reviewed marks). Purposes, wording and the store
-    tagline aren't structure: a change to them alone leaves the diff empty. [old_legal] and
-    [new_legal] are legal_items() with the companies and trackers; without them, the record's own."""
+    tagline aren't structure: a change to them alone leaves the diff empty, and so does a conditional
+    flow, which is never scored. [old_legal] and [new_legal] are legal_items() with the companies and
+    trackers; without them, the record's own."""
     def current(r: dict) -> list[dict]:
-        return [f for f in r.get("data_flows", []) if not f.get("historical")]
+        return [f for f in r.get("data_flows", []) if not f.get("historical") and not f.get("conditional")]
     pairs, removed, added = match_flows(current(old), current(new))
     ended = {(f["data"], f.get("recipient") or f.get("recipient_label")) for f in new.get("data_flows", []) if f.get("historical")}
     diff = [f"flow added: {flow_name(f)} ({f['bucket']})" for f in added if f["bucket"] != "stays_here"]
@@ -500,7 +516,7 @@ def build(reviewed: list[Path], now: dt.datetime) -> dict:
     mark_stale(merged["apps"], now.date())
     return {
         "schema_version": 1,
-        "schema_revision": "1.5",
+        "schema_revision": "1.6",
         "bundle_version": now.strftime("%Y.%m.%d"),
         "generated_at": now.isoformat(timespec="seconds"),
         "licence": LICENCE,

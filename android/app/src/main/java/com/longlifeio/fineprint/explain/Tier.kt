@@ -44,6 +44,8 @@ data class TierEvent(
     val closed: String? = null,
     /** The On the record line it comes from. */
     val line: RecordLine? = null,
+    /** "court" or "regulator": a complaint to a regulator isn't called a lawsuit. */
+    val forum: String = "court",
 )
 
 /** Legal items older than this, once ended, are shown but never change a tier. */
@@ -156,14 +158,15 @@ fun tier(
     raising.filter { it.bucket == GOES_ELSEWHERE }
         .minWithOrNull(NAMED_FIRST)
         ?.let { return TierResult(Tier.CAUTION, reason(it, appName), "C2").setBy(flow = it) }
-    // C3: a lawsuit over this app's data has been filed (alleged, not yet past a motion to dismiss).
+    // C3: a lawsuit, or a complaint to a regulator, over this app's data has been filed (alleged, not yet past a motion to dismiss).
     legal.filter { it.status == "alleged" && (it.statusKind == null || it.statusKind == "filed") }.takeIf { it.isNotEmpty() }?.let { suits ->
+        val suit = named(suits) ?: suits.first()
+        val what = if (suit.forum == "regulator") "A complaint to a regulator about this app's data" else "A lawsuit over this app's data"
         return TierResult(
             Tier.CAUTION,
-            named(suits)?.let { "A lawsuit over this app's data has been filed: ${it.label} ($NOT_PROVEN)" }
-                ?: "A lawsuit over this app's data has been filed ($NOT_PROVEN)",
+            named(suits)?.let { "$what has been filed: ${it.label} (${undecided(it.forum)})" } ?: "$what has been filed (${undecided(suit.forum)})",
             "C3",
-        ).setBy(event = named(suits) ?: suits.first())
+        ).setBy(event = suit)
     }
     // C4: access that reaches into the rest of the phone.
     reach.firstNotNullOfOrNull { DEEP_REACH[it] }?.let { return TierResult(Tier.CAUTION, it, "C4") }
@@ -184,7 +187,7 @@ private fun reason(line: FlowLine, appName: String): String {
         "self_disclosed" -> if (line.via == null) "${possessive(appName)} own policy" else "${possessive(line.via)} own disclosure"
         "adjudicated" -> "a court or regulator's decision"
         "reported" -> "reported by two or more sources"
-        "alleged" -> "alleged, $NOT_PROVEN"
+        "alleged" -> "alleged, ${undecided(line.forum)}"
         else -> "${line.via ?: line.recipient} code in this app"
     }
     return "$what $verb — $basis"

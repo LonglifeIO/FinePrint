@@ -60,7 +60,7 @@ private val ANDROID_ITEMS = mapOf(
  * from tracker code.
  */
 internal fun countedFlows(e: Explanation): List<FlowLine> {
-    val current = e.flows.filterKeys { it != STAYS_HERE }.values.flatten().filterNot { it.historical }
+    val current = e.flows.filterKeys { it != STAYS_HERE }.values.flatten().filterNot { it.historical || it.conditional != null }
     val reviewed = current.filter { it.status != null }
     val covered = reviewed.map { it.bucket to it.data }.toSet()
     return reviewed + current.filter { it.status == null && (it.bucket to it.data) !in covered }.distinctBy { it.bucket to it.data }

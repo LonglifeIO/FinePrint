@@ -61,9 +61,11 @@ FinePrint's lines are always read in the same order, on every page:
 
 Within each, a current practice comes before a past one and sensitive data comes first; then the company's own account, a ruling, a report, an allegation, and a line inferred from tracker code. Each group under Where it goes lists its lines in this order; the groups keep their order and colours. The summary of an app without a record names its trackers in the same order. The order changes nothing else: tiers and Reviewed marks read the lines, not their order.
 
-A reviewed line's purpose is the one its record states, which also sets its group. A line inferred from tracker code takes its purpose from the tracker's εxodus category: crash reporting and analytics are for running the app; advertising, profiling, location and identification are other companies' uses. A tracker with neither a record nor a category comes first, as What it's used for isn't recorded, under its own heading after the three groups:
+A reviewed line's purpose is the one its record states, which also sets its group. A line inferred from tracker code takes its purpose from the tracker's own record, when that says what the SDK is for with sources of its own, or else from its εxodus category: crash reporting and analytics are for running the app; advertising, ad measurement, profiling, location and identification are other companies' uses. A tracker's company counts as the app's own when it also makes the apps the tracker is usually in, or works for the app's developer as its processor, as Crashlytics does. A tracker with neither a record nor a category comes first, as What it's used for isn't recorded, under its own heading after the three groups:
 
 - Purpose not recorded: Tracker code FinePrint has no record of and no category for, so it can't say where its data goes.
+
+Some lines depend on a setting FinePrint can't see, such as whether the app's developer has turned on data sharing. Such a line says so, followed by: FinePrint can't see that setting. It sits in its group by what the data is for, and it never counts toward a tier, the headline, the chips or the flows you've limited.
 
 On the home screen, At a glance's headline counts the apps whose page has at least one current line that can go to other companies for more than running the app, the first in the reading order; its chips count an app in a group when its page has at least one current line there. Lines count whether they come from FinePrint's record or are inferred from tracker code (Auto); lines about a past practice don't, and neither does a tracker whose purpose isn't recorded: it comes first in the order, but FinePrint can't say its data is used for more than running the app. Tracker code shows where data can go, not that it went, so the headline says FinePrint lists data that "can go" to other companies. An app with no line in a group isn't said to send nothing there.
 
@@ -78,12 +80,12 @@ Every line carries a badge that says how strong the evidence is. Tap a badge to 
 
 - Self-disclosed: The company says so itself, in its privacy policy, labels or filings, or a law says so in its own text.
 - Reported: Reported by journalists or researchers; no court or regulator has ruled on it.
-- Alleged: Claimed in a lawsuit or complaint; not proven in court.
+- Alleged: Claimed in a lawsuit or complaint; not proven in court, or, before a regulator, not yet decided.
 - Adjudicated: Decided by a court or regulator, or settled.
 - Auto: Inferred by FinePrint from tracker code in the app; no person has reviewed it.
 - Historical: Describes a past practice, not a current one.
 
-An alleged line always says it is not proven in court. A legal claim can also say where the case stands, such as a dismissal or an appeal, with sources of its own.
+An alleged line always says it is not proven in court, or, when a regulator rather than a court is to decide it, that it is not yet decided. A legal claim can also say where the case stands, such as a dismissal or an appeal, with sources of its own.
 
 Tap Sources under a line to see every source behind it: its title, its type, its date (or, for an undated page, when FinePrint read it), its status, the exact words that support the line, and a button that opens it. The first source listed is the primary one.
 
@@ -165,6 +167,8 @@ The System filter lists only those apps, grouped by maker, such as Google · 14 
 - A person checks every claim against its source, sets its status and wording, and approves it. Nothing reaches the bundle without that review.
 - Every source carries the exact words that support the claim, and a date.
 - The status follows the evidence: an app's own policy is Self-disclosed, journalism is Reported, and a lawsuit stays Alleged until a court or regulator decides it.
+- A company's record can list its changes of ownership, such as an acquisition or a merger, each with its date and sources.
+- When something in a record is uncertain, such as who owns a tracker's code, the record says why, with sources.
 
 FinePrint re-reads the pages it quotes, and privacy regulators' feeds of findings and rulings, on a schedule. When a quote is no longer on its page, the words around it change, a page moves, or a regulator publishes something about a company FinePrint has a record of, a person is told. Nothing in the app changes until a person has reviewed it and the bundle is rebuilt. Sources whose sites refuse automated checks are listed in every digest and checked by hand before each release.
 

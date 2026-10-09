@@ -28,7 +28,7 @@ import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.explain.AUTO
 import com.longlifeio.fineprint.explain.BADGES
 import com.longlifeio.fineprint.explain.HISTORICAL
-import com.longlifeio.fineprint.explain.NOT_PROVEN
+import com.longlifeio.fineprint.explain.undecided
 import kotlinx.coroutines.launch
 
 /** Minimum touch target on every interactive element (Material and WCAG guidance). */
@@ -69,13 +69,14 @@ private fun statusIcon(status: String?): Int = when (status) {
 
 /**
  * Self-disclosed / Reported / Alleged / Adjudicated, or Auto for lines FinePrint inferred: an outlined
- * label in ink with its icon. Alleged always reads "Alleged (not proven in court)".
+ * label in ink with its icon. Alleged always reads "Alleged (not proven in court)", or "Alleged (not yet decided)" for a
+ * matter before a regulator ([forum]).
  */
 @Composable
-fun StatusBadge(status: String?, historical: Boolean) {
+fun StatusBadge(status: String?, historical: Boolean, forum: String? = null) {
     val c = MaterialTheme.colorScheme
     val badge = BADGES.getValue(status ?: AUTO)
-    val word = if (status == "alleged") "${badge.label} ($NOT_PROVEN)" else badge.label
+    val word = if (status == "alleged") "${badge.label} (${undecided(forum)})" else badge.label
     val label = if (historical) "$word · ${BADGES.getValue(HISTORICAL).label.lowercase()}" else word
     val definition = if (historical) "${badge.definition} ${BADGES.getValue(HISTORICAL).definition}" else badge.definition
     WithDefinition("Status: $label", definition) {
@@ -90,8 +91,8 @@ fun StatusBadge(status: String?, historical: Boolean) {
     }
 }
 
-/** A status in words, for small type such as the fine print: "Alleged (not proven in court)". */
-fun statusWord(status: String?): String {
+/** A status in words, for small type such as the fine print: "Alleged (not proven in court)", or "(not yet decided)". */
+fun statusWord(status: String?, forum: String? = null): String {
     val label = BADGES.getValue(status ?: AUTO).label
-    return if (status == "alleged") "$label ($NOT_PROVEN)" else label
+    return if (status == "alleged") "$label (${undecided(forum)})" else label
 }
