@@ -10,7 +10,8 @@ paragraph that reads as a full sentence, changed: watch_text.context), url_moved
 Every item shows the 300 characters either side of the quote. The first check of a page compares with the
 copy fetch_sources.py saved when the quote was verified, if there is one. A copy whose text the shared
 extractor (fetch_sources.text_of) can't read parks its URL with a note. sources.json can give a source its
-own max_bytes.
+own max_bytes. A page any of whose sources is marked "manual": true is never fetched: its copy is saved by
+hand, and the digest lists it with the sources checked by hand.
 """
 from __future__ import annotations
 
@@ -42,6 +43,7 @@ class Quote:
     quote_id: str
     lookups: list = field(default_factory=list)   # where check_quotes.py looks for its saved copy, in order
     refs: set = field(default_factory=set)
+    manual: bool = False                           # its source is saved by hand, never fetched
 
 
 def archived(url: str) -> bool:
@@ -93,6 +95,7 @@ def quotes_by_url(reviewed: Path = check_quotes.REVIEWED) -> dict[str, dict[str,
         if q is None:
             q = by_url[url][source["quote"]] = Quote(source["quote"], source.get("id") or "q-" + sha256(source["url"] + "\n" + source["quote"])[:12])
         q.refs.add(where)
+        q.manual = q.manual or bool(source.get("manual"))
         for key in ("verify_url", "url", "wayback_url", "vendor_archive_url"):
             if source.get(key) and source[key] not in q.lookups:
                 q.lookups.append(source[key])
@@ -133,7 +136,11 @@ def poll(run: Run, settings: dict, reviewed: Path = check_quotes.REVIEWED, saved
             if not run.dry_run:  # the digest lists it with the sources checked by hand
                 run.store.save_meta(dict(run.store.meta(url), refused=rule))
             continue
-        meta = run.store.meta(url)
+        meta, manual = run.store.meta(url), any(q.manual for q in quotes)
+        if manual != bool(meta.pop("manual", False)) and not run.dry_run:  # the digest lists it with the sources checked by hand
+            run.store.save_meta(dict(meta, manual=True) if manual else meta)
+        if manual:
+            continue
         if not watch_store.due(meta, every, run.when):
             continue
         if run.dry_run:

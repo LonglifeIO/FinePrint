@@ -2,13 +2,16 @@
 """Tests for fetch_sources.py and check_quotes.py:  python3 pipeline/test_sources.py"""
 from __future__ import annotations
 
+import contextlib
 import io
 import json
+import shutil
 import sys
 import tempfile
 import unittest
 import zipfile
 from pathlib import Path
+from unittest import mock
 
 import requests
 
@@ -19,6 +22,7 @@ import fetch_sources  # noqa: E402
 FIXTURES = Path(__file__).resolve().parent / "watch" / "fixtures"
 SOURCE = {"url": "https://example.org/policy", "type": "privacy_policy", "as_of": "2026-01-01",
           "status": "self_disclosed", "quote": "We’ll use information … to personalize ads"}
+MANUAL = "https://sdk.example/privacy"  # a policy whose text only appears once JavaScript runs
 
 
 class QuoteTest(unittest.TestCase):
@@ -135,6 +139,68 @@ class FetchTest(unittest.TestCase):
             path.write_text("Bad Name https://example.org/\n", encoding="utf-8")
             with self.assertRaises(ValueError):
                 fetch_sources.read_list(path)
+
+
+class ManualTest(unittest.TestCase):
+    """A source marked "manual": true: only a person can capture its page, so its copy is saved by hand."""
+
+    def setUp(self):
+        self.root = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.root)
+        self.out, self.reviewed = self.root / "sources", self.root / "reviewed"
+        self.reviewed.mkdir()
+        self.source = dict(SOURCE, url=MANUAL, quote="share it with advertisers", manual=True)
+        record = {"trackers": [{"id": "exodus-1", "consequences": [{"sources": [self.source]}]}]}
+        (self.reviewed / "tracker-example.json").write_text(json.dumps(record), encoding="utf-8")
+        for patch in (mock.patch.object(fetch_sources, "OUT", self.out), mock.patch.object(fetch_sources, "INDEX", self.out / "index.json"),
+                      mock.patch.object(check_quotes, "REVIEWED", self.reviewed)):
+            patch.start()
+            self.addCleanup(patch.stop)
+        self.page = self.root / "Privacy Policy.html"  # as a browser saves the page it shows
+        self.page.write_text("<div id=app><p>We may share it with advertisers.</p></div><script>render()</script>", encoding="utf-8")
+
+    def main(self, *argv) -> tuple[int, str]:
+        out = io.StringIO()
+        with mock.patch.object(sys, "argv", ["fetch_sources.py", *argv]), contextlib.redirect_stdout(out), \
+                contextlib.redirect_stderr(io.StringIO()):
+            return fetch_sources.main(), out.getvalue()
+
+    def test_a_copy_saved_by_hand_is_registered_and_its_quote_checked(self):
+        self.assertEqual(check_quotes.manual_urls(self.reviewed), {MANUAL})
+        self.assertEqual(check_quotes.problems(self.source, {}), ["no saved copy: the page is saved by hand (fetch_sources.py --hand-saved)"])
+        code, said = self.main("--hand-saved", "sdk-policy", MANUAL, str(self.page))
+        self.assertEqual((code, said), (0, f"  saved by hand  sdk-policy  {MANUAL}\n"))
+        entry = json.loads((self.out / "index.json").read_text(encoding="utf-8"))["sdk-policy"]
+        self.assertEqual({k: entry[k] for k in ("url", "final_url", "content_type", "file", "manual")},
+                         {"url": MANUAL, "final_url": MANUAL, "content_type": "text/html", "file": "sdk-policy.html", "manual": True})
+        self.assertEqual((self.out / "sdk-policy.txt").read_text(encoding="utf-8"), "We may share it with advertisers.")
+        self.assertEqual(check_quotes.problems(self.source, check_quotes.copies(self.out)), [])
+        # A name already holding another page is refused, as a LIST line is.
+        self.assertEqual(self.main("--hand-saved", "sdk-policy", "https://sdk.example/terms", str(self.page))[0], 1)
+
+    def test_text_copied_by_hand_is_kept_as_it_is(self):
+        text = self.root / "policy.txt"
+        text.write_text("We may share it with advertisers.\n", encoding="utf-8")
+        self.out.mkdir()
+        entry = fetch_sources.hand_saved("sdk-text", MANUAL, text)
+        self.assertEqual((entry["file"], entry["content_type"]), ("sdk-text.raw", "text/plain"))
+        self.assertEqual((self.out / "sdk-text.txt").read_text(encoding="utf-8"), "We may share it with advertisers.\n")
+        with self.assertRaises(ValueError):
+            fetch_sources.hand_saved("sdk-shot", MANUAL, self.root / "policy.png")
+
+    def test_a_manual_page_is_never_fetched_even_with_force(self):
+        self.main("--hand-saved", "sdk-policy", MANUAL, str(self.page))
+        listed = self.root / "list.txt"
+        listed.write_text(f"sdk-policy {MANUAL}\nother https://example.org/other\n", encoding="utf-8")
+        resp = requests.Response()
+        resp.status_code, resp._content, resp.url = 200, b"<p>Other</p>", "https://example.org/other"
+        resp.headers["content-type"] = "text/html"
+        with mock.patch.object(fetch_sources.requests, "get", return_value=resp) as get:
+            code, said = self.main(str(listed), "--force", "--delay", "0")
+        self.assertEqual([c.args[0] for c in get.call_args_list], ["https://example.org/other"])
+        self.assertIn("  skipped (manual: saved by hand, see --hand-saved)  sdk-policy", said)
+        self.assertEqual(code, 0)
+        self.assertEqual((self.out / "sdk-policy.txt").read_text(encoding="utf-8"), "We may share it with advertisers.")
 
 
 if __name__ == "__main__":

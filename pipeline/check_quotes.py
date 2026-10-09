@@ -9,7 +9,9 @@ A quote passes when each of its fragments (joined by " … ") appears, in order,
 of the copy fetch_sources.py saved of the source's verify_url, url or wayback_url, once curly
 quotes, dashes and whitespace are folded. Quotes from copyrighted pages must stay under 15 words;
 works of the US federal government are exempt (17 U.S.C. § 105). The saved copies are gitignored,
-so this runs on the machine that fetched them, not in CI.
+so this runs on the machine that fetched them, not in CI. A source marked "manual": true is a page
+only a person can capture (it needs JavaScript, say): its copy is saved by hand and registered with
+fetch_sources.py --hand-saved, and is checked like any other.
 """
 from __future__ import annotations
 
@@ -79,13 +81,21 @@ def copies(sources_dir: Path) -> dict[str, Path]:
     return by_url
 
 
-def problems(source: dict, saved: dict[str, Path]) -> list[str]:
+def manual_urls(reviewed: Path) -> set[str]:
+    """Pages saved by hand: the url of every source marked "manual": true (one source is enough)."""
+    return {s["url"] for path in sorted(reviewed.glob("*.json"))
+            for s in sources_in(json.loads(path.read_text(encoding="utf-8")), []) if s.get("manual")}
+
+
+def problems(source: dict, saved: dict[str, Path], manual: bool = False) -> list[str]:
     found = []
     if not public_domain(source["url"]) and words(source["quote"]) >= WORD_CAP:
         found.append(f"{words(source['quote'])} words (cap is under {WORD_CAP})")
     lookups = [source.get(k) for k in ("verify_url", "url", "wayback_url", "vendor_archive_url") if source.get(k)]
     copy = next((saved[u] for u in lookups if u in saved and saved[u].exists()), None)
-    if copy is None:
+    if copy is None and (manual or source.get("manual")):
+        found.append("no saved copy: the page is saved by hand (fetch_sources.py --hand-saved)")
+    elif copy is None:
         found.append("no saved copy (run fetch_sources.py)")
     elif not found_in_order(copy.read_text(encoding="utf-8"), source["quote"]):
         found.append(f"not found in {copy.name}")
@@ -112,7 +122,7 @@ def main() -> int:
     parser.add_argument("--sources", type=Path, default=SOURCES, help="folder of saved copies")
     args = parser.parse_args()
 
-    saved = copies(args.sources)
+    saved, manual = copies(args.sources), manual_urls(REVIEWED)
     seen, bad = set(), 0
     for path in args.files or sorted(REVIEWED.glob("*.json")):
         for source in sources_in(json.loads(path.read_text(encoding="utf-8")), []):
@@ -120,7 +130,7 @@ def main() -> int:
             if key in seen:
                 continue
             seen.add(key)
-            found = problems(source, saved)
+            found = problems(source, saved, source["url"] in manual)
             bad += bool(found)
             label = source.get("title", source["url"])[:40]
             print(f"{'BAD' if found else 'OK '} {words(source['quote']):2}w  {label:40}  {source['quote'][:60]}"

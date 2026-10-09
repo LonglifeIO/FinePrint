@@ -4,11 +4,16 @@
     python3 pipeline/fetch_sources.py LIST            # LIST lines: <name> <url>; '#' lines are comments
     python3 pipeline/fetch_sources.py LIST --force    # fetch again even if <name> is already saved
     python3 pipeline/fetch_sources.py --retext        # rebuild every <name>.txt from the saved pages
+    python3 pipeline/fetch_sources.py --hand-saved NAME URL FILE   # register a copy saved by hand
 
 Each page is saved as it was served (<name>.html, .pdf, .docx, .json or .raw) next to its visible text
 (<name>.txt) in pipeline/raw/sources/, and pipeline/raw/sources/index.json records which URL each
 name holds, so check_quotes.py can find the copy behind any source. For a page that blocks scripts,
 list the address its record names as verify_url (an archived copy or the same article's API).
+A page only a person can capture (its text needs JavaScript, say) is marked "manual": true on its
+source: this script never fetches it, even with --force. Save it from a browser (the page as shown,
+or a PDF or text of it) and register the file with --hand-saved, which keeps it as a fetched page is
+kept, with "manual": true in its index entry.
 Everything under pipeline/raw/ is gitignored: these are other people's copyrighted pages.
 Exodus pages are never fetched (see CLAUDE.md, Exodus etiquette).
 """
@@ -31,6 +36,8 @@ from zoneinfo import ZoneInfo
 
 import requests
 
+import check_quotes
+
 REPO = Path(__file__).resolve().parent.parent
 OUT = REPO / "pipeline" / "raw" / "sources"  # gitignored
 INDEX = OUT / "index.json"
@@ -38,6 +45,8 @@ HALIFAX = ZoneInfo("America/Halifax")
 USER_AGENT = "FinePrint-pipeline (+https://github.com/LonglifeIO/FinePrint)"
 NOT_FETCHED_HOSTS = ("exodus-privacy.eu.org",)
 NAME = re.compile(r"^[a-z0-9][a-z0-9.-]*$")
+HAND_SAVED = {".html": ("text/html", ".html"), ".htm": ("text/html", ".html"), ".pdf": ("application/pdf", ".pdf"),
+              ".txt": ("text/plain", ".raw")}  # a browser's file -> (content type, the suffix it's kept under)
 
 
 def decode(data: bytes, content_type: str = "") -> str:
@@ -129,6 +138,26 @@ def save(name: str, url: str, resp: requests.Response) -> dict:
     }
 
 
+def hand_saved(name: str, url: str, file: Path) -> dict:
+    """A copy a person saved from a browser, kept as a fetched page is; saved_at is when the file was written."""
+    if not NAME.match(name) or not urlparse(url).scheme.startswith("http") or file.suffix.lower() not in HAND_SAVED:
+        raise ValueError(f"expected NAME URL FILE (.html, .htm, .pdf or .txt), got {name!r} {url!r} {file.name!r}")
+    ctype, suffix = HAND_SAVED[file.suffix.lower()]
+    content = file.read_bytes()
+    raw = OUT / f"{name}{suffix}"
+    raw.write_bytes(content)
+    (OUT / f"{name}.txt").write_text(text_of(raw, ctype), encoding="utf-8")
+    return {
+        "url": url,
+        "final_url": url,
+        "content_type": ctype,
+        "file": raw.name,
+        "sha256": hashlib.sha256(content).hexdigest(),
+        "saved_at": dt.datetime.fromtimestamp(file.stat().st_mtime, HALIFAX).isoformat(timespec="seconds"),
+        "manual": True,
+    }
+
+
 def read_list(path: Path) -> list[tuple[str, str]]:
     entries = []
     for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
@@ -156,9 +185,23 @@ def main() -> int:
     parser.add_argument("--force", action="store_true", help="fetch again names that are already saved")
     parser.add_argument("--retext", action="store_true", help="rebuild the .txt files from the saved pages, no fetching")
     parser.add_argument("--delay", type=float, default=2.0, help="seconds between requests")
+    parser.add_argument("--hand-saved", nargs=3, metavar=("NAME", "URL", "FILE"),
+                        help="register a copy of a manual source saved by hand (.html, .htm, .pdf or .txt)")
     args = parser.parse_args()
 
     index = load_index()
+    if args.hand_saved:
+        name, url, file = args.hand_saved
+        if name in index and index[name]["url"] != url:
+            print(f"  ERROR {name} already holds {index[name]['url']}", file=sys.stderr)
+            return 1
+        OUT.mkdir(parents=True, exist_ok=True)
+        index[name] = hand_saved(name, url, Path(file))
+        INDEX.write_text(json.dumps(index, indent=1, sort_keys=True), encoding="utf-8")
+        print(f"  saved by hand  {name}  {url}")
+        if url not in check_quotes.manual_urls(check_quotes.REVIEWED):
+            print('  note: no reviewed source marks this url "manual": true yet')
+        return 0
     if args.retext:
         for name, entry in sorted(index.items()):
             (OUT / f"{name}.txt").write_text(text_of(OUT / entry["file"], entry.get("content_type", "")), encoding="utf-8")
@@ -168,11 +211,14 @@ def main() -> int:
         parser.error("give a LIST file, or --retext")
 
     OUT.mkdir(parents=True, exist_ok=True)
-    failed = 0
+    failed, manual = 0, check_quotes.manual_urls(check_quotes.REVIEWED)
     for name, url in read_list(args.list):
         host = urlparse(url).hostname or ""
         if host.endswith(NOT_FETCHED_HOSTS):
             print(f"  skipped (Exodus etiquette)  {name}")
+            continue
+        if url in manual:  # only a person can capture it; a fetch would overwrite their copy with an empty shell
+            print(f"  skipped (manual: saved by hand, see --hand-saved)  {name}")
             continue
         if name in index and not args.force:
             if index[name]["url"] != url:

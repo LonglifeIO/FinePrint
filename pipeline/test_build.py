@@ -82,6 +82,14 @@ class MergeAndCheckTest(unittest.TestCase):
         ])])
         self.assertIn("source id 'src-a' is defined differently in two places", build.cross_check(bundle, {"exodus-12"}))
 
+    def test_a_sources_manual_flag_stays_in_the_pipeline(self):
+        # "manual": true (its page is saved by hand) is for fetch_sources.py, check_quotes.py and the watcher, not the app.
+        with tempfile.TemporaryDirectory() as d:
+            path = self.write(Path(d), "a.json", {"apps": [dict(app("2026-10-01"), consequences=[
+                {"text": "t", "status": "reported", "sources": [dict(SOURCE, manual=True)]}])]})
+            bundle = build.build([path], dt.datetime(2026, 10, 4, tzinfo=build.HALIFAX))
+        self.assertEqual(bundle["apps"][0]["consequences"][0]["sources"], [SOURCE])
+
     def test_android_test_fixture_follows_the_schema(self):  # keeps both sides of the contract in step
         fixture = build.REPO / "android" / "app" / "src" / "test" / "resources" / "bundle-fixture.json"
         self.assertEqual(schema_errors(json.loads(fixture.read_text(encoding="utf-8"))), [])

@@ -29,6 +29,24 @@ Build order (each is a separate script, each is idempotent):
 
 Serve for dev: `python3 -m http.server <port> --directory ../bundle` (see `android/README.md`).
 
+## Quote checks, and pages saved by hand
+
+`check_quotes.py` checks every quote in `reviewed/` against a saved copy of its page in `raw/sources/`
+(gitignored), which `fetch_sources.py LIST` saves (LIST lines: `<name> <url>`). Run both before a build that adds
+or changes quotes.
+
+Some pages only a person can capture: their text appears only once JavaScript runs, as with Mintegral's and
+InMobi's privacy policies. Mark each source citing such a page `"manual": true`. Then:
+
+- `fetch_sources.py` never fetches it, even with `--force`, so an empty shell never overwrites a person's copy.
+- Save the page from a browser once it has rendered (the page as shown, a PDF of it, or its text in a `.txt`) and
+  register the file: `python3 pipeline/fetch_sources.py --hand-saved <name> <url> <file>`. It's kept as a fetched
+  page is kept, with `"manual": true` in its `raw/sources/index.json` entry.
+- `check_quotes.py` checks its quotes against that copy. Without one, it says the page is saved by hand.
+- The watcher never polls it; every digest lists it with the sources checked by hand before each release.
+- `build.py` leaves the flag out of the bundle: it's the pipeline's, not the app's. The page's URL is still
+  checked like any other.
+
 ## Review requests
 
 Issues labelled `review-request` come from the app's "Ask FinePrint to check this app" (on pages that read Their
@@ -66,7 +84,7 @@ rebuild. The rules it keeps are in `../CLAUDE.md` ("The watcher").
   robots.txt disallow (a 401 or 403 on robots.txt itself counts as one), a 401, 403 or 451, or a redirect to
   a not-found page (a refusal, not a move), and `refused` for the denylist. A parked URL is checked again
   once its item is acked; a host that refuses for good belongs on the denylist instead. Every digest ends
-  with the parked and denylisted sources, for checking by hand before each release.
+  with the parked, denylisted and manual sources, for checking by hand before each release.
 - Items follow `watch/queue-item.schema.json`: facts, never a status or a tier. Each finding is written once.
 - `watch/sources.json` (committed) holds the adapters, feeds, cadences and denylist. `watch/local.json`
   (gitignored) holds `{"contact": "<email or URL>", "copy_to": "<folder>"}`; the contact goes in every

@@ -13,7 +13,8 @@ tracker id, a quote on every source, one definition per source id, qualified reg
 tags), and every source URL must answer
 HTTP 200, and not by redirecting to a not-found page, or its verify_url when the page blocks scripts
 (an OK result is cached in pipeline/raw/ for 30 days). Exodus pages are never fetched (see CLAUDE.md,
-Exodus etiquette). Nothing reaches bundle.json without review.
+Exodus etiquette). A source's "manual": true (its page is saved by hand, see fetch_sources.py) is
+for the pipeline's scripts and is left out of the bundle. Nothing reaches bundle.json without review.
 
 An app record's changes[] are written by the reviewer (date, text, sources). Their direction is
 never typed: given the record as it was before (--previous, e.g. from `git show HEAD:<file>`),
@@ -72,6 +73,7 @@ def merge(paths: list[Path]) -> dict[str, list]:
     merged: dict[str, list] = {k: [] for k in SECTIONS + (JURISDICTIONS,)}
     for path in paths:
         doc = json.loads(path.read_text(encoding="utf-8"))
+        walk(doc, lambda n: n.pop("manual", None) if "url" in n else None)  # the pipeline's flag, not the app's
         unknown = set(doc) - set(merged)
         if unknown:
             raise ValueError(f"{path.name}: unknown sections {sorted(unknown)}")

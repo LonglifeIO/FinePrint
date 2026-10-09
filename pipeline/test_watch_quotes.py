@@ -154,6 +154,19 @@ class QuoteDriftTest(unittest.TestCase):
         self.assertEqual([i["source_url"] for i in refused], ["https://play.google.com/store/apps/details?id=com.example.app"])
         self.assertTrue(all("play.google.com" not in u for u in http.urls()))
 
+    def test_a_manual_source_is_never_requested_and_is_checked_by_hand(self):
+        self.write_record(record(manual=True))
+        self.assertEqual(self.poll({URL: [(200, {"content-type": "text/html"}, PAGE.encode())]}), [])
+        self.assertEqual(self.http.urls(), [])  # not even robots.txt
+        md, _ = watch_digest.build(self.store, WHEN.date())
+        self.assertIn(f"- {URL} (marked manual: its copy is saved by hand)", md[md.index("## Checked by hand"):])
+        # Unmarked, it is polled again and leaves the list.
+        self.write_record(record())
+        self.poll({URL: [(200, {"content-type": "text/html"}, PAGE.encode())]})
+        self.assertIn(URL, self.http.urls())
+        self.assertNotIn("manual", self.store.meta(URL))
+        self.assertNotIn(f"- {URL} (", watch_digest.build(self.store, WHEN.date())[0])
+
     def test_findings_are_written_once_across_runs(self):
         changed = PAGE.replace(QUOTE, "We share data")
         self.poll({URL: [(200, {"content-type": "text/html"}, PAGE.encode())]})

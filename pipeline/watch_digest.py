@@ -2,7 +2,8 @@
 this order: quotes no longer on the page, text changed around a quote, pages that moved, new regulator items,
 then failures, parked URLs and refusals. One line per item: a sentence, the URL, the item id. A day with no
 items says how many sources were checked. Every digest then lists the sources the watcher can't check (parked:
-the site refused or kept failing; or on the denylist), which a person checks by hand before each release. If local.json names copy_to, both files are copied there too.
+the site refused or kept failing; on the denylist; or marked manual in their record, their copies saved by hand),
+which a person checks by hand before each release. If local.json names copy_to, both files are copied there too.
 """
 from __future__ import annotations
 
@@ -53,6 +54,14 @@ def sentence(item: dict) -> str:
     return f"{first} ({records(item)})." if item["record_refs"] else f"{first}."
 
 
+def by_hand_reason(meta: dict) -> str:
+    if meta.get("parked"):
+        return meta.get("parked_reason") or "parked"
+    if meta.get("refused"):
+        return f"{meta['refused']} is on the denylist"
+    return "marked manual: its copy is saved by hand"
+
+
 def line(item: dict) -> str:
     url = item["event"]["link"] if item["kind"] == "new_event" else item["source_url"]
     return f"- {sentence(item)} {url} ({item['id']})"
@@ -65,8 +74,7 @@ def build(store: Store, day: dt.date) -> tuple[str, dict]:
     runs = watch_store.read_json(store.digest / f"runs-{stamp}.json", [])
     checked = len({url for r in runs for url in r["checked"]})
     metas = [watch_store.read_json(p, {}) for p in store.snapshots.glob("*/meta.json")]
-    by_hand = sorted((m["url"], m.get("parked_reason") or "parked") if m.get("parked") else (m["url"], f"{m['refused']} is on the denylist")
-                     for m in metas if m.get("parked") or m.get("refused"))
+    by_hand = sorted((m["url"], by_hand_reason(m)) for m in metas if m.get("parked") or m.get("refused") or m.get("manual"))
     md = [f"# FinePrint watcher digest, {stamp}", ""]
     ordered = []
     if not items:
