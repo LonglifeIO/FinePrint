@@ -332,6 +332,64 @@
        "quote": "sharing data with third-party networks (for example, through postbacks … this would be deemed sharing"
       }
      ]
+    },
+    {
+     "text": "A complaint alleges that a man's use of the Grindr dating app was passed to TikTok, likely through AppsFlyer, without a legal basis or his consent, revealing his sexual orientation.",
+     "subject_company": "co-appsflyer",
+     "status": "alleged",
+     "status_kind": "filed",
+     "forum": "regulator",
+     "wording": "Alleged in a complaint filed by noyb with Austria's data protection authority, announced on 2025-12-17.",
+     "sources": [
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "Grindr was sent to TikTok, likely via the Israeli tracking company AppsFlyer"
+      },
+      {
+       "url": "https://noyb.eu/sites/default/files/2025-12/TikTok%20Grindr%20Complaint_EN_redacted.pdf",
+       "type": "lawsuit",
+       "title": "noyb's complaint against TikTok, Grindr and AppsFlyer to Austria's data protection authority (English, redacted)",
+       "accessed": "2026-10-08",
+       "status": "alleged",
+       "quote": "AppsFlyer then shared the complainant's activity data (directly or indirectly) with TikTok"
+      },
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "Neither AppsFlyer nor Grindr have a valid legal basis"
+      },
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "At no point in time … consent to the sharing of his data"
+      },
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "draw conclusions about his sexual orientation and sex life"
+      },
+      {
+       "url": "https://noyb.eu/en/tiktok-unlawfully-tracks-your-shopping-habits-and-your-use-dating-apps",
+       "type": "lawsuit",
+       "title": "noyb: complaints against TikTok, AppsFlyer and Grindr, filed with Austria's data protection authority (announcement)",
+       "as_of": "2025-12-17",
+       "status": "alleged",
+       "quote": "noyb has therefore filed two complaints with the Austrian data protection authority (DSB)"
+      }
+     ]
     }
    ],
    "confidence": "high",
