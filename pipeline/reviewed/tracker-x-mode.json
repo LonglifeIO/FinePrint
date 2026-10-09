@@ -15,6 +15,19 @@
    ],
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "location_data",
+    "sources": [
+     {
+      "url": "https://outlogic.io/privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Outlogic Privacy Notice (last updated January 2026)",
+      "accessed": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "latitude-longitude coordinates compiled through GPS features of our SDK"
+     }
+    ]
+   },
    "product_line": "X-Mode location SDK; in 2021 X-Mode moved its business to Outlogic, a wholly owned subsidiary of Digital Envoy, whose majority owner is Landmark Media Enterprises",
    "categories": [
     "location",
@@ -331,7 +344,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

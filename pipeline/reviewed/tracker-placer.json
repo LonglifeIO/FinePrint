@@ -11,6 +11,27 @@
    "owner_company": "co-placer",
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "location_data",
+    "sources": [
+     {
+      "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Placer.ai Privacy Policy (Consumers)",
+      "as_of": "2026-04-15",
+      "status": "self_disclosed",
+      "quote": "Placer’s technology is deployed in many mobile apps"
+     },
+     {
+      "url": "https://www.placer.ai/privacy-policy/sdk-user-privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Placer.ai Privacy Policy (Consumers)",
+      "as_of": "2026-04-15",
+      "status": "self_disclosed",
+      "quote": "Placer’s technology collects data, such as geolocation data"
+     }
+    ]
+   },
    "product_line": "Placer's SDK in other companies' apps; Placer Labs runs the Placer.ai foot-traffic analytics platform, formerly at placer.io",
    "categories": [
     "location",
@@ -138,7 +159,7 @@
     }
    ],
    "confidence": "medium",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

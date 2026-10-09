@@ -15,6 +15,20 @@
    ],
    "jurisdiction": "NO",
    "party": "third_party",
+   "purpose": {
+    "kind": "location_data",
+    "sources": [
+     {
+      "url": "https://github.com/unacast/pure-sdk",
+      "type": "company_site",
+      "title": "Unacast Pure SDK documentation (GitHub; last changed 2019-09-05)",
+      "as_of": "2019-09-05",
+      "accessed": "2026-10-08",
+      "status": "self_disclosed",
+      "quote": "Location data is gathered and sent to the cloud for analysis"
+     }
+    ]
+   },
    "product_line": "Unacast Pure SDK; Gravy Analytics, Inc. now does business as Unacast",
    "categories": [
     "location",
@@ -294,7 +308,7 @@
     }
    ],
    "confidence": "medium",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

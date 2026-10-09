@@ -10,6 +10,19 @@
    "owner_company": "co-kochava",
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "attribution",
+    "sources": [
+     {
+      "url": "https://support.kochava.com/articles/reference-information/34862-sdk-data-privacy-and-safety/",
+      "type": "company_site",
+      "title": "Kochava support: SDK Data Privacy and Safety",
+      "as_of": "2025-05-20",
+      "status": "self_disclosed",
+      "quote": "primarily used for attribution and install deduplication … Google Advertising ID … Google App Set ID"
+     }
+    ]
+   },
    "product_line": "Kochava's measurement SDK for app developers (attribution and analytics), including its free plan, Free App Analytics; the Kochava Collective data marketplace is a separate line of business",
    "categories": [
     "analytics",
@@ -304,7 +317,7 @@
     }
    ],
    "confidence": "high",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }

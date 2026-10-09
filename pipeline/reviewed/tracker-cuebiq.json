@@ -9,6 +9,27 @@
    "owner_company": "co-cuebiq",
    "jurisdiction": "US",
    "party": "third_party",
+   "purpose": {
+    "kind": "location_data",
+    "sources": [
+     {
+      "url": "https://cuebiq.com/privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Cuebiq Group, LLC Privacy Policy",
+      "as_of": "2026-08-21",
+      "status": "self_disclosed",
+      "quote": "from an “SDK” (software development kit) that it provides to mobile application partners"
+     },
+     {
+      "url": "https://cuebiq.com/privacy-policy/",
+      "type": "privacy_policy",
+      "title": "Cuebiq Group, LLC Privacy Policy",
+      "as_of": "2026-08-21",
+      "status": "self_disclosed",
+      "quote": "lat/long (latitudinal and longitudinal) data, i.e., GPS-level data"
+     }
+    ]
+   },
    "product_line": "Cuebiq's location SDK for app partners; since a 2023 foreclosure sale the business is run by Cuebiq Group, LLC",
    "categories": [
     "location",
@@ -178,7 +199,7 @@
     }
    ],
    "confidence": "medium",
-   "last_reviewed": "2026-10-08"
+   "last_reviewed": "2026-10-09"
   }
  ]
 }
