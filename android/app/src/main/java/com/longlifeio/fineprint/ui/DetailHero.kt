@@ -44,7 +44,6 @@ import com.longlifeio.fineprint.explain.ALSO
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.FINE_PRINT_FIRST
-import com.longlifeio.fineprint.explain.FINE_PRINT_HEADING
 import com.longlifeio.fineprint.explain.FinePrintLine
 import com.longlifeio.fineprint.explain.FoldedLines
 import com.longlifeio.fineprint.explain.NO_RECORD
@@ -118,7 +117,7 @@ internal fun StoreTagline.asSource() = Source(sourceUrl, listingName(sourceUrl),
 
 /**
  * The hero (docs/METHOD.md, An app's page): the app's own short description, verbatim and attributed, then The fine
- * print · what FinePrint found: FinePrint's lines in reading order, each marked with an asterisk, in small type, those
+ * print and its caption: FinePrint's lines in reading order, each marked with an asterisk, in small type, those
  * that set the [tier] first under "Why it's Flagged" (or Caution) and the rest under "Also"; the first four, then See all.
  * Last, what it collects to run the app, folded into one line that opens to those lines.
  */
@@ -137,7 +136,8 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folde
         Text(THEIR_WORDS.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
         if (lines.isNotEmpty() || folded != null) {
             HorizontalDivider(Modifier.padding(vertical = Space.s), color = p.divider)
-            Eyebrow(FINE_PRINT_HEADING)
+            Eyebrow(THE_FINE_PRINT.title)
+            Text(THE_FINE_PRINT.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
             val shown = if (all) lines else lines.take(FINE_PRINT_FIRST)
             val why = tier?.takeIf { lines.any { it.setsTier } }
             shown.forEachIndexed { i, line ->
@@ -147,14 +147,16 @@ internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folde
             }
             if (lines.size > FINE_PRINT_FIRST) {
                 Box(Modifier.testTag("fine-print-all")) {
-                    LinkRow(if (all) "Show the first $FINE_PRINT_FIRST" else "See all ${lines.size}", if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more, inset = 0.dp) { all = !all }
+                    val label = if (all) "Show the first $FINE_PRINT_FIRST" else "See all ${lines.size}"
+                    // A place under Where it goes can show the same words; TalkBack hears which this is.
+                    LinkRow(label, if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more, inset = 0.dp, spoken = "$label in the fine print") { all = !all }
                 }
             }
             folded?.let { FoldedRow(it) }
         }
         val sources = (listOf(tagline.asSource()) + lines.flatMap { it.sources } + folded?.lines.orEmpty().flatMap { it.sources })
             .distinctBy { it.url + "|" + it.title }
-        SourcesRow("${THEIR_WORDS.title} and ${THE_FINE_PRINT.lowercase()}", sources, null, onSources)
+        SourcesRow("${THEIR_WORDS.title} and ${THE_FINE_PRINT.title.lowercase()}", sources, null, onSources)
     }
 }
 

@@ -29,7 +29,7 @@ The home shows the same on each app in small text, such as Checked by FinePrint 
 When FinePrint has an app's store description on record, its page opens with it, above the sections:
 
 - Their words: The app's own short description on its Google Play listing, word for word.
-- The fine print · what FinePrint found: FinePrint's own claims about the app, chosen the same way for every app.
+- The fine print: Its privacy policy, store labels and the public record on your data, in plain words.
 
 The fine print lists FinePrint's claims in the reading order set out under Where data goes, from what goes to other companies and what the app's own company uses it for: the claims that set the tier first, under Why it's Flagged or Why it's Caution, and the rest under Also. It shows the first four, then See all with how many there are. A claim from a lawsuit or complaint is there only once a judge has let the case go ahead or a regulator has opened a proceeding; one that has only been filed stays under Where it goes and On the record. What the app collects to run itself follows as one line, Also collected to run the app, which opens to those claims, each with its badge. An app without a store description on record opens with its Summary.
 
@@ -162,7 +162,7 @@ The line under each item says which kind it is:
 - Check this yourself — FinePrint can't see settings inside other apps.
 - Check this yourself — FinePrint can't see this Android setting.
 
-The page and the list say how many of the app's current flows your settings limit, such as 3 of 7 data flows limited by your settings. Each flow counts once: a line FinePrint inferred from tracker code counts only when it adds data that the checked lines don't already cover. Flows that stay with the app, and past practices, aren't counted.
+The page and the list say how many of the app's current flows your settings limit, such as Your settings limit 3 of the 7 ways it uses or shares data. Each flow counts once: a line FinePrint inferred from tracker code counts only when it adds data that the checked lines don't already cover. Flows that stay with the app, and past practices, aren't counted.
 
 - Limited: Limited means a setting you've changed applies to it: an Android permission turned off, or an in-app setting ticked. Limited doesn't mean stopped.
 
@@ -265,6 +265,7 @@ Say which app, what's wrong and, if you can, where the right information is. The
 FinePrint's words follow a few rules, so every screen reads the same way.
 
 - One idea per sentence. A line runs to about 20 words; a chip or heading to about 12.
+- No sentence starts with Or; tier definitions are a short line plus a full line that lists the conditions.
 - The sentence carries the claim; the chip, date, footnote, Sources sheet and expand arrow carry its status and source. A qualifier moves there; it's never dropped.
 - Name who says it: the app says, a court ruled, a regulator found, reporters found. A status word isn't an adjective.
 - Write you and this app, not the user or the record.

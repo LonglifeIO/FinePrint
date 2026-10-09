@@ -35,8 +35,8 @@ data class CheckItem(
 
 /** The "What you can do" checklist, how many of the app's current flows it limits, and free-text controls for records without structured ones. */
 data class WhatYouCanDo(val items: List<CheckItem>, val limited: Int, val total: Int, val inAppText: String?) {
-    /** "3 of 11 data flows limited by your settings"; null when nothing goes beyond running the app. */
-    val summary: String? get() = if (total == 0) null else "$limited of $total data ${if (total == 1) "flow" else "flows"} limited by your settings"
+    /** "Your settings limit 3 of the 11 ways it uses or shares data."; null when nothing goes beyond running the app. */
+    val summary: String? get() = if (total == 0) null else "Your settings limit $limited of the $total ${if (total == 1) "way" else "ways"} it uses or shares data."
 }
 
 private const val AD_ID = "com.google.android.gms.permission.AD_ID"

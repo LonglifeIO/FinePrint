@@ -35,9 +35,9 @@ class WhatYouCanDoTest {
         assertEquals(listOf(true, false), on.items.map { it.automatic })
         assertEquals(false, on.items.first().ticked)
         // Two current lines go beyond the app (Partners, and Arity's alleged flow); nothing limits them yet.
-        assertEquals("0 of 2 data flows limited by your settings", on.summary)
+        assertEquals("Your settings limit 0 of the 2 ways it uses or shares data.", on.summary)
         // Turning precise location off in Android limits both: both are location or driving data.
-        assertEquals("2 of 2 data flows limited by your settings", check(fineLocationGranted = false).summary)
+        assertEquals("Your settings limit 2 of the 2 ways it uses or shares data.", check(fineLocationGranted = false).summary)
     }
 
     @Test
@@ -46,7 +46,7 @@ class WhatYouCanDoTest {
         val partners = ticked.items.single { it.id == "ctl-partners" }
         assertEquals(true, partners.ticked)
         assertEquals("Example doesn't say what changes.", partners.effect)
-        assertEquals("1 of 2 data flows limited by your settings", ticked.summary)
+        assertEquals("Your settings limit 1 of the 2 ways it uses or shares data.", ticked.summary)
         assertNull(ticked.inAppText) // the record's structured controls replace its free text
     }
 
@@ -79,7 +79,7 @@ class WhatYouCanDoTest {
         )
         val c = whatYouCanDo(life360, explain(life360, scan, real, emptyMap()), real.apps.getValue(life360.packageName), real.permissions.mapValues { it.value.feeds }, emptySet())
         // Six current lines from Life360's record, Arity's alleged line and AdMob's three from Google's own disclosure.
-        assertEquals("3 of 10 data flows limited by your settings", c.summary)
+        assertEquals("Your settings limit 3 of the 10 ways it uses or shares data.", c.summary)
         val choices = c.items.single { it.id == "ctl-l360-privacy-choices" }
         assertEquals(listOf(true), choices.notes.map { it.startsWith("Life360's policy says this covers sales of precise location") })
         assertEquals(CHECK_IN_APP, choices.subtext)

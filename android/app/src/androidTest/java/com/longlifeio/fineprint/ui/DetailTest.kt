@@ -27,7 +27,7 @@ import androidx.compose.ui.test.hasAnyAncestor
 import androidx.compose.ui.test.hasTestTag
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.FINE_PRINT_FIRST
-import com.longlifeio.fineprint.explain.FINE_PRINT_HEADING
+import com.longlifeio.fineprint.explain.THE_FINE_PRINT
 import com.longlifeio.fineprint.explain.finePrint
 import com.longlifeio.fineprint.explain.spoken
 import com.longlifeio.fineprint.explain.whatYouCanDo
@@ -87,7 +87,8 @@ class DetailTest {
         compose.onNodeWithText(THEIR_WORDS.title).assertExists()
         compose.onNodeWithText("“${tagline.text}”").assertExists() // read without the asterisk that points at the fine print
         compose.onNodeWithText("— Google Play listing (Canada), read 2026-10-07").assertExists()
-        compose.onNodeWithText(FINE_PRINT_HEADING).assertExists()
+        compose.onNodeWithText(THE_FINE_PRINT.title).assertExists()
+        compose.onNodeWithText(THE_FINE_PRINT.subtitle).assertExists()
         // The first four fine-print lines, each one stop for TalkBack; their asterisks are drawn, not read. See all opens the rest.
         val lines = finePrint(e)
         assertTrue(lines.size > FINE_PRINT_FIRST)

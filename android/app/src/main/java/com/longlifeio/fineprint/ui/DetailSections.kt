@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
@@ -113,7 +114,8 @@ fun LazyListScope.detailSections(
             if (lines.size > BUCKET_FIRST) {
                 cardItem(key = "more:$bucket") {
                     Box(Modifier.testTag("more:$bucket")) {
-                        LinkRow(if (all) "Show the first $BUCKET_FIRST" else "See all ${lines.size}", if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more) { buckets.toggle(bucket) }
+                        val label = if (all) "Show the first $BUCKET_FIRST" else "See all ${lines.size}"
+                        LinkRow(label, if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more, spoken = "$label for ${BUCKET_TEXT.getValue(bucket).title}") { buckets.toggle(bucket) }
                     }
                 }
             }
@@ -239,15 +241,19 @@ private fun DataChip(label: String) {
     }
 }
 
-/** A text link with an icon, 48dp tall; [inset] is its side padding (none in the hero, whose card pads it). */
+/**
+ * A text link with an icon, 48dp tall; [inset] is its side padding (none in the hero, whose card pads it), and [spoken]
+ * what TalkBack reads when the words alone don't say which link this is.
+ */
 @Composable
-fun LinkRow(text: String, icon: Int, inset: Dp = 16.dp, onClick: (() -> Unit)?) {
+fun LinkRow(text: String, icon: Int, inset: Dp = 16.dp, spoken: String? = null, onClick: (() -> Unit)?) {
     val colour = if (onClick != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         // Null: shown, but it opens nothing (a note under it says why).
-        modifier = Modifier.fillMaxWidth().heightIn(min = TOUCH).clickable(enabled = onClick != null) { onClick?.invoke() }.padding(horizontal = inset),
+        modifier = Modifier.fillMaxWidth().heightIn(min = TOUCH).clickable(enabled = onClick != null) { onClick?.invoke() }
+            .then(if (spoken != null) Modifier.semantics { contentDescription = spoken } else Modifier).padding(horizontal = inset),
     ) {
         Text(text, style = MaterialTheme.typography.labelLarge, color = colour, modifier = Modifier.weight(1f))
         Icon(painterResource(icon), contentDescription = null, tint = colour, modifier = Modifier.size(20.dp))

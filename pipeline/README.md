@@ -31,7 +31,7 @@ Serve for dev: `python3 -m http.server <port> --directory ../bundle` (see `andro
 
 ## Review requests
 
-Issues labelled `review-request` come from the app's "Ask FinePrint to review this app" (on pages that read Their
+Issues labelled `review-request` come from the app's "Ask FinePrint to check this app" (on pages that read Their
 words only or No record yet), through `.github/ISSUE_TEMPLATE/review-request.yml`. Triage:
 
 - Dedupe by package: keep the first issue for a package, add a +1 reaction to it for each duplicate, and close the
