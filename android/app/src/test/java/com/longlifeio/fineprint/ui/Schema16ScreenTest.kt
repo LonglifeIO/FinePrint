@@ -44,7 +44,7 @@ class Schema16ScreenTest {
             AppDetailScreen(
                 app = app, explanation = e, check = check, review = ReviewView(ReviewStatus.NOT_REVIEWED), result = scan, signatures = null,
                 bundleVersion = bundle.version, onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {},
-                onTick = { _, _ -> }, buckets = OpenBuckets({ _, _ -> true }, { _, _ -> }),
+                onTick = { _, _ -> }, buckets = OpenBuckets({ _, _ -> true }, { _, _ -> }), cards = OpenCards(flipped = listOf("goes")),
             )
         }
     }
@@ -58,7 +58,7 @@ class Schema16ScreenTest {
     @Test
     fun aRegulatorsMatterIsNotYetDecided() {
         detail("com.example.regulator")
-        compose.onNodeWithText("Why: Nothing found beyond running the app").assertExists() // merely filed, the complaint sets no tier
+        compose.onNodeWithText("Why it's Expected: nothing found beyond running the app").assertExists() // merely filed, the complaint sets no tier
         // On the record opens to the line; its badge speaks as one description: "Status: Alleged (not yet decided). <what Alleged means>".
         compose.onNodeWithTag("detail").performScrollToNode(hasText("On the record", substring = true) and hasClickAction())
         compose.onNode(hasText("On the record", substring = true) and hasClickAction()).performClick()

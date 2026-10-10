@@ -12,9 +12,9 @@ FinePrint shows, for each app on your phone, what data it collects, who gets it,
 
 ## An app's page, section by section
 
-Every app's page has the same sections, in the same order. A section with nothing to show is left out, except What it collects.
+Every app's page has the same sections, in the same order. A section with nothing to show is left out, except What it collects. Below the fine print, each section starts closed. Its row shows its name, a short summary and an arrow: Where it goes · 7 ways, 3 limited by your settings. Tap it to open it where it is; it stays open until you leave the page. Without a store description, an app's page opens with its Summary, which stays open.
 
-Under its name, each page shows its tier and one line saying why, such as Why: Life360 says your location goes to other companies. The reason is always a fact: what the app's maker or a tracker's company says, a report, a ruling, or a step a court or regulator has taken. What someone alleges in a lawsuit or complaint is never the reason given. When several claims set the tier, the Why line names the first and counts the rest, such as 3 more reasons below, or 2 more reasons on the record when rulings or cases set it. The claims that set the tier sit under one heading, Why it's Flagged or Why it's Caution, and the rest under Also. On the record lists the items that set it first, under the same heading. The fine print and the summary list those first.
+Under its name, each page shows its tier and one line saying why, such as Why it's Flagged: Life360 says your location goes to other companies. For an app FinePrint hasn't checked, what the scan found takes its place. The reason is always a fact: what the app's maker or a tracker's company says, a report, a ruling, or a step a court or regulator has taken. What someone alleges in a lawsuit or complaint is never the reason given. When several claims set the tier, the Why line names the first and counts the rest, such as 3 more reasons below, or 2 more reasons on the record when rulings or cases set it. The claims that set the tier sit under one heading, Why it's Flagged or Why it's Caution, and the rest under Also. On the record lists the items that set it first, under the same heading. The fine print and the summary list those first.
 
 Under its name and tier, each page says how far FinePrint has looked at the app, in words, never a colour:
 
@@ -38,6 +38,7 @@ Each sourced line on the page ends in a small number. The numbers match the list
 - Summary: In plain words, from what FinePrint has checked about this app. For an app without a record: FinePrint hasn't checked this app. This is inferred from the tracker code inside it. For an app that came with your phone and inherits its maker's lines: FinePrint hasn't checked this app. This comes from its maker's privacy policy, which covers it, and the tracker code inside it.
 - What it collects: Data this app takes from your phone, in plain terms.
 - Where it goes: Who gets that data, and whether it's used beyond running the app.
+- Jurisdictions: Where the companies that get this data are based, and the laws there that let a government demand it.
 - This applies to you because: Permissions you've actually granted that feed the above.
 - What you can do: Settings that limit where your data goes. FinePrint can't change them. It shows what Android reports, and you can tick what you've changed inside the app.
 - Device access: Extra powers this app has, beyond its permissions.
@@ -46,7 +47,7 @@ Each sourced line on the page ends in a small number. The numbers match the list
 - Evidence: The trackers and permissions behind the sections above.
 - Sources: Every number on this page is one of these, in order.
 
-On the record and Evidence start collapsed. On the record gives each action one line: when, who acted, what came of it, and its status. The ones that set the tier come first, under Why it's Flagged or Why it's Caution. The rest fall into two groups, each newest first, followed by what others have reported:
+On the record gives each action one line: when, who acted, what came of it, and its status. The ones that set the tier come first, under Why it's Flagged or Why it's Caution. The rest fall into two groups, each newest first, followed by what others have reported:
 
 - Ongoing: Orders still in force, cases still pending, and decisions under appeal.
 - Past: Matters that have ended, and past practices others reported. One that ended more than three years ago never changes a tier.
@@ -111,7 +112,7 @@ Tap Sources under a claim to see each source behind it. Each shows its title, ty
 
 Every app gets a tier, worked out the same way for every app:
 
-- Flagged: Sensitive data goes to other companies, or a court has acted on a case about this app's data.
+- Flagged: Sensitive data goes to other companies, or a court or regulator has acted on a case about this app's data.
 - Caution: Data use, sharing or device reach goes beyond running the app, or a regulator has opened a proceeding.
 - Expected: FinePrint checked this app and found nothing beyond what it needs to work.
 
@@ -119,7 +120,7 @@ Flagged means one of these:
 
 - the app itself says sensitive data goes to other companies;
 - a ruling says so;
-- a court has ruled on a case about the app's data;
+- a court or regulator has ruled on a case about the app's data;
 - or a court has let such a case go ahead.
 
 Sensitive data means location, health, financial, contacts, children's, biometric and precise movement data. A ruling can be a court's or a regulator's, and a settlement or an order counts as one. A case a court has let go ahead has survived a motion to dismiss. It is still not proven.
@@ -143,7 +144,7 @@ Five limits apply to every app:
 - Filing alone never raises a tier. A lawsuit counts once a judge lets it go ahead. A complaint to a regulator counts once the regulator opens a formal proceeding. A claim from either counts from the same point. Until then it is shown, but it doesn't count.
 - A line that is Off by default, when the app has a setting that controls it, doesn't count toward the tier. A line that is Only if you opt in still counts.
 
-A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's or a tracker's record names this app. On the record also shows the developer's other actions, and what's on record about the trackers in the app's code; one that doesn't name this app is marked about its company, such as about InMobi, and it never changes the app's tier. A tracker's line that the app's own record already gives, from the same source, shows once. Under each tier, one line names the finding that set it; when a ruling, a lawsuit or a regulator's proceeding sets it, that line names it. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow. A claim in a lawsuit or complaint is never the reason given. When only such claims count, the reason names the court's or regulator's step instead, such as A court has let a case go ahead over where this app's data goes (not proven in court).
+A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's or a tracker's record names this app. On the record also shows the developer's other actions, and what's on record about the trackers in the app's code; one that doesn't name this app is marked about its company, such as about InMobi, and it never changes the app's tier. A tracker's line that the app's own record already gives, from the same source, shows once. Under each tier, one line names the finding that set it. When a ruling, a lawsuit or a regulator's proceeding sets it, the line gives the rule in the tier's own words, then who acted and when. For example: Why it's Flagged: a court or regulator has ruled on a case about this app's data — Data Protection Commission (Ireland), 2024. When several did, it names the newest. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow. A claim in a lawsuit or complaint is never the reason given. When only such claims count, the reason names the court's or regulator's step instead, such as A court has let a case go ahead over where this app's data goes (not proven in court).
 
 Not checked yet: FinePrint hasn't checked this app. What it shows comes from the trackers built into it. It can be Caution, never Flagged or Expected.
 
@@ -232,11 +233,11 @@ A change is Worsened when it adds a flow beyond running the app, moves a flow aw
 
 One rule applies to every government: FinePrint never ranks governments; it ranks evidence. Every country gets the same wording, in alphabetical order, with no ranking and no adjectives.
 
-Under Where it goes, one line says where the companies that get the app's data are based:
+After Where it goes, one section says where the companies that get the app's data are based:
 
 - Jurisdictions: Where the companies that get this data are based, and the laws there that let a government demand it.
 
-A company is based where it has its head office, or, when FinePrint has no source for that, where it's registered. Tap the line to see each country: the companies headquartered there or subject to its law, and each way its government can get the data, with the usual status badge and sources:
+A company is based where it has its head office, or, when FinePrint has no source for that, where it's registered. Open it to see each country: the companies headquartered there or subject to its law, and each way its government can get the data, with the usual status badge and sources:
 
 - Can compel: A company in a country is subject to a law that lets that country's government demand the data. FinePrint cites the law.
 - Has bought: A documented government purchase of this kind of data.

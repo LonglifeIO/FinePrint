@@ -4,7 +4,6 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import com.longlifeio.fineprint.bundle.parseBundle
@@ -56,12 +55,10 @@ class OwnerHistoryTest {
                 app = app, explanation = e, check = whatYouCanDo(app, e, null, bundle.permissions.mapValues { it.value.feeds }, emptySet()),
                 review = ReviewView(ReviewStatus.NOT_REVIEWED), result = scan, signatures = null, bundleVersion = bundle.version,
                 onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
-                buckets = OpenBuckets.allOpen(),
+                buckets = OpenBuckets.allOpen(), cards = OpenCards.allOpen(),
             )
         }
         val page = compose.onNodeWithTag("detail")
-        page.performScrollToNode(hasText("Tap to show the laws"))
-        compose.onNodeWithText("Tap to show the laws").performClick()
         val affle = hasText("Affle 3i Limited: headquartered here and subject to its law", substring = true)
         page.performScrollToNode(affle)
         // Its Sources row, just under it: its two registry sources and the change's four.

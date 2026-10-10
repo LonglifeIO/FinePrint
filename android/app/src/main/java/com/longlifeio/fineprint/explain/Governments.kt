@@ -54,9 +54,7 @@ data class CountryBlock(val code: String, val name: String, val companies: List<
  * laws that let its government compel the data and what records say it has bought or used.
  * [unplaced] is true when some of the data goes to recipients FinePrint can't place.
  */
-data class Governments(val basedIn: List<String>, val blocks: List<CountryBlock>, val unplaced: Boolean) {
-    val line: String? get() = if (basedIn.isEmpty()) null else "Your data goes to companies based in: ${basedIn.joinToString()}"
-}
+data class Governments(val basedIn: List<String>, val blocks: List<CountryBlock>, val unplaced: Boolean)
 
 val NO_GOVERNMENTS = Governments(emptyList(), emptyList(), unplaced = false)
 

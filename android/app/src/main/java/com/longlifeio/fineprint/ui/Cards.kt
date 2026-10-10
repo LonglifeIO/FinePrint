@@ -81,7 +81,7 @@ fun Modifier.cardFill(p: Palette, top: Dp = Corner.card, bottom: Dp = Corner.car
     }
 }
 
-/** A card that opens and closes from its top (On the record, Evidence). */
+/** A card that opens and closes from its top: every section below an app's fine print. */
 data class CardToggle(val open: Boolean, val what: String, val onToggle: () -> Unit)
 
 /** A card's top: its name, its headline and its definition. */
@@ -91,10 +91,11 @@ fun LazyListScope.cardTop(key: String, text: SectionText, headline: String, togg
 @Composable
 private fun CardTop(text: SectionText, headline: String, toggle: CardToggle?) {
     val p = LocalPalette.current
+    // One stop for TalkBack: the section's name (a heading, from its eyebrow), its summary and definition, and its state.
     val action = toggle?.let { t ->
         Modifier
             .clickable(onClickLabel = if (t.open) "Hide ${t.what}" else "Show ${t.what}", onClick = t.onToggle)
-            .semantics { stateDescription = if (t.open) "Shown" else "Hidden" }
+            .semantics { stateDescription = if (t.open) "Expanded" else "Collapsed" }
     } ?: Modifier
     Column(Modifier.padding(top = Space.l).padding(horizontal = Space.screen).fillMaxWidth().cardFill(p, bottom = if (toggle?.open == false) Corner.card else 0.dp).then(action)) {
         Row(Modifier.fillMaxWidth().heightIn(min = TOUCH).padding(start = Space.l, end = Space.l, top = Space.card, bottom = if (toggle?.open == false) Space.card else Space.s)) {
@@ -132,9 +133,12 @@ fun LazyListScope.cardEnd(key: String) = item(key = "end:$key") {
 }
 
 /** The last card: every footnote number on the page, with its source's title and date. Reading only; each line's Sources row opens the sheet. */
-fun LazyListScope.sourcesCard(notes: Footnotes) {
+fun LazyListScope.sourcesCard(notes: Footnotes, cards: OpenCards) {
     if (notes.ordered.isEmpty()) return
-    cardTop("sources", SOURCES, if (notes.ordered.size == 1) "1 source" else "${notes.ordered.size} sources")
+    section("sources", SOURCES, if (notes.ordered.size == 1) "1 source" else "${notes.ordered.size} sources", "the sources", cards) { footnoteItems(notes) }
+}
+
+private fun LazyListScope.footnoteItems(notes: Footnotes) {
     cardItems(notes.ordered.withIndex().toList(), key = { "source:${it.index}" }) { (i, s) ->
         Text(
             "[${i + 1}] ${s.title} · ${sourceDate(s)}",
@@ -143,7 +147,6 @@ fun LazyListScope.sourcesCard(notes: Footnotes) {
             modifier = Modifier.padding(horizontal = Space.l, vertical = 3.dp),
         )
     }
-    cardEnd("sources")
 }
 
 /** Cards and text stop widening here: on a tablet the column sits in the middle of the screen. */

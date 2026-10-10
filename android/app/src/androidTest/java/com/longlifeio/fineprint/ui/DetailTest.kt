@@ -2,12 +2,15 @@ package com.longlifeio.fineprint.ui
 
 import android.content.Context
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.hasAnyAncestor
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -18,16 +21,15 @@ import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.RequestedPermission
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.explain.Explanation
+import com.longlifeio.fineprint.explain.FINE_PRINT_FIRST
 import com.longlifeio.fineprint.explain.GOES_ELSEWHERE
 import com.longlifeio.fineprint.explain.SOURCES
 import com.longlifeio.fineprint.explain.SUMMARY_AUTO
 import com.longlifeio.fineprint.explain.SUMMARY_CURATED
 import com.longlifeio.fineprint.explain.THEIR_WORDS
-import androidx.compose.ui.test.hasAnyAncestor
-import androidx.compose.ui.test.hasTestTag
-import com.longlifeio.fineprint.explain.explain
-import com.longlifeio.fineprint.explain.FINE_PRINT_FIRST
 import com.longlifeio.fineprint.explain.THE_FINE_PRINT
+import com.longlifeio.fineprint.explain.WHERE_IT_GOES
+import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.finePrint
 import com.longlifeio.fineprint.explain.spoken
 import com.longlifeio.fineprint.explain.whatYouCanDo
@@ -35,7 +37,6 @@ import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -126,6 +127,9 @@ class DetailTest {
             )
         }
         val detail = compose.onNodeWithTag("detail")
+        // Where it goes starts closed: its row opens it.
+        detail.performScrollToNode(hasText(WHERE_IT_GOES.subtitle))
+        compose.onNodeWithText(WHERE_IT_GOES.subtitle).performClick()
         // The chip keeps the full count while four lines show.
         detail.performScrollToNode(hasText("Goes elsewhere: $count lines", substring = true))
         compose.onNodeWithText("Goes elsewhere: $count lines", useUnmergedTree = true).assertExists()
@@ -144,6 +148,7 @@ class DetailTest {
     fun theLastCardListsEveryFootnoteNumber() {
         show(life360, explain(life360, scan, bundle, emptyMap()))
         compose.onNodeWithTag("detail").performScrollToNode(hasText(SOURCES.subtitle))
+        compose.onNodeWithText(SOURCES.subtitle).performClick()
         compose.onNodeWithTag("detail").performScrollToNode(hasText("[1] ", substring = true))
         compose.onNodeWithText("[1] ", substring = true).assertExists()
     }

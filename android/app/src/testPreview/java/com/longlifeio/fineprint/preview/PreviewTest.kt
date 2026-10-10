@@ -33,6 +33,7 @@ import com.longlifeio.fineprint.SETTINGS_UNAVAILABLE
 import com.longlifeio.fineprint.bundle.parseBundle
 import com.longlifeio.fineprint.design.parseFixture
 import com.longlifeio.fineprint.egress.parseTrackerSignatures
+import com.longlifeio.fineprint.explain.APPLIES
 import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.glance
@@ -119,6 +120,10 @@ class PreviewTest {
         compose.onNodeWithText("Version 26.37.0", substring = true).assertIsDisplayed() // a scanned sample app keeps its version
         compose.onNodeWithText("Open app settings").assertIsNotEnabled().performClick()
         compose.onAllNodesWithText(SETTINGS_UNAVAILABLE!!).onFirst().assertIsDisplayed()
+        // The permissions you've granted sit in a section that starts closed: open it, then its button says the same.
+        val applies = hasText(APPLIES.title) and hasClickAction()
+        compose.onNodeWithTag("detail").performScrollToNode(applies)
+        compose.onNode(applies).performClick()
         compose.onNodeWithTag("detail").performScrollToNode(hasText("Open app settings to change these"))
         compose.onNodeWithText("Open app settings to change these").performClick()
         assertNull("nothing opened", shadowOf(compose.activity).nextStartedActivity)

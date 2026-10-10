@@ -67,7 +67,7 @@ class FinePrintFoldTest {
             AppDetailScreen(
                 app = app, explanation = e, check = check, review = ReviewView(ReviewStatus.NOT_REVIEWED), result = scan, signatures = null,
                 bundleVersion = bundle.version, onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {},
-                onTick = { _, _ -> }, buckets = OpenBuckets({ _, default -> default }, { _, _ -> }),
+                onTick = { _, _ -> }, buckets = OpenBuckets({ _, default -> default }, { _, _ -> }), cards = OpenCards.allOpen(),
             )
         }
     }

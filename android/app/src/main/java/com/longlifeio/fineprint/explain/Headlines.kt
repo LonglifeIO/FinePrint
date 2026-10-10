@@ -1,5 +1,6 @@
 package com.longlifeio.fineprint.explain
 
+import com.longlifeio.fineprint.bundle.Change
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.TrackerScanResult
 
@@ -41,9 +42,28 @@ fun canDoHeadline(check: WhatYouCanDo): String = check.summary ?: "Settings insi
 
 fun reachHeadline(e: Explanation): String = "${plural(e.reach.size, "extra power", "extra powers")} beyond permissions"
 
-fun recordHeadline(e: Explanation): String {
-    val count = e.onTheRecord.count + e.changes.size
-    return "${plural(count, "item", "items")} on the record"
+/*
+ * The one-line summaries a closed section shows beside its name, below the fine print (docs/METHOD.md, An app's page):
+ * "Where it goes · 7 ways, 3 limited by your settings". Each counts what the section holds when it opens.
+ */
+
+/** "7 ways, 3 limited by your settings": the ways it uses or shares data that What you can do counts; else the headline. */
+fun whereSummary(e: Explanation, check: WhatYouCanDo): String =
+    if (check.total == 0) whereHeadline(e) else "${plural(check.total, "way", "ways")}, ${check.limited} limited by your settings"
+
+/** "3 of 7 limited", the same count; "Settings inside the app" when none of its ways is counted. */
+fun canDoSummary(check: WhatYouCanDo): String = if (check.total == 0) canDoHeadline(check) else "${check.limited} of ${check.total} limited"
+
+/** "Based in: Ireland, United States", in the order Jurisdictions lists them; what FinePrint can't say when it places none. */
+fun basedInSummary(g: Governments): String = if (g.basedIn.isEmpty()) NONE_PLACED else "Based in: ${g.basedIn.joinToString()}"
+
+/** "4 matters, latest 2025"; with none, the changes its History lists ("1 change in its history"). */
+fun recordSummary(record: OnTheRecord, changes: List<Change>): String {
+    val dated = (record.actions + record.alsoReported + record.pastReports).map { it.date.take(4) }.filter { it.length == 4 && it.all(Char::isDigit) }
+    return when {
+        record.count > 0 -> plural(record.count, "matter", "matters") + (dated.maxOrNull()?.let { ", latest $it" } ?: "")
+        else -> plural(changes.size, "change", "changes") + " in its history"
+    }
 }
 
 fun evidenceHeadline(app: InstalledApp, result: TrackerScanResult?): String {

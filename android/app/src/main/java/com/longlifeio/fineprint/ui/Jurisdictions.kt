@@ -32,41 +32,25 @@ import com.longlifeio.fineprint.explain.GOVERNMENT_LINES
 import com.longlifeio.fineprint.explain.GovernmentLine
 import com.longlifeio.fineprint.explain.Governments
 import com.longlifeio.fineprint.explain.JURISDICTIONS
-import com.longlifeio.fineprint.explain.NONE_PLACED
 import com.longlifeio.fineprint.explain.NO_LAWS_REVIEWED
 import com.longlifeio.fineprint.explain.UNPLACED
+import com.longlifeio.fineprint.explain.basedInSummary
 import com.longlifeio.fineprint.explain.lastChecked
 import com.longlifeio.fineprint.explain.staleNote
 
 /**
- * Jurisdictions, at the end of Where it goes: one line saying where the companies that get the data
- * are based; open, each country in alphabetical order with the same wording: its companies, the laws
- * that let its government demand the data, and any purchase or use on record, each with its sources.
+ * Jurisdictions, after Where it goes: closed, where the companies that get the data are based ("Based in: Ireland,
+ * United States"); open, each country in alphabetical order with the same wording: its companies, the laws that let its
+ * government demand the data, and any purchase or use on record, each with its sources.
  */
-fun LazyListScope.jurisdictionsItems(g: Governments, open: Boolean, onToggle: () -> Unit, onSources: (SheetContent) -> Unit) {
+fun LazyListScope.jurisdictionsSection(g: Governments, cards: OpenCards, onSources: (SheetContent) -> Unit) {
     if (g.blocks.isEmpty() && !g.unplaced) return
-    cardItem(key = "jurisdictions") {
-        Column {
-            SubHeader(JURISDICTIONS)
-            val toggle = if (g.blocks.isEmpty()) Modifier else Modifier
-                .heightIn(min = TOUCH)
-                .clickable(onClickLabel = if (open) "Hide the laws" else "Show the laws", onClick = onToggle)
-                .semantics { stateDescription = if (open) "Shown" else "Hidden" }
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().then(toggle).padding(horizontal = 16.dp, vertical = 4.dp)) {
-                Column(Modifier.weight(1f)) {
-                    Text(g.line ?: NONE_PLACED, style = MaterialTheme.typography.bodyMedium)
-                    if (g.blocks.isNotEmpty()) {
-                        Text(if (open) "Tap to hide the laws" else "Tap to show the laws", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-                    }
-                }
-                if (g.blocks.isNotEmpty()) {
-                    Icon(painterResource(if (open) R.drawable.ic_expand_less else R.drawable.ic_expand_more), contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                }
-            }
-            if (g.unplaced && g.line != null) Note(UNPLACED)
-        }
-    }
-    if (!open) return
+    section("jurisdictions", JURISDICTIONS, basedInSummary(g), "the jurisdictions", cards) { countries(g, onSources) }
+}
+
+/** Its summary already says where they're based (or that FinePrint can't say); open, the note on the rest, then each country. */
+private fun LazyListScope.countries(g: Governments, onSources: (SheetContent) -> Unit) {
+    if (g.unplaced && g.basedIn.isNotEmpty()) cardItem(key = "unplaced") { Note(UNPLACED) }
     for (block in g.blocks) {
         cardItem(key = "country:${block.code}") {
             Text(

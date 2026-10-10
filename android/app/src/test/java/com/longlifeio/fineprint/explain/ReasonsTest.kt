@@ -26,7 +26,7 @@ class ReasonsTest {
     fun aRulingSetsTheTierAndItsItemOnTheRecordIsMarked() {
         val e = e("com.example.ruled")
         assertEquals("F2", e.tier.rule)
-        assertEquals("Why: A court or regulator has ruled on this app's data", whyLine(e))
+        assertEquals("Why it's Flagged: a court or regulator has ruled on a case about this app's data", whyLine(e))
         assertEquals(listOf(e.onTheRecord.actions.single()), e.tier.events.map { it.line })
         assertTrue(readingOrder(e).none { it.setsTier })
     }
@@ -35,7 +35,7 @@ class ReasonsTest {
     fun aCaseACourtLetGoAheadIsTheCourtsStepNeverTheClaim() {
         val e = e("com.example.proceeding")
         assertEquals("F3", e.tier.rule)
-        assertEquals("Why: A court has let a case about this app's data go ahead (not proven in court)", whyLine(e))
+        assertEquals("Why it's Flagged: a court has let a case about this app's data go ahead (not proven in court)", whyLine(e))
         // The claim leads nothing: the line it alleges comes after every line that isn't alleged, and isn't marked.
         assertEquals(listOf("self_disclosed", "alleged"), finePrint(e).map { it.status })
         assertTrue(finePrint(e).none { it.setsTier })
@@ -56,7 +56,7 @@ class ReasonsTest {
     fun aComplaintMerelyFiledSetsNoTierAndLeadsNothing() {
         val e = e("com.example.complaint")
         assertEquals(Tier.EXPECTED, e.tier.tier)
-        assertEquals("Why: Nothing found beyond running the app", whyLine(e))
+        assertEquals("Why it's Expected: nothing found beyond running the app", whyLine(e))
         assertTrue(e.tier.events.isEmpty())
         assertEquals("filed", e.onTheRecord.actions.single().statusKind)
     }
@@ -73,7 +73,7 @@ class ReasonsTest {
     fun theLinesThatSetTheTierAreReadFirst() {
         val e = e("com.example.flows")
         assertEquals("F1", e.tier.rule)
-        assertEquals("Why: Example Flows says your location goes to other companies. 1 more reason below.", whyLine(e))
+        assertEquals("Why it's Flagged: Example Flows says your location goes to other companies. 1 more reason below.", whyLine(e))
         // Location and contacts set it (Flagged's sensitive kinds); advertising IDs don't, and come after them.
         assertEquals(
             listOf(

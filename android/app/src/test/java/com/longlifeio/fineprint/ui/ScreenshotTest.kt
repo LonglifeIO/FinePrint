@@ -18,6 +18,7 @@ import com.longlifeio.fineprint.explain.STAYS_HERE
 import com.longlifeio.fineprint.explain.Tier
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.hasText
@@ -82,6 +83,7 @@ class ScreenshotTest {
     private val reviews = mapOf("com.facebook.katana" to ReviewView(ReviewStatus.REVIEWED, "2026-10-07"))
     private val life360 = apps.single { it.packageName == "com.life360.android.safetymapd" }
     private val franceinfo = apps.single { it.packageName == "fr.francetv.apps.info" }
+    private val facebook = apps.single { it.packageName == "com.facebook.katana" }
 
     /**
      * Saves the screen as <name>-light|dark[-150|-200][-w360|-w800].png, and what TalkBack would read as
@@ -102,10 +104,15 @@ class ScreenshotTest {
         if (!dark && scale == 1f && device == null) File("build/outputs/talkback").apply { mkdirs() }.resolve("$name.txt").writeText(compose.onAllNodes(isRoot()).printToString(Int.MAX_VALUE)) // a sheet is a second window
     }
 
-    /** The matrix's other two sizes: a small phone, and a tablet where cards stop at MAX_CONTENT. */
+    /**
+     * The matrix's other two sizes: a small phone, and a tablet where cards stop at MAX_CONTENT. And a page whole, for
+     * review: the phone's width, tall enough for an app's page with its sections closed, or a few open.
+     */
     enum class Device(val tag: String, val qualifiers: String) {
         SMALL("w360", "w360dp-h780dp-xxhdpi"),
         TABLET("w800", "w800dp-h1280dp-xhdpi"),
+        WHOLE("whole", "w411dp-h2800dp-420dpi"),
+        WHOLE_OPEN("whole", "w411dp-h5200dp-420dpi"),
     }
 
     @Composable
@@ -123,12 +130,22 @@ class ScreenshotTest {
         compose.onAllNodesWithText("Sources (", substring = true).onFirst().performClick()
     }
 
+    /** Life360's page as it opens; [open] names the sections already opened below the fine print. */
     @Composable
-    private fun Life360() = AppDetailScreen(
+    private fun Life360(vararg open: String) = AppDetailScreen(
         app = life360, explanation = explanations.getValue(life360.packageName), check = checks.getValue(life360.packageName),
         review = ReviewView(ReviewStatus.NOT_REVIEWED), result = scans[life360.scanKey], signatures = null, bundleVersion = bundle.version,
         onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
-        buckets = OpenBuckets({ _, default -> default }, { _, _ -> }),
+        buckets = OpenBuckets({ _, default -> default }, { _, _ -> }), cards = remember { OpenCards(flipped = open.toList()) },
+    )
+
+    /** Facebook's page, marked reviewed as on the emulator: its sections below the fine print closed, or [open]. */
+    @Composable
+    private fun Facebook(vararg open: String) = AppDetailScreen(
+        app = facebook, explanation = explanations.getValue(facebook.packageName), check = checks.getValue(facebook.packageName),
+        review = reviews.getValue(facebook.packageName), result = scans[facebook.scanKey], signatures = null, bundleVersion = bundle.version,
+        onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
+        buckets = OpenBuckets({ _, default -> default }, { _, _ -> }), cards = remember { OpenCards(flipped = open.toList()) },
     )
 
     /** franceinfo has no record, so its page asks for a reviewer: the disclosure, open. */
@@ -173,10 +190,18 @@ class ScreenshotTest {
     @Test fun searchSmall() = shoot("search", dark = false, { Home() }, device = Device.SMALL) { searchMeta() }
     @Test fun searchTablet() = shoot("search", dark = false, { Home() }, device = Device.TABLET) { searchMeta() }
     @Test fun filtersLight() = shoot("filters", dark = false, { Home() }) { compose.onNodeWithContentDescription(FILTERS).performClick() }
-    @Test fun whereItGoesLight() = shoot("where-it-goes", dark = false, { Life360() }) { toGoesElsewhere() }
-    @Test fun whereItGoesDark() = shoot("where-it-goes", dark = true, { Life360() }) { toGoesElsewhere() }
-    @Test fun whereItGoesSmall() = shoot("where-it-goes", dark = false, { Life360() }, device = Device.SMALL) { toGoesElsewhere() }
-    @Test fun whereItGoesTablet() = shoot("where-it-goes", dark = false, { Life360() }, device = Device.TABLET) { toGoesElsewhere() }
+    @Test fun whereItGoesLight() = shoot("where-it-goes", dark = false, { Life360("goes") }) { toGoesElsewhere() }
+    @Test fun whereItGoesDark() = shoot("where-it-goes", dark = true, { Life360("goes") }) { toGoesElsewhere() }
+    @Test fun whereItGoesSmall() = shoot("where-it-goes", dark = false, { Life360("goes") }, device = Device.SMALL) { toGoesElsewhere() }
+    @Test fun whereItGoesTablet() = shoot("where-it-goes", dark = false, { Life360("goes") }, device = Device.TABLET) { toGoesElsewhere() }
+    // Facebook's page (the phone test): as it opens, and whole, its sections below the fine print closed, then Where it
+    // goes, Jurisdictions and On the record opened in place.
+    @Test fun facebookLight() = shoot("facebook", dark = false, { Facebook() })
+    @Test fun facebookDark() = shoot("facebook", dark = true, { Facebook() })
+    @Test fun facebookClosedLight() = shoot("facebook-closed", dark = false, { Facebook() }, device = Device.WHOLE)
+    @Test fun facebookClosedDark() = shoot("facebook-closed", dark = true, { Facebook() }, device = Device.WHOLE)
+    @Test fun facebookOpenLight() = shoot("facebook-open", dark = false, { Facebook("goes", "jurisdictions", "record") }, device = Device.WHOLE_OPEN)
+    @Test fun facebookOpenDark() = shoot("facebook-open", dark = true, { Facebook("goes", "jurisdictions", "record") }, device = Device.WHOLE_OPEN)
     @Test fun askForReviewLight() = shoot("ask-for-review", dark = false, { Franceinfo() }) { openReviewRequest() }
     @Test fun askForReviewDark() = shoot("ask-for-review", dark = true, { Franceinfo() }) { openReviewRequest() }
     @Test fun askForReviewLargest() = shoot("ask-for-review", dark = false, { Franceinfo() }, scale = 2f) { openReviewRequest() }

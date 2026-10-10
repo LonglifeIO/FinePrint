@@ -6,7 +6,7 @@ import java.time.LocalDate
 /** How much an app deserves attention. The rules are published in docs/METHOD.md. */
 enum class Tier(val label: String, val definition: String) {
     // The short lines (the home's section headers, the tier chip); How to read gives each in full, as a list.
-    FLAGGED("Flagged", "Sensitive data goes to other companies, or a court has acted on a case about this app's data."),
+    FLAGGED("Flagged", "Sensitive data goes to other companies, or a court or regulator has acted on a case about this app's data."),
     CAUTION("Caution", "Data use, sharing or device reach goes beyond running the app, or a regulator has opened a proceeding."),
     EXPECTED("Expected", "FinePrint checked this app and found nothing beyond what it needs to work."),
 }
@@ -41,7 +41,7 @@ private fun TierResult.setBy(flows: List<FlowLine> = emptyList(), events: List<T
 private fun <T> namedFirst(named: T, all: List<T>): List<T> = listOf(named) + (all - named)
 
 /**
- * A legal or regulatory item, as the tier rules see it. [label] ("$5 billion FTC penalty") and [date]
+ * A legal or regulatory item, as the tier rules see it. [label] ("$5 billion FTC penalty"), [body] (who acted) and [date]
  * let the reason name the ruling or lawsuit that set the tier; the newest one with a label is named.
  * It counts only while [ongoing] (in force, pending or under appeal), or for three years from when it
  * [closed] (else its [date]); an undated item counts.
@@ -57,6 +57,8 @@ data class TierEvent(
     val closed: String? = null,
     /** The On the record line it comes from. */
     val line: RecordLine? = null,
+    /** The court or regulator that acted ("Data Protection Commission (Ireland)"), when the record says. */
+    val body: String? = null,
 )
 
 /** The stages past filing: a judge let the case go ahead, or a regulator opened a formal proceeding. Filing alone never raises a tier. */
@@ -77,6 +79,17 @@ internal fun within(date: String, years: Long, today: LocalDate): Boolean =
 
 /** The newest labelled event among [events], to name in a reason. */
 private fun named(events: List<TierEvent>): TierEvent? = events.filter { it.label != null }.maxByOrNull { it.date.orEmpty() }
+
+/** "Data Protection Commission (Ireland), 2024": who acted and when, after the rule's words; the title when no body is on record. */
+private fun who(e: TierEvent): String = listOfNotNull(e.body ?: e.label, e.date?.take(4)).joinToString(", ")
+
+/**
+ * The rules a ruling or case sets a tier by, in the tier definitions' own words (Tier, docs/METHOD.md): a reason names the
+ * rule, then who acted and when ("— Data Protection Commission (Ireland), 2024").
+ */
+internal const val RULED = "A court or regulator has ruled on a case about this app's data"
+internal const val LET_GO_AHEAD = "A court has let a case about this app's data go ahead"
+internal const val PROCEEDING = "A regulator has opened a formal proceeding over this app's data"
 
 /** Location, health, financial, contacts, children's, biometric and precise movement data. */
 val SENSITIVE_DATA = listOf(
@@ -154,15 +167,14 @@ fun tier(
         ?.let { return flagged(reason(it.first(), appName), "F1").setBy(flows = it) }
     // F2: a ruling, settlement or order concerning this app's data, named so a Flagged badge is never unexplained.
     legal.filter { it.status == "adjudicated" }.takeIf { it.isNotEmpty() }?.let { rulings ->
-        val ruling = named(rulings) ?: return flagged("A court or regulator has ruled on this app's data", "F2").setBy(events = rulings)
-        return flagged("A ${ruling.date?.take(4)?.let { "$it " }.orEmpty()}ruling on this app's data: ${ruling.label}", "F2").setBy(events = namedFirst(ruling, rulings))
+        val ruling = named(rulings) ?: return flagged(RULED, "F2").setBy(events = rulings)
+        return flagged("$RULED — ${who(ruling)}", "F2").setBy(events = namedFirst(ruling, rulings))
     }
     // F3: a lawsuit over this app's data has survived a motion to dismiss. Said as the court's step, a fact; the claim
     // itself stays in On the record.
     legal.filter { it.status == "alleged" && it.statusKind == "survived_motion_to_dismiss" }.takeIf { it.isNotEmpty() }?.let { suits ->
-        val what = "A court has let a case about this app's data go ahead"
         val suit = named(suits) ?: suits.first()
-        return flagged(named(suits)?.let { "$what: ${it.label} ($NOT_PROVEN)" } ?: "$what ($NOT_PROVEN)", "F3").setBy(events = namedFirst(suit, suits))
+        return flagged(named(suits)?.let { "$LET_GO_AHEAD — ${who(it)} ($NOT_PROVEN)" } ?: "$LET_GO_AHEAD ($NOT_PROVEN)", "F3").setBy(events = namedFirst(suit, suits))
     }
     // C1: used for more, by the app's own account, two independent reports, or a ruling.
     raising.filter { it.bucket == USED_FOR_MORE && it.status in setOf("self_disclosed", "reported", "adjudicated") }
@@ -184,10 +196,9 @@ fun tier(
     // C3: a regulator has opened a formal proceeding over this app's data (alleged, not yet decided). Filing alone, a
     // lawsuit's or a complaint's, never counts: a lawsuit counts once a judge lets it go ahead (F3).
     legal.filter { it.status == "alleged" && it.statusKind == "proceeding_opened" }.takeIf { it.isNotEmpty() }?.let { proceedings ->
-        val what = "A regulator has opened a formal proceeding over this app's data"
         return TierResult(
             Tier.CAUTION,
-            named(proceedings)?.let { "$what: ${it.label} ($NOT_YET_DECIDED)" } ?: "$what ($NOT_YET_DECIDED)",
+            named(proceedings)?.let { "$PROCEEDING — ${who(it)} ($NOT_YET_DECIDED)" } ?: "$PROCEEDING ($NOT_YET_DECIDED)",
             "C3",
         ).setBy(events = namedFirst(named(proceedings) ?: proceedings.first(), proceedings))
     }

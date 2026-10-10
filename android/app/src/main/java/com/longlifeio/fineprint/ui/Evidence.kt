@@ -28,17 +28,14 @@ import com.longlifeio.fineprint.egress.TrackerSignatures
 import com.longlifeio.fineprint.explain.EVIDENCE
 import com.longlifeio.fineprint.explain.evidenceHeadline
 
-/** Section 7: collapsed by default; the raw findings the sections above are built from. */
+/** Closed at first, like every section below the fine print: the raw findings the sections above are built from. */
 fun LazyListScope.evidenceSection(
-    open: Boolean,
-    onToggle: () -> Unit,
+    cards: OpenCards,
     app: InstalledApp,
     result: TrackerScanResult?,
     signatures: TrackerSignatures?,
     exodusNote: String?,
-) {
-    cardTop("evidence", EVIDENCE, evidenceHeadline(app, result), CardToggle(open, "the evidence", onToggle))
-    if (!open) return
+) = section("evidence", EVIDENCE, evidenceHeadline(app, result), "the evidence", cards) {
     cardItem { SectionTitle("Tracker code in this app") }
     trackerItems(app, result, signatures)
     exodusNote?.let { cardItem { Note(it) } }
@@ -47,7 +44,6 @@ fun LazyListScope.evidenceSection(
         Note("${app.permissions.size} declared · ${app.permissions.count { it.granted }} granted · ${app.permissions.count { it.dangerous }} that Android asks you about first")
     }
     cardItems(app.permissions, key = { "permission:" + it.name }) { PermissionRow(it) }
-    cardEnd("evidence")
 }
 
 private fun LazyListScope.trackerItems(app: InstalledApp, result: TrackerScanResult?, signatures: TrackerSignatures?) {

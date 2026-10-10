@@ -7,7 +7,6 @@ import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTouchInput
@@ -93,9 +92,6 @@ class AboutTheseSourcesTest {
         val first = e.onTheRecord.ongoing.first()
         show(e, scan)
         val page = compose.onNodeWithTag("detail")
-        val toggle = hasText("items on the record", substring = true)
-        page.performScrollToNode(toggle)
-        compose.onNode(toggle).performClick()
         page.performScrollToNode(hasText(first.line, substring = true))
         // Its badge sits at the row's centre and opens its own definition: tap the words.
         compose.onNode(hasText(first.line, substring = true)).performTouchInput { click(percentOffset(0.1f, 0.5f)) }
@@ -116,8 +112,6 @@ class AboutTheseSourcesTest {
         val scan = scan("exodus-90", "AdColony")
         show(explain(app, scan, noted, emptyMap()), scan)
         val page = compose.onNodeWithTag("detail")
-        page.performScrollToNode(hasText("Tap to show the laws"))
-        compose.onNodeWithText("Tap to show the laws").performClick()
         val place = hasText("Affle 3i Limited: headquartered here and subject to its law", substring = true)
         page.performScrollToNode(place)
         // Its two registry sources and the change of ownership's four: the note's own source isn't counted.
@@ -133,7 +127,7 @@ class AboutTheseSourcesTest {
             app = app, explanation = e, check = whatYouCanDo(app, e, null, bundle.permissions.mapValues { it.value.feeds }, emptySet()),
             review = ReviewView(ReviewStatus.NOT_REVIEWED), result = scan, signatures = null, bundleVersion = bundle.version,
             onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
-            buckets = OpenBuckets.allOpen(),
+            buckets = OpenBuckets.allOpen(), cards = OpenCards.allOpen(),
         )
     }
 

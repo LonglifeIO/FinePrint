@@ -47,17 +47,22 @@ class TierTest {
 
     @Test
     fun f2ARulingConcerningThisAppsData() {
-        assertEquals(TierResult(Tier.FLAGGED, "A court or regulator has ruled on this app's data", "F2"), rate(events = listOf(event("adjudicated", "settlement"))))
+        assertEquals(TierResult(Tier.FLAGGED, "A court or regulator has ruled on a case about this app's data", "F2"), rate(events = listOf(event("adjudicated", "settlement"))))
         assertEquals(Tier.EXPECTED, rate(events = listOf(event("adjudicated", "ruling", concerns = false))).tier)
     }
 
     @Test
-    fun aRulingThatSetsTheTierIsNamedNewestFirst() {
-        val older = TierEvent("adjudicated", "consent_order", true, listOf(src("adjudicated")), "FTC privacy order", "2012-08-10")
-        val newer = TierEvent("adjudicated", "ruling", true, listOf(src("adjudicated")), "Irish DPC fine", "2024-12-17")
-        assertEquals(TierResult(Tier.FLAGGED, "A 2024 ruling on this app's data: Irish DPC fine", "F2"), rate(events = listOf(older, newer)))
+    fun aRulingThatSetsTheTierIsNamedNewestFirstByWhoActedAndWhen() {
+        // The rule in the definition's own words, then who acted and the year (docs/METHOD.md, Tiers).
+        val older = TierEvent("adjudicated", "consent_order", true, listOf(src("adjudicated")), "FTC privacy order", "2012-08-10", body = "US Federal Trade Commission")
+        val newer = TierEvent("adjudicated", "ruling", true, listOf(src("adjudicated")), "Irish DPC fine", "2024-12-17", body = "Data Protection Commission (Ireland)")
+        assertEquals(TierResult(Tier.FLAGGED, "A court or regulator has ruled on a case about this app's data — Data Protection Commission (Ireland), 2024", "F2"), rate(events = listOf(older, newer)))
+        assertTrue(Tier.FLAGGED.definition.contains("a court or regulator has acted on a case about this app's data"))
+        // With no body on record, the item's title says who.
         val inquiry = TierEvent("alleged", "proceeding_opened", true, listOf(src("alleged")), "DPC inquiry into Example", "2025-01-13")
-        assertEquals("A regulator has opened a formal proceeding over this app's data: DPC inquiry into Example (not yet decided)", rate(events = listOf(inquiry)).reason)
+        assertEquals("A regulator has opened a formal proceeding over this app's data — DPC inquiry into Example, 2025 (not yet decided)", rate(events = listOf(inquiry)).reason)
+        val suit = TierEvent("alleged", "survived_motion_to_dismiss", true, listOf(src("alleged")), "Doe v. Example", "2025-03-01", body = "US District Court (N.D. Cal.)")
+        assertEquals("A court has let a case about this app's data go ahead — US District Court (N.D. Cal.), 2025 (not proven in court)", rate(events = listOf(suit)).reason)
     }
 
     @Test
@@ -67,7 +72,7 @@ class TierTest {
         val settled2019 = TierEvent("adjudicated", "settlement", true, listOf(src("adjudicated")), "2019 settlement", "2019-03-01", closed = "2019-06-01")
         val order2019 = TierEvent("adjudicated", "consent_order", true, listOf(src("adjudicated")), "2019 order", "2019-07-24", ongoing = true)
         assertEquals(Tier.EXPECTED, at(settled2019).tier) // ended more than three years ago: shown, never scored
-        assertEquals(TierResult(Tier.FLAGGED, "A 2019 ruling on this app's data: 2019 order", "F2"), at(order2019)) // still in force
+        assertEquals(TierResult(Tier.FLAGGED, "A court or regulator has ruled on a case about this app's data — 2019 order, 2019", "F2"), at(order2019)) // still in force
         assertEquals(Tier.FLAGGED, at(settled2019.copy(closed = "2024-01-15")).tier) // ended within three years
         assertEquals(Tier.FLAGGED, at(settled2019.copy(date = "2023-10-04", closed = null)).tier) // three years to the day
         assertEquals(Tier.EXPECTED, at(settled2019.copy(date = "2023-10-03", closed = null)).tier)
@@ -206,7 +211,7 @@ class TierTest {
             TierResult(Tier.CAUTION, "Some SDK says your location goes to other companies", "F1", capped = true),
             rate(curated = false, flows = sensitive),
         )
-        assertEquals(TierResult(Tier.CAUTION, "A court or regulator has ruled on this app's data", "F2", capped = true), rate(curated = false, events = listOf(event("adjudicated", "ruling"))))
+        assertEquals(TierResult(Tier.CAUTION, "A court or regulator has ruled on a case about this app's data", "F2", capped = true), rate(curated = false, events = listOf(event("adjudicated", "ruling"))))
     }
 
     @Test

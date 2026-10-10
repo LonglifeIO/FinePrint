@@ -71,6 +71,8 @@ fun AppDetailScreen(
     onTick: (String, Boolean) -> Unit,
     /** Which buckets show all their lines; kept on this phone. */
     buckets: OpenBuckets = rememberOpenBuckets(),
+    /** Which sections below the fine print are open; all closed when the page opens, kept for the visit. */
+    cards: OpenCards = rememberOpenCards(),
     settingsUnavailable: String? = null,
     /** Said in place of the app's version and APK count, when they aren't known (a sample app never scanned). */
     installLine: String? = null,
@@ -78,9 +80,6 @@ fun AppDetailScreen(
     onAskForReview: (() -> Unit)? = null,
     reviewUnavailable: String? = null,
 ) {
-    var evidenceOpen by rememberSaveable { mutableStateOf(false) }
-    var recordOpen by rememberSaveable { mutableStateOf(false) }
-    var jurisdictionsOpen by rememberSaveable { mutableStateOf(false) }
     var recordAll by rememberSaveable { mutableStateOf(false) }
     var sheet by remember { mutableStateOf<SheetContent?>(null) }
     val uriHandler = LocalUriHandler.current
@@ -106,18 +105,18 @@ fun AppDetailScreen(
                     item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings, settingsUnavailable, installLine, onAskForReview, reviewUnavailable) }
                     // Their words: only when the record has the store's own description.
                     explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation), alsoCollected(explanation), explanation.tier.tier) { sheet = it } } }
+                    // Below the header and the fine print, every section starts closed; the summary too, when Their words opens the page.
                     detailSections(
                         explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, settingsUnavailable = settingsUnavailable, onTick = onTick,
-                        jurisdictionsOpen = jurisdictionsOpen, onToggleJurisdictions = { jurisdictionsOpen = !jurisdictionsOpen },
-                        buckets = buckets,
+                        cards = cards, buckets = buckets, summaryFolds = explanation.storeTagline != null,
                     )
                     onTheRecordSection(
-                        explanation.onTheRecord, explanation.changes, recordOpen, onToggle = { recordOpen = !recordOpen; recordAll = false },
+                        explanation.onTheRecord, explanation.changes, cards,
                         showAll = recordAll, onShowAll = { recordAll = true }, onDetails = { sheet = it },
                         tier = explanation.tier.tier, reasons = explanation.tier.events.mapNotNull { it.line },
                     )
-                    evidenceSection(evidenceOpen, { evidenceOpen = !evidenceOpen }, app, result, signatures, explanation.exodusNote)
-                    sourcesCard(notes)
+                    evidenceSection(cards, app, result, signatures, explanation.exodusNote)
+                    sourcesCard(notes, cards)
                     item(key = "footer") {
                         Column(Modifier.padding(top = Space.l, bottom = Space.xl)) {
                             ReviewControls(review, onMarkReviewed, onClearMark)

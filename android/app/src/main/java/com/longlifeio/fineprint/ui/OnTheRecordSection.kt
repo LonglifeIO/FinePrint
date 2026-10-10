@@ -24,12 +24,13 @@ import com.longlifeio.fineprint.explain.PAST
 import com.longlifeio.fineprint.explain.RecordLine
 import com.longlifeio.fineprint.explain.SectionText
 import com.longlifeio.fineprint.explain.Tier
+import com.longlifeio.fineprint.explain.recordSummary
 import com.longlifeio.fineprint.explain.whyItIs
 
 private const val FIRST = 3
 
 /**
- * A card, collapsed by default ("10 items on the record"). Open, it lists one line per item in groups: the items that
+ * A card, closed at first ("4 matters, latest 2025"). Open, it lists one line per item in groups: the items that
  * set the app's [tier] ([reasons], the one its Why line names first) under "Why it's Flagged" or "Why it's Caution",
  * then Ongoing, Past, Also reported and the record's History, each newest first: the first three in that order, then
  * "See all". Each line opens its details and sources.
@@ -37,8 +38,7 @@ private const val FIRST = 3
 fun LazyListScope.onTheRecordSection(
     record: OnTheRecord,
     changes: List<Change>,
-    open: Boolean,
-    onToggle: () -> Unit,
+    cards: OpenCards,
     showAll: Boolean,
     onShowAll: () -> Unit,
     onDetails: (SheetContent) -> Unit,
@@ -47,10 +47,15 @@ fun LazyListScope.onTheRecordSection(
 ) {
     val count = record.count + changes.size
     if (count == 0) return
-    cardTop(
-        "record", ON_THE_RECORD, "$count ${if (count == 1) "item" else "items"} on the record", CardToggle(open, "the record", onToggle),
-    )
-    if (!open) return
+    section("record", ON_THE_RECORD, recordSummary(record, changes), "the record", cards) {
+        lines(record, changes, showAll, onShowAll, onDetails, tier, reasons, count)
+    }
+}
+
+private fun LazyListScope.lines(
+    record: OnTheRecord, changes: List<Change>, showAll: Boolean, onShowAll: () -> Unit, onDetails: (SheetContent) -> Unit,
+    tier: Tier?, reasons: List<RecordLine>, count: Int,
+) {
     if (record.actions.none { it.namesThisApp }) cardItem { Note("No action in FinePrint's record names this app.") }
     // The first three lines in page order, then See all for the rest.
     var room = if (showAll) Int.MAX_VALUE else FIRST
@@ -66,7 +71,6 @@ fun LazyListScope.onTheRecordSection(
         cardItems(shown) { ChangeLineRow(it, onDetails) }
     }
     if (!showAll && count > FIRST) cardItem { LinkRow("See all", R.drawable.ic_expand_more, onClick = onShowAll) }
-    cardEnd("record")
 }
 
 private fun LazyListScope.group(text: SectionText, lines: List<RecordLine>, onDetails: (SheetContent) -> Unit) {

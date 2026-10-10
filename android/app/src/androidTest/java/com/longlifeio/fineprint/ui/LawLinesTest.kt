@@ -2,8 +2,9 @@ package com.longlifeio.fineprint.ui
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import androidx.compose.ui.test.junit4.v2.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -15,11 +16,11 @@ import com.longlifeio.fineprint.egress.DetectedTracker
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.RequestedPermission
 import com.longlifeio.fineprint.egress.TrackerScanResult
+import com.longlifeio.fineprint.explain.JURISDICTIONS
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
-import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -67,8 +68,8 @@ class LawLinesTest {
             }
         }
         val detail = compose.onNodeWithTag("detail")
-        detail.performScrollToNode(hasText("Tap to show the laws"))
-        compose.onNodeWithText("Tap to show the laws").performClick()
+        detail.performScrollToNode(hasText(JURISDICTIONS.subtitle))
+        compose.onNodeWithText(JURISDICTIONS.subtitle).performClick()
         // FISA 702: its short line first, its full text closed under it until Show it in full opens it.
         val fisa = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-fisa-702" }
         detail.performScrollToNode(hasText(fisa.short!!))

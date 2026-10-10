@@ -44,7 +44,7 @@ class SeeAllTest {
                 app = app, explanation = e, check = whatYouCanDo(app, e, bundle.apps[app.packageName], bundle.permissions.mapValues { it.value.feeds }, emptySet()),
                 review = ReviewView(ReviewStatus.NOT_REVIEWED), result = scans[app.scanKey], signatures = null, bundleVersion = bundle.version,
                 onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> },
-                buckets = OpenBuckets({ _, default -> default }, { _, _ -> }),
+                buckets = OpenBuckets({ _, default -> default }, { _, _ -> }), cards = OpenCards.allOpen(),
             )
         }
         val page = compose.onNodeWithTag("detail")

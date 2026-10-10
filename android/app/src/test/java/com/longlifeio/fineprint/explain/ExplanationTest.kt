@@ -175,7 +175,7 @@ class ExplanationTest {
         val e = explain(app("com.example.watched"), scan(listOf(tracker("exodus-65", "Facebook Ads", "Advertisement"))), bundle, emptyMap())
         val g = e.governments
         // Kit Co's head office is in Israel, though it's registered in the Cayman Islands; Parent Co is in the United States.
-        assertEquals("Your data goes to companies based in: Israel, United States", g.line)
+        assertEquals("Based in: Israel, United States", basedInSummary(g))
         assertTrue(g.unplaced) // "Partners" isn't named
         assertEquals(listOf("Canada", "Cayman Islands", "Israel", "United States"), g.blocks.map { it.name })
         val (canada, cayman, israel, us) = g.blocks
@@ -237,7 +237,7 @@ class ExplanationTest {
     @Test
     fun anAppWhoseRecipientsFinePrintCantPlaceSaysSo() {
         val e = explain(app("com.example.other"), scan(listOf(tracker("exodus-312", "Google AdMob", "Advertisement"))), bundle, emptyMap())
-        assertEquals(null, e.governments.line)
+        assertEquals(NONE_PLACED, basedInSummary(e.governments))
         assertTrue(e.governments.unplaced && e.governments.blocks.isEmpty())
     }
 
@@ -252,7 +252,7 @@ class ExplanationTest {
         assertEquals(listOf("2019-07-24 · A regulator · consent order, in force · about Old"), settled.onTheRecord.ongoing.map { it.line })
 
         val ordered = explain(app("com.example.ordered"), scan(emptyList()), bundle, emptyMap(), today)
-        assertEquals(TierResult(Tier.FLAGGED, "A 2019 ruling on this app's data: 2019 privacy order", "F2"), ordered.tier)
+        assertEquals(TierResult(Tier.FLAGGED, "A court or regulator has ruled on a case about this app's data — A regulator, 2019", "F2"), ordered.tier)
         assertEquals(listOf("2019-07-24 · A regulator · consent order, in force"), ordered.onTheRecord.ongoing.map { it.line })
 
         // The same settlement, had it ended within three years, would still count.

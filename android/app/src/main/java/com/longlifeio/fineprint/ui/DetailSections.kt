@@ -55,17 +55,19 @@ import com.longlifeio.fineprint.explain.WHAT_YOU_CAN_DO
 import com.longlifeio.fineprint.explain.WHERE_IT_GOES
 import com.longlifeio.fineprint.explain.WhatYouCanDo
 import com.longlifeio.fineprint.explain.appliesHeadline
-import com.longlifeio.fineprint.explain.canDoHeadline
+import com.longlifeio.fineprint.explain.canDoSummary
 import com.longlifeio.fineprint.explain.collectsHeadline
 import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.reachHeadline
 import com.longlifeio.fineprint.explain.summaryHeadline
-import com.longlifeio.fineprint.explain.whereHeadline
+import com.longlifeio.fineprint.explain.whereSummary
 import com.longlifeio.fineprint.explain.whyItIs
 
 /**
- * The detail screen's sections up to Device access, each a card, always in this order; empty ones are
- * left out except What it collects. On the record (onTheRecordSection), Evidence and Sources follow.
+ * The detail screen's sections up to Device access, each a card, always in this order; empty ones are left out except
+ * What it collects. Below the fine print each starts closed: its name, a one-line summary and its definition, opening in
+ * place ([cards]). The summary stays open when no store description opens the page ([summaryFolds] false). On the
+ * record (onTheRecordSection), Evidence and Sources follow, the same way.
  */
 fun LazyListScope.detailSections(
     e: Explanation,
@@ -74,31 +76,31 @@ fun LazyListScope.detailSections(
     onOpenSettings: (() -> Unit)?,
     settingsUnavailable: String?,
     onTick: (String, Boolean) -> Unit,
-    jurisdictionsOpen: Boolean = false,
-    onToggleJurisdictions: () -> Unit = {},
+    cards: OpenCards = OpenCards.allOpen(),
     buckets: OpenBuckets = OpenBuckets.allOpen(),
+    summaryFolds: Boolean = false,
 ) {
-    cardTop("summary", if (e.coverage == "curated") SUMMARY_CURATED else if (e.maker?.inherited == true) SUMMARY_INHERITED else SUMMARY_AUTO, summaryHeadline(e))
-    cardItem { Paragraph(e.summary) }
-    cardItems(e.summaryNotes) { SummaryNoteRow(it, onSources, about = e.maker?.takeIf { m -> m.inherited }?.about) }
-    e.regionCaveat?.let { cardItem { Note(it) } }
-    recentChange(e.changes, onSources)
-    cardEnd("summary")
+    val summary = if (e.coverage == "curated") SUMMARY_CURATED else if (e.maker?.inherited == true) SUMMARY_INHERITED else SUMMARY_AUTO
+    section("summary", summary, summaryHeadline(e), "the summary", cards.takeIf { summaryFolds }) {
+        cardItem { Paragraph(e.summary) }
+        cardItems(e.summaryNotes) { SummaryNoteRow(it, onSources, about = e.maker?.takeIf { m -> m.inherited }?.about) }
+        e.regionCaveat?.let { cardItem { Note(it) } }
+        recentChange(e.changes, onSources)
+    }
 
-    cardTop("collects", COLLECTS, collectsHeadline(e))
-    cardItem {
-        if (e.collects.isEmpty()) {
-            Note("Nothing found: FinePrint hasn't checked this app, it has no tracker code, and you've granted it no data permissions.")
-        } else {
-            FlowRow(Modifier.padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                e.collects.forEach { DataChip(it) }
+    section("collects", COLLECTS, collectsHeadline(e), "what it collects", cards) {
+        cardItem {
+            if (e.collects.isEmpty()) {
+                Note("Nothing found: FinePrint hasn't checked this app, it has no tracker code, and you've granted it no data permissions.")
+            } else {
+                FlowRow(Modifier.padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    e.collects.forEach { DataChip(it) }
+                }
             }
         }
     }
-    cardEnd("collects")
 
-    if (e.flows.isNotEmpty() || e.unrecorded.isNotEmpty() || e.governments.blocks.isNotEmpty()) {
-        cardTop("goes", WHERE_IT_GOES, whereHeadline(e))
+    if (e.flows.isNotEmpty() || e.unrecorded.isNotEmpty()) section("goes", WHERE_IT_GOES, whereSummary(e, check), "where it goes", cards) {
         for (bucket in BUCKETS) {
             val lines = e.flows[bucket] ?: continue
             cardItem(key = "bucket:$bucket") { BucketHeader(bucket, lines.size) }
@@ -126,12 +128,10 @@ fun LazyListScope.detailSections(
             cardItem(key = "not-recorded") { SubHeader(NOT_RECORDED) }
             cardItems(e.unrecorded) { FlowLineRow(it, onSources) }
         }
-        jurisdictionsItems(e.governments, jurisdictionsOpen, onToggleJurisdictions, onSources)
-        cardEnd("goes")
     }
+    jurisdictionsSection(e.governments, cards, onSources)
 
-    if (e.applies.isNotEmpty()) {
-        cardTop("applies", APPLIES, appliesHeadline(e))
+    if (e.applies.isNotEmpty()) section("applies", APPLIES, appliesHeadline(e), "the permissions you've granted", cards) {
         cardItems(e.applies) { line ->
             Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp)) {
                 Text("${line.label}: allowed", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
@@ -141,27 +141,34 @@ fun LazyListScope.detailSections(
         }
         cardItem { LinkRow("Open app settings to change these", R.drawable.ic_open_in_new, onClick = onOpenSettings) }
         settingsUnavailable?.let { cardItem { Note(it) } }
-        cardEnd("applies")
     }
 
-    if (check.items.isNotEmpty() || check.inAppText != null) {
-        cardTop("todo", WHAT_YOU_CAN_DO, canDoHeadline(check))
+    if (check.items.isNotEmpty() || check.inAppText != null) section("todo", WHAT_YOU_CAN_DO, canDoSummary(check), "what you can do", cards) {
         check.summary?.let { cardItem { SegmentedBar(check.limited, check.total, Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) } }
         cardItems(check.items, key = { "check:" + it.id }) { CheckRow(it, onTick, onSources, onOpenSettings) }
         check.inAppText?.let { cardItem { Note("Inside the app: $it") } }
-        cardEnd("todo")
     }
 
-    if (e.reach.isNotEmpty()) {
-        cardTop("reach", DEVICE_ACCESS, reachHeadline(e))
+    if (e.reach.isNotEmpty()) section("reach", DEVICE_ACCESS, reachHeadline(e), "device access", cards) {
         cardItems(e.reach) { r ->
             Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 6.dp)) {
                 Text(r.plain, style = MaterialTheme.typography.bodyMedium)
                 Text(r.whyItMatters, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
-        cardEnd("reach")
     }
+}
+
+/**
+ * A section: its top, which opens and closes it ("Show [what]"), then its [parts] while open, and its end. [cards] is
+ * null for one that's always open.
+ */
+internal fun LazyListScope.section(key: String, text: SectionText, summary: String, what: String, cards: OpenCards?, parts: LazyListScope.() -> Unit) {
+    val open = cards?.isOpen(key) ?: true
+    cardTop(key, text, summary, cards?.let { CardToggle(open, what) { it.toggle(key) } })
+    if (!open) return
+    parts()
+    cardEnd(key)
 }
 
 /** A heading inside a card, with its definition (Recent changes, Jurisdictions, Ongoing, …). */

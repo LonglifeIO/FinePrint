@@ -11,13 +11,14 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performScrollToNode
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -28,21 +29,20 @@ import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.RequestedPermission
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
-import com.longlifeio.fineprint.explain.EVIDENCE
+import com.longlifeio.fineprint.explain.JURISDICTIONS
 import com.longlifeio.fineprint.explain.ON_THE_RECORD
+import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.lastChecked
 import com.longlifeio.fineprint.explain.staleNote
-import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import org.junit.Before
 import org.junit.Rule
-import org.junit.rules.TestName
 import org.junit.Test
+import org.junit.rules.TestName
 import org.junit.runner.RunWith
 
 /**
@@ -135,6 +135,7 @@ class TapTargetTest {
                     app = life360, explanation = explanation(life360), check = check(life360), review = changed,
                     result = scans[life360.scanKey], signatures = null, bundleVersion = bundle.version,
                     onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {}, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
+                    cards = OpenCards.allOpen(),
                 )
             }
         }
@@ -191,8 +192,9 @@ class TapTargetTest {
         compose.onNodeWithText("Tier: Caution → Flagged").assertExists()
         compose.onNode(hasContentDescription("Change: Worsened", substring = true), useUnmergedTree = true).assertExists()
         val detail = compose.onNodeWithTag("detail")
-        detail.performScrollToNode(hasText("2 items on the record"))
-        compose.onNodeWithText("2 items on the record").performClick()
+        // On the record starts closed, a row with its summary: History is inside.
+        detail.performScrollToNode(hasText(ON_THE_RECORD.subtitle))
+        compose.onNodeWithText(ON_THE_RECORD.subtitle).performClick()
         detail.performScrollToNode(hasText("2025-11-03 · Added a setting to turn off partner sharing.", substring = true)) // ends in its footnote number
         compose.onNode(hasContentDescription("Change: Improved", substring = true), useUnmergedTree = true).assertExists()
         compose.onNodeWithText("2026-09-12 · Now lets partners use your precise location for their own purposes.", substring = true).assertExists()
@@ -213,8 +215,8 @@ class TapTargetTest {
             }
         }
         val detail = compose.onNodeWithTag("detail")
-        detail.performScrollToNode(hasText("Tap to show the laws"))
-        compose.onNodeWithText("Tap to show the laws").performClick()
+        detail.performScrollToNode(hasText(JURISDICTIONS.subtitle))
+        compose.onNodeWithText(JURISDICTIONS.subtitle).performClick()
         detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)", substring = true)) // its title ends in a footnote number
         assertTrue(compose.onAllNodes(hasContentDescription("Can compel. A company", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty())
         compose.onAllNodes(hasContentDescription("..", substring = true), useUnmergedTree = true).assertCountEquals(0)
@@ -233,8 +235,8 @@ class TapTargetTest {
             }
         }
         val detail = compose.onNodeWithTag("detail")
-        detail.performScrollToNode(hasText("Tap to show the laws"))
-        compose.onNodeWithText("Tap to show the laws").performClick()
+        detail.performScrollToNode(hasText(JURISDICTIONS.subtitle))
+        compose.onNodeWithText(JURISDICTIONS.subtitle).performClick()
         // FISA 702's full text opens under its short line.
         val fisa = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-fisa-702" }
         detail.performScrollToNode(hasText(fisa.short!!))
@@ -262,8 +264,8 @@ class TapTargetTest {
             }
         }
         val detail = compose.onNodeWithTag("detail")
-        detail.performScrollToNode(hasText("Tap to show the laws"))
-        compose.onNodeWithText("Tap to show the laws").performClick()
+        detail.performScrollToNode(hasText(JURISDICTIONS.subtitle))
+        compose.onNodeWithText(JURISDICTIONS.subtitle).performClick()
         detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)", substring = true)) // its title ends in a footnote number
         val reviewed = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-cloud-act" }.lastReviewed!!
         assertTrue(compose.onAllNodes(hasText(lastChecked("this law", reviewed))).fetchSemanticsNodes().isNotEmpty())
@@ -298,24 +300,19 @@ class TapTargetTest {
                     app = a, explanation = e, check = whatYouCanDo(a, e, bundle.apps[a.packageName], bundle.permissions.mapValues { it.value.feeds }, emptySet()),
                     review = ReviewView(ReviewStatus.NOT_REVIEWED), result = null, signatures = null, bundleVersion = bundle.version,
                     onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = null, onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
+                    cards = OpenCards.allOpen(),
                 )
             }
         }
     }
 
-    /** Opens Jurisdictions, On the record (and its See all) and Evidence, then goes back to the top for the check. */
+    /** With every section open: On the record's See all too, then back to the top for the check. */
     private fun openTheRecordAndEvidence(seeAll: Boolean) {
         val detail = compose.onNodeWithTag("detail")
-        detail.performScrollToNode(hasText("Tap to show the laws"))
-        compose.onNodeWithText("Tap to show the laws").performClick()
-        detail.performScrollToNode(hasText(ON_THE_RECORD.subtitle))
-        compose.onNodeWithText(ON_THE_RECORD.subtitle).performClick()
         if (seeAll) {
             detail.performScrollToNode(hasText("See all"))
             compose.onNodeWithText("See all").performClick()
         }
-        detail.performScrollToNode(hasText(EVIDENCE.subtitle))
-        compose.onNodeWithText(EVIDENCE.subtitle).performClick()
         detail.performScrollToIndex(0)
     }
 }

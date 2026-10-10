@@ -34,7 +34,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.bundle.Source
@@ -57,11 +60,12 @@ import com.longlifeio.fineprint.explain.asksForReview
 import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.coverageLine
 import com.longlifeio.fineprint.explain.whyItIs
+import com.longlifeio.fineprint.explain.whyLabel
 import com.longlifeio.fineprint.explain.whyLine
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 
-/** The app, its tier as an indicator chip ("Flagged ✓" once reviewed) and why ("Why: …"): the answer before the detail. */
+/** The app, its tier as an indicator chip ("Flagged ✓" once reviewed) and why ("Why it's Flagged: …"): the answer before the detail. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun DetailHeader(
@@ -70,20 +74,29 @@ internal fun DetailHeader(
 ) {
     val p = LocalPalette.current
     val reviewed = review.status == ReviewStatus.REVIEWED
+    val tier = e.tier.tier
     Column(Modifier.padding(horizontal = Space.screen, vertical = Space.s), verticalArrangement = Arrangement.spacedBy(Space.s)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             AppIcon(app.packageName, 56.dp, app.label)
             Text(app.label, style = MaterialTheme.typography.headlineSmall, color = p.ink, modifier = Modifier.padding(start = Space.l))
         }
         FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.s), verticalArrangement = Arrangement.spacedBy(Space.xs), itemVerticalAlignment = Alignment.CenterVertically) {
-            val tier = e.tier.tier
             val definition = (tier?.definition ?: NO_RECORD_DEFINITION) + if (reviewed) " $REVIEWED_DEFINITION" else ""
             WithDefinition("Tier: ${tier?.label ?: NO_RECORD}${if (reviewed) ", reviewed" else ""}", definition) { TierChip(tier, reviewed = reviewed) }
             if (app.isSystem) SystemLabel(interactive = true)
             if (e.stale) StaleMarker()
         }
-        // Why it has its tier: what set it, said as a fact; the lines or legal items that set it come first below, under "Why it's …".
-        Text(whyLine(e) ?: e.tier.reason, style = MaterialTheme.typography.bodyLarge, color = p.ink, modifier = Modifier.testTag("why"))
+        // Why it has its tier: the tier's own phrase, in the weight of the fine print's heading that repeats it, then what set
+        // it, said as a fact. Not checked yet has no Why line: what the scan found stands there instead.
+        val why = whyLine(e)
+        val label = tier?.let(::whyLabel)
+        Text(
+            if (why == null || label == null) AnnotatedString(e.tier.reason) else buildAnnotatedString {
+                withStyle(SpanStyle(fontWeight = MaterialTheme.typography.labelLarge.fontWeight)) { append(label) }
+                append(why.removePrefix(label))
+            },
+            style = MaterialTheme.typography.bodyLarge, color = p.ink, modifier = Modifier.testTag("why"),
+        )
         // How far FinePrint has looked: checked, their words only, or not checked yet.
         Text(coverageLine(e), style = MaterialTheme.typography.bodySmall, color = p.muted, modifier = Modifier.testTag("coverage"))
         if (e.asksForReview) AskForReview(onAskForReview, reviewUnavailable)

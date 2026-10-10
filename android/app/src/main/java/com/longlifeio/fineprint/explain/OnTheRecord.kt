@@ -39,6 +39,8 @@ data class RecordLine(
     val historical: Boolean = false,
     /** The confidence note of the record the line comes from: last on its sheet, under About these sources. */
     val about: ProceduralNote? = null,
+    /** The court or regulator that acted, from the dated record: what a tier reason names after the rule. */
+    val body: String? = null,
 )
 
 /**
@@ -119,6 +121,7 @@ private fun eventLine(company: Company, e: LegalEvent, told: List<Said>, pkg: St
         dated = e.closedDate ?: e.date,
         forum = e.forum,
         about = company.confidenceNote ?: told.firstNotNullOfOrNull { it.by?.confidenceNote },
+        body = e.body,
     )
 }
 

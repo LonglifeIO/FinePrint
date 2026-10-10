@@ -44,7 +44,7 @@ class ReasonsScreenTest {
             AppDetailScreen(
                 app = app, explanation = e, check = whatYouCanDo(app, e, bundle.apps[pkg], emptyMap(), emptySet()), review = ReviewView(ReviewStatus.NOT_REVIEWED),
                 result = scan, signatures = null, bundleVersion = bundle.version, onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {},
-                onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(),
+                onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(), cards = OpenCards(flipped = listOf("goes")),
             )
         }
     }
@@ -56,7 +56,7 @@ class ReasonsScreenTest {
     @Test @Config(qualifiers = "w411dp-h3000dp-420dpi")
     fun theLinesThatSetItComeFirstUnderOneHeadingInTheFinePrintAndWhereItGoes() {
         detail("com.example.flows")
-        compose.onNodeWithTag("why").assert(hasText("Why: Example Flows says your location goes to other companies. 1 more reason below."))
+        compose.onNodeWithTag("why").assert(hasText("Why it's Flagged: Example Flows says your location goes to other companies. 1 more reason below."))
         assertEquals("one in the fine print, one in Goes elsewhere", 2, count("Why it's Flagged"))
         assertEquals("over the rest of each; Used for more has nothing that set it, so no heading", 2, count("Also"))
         compose.onAllNodes(hasText("for this", substring = true), useUnmergedTree = true).assertCountEquals(0) // no marker on a line
@@ -67,7 +67,7 @@ class ReasonsScreenTest {
     @Test
     fun aRulingThatSetsTheTierComesFirstOnTheRecordUnderItsHeading() {
         detail("com.example.ruled")
-        compose.onNodeWithTag("why").assert(hasText("Why: A court or regulator has ruled on this app's data"))
+        compose.onNodeWithTag("why").assert(hasText("Why it's Flagged: a court or regulator has ruled on a case about this app's data"))
         val page = compose.onNodeWithTag("detail")
         page.performScrollToNode(hasText("On the record", substring = true) and hasClickAction())
         assertEquals("nothing on the closed card", 0, count("Why it's Flagged"))
@@ -82,7 +82,7 @@ class ReasonsScreenTest {
     @Test
     fun aComplaintMerelyFiledLeadsNothing() {
         detail("com.example.complaint")
-        compose.onNodeWithTag("why").assert(hasText("Why: Nothing found beyond running the app"))
+        compose.onNodeWithTag("why").assert(hasText("Why it's Expected: nothing found beyond running the app"))
         compose.onNodeWithTag("detail").performScrollToNode(hasText("On the record", substring = true) and hasClickAction())
         compose.onNode(hasText("On the record", substring = true) and hasClickAction()).performClick()
         assertEquals(0, count("Why it's Flagged") + count("Why it's Caution") + count("Also"))
