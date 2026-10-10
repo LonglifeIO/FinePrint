@@ -23,7 +23,7 @@ supported by exactly one hardcoded ad that knows nothing about you.
 </p>
 
 Drawn by the screenshot tests (`./gradlew readmeScreenshots`), never by hand, from knowledge bundle 2026.10.09
-(with tracker batches 1 and 2) and the scan fixture: the test emulator's apps, plus Google Maps, which has a
+(with tracker batches 1 and 2 and their follow-ups) and the scan fixture: the test emulator's apps, plus Google Maps, which has a
 record but isn't installed there.
 In dark mode: [the home](docs/screenshots/home-dark.png) and [Life360](docs/screenshots/detail-dark.png).
 
@@ -80,13 +80,13 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
 - G3, the UI pass: tiers by a published formula (`docs/METHOD.md`), the same sections with their
   definitions on every page, a Sources sheet, How to read this, Reviewed marks and the "What you
   can do" checklist, with tap targets of 48dp or more enforced by a test.
-- G5, the design pass: the Field notes design system on the home, the detail screen and a
-  three-page introduction, with colour only on tier and bucket chips and its contrast and
-  colour-blind separation enforced by a test. The detail screen opens with "Their words", the app's
-  Play listing short description quoted verbatim, then the fine print. Screenshot tests draw the
-  home, Life360, its Sources sheet, How to read this and the introduction, light and dark, at 150%
-  and 200% text and on a small phone and a tablet (and the README's images); every device test runs
-  the accessibility checks, and TalkBack was checked on the emulator.
+- G5, the design pass: the Field notes design system on the home, the detail screen and a three-page
+  introduction, with colour only on tier and bucket chips and its contrast and colour-blind
+  separation enforced by a test. The detail screen opens with "Their words", the app's Play listing
+  short description quoted verbatim, then the fine print. Screenshot tests draw the home, Life360,
+  its Sources sheet, Facebook's page whole, How to read this and the introduction, light and dark,
+  at 150% and 200% text and on a small phone and a tablet (and the README's images); every device
+  test runs the accessibility checks, and TalkBack was checked on the emulator.
 - Schema v1.3: one tracker record covers several Exodus ids (`covers[]`); a record's history, with
   the direction of each change (`changes[]`); ongoing and past legal actions, where only ongoing
   or recent ones set a tier; government access, with a checked table of laws per country
@@ -102,8 +102,15 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   opening under it.
 - The reading pass: plain words throughout, with a Voice section in `docs/METHOD.md` and a
   readability report on every build (CI warns, never fails); under each app's name, the reason for
-  its tier ("Why: Life360 says your location goes to other companies"), with what set it listed
-  first under "Why it's Flagged"; a search bar on the home; and an edge on every card in dark mode.
+  its tier ("Why it's Flagged: Life360 says your location goes to other companies"), with what set
+  it listed first under "Why it's Flagged"; a search bar on the home; and an edge on every card in
+  dark mode.
+- After a test on a phone: an app's page keeps its header, Their words and the fine print open, and
+  every section below starts as a row with a one-line summary that opens in place ("Where it goes ·
+  2 ways, 0 limited by your settings"); Jurisdictions is a section of its own ("Based in: United
+  States"); a ruling's reason gives the rule in the tier's own words, then who acted and when; At a
+  glance no longer counts apps per place, and a row in a tier's section leaves the tier to its
+  header; and a source's Open button goes to the quoted words where the browser supports it.
 - Tracker records for 24 common SDKs (covering 29 tracker ids) and 26 company records, with tracker
   batches 1 and 2 merged: bundle 2026.10.09 holds them with the 4 app records and 10 jurisdictions.
   A tracker's legal and reported lines show under On the record on every app that carries it,
