@@ -94,7 +94,6 @@ class LineOrderTest {
             "org.example.analytics" to explain(apps[2], scan(analytics), bundle, emptyMap(), today),
         )
         val g = glance(apps, explanations, emptyMap())
-        assertEquals(mapOf(STAYS_HERE to 3, USED_FOR_MORE to 1, GOES_ELSEWHERE to 1), g.perBucket)
         // Mystery SDK comes first on its app's page, but FinePrint doesn't know it's for more than running the app.
         assertEquals(1, g.othersForMore)
         assertEquals("For 1 of your 3 apps, FinePrint lists data that can go to other companies for more than running the app.", glanceHeadline(g))

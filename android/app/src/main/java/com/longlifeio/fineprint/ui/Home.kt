@@ -58,11 +58,11 @@ import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.appIcon
 import com.longlifeio.fineprint.bundle.Change
 import com.longlifeio.fineprint.egress.InstalledApp
-import com.longlifeio.fineprint.explain.BUCKETS
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.Explanation
 import com.longlifeio.fineprint.explain.Glance
 import com.longlifeio.fineprint.explain.NO_RECORD_DEFINITION
+import com.longlifeio.fineprint.explain.REVIEWED
 import com.longlifeio.fineprint.explain.SYSTEM
 import com.longlifeio.fineprint.explain.TIER_SECTIONS
 import com.longlifeio.fineprint.explain.Tier
@@ -81,8 +81,10 @@ import kotlinx.coroutines.withContext
  * app's row inside its section's card. AppListScreen puts them together.
  */
 
-/** "At a glance": what FinePrint lists for your apps, apps per bucket, the flows you've limited, the newest change. */
-@OptIn(ExperimentalLayoutApi::class)
+/**
+ * "At a glance": what FinePrint lists for your apps, the ways they use or share data that you've limited, the newest
+ * change, then how far FinePrint has looked and the bundle it read. The tiers' counts are the sections' own, below.
+ */
 @Composable
 fun AtAGlance(
     g: Glance, latest: Pair<InstalledApp, Change>?, bundleLine: String, onOpen: (InstalledApp) -> Unit, modifier: Modifier = Modifier,
@@ -99,10 +101,6 @@ fun AtAGlance(
         notice?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = p.ink) }
         GLANCE_SWITCH?.invoke()
         Text(glanceHeadline(g), style = CardHeadline, color = p.ink)
-        Text("Apps by where their data goes", style = MaterialTheme.typography.bodySmall, color = p.muted)
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(Space.s), verticalArrangement = Arrangement.spacedBy(Space.s)) {
-            BUCKETS.forEach { BucketChip(it, g.perBucket[it] ?: 0, noun = if (g.perBucket[it] == 1) "app" else "apps") }
-        }
         if (g.flows > 0) {
             SegmentedBar(g.limited, g.flows, Modifier.padding(top = Space.xs))
             Text(limitedLine(g), style = MaterialTheme.typography.labelLarge, color = p.ink)
@@ -205,8 +203,8 @@ fun Modifier.cardSegment(index: Int, count: Int, p: Palette): Modifier =
     padding(horizontal = Space.screen).cardFill(p, if (index == 0) Corner.card else 0.dp, if (index == count - 1) Corner.card else 0.dp)
 
 /**
- * An app in its section: icon, name, the one line that set its tier, what changed since you reviewed
- * it, then its tier chip ("Flagged ✓" once you've marked it reviewed) and the notes that apply.
+ * An app in its section: icon, name, the one line that set its tier, what changed since you reviewed it, then the
+ * notes that apply, Reviewed first once you've marked it. The section's header carries the tier, so the row doesn't.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -237,7 +235,7 @@ fun HomeRow(app: InstalledApp, e: Explanation?, review: ReviewView?, check: What
                     itemVerticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(top = Space.xs),
                 ) {
-                    TierChip(e?.tier?.tier, reviewed = review?.status == ReviewStatus.REVIEWED)
+                    if (review?.status == ReviewStatus.REVIEWED) ReviewedNote()
                     val notes = listOfNotNull(
                         check?.summary,
                         // How far FinePrint has looked (a preinstalled app says whose policy it shows); the No record yet
@@ -246,15 +244,26 @@ fun HomeRow(app: InstalledApp, e: Explanation?, review: ReviewView?, check: What
                         "Stale".takeIf { e?.stale == true },
                     )
                     // Each note wraps as a whole ("No record yet" never splits); the dot travels with the note after it.
+                    val first = review?.status != ReviewStatus.REVIEWED
                     notes.forEachIndexed { i, note ->
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Space.xs)) {
                             if (note == "Stale") TextIcon(R.drawable.ic_stale, 14.sp, p.muted)
-                            Text(if (i == 0) note else "· $note", style = MaterialTheme.typography.labelMedium.copy(letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing), color = p.muted)
+                            Text(if (i == 0 && first) note else "· $note", style = MaterialTheme.typography.labelMedium.copy(letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing), color = p.muted)
                         }
                     }
                 }
             }
         }
+    }
+}
+
+/** "✓ Reviewed", your mark, in the row's notes: in ink, the one note that's yours. */
+@Composable
+private fun ReviewedNote() {
+    val p = LocalPalette.current
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Space.xs)) {
+        TextIcon(R.drawable.ic_check, 16.sp, p.ink)
+        Text(REVIEWED, style = MaterialTheme.typography.labelMedium.copy(letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing), color = p.ink)
     }
 }
 

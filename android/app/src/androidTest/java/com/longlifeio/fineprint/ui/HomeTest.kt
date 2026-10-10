@@ -3,8 +3,11 @@ package com.longlifeio.fineprint.ui
 import android.content.Context
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
@@ -21,13 +24,13 @@ import com.longlifeio.fineprint.egress.RequestedPermission
 import com.longlifeio.fineprint.egress.ScanProgress
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.explain.NO_RECORD_DEFINITION
+import com.longlifeio.fineprint.explain.REVIEWED
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.whatYouCanDo
 import com.longlifeio.fineprint.review.ReviewStatus
 import com.longlifeio.fineprint.review.ReviewView
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -80,13 +83,14 @@ class HomeTest {
         compose.onNodeWithText(definition).fetchSemanticsNode().config[SemanticsProperties.StateDescription]
 
     @Test
-    fun aSectionYouOpenStaysOpenAndAReviewedAppReadsFlaggedWithACheck() {
+    fun aSectionYouOpenStaysOpenAndAReviewedAppSaysReviewed() {
         val prefs = InstrumentationRegistry.getInstrumentation().targetContext.getSharedPreferences("home-test", Context.MODE_PRIVATE)
         prefs.edit().clear().commit()
         show(listOf(life360, unread), reviews = mapOf(life360.packageName to ReviewView(ReviewStatus.REVIEWED, "2026-10-07")), open = OpenSections.of(prefs))
 
-        // Flagged starts open, and Life360, marked reviewed, shows "Flagged ✓".
-        compose.onNodeWithText("Tier: Flagged, Reviewed", useUnmergedTree = true).assertExists()
+        // Flagged starts open, and Life360, marked reviewed, says so in its row; the section's header carries the tier.
+        compose.onNode(hasText("Life360") and hasClickAction()).assert(hasText(REVIEWED))
+        compose.onAllNodesWithText("Tier: Flagged, Reviewed", useUnmergedTree = true).assertCountEquals(0)
         // Not checked yet starts closed: scrolled to the end, its app isn't there.
         compose.onNodeWithTag("list").performScrollToNode(hasText(NO_RECORD_DEFINITION))
         assertEquals("Collapsed", stateOf(NO_RECORD_DEFINITION))

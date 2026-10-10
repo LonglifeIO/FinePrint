@@ -55,7 +55,7 @@ It shows the latest three, then See all; tap a line for its details and sources.
 
 ## The home
 
-The home lists your apps under their tiers, under At a glance. Under the wordmark, a search bar finds apps by name, by package name, by who made them, or by a company their lines name, such as Google or Meta. The search runs on your phone, over what FinePrint already shows; nothing you type leaves it. Tapping the bar opens the search, with the results as you type and the filters under the field: the three tiers, how far FinePrint has looked, your Reviewed marks, and, with system apps shown, System. The filter button beside the wordmark opens the same search with the filters first.
+The home lists your apps under their tiers, under At a glance. Each tier's header carries its name and how many apps it holds; the apps under it don't repeat it. Under the wordmark, a search bar finds apps by name, by package name, by who made them, or by a company their lines name, such as Google or Meta. The search runs on your phone, over what FinePrint already shows; nothing you type leaves it. Tapping the bar opens the search, with the results as you type and the filters under the field: the three tiers, how far FinePrint has looked, your Reviewed marks, and, with system apps shown, System. The filter button beside the wordmark opens the same search with the filters first.
 
 ## Where data goes
 
@@ -83,9 +83,9 @@ A checked claim's purpose is the one its record states, which also sets its grou
 
 - Purpose not recorded: Tracker code FinePrint hasn't checked yet, so it can't say where its data goes.
 
-Some lines depend on a setting or an agreement FinePrint can't see, such as whether the app's developer has turned on data sharing. Such a line says so, followed by: FinePrint can't see whether that applies here. It sits in its group by what the data is for, and it never counts toward a tier, the headline, the chips or the flows you've limited.
+Some lines depend on a setting or an agreement FinePrint can't see, such as whether the app's developer has turned on data sharing. Such a line says so, followed by: FinePrint can't see whether that applies here. It sits in its group by what the data is for, and it never counts toward a tier, the headline or the flows you've limited.
 
-At a glance's headline counts the apps with at least one current claim that data can go to other companies for more than running the app. Its chips count an app in a place when its page has at least one current claim there. Lines count whether they come from FinePrint's record or are inferred from tracker code (Auto); lines about a past practice don't, and neither does a tracker whose purpose isn't recorded: it comes first in the order, but FinePrint can't say its data is used for more than running the app. Tracker code shows where data can go, not that it went, so the headline says FinePrint lists data that "can go" to other companies. An app with no line in a group isn't said to send nothing there.
+At a glance's headline counts the apps with at least one current claim that data can go to other companies for more than running the app. Under it, a bar shows how many ways your apps use or share data are limited by your settings. Lines count whether they come from FinePrint's record or are inferred from tracker code (Auto); lines about a past practice don't, and neither does a tracker whose purpose isn't recorded: it comes first in the order, but FinePrint can't say its data is used for more than running the app. Tracker code shows where data can go, not that it went, so the headline says FinePrint lists data that "can go" to other companies. An app with no line in a group isn't said to send nothing there.
 
 A line can also say that the app doesn't do it unless you act:
 
@@ -168,7 +168,7 @@ The page and the list say how many of the app's current flows your settings limi
 
 ## Your Reviewed marks
 
-When you've read an app's page, you can mark it reviewed at the bottom of the page. On its page, a reviewed app's badge then reads, for example, Flagged · Reviewed; in the list, the badge shows a check. It moves below the apps of the same tier you haven't reviewed. Nothing you do changes a tier.
+When you've read an app's page, you can mark it reviewed at the bottom of the page. On its page, a reviewed app's badge then reads, for example, Flagged · Reviewed. In the list, its row says Reviewed, with a check; in search results, its badge shows one. It moves below the apps of the same tier you haven't reviewed. Nothing you do changes a tier.
 
 - Reviewed: You've marked this app reviewed. The mark stays on this phone and never changes the tier.
 - Changed since you reviewed: Something about this app has changed since you marked it reviewed. The note beside the mark says what.

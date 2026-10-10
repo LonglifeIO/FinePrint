@@ -37,12 +37,11 @@ class Schema16Test {
         assertEquals("if the developer turns on data sharing", line.conditional)
         assertEquals("If the developer turns on data sharing. FinePrint can't see whether that applies here.", conditionLine(line.conditional!!))
         assertEquals(line.claim(), finePrint(withCondition).first().text) // in the reading order by its purpose
-        // Scored as if it weren't there: the tier, Where it goes' headline, the home's chips and headline, the flows you
-        // can limit, What it collects, and the Reviewed fingerprint.
+        // Scored as if it weren't there: the tier, Where it goes' headline, the home's headline, the flows you can limit,
+        // What it collects, and the Reviewed fingerprint.
         assertEquals(Tier.EXPECTED, withCondition.tier.tier)
         assertEquals("It stays with Example Conditional", whereHeadline(withCondition))
         val g = glance(listOf(conditional), mapOf(conditional.packageName to withCondition), emptyMap())
-        assertEquals(mapOf(STAYS_HERE to 1, USED_FOR_MORE to 0, GOES_ELSEWHERE to 0), g.perBucket)
         assertEquals(0, g.othersForMore)
         assertTrue(countedFlows(withCondition).none { it.conditional != null })
         assertTrue(withCondition.collects.toString(), "Device and advertising IDs" !in withCondition.collects) // only the conditional line has them

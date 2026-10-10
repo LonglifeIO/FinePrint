@@ -32,7 +32,7 @@ class GlanceTest {
     private fun change(date: String, text: String = "changed on $date") = Change(date, text, "neutral", emptyList())
 
     @Test
-    fun countsAppsWithACurrentLineInEachBucketAndAddsUpTheFlows() {
+    fun countsTheAppsTheHeadlineNamesAndAddsUpTheFlows() {
         val a = app("a"); val b = app("b"); val c = app("c")
         val g = glance(
             listOf(a, b, c),
@@ -43,10 +43,8 @@ class GlanceTest {
             ),
             mapOf(a.packageName to check(1, 4), b.packageName to check(2, 3)),
         )
-        assertEquals(mapOf(STAYS_HERE to 1, USED_FOR_MORE to 1, GOES_ELSEWHERE to 1), g.perBucket)
-        assertEquals(listOf(STAYS_HERE, USED_FOR_MORE, GOES_ELSEWHERE), g.perBucket.keys.toList())
-        assertEquals(Glance(3, g.perBucket, limited = 3, flows = 7), g)
-        assertEquals(1, g.othersForMore) // the headline counts the first group of the reading order
+        // The headline counts the first group of the reading order: a's line going elsewhere, not b's past one.
+        assertEquals(Glance(3, limited = 3, flows = 7, othersForMore = 1), g)
     }
 
     /** METHOD.md, Where data goes: an Auto line (tracker code, no record) counts, which is why the headline says "can go". */
@@ -58,8 +56,7 @@ class GlanceTest {
         assertEquals("For your app, FinePrint lists data that can go to other companies for more than running the app.", glanceHeadline(g))
     }
 
-    private fun g(apps: Int, sending: Int, limited: Int = 0, flows: Int = 0) =
-        Glance(apps, mapOf(STAYS_HERE to 0, USED_FOR_MORE to 0, GOES_ELSEWHERE to sending), limited, flows)
+    private fun g(apps: Int, sending: Int, limited: Int = 0, flows: Int = 0) = Glance(apps, limited, flows, othersForMore = sending)
 
     @Test
     fun theHeadlineSaysWhatFinePrintListsCanGoNeverThatAnAppSendsNothing() {
@@ -75,8 +72,9 @@ class GlanceTest {
         )
         assertEquals("FinePrint doesn't yet list, for your app, data that can go to other companies for more than running the app.", glanceHeadline(g(1, 0)))
         assertEquals("No apps to show yet.", glanceHeadline(g(0, 0)))
-        assertEquals("4 of 19 data flows limited by your settings", limitedLine(g(9, 5, 4, 19)))
-        assertEquals("0 of 1 data flow limited by your settings", limitedLine(g(1, 1, 0, 1)))
+        assertEquals("4 of 19 ways your apps use or share data are limited by your settings", limitedLine(g(9, 5, 4, 19)))
+        assertEquals("1 of 19 ways your apps use or share data is limited by your settings", limitedLine(g(9, 5, 1, 19)))
+        assertEquals("0 of 1 way your apps use or share data are limited by your settings", limitedLine(g(1, 1, 0, 1)))
     }
 
     @Test

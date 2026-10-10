@@ -104,6 +104,9 @@ class HomeBarTest {
         // and a 24dp gesture bar under it (dumpsys window), so the card needs that much room here.
         val fold = compose.onRoot().getUnclippedBoundsInRoot().bottom - 67.dp
         assertTrue("At a glance ends ${(glance.bottom - fold).value}dp below the fold on 360 × 780", glance.bottom <= fold)
+        // Without its chips the card leaves room for the Flagged section's header under it, above the fold.
+        val flagged = bounds(hasText("Tier: Flagged", substring = true) and hasAnyAncestor(hasTestTag("list")))
+        assertTrue("Flagged's header ends ${(flagged.bottom - fold).value}dp below the fold", flagged.bottom <= fold)
     }
 
     @Test fun atTwiceTheTextTheWordmarkStillFitsTheBar() {
