@@ -105,7 +105,7 @@ Every line carries a badge that says how strong the evidence is. Tap a badge to 
 
 An alleged line always says it is not proven in court, or, when a regulator rather than a court is to decide it, that it is not yet decided. A legal claim can also say where the case stands, such as a dismissal or an appeal, with sources of its own.
 
-Tap Sources under a claim to see each source behind it. Each shows its title, type, date and status, the exact words that support the claim, and a button that opens it. An undated page shows when FinePrint read it. The first source listed is the primary one.
+Tap Sources under a claim to see each source behind it. Each shows its title, type, date and status, the exact words that support the claim, and a button that opens it. Where your browser can, the page opens at those words, highlighted. A PDF or a page FinePrint saved by hand opens at its top. An undated page shows when FinePrint read it. The first source listed is the primary one.
 
 ## Tiers
 

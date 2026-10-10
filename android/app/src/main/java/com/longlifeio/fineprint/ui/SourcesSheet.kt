@@ -44,6 +44,7 @@ import com.longlifeio.fineprint.bundle.OwnerChange
 import com.longlifeio.fineprint.bundle.ProceduralNote
 import com.longlifeio.fineprint.bundle.Source
 import com.longlifeio.fineprint.explain.spoken
+import com.longlifeio.fineprint.explain.sourceLink
 
 /**
  * What the Sources sheet shows for one line: its sources; for a law, who it binds ([scope], under
@@ -160,11 +161,11 @@ fun SourcesSheet(content: SheetContent, onDismiss: () -> Unit) {
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 4.dp),
                 )
             }
-            itemsIndexed(content.sources) { i, s -> SourceCard(s, primary = i == 0, all) { uriHandler.openUri(s.url) } }
-            content.scope?.let { notePart(WHO_IT_BINDS, it, all) { s -> uriHandler.openUri(s.url) } }
-            if (content.history.isNotEmpty()) historyPart(content.history, all) { s -> uriHandler.openUri(s.url) }
-            content.note?.let { notePart(content.noteHeading, it, all) { s -> uriHandler.openUri(s.url) } }
-            content.about?.let { notePart(ABOUT_THESE_SOURCES, it, all) { s -> uriHandler.openUri(s.url) } }
+            itemsIndexed(content.sources) { i, s -> SourceCard(s, primary = i == 0, all) { uriHandler.openUri(sourceLink(s)) } }
+            content.scope?.let { notePart(WHO_IT_BINDS, it, all) { s -> uriHandler.openUri(sourceLink(s)) } }
+            if (content.history.isNotEmpty()) historyPart(content.history, all) { s -> uriHandler.openUri(sourceLink(s)) }
+            content.note?.let { notePart(content.noteHeading, it, all) { s -> uriHandler.openUri(sourceLink(s)) } }
+            content.about?.let { notePart(ABOUT_THESE_SOURCES, it, all) { s -> uriHandler.openUri(sourceLink(s)) } }
         }
     }
 }
