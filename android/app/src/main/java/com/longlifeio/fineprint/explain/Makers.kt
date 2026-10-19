@@ -34,7 +34,7 @@ internal fun maker(app: InstalledApp, record: AppRecord?, bundle: Bundle?): Make
         inherited = record == null && (company.defaultFlows.isNotEmpty() || company.defaultNotes.isNotEmpty()),
         lines = company.defaultFlows.filter { it.government == null }.map { f ->
             f.toLine(f.recipient?.let { bundle?.companies?.get(it)?.name } ?: f.recipientLabel ?: name, via = name)
-                .copy(wording = wording, about = company.confidenceNote)
+                .copy(wording = wording, about = company.confidenceNote).withDecision(bundle)
         },
         notes = company.defaultNotes.map { it.copy(wording = wording) },
         about = company.confidenceNote,

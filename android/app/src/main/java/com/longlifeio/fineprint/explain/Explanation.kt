@@ -87,6 +87,8 @@ data class FlowLine(
     val setsTier: Boolean = false,
     /** The confidence note of the tracker or company record the line comes from: last on its Sources sheet, under About these sources. */
     val about: ProceduralNote? = null,
+    /** A decided line's case: who decided it and when, from the company record that cites its source (Decided.kt). */
+    val decision: Decision? = null,
 )
 
 data class AppliesLine(val permission: String, val label: String, val plain: String, val whyItMatters: String)
@@ -105,7 +107,7 @@ fun explain(
     val controlled = record?.controls.orEmpty().flatMap { c -> c.limits.map { it.flow } }.toSet()
     record?.dataFlows?.filter { it.government == null }?.forEach { f ->
         lines += f.toLine(f.recipient?.let { bundle.companies[it]?.name } ?: f.recipientLabel ?: "Unnamed recipient", via = null)
-            .copy(controlled = f.id != null && f.id in controlled)
+            .copy(controlled = f.id != null && f.id in controlled).withDecision(bundle)
     }
     val maker = maker(app, record, bundle)
     val inherited = maker?.takeIf { it.inherited }

@@ -91,31 +91,6 @@ internal const val ACTED = "A court or regulator has acted on a case about this 
 internal const val LET_GO_AHEAD = "A court has let a case about this app's data go ahead"
 internal const val PROCEEDING = "A regulator has opened a formal proceeding over this app's data"
 
-/** Bodies of several regulators, which the reason calls Regulators. */
-private val SEVERAL = Regex("""\b(commissioners|attorneys general|regulators|authorities)\b""", RegexOption.IGNORE_CASE)
-
-/**
- * A decided case as who acted and what came of it, from the body and kind on record: "A regulator settled a case about
- * this app's data". A court when the body is one, else a regulator (an attorney general counts as one). A ruling or a
- * regulator's finding is ruled on; a settlement or consent order is settled, or a court approved it. Without a body or a
- * kind, the definition's words.
- */
-internal fun decided(e: TierEvent): String {
-    val body = e.body ?: return ACTED
-    val court = body.contains("court", ignoreCase = true)
-    val who = when {
-        court -> "A court"
-        SEVERAL.containsMatchIn(body) -> "Regulators"
-        else -> "A regulator"
-    }
-    return when (e.statusKind) {
-        "ruling", "regulator_finding" -> "$who ruled on a case about this app's data"
-        "settlement", "settlement_no_admission", "consent_order" ->
-            if (court) "A court approved a settlement in a case about this app's data" else "$who settled a case about this app's data"
-        else -> ACTED
-    }
-}
-
 /** Location, health, financial, contacts, children's, biometric and precise movement data. */
 val SENSITIVE_DATA = listOf(
     "precise_location", "approximate_location", "movement_and_driving", "health", "financial", "biometric",
@@ -194,7 +169,8 @@ fun tier(
     // acted and what came of it, then who and when.
     legal.filter { it.status == "adjudicated" }.takeIf { it.isNotEmpty() }?.let { rulings ->
         val ruling = named(rulings) ?: return flagged(ACTED, "F2").setBy(events = rulings)
-        return flagged("${decided(ruling)} — ${who(ruling)}", "F2").setBy(events = namedFirst(ruling, rulings))
+        return flagged(verdict(ruling.statusKind, ruling.body, ABOUT_THIS_APP) + whoAndWhen(ruling.body, ruling.label, ruling.date), "F2")
+            .setBy(events = namedFirst(ruling, rulings))
     }
     // F3: a lawsuit over this app's data has survived a motion to dismiss. Said as the court's step, a fact; the claim
     // itself stays in On the record.
@@ -241,8 +217,10 @@ internal fun possessive(name: String): String = if (name.endsWith("s")) "$name'"
 
 /**
  * "Life360 says your location goes to other companies": who says so, then what happens to the data. The app or a
- * tracker's company says; a court or regulator found; reporters found (named when there are two outlets, else counted,
- * with the Sources sheet listing them); or tracker code in the app can send it.
+ * tracker's company says; reporters found (named when there are two outlets, else counted, with the Sources sheet
+ * listing them); or tracker code in the app can send it. A decided line reads as its case does (Decided.kt), by what came
+ * of it and who acted, then who and when, and the tracker it was about: "A regulator settled a case over your location
+ * going to other companies — US Federal Trade Commission, 2024, about X-Mode".
  */
 private fun reason(line: FlowLine, appName: String): String {
     val data = REASON_DATA[line.data] ?: "your data"
@@ -250,7 +228,12 @@ private fun reason(line: FlowLine, appName: String): String {
     fun found(who: String) = if (more) "$who found $appName uses $data for more than running the app" else "$who found $data goes to other companies"
     return when (line.status) {
         "self_disclosed" -> (line.via ?: appName).let { who -> if (more) "$who says it uses $data for more than running the app" else "$who says $data goes to other companies" }
-        "adjudicated" -> found("A court or regulator")
+        "adjudicated" -> {
+            val words = if (more) overClaim("$appName uses $data for more than running the app", "$appName using $data for more than running the app")
+                else overClaim("$data goes to other companies", "$data going to other companies")
+            val case = line.decision
+            verdict(line.statusKind, case?.body, words) + whoAndWhen(case?.body, case?.label, case?.date, about = line.via)
+        }
         "reported" -> found(reporters(line.sources))
         // Never the reason given (tier() leaves alleged lines out); said as a claim if it ever were.
         "alleged" -> "It's alleged that $data ${if (more) "is used for more than running the app" else "goes to other companies"} (${undecided(line.forum)})"

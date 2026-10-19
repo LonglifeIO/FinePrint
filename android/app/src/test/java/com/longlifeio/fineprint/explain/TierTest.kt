@@ -35,7 +35,7 @@ class TierTest {
             rate(flows = listOf(flow("precise_location", GOES_ELSEWHERE, "self_disclosed"))),
         )
         assertEquals(
-            TierResult(Tier.FLAGGED, "A court or regulator found your contact list goes to other companies", "F1"),
+            TierResult(Tier.FLAGGED, "A court or regulator has acted on a case over your contact list going to other companies", "F1"),
             rate(flows = listOf(flow("contacts", GOES_ELSEWHERE, "adjudicated"))),
         )
         // A tracker's own disclosure names the tracker, not the app.
@@ -121,7 +121,7 @@ class TierTest {
         assertEquals("App says your location goes to other companies", rate(flows = listOf(flow("contacts", GOES_ELSEWHERE, "adjudicated"), disclosed)).reason)
         // A past practice comes after a current one.
         val past = disclosed.copy(historical = true)
-        assertEquals("A court or regulator found your contact list goes to other companies", rate(flows = listOf(past, flow("contacts", GOES_ELSEWHERE, "adjudicated"))).reason)
+        assertEquals("A court or regulator has acted on a case over your contact list going to other companies", rate(flows = listOf(past, flow("contacts", GOES_ELSEWHERE, "adjudicated"))).reason)
         assertEquals("App says it uses your advertising ID for more than running the app",
             rate(flows = listOf(flow("app_activity", USED_FOR_MORE, "adjudicated"), flow("device_identifiers", USED_FOR_MORE, "self_disclosed"))).reason)
     }
@@ -254,6 +254,63 @@ class TierTest {
         )
         assertEquals(TierResult(Tier.FLAGGED, "App says your location goes to other companies", "F1"), both)
         assertEquals("C1", rate(flows = listOf(flow("device_identifiers", GOES_ELSEWHERE, "self_disclosed"), flow("app_activity", USED_FOR_MORE, "self_disclosed"))).rule)
+    }
+
+    /**
+     * F1 in a decided line's own words, by the table F2 uses (Decided.kt): the verb from what came of the case, the
+     * subject from who decided it, then who and when; a tracker's case ends with the tracker it was about.
+     */
+    @Test
+    fun aDecidedFlowReadsAsItsCaseDidAtAppAndTrackerLevel() {
+        val ftc = "US Federal Trade Commission"
+        val court = "US District Court (Judge James Donato)"
+        val several = "Privacy commissioners of Canada, Quebec, British Columbia and Alberta"
+        fun reason(kind: String, body: String?, via: String? = null) = rate(
+            flows = listOf(flow("contacts", GOES_ELSEWHERE, "adjudicated", via = via).copy(statusKind = kind, decision = body?.let { Decision(it, "Item", "2024-04-11") })),
+        ).reason
+        val found = "found your contact list goes to other companies"
+        val settled = "settled a case over your contact list going to other companies"
+        val kinds = listOf(
+            Triple("ruling", court, "A court $found — $court, 2024"),
+            Triple("ruling", ftc, "A regulator $found — $ftc, 2024"),
+            Triple("regulator_finding", several, "Regulators $found — $several, 2024"),
+            Triple("settlement", ftc, "A regulator $settled — $ftc, 2024"),
+            Triple("settlement_no_admission", "Texas Attorney General", "A regulator $settled — Texas Attorney General, 2024"),
+            Triple("consent_order", ftc, "A regulator $settled — $ftc, 2024"),
+            // A court doesn't settle a case: it approves the settlement.
+            Triple("settlement", court, "A court approved a settlement over your contact list going to other companies — $court, 2024"),
+            // No case on record for it: the definition's own verb.
+            Triple("consent_order", null, "A court or regulator has acted on a case over your contact list going to other companies"),
+        )
+        for ((kind, body, words) in kinds) {
+            assertEquals("$kind, app", words, reason(kind, body))
+            // A tracker's case was about the tracker, not this app: it says so after who and when.
+            assertEquals("$kind, tracker", if (body == null) "$words — about X-Mode" else "$words, about X-Mode", reason(kind, body, via = "X-Mode"))
+        }
+        // Capped at Caution without the app's own record; the words are the same.
+        val capped = rate(curated = false, flows = listOf(flow("contacts", GOES_ELSEWHERE, "adjudicated", via = "X-Mode").copy(statusKind = "consent_order", decision = Decision(ftc, "Item", "2024-04-11"))))
+        assertEquals(TierResult(Tier.CAUTION, "A regulator $settled — $ftc, 2024, about X-Mode", "F1", capped = true), capped)
+    }
+
+    /**
+     * The bundle's one decided tracker line that can set a tier, X-Mode's, joined to the FTC order that decided it
+     * (Venntel's is a government line, shown under Jurisdictions and never scored). What X-Mode's company says itself
+     * leads the tier, before a ruling, as the formula has it; the decided line reads as its case did whenever it leads.
+     */
+    @Test
+    fun aTrackersDecidedLineNamesTheOrderThatDecidedIt() {
+        val bundle = parseBundle(File("../../bundle/bundle.json").readText())
+        val e = explain(
+            InstalledApp("org.example.sdk", "Example", "1.0", 1, 0, false, true, emptyList(), emptyList()),
+            TrackerScanResult(listOf(DetectedTracker("exodus-354", "X-Mode", listOf("Location"), "x")), 1, 10, 1, emptyList()), bundle, emptyMap(),
+        )
+        assertEquals("X-Mode says your location goes to other companies", e.tier.reason)
+        val decided = e.flows.values.flatten().single { it.status == "adjudicated" }
+        assertEquals(Decision("US Federal Trade Commission", "In the Matter of X-Mode Social, Inc. and Outlogic, LLC (FTC Docket No. C-4802)", "2024-04-11"), decided.decision)
+        assertEquals(
+            "A regulator settled a case over your location going to other companies — US Federal Trade Commission, 2024, about X-Mode",
+            tier(false, "Example", listOf(decided), emptyList(), emptyList()).reason,
+        )
     }
 
     /** The reviewed Life360 record in bundle/bundle.json, as the owner's read test sees it. */
