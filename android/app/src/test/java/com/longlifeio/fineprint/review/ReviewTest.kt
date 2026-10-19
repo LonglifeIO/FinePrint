@@ -199,15 +199,23 @@ class ReviewTest {
         val fp = fingerprint(app(location), scan("fp-arity"), bundle)!!
         ReviewStore(file, now).apply {
             markReviewed("com.example.family", fp, "2026-10-04T15:00:00-03:00")
-            setTicked("com.example.family", "ctl-partners", true)
-            setTicked("org.other", "ctl-x", true)
-            setTicked("org.other", "ctl-x", false) // an entry with nothing left in it is dropped
+            setTicked("com.example.family", "ctl-partners", true, on = "2026-10-19")
+            setTicked("org.other", "ctl-x", true, on = "2026-10-19")
+            setTicked("org.other", "ctl-x", false) // an entry with nothing left in it is dropped, its day with it
         }
         val reloaded = ReviewStore(file, now).entries.value
         assertEquals(setOf("com.example.family"), reloaded.keys)
-        assertEquals(ReviewEntry(ReviewMark("2026-10-04T15:00:00-03:00", fp), setOf("ctl-partners")), reloaded["com.example.family"])
+        val family = ReviewEntry(ReviewMark("2026-10-04T15:00:00-03:00", fp), setOf("ctl-partners"), mapOf("ctl-partners" to "2026-10-19"))
+        assertEquals(family, reloaded["com.example.family"])
         ReviewStore(file, now).clearMark("com.example.family")
-        assertEquals(ReviewEntry(null, setOf("ctl-partners")), ReviewStore(file, now).entries.value["com.example.family"])
+        assertEquals(family.copy(mark = null), ReviewStore(file, now).entries.value["com.example.family"])
         dir.deleteRecursively()
+    }
+
+    /** A tick saved before the day was kept still loads, with no day to show. */
+    @Test
+    fun aTickFromBeforeDaysWereKeptLoadsWithoutOne() {
+        val old = JSONObject("""{"version":1,"apps":{"com.example.family":{"ticked":["ctl-partners"]}}}""")
+        assertEquals(mapOf("com.example.family" to ReviewEntry(null, setOf("ctl-partners"))), ReviewStore.decode(old))
     }
 }

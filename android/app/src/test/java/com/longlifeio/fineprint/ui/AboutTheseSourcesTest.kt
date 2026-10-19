@@ -1,5 +1,6 @@
 package com.longlifeio.fineprint.ui
 
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
@@ -9,6 +10,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.click
 import androidx.compose.ui.test.percentOffset
@@ -131,8 +133,12 @@ class AboutTheseSourcesTest {
         )
     }
 
-    /** The first Sources row below the line [above] matches. */
+    /** The first Sources row below the line [above] matches, once that line is scrolled to the top of the page. */
     private fun sourcesRowUnder(above: SemanticsMatcher): SemanticsNodeInteraction {
+        val page = compose.onNodeWithTag("detail")
+        page.performScrollToNode(above)
+        val by = compose.onNode(above).fetchSemanticsNode().boundsInRoot.top - page.fetchSemanticsNode().boundsInRoot.top
+        page.performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, by) }
         val top = compose.onNode(above).fetchSemanticsNode().boundsInRoot.top
         val row = compose.onAllNodes(hasText("Sources (", substring = true)).fetchSemanticsNodes()
             .filter { it.boundsInRoot.top > top }.minBy { it.boundsInRoot.top }

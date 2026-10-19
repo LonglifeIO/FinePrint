@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -69,8 +68,7 @@ import com.longlifeio.fineprint.review.ReviewView
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun DetailHeader(
-    app: InstalledApp, e: Explanation, check: WhatYouCanDo, review: ReviewView, onOpenSettings: (() -> Unit)?, settingsUnavailable: String?,
-    installLine: String?, onAskForReview: (() -> Unit)?, reviewUnavailable: String?,
+    app: InstalledApp, e: Explanation, check: WhatYouCanDo, review: ReviewView, installLine: String?, onAskForReview: (() -> Unit)?, reviewUnavailable: String?,
 ) {
     val p = LocalPalette.current
     val reviewed = review.status == ReviewStatus.REVIEWED
@@ -112,8 +110,7 @@ internal fun DetailHeader(
                 style = MaterialTheme.typography.bodySmall, color = p.muted,
             )
         }
-        Button(onClick = { onOpenSettings?.invoke() }, enabled = onOpenSettings != null, modifier = Modifier.heightIn(min = TOUCH)) { Text("Open app settings") }
-        settingsUnavailable?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = p.muted) }
+        // Open app info is under What you can do, with the settings it changes.
     }
 }
 

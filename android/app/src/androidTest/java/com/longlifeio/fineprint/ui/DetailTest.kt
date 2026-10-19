@@ -1,6 +1,7 @@
 package com.longlifeio.fineprint.ui
 
 import android.content.Context
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasAnyAncestor
 import androidx.compose.ui.test.hasTestTag
@@ -12,6 +13,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.longlifeio.fineprint.bundle.StoreTagline
@@ -129,7 +131,7 @@ class DetailTest {
         val detail = compose.onNodeWithTag("detail")
         // Where it goes starts closed: its row opens it.
         detail.performScrollToNode(hasText(WHERE_IT_GOES.subtitle))
-        compose.onNodeWithText(WHERE_IT_GOES.subtitle).performClick()
+        compose.onNodeWithText(WHERE_IT_GOES.subtitle).performSemanticsAction(SemanticsActions.OnClick)
         // The chip keeps the full count while four lines show.
         detail.performScrollToNode(hasText("Goes elsewhere: $count lines", substring = true))
         compose.onNodeWithText("Goes elsewhere: $count lines", useUnmergedTree = true).assertExists()
@@ -148,7 +150,7 @@ class DetailTest {
     fun theLastCardListsEveryFootnoteNumber() {
         show(life360, explain(life360, scan, bundle, emptyMap()))
         compose.onNodeWithTag("detail").performScrollToNode(hasText(SOURCES.subtitle))
-        compose.onNodeWithText(SOURCES.subtitle).performClick()
+        compose.onNodeWithText(SOURCES.subtitle).performSemanticsAction(SemanticsActions.OnClick)
         compose.onNodeWithTag("detail").performScrollToNode(hasText("[1] ", substring = true))
         compose.onNodeWithText("[1] ", substring = true).assertExists()
     }

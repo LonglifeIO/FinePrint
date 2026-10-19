@@ -162,13 +162,13 @@ fun SegmentedBar(limited: Int, total: Int, modifier: Modifier = Modifier) {
     }
 }
 
-/** A dashed rounded outline, for "Not checked yet" and the ad tile. */
-fun Modifier.dashedOutline(color: Color, radius: Dp, width: Dp = 1.5.dp) = drawBehind {
+/** A dashed rounded outline, for "Not checked yet", the ad tile and the boxes FinePrint checks; [dash] and [gap] shorter on a small box. */
+fun Modifier.dashedOutline(color: Color, radius: Dp, width: Dp = 1.5.dp, dash: Dp = 6.dp, gap: Dp = 4.dp) = drawBehind {
     val stroke = width.toPx()
     drawRoundRect(
         color, topLeft = Offset(stroke / 2, stroke / 2), size = Size(size.width - stroke, size.height - stroke),
         cornerRadius = CornerRadius(radius.toPx()),
-        style = Stroke(stroke, pathEffect = PathEffect.dashPathEffect(floatArrayOf(6.dp.toPx(), 4.dp.toPx()))),
+        style = Stroke(stroke, pathEffect = PathEffect.dashPathEffect(floatArrayOf(dash.toPx(), gap.toPx()))),
     )
 }
 

@@ -35,6 +35,7 @@ import com.longlifeio.fineprint.design.parseFixture
 import com.longlifeio.fineprint.egress.parseTrackerSignatures
 import com.longlifeio.fineprint.explain.APPLIES
 import com.longlifeio.fineprint.explain.Explanation
+import com.longlifeio.fineprint.explain.OPEN_APP_INFO
 import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.glance
 import com.longlifeio.fineprint.explain.glanceHeadline
@@ -118,14 +119,16 @@ class PreviewTest {
         // The row's own click, as TalkBack does it: scrolled to the top, its middle can sit under the docked search bar.
         compose.onNodeWithText("Life360").performSemanticsAction(SemanticsActions.OnClick)
         compose.onNodeWithText("Version 26.37.0", substring = true).assertIsDisplayed() // a scanned sample app keeps its version
-        compose.onNodeWithText("Open app settings").assertIsNotEnabled().performClick()
+        // Open app info sits in What you can do, open under the Summary: off here, and the line under it says why.
+        compose.onNodeWithTag("detail").performScrollToNode(hasText(OPEN_APP_INFO))
+        compose.onNodeWithText(OPEN_APP_INFO).assertIsNotEnabled().performClick()
         compose.onAllNodesWithText(SETTINGS_UNAVAILABLE!!).onFirst().assertIsDisplayed()
         // The permissions you've granted sit in a section that starts closed: open it, then its button says the same.
         val applies = hasText(APPLIES.title) and hasClickAction()
         compose.onNodeWithTag("detail").performScrollToNode(applies)
         compose.onNode(applies).performClick()
-        compose.onNodeWithTag("detail").performScrollToNode(hasText("Open app settings to change these"))
-        compose.onNodeWithText("Open app settings to change these").performClick()
+        compose.onNodeWithTag("detail").performScrollToNode(hasText("$OPEN_APP_INFO to change these"))
+        compose.onNodeWithText("$OPEN_APP_INFO to change these").performClick()
         assertNull("nothing opened", shadowOf(compose.activity).nextStartedActivity)
         compose.onRoot().captureRoboImage("build/outputs/roborazzi/preview-detail.png")
     }

@@ -106,7 +106,7 @@ class ScreenshotTest {
 
     /**
      * The matrix's other two sizes: a small phone, and a tablet where cards stop at MAX_CONTENT. And a page whole, for
-     * review: the phone's width, tall enough for an app's page with its sections closed, or a few open.
+     * review: the phone's width, tall enough for an app's page as it opens (What you can do open), or with a few more open.
      */
     enum class Device(val tag: String, val qualifiers: String) {
         SMALL("w360", "w360dp-h780dp-xxhdpi"),
@@ -130,7 +130,7 @@ class ScreenshotTest {
         compose.onAllNodesWithText("Sources (", substring = true).onFirst().performClick()
     }
 
-    /** Life360's page as it opens; [open] names the sections already opened below the fine print. */
+    /** Life360's page as it opens, What you can do open under the Summary; [open] names the other sections opened too. */
     @Composable
     private fun Life360(vararg open: String) = AppDetailScreen(
         app = life360, explanation = explanations.getValue(life360.packageName), check = checks.getValue(life360.packageName),
@@ -139,7 +139,7 @@ class ScreenshotTest {
         buckets = OpenBuckets({ _, default -> default }, { _, _ -> }), cards = remember { OpenCards(flipped = open.toList()) },
     )
 
-    /** Facebook's page, marked reviewed as on the emulator: its sections below the fine print closed, or [open]. */
+    /** Facebook's page, marked reviewed as on the emulator: as it opens, or with [open] opened too. */
     @Composable
     private fun Facebook(vararg open: String) = AppDetailScreen(
         app = facebook, explanation = explanations.getValue(facebook.packageName), check = checks.getValue(facebook.packageName),
@@ -198,6 +198,9 @@ class ScreenshotTest {
     // goes, Jurisdictions and On the record opened in place.
     @Test fun facebookLight() = shoot("facebook", dark = false, { Facebook() })
     @Test fun facebookDark() = shoot("facebook", dark = true, { Facebook() })
+    // Life360's page as it opens is longer than Facebook's: What you can do holds its seven items.
+    @Test fun life360WholeLight() = shoot("life360", dark = false, { Life360() }, device = Device.WHOLE_OPEN)
+    @Test fun life360WholeDark() = shoot("life360", dark = true, { Life360() }, device = Device.WHOLE_OPEN)
     @Test fun facebookClosedLight() = shoot("facebook-closed", dark = false, { Facebook() }, device = Device.WHOLE)
     @Test fun facebookClosedDark() = shoot("facebook-closed", dark = true, { Facebook() }, device = Device.WHOLE)
     @Test fun facebookOpenLight() = shoot("facebook-open", dark = false, { Facebook("goes", "jurisdictions", "record") }, device = Device.WHOLE_OPEN)

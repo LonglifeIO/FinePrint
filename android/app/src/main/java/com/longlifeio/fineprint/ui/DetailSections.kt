@@ -48,14 +48,13 @@ import com.longlifeio.fineprint.explain.FlowLine
 import com.longlifeio.fineprint.explain.SUMMARY_AUTO
 import com.longlifeio.fineprint.explain.SUMMARY_CURATED
 import com.longlifeio.fineprint.explain.NOT_RECORDED
+import com.longlifeio.fineprint.explain.OPEN_APP_INFO
 import com.longlifeio.fineprint.explain.SUMMARY_INHERITED
 import com.longlifeio.fineprint.explain.ALSO
 import com.longlifeio.fineprint.explain.SectionText
-import com.longlifeio.fineprint.explain.WHAT_YOU_CAN_DO
 import com.longlifeio.fineprint.explain.WHERE_IT_GOES
 import com.longlifeio.fineprint.explain.WhatYouCanDo
 import com.longlifeio.fineprint.explain.appliesHeadline
-import com.longlifeio.fineprint.explain.canDoSummary
 import com.longlifeio.fineprint.explain.collectsHeadline
 import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.reachHeadline
@@ -65,9 +64,9 @@ import com.longlifeio.fineprint.explain.whyItIs
 
 /**
  * The detail screen's sections up to Device access, each a card, always in this order; empty ones are left out except
- * What it collects. Below the fine print each starts closed: its name, a one-line summary and its definition, opening in
- * place ([cards]). The summary stays open when no store description opens the page ([summaryFolds] false). On the
- * record (onTheRecordSection), Evidence and Sources follow, the same way.
+ * What it collects and What you can do. The Summary is always open, with the latest change in it; What you can do opens
+ * with the page under it ([cards]). Each section after that starts closed: its name, a one-line summary and its
+ * definition, opening in place. On the record (onTheRecordSection), Evidence and Sources follow, the same way.
  */
 fun LazyListScope.detailSections(
     e: Explanation,
@@ -78,15 +77,15 @@ fun LazyListScope.detailSections(
     onTick: (String, Boolean) -> Unit,
     cards: OpenCards = OpenCards.allOpen(),
     buckets: OpenBuckets = OpenBuckets.allOpen(),
-    summaryFolds: Boolean = false,
 ) {
     val summary = if (e.coverage == "curated") SUMMARY_CURATED else if (e.maker?.inherited == true) SUMMARY_INHERITED else SUMMARY_AUTO
-    section("summary", summary, summaryHeadline(e), "the summary", cards.takeIf { summaryFolds }) {
+    section("summary", summary, summaryHeadline(e), "the summary", cards = null) {
         cardItem { Paragraph(e.summary) }
         cardItems(e.summaryNotes) { SummaryNoteRow(it, onSources, about = e.maker?.takeIf { m -> m.inherited }?.about) }
         e.regionCaveat?.let { cardItem { Note(it) } }
         recentChange(e.changes, onSources)
     }
+    whatYouCanDoSection(e, check, cards, onSources, onOpenSettings, settingsUnavailable, onTick)
 
     section("collects", COLLECTS, collectsHeadline(e), "what it collects", cards) {
         cardItem {
@@ -139,14 +138,8 @@ fun LazyListScope.detailSections(
                 Text(line.whyItMatters, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
-        cardItem { LinkRow("Open app settings to change these", R.drawable.ic_open_in_new, onClick = onOpenSettings) }
+        cardItem { LinkRow("$OPEN_APP_INFO to change these", R.drawable.ic_open_in_new, onClick = onOpenSettings) }
         settingsUnavailable?.let { cardItem { Note(it) } }
-    }
-
-    if (check.items.isNotEmpty() || check.inAppText != null) section("todo", WHAT_YOU_CAN_DO, canDoSummary(check), "what you can do", cards) {
-        check.summary?.let { cardItem { SegmentedBar(check.limited, check.total, Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) } }
-        cardItems(check.items, key = { "check:" + it.id }) { CheckRow(it, onTick, onSources, onOpenSettings) }
-        check.inAppText?.let { cardItem { Note("Inside the app: $it") } }
     }
 
     if (e.reach.isNotEmpty()) section("reach", DEVICE_ACCESS, reachHeadline(e), "device access", cards) {
@@ -161,11 +154,13 @@ fun LazyListScope.detailSections(
 
 /**
  * A section: its top, which opens and closes it ("Show [what]"), then its [parts] while open, and its end. [cards] is
- * null for one that's always open.
+ * null for one that's always open. One that closes is a row, its summary in small type, unless it keeps its [headline].
  */
-internal fun LazyListScope.section(key: String, text: SectionText, summary: String, what: String, cards: OpenCards?, parts: LazyListScope.() -> Unit) {
+internal fun LazyListScope.section(
+    key: String, text: SectionText, summary: String, what: String, cards: OpenCards?, headline: Boolean = false, parts: LazyListScope.() -> Unit,
+) {
     val open = cards?.isOpen(key) ?: true
-    cardTop(key, text, summary, cards?.let { CardToggle(open, what) { it.toggle(key) } })
+    cardTop(key, text, summary, cards?.let { CardToggle(open, what) { it.toggle(key) } }, row = cards != null && !headline)
     if (!open) return
     parts()
     cardEnd(key)

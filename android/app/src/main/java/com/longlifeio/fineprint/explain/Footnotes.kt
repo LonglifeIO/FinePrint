@@ -40,13 +40,13 @@ private val MARKS = Regex("[$SUPERSCRIPTS]+(,[$SUPERSCRIPTS]+)*")
  */
 fun spoken(text: String): String = text.replace(MARKS, "").replace(" → ", " to ").replace("→ ", "to ")
 
-/** In page order: Summary's notes and latest change, Where it goes and its countries, What you can do, On the record. */
+/** In page order: Summary's notes and latest change, What you can do, Where it goes and its countries, On the record. */
 fun footnotes(e: Explanation, check: WhatYouCanDo): Footnotes = Footnotes(
     e.summaryNotes.flatMap { it.sources } +
         e.changes.firstOrNull()?.sources.orEmpty() +
+        check.items.flatMap { it.sources } +
         BUCKETS.flatMap { b -> e.flows[b].orEmpty().flatMap { it.sources } } +
         e.governments.blocks.flatMap { block -> block.companies.flatMap { it.sources } + block.lines.flatMap { it.sources } } +
-        check.items.flatMap { it.sources } +
         (e.onTheRecord.ongoing + e.onTheRecord.past + e.onTheRecord.alsoReported).flatMap { it.sources } +
         e.changes.flatMap { it.sources },
 )

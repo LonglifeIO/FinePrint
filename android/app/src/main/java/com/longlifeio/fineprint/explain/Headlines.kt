@@ -51,8 +51,17 @@ fun reachHeadline(e: Explanation): String = "${plural(e.reach.size, "extra power
 fun whereSummary(e: Explanation, check: WhatYouCanDo): String =
     if (check.total == 0) whereHeadline(e) else "${plural(check.total, "way", "ways")}, ${check.limited} limited by your settings"
 
-/** "3 of 7 limited", the same count; "Settings inside the app" when none of its ways is counted. */
-fun canDoSummary(check: WhatYouCanDo): String = if (check.total == 0) canDoHeadline(check) else "${check.limited} of ${check.total} limited"
+/**
+ * What you can do's headline: "3 of 7 limited", the same count; "Settings inside the app" when none of its ways is
+ * counted; "Nothing to limit here" when it has no item, with [WhatYouCanDo.nothing] saying why under it.
+ */
+fun canDoSummary(check: WhatYouCanDo): String = when {
+    check.items.isEmpty() && check.inAppText == null -> NOTHING_TO_LIMIT
+    check.total == 0 -> canDoHeadline(check)
+    else -> "${check.limited} of ${check.total} limited"
+}
+
+const val NOTHING_TO_LIMIT = "Nothing to limit here"
 
 /** "Based in: Ireland, United States", in the order Jurisdictions lists them; what FinePrint can't say when it places none. */
 fun basedInSummary(g: Governments): String = if (g.basedIn.isEmpty()) NONE_PLACED else "Based in: ${g.basedIn.joinToString()}"

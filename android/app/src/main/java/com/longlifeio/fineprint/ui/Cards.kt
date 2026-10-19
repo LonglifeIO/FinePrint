@@ -37,6 +37,7 @@ import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.semantics
@@ -84,12 +85,15 @@ fun Modifier.cardFill(p: Palette, top: Dp = Corner.card, bottom: Dp = Corner.car
 /** A card that opens and closes from its top: every section below an app's fine print. */
 data class CardToggle(val open: Boolean, val what: String, val onToggle: () -> Unit)
 
-/** A card's top: its name, its headline and its definition. */
-fun LazyListScope.cardTop(key: String, text: SectionText, headline: String, toggle: CardToggle? = null) =
-    item(key = "section:$key") { CardTop(text, headline, toggle) }
+/**
+ * A card's top: its name, its headline and its definition. A [row]'s headline is its one-line summary, in the small type
+ * rows use for what's under their name ("2 ways, 0 limited by your settings"); a card's is in Fraunces.
+ */
+fun LazyListScope.cardTop(key: String, text: SectionText, headline: String, toggle: CardToggle? = null, row: Boolean = false) =
+    item(key = "section:$key") { CardTop(text, headline, toggle, row) }
 
 @Composable
-private fun CardTop(text: SectionText, headline: String, toggle: CardToggle?) {
+private fun CardTop(text: SectionText, headline: String, toggle: CardToggle?, row: Boolean) {
     val p = LocalPalette.current
     // One stop for TalkBack: the section's name (a heading, from its eyebrow), its summary and definition, and its state.
     val action = toggle?.let { t ->
@@ -101,7 +105,7 @@ private fun CardTop(text: SectionText, headline: String, toggle: CardToggle?) {
         Row(Modifier.fillMaxWidth().heightIn(min = TOUCH).padding(start = Space.l, end = Space.l, top = Space.card, bottom = if (toggle?.open == false) Space.card else Space.s)) {
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(Space.xs)) {
                 Eyebrow(text.title)
-                Text(headline, style = CardHeadline, color = p.ink)
+                Text(headline, style = if (row) MaterialTheme.typography.bodySmall else CardHeadline, color = p.ink, modifier = Modifier.testTag("headline:${text.title}"))
                 Text(text.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
             }
             if (toggle != null) {

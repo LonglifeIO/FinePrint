@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.test.assertCountEquals
@@ -19,6 +20,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -194,7 +196,7 @@ class TapTargetTest {
         val detail = compose.onNodeWithTag("detail")
         // On the record starts closed, a row with its summary: History is inside.
         detail.performScrollToNode(hasText(ON_THE_RECORD.subtitle))
-        compose.onNodeWithText(ON_THE_RECORD.subtitle).performClick()
+        compose.onNodeWithText(ON_THE_RECORD.subtitle).performSemanticsAction(SemanticsActions.OnClick)
         detail.performScrollToNode(hasText("2025-11-03 · Added a setting to turn off partner sharing.", substring = true)) // ends in its footnote number
         compose.onNode(hasContentDescription("Change: Improved", substring = true), useUnmergedTree = true).assertExists()
         compose.onNodeWithText("2026-09-12 · Now lets partners use your precise location for their own purposes.", substring = true).assertExists()
@@ -216,7 +218,7 @@ class TapTargetTest {
         }
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText(JURISDICTIONS.subtitle))
-        compose.onNodeWithText(JURISDICTIONS.subtitle).performClick()
+        compose.onNodeWithText(JURISDICTIONS.subtitle).performSemanticsAction(SemanticsActions.OnClick)
         detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)", substring = true)) // its title ends in a footnote number
         assertTrue(compose.onAllNodes(hasContentDescription("Can compel. A company", substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty())
         compose.onAllNodes(hasContentDescription("..", substring = true), useUnmergedTree = true).assertCountEquals(0)
@@ -236,7 +238,7 @@ class TapTargetTest {
         }
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText(JURISDICTIONS.subtitle))
-        compose.onNodeWithText(JURISDICTIONS.subtitle).performClick()
+        compose.onNodeWithText(JURISDICTIONS.subtitle).performSemanticsAction(SemanticsActions.OnClick)
         // FISA 702's full text opens under its short line.
         val fisa = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-fisa-702" }
         detail.performScrollToNode(hasText(fisa.short!!))
@@ -265,7 +267,7 @@ class TapTargetTest {
         }
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText(JURISDICTIONS.subtitle))
-        compose.onNodeWithText(JURISDICTIONS.subtitle).performClick()
+        compose.onNodeWithText(JURISDICTIONS.subtitle).performSemanticsAction(SemanticsActions.OnClick)
         detail.performScrollToNode(hasText("CLOUD Act (18 U.S.C. § 2713)", substring = true)) // its title ends in a footnote number
         val reviewed = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-cloud-act" }.lastReviewed!!
         assertTrue(compose.onAllNodes(hasText(lastChecked("this law", reviewed))).fetchSemanticsNodes().isNotEmpty())

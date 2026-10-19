@@ -30,6 +30,7 @@ import com.longlifeio.fineprint.ui.HowToReadScreen
 import com.longlifeio.fineprint.ui.OnboardingScreen
 import com.longlifeio.fineprint.ui.introSeen
 import com.longlifeio.fineprint.ui.markIntroSeen
+import java.time.LocalDate
 import java.time.OffsetDateTime
 
 class MainActivity : ComponentActivity() {
@@ -75,7 +76,7 @@ class MainActivity : ComponentActivity() {
                     apps.orEmpty().associate {
                         it.packageName to whatYouCanDo(
                             it, explanations.getValue(it.packageName), bundleState.bundle?.apps?.get(it.packageName), feeds,
-                            marks[it.packageName]?.ticked.orEmpty(),
+                            marks[it.packageName]?.ticked.orEmpty(), marks[it.packageName]?.tickedOn.orEmpty(),
                         )
                     }
                 }
@@ -130,7 +131,9 @@ class MainActivity : ComponentActivity() {
                             onHowToRead = { showHowTo = true },
                             onMarkReviewed = now?.let { fp -> { reviewStore.markReviewed(open.packageName, fp, OffsetDateTime.now().toString()) } },
                             onClearMark = { reviewStore.clearMark(open.packageName) },
-                            onTick = { id, ticked -> reviewStore.setTicked(open.packageName, id, ticked) },
+                            onTick = { id, ticked -> reviewStore.setTicked(open.packageName, id, ticked, on = LocalDate.now().toString()) },
+                            // Back from Android's app info: read the apps' permissions again, so What you can do shows what changed.
+                            onReturn = session::refresh,
                         )
                     }
                 }

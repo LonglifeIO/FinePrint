@@ -1,5 +1,6 @@
 package com.longlifeio.fineprint.ui
 
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
@@ -9,6 +10,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.longlifeio.fineprint.bundle.parseBundle
@@ -69,7 +71,7 @@ class LawLinesTest {
         }
         val detail = compose.onNodeWithTag("detail")
         detail.performScrollToNode(hasText(JURISDICTIONS.subtitle))
-        compose.onNodeWithText(JURISDICTIONS.subtitle).performClick()
+        compose.onNodeWithText(JURISDICTIONS.subtitle).performSemanticsAction(SemanticsActions.OnClick)
         // FISA 702: its short line first, its full text closed under it until Show it in full opens it.
         val fisa = bundle.jurisdictions.getValue("US").laws.single { it.id == "law-us-fisa-702" }
         detail.performScrollToNode(hasText(fisa.short!!))

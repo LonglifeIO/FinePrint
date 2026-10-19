@@ -95,5 +95,65 @@ class WhatYouCanDoTest {
         val c = whatYouCanDo(a, explain(a, crashOnly, bundle, emptyMap()), null, feeds, emptySet())
         assertEquals(emptyList<CheckItem>(), c.items)
         assertNull(c.summary)
+        // It asked for precise location, which FinePrint can check: none of what it found is fed by it.
+        assertEquals("No permission FinePrint can check feeds a way Example Family uses or shares data.", c.nothing)
+        val none = a.copy(permissions = listOf(RequestedPermission("android.permission.POST_NOTIFICATIONS", granted = true, dangerous = true)))
+        assertEquals("Example Family asked for no permissions FinePrint can check.", whatYouCanDo(none, explain(none, crashOnly, bundle, emptyMap()), null, feeds, emptySet()).nothing)
+        // With an item to tick or check, there's no such line.
+        assertNull(check(fineLocationGranted = true).nothing)
+    }
+
+    /** What FinePrint reads from Android, then the choice that limits it, in Android's words; once limited, just how it's set. */
+    @Test
+    fun anAndroidItemShowsItsSettingBeforeAndAfter() {
+        fun p(name: String, granted: Boolean) = RequestedPermission("android.permission.$name", granted, dangerous = true)
+        fun setting(name: String, vararg permissions: RequestedPermission) = androidSetting("android.permission.$name", app(true).copy(permissions = permissions.toList()))
+        assertEquals("Use precise location: On → Off", setting("ACCESS_FINE_LOCATION", p("ACCESS_FINE_LOCATION", true), p("ACCESS_COARSE_LOCATION", true)))
+        assertEquals("Use precise location: Off", setting("ACCESS_FINE_LOCATION", p("ACCESS_FINE_LOCATION", false), p("ACCESS_COARSE_LOCATION", true)))
+        assertEquals("Location: Not allowed", setting("ACCESS_FINE_LOCATION", p("ACCESS_FINE_LOCATION", false)))
+        assertEquals(
+            "Location: Allowed all the time → Allow only while using the app",
+            setting("ACCESS_BACKGROUND_LOCATION", p("ACCESS_FINE_LOCATION", true), p("ACCESS_BACKGROUND_LOCATION", true)),
+        )
+        assertEquals("Location: Allowed only while in use", setting("ACCESS_BACKGROUND_LOCATION", p("ACCESS_FINE_LOCATION", true), p("ACCESS_BACKGROUND_LOCATION", false)))
+        assertEquals("Location: Not allowed", setting("ACCESS_BACKGROUND_LOCATION", p("ACCESS_BACKGROUND_LOCATION", false)))
+        assertEquals("Physical activity: Allowed → Don't allow", setting("ACTIVITY_RECOGNITION", p("ACTIVITY_RECOGNITION", true)))
+        assertEquals("Physical activity: Not allowed", setting("ACTIVITY_RECOGNITION", p("ACTIVITY_RECOGNITION", false)))
+        assertEquals("Contacts: Allowed → Don't allow", setting("READ_CONTACTS", p("READ_CONTACTS", true)))
+        // The checklist's own item carries it.
+        assertEquals("Use precise location: On → Off", check(fineLocationGranted = true).items.first().setting)
+        assertEquals("Location: Not allowed", check(fineLocationGranted = false).items.first().setting)
+    }
+
+    /** Android lists granted permissions first; the items keep one order, so turning precise location off doesn't move it. */
+    @Test
+    fun anItemStaysInItsPlaceWhenItsSettingChanges() {
+        val real = parseBundle(File("../../bundle/bundle.json").readText())
+        fun p(name: String, granted: Boolean) = RequestedPermission(name, granted, dangerous = true)
+        fun ids(fineGranted: Boolean): List<String> {
+            // As the scanner lists them (PackageScanner.kt): granted before denied, then by name.
+            val reported = listOf(
+                p("android.permission.ACCESS_FINE_LOCATION", fineGranted), p("android.permission.ACCESS_BACKGROUND_LOCATION", false),
+                p("android.permission.ACTIVITY_RECOGNITION", false),
+            ).sortedWith(compareByDescending<RequestedPermission> { it.granted }.thenBy { it.name })
+            val a = app(true).copy(packageName = "com.life360.android.safetymapd", permissions = reported)
+            val scan = TrackerScanResult(listOf(DetectedTracker("fp-arity", "Arity", listOf("Location"), "x")), 1, 1, 1, emptyList())
+            return whatYouCanDo(a, explain(a, scan, real, emptyMap()), real.apps.getValue(a.packageName), real.permissions.mapValues { it.value.feeds }, emptySet())
+                .items.filter { it.automatic }.map { it.id.substringAfterLast('.') }
+        }
+        assertEquals(listOf("ACCESS_FINE_LOCATION", "ACCESS_BACKGROUND_LOCATION", "ACTIVITY_RECOGNITION"), ids(fineGranted = true))
+        assertEquals(ids(fineGranted = true), ids(fineGranted = false))
+    }
+
+    /** An item you tick keeps the day you ticked it; one you untick, or one FinePrint checks, has none. */
+    @Test
+    fun anItemYouTickShowsTheDay() {
+        val a = app(fineLocationGranted = true)
+        val scan = TrackerScanResult(listOf(DetectedTracker("fp-arity", "Arity", listOf("Location"), "x")), 1, 1, 1, emptyList())
+        val e = explain(a, scan, bundle, emptyMap())
+        val days = mapOf("ctl-partners" to "2026-10-19")
+        assertEquals("2026-10-19", whatYouCanDo(a, e, record, feeds, setOf("ctl-partners"), days).items.single { it.id == "ctl-partners" }.tickedOn)
+        assertNull(whatYouCanDo(a, e, record, feeds, emptySet(), days).items.single { it.id == "ctl-partners" }.tickedOn)
+        assertNull(whatYouCanDo(a, e, record, feeds, setOf("ctl-partners"), days).items.single { it.automatic }.tickedOn)
     }
 }

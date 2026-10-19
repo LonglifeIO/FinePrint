@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-/** One app's on-device state: its Reviewed mark, and the in-app checklist items you've ticked. */
-data class ReviewEntry(val mark: ReviewMark? = null, val ticked: Set<String> = emptySet()) {
+/** One app's on-device state: its Reviewed mark, and the checklist items you've ticked, with the day you ticked each. */
+data class ReviewEntry(val mark: ReviewMark? = null, val ticked: Set<String> = emptySet(), val tickedOn: Map<String, String> = emptyMap()) {
     val isEmpty: Boolean get() = mark == null && ticked.isEmpty()
 }
 
@@ -28,8 +28,13 @@ class ReviewStore(private val file: File, private val io: Executor = Executors.n
 
     fun clearMark(packageName: String) = edit(packageName) { it.copy(mark = null) }
 
-    fun setTicked(packageName: String, itemId: String, ticked: Boolean) =
-        edit(packageName) { it.copy(ticked = if (ticked) it.ticked + itemId else it.ticked - itemId) }
+    /** [on]: the day you ticked it ("2026-10-19"), shown beside the tick; a tick saved before days were kept has none. */
+    fun setTicked(packageName: String, itemId: String, ticked: Boolean, on: String? = null) = edit(packageName) {
+        it.copy(
+            ticked = if (ticked) it.ticked + itemId else it.ticked - itemId,
+            tickedOn = if (ticked && on != null) it.tickedOn + (itemId to on) else it.tickedOn - itemId,
+        )
+    }
 
     private fun edit(packageName: String, change: (ReviewEntry) -> ReviewEntry) {
         _entries.update { all ->
@@ -67,6 +72,7 @@ class ReviewStore(private val file: File, private val io: Executor = Executors.n
                             m.fingerprint.reach?.let { put("reach", JSONArray(it)) }
                         }
                         if (e.ticked.isNotEmpty()) put("ticked", JSONArray(e.ticked.sorted()))
+                        if (e.tickedOn.isNotEmpty()) put("ticked_on", JSONObject(e.tickedOn.toSortedMap()))
                     })
                 }
             },
@@ -80,7 +86,8 @@ class ReviewStore(private val file: File, private val io: Executor = Executors.n
                     val fingerprint = Fingerprint(o.getString("record"), o.getJSONArray("granted").strings(), o.getJSONArray("trackers").strings(), o.optJSONArray("reach")?.strings())
                     ReviewMark(o.getString("reviewed_at"), fingerprint)
                 } else null
-                ReviewEntry(mark, o.optJSONArray("ticked")?.strings()?.toSet().orEmpty())
+                val days = o.optJSONObject("ticked_on")
+                ReviewEntry(mark, o.optJSONArray("ticked")?.strings()?.toSet().orEmpty(), days?.keys()?.asSequence()?.associateWith { days.getString(it) }.orEmpty())
             }
         }
 

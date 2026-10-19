@@ -46,6 +46,18 @@ const val CHECK_ANDROID_OFF = "Checked automatically — Android shows this is o
 const val CHECK_ANDROID_ON = "Checked automatically — Android shows this is still on"
 const val CHECK_IN_APP = "Check this yourself — FinePrint can't see settings inside other apps."
 const val CHECK_ANDROID_UNSEEN = "Check this yourself — FinePrint can't see this Android setting."
+
+/** The checklist's one-line key to its boxes; null drops it. */
+val CHECK_LEGEND: String? = "Dashed: FinePrint checks this · Solid: you mark it"
+
+/** The button under What you can do: Android's app info page for the app, where its permissions are. */
+const val OPEN_APP_INFO = "Open app info"
+
+/** The note under it: "Android opens Life360's app info page. When you come back, FinePrint checks its permissions again." */
+fun appInfoNote(appName: String): String = "Android opens ${possessive(appName)} app info page. When you come back, FinePrint checks its permissions again."
+
+/** "You ticked this on 2026-10-19." */
+fun tickedOnLine(day: String): String = "You ticked this on $day."
 val DEVICE_ACCESS = SectionText("Device access", "Extra powers this app has, beyond its permissions.")
 val EVIDENCE = SectionText("Evidence", "The trackers and permissions behind the sections above.")
 val SOURCES = SectionText("Sources", "Every number on this page is one of these, in order.")

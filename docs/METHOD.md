@@ -12,7 +12,7 @@ FinePrint shows, for each app on your phone, what data it collects, who gets it,
 
 ## An app's page, section by section
 
-Every app's page has the same sections, in the same order. A section with nothing to show is left out, except What it collects. Below the fine print, each section starts closed. Its row shows its name, a short summary and an arrow: Where it goes · 7 ways, 3 limited by your settings. Tap it to open it where it is; it stays open until you leave the page. Without a store description, an app's page opens with its Summary, which stays open.
+Every app's page has the same sections, in the same order. A section with nothing to show is left out, except What it collects and What you can do. The Summary is always open, and What you can do opens under it. Each section after that starts closed. Its row shows its name, a short summary and an arrow: Where it goes · 7 ways, 3 limited by your settings. Tap it to open it where it is; it stays open until you leave the page. What you can do closes and opens the same way.
 
 Under its name, each page shows its tier and one line saying why, such as Why it's Flagged: Life360 says your location goes to other companies. For an app FinePrint hasn't checked, what the scan found takes its place. The reason is always a fact: what the app's maker or a tracker's company says, a report, a ruling, or a step a court or regulator has taken. What someone alleges in a lawsuit or complaint is never the reason given. When several claims set the tier, the Why line names the first and counts the rest, such as 3 more reasons below, or 2 more reasons on the record when rulings or cases set it. The claims that set the tier sit under one heading, Why it's Flagged or Why it's Caution, and the rest under Also. On the record lists the items that set it first, under the same heading. The fine print and the summary list those first.
 
@@ -36,11 +36,11 @@ The fine print lists FinePrint's claims in the reading order set out under Where
 Each sourced line on the page ends in a small number. The numbers match the list at the end of the page, one number per document and section, in the order they first appear; to read a source, open the line's Sources row.
 
 - Summary: In plain words, from what FinePrint has checked about this app. For an app without a record: FinePrint hasn't checked this app. This is inferred from the tracker code inside it. For an app that came with your phone and inherits its maker's lines: FinePrint hasn't checked this app. This comes from its maker's privacy policy, which covers it, and the tracker code inside it.
+- What you can do: Settings that limit where your data goes. FinePrint can't change them. It shows what Android reports, and you can tick what you've changed inside the app.
 - What it collects: Data this app takes from your phone, in plain terms.
 - Where it goes: Who gets that data, and whether it's used beyond running the app.
 - Jurisdictions: Where the companies that get this data are based, and the laws there that let a government demand it.
 - This applies to you because: Permissions you've actually granted that feed the above.
-- What you can do: Settings that limit where your data goes. FinePrint can't change them. It shows what Android reports, and you can tick what you've changed inside the app.
 - Device access: Extra powers this app has, beyond its permissions.
 - On the record: What regulators and courts have said. FinePrint relays the public record; it doesn't judge.
 - Also reported: Journalists, researchers or breach trackers found it. No court or regulator has ruled on it.
@@ -154,7 +154,7 @@ Stale: Last checked more than 180 days ago; it may be out of date.
 
 ## What you can do
 
-Each app's page lists the settings that limit where its data goes. FinePrint can't change any of them. For an Android permission, it shows what Android reports, Off ✓ or On ○; tap the item to open the app's Android settings. Settings inside the app, and the advertising ID, which applies to every app, are things FinePrint can't see: each has a checkbox you tick yourself once you've changed it. A setting inside the app says what turning it off changes, quoting the app where it says, or that the app doesn't say. When FinePrint infers that a setting covers a flow its sources don't name outright, the item says so.
+Each app's page lists the settings that limit where its data goes, open under the Summary. FinePrint can't change any of them. For an Android permission, it shows what Android reports in a box with a dashed edge. The box is ticked once the setting limits the app. The item shows the setting now, then what limits it, such as Use precise location: On → Off. It uses Android's own words. Once it's limited, the item shows how it's set, such as Location: Allowed only while in use. Tap the item to open the app's Android settings. FinePrint can't see settings inside the app. It can't see the advertising ID either, which applies to every app. Each of those has a solid checkbox you tick yourself once you've changed it, and the day you ticked it. Above the items, a key says which is which: Dashed: FinePrint checks this · Solid: you mark it. A setting inside the app says what turning it off changes, quoting the app where it says, or that the app doesn't say. When FinePrint infers that a setting covers a flow its sources don't name outright, the item says so. When there's nothing to limit, the card says so and why. Sometimes the app asked for no permission FinePrint can check. Sometimes it did, but none of them feeds a way the app uses or shares data. Last comes Open app info, which opens the app's page in Android's settings. When you come back, FinePrint checks its permissions again.
 
 The line under each item says which kind it is:
 

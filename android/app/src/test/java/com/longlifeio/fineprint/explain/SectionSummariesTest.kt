@@ -7,7 +7,8 @@ import org.junit.Test
 /** The one line a closed section shows beside its name (docs/METHOD.md, An app's page), as it counts and words it. */
 class SectionSummariesTest {
 
-    private fun check(limited: Int, total: Int) = WhatYouCanDo(emptyList(), limited, total, null)
+    private val item = CheckItem("ctl-x", "A setting", "Settings > Privacy", automatic = false, ticked = false, inApp = true)
+    private fun check(limited: Int, total: Int, items: List<CheckItem> = listOf(item), inApp: String? = null) = WhatYouCanDo(items, limited, total, inApp)
 
     private val staysHere = Explanation(
         appName = "Notes", summary = "", summaryNotes = emptyList(), coverage = "curated", tier = TierResult(Tier.EXPECTED, "r", "E"),
@@ -25,7 +26,10 @@ class SectionSummariesTest {
         // None counted, since its data stays with the app: the headline says so instead.
         assertEquals("It stays with Notes", whereSummary(staysHere, check(0, 0)))
         assertEquals("3 of 7 limited", canDoSummary(check(3, 7)))
-        assertEquals("Settings inside the app", canDoSummary(check(0, 0)))
+        assertEquals("Settings inside the app", canDoSummary(check(0, 0, items = emptyList(), inApp = "In your account: …")))
+        // No item and no setting inside the app: nothing to limit, whatever the count (WhatYouCanDoTest has why).
+        assertEquals(NOTHING_TO_LIMIT, canDoSummary(check(0, 2, items = emptyList())))
+        assertEquals(NOTHING_TO_LIMIT, canDoSummary(check(0, 0, items = emptyList())))
     }
 
     @Test

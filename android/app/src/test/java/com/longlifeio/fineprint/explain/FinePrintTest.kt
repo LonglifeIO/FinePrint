@@ -99,6 +99,19 @@ class FinePrintTest {
         assertEquals((1..notes.ordered.size).toList(), notes.ordered.map { notes.number(it) })
     }
 
+    /** Numbered in page order: What you can do sits right under the Summary, so its sources come before Where it goes'. */
+    @Test
+    fun whatYouCanDosSourcesAreNumberedBeforeWhereItGoes() {
+        val check = whatYouCanDo(app("com.life360.android.safetymapd"), life360, bundle.apps["com.life360.android.safetymapd"], emptyMap(), emptySet())
+        val notes = footnotes(life360, check)
+        fun Source.key() = url to title
+        val summary = (life360.summaryNotes.flatMap { it.sources } + life360.changes.firstOrNull()?.sources.orEmpty()).map { it.key() }.toSet()
+        val todo = check.items.flatMap { it.sources }.filter { it.key() !in summary }
+        val where = BUCKETS.flatMap { b -> life360.flows[b].orEmpty().flatMap { it.sources } }.filter { it.key() !in summary && todo.none { t -> t.key() == it.key() } }
+        assertTrue(todo.isNotEmpty() && where.isNotEmpty())
+        assertTrue(todo.maxOf { notes.number(it)!! } < where.minOf { notes.number(it)!! })
+    }
+
     @Test
     fun headlinesSayGoesOnlyWhereASourcedLineDoes() {
         assertEquals("Some of it goes to other companies", whereHeadline(life360))

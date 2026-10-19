@@ -11,6 +11,8 @@ import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import androidx.compose.ui.unit.dp
@@ -35,8 +37,18 @@ fun ComposeTestRule.smallTargetsWhileScrolling(tag: String): List<String> {
     return small.toList()
 }
 
-/** Opens a law's full text: the Show it in full row just under its [short] line, which is on screen. */
+/** Scrolls the app's page until what [matcher] finds sits a quarter of the way down, clear of the top bar, with what's under it on screen. */
+fun ComposeTestRule.scrollToTop(matcher: SemanticsMatcher) {
+    val page = onNodeWithTag("detail")
+    page.performScrollToNode(matcher)
+    val list = page.fetchSemanticsNode().boundsInRoot
+    val by = onNode(matcher).fetchSemanticsNode().boundsInRoot.top - (list.top + list.height / 4)
+    page.performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, by) }
+}
+
+/** Opens a law's full text: the Show it in full row just under its [short] line, scrolled to the top of the page first. */
 fun ComposeTestRule.openLawInFull(short: String) {
+    scrollToTop(hasText(short))
     val top = onNodeWithText(short).fetchSemanticsNode().boundsInRoot.top
     val row = onAllNodes(hasText("Show it in full") and hasClickAction()).fetchSemanticsNodes().filter { it.boundsInRoot.top > top }.minBy { it.boundsInRoot.top }
     onNode(SemanticsMatcher("the row under it") { it.id == row.id }).performClick()

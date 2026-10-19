@@ -21,8 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +33,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.longlifeio.fineprint.R
 import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.TrackerScanResult
@@ -71,7 +76,7 @@ fun AppDetailScreen(
     onTick: (String, Boolean) -> Unit,
     /** Which buckets show all their lines; kept on this phone. */
     buckets: OpenBuckets = rememberOpenBuckets(),
-    /** Which sections below the fine print are open; all closed when the page opens, kept for the visit. */
+    /** Which sections are open: What you can do when the page opens, the rest closed; kept for the visit. */
     cards: OpenCards = rememberOpenCards(),
     settingsUnavailable: String? = null,
     /** Said in place of the app's version and APK count, when they aren't known (a sample app never scanned). */
@@ -79,7 +84,10 @@ fun AppDetailScreen(
     /** Opens GitHub's review-request form in the browser, after the disclosure; null where it can't, with [reviewUnavailable]. */
     onAskForReview: (() -> Unit)? = null,
     reviewUnavailable: String? = null,
+    /** Called when you come back to the page, as from Android's app info: the permissions What you can do shows are read again. */
+    onReturn: () -> Unit = {},
 ) {
+    ReturnEffect(onReturn)
     var recordAll by rememberSaveable { mutableStateOf(false) }
     var sheet by remember { mutableStateOf<SheetContent?>(null) }
     val uriHandler = LocalUriHandler.current
@@ -102,13 +110,13 @@ fun AppDetailScreen(
                 },
             ) { padding ->
                 CentredList(padding, Modifier.testTag("detail")) {
-                    item(key = "header") { DetailHeader(app, explanation, check, review, onOpenSettings, settingsUnavailable, installLine, onAskForReview, reviewUnavailable) }
+                    item(key = "header") { DetailHeader(app, explanation, check, review, installLine, onAskForReview, reviewUnavailable) }
                     // Their words: only when the record has the store's own description.
                     explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation), alsoCollected(explanation), explanation.tier.tier) { sheet = it } } }
-                    // Below the header and the fine print, every section starts closed; the summary too, when Their words opens the page.
+                    // The Summary, always open; What you can do, open under it; then every section starts closed.
                     detailSections(
                         explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, settingsUnavailable = settingsUnavailable, onTick = onTick,
-                        cards = cards, buckets = buckets, summaryFolds = explanation.storeTagline != null,
+                        cards = cards, buckets = buckets,
                     )
                     onTheRecordSection(
                         explanation.onTheRecord, explanation.changes, cards,
@@ -162,6 +170,25 @@ private fun ReviewControls(review: ReviewView, onMarkReviewed: (() -> Unit)?, on
         if (review.status != ReviewStatus.NOT_REVIEWED) {
             TextButton(onClick = onClearMark, modifier = Modifier.heightIn(min = TOUCH)) { Text("Remove the $REVIEWED mark") }
         }
+    }
+}
+
+/** Calls [onReturn] each time the page comes back after it was left (another app on top, or the screen off); not when it first shows. */
+@Composable
+private fun ReturnEffect(onReturn: () -> Unit) {
+    val owner = LocalLifecycleOwner.current
+    val latest by rememberUpdatedState(onReturn)
+    DisposableEffect(owner) {
+        var left = false
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_PAUSE) left = true
+            if (event == Lifecycle.Event.ON_RESUME && left) {
+                left = false
+                latest()
+            }
+        }
+        owner.lifecycle.addObserver(observer)
+        onDispose { owner.lifecycle.removeObserver(observer) }
     }
 }
 
