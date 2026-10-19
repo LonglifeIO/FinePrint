@@ -44,7 +44,7 @@ class ReasonsScreenTest {
             AppDetailScreen(
                 app = app, explanation = e, check = whatYouCanDo(app, e, bundle.apps[pkg], emptyMap(), emptySet()), review = ReviewView(ReviewStatus.NOT_REVIEWED),
                 result = scan, signatures = null, bundleVersion = bundle.version, onBack = {}, onOpenSettings = {}, onHowToRead = {}, onMarkReviewed = {},
-                onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(), cards = OpenCards(flipped = listOf("goes")),
+                onClearMark = {}, onTick = { _, _ -> }, buckets = OpenBuckets.allOpen(), cards = OpenCards(flipped = listOf(THEIR_WORDS_CARD, "goes")),
             )
         }
     }
@@ -56,7 +56,7 @@ class ReasonsScreenTest {
     @Test @Config(qualifiers = "w411dp-h3000dp-420dpi")
     fun theLinesThatSetItComeFirstUnderOneHeadingInTheFinePrintAndWhereItGoes() {
         detail("com.example.flows")
-        compose.onNodeWithTag("why").assert(hasText("Why it's Flagged: Example Flows says your location goes to other companies. 1 more reason below."))
+        compose.onNodeWithTag("why").assert(hasText("Why it's Flagged: Example Flows says your location goes to other companies"))
         assertEquals("one in the fine print, one in Goes elsewhere", 2, count("Why it's Flagged"))
         assertEquals("over the rest of each; Used for more has nothing that set it, so no heading", 2, count("Also"))
         compose.onAllNodes(hasText("for this", substring = true), useUnmergedTree = true).assertCountEquals(0) // no marker on a line

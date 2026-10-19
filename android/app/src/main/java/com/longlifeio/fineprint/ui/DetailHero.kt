@@ -3,7 +3,6 @@ package com.longlifeio.fineprint.ui
 import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -11,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -45,7 +45,6 @@ import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.explain.ALSO
 import com.longlifeio.fineprint.explain.CHANGED
 import com.longlifeio.fineprint.explain.Explanation
-import com.longlifeio.fineprint.explain.FINE_PRINT_FIRST
 import com.longlifeio.fineprint.explain.FinePrintLine
 import com.longlifeio.fineprint.explain.FoldedLines
 import com.longlifeio.fineprint.explain.NO_RECORD
@@ -54,7 +53,6 @@ import com.longlifeio.fineprint.explain.REVIEWED_DEFINITION
 import com.longlifeio.fineprint.explain.THEIR_WORDS
 import com.longlifeio.fineprint.explain.THE_FINE_PRINT
 import com.longlifeio.fineprint.explain.Tier
-import com.longlifeio.fineprint.explain.WhatYouCanDo
 import com.longlifeio.fineprint.explain.asksForReview
 import com.longlifeio.fineprint.explain.conditionLine
 import com.longlifeio.fineprint.explain.coverageLine
@@ -68,7 +66,7 @@ import com.longlifeio.fineprint.review.ReviewView
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun DetailHeader(
-    app: InstalledApp, e: Explanation, check: WhatYouCanDo, review: ReviewView, installLine: String?, onAskForReview: (() -> Unit)?, reviewUnavailable: String?,
+    app: InstalledApp, e: Explanation, review: ReviewView, onAskForReview: (() -> Unit)?, reviewUnavailable: String?,
 ) {
     val p = LocalPalette.current
     val reviewed = review.status == ReviewStatus.REVIEWED
@@ -100,17 +98,23 @@ internal fun DetailHeader(
         if (e.asksForReview) AskForReview(onAskForReview, reviewUnavailable)
         if (e.tier.capped) Note("Until FinePrint has checked an app, it's rated Caution at most, never Flagged.")
         if (review.status == ReviewStatus.CHANGED) Text("$CHANGED: ${review.note}.", style = MaterialTheme.typography.bodyMedium, color = p.ink)
-        check.summary?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = p.muted) }
-        Column {
-            PackageName(app.packageName, color = p.muted)
-            Text(
-                installLine ?: ("Version ${app.versionName ?: "unknown"} (${app.versionCode}) · " +
-                    (if (app.isSystem) "system app" else "user-installed") + " · " +
-                    (if (app.apkPaths.size == 1) "1 APK" else "${app.apkPaths.size} APKs")),
-                style = MaterialTheme.typography.bodySmall, color = p.muted,
-            )
-        }
-        // Open app info is under What you can do, with the settings it changes.
+        // How many ways your settings limit is What you can do's headline, with Open app info; the package and version
+        // are at the page's foot (AppIdentity).
+    }
+}
+
+/** The app's package name and version, at the foot of the page beside the bundle line; [installLine] where they aren't known. */
+@Composable
+internal fun AppIdentity(app: InstalledApp, installLine: String?) {
+    val p = LocalPalette.current
+    Column(Modifier.padding(horizontal = 16.dp, vertical = 4.dp).testTag("app-identity")) {
+        PackageName(app.packageName, color = p.muted)
+        Text(
+            installLine ?: ("Version ${app.versionName ?: "unknown"} (${app.versionCode}) · " +
+                (if (app.isSystem) "system app" else "user-installed") + " · " +
+                (if (app.apkPaths.size == 1) "1 APK" else "${app.apkPaths.size} APKs")),
+            style = MaterialTheme.typography.bodySmall, color = p.muted,
+        )
     }
 }
 
@@ -126,47 +130,71 @@ internal fun listingName(url: String): String {
 internal fun StoreTagline.asSource() = Source(sourceUrl, listingName(sourceUrl), "store_listing", "self_disclosed", null, asOf, text)
 
 /**
- * The hero (docs/METHOD.md, An app's page): the app's own short description, verbatim and attributed, then The fine
- * print and its caption: FinePrint's lines in reading order, each marked with an asterisk, in small type, those
- * that set the [tier] first under "Why it's Flagged" (or Caution) and the rest under "Also"; the first four, then See all.
- * Last, what it collects to run the app, folded into one line that opens to those lines.
+ * The hero (docs/METHOD.md, An app's page): the app's own short description, verbatim, then The fine print: FinePrint's
+ * lines in reading order, each marked with an asterisk, in small type. It starts closed, with the quote, the fine print's
+ * first line and how many more ("16 more lines"), a heading for TalkBack with its state. Open ([open], for the visit) it
+ * adds the quote's source, the fine print's caption and every line: those that set the [tier] first under "Why it's
+ * Flagged" (or Caution), the rest under "Also"; then what it collects to run the app, folded into one line that opens to
+ * those lines, and the Sources row. With one line or none, there's nothing to open: the card shows whole.
  */
 @Composable
-internal fun TheirWords(tagline: StoreTagline, lines: List<FinePrintLine>, folded: FoldedLines?, tier: Tier?, onSources: (SheetContent) -> Unit) {
+internal fun TheirWords(
+    tagline: StoreTagline, lines: List<FinePrintLine>, folded: FoldedLines?, tier: Tier?, open: Boolean, onToggle: () -> Unit, onSources: (SheetContent) -> Unit,
+) {
     val p = LocalPalette.current
-    var all by rememberSaveable { mutableStateOf(false) }
+    val closable = lines.size > 1
+    val whole = open || !closable
     Column(
-        Modifier.padding(horizontal = Space.screen, vertical = Space.s).fillMaxWidth().cardFill(p, Corner.hero, Corner.hero).padding(Space.hero),
+        Modifier.padding(horizontal = Space.screen, vertical = Space.s).fillMaxWidth().cardFill(p, Corner.hero, Corner.hero).padding(Space.hero)
+            .testTag("their-words"),
         verticalArrangement = Arrangement.spacedBy(Space.s),
     ) {
-        Eyebrow(THEIR_WORDS.title)
-        // The asterisk points at the fine print below; TalkBack reads the quote without it.
-        Text("“${tagline.text}” *", style = Quote, color = p.ink, modifier = Modifier.clearAndSetSemantics { text = AnnotatedString("“${tagline.text}”") })
-        Text("— ${listingName(tagline.sourceUrl)}, read ${tagline.asOf}", style = MaterialTheme.typography.labelLarge, color = p.muted)
-        Text(THEIR_WORDS.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
+        if (whole) Eyebrow(THEIR_WORDS.title)
+        // The asterisk points at the fine print below; TalkBack reads the quote without it, and names it while its eyebrow is hidden.
+        val quote = "“${tagline.text}”"
+        Text("$quote *", style = Quote, color = p.ink, modifier = Modifier.clearAndSetSemantics { text = AnnotatedString(if (whole) quote else "${THEIR_WORDS.title}: $quote") })
+        if (whole) {
+            Text("— ${listingName(tagline.sourceUrl)}, read ${tagline.asOf}", style = MaterialTheme.typography.labelLarge, color = p.muted)
+            Text(THEIR_WORDS.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
+        }
         if (lines.isNotEmpty() || folded != null) {
             HorizontalDivider(Modifier.padding(vertical = Space.s), color = p.divider)
             Eyebrow(THE_FINE_PRINT.title)
-            Text(THE_FINE_PRINT.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
-            val shown = if (all) lines else lines.take(FINE_PRINT_FIRST)
-            val why = tier?.takeIf { lines.any { it.setsTier } }
+            if (whole) Text(THE_FINE_PRINT.subtitle, style = MaterialTheme.typography.bodySmall, color = p.muted)
+            val shown = if (whole) lines else lines.take(1)
+            val why = tier?.takeIf { whole && lines.any { it.setsTier } }
             shown.forEachIndexed { i, line ->
                 if (why != null && i == 0 && line.setsTier) FinePrintHeading(whyItIs(why))
                 if (why != null && !line.setsTier && shown.getOrNull(i - 1)?.setsTier != false) FinePrintHeading(ALSO)
-                FinePrintRow(line)
+                FinePrintRow(line, withSource = whole)
             }
-            if (lines.size > FINE_PRINT_FIRST) {
-                Box(Modifier.testTag("fine-print-all")) {
-                    val label = if (all) "Show the first $FINE_PRINT_FIRST" else "See all ${lines.size}"
-                    // A place under Where it goes can show the same words; TalkBack hears which this is.
-                    LinkRow(label, if (all) R.drawable.ic_expand_less else R.drawable.ic_expand_more, inset = 0.dp, spoken = "$label in the fine print") { all = !all }
-                }
-            }
-            folded?.let { FoldedRow(it) }
+            if (whole) folded?.let { FoldedRow(it) }
+            if (closable) MoreLines(lines.size - 1, open, onToggle)
         }
-        val sources = (listOf(tagline.asSource()) + lines.flatMap { it.sources } + folded?.lines.orEmpty().flatMap { it.sources })
-            .distinctBy { it.url + "|" + it.title }
-        SourcesRow("${THEIR_WORDS.title} and ${THE_FINE_PRINT.title.lowercase()}", sources, null, onSources)
+        if (whole) {
+            val sources = (listOf(tagline.asSource()) + lines.flatMap { it.sources } + folded?.lines.orEmpty().flatMap { it.sources })
+                .distinctBy { it.url + "|" + it.title }
+            SourcesRow("${THEIR_WORDS.title} and ${THE_FINE_PRINT.title.lowercase()}", sources, null, onSources)
+        }
+    }
+}
+
+/**
+ * What opens and closes the hero: "16 more lines" under its first line, then "Show the first line" once every line shows.
+ * A 48dp row, read by TalkBack as a heading with its state, as a section's row is.
+ */
+@Composable
+private fun MoreLines(more: Int, open: Boolean, onToggle: () -> Unit) {
+    val colour = MaterialTheme.colorScheme.primary
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(Space.s),
+        modifier = Modifier.fillMaxWidth().heightIn(min = TOUCH).testTag("their-words-toggle")
+            .clickable(onClickLabel = if (open) "Hide the fine print" else "Show the fine print", onClick = onToggle)
+            .semantics(mergeDescendants = true) { heading(); stateDescription = if (open) "Expanded" else "Collapsed" },
+    ) {
+        Text(if (open) "Show the first line" else if (more == 1) "1 more line" else "$more more lines", style = MaterialTheme.typography.labelLarge, color = colour, modifier = Modifier.weight(1f))
+        Icon(painterResource(if (open) R.drawable.ic_expand_less else R.drawable.ic_expand_more), contentDescription = null, tint = colour, modifier = Modifier.size(20.dp))
     }
 }
 
@@ -176,17 +204,22 @@ private fun FinePrintHeading(text: String) {
     Text(text, style = MaterialTheme.typography.labelLarge, color = LocalPalette.current.ink, modifier = Modifier.padding(top = Space.s).semantics { heading() })
 }
 
-/** "* Precise location → Select business partners: …", its status in words and its first source, in small type. */
+/**
+ * "* Precise location → Select business partners: …", its status in words and its first source, in small type. Without
+ * [withSource] (the closed card) only an alleged line keeps its status, so it still reads not proven in court.
+ */
 @Composable
-private fun FinePrintRow(line: FinePrintLine) {
+private fun FinePrintRow(line: FinePrintLine, withSource: Boolean = true) {
     val p = LocalPalette.current
     Row(horizontalArrangement = Arrangement.spacedBy(Space.s), modifier = Modifier.padding(top = Space.xs).semantics(mergeDescendants = true) { }) {
         Text("*", style = MaterialTheme.typography.titleMedium, color = p.ink, modifier = Modifier.clearAndSetSemantics { })
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(line.text, style = MaterialTheme.typography.bodySmall, color = p.ink, modifier = Modifier.speaks(line.text))
             line.conditional?.let { Text(conditionLine(it), style = MaterialTheme.typography.labelSmall, color = p.ink) }
-            val s = line.sources.firstOrNull()
-            Text(statusWord(line.status, line.forum) + (s?.let { " · ${it.title}, ${sourceDate(it)}" } ?: ""), style = MaterialTheme.typography.labelSmall, color = p.muted)
+            val s = line.sources.firstOrNull()?.takeIf { withSource }
+            if (withSource || line.status == "alleged") {
+                Text(statusWord(line.status, line.forum) + (s?.let { " · ${it.title}, ${sourceDate(it)}" } ?: ""), style = MaterialTheme.typography.labelSmall, color = p.muted)
+            }
         }
     }
 }

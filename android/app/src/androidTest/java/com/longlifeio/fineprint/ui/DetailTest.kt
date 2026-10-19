@@ -2,6 +2,7 @@ package com.longlifeio.fineprint.ui
 
 import android.content.Context
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.hasAnyAncestor
 import androidx.compose.ui.test.hasTestTag
@@ -23,7 +24,6 @@ import com.longlifeio.fineprint.egress.InstalledApp
 import com.longlifeio.fineprint.egress.RequestedPermission
 import com.longlifeio.fineprint.egress.TrackerScanResult
 import com.longlifeio.fineprint.explain.Explanation
-import com.longlifeio.fineprint.explain.FINE_PRINT_FIRST
 import com.longlifeio.fineprint.explain.GOES_ELSEWHERE
 import com.longlifeio.fineprint.explain.SOURCES
 import com.longlifeio.fineprint.explain.SUMMARY_AUTO
@@ -44,7 +44,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-/** The G5 detail: Their words only with a store tagline, the fine print under it, the Summary either way, and the Sources card. */
+/** The G5 detail: Their words only with a store tagline, closed until its row opens the fine print, the Summary either way, and the Sources card. */
 @RunWith(AndroidJUnit4::class)
 class DetailTest {
 
@@ -84,23 +84,26 @@ class DetailTest {
     }
 
     @Test
-    fun withAStoreTaglineThePageOpensWithTheirWordsAndTheFinePrint() {
+    fun withAStoreTaglineThePageOpensWithTheirWordsClosedAndItsRowOpensTheFinePrint() {
         val e = explain(life360, scan, bundle, emptyMap()).copy(storeTagline = tagline)
         show(life360, e)
-        compose.onNodeWithText(THEIR_WORDS.title).assertExists()
-        compose.onNodeWithText("“${tagline.text}”").assertExists() // read without the asterisk that points at the fine print
-        compose.onNodeWithText("— Google Play listing (Canada), read 2026-10-07").assertExists()
+        // Closed: the quote, named for TalkBack and read without the asterisk that points at the fine print; the fine
+        // print's eyebrow; its first line, one stop, its asterisk drawn, not read; then how many more.
+        compose.onNodeWithText("${THEIR_WORDS.title}: “${tagline.text}”").assertExists()
         compose.onNodeWithText(THE_FINE_PRINT.title).assertExists()
-        compose.onNodeWithText(THE_FINE_PRINT.subtitle).assertExists()
-        // The first four fine-print lines, each one stop for TalkBack; their asterisks are drawn, not read. See all opens the rest.
         val lines = finePrint(e)
-        assertTrue(lines.size > FINE_PRINT_FIRST)
+        assertTrue(lines.size > 1)
         compose.onAllNodesWithText("*").assertCountEquals(0)
-        lines.take(FINE_PRINT_FIRST).forEach { compose.onNodeWithText(spoken(it.text)).assertExists() } // as TalkBack reads it: "→" said as "to"
-        val all = hasTestTag("fine-print-all")
-        compose.onNodeWithTag("detail").performScrollToNode(all)
-        compose.onNode(all).performClick()
-        lines.forEach { compose.onNodeWithText(spoken(it.text)).assertExists() }
+        compose.onNodeWithText(spoken(lines.first().text)).assertExists() // as TalkBack reads it: "→" said as "to"
+        compose.onAllNodesWithText(spoken(lines[1].text)).assertCountEquals(0)
+        compose.onAllNodesWithText("— Google Play listing (Canada), read 2026-10-07").assertCountEquals(0)
+        // Its row opens the rest where it is: the quote's source, the caption and every line.
+        val toggle = hasTestTag("their-words-toggle")
+        compose.onNodeWithTag("detail").performScrollToNode(toggle)
+        compose.onNode(toggle).assert(hasText("${lines.size - 1} more lines")).performSemanticsAction(SemanticsActions.OnClick)
+        compose.onNodeWithText("— Google Play listing (Canada), read 2026-10-07").assertExists()
+        compose.onNodeWithText(THE_FINE_PRINT.subtitle).assertExists()
+        lines.forEach { compose.onNodeWithTag("detail").performScrollToNode(hasText(spoken(it.text))) }
         // The Summary card still follows: the hero doesn't replace a section.
         compose.onNodeWithTag("detail").performScrollToNode(hasText(SUMMARY_CURATED.subtitle))
         assertEquals(emptyList<String>(), compose.smallTargetsWhileScrolling("detail"))

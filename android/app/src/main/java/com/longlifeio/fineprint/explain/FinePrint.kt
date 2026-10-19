@@ -19,15 +19,12 @@ data class FinePrintLine(
 /** "Precise location → Select business partners: For their own monetization purposes". */
 fun FlowLine.claim(): String = "${DATA_LABELS[data] ?: data} → $recipient: $purpose"
 
-/** How many of the fine print's lines show before "See all". */
-const val FINE_PRINT_FIRST = 4
-
 /**
  * The fine print (docs/METHOD.md, An app's page): FinePrint's lines in reading order (LineOrder.kt), the lines that
  * set the tier first, from the first two groups: data that goes to other companies for more than running the app
  * (government lines and trackers whose purpose isn't recorded among them), then the app's own further uses. A line a
  * claimant alleges is here only once a judge has let the case go ahead or a regulator has opened a proceeding; one only
- * filed stays under Where it goes and On the record. The page shows the first [FINE_PRINT_FIRST], then See all.
+ * filed stays under Where it goes and On the record. Closed, the page shows the first, then how many more (TheirWords).
  * What the app collects to run itself follows them as one folded line ([alsoCollected]).
  */
 fun finePrint(e: Explanation): List<FinePrintLine> =

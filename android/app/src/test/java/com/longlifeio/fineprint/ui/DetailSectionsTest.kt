@@ -235,7 +235,8 @@ class DetailSectionsTest {
         val label = whyLabel(e.tier.tier!!)
         assertEquals("Why it's Flagged:", label)
         val why = compose.onNodeWithTag("why").fetchSemanticsNode().config[SemanticsProperties.Text].single()
-        assertTrue(why.text, why.text.startsWith("Why it's Flagged: a regulator ruled on a case about this app's data — Data Protection Commission (Ireland), 2024."))
+        // The label, the reason, who acted and when: the rest that set the tier are marked on the record, not counted here.
+        assertEquals("Why it's Flagged: a regulator ruled on a case about this app's data — Data Protection Commission (Ireland), 2024", why.text)
         assertEquals(whyLine(e), why.text)
         val span = why.spanStyles.single()
         assertEquals(0 until label.length, span.start until span.end)

@@ -50,8 +50,8 @@ class FinePrintTest {
         val first = life360.flows.getValue(GOES_ELSEWHERE).first()
         assertEquals(first.claim(), finePrint(life360).first().text)
         assertTrue(first.data in SENSITIVE_DATA && !first.historical && first.status == "self_disclosed")
-        assertTrue(finePrint(life360).size > FINE_PRINT_FIRST)
-        assertTrue(finePrint(life360).take(FINE_PRINT_FIRST).all { line -> life360.flows.getValue(GOES_ELSEWHERE).any { it.claim() == line.text } })
+        // That first line is the one the closed card shows; Life360 has more, so its card opens to them.
+        assertTrue(finePrint(life360).size > 1)
         // Facebook: nothing goes to other companies, so its fine print is Meta's own uses; the ruling stays under the tier and On the record.
         assertEquals("F2", facebook.tier.rule)
         assertTrue(finePrint(facebook).all { line -> facebook.flows.getValue(USED_FOR_MORE).any { it.claim() == line.text } })

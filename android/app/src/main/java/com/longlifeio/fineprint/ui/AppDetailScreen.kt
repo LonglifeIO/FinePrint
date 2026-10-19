@@ -76,7 +76,7 @@ fun AppDetailScreen(
     onTick: (String, Boolean) -> Unit,
     /** Which buckets show all their lines; kept on this phone. */
     buckets: OpenBuckets = rememberOpenBuckets(),
-    /** Which sections are open: What you can do when the page opens, the rest closed; kept for the visit. */
+    /** Which sections are open: What you can do when the page opens, the rest and Their words closed; kept for the visit. */
     cards: OpenCards = rememberOpenCards(),
     settingsUnavailable: String? = null,
     /** Said in place of the app's version and APK count, when they aren't known (a sample app never scanned). */
@@ -110,9 +110,16 @@ fun AppDetailScreen(
                 },
             ) { padding ->
                 CentredList(padding, Modifier.testTag("detail")) {
-                    item(key = "header") { DetailHeader(app, explanation, check, review, installLine, onAskForReview, reviewUnavailable) }
-                    // Their words: only when the record has the store's own description.
-                    explanation.storeTagline?.let { t -> item(key = "their-words") { TheirWords(t, finePrint(explanation), alsoCollected(explanation), explanation.tier.tier) { sheet = it } } }
+                    item(key = "header") { DetailHeader(app, explanation, review, onAskForReview, reviewUnavailable) }
+                    // Their words: only when the record has the store's own description; closed until you open it.
+                    explanation.storeTagline?.let { t ->
+                        item(key = "their-words") {
+                            TheirWords(
+                                t, finePrint(explanation), alsoCollected(explanation), explanation.tier.tier,
+                                open = cards.isOpen(THEIR_WORDS_CARD), onToggle = { cards.toggle(THEIR_WORDS_CARD) },
+                            ) { sheet = it }
+                        }
+                    }
                     // The Summary, always open; What you can do, open under it; then every section starts closed.
                     detailSections(
                         explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, settingsUnavailable = settingsUnavailable, onTick = onTick,
@@ -131,6 +138,7 @@ fun AppDetailScreen(
                             HorizontalDivider(Modifier.padding(vertical = 8.dp), color = p.divider)
                             Note(explanation.lastReviewed?.let { lastChecked("this app", it) } ?: "FinePrint hasn't checked this app yet.")
                             bundleVersion?.let { Note("Knowledge bundle $it.") }
+                            AppIdentity(app, installLine)
                             if (explanation.stale) Note(staleNote("this app"))
                             if (result?.trackers?.isNotEmpty() == true) Note("Tracker names and signatures: εxodus Privacy, ODbL 1.0 (details under Evidence).")
                             LinkRow("How to read this", R.drawable.ic_chevron_right, onClick = onHowToRead)

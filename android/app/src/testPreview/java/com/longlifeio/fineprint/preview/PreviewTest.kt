@@ -118,7 +118,9 @@ class PreviewTest {
         compose.onNodeWithTag("list").performScrollToNode(hasText("Life360"))
         // The row's own click, as TalkBack does it: scrolled to the top, its middle can sit under the docked search bar.
         compose.onNodeWithText("Life360").performSemanticsAction(SemanticsActions.OnClick)
-        compose.onNodeWithText("Version 26.37.0", substring = true).assertIsDisplayed() // a scanned sample app keeps its version
+        // A scanned sample app keeps its version, at the foot of its page.
+        compose.onNodeWithTag("detail").performScrollToNode(hasText("Version 26.37.0", substring = true))
+        compose.onNodeWithText("Version 26.37.0", substring = true).assertIsDisplayed()
         // Open app info sits in What you can do, open under the Summary: off here, and the line under it says why.
         compose.onNodeWithTag("detail").performScrollToNode(hasText(OPEN_APP_INFO))
         compose.onNodeWithText(OPEN_APP_INFO).assertIsNotEnabled().performClick()
@@ -142,6 +144,7 @@ class PreviewTest {
         compose.onNode(hasSetTextAction() and hasAnyAncestor(isDialog())).performTextReplacement("Life360")
         compose.onNodeWithTag("count").assert(hasText("1 app"))
         compose.onNode(hasText("Life360", substring = true) and hasClickAction() and hasAnyAncestor(hasTestTag("results"))).performClick()
+        compose.onNodeWithTag("detail").performScrollToNode(hasText("Version 26.37.0", substring = true))
         compose.onNodeWithText("Version 26.37.0", substring = true).assertIsDisplayed()
         compose.runOnUiThread { compose.activity.onBackPressedDispatcher.onBackPressed() }
         compose.onNodeWithTag("count").assert(hasText("1 app"))
@@ -151,6 +154,8 @@ class PreviewTest {
     fun anAppThatWasNotScannedSaysSoInPlaceOfItsVersion() {
         compose.onNodeWithTag("list").performScrollToNode(hasText("Google Maps"))
         compose.onNodeWithText("Google Maps").performSemanticsAction(SemanticsActions.OnClick)
+        // In place of its version and APK count, at the foot of its page.
+        compose.onNodeWithTag("detail").performScrollToNode(hasText("Not scanned in this preview"))
         compose.onNodeWithText("Not scanned in this preview").assertIsDisplayed()
         assertEquals(0, compose.onAllNodesWithText("Version", substring = true).fetchSemanticsNodes().size)
         assertEquals(0, compose.onAllNodesWithText("APKs", substring = true).fetchSemanticsNodes().size)

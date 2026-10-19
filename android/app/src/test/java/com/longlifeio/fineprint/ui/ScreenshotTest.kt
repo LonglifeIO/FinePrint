@@ -203,8 +203,8 @@ class ScreenshotTest {
     @Test fun life360WholeDark() = shoot("life360", dark = true, { Life360() }, device = Device.WHOLE_OPEN)
     @Test fun facebookClosedLight() = shoot("facebook-closed", dark = false, { Facebook() }, device = Device.WHOLE)
     @Test fun facebookClosedDark() = shoot("facebook-closed", dark = true, { Facebook() }, device = Device.WHOLE)
-    @Test fun facebookOpenLight() = shoot("facebook-open", dark = false, { Facebook("goes", "jurisdictions", "record") }, device = Device.WHOLE_OPEN)
-    @Test fun facebookOpenDark() = shoot("facebook-open", dark = true, { Facebook("goes", "jurisdictions", "record") }, device = Device.WHOLE_OPEN)
+    @Test fun facebookOpenLight() = shoot("facebook-open", dark = false, { Facebook(THEIR_WORDS_CARD, "goes", "jurisdictions", "record") }, device = Device.WHOLE_OPEN)
+    @Test fun facebookOpenDark() = shoot("facebook-open", dark = true, { Facebook(THEIR_WORDS_CARD, "goes", "jurisdictions", "record") }, device = Device.WHOLE_OPEN)
     @Test fun askForReviewLight() = shoot("ask-for-review", dark = false, { Franceinfo() }) { openReviewRequest() }
     @Test fun askForReviewDark() = shoot("ask-for-review", dark = true, { Franceinfo() }) { openReviewRequest() }
     @Test fun askForReviewLargest() = shoot("ask-for-review", dark = false, { Franceinfo() }, scale = 2f) { openReviewRequest() }

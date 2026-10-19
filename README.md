@@ -105,17 +105,18 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   its tier ("Why it's Flagged: Life360 says your location goes to other companies"), with what set
   it listed first under "Why it's Flagged"; a search bar on the home; and an edge on every card in
   dark mode.
-- After a test on a phone: an app's page keeps its header, Their words and its Summary open, with
-  What you can do open under the Summary; every section after that starts as a row with a one-line
-  summary in small type that opens in place ("Where it goes · 2 ways, 0 limited by your settings"),
-  and Jurisdictions is a section of its own ("Based in: United States"). What you can do shows what
-  FinePrint reads from Android in a dashed box, the setting before and after ("Use precise location:
-  On → Off"), and what you tick in a solid one, with the day; Open app info sits in it, and
-  FinePrint reads the permissions again when you come back. A ruling's reason says who acted and
-  what came of it ("a regulator ruled on a case about this app's data — Data Protection Commission
-  (Ireland), 2024" on Facebook). At a glance no longer counts apps per place, and a row in a tier's
-  section leaves the tier to its header; a source's Open button goes to the quoted words where the
-  browser supports it.
+- After a test on a phone: an app's page opens with its header, Their words closed (the quote, the
+  fine print's first line and how many more), its Summary and, under it, What you can do; every
+  section after that starts as a row with a one-line summary in small type that opens in place
+  ("Where it goes · 2 ways, 0 limited by your settings"), and Jurisdictions is a section of its own
+  ("Based in: United States"). What you can do shows what FinePrint reads from Android in a dashed
+  box, the setting before and after ("Use precise location: On → Off"), and what you tick in a solid
+  one, with the day; Open app info sits in it, and FinePrint reads the permissions again when you
+  come back. The header drops its progress line, and its package and version lines go to the page's
+  foot. The Why line gives the reason alone, and a ruling's says who acted and what came of it ("a
+  regulator ruled on a case about this app's data — Data Protection Commission (Ireland), 2024" on
+  Facebook). At a glance no longer counts apps per place, and a row in a tier's section leaves the
+  tier to its header; a source's Open button goes to the quoted words where the browser supports it.
 - Tracker records for 24 common SDKs (covering 29 tracker ids) and 26 company records, with tracker
   batches 1 and 2 merged: bundle 2026.10.09 holds them with the 4 app records and 10 jurisdictions.
   A tracker's legal and reported lines show under On the record on every app that carries it, marked
@@ -171,6 +172,11 @@ Logged for G6 (not built yet):
 
 Schema items queued: `settings_url` on controls; `controls[].path.steps[]`, `help_url` and
 `verified_on`.
+
+Schema 1.8 (additive), queued: a reviewed `short` name for a legal event's body, like a law's
+`short` ("Canada's four privacy commissioners"). The Why line uses it when present; the event's own
+line under On the record keeps the full name. Until then TikTok's Why line runs to four lines on a
+360dp phone.
 
 Queued: laws to check (not started):
 - Ireland's domestic powers over companies based there: its e-Evidence implementing act and the

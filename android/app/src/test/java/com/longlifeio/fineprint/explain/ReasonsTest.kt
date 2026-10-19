@@ -91,7 +91,7 @@ class ReasonsTest {
     fun theLinesThatSetTheTierAreReadFirst() {
         val e = e("com.example.flows")
         assertEquals("F1", e.tier.rule)
-        assertEquals("Why it's Flagged: Example Flows says your location goes to other companies. 1 more reason below.", whyLine(e))
+        assertEquals("Why it's Flagged: Example Flows says your location goes to other companies", whyLine(e))
         // Location and contacts set it (Flagged's sensitive kinds); advertising IDs don't, and come after them.
         assertEquals(
             listOf(

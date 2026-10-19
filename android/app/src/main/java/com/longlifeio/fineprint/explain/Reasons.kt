@@ -20,22 +20,15 @@ const val ALSO = "Also"
 fun whyLabel(tier: Tier): String = "${whyItIs(tier)}:"
 
 /**
- * "Why it's Flagged: Life360 says your location goes to other companies. 3 more reasons below.": the label, the reason,
- * and how many other lines set the tier too, or "2 more reasons on the record" when rulings or cases set it. After the
- * label a reason that opens with a common word reads on in lower case ("Why it's Flagged: a regulator settled …"); a
- * name keeps its capital. Null when nothing is rated yet: Not checked yet has no Why line.
+ * "Why it's Flagged: Life360 says your location goes to other companies": the label, then the reason, a ruling's with who
+ * acted and when. The rest that set the tier are marked where they are, under Why it's Flagged in the fine print and on
+ * the record, so the line doesn't count them. After the label a reason that opens with a common word reads on in lower
+ * case ("Why it's Flagged: a regulator settled …"); a name keeps its capital. Null when nothing is rated yet: Not
+ * checked yet has no Why line.
  */
 fun whyLine(e: Explanation): String? {
     val tier = e.tier.tier ?: return null
-    val items = e.tier.events.size
-    val lines = e.flows.values.sumOf { bucket -> bucket.count { it.setsTier } }
-    fun more(n: Int, where: String) = " $n more ${if (n == 1) "reason" else "reasons"} $where."
-    val rest = when {
-        items > 1 -> more(items - 1, "on the record")
-        lines > 1 -> more(lines - 1, "below")
-        else -> return "${whyLabel(tier)} ${readsOn(e.tier.reason)}"
-    }
-    return "${whyLabel(tier)} ${readsOn(e.tier.reason)}.$rest"
+    return "${whyLabel(tier)} ${readsOn(e.tier.reason)}"
 }
 
 /** The words a reason can open with that aren't names (Tier.kt): after the label, they go to lower case. */
