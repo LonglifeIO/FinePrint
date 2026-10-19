@@ -31,7 +31,7 @@ In dark mode: [the home](docs/screenshots/home-dark.png) and [Life360](docs/scre
 
 A debug build for browsing FinePrint on any phone as it evolves, installed beside the real app. It shows the
 sample apps in the scan fixture with the knowledge bundle built in. It scans nothing on the phone and makes no
-network calls: its manifest has no internet or package-query permission, and Open app settings is turned off.
+network calls: its manifest has no internet or package-query permission, and Open app info is turned off.
 
 - Build it: `cd android && ./gradlew assemblePreviewDebug`; the APK is
   `android/app/build/outputs/apk/preview/debug/app-preview-debug.apk`.
@@ -84,9 +84,9 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   introduction, with colour only on tier and bucket chips and its contrast and colour-blind
   separation enforced by a test. The detail screen opens with "Their words", the app's Play listing
   short description quoted verbatim, then the fine print. Screenshot tests draw the home, Life360,
-  its Sources sheet, Facebook's page whole, How to read this and the introduction, light and dark,
-  at 150% and 200% text and on a small phone and a tablet (and the README's images); every device
-  test runs the accessibility checks, and TalkBack was checked on the emulator.
+  its Sources sheet, Facebook's and Life360's pages whole, How to read this and the introduction,
+  light and dark, at 150% and 200% text and on a small phone and a tablet (and the README's images);
+  every device test runs the accessibility checks, and TalkBack was checked on the emulator.
 - Schema v1.3: one tracker record covers several Exodus ids (`covers[]`); a record's history, with
   the direction of each change (`changes[]`); ongoing and past legal actions, where only ongoing
   or recent ones set a tier; government access, with a checked table of laws per country
@@ -105,21 +105,26 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   its tier ("Why it's Flagged: Life360 says your location goes to other companies"), with what set
   it listed first under "Why it's Flagged"; a search bar on the home; and an edge on every card in
   dark mode.
-- After a test on a phone: an app's page keeps its header, Their words and the fine print open, and
-  every section below starts as a row with a one-line summary that opens in place ("Where it goes ·
-  2 ways, 0 limited by your settings"); Jurisdictions is a section of its own ("Based in: United
-  States"); a ruling's reason gives the rule in the tier's own words, then who acted and when; At a
-  glance no longer counts apps per place, and a row in a tier's section leaves the tier to its
-  header; and a source's Open button goes to the quoted words where the browser supports it.
+- After a test on a phone: an app's page keeps its header, Their words and its Summary open, with
+  What you can do open under the Summary; every section after that starts as a row with a one-line
+  summary in small type that opens in place ("Where it goes · 2 ways, 0 limited by your settings"),
+  and Jurisdictions is a section of its own ("Based in: United States"). What you can do shows what
+  FinePrint reads from Android in a dashed box, the setting before and after ("Use precise location:
+  On → Off"), and what you tick in a solid one, with the day; Open app info sits in it, and
+  FinePrint reads the permissions again when you come back. A ruling's reason says who acted and
+  what came of it ("a regulator ruled on a case about this app's data — Data Protection Commission
+  (Ireland), 2024" on Facebook). At a glance no longer counts apps per place, and a row in a tier's
+  section leaves the tier to its header; a source's Open button goes to the quoted words where the
+  browser supports it.
 - Tracker records for 24 common SDKs (covering 29 tracker ids) and 26 company records, with tracker
   batches 1 and 2 merged: bundle 2026.10.09 holds them with the 4 app records and 10 jurisdictions.
-  A tracker's legal and reported lines show under On the record on every app that carries it,
-  marked about its company, and count toward a tier only when they name the app; practices reported
-  in the past go under Past. A company's changes of ownership show as a dated chain on its Sources
-  sheet (Affle's purchase of AdColony first). When a record says what its sources leave uncertain
-  (AdColony's, InMobi's, OneSignal's and Vungle's do), every Sources sheet for its lines ends with
-  that note, under About these sources; its confidence level is never shown. FinePrint's own
-  signatures sit beside εxodus's: Arity's, and Vungle's SDK 7.
+  A tracker's legal and reported lines show under On the record on every app that carries it, marked
+  about its company, and count toward a tier only when they name the app; practices reported in the
+  past go under Past. A company's changes of ownership show as a dated chain on its Sources sheet
+  (Affle's purchase of AdColony first). When a record says what its sources leave uncertain
+  (AdColony's, IAB Open Measurement's, InMobi's, OneSignal's and Vungle's do), every Sources sheet
+  for its lines ends with that note, under About these sources; its confidence level is never shown.
+  FinePrint's own signatures sit beside εxodus's: Arity's, and Vungle's SDK 7.
 - The laws table, checked entry by entry: fourteen laws in force in ten places (the US, Canada,
   China, the EU, Israel, Russia, Norway, Germany, Singapore and India), each with who it binds,
   whether the company may tell you it handed data over, when FinePrint last checked it and a Stale
@@ -136,7 +141,9 @@ A real-device check and the Tailscale path are deferred by choice. See `CLAUDE.m
 Next, in order:
 
 1. Follow-ups to the tracker batches: Mintegral's and InMobi's privacy policies, saved by hand
-   (`manual`).
+   (`manual`). With the first `manual` source, `build.py` passes the flag through to the bundle (an
+   added field), so a source's Open button takes a page saved by hand to its top, not to the quoted
+   words; today it drops the flag.
 2. G6: guided paths and Guide mode.
 3. A test on a phone.
 
