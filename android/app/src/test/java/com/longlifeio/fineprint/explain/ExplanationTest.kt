@@ -252,7 +252,7 @@ class ExplanationTest {
         assertEquals(listOf("2019-07-24 · A regulator · consent order, in force · about Old"), settled.onTheRecord.ongoing.map { it.line })
 
         val ordered = explain(app("com.example.ordered"), scan(emptyList()), bundle, emptyMap(), today)
-        assertEquals(TierResult(Tier.FLAGGED, "A court or regulator has ruled on a case about this app's data — A regulator, 2019", "F2"), ordered.tier)
+        assertEquals(TierResult(Tier.FLAGGED, "A regulator settled a case about this app's data — A regulator, 2019", "F2"), ordered.tier)
         assertEquals(listOf("2019-07-24 · A regulator · consent order, in force"), ordered.onTheRecord.ongoing.map { it.line })
 
         // The same settlement, had it ended within three years, would still count.

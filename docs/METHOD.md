@@ -112,7 +112,7 @@ Tap Sources under a claim to see each source behind it. Each shows its title, ty
 
 Every app gets a tier, worked out the same way for every app:
 
-- Flagged: Sensitive data goes to other companies, or a court or regulator has acted on a case about this app's data.
+- Flagged: Sensitive data goes to other companies, or a court or regulator has acted on a case about the app's data.
 - Caution: Data use, sharing or device reach goes beyond running the app, or a regulator has opened a proceeding.
 - Expected: FinePrint checked this app and found nothing beyond what it needs to work.
 
@@ -120,7 +120,7 @@ Flagged means one of these:
 
 - the app itself says sensitive data goes to other companies;
 - a ruling says so;
-- a court or regulator has ruled on a case about the app's data;
+- a court or regulator has acted on a case about the app's data;
 - or a court has let such a case go ahead.
 
 Sensitive data means location, health, financial, contacts, children's, biometric and precise movement data. A ruling can be a court's or a regulator's, and a settlement or an order counts as one. A case a court has let go ahead has survived a motion to dismiss. It is still not proven.
@@ -144,7 +144,7 @@ Five limits apply to every app:
 - Filing alone never raises a tier. A lawsuit counts once a judge lets it go ahead. A complaint to a regulator counts once the regulator opens a formal proceeding. A claim from either counts from the same point. Until then it is shown, but it doesn't count.
 - A line that is Off by default, when the app has a setting that controls it, doesn't count toward the tier. A line that is Only if you opt in still counts.
 
-A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's or a tracker's record names this app. On the record also shows the developer's other actions, and what's on record about the trackers in the app's code; one that doesn't name this app is marked about its company, such as about InMobi, and it never changes the app's tier. A tracker's line that the app's own record already gives, from the same source, shows once. Under each tier, one line names the finding that set it. When a ruling, a lawsuit or a regulator's proceeding sets it, the line gives the rule in the tier's own words, then who acted and when. For example: Why it's Flagged: a court or regulator has ruled on a case about this app's data — Data Protection Commission (Ireland), 2024. When several did, it names the newest. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow. A claim in a lawsuit or complaint is never the reason given. When only such claims count, the reason names the court's or regulator's step instead, such as A court has let a case go ahead over where this app's data goes (not proven in court).
+A lawsuit or ruling concerns this app's data when FinePrint's record ties it to this app: the app's own record lists it, or a company's or a tracker's record names this app. On the record also shows the developer's other actions, and what's on record about the trackers in the app's code; one that doesn't name this app is marked about its company, such as about InMobi, and it never changes the app's tier. A tracker's line that the app's own record already gives, from the same source, shows once. Under each tier, one line names the finding that set it. For a decided case, it says who acted and what came of it, then who and when. For example: Why it's Flagged: a regulator ruled on a case about this app's data — Data Protection Commission (Ireland), 2024. A ruling or a regulator's finding reads ruled on. A settlement reads settled, and so does an order that settles a case. A court doesn't settle a case, so one it approved reads a court approved a settlement. An attorney general counts as a regulator. Several acting together read regulators. When FinePrint doesn't know who acted or what came of it, it uses the tier's own words. A lawsuit or a regulator's proceeding gets the rule in the tier's own words, then who and when. When several did, it names the newest. When a current flow the app's maker discloses and a ruling both qualify, the line names the flow. A claim in a lawsuit or complaint is never the reason given. When only such claims count, the reason names the court's or regulator's step instead, such as A court has let a case go ahead over where this app's data goes (not proven in court).
 
 Not checked yet: FinePrint hasn't checked this app. What it shows comes from the trackers built into it. It can be Caution, never Flagged or Expected.
 

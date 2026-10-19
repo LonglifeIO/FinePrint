@@ -185,7 +185,7 @@ class DetailSectionsTest {
         val label = whyLabel(e.tier.tier!!)
         assertEquals("Why it's Flagged:", label)
         val why = compose.onNodeWithTag("why").fetchSemanticsNode().config[SemanticsProperties.Text].single()
-        assertTrue(why.text, why.text.startsWith("Why it's Flagged: a court or regulator has ruled on a case about this app's data — Data Protection Commission (Ireland), 2024."))
+        assertTrue(why.text, why.text.startsWith("Why it's Flagged: a regulator ruled on a case about this app's data — Data Protection Commission (Ireland), 2024."))
         val span = why.spanStyles.single()
         assertEquals(0 until label.length, span.start until span.end)
         assertEquals(FontWeight(600), span.item.fontWeight)

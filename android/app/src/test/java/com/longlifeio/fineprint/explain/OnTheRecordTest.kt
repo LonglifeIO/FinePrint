@@ -59,7 +59,7 @@ class OnTheRecordTest {
         assertTrue(record.ongoing.single { it.date == "2019-07-24" }.line.contains("consent order, in force"))
         // A Flagged badge is never unexplained: the reason gives the rule in the definition's words, then who made the newest
         // ruling on the app's data, and when.
-        assertEquals("A court or regulator has ruled on a case about this app's data — Data Protection Commission (Ireland), 2024", facebook.tier.reason)
+        assertEquals("A regulator ruled on a case about this app's data — Data Protection Commission (Ireland), 2024", facebook.tier.reason)
     }
 
     @Test

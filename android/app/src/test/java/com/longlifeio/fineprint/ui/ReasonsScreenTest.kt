@@ -67,7 +67,7 @@ class ReasonsScreenTest {
     @Test
     fun aRulingThatSetsTheTierComesFirstOnTheRecordUnderItsHeading() {
         detail("com.example.ruled")
-        compose.onNodeWithTag("why").assert(hasText("Why it's Flagged: a court or regulator has ruled on a case about this app's data"))
+        compose.onNodeWithTag("why").assert(hasText("Why it's Flagged: a court or regulator has acted on a case about this app's data"))
         val page = compose.onNodeWithTag("detail")
         page.performScrollToNode(hasText("On the record", substring = true) and hasClickAction())
         assertEquals("nothing on the closed card", 0, count("Why it's Flagged"))

@@ -26,9 +26,27 @@ class ReasonsTest {
     fun aRulingSetsTheTierAndItsItemOnTheRecordIsMarked() {
         val e = e("com.example.ruled")
         assertEquals("F2", e.tier.rule)
-        assertEquals("Why it's Flagged: a court or regulator has ruled on a case about this app's data", whyLine(e))
+        assertEquals("Why it's Flagged: a court or regulator has acted on a case about this app's data", whyLine(e))
         assertEquals(listOf(e.onTheRecord.actions.single()), e.tier.events.map { it.line })
         assertTrue(readingOrder(e).none { it.setsTier })
+    }
+
+    /** The Why line takes its verb from what came of the case: a consent order with the FTC reads settled. */
+    @Test
+    fun aSettlementReadsSettledAfterTheTiersOwnPhrase() {
+        val order = TierEvent(
+            "adjudicated", "consent_order", true, emptyList(), "\$5 billion FTC penalty and a new 20-year privacy order", "2019-07-24",
+            ongoing = true, body = "US Federal Trade Commission",
+        )
+        val e = e("com.example.ruled").copy(tier = tier(true, "Example", emptyList(), listOf(order), emptyList(), today = today))
+        assertEquals("Why it's Flagged: a regulator settled a case about this app's data — US Federal Trade Commission, 2019", whyLine(e))
+        // Several regulators read on in lower case too, as TikTok's joint finding does.
+        val joint = order.copy(statusKind = "regulator_finding", body = "Privacy commissioners of Canada, Quebec, British Columbia and Alberta", date = "2025-09-23")
+        val t = e("com.example.ruled").copy(tier = tier(true, "Example", emptyList(), listOf(joint), emptyList(), today = today))
+        assertEquals(
+            "Why it's Flagged: regulators ruled on a case about this app's data — Privacy commissioners of Canada, Quebec, British Columbia and Alberta, 2025",
+            whyLine(t),
+        )
     }
 
     @Test

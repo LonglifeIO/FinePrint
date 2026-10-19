@@ -6,7 +6,7 @@ import java.time.LocalDate
 /** How much an app deserves attention. The rules are published in docs/METHOD.md. */
 enum class Tier(val label: String, val definition: String) {
     // The short lines (the home's section headers, the tier chip); How to read gives each in full, as a list.
-    FLAGGED("Flagged", "Sensitive data goes to other companies, or a court or regulator has acted on a case about this app's data."),
+    FLAGGED("Flagged", "Sensitive data goes to other companies, or a court or regulator has acted on a case about the app's data."),
     CAUTION("Caution", "Data use, sharing or device reach goes beyond running the app, or a regulator has opened a proceeding."),
     EXPECTED("Expected", "FinePrint checked this app and found nothing beyond what it needs to work."),
 }
@@ -87,9 +87,34 @@ private fun who(e: TierEvent): String = listOfNotNull(e.body ?: e.label, e.date?
  * The rules a ruling or case sets a tier by, in the tier definitions' own words (Tier, docs/METHOD.md): a reason names the
  * rule, then who acted and when ("— Data Protection Commission (Ireland), 2024").
  */
-internal const val RULED = "A court or regulator has ruled on a case about this app's data"
+internal const val ACTED = "A court or regulator has acted on a case about this app's data"
 internal const val LET_GO_AHEAD = "A court has let a case about this app's data go ahead"
 internal const val PROCEEDING = "A regulator has opened a formal proceeding over this app's data"
+
+/** Bodies of several regulators, which the reason calls Regulators. */
+private val SEVERAL = Regex("""\b(commissioners|attorneys general|regulators|authorities)\b""", RegexOption.IGNORE_CASE)
+
+/**
+ * A decided case as who acted and what came of it, from the body and kind on record: "A regulator settled a case about
+ * this app's data". A court when the body is one, else a regulator (an attorney general counts as one). A ruling or a
+ * regulator's finding is ruled on; a settlement or consent order is settled, or a court approved it. Without a body or a
+ * kind, the definition's words.
+ */
+internal fun decided(e: TierEvent): String {
+    val body = e.body ?: return ACTED
+    val court = body.contains("court", ignoreCase = true)
+    val who = when {
+        court -> "A court"
+        SEVERAL.containsMatchIn(body) -> "Regulators"
+        else -> "A regulator"
+    }
+    return when (e.statusKind) {
+        "ruling", "regulator_finding" -> "$who ruled on a case about this app's data"
+        "settlement", "settlement_no_admission", "consent_order" ->
+            if (court) "A court approved a settlement in a case about this app's data" else "$who settled a case about this app's data"
+        else -> ACTED
+    }
+}
 
 /** Location, health, financial, contacts, children's, biometric and precise movement data. */
 val SENSITIVE_DATA = listOf(
@@ -165,10 +190,11 @@ fun tier(
     raising.filter { it.bucket == GOES_ELSEWHERE && it.data in SENSITIVE_DATA && it.status in setOf("self_disclosed", "adjudicated") }
         .sortedWith(NAMED_FIRST.thenBy { SENSITIVE_DATA.indexOf(it.data) }).takeIf { it.isNotEmpty() }
         ?.let { return flagged(reason(it.first(), appName), "F1").setBy(flows = it) }
-    // F2: a ruling, settlement or order concerning this app's data, named so a Flagged badge is never unexplained.
+    // F2: a ruling, settlement or order concerning this app's data, named so a Flagged badge is never unexplained: who
+    // acted and what came of it, then who and when.
     legal.filter { it.status == "adjudicated" }.takeIf { it.isNotEmpty() }?.let { rulings ->
-        val ruling = named(rulings) ?: return flagged(RULED, "F2").setBy(events = rulings)
-        return flagged("$RULED — ${who(ruling)}", "F2").setBy(events = namedFirst(ruling, rulings))
+        val ruling = named(rulings) ?: return flagged(ACTED, "F2").setBy(events = rulings)
+        return flagged("${decided(ruling)} — ${who(ruling)}", "F2").setBy(events = namedFirst(ruling, rulings))
     }
     // F3: a lawsuit over this app's data has survived a motion to dismiss. Said as the court's step, a fact; the claim
     // itself stays in On the record.
