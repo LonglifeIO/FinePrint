@@ -49,6 +49,34 @@ class ReasonsTest {
         )
     }
 
+    /**
+     * A decided claim that data goes to other companies (F1) reads on in lower case after the label too, whoever acted
+     * and whatever came of it, at app and tracker level.
+     */
+    @Test
+    fun aDecidedClaimReadsOnInLowerCaseAfterTheLabel() {
+        val e = e("com.example.flows")
+        val location = e.flows.getValue(GOES_ELSEWHERE).single { it.data == "precise_location" }
+        fun why(kind: String, body: String?, via: String? = null): String {
+            val decided = location.copy(status = "adjudicated", statusKind = kind, via = via, decision = body?.let { Decision(it, "Item", "2024-04-11") })
+            return whyLine(e.copy(tier = tier(true, "Example Flows", listOf(decided), emptyList(), emptyList(), today = today)))!!
+        }
+        assertEquals(
+            "Why it's Flagged: a regulator settled a case over your location going to other companies — US Federal Trade Commission, 2024, about X-Mode",
+            why("consent_order", "US Federal Trade Commission", via = "X-Mode"),
+        )
+        assertEquals(
+            "Why it's Flagged: regulators found your location goes to other companies — Privacy commissioners of Canada, Quebec, British Columbia and Alberta, 2024",
+            why("regulator_finding", "Privacy commissioners of Canada, Quebec, British Columbia and Alberta"),
+        )
+        // The table's other openings: a court's ruling, a regulator's, a court's approval and, with no case on record, the
+        // definition's own verb.
+        listOf("ruling" to "US District Court", "ruling" to "US Federal Trade Commission", "settlement" to "US District Court", "consent_order" to null)
+            .forEach { (kind, body) ->
+                listOf(null, "X-Mode").forEach { via -> why(kind, body, via).let { assertTrue(it, it.removePrefix("Why it's Flagged: ").first().isLowerCase()) } }
+            }
+    }
+
     @Test
     fun aCaseACourtLetGoAheadIsTheCourtsStepNeverTheClaim() {
         val e = e("com.example.proceeding")

@@ -1,19 +1,41 @@
 # FinePrint
 
-Your phone already tells you *which* permissions an app has. FinePrint tells you
-where the data goes once it has them.
+**Status: pre-release.** There is no released build; test builds go out by invitation. The
+[preview build](#preview-build) is a CI artifact for browsing the design — it scans nothing.
 
-For each installed app, FinePrint shows the third-party tracker SDKs embedded in
-it, who owns those trackers, what they sell and to whom, and why that could matter
-to you in real terms — with a source for every claim and a button to the settings
-page where you can revoke access. The reference case: Life360 says "Location:
-allowed." FinePrint says "driving data → Arity SDK → Allstate → sold to insurers
-for risk scoring (alleged in a 2025 Texas AG lawsuit) — tap here to revoke."
+FinePrint shows, for each app on your phone, what data it collects, who gets it, and whether it's used
+beyond running the app. Android shows which permissions an app has. FinePrint shows where the data can go.
 
-No accounts. No telemetry. No server that ever learns what's on your phone: the
-knowledge base is a single JSON file the app downloads whole and reads locally.
-Android first; iOS via App Privacy Report import later. Free, open source, and
-supported by exactly one hardcoded ad that knows nothing about you.
+- **Sourced and quoted.** Each claim cites a dated source and quotes the words that support it. A person
+  checks it against that source before it reaches the app. A claim FinePrint infers from tracker code
+  alone carries the badge Auto: no person has checked it.
+- **The companies' own words come first.** Where FinePrint has it, an app's page opens with Their words:
+  the app's own short description on Google Play, word for word. Its privacy policy is quoted, not
+  paraphrased.
+- **A tier describes the data, not the app.** Flagged, Caution and Expected follow
+  [published rules](docs/METHOD.md#tiers), the same for every app.
+- **No advice to uninstall.** FinePrint shows the settings that limit where data goes. It never suggests
+  uninstalling anything.
+- **Open data.** Every claim FinePrint has checked, with its sources, is under CC BY 4.0.
+
+Take Life360. Android shows that it can use your location. FinePrint's page for it reads: *Why it's
+Flagged: Life360 says your location goes to other companies.* According to Life360's privacy policy
+dated 2026-08-26, "select business partners" can use your precise location for "their own monetization
+purposes".
+
+The Texas Attorney General sued Allstate and its subsidiary Arity on 2025-01-13. The Attorney General
+alleged that they collected driving data through "secretly embedded software in mobile apps, such as
+Life360" (not proven in court). Life360 is not a defendant. Part of the case was dismissed on
+jurisdiction grounds and is under appeal.
+
+Under What you can do, FinePrint names the settings that limit that sharing. One is Trusted Partners, in
+the Privacy section of Life360's account settings. FinePrint can't change it. You tick it once you've
+changed it yourself.
+
+No accounts, no analytics, no crash reporting, no ads and no trackers. FinePrint checks your apps on your
+phone, and nothing about them leaves it. It downloads its knowledge bundle whole, so no server learns
+which apps you have. Android first; iOS later, by importing the iPhone's App Privacy Report. Free and
+open source.
 
 ## Screenshots
 
@@ -105,18 +127,25 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   its tier ("Why it's Flagged: Life360 says your location goes to other companies"), with what set
   it listed first under "Why it's Flagged"; a search bar on the home; and an edge on every card in
   dark mode.
-- After a test on a phone: an app's page opens with its header, Their words closed (the quote, the
-  fine print's first line and how many more), its Summary and, under it, What you can do; every
-  section after that starts as a row with a one-line summary in small type that opens in place
-  ("Where it goes · 2 ways, 0 limited by your settings"), and Jurisdictions is a section of its own
-  ("Based in: United States"). What you can do shows what FinePrint reads from Android in a dashed
-  box, the setting before and after ("Use precise location: On → Off"), and what you tick in a solid
-  one, with the day; Open app info sits in it, and FinePrint reads the permissions again when you
-  come back. The header drops its progress line, and its package and version lines go to the page's
-  foot. The Why line gives the reason alone, and a ruling's says who acted and what came of it ("a
-  regulator ruled on a case about this app's data — Data Protection Commission (Ireland), 2024" on
-  Facebook). At a glance no longer counts apps per place, and a row in a tier's section leaves the
-  tier to its header; a source's Open button goes to the quoted words where the browser supports it.
+- After a test on a phone (main at 4be58f0):
+  - An app's page opens with its header, Their words, its Summary and What you can do. The header has
+    no progress line; the package and version sit at the page's foot, under the bundle line. Every
+    section after that starts as a row with a one-line summary in small type that opens in place
+    ("Where it goes · 2 ways, 0 limited by your settings"). Jurisdictions is a section of its own
+    ("Based in: United States").
+  - Their words starts closed: the quote, the fine print's first claim without its source, and a row
+    saying how many more. The row opens the card in place, and it stays open for the visit. A claim
+    from a lawsuit keeps "not proven in court" while the card is closed.
+  - What you can do shows what FinePrint reads from Android in a dashed box, the setting before and
+    after ("Use precise location: On → Off"), and what you tick in a solid one, with the day. A key
+    says which is which. Open app info sits in the card, and FinePrint reads the permissions again
+    when you come back.
+  - The Why line is the tier's label and the reason, nothing more. For a decided case it says who
+    acted and what came of it: ruled on, settled, or a court approved a settlement. Facebook's reads
+    "Why it's Flagged: a regulator ruled on a case about this app's data — Data Protection Commission
+    (Ireland), 2024".
+  - At a glance no longer counts apps per place, and a row in a tier's section leaves the tier to its
+    header. A source's Open button goes to the quoted words where the browser supports it.
 - Tracker records for 24 common SDKs (covering 29 tracker ids) and 26 company records, with tracker
   batches 1 and 2 merged: bundle 2026.10.09 holds them with the 4 app records and 10 jurisdictions.
   A tracker's legal and reported lines show under On the record on every app that carries it, marked
@@ -146,7 +175,8 @@ Next, in order:
    added field), so a source's Open button takes a page saved by hand to its top, not to the quoted
    words; today it drops the flag.
 2. G6: guided paths and Guide mode.
-3. A test on a phone.
+3. The tester build: a signed release on GitHub Releases, About and Terms, FinePrint's privacy page and a
+   tester README.
 
 Logged for G6 (not built yet):
 - Guided paths. Each in-app control gets `path.steps[]` (screen → the exact label to tap, verbatim
@@ -173,10 +203,12 @@ Logged for G6 (not built yet):
 Schema items queued: `settings_url` on controls; `controls[].path.steps[]`, `help_url` and
 `verified_on`.
 
-Schema 1.8 (additive), queued: a reviewed `short` name for a legal event's body, like a law's
-`short` ("Canada's four privacy commissioners"). The Why line uses it when present; the event's own
-line under On the record keeps the full name. Until then TikTok's Why line runs to four lines on a
-360dp phone.
+Schema 1.8 (additive), queued:
+- A reviewed `short` name for a legal event's body, like a law's `short` ("Canada's four privacy
+  commissioners"). The Why line uses it when present; the event's own line under On the record keeps
+  the full name. Until then TikTok's Why line runs to four lines on a 360dp phone.
+- `changes[]` on company and tracker records, as app records have it. Until then a correction to one
+  is dated only in the repository's history.
 
 Queued: laws to check (not started):
 - Ireland's domestic powers over companies based there: its e-Evidence implementing act and the
@@ -210,6 +242,7 @@ Logged for later:
 
 ## Licence
 
-Code: AGPL-3.0-or-later. Data in `bundle/`: CC BY 4.0. Tracker signatures
-(`android/app/src/main/assets/trackers.json`) are derived from the [εxodus](https://exodus-privacy.eu.org/)
-tracker database and are under the Open Database License (ODbL) 1.0.
+Code: AGPL-3.0-or-later. Data in `bundle/`: CC BY 4.0 (`bundle.json` and `jurisdictions.json`). Tracker
+signatures (`bundle/trackers.json`, copied into the app as `android/app/src/main/assets/trackers.json`) are
+derived from the [εxodus](https://exodus-privacy.eu.org/) tracker database and are under the Open Database
+License (ODbL) 1.0. FinePrint is not affiliated with or endorsed by Exodus Privacy.

@@ -72,6 +72,7 @@ fun AboutScreen(state: BundleState, status: String, origin: String, onBack: () -
                         "Database Contents License (DbCL) 1.0.",
                 )
             }
+            item { Note("FinePrint isn't part of Exodus Privacy and isn't endorsed by it.") }
             item { Note("FinePrint's own tracker signatures (fp-*) are part of the same file, under the same licence.") }
             item { SectionTitle("Licences") }
             item { Note("FinePrint's code: AGPL-3.0-or-later.") }

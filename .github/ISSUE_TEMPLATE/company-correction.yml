@@ -1,0 +1,61 @@
+# For someone who speaks for a company FinePrint names. A correction goes through the same review as any other change
+# to a record (CLAUDE.md, Evidence standards) and carries both sources: an app record dates it in its changes[], and
+# the repository's history dates every record's (changes[] on company and tracker records is queued for schema 1.8).
+name: I represent a company named in a record
+description: Something FinePrint says about your company is wrong or out of date.
+title: "Company correction: "
+labels: ["company-correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form if you speak for a company that FinePrint names, and something it says is wrong or out of date.
+
+        **What happens next**
+
+        - A reviewer checks your source and the one FinePrint cites.
+        - The record changes only through FinePrint's review: a person checks every claim against its source before it reaches the app.
+        - The change is dated and carries both sources — the one FinePrint cited and yours. App records show their history in the app; the repository keeps the history of every record.
+        - Nothing is removed because it's unwelcome, only because it's wrong or out of date.
+  - type: input
+    id: company
+    attributes:
+      label: Company
+      description: Its name as FinePrint shows it.
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: What FinePrint says
+      description: Copy it word for word, and say where it is, such as Life360's page, under Where it goes.
+    validations:
+      required: true
+  - type: textarea
+    id: cited
+    attributes:
+      label: The source FinePrint cites
+      description: From its Sources sheet, the title, date and link.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: The correction
+      description: What it should say instead, or what has changed and when.
+    validations:
+      required: true
+  - type: textarea
+    id: correction_source
+    attributes:
+      label: The correction's source
+      description: A public page that supports it, such as a privacy policy, filing, order or report, with its date. Quote the words that support it.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public
+    attributes:
+      label: This issue is public
+      options:
+        - label: I understand this is public, and I haven't included anything confidential.
+          required: true
