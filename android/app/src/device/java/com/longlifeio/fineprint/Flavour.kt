@@ -71,14 +71,6 @@ val BundleSession.update: (() -> Unit)? get() = ::refreshNow
 /** An app's own icon, from this phone. */
 fun appIcon(pm: PackageManager, packageName: String): Drawable? = pm.getApplicationIcon(packageName)
 
-private fun Activity.openInBrowser(url: String) {
-    try {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-    } catch (e: ActivityNotFoundException) {
-        Toast.makeText(this, "There's no browser on this phone to open GitHub.", Toast.LENGTH_LONG).show()
-    }
-}
-
 private fun Activity.openAppSettings(packageName: String) {
     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null))
     try {

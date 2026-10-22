@@ -2,6 +2,7 @@ package com.longlifeio.fineprint.bundle
 
 import android.net.TrafficStats
 import android.util.Log
+import com.longlifeio.fineprint.BuildConfig
 import com.longlifeio.fineprint.egress.TrackerSignatures
 import com.longlifeio.fineprint.egress.parseTrackerSignatures
 import java.io.File
@@ -13,6 +14,9 @@ private const val TAG = "FinePrint"
 
 /** Tag for every socket this app opens; StrictMode (debug) flags any untagged one. */
 const val BUNDLE_SOCKET_TAG = 0xF1F1
+
+/** Every bundle request's User-Agent: FinePrint and its version. Android's default would name the phone's model and build. */
+const val BUNDLE_USER_AGENT = "FinePrint/${BuildConfig.VERSION_NAME}"
 
 const val BUNDLE_FILE = "bundle.json"
 const val TRACKERS_FILE = "trackers.json"
@@ -71,6 +75,7 @@ class BundleClient(private val dir: File, private val baseUrl: String, private v
             connection.readTimeout = 30_000
             connection.instanceFollowRedirects = true // GitHub release assets redirect to their CDN
             connection.setRequestProperty("Accept", "application/json")
+            connection.setRequestProperty("User-Agent", BUNDLE_USER_AGENT)
             val code = connection.responseCode
             if (code != 200) throw IOException("HTTP $code for $url")
             val bytes = connection.inputStream.use { input ->

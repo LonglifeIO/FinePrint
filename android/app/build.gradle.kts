@@ -174,7 +174,8 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material3)
-    // Reads dex files on-device. Apache 2.0; the only non-AndroidX runtime dependency.
+    // Reads dex files on-device. BSD 3-Clause, with parts under Apache 2.0 (its LICENSE ships as res/raw/licence_dexlib2.txt);
+    // the only non-AndroidX runtime dependency.
     implementation(libs.smali.dexlib2) {
         // Declared by dexlib2 3.0.10 but never used by it: none of its classes reference Guava.
         exclude(group = "com.google.guava", module = "guava")

@@ -89,7 +89,10 @@ class MainActivity : ComponentActivity() {
                     }
                     showAbout -> {
                         BackHandler { showAbout = false }
-                        AboutScreen(bundleState, bundleSession.status(bundleState), bundleSession.origin, onBack = { showAbout = false }, onRefresh = bundleSession.update)
+                        AboutScreen(
+                            bundleState, bundleSession.status(bundleState), bundleSession.origin, onBack = { showAbout = false }, onRefresh = bundleSession.update,
+                            openLink = { url -> openInBrowser(url) },
+                        )
                     }
                     open == null -> AppListScreen(
                         apps = apps,

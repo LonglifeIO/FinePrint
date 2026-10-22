@@ -40,6 +40,7 @@ import com.longlifeio.fineprint.explain.explain
 import com.longlifeio.fineprint.explain.glance
 import com.longlifeio.fineprint.explain.glanceHeadline
 import com.longlifeio.fineprint.review.fingerprint
+import com.longlifeio.fineprint.ui.ABOUT_LINKS
 import com.longlifeio.fineprint.ui.markIntroSeen
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -177,7 +178,19 @@ class PreviewTest {
         compose.onNodeWithContentDescription("More options").performClick()
         compose.onNodeWithText("About FinePrint").performClick()
         compose.onNodeWithText("Built into this preview; it downloads nothing.").assertIsDisplayed()
-        compose.onNodeWithText("bundle: ${bundle.version}, built in").assertIsDisplayed()
+        compose.onNodeWithText("Knowledge bundle ${bundle.version}, dated", substring = true).assertIsDisplayed()
         compose.onAllNodesWithText("Update now").fetchSemanticsNodes().let { assertEquals(0, it.size) }
+    }
+
+    /** About's links name nothing on this phone, so they open GitHub here too, as Report an error does. */
+    @Test
+    fun aboutsLinksOpenGitHubInTheBrowser() {
+        compose.onNodeWithContentDescription("More options").performClick()
+        compose.onNodeWithText("About FinePrint").performClick()
+        ABOUT_LINKS.forEach { link ->
+            compose.onNodeWithTag("about").performScrollToNode(hasText(link.label))
+            compose.onNodeWithText(link.label).performClick()
+            assertEquals(link.url, shadowOf(compose.activity).nextStartedActivity.dataString)
+        }
     }
 }

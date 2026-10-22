@@ -72,6 +72,8 @@ network calls: its manifest has no internet or package-query permission, and Ope
 - `pipeline/` — Python scripts that fetch sources, draft records with an LLM, queue them for a person to check, and build the bundle. Runs on a Mac Mini.
 - `android/` — Kotlin / Jetpack Compose app. The scanning module is called `egress`. Two flavours: `device`, the
   app itself, and `preview` (above), whose code lives only in `src/preview`.
+- `docs/` — `METHOD.md` (How to read this, which the app ships word for word), `privacy.md` (FinePrint's own
+  privacy page) and `TESTING.md` (for invited testers).
 - `prompts/` — Claude Code prompts for each build slice.
 
 ## Before committing
@@ -165,8 +167,15 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   person can capture (their text needs JavaScript) are marked `manual`: no script fetches them,
   their copies are saved by hand and quote-checked like any other, and every digest lists them for
   checking before each release (`pipeline/README.md`).
+- The tester pages. About gives the app's version and the bundle's, with its date, and says in plain words what
+  FinePrint is and isn't. It states the funding rule, links to the source code, both GitHub forms and the privacy
+  page, and lists the licence of everything in the APK. dexlib2's is BSD 3-Clause, and its text ships with the
+  others. `docs/privacy.md` is FinePrint's own privacy page, and `docs/TESTING.md` is for invited testers, once the
+  signed release is out (Next 3). The bundle download names FinePrint and its version, nothing about the phone, and
+  the manifest drops AndroidX's request to Google Play services for an emoji font.
 
-A real-device check and the Tailscale path are deferred by choice. See `CLAUDE.md` for the gates.
+The phone test is done (main at 4be58f0, above). The Tailscale path, for a debug build on a phone, is still deferred
+by choice. See `CLAUDE.md` for the gates.
 
 Next, in order:
 
@@ -175,8 +184,10 @@ Next, in order:
    added field), so a source's Open button takes a page saved by hand to its top, not to the quoted
    words; today it drops the flag.
 2. G6: guided paths and Guide mode.
-3. The tester build: a signed release on GitHub Releases, About and Terms, FinePrint's privacy page and a
-   tester README.
+3. Signed release — after guided paths (G6). The release carries the bundle's three files, which the release
+   build downloads from `releases/latest/download/`. Its address and a private channel for testers replace the
+   placeholders in `docs/privacy.md` and `docs/TESTING.md`. Terms, and a legal review of About's note on sources and
+   legal advice, are still to come.
 
 Logged for G6 (not built yet):
 - Guided paths. Each in-app control gets `path.steps[]` (screen → the exact label to tap, verbatim
