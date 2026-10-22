@@ -52,6 +52,11 @@ jobs:
       - name: assembleDebug
         working-directory: android
         run: ./gradlew assembleDebug --stacktrace
+      # The device release, unsigned (there is no signing config) and not kept. Lint's release checks and the release
+      # packaging run only here, so a release-only failure shows on the pull request, not at release time.
+      - name: assembleDeviceRelease (unsigned)
+        working-directory: android
+        run: ./gradlew assembleDeviceRelease --stacktrace
       # The preview build (README, Preview build): sample apps and a bundle built in, no scan and no network. Kept as
       # this run's artifact for 30 days, to download from the Actions page and sideload; never attached to a release.
       - name: Preview APK

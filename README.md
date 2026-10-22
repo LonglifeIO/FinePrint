@@ -188,6 +188,8 @@ Next, in order:
    build downloads from `releases/latest/download/`. Its address and a private channel for testers replace the
    placeholders in `docs/privacy.md` and `docs/TESTING.md`. Terms, and a legal review of About's note on sources and
    legal advice, are still to come.
+4. AGP 9.5.0, once it's stable: move to it and take out the lint line in `android/gradle.properties`. Until then the
+   release build runs lint from AGP 9.5.0-rc01, because 9.4.1's crashes on `build.gradle.kts`.
 
 Logged for G6 (not built yet):
 - Guided paths. Each in-app control gets `path.steps[]` (screen → the exact label to tap, verbatim
