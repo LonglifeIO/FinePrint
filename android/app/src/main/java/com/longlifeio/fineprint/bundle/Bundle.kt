@@ -59,6 +59,9 @@ private fun JSONObject.toAppRecord() = AppRecord(
         Control(
             it.getString("id"), it.getString("label"), it.getString("how"), it.text("effect").orEmpty(), it.limits(),
             it.objects("sources").map { s -> s.toSource() },
+            path = it.optJSONObject("path")?.toGuidedPath(it.text("help_url")),
+            helpUrl = it.text("help_url"),
+            verifiedOn = it.optJSONObject("verified_on")?.let { v -> VerifiedOn(v.getString("app_version"), v.getString("date")) },
         )
     },
     stale = optBoolean("stale"),
@@ -161,10 +164,23 @@ private fun JSONObject.toCompany() = Company(
             inForce = it.optBoolean("in_force"),
             closedDate = it.text("closed_date"),
             forum = it.text("forum") ?: "court",
+            bodyShort = it.text("body_short"),
         )
     },
     confidenceNote = optJSONObject("confidence_note")?.toProceduralNote(),
 )
+
+/** A control's guided path: its steps, the web page its last step opens (ends_in url) or none for the app itself, and [helpUrl]'s date. */
+private fun JSONObject.toGuidedPath(helpUrl: String?): GuidedPath {
+    val sources = objects("sources").map { it.toSource() }
+    return GuidedPath(
+        steps = objects("steps").map { PathStep(it.getString("screen"), it.getString("tap"), it.text("note")) },
+        url = getJSONObject("ends_in").let { end -> if (end.getString("kind") == "url") end.getString("url") else null },
+        sources = sources,
+        helpDate = sources.filter { it.url == helpUrl }.mapNotNull { it.asOf ?: it.accessed }.maxOrNull(),
+        stale = optBoolean("stale"),
+    )
+}
 
 private fun JSONObject.toSummaryNote() =
     SummaryNote(getString("text"), getString("status"), text("wording"), objects("sources").map { it.toSource() })
@@ -199,8 +215,12 @@ private fun JSONObject.limits(): List<Limit> {
 }
 
 /** SHA-256 of this record's JSON, leaving out "stale", which build.py recomputes on every build. */
+/** The record's hash, without what build.py computes: its stale flag, and each guided path's. */
 private fun JSONObject.contentHash(): String {
-    val text = JSONObject(toString()).apply { remove("stale") }.toString()
+    val text = JSONObject(toString()).apply {
+        remove("stale")
+        objects("controls").forEach { it.optJSONObject("path")?.remove("stale") }
+    }.toString()
     return MessageDigest.getInstance("SHA-256").digest(text.toByteArray()).joinToString("") { "%02x".format(it) }
 }
 

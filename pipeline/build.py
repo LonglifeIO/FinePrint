@@ -10,7 +10,7 @@ permissions, device_reach and jurisdictions; they are merged, validated against 
 (jurisdictions go to their own file, bundle/jurisdictions.json), cross-checked
 (company ids, derives_from ids, tracker ids against bundle/trackers.json and one explanation per
 tracker id, a quote on every source, one definition per source id, qualified regulatory_action
-tags), and every source URL must answer
+tags, guided paths and short body names), and every source URL must answer
 HTTP 200, and not by redirecting to a not-found page, or its verify_url when the page blocks scripts
 (an OK result is cached in pipeline/raw/ for 30 days). Exodus pages are never fetched (see CLAUDE.md,
 Exodus etiquette). A source's "manual": true (its page is saved by hand, see fetch_sources.py) is
@@ -49,6 +49,7 @@ JURISDICTIONS = "jurisdictions"  # written to bundle/jurisdictions.json, not bun
 UNIONS = {"EU"}  # jurisdictions entries for a union of countries: each law lists the countries it binds (applies_to)
 LICENCE = "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), attribution: FinePrint"
 STALE_DAYS = 180
+PATH_STALE_DAYS = 90  # a guided path's walk: apps change their screens more often than their policies
 URL_CACHE_DAYS = 30
 NOT_FOUND = re.compile(r"(?<!\d)404(?!\d)")  # a redirect's path naming 404, not a number such as 18404
 NOT_FETCHED_HOSTS = ("exodus-privacy.eu.org",)
@@ -95,6 +96,21 @@ def mark_stale(records: list[dict], today: dt.date) -> None:
         record["stale"] = (today - reviewed).days > STALE_DAYS
 
 
+def mark_paths_stale(apps: list[dict], today: dt.date) -> None:
+    """A guided path is stale more than PATH_STALE_DAYS after a person walked it. One nobody has walked never is: its help
+    page's date is the company's, not FinePrint's, and the watcher re-reads the page."""
+    for app in apps:
+        for control in app.get("controls", []):
+            if "path" in control:
+                walked = control.get("verified_on", {}).get("date")
+                control["path"]["stale"] = walked is not None and (today - dt.date.fromisoformat(walked)).days > PATH_STALE_DAYS
+
+
+def is_source(n: dict) -> bool:
+    """A source names its page in url; a guided path's ends_in has a url too, but quotes nothing (it has a kind)."""
+    return "url" in n and "kind" not in n
+
+
 def walk(node, visit) -> None:
     if isinstance(node, dict):
         visit(node)
@@ -124,8 +140,9 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
                 errors.append(f"unknown company {n[key]!r} in {key}")
         if "derives_from" in n and n["derives_from"] not in sources_by_id:
             errors.append(f"derives_from {n['derives_from']!r} has no source with that id")
-        if "url" in n and not str(n.get("quote", "")).strip():
+        if is_source(n) and not str(n.get("quote", "")).strip():
             errors.append(f"source without a quote: {n['url']}")
+        errors.extend(body_short_problems(n))
         errors.extend(standing_problems(n))
         errors.extend(government_problems(n))
         errors.extend(forum_problems(n))
@@ -142,6 +159,7 @@ def cross_check(bundle: dict, tracker_ids: set[str]) -> list[str]:
         errors += risk_tag_problems(app)
         errors += tagline_problems(app)
         errors += control_problems(app)
+        errors += path_problems(app, built or dt.datetime.now(HALIFAX).date().isoformat())
         errors += change_problems(app)
         errors += [f"{app['package_id']}: in_owner_apps is for tracker records" for f in app.get("data_flows", []) if "in_owner_apps" in f]
     errors += tracker_problems(bundle["trackers"], tracker_ids)
@@ -460,6 +478,45 @@ def control_problems(app: dict) -> list[str]:
     return errors
 
 
+def path_problems(app: dict, built: str) -> list[str]:
+    """A guided path (docs/METHOD.md, What you can do) has steps, each naming its screen and what to tap there; if a person
+    walked it, that was no later than the build; its help_url is one of the pages it quotes, dated (as_of). Its sources'
+    quotes are checked as every source's are."""
+    errors = []
+    for control in app.get("controls", []):
+        path = control.get("path")
+        if path is None:
+            continue
+        what = f"{app['package_id']}: control {control['id']!r}"
+        steps = path.get("steps", [])
+        if not steps:
+            errors.append(f"{what}: its path has no steps")
+        errors += [f"{what}: step {i} names no screen or nothing to tap" for i, step in enumerate(steps, 1)
+                   if not str(step.get("screen", "")).strip() or not str(step.get("tap", "")).strip()]
+        walked = control.get("verified_on", {}).get("date", "")
+        if walked > built:
+            errors.append(f"{what}: verified_on {walked} is after the build ({built})")
+        page = [s for s in path.get("sources", []) if s.get("url") == control.get("help_url")]
+        if page and not any(s.get("as_of") for s in page):
+            errors.append(f"{what}: its help page has no date of its own (as_of), which the last card gives")
+        if control.get("help_url") not in {s.get("url") for s in path.get("sources", [])}:
+            errors.append(f"{what}: help_url isn't one of the pages its path quotes")
+    return errors
+
+
+def body_short_problems(event: dict) -> list[str]:
+    """A legal event's body_short stands in for its body in the Why line: it comes with a body, and is shorter."""
+    short = event.get("body_short")
+    if short is None:
+        return []
+    what = event.get("title", "")[:60]
+    if not str(event.get("body", "")).strip():
+        return [f"{what!r}: body_short needs a body"]
+    if len(short) >= len(event["body"]):
+        return [f"{what!r}: body_short is no shorter than its body"]
+    return []
+
+
 def tagline_problems(app: dict) -> list[str]:
     """A store tagline quotes this app's own Google Play listing."""
     tagline = app.get("store_tagline")
@@ -541,9 +598,10 @@ def write_atomically(path: Path, doc: dict) -> None:
 def build(reviewed: list[Path], now: dt.datetime) -> dict:
     merged = merge(reviewed)
     mark_stale(merged["apps"], now.date())
+    mark_paths_stale(merged["apps"], now.date())
     return {
         "schema_version": 1,
-        "schema_revision": "1.7",
+        "schema_revision": "1.8",
         "bundle_version": now.strftime("%Y.%m.%d"),
         "generated_at": now.isoformat(timespec="seconds"),
         "licence": LICENCE,

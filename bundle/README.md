@@ -64,4 +64,16 @@ See `CLAUDE.md` for the status levels and the wording that goes with each.
 - An app's `controls` are its in-app settings for the "What you can do" checklist. Each names the
   flows it limits by `id` (flows in the same record), says what turning it off changes (`effect`:
   the app's own quoted words, attributed, or that it doesn't say), and carries its own sources.
+- A control may carry a `path` (schema 1.8): the steps to reach it, each a screen and what to tap
+  there, word for word from the company's own help page (`help_url`), which the path's sources
+  quote under the usual rule, dated (`as_of`); and what the last step opens (`ends_in`: the app,
+  or a web page). Once a person has walked it in the app, `verified_on` says in which version, and
+  when; the help page is a source in its own right, so a path needs no walk. build.py checks every
+  step names a screen and what to tap, the walk isn't after the build, and `help_url` is a dated
+  page the path quotes. A walk more than 90 days before the build marks its path stale; a path
+  nobody has walked is never stale, since the help page's date is the company's and the watcher
+  re-reads the page.
+- A legal event may carry `body_short`, a reviewed short name for its body, which the Why line uses;
+  the event's own line keeps the full name. Company and tracker records may carry `changes[]`:
+  what changed and when, with sources, and no direction.
 - Wording follows the copy rules in `docs/METHOD.md` ("How records are made").

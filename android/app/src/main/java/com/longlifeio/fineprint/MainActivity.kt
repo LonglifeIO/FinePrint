@@ -28,6 +28,7 @@ import com.longlifeio.fineprint.ui.rememberHomeSearch
 import com.longlifeio.fineprint.ui.FinePrintTheme
 import com.longlifeio.fineprint.ui.HowToReadScreen
 import com.longlifeio.fineprint.ui.OnboardingScreen
+import com.longlifeio.fineprint.ui.PathOpeners
 import com.longlifeio.fineprint.ui.introSeen
 import com.longlifeio.fineprint.ui.markIntroSeen
 import java.time.LocalDate
@@ -131,6 +132,7 @@ class MainActivity : ComponentActivity() {
                             installLine = session.installLine(open),
                             onAskForReview = reviewOpener(reviewRequestUrl(explanation.appName, open.packageName)),
                             reviewUnavailable = REVIEW_UNAVAILABLE,
+                            pathOpeners = PathOpeners(appOpener(open.packageName), APP_UNAVAILABLE) { url -> openInBrowser(url) },
                             onHowToRead = { showHowTo = true },
                             onMarkReviewed = now?.let { fp -> { reviewStore.markReviewed(open.packageName, fp, OffsetDateTime.now().toString()) } },
                             onClearMark = { reviewStore.clearMark(open.packageName) },

@@ -137,7 +137,7 @@ fun explain(
         appName = appName,
         flows = scored,
         events = onRecord.actions.filter { it.namesThisApp }
-            .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }, line = it, body = it.body) },
+            .map { TierEvent(it.status, it.statusKind, true, it.sources, it.label, it.date, it.ongoing, it.dated.takeIf { d -> d != it.date }, line = it, body = it.body, bodyShort = it.bodyShort) },
         reach = app.deviceReach,
         scanFacts = scanFacts(app, scan),
         today = today,

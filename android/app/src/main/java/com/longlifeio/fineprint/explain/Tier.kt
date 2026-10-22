@@ -59,6 +59,8 @@ data class TierEvent(
     val line: RecordLine? = null,
     /** The court or regulator that acted ("Data Protection Commission (Ireland)"), when the record says. */
     val body: String? = null,
+    /** Its short name, when the record has one: the reason names it instead (who acted still reads from [body]). */
+    val bodyShort: String? = null,
 )
 
 /** The stages past filing: a judge let the case go ahead, or a regulator opened a formal proceeding. Filing alone never raises a tier. */
@@ -81,7 +83,7 @@ internal fun within(date: String, years: Long, today: LocalDate): Boolean =
 private fun named(events: List<TierEvent>): TierEvent? = events.filter { it.label != null }.maxByOrNull { it.date.orEmpty() }
 
 /** "Data Protection Commission (Ireland), 2024": who acted and when, after the rule's words; the title when no body is on record. */
-private fun who(e: TierEvent): String = listOfNotNull(e.body ?: e.label, e.date?.take(4)).joinToString(", ")
+private fun who(e: TierEvent): String = listOfNotNull(e.bodyShort ?: e.body ?: e.label, e.date?.take(4)).joinToString(", ")
 
 /**
  * The rules a ruling or case sets a tier by, in the tier definitions' own words (Tier, docs/METHOD.md): a reason names the
@@ -169,7 +171,7 @@ fun tier(
     // acted and what came of it, then who and when.
     legal.filter { it.status == "adjudicated" }.takeIf { it.isNotEmpty() }?.let { rulings ->
         val ruling = named(rulings) ?: return flagged(ACTED, "F2").setBy(events = rulings)
-        return flagged(verdict(ruling.statusKind, ruling.body, ABOUT_THIS_APP) + whoAndWhen(ruling.body, ruling.label, ruling.date), "F2")
+        return flagged(verdict(ruling.statusKind, ruling.body, ABOUT_THIS_APP) + whoAndWhen(ruling.bodyShort ?: ruling.body, ruling.label, ruling.date), "F2")
             .setBy(events = namedFirst(ruling, rulings))
     }
     // F3: a lawsuit over this app's data has survived a motion to dismiss. Said as the court's step, a fact; the claim
@@ -232,7 +234,7 @@ private fun reason(line: FlowLine, appName: String): String {
             val words = if (more) overClaim("$appName uses $data for more than running the app", "$appName using $data for more than running the app")
                 else overClaim("$data goes to other companies", "$data going to other companies")
             val case = line.decision
-            verdict(line.statusKind, case?.body, words) + whoAndWhen(case?.body, case?.label, case?.date, about = line.via)
+            verdict(line.statusKind, case?.body, words) + whoAndWhen(case?.bodyShort ?: case?.body, case?.label, case?.date, about = line.via)
         }
         "reported" -> found(reporters(line.sources))
         // Never the reason given (tier() leaves alleged lines out); said as a claim if it ever were.

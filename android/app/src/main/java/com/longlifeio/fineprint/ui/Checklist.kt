@@ -54,10 +54,11 @@ internal fun LazyListScope.whatYouCanDoSection(
     onOpenSettings: (() -> Unit)?,
     settingsUnavailable: String?,
     onTick: (String, Boolean) -> Unit,
+    openers: PathOpeners = PathOpeners(),
 ) = section("todo", WHAT_YOU_CAN_DO, canDoSummary(check), "what you can do", cards, headline = true) {
     check.summary?.let { cardItem { SegmentedBar(check.limited, check.total, Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) } }
     if (check.items.isNotEmpty()) CHECK_LEGEND?.let { cardItem(key = "check-legend") { Legend(it) } }
-    cardItems(check.items, key = { "check:" + it.id }) { CheckRow(it, onTick, onSources, onOpenSettings) }
+    cardItems(check.items, key = { "check:" + it.id }) { CheckRow(it, onTick, onSources, onOpenSettings, e.appName, openers) }
     check.inAppText?.let { cardItem { Note("Inside the app: $it") } }
     check.nothing?.let { cardItem(key = "nothing-to-limit") { Paragraph(it) } }
     cardItem(key = "app-info") { AppInfo(e.appName, onOpenSettings, settingsUnavailable) }
@@ -87,10 +88,17 @@ private fun AppInfo(appName: String, onOpenSettings: (() -> Unit)?, unavailable:
 /**
  * An Android item FinePrint reads has a dashed box, ticked once Android shows it limits the app, and shows the setting
  * before and after ("Use precise location: On → Off"); the row opens the app's Android settings. An item FinePrint can't
- * see has a solid 48dp checkbox row you tick yourself, with the day you ticked it.
+ * see has a solid 48dp checkbox row you tick yourself, with the day you ticked it; one with a guided path has Show me how.
  */
 @Composable
-internal fun CheckRow(item: CheckItem, onTick: (String, Boolean) -> Unit, onSources: (SheetContent) -> Unit, onOpenSettings: (() -> Unit)?) {
+internal fun CheckRow(
+    item: CheckItem,
+    onTick: (String, Boolean) -> Unit,
+    onSources: (SheetContent) -> Unit,
+    onOpenSettings: (() -> Unit)?,
+    appName: String = "",
+    openers: PathOpeners = PathOpeners(),
+) {
     val row = if (item.automatic) {
         Modifier
             .then(onOpenSettings?.let { Modifier.clickable(onClickLabel = "Open this app's Android settings", onClick = it) } ?: Modifier)
@@ -116,6 +124,7 @@ internal fun CheckRow(item: CheckItem, onTick: (String, Boolean) -> Unit, onSour
         if (item.sources.isNotEmpty()) {
             Box(Modifier.padding(start = 76.dp, end = 16.dp)) { SourcesRow(item.label, item.sources, null, onSources) }
         }
+        ShowMeHow(item, appName, openers, onTick, onSources)
     }
 }
 

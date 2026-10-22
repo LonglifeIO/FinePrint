@@ -41,6 +41,8 @@ data class RecordLine(
     val about: ProceduralNote? = null,
     /** The court or regulator that acted, from the dated record: what a tier reason names after the rule. */
     val body: String? = null,
+    /** A short name for [body], which a tier reason names instead when the record has one; [line] keeps [body]. */
+    val bodyShort: String? = null,
 )
 
 /**
@@ -122,6 +124,7 @@ private fun eventLine(company: Company, e: LegalEvent, told: List<Said>, pkg: St
         forum = e.forum,
         about = company.confidenceNote ?: told.firstNotNullOfOrNull { it.by?.confidenceNote },
         body = e.body,
+        bodyShort = e.bodyShort,
     )
 }
 

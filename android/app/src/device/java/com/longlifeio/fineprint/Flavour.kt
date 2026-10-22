@@ -59,6 +59,12 @@ fun Activity.reviewOpener(url: String): (() -> Unit)? = { openInBrowser(url) }
 /** Why the review request can't open GitHub, when it can't; never here. */
 val REVIEW_UNAVAILABLE: String? = null
 
+/** A guided path's last card opens the app itself, by its launch intent; null when it has none (nothing to open). */
+fun Activity.appOpener(packageName: String): (() -> Unit)? =
+    packageManager.getLaunchIntentForPackage(packageName)?.let { intent -> { startActivity(intent) } }
+
+val APP_UNAVAILABLE: String? = null
+
 /** "bundle: 2026.10.04, 0 days old", on At a glance and in About. */
 fun BundleSession.status(state: BundleState): String = bundleStatus(state)
 

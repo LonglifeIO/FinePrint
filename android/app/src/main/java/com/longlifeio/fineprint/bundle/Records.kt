@@ -94,6 +94,8 @@ data class LegalEvent(
     val closedDate: String? = null,
     /** Where an alleged matter is to be decided: "court" (the default) or "regulator", for "not proven in court" or "not yet decided". */
     val forum: String = "court",
+    /** A short name for [body] ("four Canadian privacy commissioners"): the Why line uses it, On the record keeps [body]. */
+    val bodyShort: String? = null,
 )
 
 data class ExodusReport(val id: Int, val appVersion: String, val created: String, val trackerCount: Int)
@@ -104,8 +106,31 @@ data class Limit(val flow: String, val inferred: Boolean = false, val note: Stri
 /**
  * An in-app setting that limits some of the app's flows (by flow id); the user ticks it when done.
  * [effect] is what turning it off changes, in the app's own quoted words, or that the app doesn't say.
+ * [path] is how to reach it, from the company's own help page ([helpUrl]), walked in the app as [verifiedOn] says.
  */
-data class Control(val id: String, val label: String, val how: String, val effect: String, val limits: List<Limit>, val sources: List<Source>)
+data class Control(
+    val id: String,
+    val label: String,
+    val how: String,
+    val effect: String,
+    val limits: List<Limit>,
+    val sources: List<Source>,
+    val path: GuidedPath? = null,
+    val helpUrl: String? = null,
+    val verifiedOn: VerifiedOn? = null,
+)
+
+/** One step of a guided path: the screen, by the help page's name for it, and what to tap there, word for word; [note] where to look. */
+data class PathStep(val screen: String, val tap: String, val note: String? = null)
+
+/**
+ * How to reach a control, step by step; the last step opens the app ([url] null) or the web page at [url]. [sources] quote
+ * the help page, dated [helpDate]. [stale] (build.py): more than 90 days after the newer of that date and the walk.
+ */
+data class GuidedPath(val steps: List<PathStep>, val url: String?, val sources: List<Source>, val helpDate: String? = null, val stale: Boolean = false)
+
+/** When a person last walked a path in the app, and in which version of it; a path may have none (a sign-in wall). */
+data class VerifiedOn(val appVersion: String, val date: String)
 
 /** A short sourced line shown under the summary, such as what the app's policy says it doesn't do. */
 data class SummaryNote(val text: String, val status: String, val wording: String?, val sources: List<Source>)

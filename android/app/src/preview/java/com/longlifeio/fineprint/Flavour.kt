@@ -47,6 +47,12 @@ fun Activity.reviewOpener(url: String): (() -> Unit)? = null
 
 val REVIEW_UNAVAILABLE: String? = "Not available in the preview"
 
+/** The sample apps may not be on this phone, and the preview doesn't look: a guided path's Open is off, with [APP_UNAVAILABLE]. */
+@Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
+fun Activity.appOpener(packageName: String): (() -> Unit)? = null
+
+val APP_UNAVAILABLE: String? = "Not available in the preview"
+
 /** The sample apps show their initials, never this phone's icons. */
 @Suppress("UNUSED_PARAMETER")
 fun appIcon(pm: PackageManager, packageName: String): Drawable? = null

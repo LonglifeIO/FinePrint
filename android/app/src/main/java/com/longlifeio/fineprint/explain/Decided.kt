@@ -9,14 +9,14 @@ import com.longlifeio.fineprint.bundle.Bundle
  */
 
 /** Who decided a decided line's case, and when: the legal event in a company's record that cites one of the line's sources. */
-data class Decision(val body: String?, val label: String?, val date: String?)
+data class Decision(val body: String?, val label: String?, val date: String?, val bodyShort: String? = null)
 
 /** This line with the case that decided it, when a company's record cites one of its sources (the join On the record makes). */
 internal fun FlowLine.withDecision(bundle: Bundle?): FlowLine {
     if (status != "adjudicated" || bundle == null) return this
     val urls = sources.map { it.url }.toSet()
     val event = bundle.companies.values.asSequence().flatMap { it.events }.firstOrNull { e -> e.sources.any { it.url in urls } } ?: return this
-    return copy(decision = Decision(event.body, event.title, event.date))
+    return copy(decision = Decision(event.body, event.title, event.date, event.bodyShort))
 }
 
 private enum class Outcome { RULED, SETTLED }

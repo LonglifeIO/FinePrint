@@ -86,6 +86,8 @@ fun AppDetailScreen(
     reviewUnavailable: String? = null,
     /** Called when you come back to the page, as from Android's app info: the permissions What you can do shows are read again. */
     onReturn: () -> Unit = {},
+    /** What a guided path's last card opens: the app, or a web page in the browser. */
+    pathOpeners: PathOpeners = PathOpeners(),
 ) {
     ReturnEffect(onReturn)
     var recordAll by rememberSaveable { mutableStateOf(false) }
@@ -123,7 +125,7 @@ fun AppDetailScreen(
                     // The Summary, always open; What you can do, open under it; then every section starts closed.
                     detailSections(
                         explanation, check, onSources = { sheet = it }, onOpenSettings = onOpenSettings, settingsUnavailable = settingsUnavailable, onTick = onTick,
-                        cards = cards, buckets = buckets,
+                        cards = cards, buckets = buckets, openers = pathOpeners,
                     )
                     onTheRecordSection(
                         explanation.onTheRecord, explanation.changes, cards,

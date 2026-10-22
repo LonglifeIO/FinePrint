@@ -43,7 +43,7 @@ code, the top of the list says "Checking app code for trackers", with a count.
 - Most of your apps will read Not checked yet. What FinePrint shows for them comes from the trackers in their code.
   Those claims carry the badge Auto: no person has checked them.
 - An app FinePrint hasn't checked is never Flagged or Expected; at most it's Caution.
-- On a small phone, TikTok's page opens with a long header: the reason for its tier names four privacy commissioners.
+- On a small phone, TikTok's page opens with a long header: the reason for its tier runs to three lines.
 - Apps that came with your phone aren't listed until you tick Show system apps, in the menu (⋮).
 
 ## What to send back

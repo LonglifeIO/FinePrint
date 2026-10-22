@@ -15,7 +15,9 @@ Build order (each is a separate script, each is idempotent):
    or, if it isn't installed there, with no trackers and `"note": "not scanned"`. Then the preview build shows every
    record; `test_scan_fixture.py` fails until it's there.
 5. `build.py` — merges `reviewed/*.json`, rejects duplicate ids, marks records older than 180 days
-   `stale`, validates against `../bundle/schema.json`, cross-checks company, source and tracker ids
+   `stale` (a guided path's walk after 90 days; a path nobody has walked, never), validates
+   against `../bundle/schema.json`, checks each guided path's steps, walk date and help page,
+   cross-checks company, source and tracker ids
    (a tracker record may cover several ids; each id has one explanation at most),
    rejects any source without a `quote`, checks every `source_url` resolves (HTTP 200, not reached by a
    redirect to a not-found page; a source may name a `verify_url` when the page itself blocks scripts), and writes `../bundle/bundle.json`. URL

@@ -28,8 +28,10 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import com.longlifeio.fineprint.FinePrintApp
 import com.longlifeio.fineprint.GLANCE_NOTICE
 import com.longlifeio.fineprint.MainActivity
+import com.longlifeio.fineprint.APP_UNAVAILABLE
 import com.longlifeio.fineprint.REVIEW_UNAVAILABLE
 import com.longlifeio.fineprint.SETTINGS_UNAVAILABLE
+import com.longlifeio.fineprint.appOpener
 import com.longlifeio.fineprint.bundle.parseBundle
 import com.longlifeio.fineprint.design.parseFixture
 import com.longlifeio.fineprint.egress.parseTrackerSignatures
@@ -125,6 +127,7 @@ class PreviewTest {
         // Open app info sits in What you can do, open under the Summary: off here, and the line under it says why.
         compose.onNodeWithTag("detail").performScrollToNode(hasText(OPEN_APP_INFO))
         compose.onNodeWithText(OPEN_APP_INFO).assertIsNotEnabled().performClick()
+        compose.onNodeWithTag("detail").performScrollToNode(hasText(SETTINGS_UNAVAILABLE!!)) // the line under it, which can sit below the fold
         compose.onAllNodesWithText(SETTINGS_UNAVAILABLE!!).onFirst().assertIsDisplayed()
         // The permissions you've granted sit in a section that starts closed: open it, then its button says the same.
         val applies = hasText(APPLIES.title) and hasClickAction()
@@ -192,5 +195,12 @@ class PreviewTest {
             compose.onNodeWithText(link.label).performClick()
             assertEquals(link.url, shadowOf(compose.activity).nextStartedActivity.dataString)
         }
+    }
+
+    /** A guided path's Open never looks for a sample app on this phone: it's off, saying why, as Open app info is. */
+    @Test
+    fun aGuidedPathsOpenIsOffInThePreview() {
+        assertNull(compose.activity.appOpener("com.life360.android.safetymapd"))
+        assertEquals("Not available in the preview", APP_UNAVAILABLE)
     }
 }

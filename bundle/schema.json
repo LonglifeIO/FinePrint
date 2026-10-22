@@ -2,13 +2,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/longlifeio/fineprint/bundle/schema.json",
   "title": "FinePrint knowledge bundle (bundle.json)",
-  "description": "Contract between the pipeline (producer) and the app (consumer). Bump schema_version on any breaking change. v1.1 (additive): companies, data_flows, device_reach, status sub-types, source independence and archives, Exodus report pinning, stale flag, a required verbatim quote on every source (with as_of, or accessed for undated pages, and verify_url for pages that block scripts), sourced procedural notes on legal items, and risk-tag qualifiers. v1.2 (additive): company short names; health, financial, biometric and children's data kinds for the tier rules; flow ids and in-app controls for the 'What you can do' checklist (a limit can be marked inferred, with a note); sourced summary notes. v1.3: covers (one tracker explanation for several tracker ids) and in_owner_apps (how a tracker's flow reads inside its owner's own apps); in_force and closed_date on legal items, so only ongoing or recent ones count toward a tier; changes[] on app records, each with a direction build.py derives from the record's structure; government lines (recipient_kind government_body: can_compel, has_bought, has_used), a required jurisdiction on companies with its sources, and jurisdictions.json, the laws by which each country can compel data (its own file, defined under $defs/jurisdictions_file); policy_region on app records, and default (on, off, opt_in) on flows; companies[].default_flows and default_notes, which a preinstalled app with no record of its own inherits from the company its package name matches (package_prefixes). v1.4 (additive): store_tagline on app records, the store listing's short description quoted verbatim, which the detail screen shows as \"Their words\". v1.5: every flow has an id (data_flow.id is required); a change's diff also names a flow's evidence (flow status) and the legal items naming the app (event added, event removed, event status), whose direction follows tier_before and tier_after. Tracker names and signatures live in trackers.json (ODbL); this file references trackers by id only and never copies Exodus fields. v1.6 (additive): checked_on on app records (Checked by FinePrint, or Their words only), forum on alleged lines (court or regulator) and an alleged stage for a regulator's formal proceeding (proceeding_opened), conditional flows (shown, never scored), a sourced purpose on tracker records, owner_history on company records, confidence_note on tracker and company records, and first_party covers a processor working for the app's developer. v1.7 (additive): short on laws, the law in one plain sentence, which the app shows with the full text opening under it.",
+  "description": "Contract between the pipeline (producer) and the app (consumer). Bump schema_version on any breaking change. v1.1 (additive): companies, data_flows, device_reach, status sub-types, source independence and archives, Exodus report pinning, stale flag, a required verbatim quote on every source (with as_of, or accessed for undated pages, and verify_url for pages that block scripts), sourced procedural notes on legal items, and risk-tag qualifiers. v1.2 (additive): company short names; health, financial, biometric and children's data kinds for the tier rules; flow ids and in-app controls for the 'What you can do' checklist (a limit can be marked inferred, with a note); sourced summary notes. v1.3: covers (one tracker explanation for several tracker ids) and in_owner_apps (how a tracker's flow reads inside its owner's own apps); in_force and closed_date on legal items, so only ongoing or recent ones count toward a tier; changes[] on app records, each with a direction build.py derives from the record's structure; government lines (recipient_kind government_body: can_compel, has_bought, has_used), a required jurisdiction on companies with its sources, and jurisdictions.json, the laws by which each country can compel data (its own file, defined under $defs/jurisdictions_file); policy_region on app records, and default (on, off, opt_in) on flows; companies[].default_flows and default_notes, which a preinstalled app with no record of its own inherits from the company its package name matches (package_prefixes). v1.4 (additive): store_tagline on app records, the store listing's short description quoted verbatim, which the detail screen shows as \"Their words\". v1.5: every flow has an id (data_flow.id is required); a change's diff also names a flow's evidence (flow status) and the legal items naming the app (event added, event removed, event status), whose direction follows tier_before and tier_after. Tracker names and signatures live in trackers.json (ODbL); this file references trackers by id only and never copies Exodus fields. v1.6 (additive): checked_on on app records (Checked by FinePrint, or Their words only), forum on alleged lines (court or regulator) and an alleged stage for a regulator's formal proceeding (proceeding_opened), conditional flows (shown, never scored), a sourced purpose on tracker records, owner_history on company records, confidence_note on tracker and company records, and first_party covers a processor working for the app's developer. v1.7 (additive): short on laws, the law in one plain sentence, which the app shows with the full text opening under it. v1.8 (additive): a guided path on a control (path: steps of a screen, what to tap there and an optional note, what the last step opens, an app or a web page, and the help page it follows, quoted), with help_url and, once a person has walked it in the app, verified_on (the app version and the day); build.py marks a walked path stale 90 days after the walk, and a path nobody has walked never; body_short on legal events, a short name for the body that the Why line uses; changes[] on company and tracker records (date, text, sources). A 1.7 bundle still validates.",
   "type": "object",
   "required": ["schema_version", "bundle_version", "generated_at", "trackers", "apps", "permissions"],
   "additionalProperties": false,
   "properties": {
     "schema_version": { "const": 1 },
-    "schema_revision": { "const": "1.7" },
+    "schema_revision": { "enum": ["1.7", "1.8"], "description": "The revision a bundle was built at; 1.8 is additive, so a 1.7 bundle still validates." },
     "bundle_version": { "type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[0-9]+)?$" },
     "generated_at": { "type": "string", "format": "date-time" },
     "licence": { "type": "string", "description": "CC BY 4.0 for this file." },
@@ -204,6 +204,7 @@
         "date": { "$ref": "#/$defs/partial_date" },
         "title": { "type": "string" },
         "body": { "type": "string", "description": "Court or regulator." },
+        "body_short": { "type": "string", "minLength": 1, "maxLength": 60, "description": "A short name for body, reviewed like the rest, e.g. 'four Canadian privacy commissioners'. The Why line uses it; the event's own line under On the record keeps body. build.py checks it comes with body and is shorter." },
         "type": { "enum": ["lawsuit", "regulator_action", "class_action", "breach", "fine", "order"] },
         "amount": { "type": "string" },
         "status": { "$ref": "#/$defs/status" },
@@ -267,6 +268,7 @@
         },
         "confidence_note": { "$ref": "#/$defs/confidence_note" },
         "regulatory_history": { "type": "array", "items": { "$ref": "#/$defs/legal_event" } },
+        "changes": { "type": "array", "items": { "$ref": "#/$defs/record_change" }, "description": "What changed in this record and when, such as a correction." },
         "last_reviewed": { "$ref": "#/$defs/date" }
       }
     },
@@ -314,6 +316,7 @@
         "consequences": { "type": "array", "items": { "$ref": "#/$defs/consequence" } },
         "confidence": { "enum": ["low", "medium", "high"] },
         "confidence_note": { "$ref": "#/$defs/confidence_note" },
+        "changes": { "type": "array", "items": { "$ref": "#/$defs/record_change" }, "description": "What changed in this record and when, such as a correction." },
         "last_reviewed": { "$ref": "#/$defs/date" }
       }
     },
@@ -419,6 +422,18 @@
       }
     },
 
+    "record_change": {
+      "description": "One change to a company's or a tracker's record: what changed and when, with sources. It has no direction: build.py derives one only from an app record's structure.",
+      "type": "object",
+      "required": ["date", "text", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "date": { "$ref": "#/$defs/date" },
+        "text": { "type": "string", "maxLength": 300, "description": "What changed, in plain words." },
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } }
+      }
+    },
+
     "summary_note": {
       "type": "object",
       "required": ["text", "status", "sources"],
@@ -463,7 +478,60 @@
             ]
           }
         },
-        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } }
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } },
+        "path": { "$ref": "#/$defs/guided_path" },
+        "help_url": { "type": "string", "format": "uri", "description": "The company's own help page the path follows, as people read it; one of the pages the path quotes." },
+        "verified_on": { "$ref": "#/$defs/verified_on" }
+      },
+      "dependentRequired": { "path": ["help_url"], "help_url": ["path"], "verified_on": ["path"] }
+    },
+
+    "guided_path": {
+      "description": "How to reach a control, step by step, from the company's own help page (quoted, dated, self_disclosed). The app draws each step as a generic wireframe with the row to tap highlighted, never a copy of the other app's screen, and the last step opens the app or the web page.",
+      "type": "object",
+      "required": ["steps", "ends_in", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["screen", "tap"],
+            "additionalProperties": false,
+            "properties": {
+              "screen": { "type": "string", "minLength": 1, "maxLength": 60, "description": "Where you are, by the name the help page gives it, e.g. 'Privacy Center': the card's heading." },
+              "tap": { "type": "string", "minLength": 1, "maxLength": 60, "description": "What to tap there, the label word for word from the help page, e.g. 'Your Privacy Choices': the wireframe's highlighted row." },
+              "note": { "type": "string", "maxLength": 160, "description": "Where to look, or what the step changes, under the wireframe, e.g. 'In the upper left corner.'" }
+            }
+          }
+        },
+        "ends_in": {
+          "type": "object",
+          "required": ["kind"],
+          "additionalProperties": false,
+          "description": "What the last card opens: the app itself (open_app, by its launch intent), or the web page that holds the setting (url, in the browser).",
+          "properties": {
+            "kind": { "enum": ["open_app", "url"] },
+            "url": { "type": "string", "format": "uri" }
+          },
+          "if": { "properties": { "kind": { "const": "url" } } },
+          "then": { "required": ["url"] },
+          "else": { "not": { "required": ["url"] } }
+        },
+        "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" }, "description": "The help page, quoted for the steps under the usual rule; its as_of is the page's date." },
+        "stale": { "type": "boolean", "description": "Computed by build.py: verified_on's date is more than 90 days before the build. A path nobody has walked is never stale: the help page's date is the company's, and the watcher re-reads the page." }
+      }
+    },
+
+    "verified_on": {
+      "description": "When a person last walked the path in the app, and in which version of it. Optional: the help page is a source in its own right, and many apps can't be walked (a sign-in wall, an account FinePrint won't create).",
+      "type": "object",
+      "required": ["app_version", "date"],
+      "additionalProperties": false,
+      "properties": {
+        "app_version": { "type": "string", "minLength": 1, "description": "The app's version name as Android reports it, e.g. '26.37.0'." },
+        "date": { "$ref": "#/$defs/date" }
       }
     },
 

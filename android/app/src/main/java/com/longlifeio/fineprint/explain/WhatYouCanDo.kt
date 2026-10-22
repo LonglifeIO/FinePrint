@@ -1,7 +1,9 @@
 package com.longlifeio.fineprint.explain
 
 import com.longlifeio.fineprint.bundle.AppRecord
+import com.longlifeio.fineprint.bundle.GuidedPath
 import com.longlifeio.fineprint.bundle.Source
+import com.longlifeio.fineprint.bundle.VerifiedOn
 import com.longlifeio.fineprint.egress.InstalledApp
 
 /**
@@ -28,6 +30,9 @@ data class CheckItem(
     val setting: String? = null,
     /** An item you tick: the day you ticked it, when FinePrint kept one. */
     val tickedOn: String? = null,
+    /** In-app items: how to reach the setting, step by step ("Show me how"), and when a person last walked it. */
+    val path: GuidedPath? = null,
+    val verifiedOn: VerifiedOn? = null,
 ) {
     /** The fixed subtext for this kind of item. */
     val subtext: String get() = when {
@@ -135,7 +140,7 @@ fun whatYouCanDo(
         items += CheckItem(
             c.id, c.label, c.how, automatic = false, ticked = c.id in ticked, inApp = true, limitsFlows = c.limits.map { it.flow }.toSet(),
             sources = c.sources, effect = c.effect.ifBlank { null }, notes = c.limits.filter { it.inferred }.mapNotNull { it.note },
-            tickedOn = tickedOn[c.id]?.takeIf { c.id in ticked },
+            tickedOn = tickedOn[c.id]?.takeIf { c.id in ticked }, path = c.path, verifiedOn = c.verifiedOn,
         )
     }
     val limited = current.count { line -> items.any { it.ticked && (line.data in it.limitsData || line.id in it.limitsFlows) } }

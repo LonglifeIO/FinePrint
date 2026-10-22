@@ -173,6 +173,18 @@ G1 to G3 are signed off on an Android 17 emulator, G5 is built, and the schema i
   others. `docs/privacy.md` is FinePrint's own privacy page, and `docs/TESTING.md` is for invited testers, once the
   signed release is out (Next 3). The bundle download names FinePrint and its version, nothing about the phone, and
   the manifest drops AndroidX's request to Google Play services for an emoji font.
+- Guided paths (G6, slice 1) and schema 1.8. An item you tick can carry the steps to reach it, from the company's own
+  help page. Show me how opens them in place, one card at a time: a screen's name over grey rows, with the one to tap
+  highlighted and labelled, never a copy of the other app's screen and no logo. The last card opens the app, or the
+  web page with the setting, and says where the steps come from: a walk in the app, with its version and date, or the
+  help page and its date. A walk is marked Stale after 90 days; a path nobody has walked never is, since the help
+  page's date is the company's and the watcher re-reads the page. Under the last card is the item's own tick; under
+  the cards, the help page's quotes. Life360's three settings have paths from its help page of 11 May 2026, which also
+  says Your Privacy Choices covers its traffic and retail insights; nobody has walked them in the app yet, so they say
+  they come from the help page. Life360's record dates the change (neutral), so its Summary's latest change says so.
+  Schema 1.8 also adds a short name for a legal event's body, which the Why line uses while On the record keeps the full
+  name (TikTok's: four Canadian privacy commissioners), and `changes[]` on company and tracker records; a 1.7 bundle
+  still validates.
 
 The phone test is done (main at 4be58f0, above). The Tailscale path, for a debug build on a phone, is still deferred
 by choice. See `CLAUDE.md` for the gates.
@@ -183,7 +195,7 @@ Next, in order:
    (`manual`). With the first `manual` source, `build.py` passes the flag through to the bundle (an
    added field), so a source's Open button takes a page saved by hand to its top, not to the quoted
    words; today it drops the flag.
-2. G6: guided paths and Guide mode.
+2. G6: a walk of Life360's three paths in the app (`verified_on`); the rest of the first batch; and Guide mode.
 3. Signed release — after guided paths (G6). The release carries the bundle's three files, which the release
    build downloads from `releases/latest/download/`. Its address and a private channel for testers replace the
    placeholders in `docs/privacy.md` and `docs/TESTING.md`. Terms, and a legal review of About's note on sources and
@@ -192,16 +204,11 @@ Next, in order:
    release build runs lint from AGP 9.5.0-rc01, because 9.4.1's crashes on `build.gradle.kts`.
 
 Logged for G6 (not built yet):
-- Guided paths. Each in-app control gets `path.steps[]` (screen → the exact label to tap, verbatim
-  from the company's help page → what it changes), shown inside FinePrint as swipeable step cards
-  with generic grey wireframe thumbnails and the target row highlighted: no replicas of other apps'
-  screens and no logos; the app's own icon from the device is the only brand mark. Each path ends
-  in the real deep link or `settings_url`. Steps carry `help_url`, quotes under the usual rule and
-  `verified_on` {app_version, date}; help-page changes go through the diff job and the stale flag.
-  Fallback steps for screens that have changed ("If you don't see Privacy, tap Search in Settings
-  and type 'privacy choices'"). First batch: the ten most useful controls across Google's ad
-  settings, Meta's ad preferences and off-Facebook activity, TikTok's personalization and Life360's
-  three.
+- Guided paths, still to come (slice 1 built the schema and the cards): fallback steps for screens
+  that have changed ("If you don't see Privacy, tap Search in Settings and type 'privacy choices'"),
+  and the rest of the first batch, the ten most useful controls across Google's ad settings, Meta's ad
+  preferences and off-Facebook activity, and TikTok's personalization (Life360's three are in). Help-page
+  changes reach a path through the watcher, which re-reads its quotes as it does every source's.
 - Guide mode. The same steps as a small, movable floating card (Next / Back / Done) over the real
   app while the user moves through it themselves. Draw-only: it needs only the overlay permission,
   reads nothing, captures nothing, has no input fields, and is opt-in per walkthrough, never
@@ -212,16 +219,6 @@ Logged for G6 (not built yet):
   device-access warning about overlays. For Play: declare the overlay permission's purpose. Never
   in scope: a sandbox copy of another app with a test account, or any Accessibility-based
   highlighting.
-
-Schema items queued: `settings_url` on controls; `controls[].path.steps[]`, `help_url` and
-`verified_on`.
-
-Schema 1.8 (additive), queued:
-- A reviewed `short` name for a legal event's body, like a law's `short` ("Canada's four privacy
-  commissioners"). The Why line uses it when present; the event's own line under On the record keeps
-  the full name. Until then TikTok's Why line runs to four lines on a 360dp phone.
-- `changes[]` on company and tracker records, as app records have it. Until then a correction to one
-  is dated only in the repository's history.
 
 Queued: laws to check (not started):
 - Ireland's domestic powers over companies based there: its e-Evidence implementing act and the

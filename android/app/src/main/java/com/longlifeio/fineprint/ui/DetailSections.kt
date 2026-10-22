@@ -77,6 +77,7 @@ fun LazyListScope.detailSections(
     onTick: (String, Boolean) -> Unit,
     cards: OpenCards = OpenCards.allOpen(),
     buckets: OpenBuckets = OpenBuckets.allOpen(),
+    openers: PathOpeners = PathOpeners(),
 ) {
     val summary = if (e.coverage == "curated") SUMMARY_CURATED else if (e.maker?.inherited == true) SUMMARY_INHERITED else SUMMARY_AUTO
     section("summary", summary, summaryHeadline(e), "the summary", cards = null) {
@@ -85,7 +86,7 @@ fun LazyListScope.detailSections(
         e.regionCaveat?.let { cardItem { Note(it) } }
         recentChange(e.changes, onSources)
     }
-    whatYouCanDoSection(e, check, cards, onSources, onOpenSettings, settingsUnavailable, onTick)
+    whatYouCanDoSection(e, check, cards, onSources, onOpenSettings, settingsUnavailable, onTick, openers)
 
     section("collects", COLLECTS, collectsHeadline(e), "what it collects", cards) {
         cardItem {
